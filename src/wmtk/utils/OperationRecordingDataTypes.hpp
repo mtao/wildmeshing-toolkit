@@ -68,7 +68,10 @@ size_t append_value_to_1d_dataset(HighFive::DataSet& dataset, const T& value);
 #define WMTK_HDF5_REGISTER_ATTRIBUTE_TYPE(type)              \
     HIGHFIVE_REGISTER_TYPE(                                  \
         wmtk::AttributeCollectionRecorder<type>::UpdateData, \
-        wmtk::AttributeCollectionRecorder<type>::datatype)
+        wmtk::AttributeCollectionRecorder<type>::datatype)   \
+    HIGHFIVE_REGISTER_TYPE(                                  \
+        wmtk::AttributeUpdateData<type>, \
+        wmtk::AttributeUpdateData<type>::datatype)
 
 #define WMTK_HDF5_DECLARE_ATTRIBUTE_TYPE(type)               \
     HIGHFIVE_REGISTER_TYPE(                                  \

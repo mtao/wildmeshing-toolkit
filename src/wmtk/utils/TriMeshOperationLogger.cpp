@@ -7,9 +7,6 @@ template <>
 HighFive::DataType HighFive::create_datatype<wmtk::TriMeshTupleData>();
 
 WMTK_HDF5_REGISTER_ATTRIBUTE_TYPE(wmtk::TriMesh::TriangleConnectivity)
-HIGHFIVE_REGISTER_TYPE(
-    wmtk::AttributeUpdateData<wmtk::TriMesh::TriangleConnectivity>,
-    wmtk::AttributeUpdateData<wmtk::TriMesh::TriangleConnectivity>::datatype);
 
 
 template <>

@@ -638,11 +638,12 @@ TEST_CASE("replay_operations", "[test_2d_operation]")
 
         std::vector<std::pair<std::string, TriMesh::Tuple>> recorded_operations;
 
+        AttributeCollectionRecorder vert_recorder(file, "vertices", final_mesh.vertices);
 
         // AttributeCollectionRecorder tri_recorder(file, "triangles",
         //         final_mesh.m_tri_connectivity);
 
-        // op_recorder.add_attribute_recorder("vertices", vert_recorder);
+         op_logger.add_attribute_recorder("vertices", vert_recorder);
         // op_recorder.add_attribute_recorder("triangles", tri_recorder);
         //  record do a flip, split, and then collapse
         SECTION("logging_operations")
