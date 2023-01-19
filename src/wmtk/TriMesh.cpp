@@ -17,6 +17,19 @@
 
 using namespace wmtk;
 
+void TriMesh::copy_connectivity(const TriMesh& o)
+{
+
+    //auto l = std::scoped_lock(vertex_connectivity_lock, tri_connectivity_lock, o.vertex_connectivity_lock, o.tri_connectivity_lock);
+    // explicitly make sure that the connectivity data is copied and sized properly
+    m_vertex_connectivity = o.m_vertex_connectivity;
+    m_tri_connectivity = o.m_tri_connectivity;
+    current_vert_size.store(o.current_vert_size.load());
+    current_tri_size.store( o.current_tri_size.load());
+    m_vertex_mutex.grow_to_at_least(o.m_vertex_connectivity.size());
+
+
+}
 TriMesh::TriMesh() {}
 TriMesh::~TriMesh() {}
 
@@ -26,9 +39,13 @@ void TriMesh::Tuple::update_hash(const TriMesh& m)
     m_hash = m.m_tri_connectivity[m_fid].hash;
 }
 
+std::string TriMesh::Tuple::info() const {
+    return fmt::format("tuple: v{} e{} e{} (h{})", m_vid, m_eid, m_fid, m_hash);
+}
+
 void TriMesh::Tuple::print_info() const
 {
-    logger().trace("tuple: {} {} {}", m_vid, m_eid, m_fid);
+    logger().trace("{}",info());
 }
 
 size_t TriMesh::Tuple::eid_unsafe(const TriMesh& m) const

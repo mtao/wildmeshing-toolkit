@@ -51,6 +51,7 @@ public:
 
     public:
         void print_info() const;
+        std::string info() const;
 
         //         v2        /
         //       /    \      /
@@ -65,7 +66,11 @@ public:
          * @param fid face id
          * @note edge ordering
          */
-        Tuple() {}
+        Tuple() = default;
+        Tuple(const Tuple& other) = default;
+        Tuple(Tuple&& other) = default;
+        Tuple& operator=(const Tuple& other) = default;
+        Tuple& operator=(Tuple&& other) = default;
         Tuple(size_t vid, size_t eid, size_t fid, const TriMesh& m)
             : m_vid(vid)
             , m_eid(eid)
@@ -257,6 +262,12 @@ public:
 
     TriMesh();
     virtual ~TriMesh();
+
+    /**
+     * Copy connectivity from another mesh
+     * @param o the other mesh who's connectivity is being copied
+     */
+    void copy_connectivity(const TriMesh& o);
 
     /**
      * Generate the connectivity of the mesh
