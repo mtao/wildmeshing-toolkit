@@ -103,7 +103,6 @@ size_t OperationReplayer::play_to(size_t end)
         auto run = [&](const TriMeshOperationData& tri_op) {
             std::string op_name = tri_op.name;
             const TriMeshTupleData& tup = tri_op.input_tuple;
-            ;
             TriMesh::Tuple edge(tup.vertex_id, tup.local_edge_id, tup.triangle_id, mesh);
 
             if (tri_op.update_range_begin != tri_op.update_range_end) {
