@@ -200,7 +200,7 @@ int main(int argc, char** argv)
     std::string input_dir = "./objs";
     std::string output_dir = "./test_out";
     std::string input_json = "../config/config.json";
-    std::string model = "knot1";
+    std::string model = "eight";
     extremeopt::Parameters param;
     app.add_option("-i,--input", input_dir, "Input mesh dir.");
     app.add_option("-m,--model", model, "Input model name.");
@@ -234,12 +234,18 @@ int main(int argc, char** argv)
 
     std::ifstream js_in(input_json);
     json config = json::parse(js_in);
-    param.max_iters = config["max_iters"];
-    param.E_target = config["E_target"];
-    param.ls_iters = config["ls_iters"];
-    param.do_newton = config["do_newton"];
-    param.do_collapse = config["do_collapse"];
-    param.do_swap = config["do_swap"];
+    
+    param.max_iters = config["max_iters"]; // iterations
+    param.E_target = config["E_target"]; // Energy target
+    param.ls_iters = config["ls_iters"]; // param for linesearch in smoothing operation
+    param.do_newton = config["do_newton"]; // do newton/gd steps for smoothing operation
+    param.do_collapse = config["do_collapse"]; // do edge_collapse or not
+    param.do_swap = config["do_swap"]; // do edge_swap or not
+    param.do_split = config["do_split"]; // do edge_split or not
+    param.global_upsample = config["global_upsample"];
+    // do global/local smooth (local smooth does not optimize boundary vertices)
+    param.local_smooth = config["local_smooth"];
+    param.global_smooth = config["global_smooth"];
 
     json opt_log;
     opt_log["model_name"] = model;
@@ -286,14 +292,13 @@ int main(int argc, char** argv)
     extremeopt.export_mesh(V, F, uv);
     extremeopt.export_EE(EE);
 
-    for (int i = 0; i < 0; i++)
+    for (int i = 0; i < param.global_upsample; i++)
     {
         uniform_upsample_with_cons(V, uv, F, EE, new_V, new_uv, new_F);
         V = new_V;
         uv = new_uv;
         F = new_F;
-        // std::cout << "F size " << F.rows() << " --> " << new_F.rows() << std::endl;
-        // std::cout << "V size " << V.rows() << " --> " << new_V.rows() << std::endl;
+
         extremeopt::ExtremeOpt extremeopt1;
         extremeopt1.create_mesh(V, F, uv);
         extremeopt1.m_params = param;
@@ -320,50 +325,5 @@ int main(int argc, char** argv)
     }
     igl::writeOBJ(output_dir + "/" + model + "_out.obj", V, F, V, F, uv, F);
     js_out << std::setw(4) << opt_log << std::endl;
-    return true;
-
-    // for (int i = 0; i < 4; i++)
-    // {
-    //     std::cout << "do upsample" << std::endl;
-    //     Eigen::MatrixXi new_F;
-    //     Eigen::MatrixXd new_V, new_uv;
-    //     igl::upsample(V, F, new_V, new_F);
-    //     igl::upsample(uv, F, new_uv, new_F);
-    //     std::cout << "F size " << F.rows() << " --> " << new_F.rows() << std::endl;
-    //     std::cout << "V size " << V.rows() << " --> " << new_V.rows() << std::endl;
-
-    //     extremeopt::ExtremeOpt extremeopt1;
-    //     extremeopt1.create_mesh(new_V,new_F,new_uv);
-    //     extremeopt1.m_params = param;
-    //     extremeopt1.do_optimization(opt_log);
-    //     extremeopt1.export_mesh(V, F, uv);
-    // }
-    // igl::writeOBJ(output_dir + "/" + model + "_out.obj", V, F, V, F, uv, F);
-    // js_out << std::setw(4) << opt_log << std::endl;
-
-    // extremeopt.write_obj("after_collpase.obj");
-    // Do the mesh optimization
-    // extremeopt.optimize();
-    // extremeopt.consolidate_mesh();
-
-    // Save the optimized mesh
-    // extremeopt.write_mesh(output_file);
-
-    // Output
-    // auto [max_energy, avg_energy] = mesh.get_max_avg_energy();
-    // std::ofstream fout(output_file + ".log");
-    // fout << "#t: " << mesh.tet_size() << std::endl;
-    // fout << "#v: " << mesh.vertex_size() << std::endl;
-    // fout << "max_energy: " << max_energy << std::endl;
-    // fout << "avg_energy: " << avg_energy << std::endl;
-    // fout << "eps: " << params.eps << std::endl;
-    // fout << "threads: " << NUM_THREADS << std::endl;
-    // fout << "time: " << time << std::endl;
-    // fout.close();
-
-    // igl::write_triangle_mesh(output_path + "_surface.obj", matV, matF);
-    // wmtk::logger().info("Output face size {}", outface.size());
-    // wmtk::logger().info("======= finish =========");
-
     return 0;
 }

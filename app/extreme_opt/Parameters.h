@@ -7,9 +7,12 @@ namespace extremeopt{
         bool do_newton = false;
         bool do_swap = false;
         bool do_collapse = false;
+        bool do_split = false;
+        bool local_smooth = false;
+        bool global_smooth = true;
+        int global_upsample = 0;
         int ls_iters = 200;
         double E_target = 10.0;
-        double split_thresh = 1.0;
         /* data */
     };
     
