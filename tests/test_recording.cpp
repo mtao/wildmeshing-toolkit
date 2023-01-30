@@ -398,7 +398,9 @@ TEST_CASE("replay_operations", "[test_2d_operation]")
             v.x = p.x();
             v.y = p.y();
         }
-        points_base->after_hook(m, {0, 1});
+
+        // initialize remembered face tuple state
+        std::vector<TriMesh::Tuple> face_tuples = m.get_faces();
 
         m.p_vertex_attrs = &m.vertices;
         TriMeshOperationLogger logger(m, file);
@@ -407,9 +409,13 @@ TEST_CASE("replay_operations", "[test_2d_operation]")
         OperationReplayer replayer(m, logger);
         for (size_t j = 0; j < replayer.operation_count(); ++j) {
             spdlog::info("Operation {}", j);
+            // prepare for update
+            points_base->before_hook(m,face_tuples);
             size_t new_index = replayer.play(1);
-
-            auto face_tuples = m.get_faces();
+            // update the active faces and call the after hook
+            // ( in the future this will be embedded into the play functionality )
+            face_tuples = m.get_faces();
+            points_base->after_hook(m, face_tuples);
             for (const auto& f : face_tuples) {
                 auto tri_vids = m.oriented_tri_vids(f);
                 spdlog::info("{}", fmt::join(tri_vids, ","));

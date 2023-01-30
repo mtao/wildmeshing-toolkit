@@ -12,26 +12,25 @@ class TransportablePointsBase
 public:
     virtual ~TransportablePointsBase();
     // convenience function that just calls
-    void before_hook(const TriMesh& m, const std::set<TriMesh::Tuple>& input_tris);
-    void after_hook(const TriMesh& m, const std::set<TriMesh::Tuple>& output_tris);
+    void before_hook(const TriMesh& m, const std::vector<TriMesh::Tuple>& input_tris);
+    void after_hook(const TriMesh& m, const std::vector<TriMesh::Tuple>& output_tris);
 
     // derived class is required to store a global representation of the point, used in before_hook
     virtual void update_global_coordinate(const TriMesh& m, size_t point_index) = 0;
 
 
 protected:
-
     // derived class is required to store a global representation of the point, used in before_hook
     void update_local_coordinate(
         const TriMesh& m,
         size_t point_index,
         const std::set<size_t>& possible_tris);
     // derived class is required to identify which point and triangle
-    virtual bool point_in_triangle(const TriMesh& m, const std::array<size_t,3>& triangle_indices , size_t point_index)
+    virtual bool point_in_triangle(const TriMesh& m, const TriMesh::Tuple& t, size_t point_index)
         const = 0;
 
     virtual std::array<double, 3>
-    get_barycentric(const TriMesh& m, const std::array<size_t,3>& triangle_indices, size_t point_index) const = 0;
+    get_barycentric(const TriMesh& m, const TriMesh::Tuple& t, size_t point_index) const = 0;
 
 
 protected:
@@ -41,36 +40,42 @@ protected:
 
     tbb::enumerable_thread_specific<std::set<size_t>> active_points;
 
-    tbb::concurrent_vector<std::set<size_t>> active_point_bins;
+    tbb::enumerable_thread_specific<std::set<size_t>> active_point_bins;
 };
 
 template <typename PointType>
-class TransportablePoints: public TransportablePointsBase
+class TransportablePoints : public TransportablePointsBase
 {
 public:
+    using ThreePointType = const std::array<std::reference_wrapper<const PointType>, 3>;
     // derived class is required to store a global representation of the point, used in
     // before_hook
     void update_global_coordinate(const TriMesh& m, size_t point_index) override;
 
     // predicate to determine whether a point lies in a particular triangle
-    bool point_in_triangle(const TriMesh& m, size_t triangle_index, size_t point_index)
-        const override;
+    bool point_in_triangle(const TriMesh& m, TriMesh::Tuple& t, size_t point_index) const override;
 
     // computes the barycentric coordinates for the point at point_index assuming that it lies in
     // triangle_index
     std::array<double, 3>
-    get_barycentric(const TriMesh& m, size_t triangle_index, size_t point_index) const override;
+    get_barycentric(const TriMesh& m, const TriMesh::Tuple& t, size_t point_index) const override;
 
+protected:
+    const AttributeCollection<PointType>& get_vertex_attributes(const TriMesh& m) const;
+    ThreePointType get_points(const TriMesh& m, const TriMesh::Tuple& t) const;
 
 #if defined(USE_CALLBACK_FOR_TRANSPOORTABLE_POINTS)
 
-    using BarycentricInterpFuncType = std::function<PointType(
-        const TriMesh&,
-        const std::array<double, 3>&,
-        const std::array<std::reference_wrapper<const PointType>, 3>&)>;
-    using PointInTriangleFuncType = std::function<bool(const TriMesh&, size_t, size_t)>;
+    // Mesh being used, barycentric coordinate in the desired triangle, and three point values in
+    // attribute array
+    using BarycentricInterpFuncType = std::function<
+        PointType(const TriMesh&, const TriMesh::Tuple&, const std::array<double, 3>&)>;
+    // mesh being used, barycentric coordinate in each desired triangle
+    using PointInTriangleFuncType =
+        std::function<bool(const TriMesh&, const TriMesh::Tuple&, size_t)>;
+    //
     using GetBarycentricFuncType =
-        std::function<std::array<double, 3>(const TriMesh&, size_t, size_t)>;
+        std::function<std::array<double, 3>(const TriMesh&, const TriMesh::Tuple&, size_t)>;
 
     BarycentricInterpFuncType barycentric_interp_callback;
     PointInTriangleFuncType point_in_triangle_callback;
@@ -80,39 +85,51 @@ public:
     tbb::concurrent_vector<PointType> points_global;
 };
 
+
+template <typename PointType>
+auto TransportablePoints<PointType>::get_vertex_attributes(const TriMesh& m) const
+    -> const AttributeCollection<PointType>&
+{
+    return dynamic_cast<const AttributeCollection<PointType>&>(*m.p_vertex_attrs);
+}
+
+template <typename PointType>
+auto TransportblePoints<PointType>::get_points(const TriMesh& m, const TriMesh::Tuple& t) const
+    -> ThreePointType
+{
+    const tbb::concurrent_vector<PointType>& P = get_vertex_attributes(m).m_attributes;
+    const PointType& a = P[vertex_indices[0]];
+    const PointType& b = P[vertex_indices[1]];
+    const PointType& c = P[vertex_indices[2]];
+    return {a, b, c};
+}
+
 #if defined(USE_CALLBACK_FOR_TRANSPOORTABLE_POINTS)
 template <typename PointType>
 void TransportablePoints<PointType>::update_global_coordinate(const TriMesh& m, size_t point_index)
 {
-    const std::array<size_t, 3>& vertex_indices = m.oriented_tri_vids(triangle_tuples[point_index]);
-    const tbb::concurrent_vector<PointType>& P =
-        dynamic_cast<const AttributeCollection<PointType>&>(*m.p_vertex_attrs).m_attributes;
-    const std::array<std::reference_wrapper<const PointType>, 3> points{
-        {P[vertex_indices[0]], P[vertex_indices[1]], P[vertex_indices[2]]}};
-
     points_global[point_index] = barycentric_interp_callback(
         m,
         TransportablePointsBase::triangle_tuples[point_index],
-        TransportablePointsBase::barycentric_coordinates[point_index],
-        points);
+        TransportablePointsBase::barycentric_coordinates[point_index]);
 }
 
 template <typename PointType>
 bool TransportablePoints<PointType>::point_in_triangle(
     const TriMesh& m,
-    size_t triangle_index,
+    const TriMesh::Tuple& t,
     size_t point_index) const
 {
-    return point_in_triangle_callback(m, triangle_index, point_index);
+    return point_in_triangle_callback(m, t, point_index);
 }
 
 template <typename PointType>
 std::array<double, 3> TransportablePoints<PointType>::get_barycentric(
     const TriMesh& m,
-    size_t triangle_index,
+    const TriMesh::Tuple& t,
     size_t point_index) const
 {
-    return get_barycentric_callback(m, triangle_index, point_index);
+    return get_barycentric_callback(m, t, point_index);
 }
 
 #endif
