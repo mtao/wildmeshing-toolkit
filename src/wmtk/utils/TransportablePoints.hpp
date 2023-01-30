@@ -94,7 +94,7 @@ auto TransportablePoints<PointType>::get_vertex_attributes(const TriMesh& m) con
 }
 
 template <typename PointType>
-auto TransportblePoints<PointType>::get_points(const TriMesh& m, const TriMesh::Tuple& t) const
+auto TransportablePoints<PointType>::get_points(const TriMesh& m, const TriMesh::Tuple& t) const
     -> ThreePointType
 {
     const tbb::concurrent_vector<PointType>& P = get_vertex_attributes(m).m_attributes;
