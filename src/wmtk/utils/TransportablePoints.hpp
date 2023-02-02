@@ -24,7 +24,7 @@ protected:
     void update_local_coordinate(
         const TriMesh& m,
         size_t point_index,
-        const std::set<size_t>& possible_tris);
+        const std::vector<TriMesh::Tuple>& possible_tris);
     // derived class is required to identify which point and triangle
     virtual bool point_in_triangle(const TriMesh& m, const TriMesh::Tuple& t, size_t point_index)
         const = 0;
@@ -53,12 +53,18 @@ public:
     void update_global_coordinate(const TriMesh& m, size_t point_index) override;
 
     // predicate to determine whether a point lies in a particular triangle
-    bool point_in_triangle(const TriMesh& m, TriMesh::Tuple& t, size_t point_index) const override;
+    bool point_in_triangle(const TriMesh& m, const TriMesh::Tuple& t, size_t point_index) const override;
 
     // computes the barycentric coordinates for the point at point_index assuming that it lies in
     // triangle_index
     std::array<double, 3>
     get_barycentric(const TriMesh& m, const TriMesh::Tuple& t, size_t point_index) const override;
+
+    template <typename ContainerType>
+    void set_points(const ContainerType& a) {
+        points_global.resize(a.size());
+        std::copy(std::begin(a),std::begin(a), std::begin(points_global));
+    }
 
 protected:
     const AttributeCollection<PointType>& get_vertex_attributes(const TriMesh& m) const;
@@ -98,9 +104,10 @@ auto TransportablePoints<PointType>::get_points(const TriMesh& m, const TriMesh:
     -> ThreePointType
 {
     const tbb::concurrent_vector<PointType>& P = get_vertex_attributes(m).m_attributes;
-    const PointType& a = P[vertex_indices[0]];
-    const PointType& b = P[vertex_indices[1]];
-    const PointType& c = P[vertex_indices[2]];
+    const auto [ai,bi,ci] = m.oriented_tri_vids(t);
+    const PointType& a = P[ai];
+    const PointType& b = P[bi];
+    const PointType& c = P[ci];
     return {a, b, c};
 }
 

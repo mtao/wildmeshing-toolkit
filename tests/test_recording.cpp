@@ -391,13 +391,16 @@ TEST_CASE("replay_operations", "[test_2d_operation]")
 
         TransportablePoints<TestVec2> points;
         TransportablePointsBase* points_base = &points;
-        points.points_global.resize(10);
+
+        std::vector<TestVec2> points_raw;
+        points_raw.resize(10);
         Eigen::AlignedBox<double, 2> bbox(Eigen::Vector2d::Zero(), Eigen::Vector2d::Ones());
-        for (auto& v : points.points_global) {
+        for (auto& v : points_raw) {
             auto p = bbox.sample();
             v.x = p.x();
             v.y = p.y();
         }
+        points.set_points(points_raw);
 
         // initialize remembered face tuple state
         std::vector<TriMesh::Tuple> face_tuples = m.get_faces();
