@@ -83,6 +83,7 @@ protected:
     using GetBarycentricFuncType =
         std::function<std::array<double, 3>(const TriMesh&, const TriMesh::Tuple&, size_t)>;
 
+public:
     BarycentricInterpFuncType barycentric_interp_callback;
     PointInTriangleFuncType point_in_triangle_callback;
     GetBarycentricFuncType get_barycentric_callback;

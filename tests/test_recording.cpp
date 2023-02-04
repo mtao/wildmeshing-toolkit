@@ -391,6 +391,26 @@ TEST_CASE("replay_operations", "[test_2d_operation]")
 
         TransportablePoints<TestVec2> points;
         TransportablePointsBase* points_base = &points;
+        points.barycentric_interp_callback = 
+            [&](
+                const TriMesh& m, const TriMesh::Tuple& t, const std::array<double,3>& B
+                ) -> TestVec2 {
+                return TestVec2{0,0};
+            };
+        points.point_in_triangle_callback=
+            [&](
+                const TriMesh& m, const TriMesh::Tuple& t, size_t point_index
+                ) -> bool{
+                const TestVec2& p = points.points_global[point_index];
+                return false;
+            };
+        points.get_barycentric_callback= 
+            [&](
+                const TriMesh& m, const TriMesh::Tuple& t, size_t point_index
+                ) -> std::array<double,3>{
+                const TestVec2& p = points.points_global[point_index];
+                return std::array<double,3>{{-1,-1,-1}};
+            };
 
         std::vector<TestVec2> points_raw;
         points_raw.resize(10);
