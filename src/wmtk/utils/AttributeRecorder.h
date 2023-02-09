@@ -134,6 +134,7 @@ void AttributeCollectionRecorder<T>::load(
     start.emplace_back(changes.change_range_begin);
     size.emplace_back(changes.change_range_end - changes.change_range_begin);
     attribute_collection.grow_to_at_least(changes.attribute_size);
+    spdlog::info("Getting attr to grow to {}, got {}", changes.attribute_size, attribute_collection.size());
 
     data_set.select(start, size).read(updates);
 

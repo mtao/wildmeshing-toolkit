@@ -104,6 +104,7 @@ size_t OperationReplayer::play_to(size_t end)
             std::string op_name = tri_op.name;
             const TriMeshTupleData& tup = tri_op.input_tuple;
             TriMesh::Tuple edge(tup.vertex_id, tup.local_edge_id, tup.triangle_id, mesh);
+            spdlog::info("OperationReplayer playing op {} on tup {}", op_name, edge.info());
 
             if (tri_op.update_range_begin != tri_op.update_range_end) {
                 std::vector<AttributeChanges> attr_changes;
@@ -115,6 +116,7 @@ size_t OperationReplayer::play_to(size_t end)
 
                 for (const AttributeChanges& attr_change : attr_changes) {
                     const std::string attr_name = attr_change.name;
+                    spdlog::info("Attribute {} changed and size is {}", attr_name, attr_change.attribute_size);
 
 
                     if (auto it = datasets.find(attr_name); it == datasets.end()) {

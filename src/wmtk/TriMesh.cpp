@@ -40,7 +40,7 @@ void TriMesh::Tuple::update_hash(const TriMesh& m)
 }
 
 std::string TriMesh::Tuple::info() const {
-    return fmt::format("tuple: v{} e{} e{} (h{})", m_vid, m_eid, m_fid, m_hash);
+    return fmt::format("tuple: v{} e{} f{} (h{})", m_vid, m_eid, m_fid, m_hash);
 }
 
 void TriMesh::Tuple::print_info() const

@@ -62,6 +62,11 @@ public:
     bool before_check(const Tuple& t, TriMesh& m) override;
     bool after_check(const ExecuteReturnData& ret_data, TriMesh& m) override;
     std::string name() const override;
+
+    // returns a tuple to the new vertex created by this operation, where the
+    // input is the tuple passed into after_check's ret_data.tuple.
+    Tuple new_vertex(const Tuple& t, TriMesh& m) const;
+    std::array<Tuple, 2> original_endpoints(const Tuple& t, TriMesh& m) const;
 };
 class TriMeshSwapEdgeOperation : public TriMeshOperation
 {

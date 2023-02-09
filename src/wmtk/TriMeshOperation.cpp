@@ -234,6 +234,37 @@ std::string TriMeshSplitEdgeOperation::name() const
     return "edge_split";
 }
 
+auto TriMeshSplitEdgeOperation::new_vertex(const Tuple& t, TriMesh& m) const -> Tuple
+{
+    return t.switch_vertex(m);
+}
+
+auto TriMeshSplitEdgeOperation::original_endpoints(const Tuple& t, TriMesh& m) const
+    -> std::array<Tuple, 2>
+{
+    // diamond below encodes vertices with lower alpha
+    // edges with num
+    // faces with upper alpha
+    // (only encodes simplices adjacent to vertex c
+    //   a
+    //  A1B
+    // b2c3d
+    //  C4D
+    //   e
+    //
+    // initially e4D
+    // switch_vertex -> c4D
+    // switch_edge -> c3D
+    // switch_face -> c3B
+    // switch_edge -> c1B
+    // switch_vertex -> a1B
+    auto face_opt = t.switch_vertex(m).switch_edge(m).switch_face(m);
+
+    assert(face_opt);
+
+    return {{t, face_opt->switch_edge(m).switch_vertex(m)}};
+}
+
 
 auto TriMeshSwapEdgeOperation::execute(const Tuple& t, TriMesh& m) -> ExecuteReturnData
 {

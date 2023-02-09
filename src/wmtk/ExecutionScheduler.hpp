@@ -38,6 +38,9 @@ struct ExecutePass
 {
     using Tuple = typename AppMesh::Tuple;
     using OperatorFunc = std::function<std::optional<std::vector<Tuple>>(AppMesh&, const Tuple&)>;
+    constexpr static bool IsTetMesh = std::is_base_of_v<wmtk::TetMesh, AppMesh>;
+    // assume other than tetmesh we just have TriMesh
+    using OperationType = std::conditional_t<IsTetMesh,OperatorFunc, TriMeshOperation>;
     /**
      * @brief A dictionary that registers names with operations.
      *
@@ -46,6 +49,10 @@ struct ExecutePass
         Op, // strings
         OperatorFunc>
         edit_operation_maps;
+    std::map<
+        Op, // strings
+        std::shared_ptr<OperationType>>
+        new_edit_operation_maps;
     /**
      * @brief Priority function (default to edge length)
      *
@@ -118,6 +125,11 @@ struct ExecutePass
      *@note the constructor is differentiated by the type of mesh, namingly wmtk::TetMesh or
      *wmtk::TriMesh
      */
+    template <typename OpType> 
+        void add_operation(std::shared_ptr<OpType> op) {
+            new_edit_operation_maps[op->name()] = op;
+        }
+
     ExecutePass(const std::map<Op, OperatorFunc>& customized_ops = {})
     {
         if constexpr (std::is_base_of<wmtk::TetMesh, AppMesh>::value) {
@@ -190,12 +202,24 @@ struct ExecutePass
             edit_operation_maps.emplace(make_op(wmtk::TriMeshSplitEdgeOperation()));
             edit_operation_maps.emplace(make_op(wmtk::TriMeshSmoothVertexOperation()));
             edit_operation_maps.emplace(make_op(wmtk::TriMeshConsolidateOperation()));
+
+            add_operation(std::make_shared<wmtk::TriMeshEdgeCollapseOperation>());
+            add_operation(std::make_shared<wmtk::TriMeshSwapEdgeOperation>());
+            add_operation(std::make_shared<wmtk::TriMeshSplitEdgeOperation>());
+            add_operation(std::make_shared<wmtk::TriMeshSmoothVertexOperation>());
+            add_operation(std::make_shared<wmtk::TriMeshConsolidateOperation>());
         }
 
         if (!customized_ops.empty()) {
             edit_operation_maps.insert(customized_ops.begin(), customized_ops.end());
         }
     }
+
+
+
+
+
+
 
 private:
     void operation_cleanup(AppMesh& m)
