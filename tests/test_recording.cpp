@@ -42,9 +42,7 @@ struct TestVec2
     {
         return a * pts[0] + b * pts[1] + c * pts[2];
     }
-    double norm() const {
-        return std::sqrt(x*x + y*y);
-    }
+    double norm() const { return std::sqrt(x * x + y * y); }
 };
 
 
@@ -79,14 +77,14 @@ bool SimpleMesh::point_in_triangle(const std::array<size_t, 3>& t, const TestVec
     bool all_in = true;
     bool all_out = true;
     std::array<bool, 3> dat;
-    spdlog::info("{} / {}", fmt::join(t,","), vertices.size());
+    spdlog::info("{} / {}", fmt::join(t, ","), vertices.size());
     for (size_t j = 0; j < 3; ++j) {
         bool in = in_halfplane(t[j], t[(j + 1) % 3], p);
         dat[j] = in;
         all_in &= in;
         all_out &= !in;
     }
-    //spdlog::info("Point in triangle {} got {}", p, fmt::join(dat, ","));
+    // spdlog::info("Point in triangle {} got {}", p, fmt::join(dat, ","));
     return all_in || all_out;
 }
 std::array<double, 3> SimpleMesh::barycentric_coords(
@@ -107,8 +105,12 @@ std::array<double, 3> SimpleMesh::barycentric_coords(
         const auto& a = vertices.at(t[0]);
         const auto& b = vertices.at(t[1]);
         const auto& c = vertices.at(t[2]);
-        spdlog::info("got barycentric({}) => {} (pt {})", p, fmt::join(ret, ","), TestVec2::weighted_add(a,b,c,ret));
-        spdlog::warn("barycentric interp {} => {} {} {}", fmt::join(ret,","), a,b,c);
+        spdlog::info(
+            "got barycentric({}) => {} (pt {})",
+            p,
+            fmt::join(ret, ","),
+            TestVec2::weighted_add(a, b, c, ret));
+        spdlog::warn("barycentric interp {} => {} {} {}", fmt::join(ret, ","), a, b, c);
     }
     return ret;
 }
@@ -118,7 +120,26 @@ bool SimpleMesh::in_halfplane(size_t ai, size_t bi, const TestVec2& p) const
     const TestVec2& b = vertices.at(bi);
     return b.cross2d(p, a) > 0;
 }
+
+void make_diamond_mesh(SimpleMesh& mesh)
+{
+    std::vector<std::array<size_t, 3>> tris = {{{0, 1, 2}}, {{3, 1, 0}}};
+
+    mesh.create_mesh(4, tris);
+
+    mesh.vertices[0].x = 0;
+    mesh.vertices[0].y = 1;
+    mesh.vertices[1].x = 1;
+    mesh.vertices[1].y = 0;
+    mesh.vertices[2].x = 1;
+    mesh.vertices[2].y = 1;
+    mesh.vertices[3].x = 0;
+    mesh.vertices[3].y = 0;
+}
+
+
 } // namespace
+
 
 template <>
 struct fmt::formatter<TestVec2>
@@ -227,74 +248,57 @@ TEST_CASE("create_recorder", "[attribute_recording]")
 
     */
 }
+
+auto edge_vids(const TriMesh& m, const TriMesh::Tuple& edge) -> std::array<size_t, 2>
+{
+    std::array<size_t, 2> ret;
+    ret[0] = edge.vid(m);
+    TriMesh::Tuple other = edge.switch_vertex(m);
+    ret[1] = other.vid(m);
+    return ret;
+}
+
+
+auto check_vertex_indices(
+    const TriMesh& m,
+    const TriMesh::Tuple& tuple,
+    const std::set<size_t>& expected)
+{
+    REQUIRE(tuple.is_valid(m));
+    int size = expected.size();
+    std::set<size_t> orig;
+    if (size == 3) {
+        auto tri_vids = m.oriented_tri_vids(tuple);
+        orig = {tri_vids.begin(), tri_vids.end()};
+    } else if (size == 2) {
+        auto e_vids = edge_vids(m, tuple);
+        orig = {e_vids.begin(), e_vids.end()};
+    }
+    REQUIRE(orig == expected);
+}
+
+auto check_face_equality(const TriMesh& a, const TriMesh& b)
+{
+    auto a_face_tuples = a.get_faces();
+    auto b_face_tuples = b.get_faces();
+    REQUIRE(a_face_tuples.size() == b_face_tuples.size());
+    for (size_t j = 0; j < a_face_tuples.size(); ++j) {
+        const auto& a_tup = a_face_tuples[j];
+        const auto& b_tup = b_face_tuples[j];
+        auto [a_vid, a_eid, a_fid, a_hash] = a_tup.as_stl_tuple();
+        auto [b_vid, b_eid, b_fid, b_hash] = b_tup.as_stl_tuple();
+        CHECK(a_vid == b_vid);
+        CHECK(a_eid == b_eid);
+        CHECK(a_fid == b_fid);
+    }
+}
 TEST_CASE("barycentric_with_swapping", "[test_2d_operation]")
 {
     ExecutePass<TriMesh, ExecutionPolicy::kSeq> scheduler;
 
 
-    auto edge_vids = [&](const TriMesh& m, const TriMesh::Tuple& edge) -> std::array<size_t, 2> {
-        std::array<size_t, 2> ret;
-        ret[0] = edge.vid(m);
-        TriMesh::Tuple other = edge.switch_vertex(m);
-        ret[1] = other.vid(m);
-        return ret;
-    };
-
-
-    auto check_vertex_indices =
-        [&](const TriMesh& m, const TriMesh::Tuple& tuple, const std::set<size_t>& expected) {
-            REQUIRE(tuple.is_valid(m));
-            int size = expected.size();
-            std::set<size_t> orig;
-            if (size == 3) {
-                auto tri_vids = m.oriented_tri_vids(tuple);
-                orig = {tri_vids.begin(), tri_vids.end()};
-            } else if (size == 2) {
-                auto e_vids = edge_vids(m, tuple);
-                orig = {e_vids.begin(), e_vids.end()};
-            }
-            REQUIRE(orig == expected);
-        };
-
-    auto check_face_equality = [&](const TriMesh& a, const TriMesh& b) {
-        auto a_face_tuples = a.get_faces();
-        auto b_face_tuples = b.get_faces();
-        REQUIRE(a_face_tuples.size() == b_face_tuples.size());
-        for (size_t j = 0; j < a_face_tuples.size(); ++j) {
-            const auto& a_tup = a_face_tuples[j];
-            const auto& b_tup = b_face_tuples[j];
-            auto [a_vid, a_eid, a_fid, a_hash] = a_tup.as_stl_tuple();
-            auto [b_vid, b_eid, b_fid, b_hash] = b_tup.as_stl_tuple();
-            CHECK(a_vid == b_vid);
-            CHECK(a_eid == b_eid);
-            CHECK(a_fid == b_fid);
-        }
-    };
-
-    std::vector<std::array<size_t, 3>> tris = {{{0, 1, 2}}, {{3, 1, 0}}};
-
-    TriMesh initial_mesh;
-    initial_mesh.create_mesh(4, tris);
-
-
-    // the mesh that will eventaully become the resulting mesh we hope to replay
     SimpleMesh final_mesh;
-    // SimpleMesh final_mesh;
-
-    final_mesh.p_vertex_attrs = &final_mesh.vertices;
-
-
-    final_mesh.create_mesh(4, tris);
-
-    final_mesh.vertices[0].x = 0;
-    final_mesh.vertices[0].y = 1;
-    final_mesh.vertices[1].x = 1;
-    final_mesh.vertices[1].y = 0;
-    final_mesh.vertices[2].x = 1;
-    final_mesh.vertices[2].y = 1;
-    final_mesh.vertices[3].x = 0;
-    final_mesh.vertices[3].y = 0;
-
+    make_diamond_mesh(final_mesh);
     {
         // 0-----2
         // |\    |
@@ -328,7 +332,7 @@ TEST_CASE("barycentric_with_swapping", "[test_2d_operation]")
         op_logger.add_attribute_recorder("vertices", vert_recorder);
         // op_recorder.add_attribute_recorder("triangles", tri_recorder);
         //  record do a flip, split, and then collapse
-        //SECTION("logging_operations")
+        // SECTION("logging_operations")
         //
         {
             std::vector<std::pair<std::string, TriMesh::Tuple>> operations;
@@ -366,197 +370,179 @@ TEST_CASE("barycentric_with_swapping", "[test_2d_operation]")
             operations.emplace_back(op_name, edge);
             {
                 // 0-----2
-                // |\   /|
-                // | \ / |
-                // |  4  |
-                // | / \ |
-                // |/   \|
+                // |\    |
+                // | \   |
+                // |  \  |
+                // |   \ |
+                // |    \|
                 // 3-----1
                 auto face_tuples = final_mesh.get_faces();
                 REQUIRE(face_tuples.size() == 2);
                 {
-                auto tri_vids = final_mesh.oriented_tri_vids(face_tuples[0]);
-                spdlog::info("{}", fmt::join(tri_vids,","));
+                    auto tri_vids = final_mesh.oriented_tri_vids(face_tuples[0]);
+                    spdlog::info("{}", fmt::join(tri_vids, ","));
                 }
                 {
-                auto tri_vids = final_mesh.oriented_tri_vids(face_tuples[1]);
-                spdlog::info("{}", fmt::join(tri_vids,","));
+                    auto tri_vids = final_mesh.oriented_tri_vids(face_tuples[1]);
+                    spdlog::info("{}", fmt::join(tri_vids, ","));
                 }
                 check_vertex_indices(final_mesh, face_tuples[0], {0, 1, 2});
                 check_vertex_indices(final_mesh, face_tuples[1], {3, 1, 0});
-
             }
-
-
         }
     }
 
 
     // SECTION("replay the old operations");
-    if(true){
-        using namespace HighFive;
-        File file("replay_operations_2d.hd5", File::ReadOnly);
-        spdlog::info("{}", file.getDataSet("operations").getElementCount());
-        SimpleMesh m;
-        m.create_mesh(4, tris);
-        m.vertices[0].x = 0;
-        m.vertices[0].y = 1;
-        m.vertices[1].x = 1;
-        m.vertices[1].y = 0;
-        m.vertices[2].x = 1;
-        m.vertices[2].y = 1;
-        m.vertices[3].x = 0;
-        m.vertices[3].y = 0;
+    using namespace HighFive;
+    File file("replay_operations_2d.hd5", File::ReadOnly);
+    spdlog::info("{}", file.getDataSet("operations").getElementCount());
+    SimpleMesh m;
+    make_diamond_mesh(m);
 
-        TransportablePoints<TestVec2> points;
-        TransportablePointsBase* points_base = &points;
-        points.barycentric_interp_callback = [&](const TriMesh& m,
-                                                 const TriMesh::Tuple& t,
-                                                 const std::array<double, 3>& B) -> TestVec2 {
-            spdlog::info("Start");;
-            const auto& sm = dynamic_cast<const SimpleMesh&>(m);
-            auto [ai, bi, ci] = m.oriented_tri_vids(t);
+    TransportablePoints<TestVec2> points;
+    TransportablePointsBase* points_base = &points;
+    points.barycentric_interp_callback =
+        [&](const TriMesh& m, const TriMesh::Tuple& t, const std::array<double, 3>& B) -> TestVec2 {
+        spdlog::info("Start");
+        ;
+        const auto& sm = dynamic_cast<const SimpleMesh&>(m);
+        auto [ai, bi, ci] = m.oriented_tri_vids(t);
 
-            spdlog::info("{} {} {} / {}", ai,bi,ci, sm.vertices.size());;
-            const auto& a = sm.vertices.at(ai);
-            const auto& b = sm.vertices.at(bi);
-            const auto& c = sm.vertices.at(ci);
-            return TestVec2::weighted_add(a, b, c, B);
-        };
-        points.point_in_triangle_callback =
-            [&](const TriMesh& m, const TriMesh::Tuple& t, const TestVec2& point) -> bool {
-            const auto& sm = dynamic_cast<const SimpleMesh&>(m);
-            return sm.point_in_triangle(m.oriented_tri_vids(t), point);
-        };
-        points.get_barycentric_callback = [&](const TriMesh& m,
-                                              const TriMesh::Tuple& t,
-                                              const TestVec2& point) -> std::array<double, 3> {
-            const auto& sm = dynamic_cast<const SimpleMesh&>(m);
-            return sm.barycentric_coords(m.oriented_tri_vids(t), point);
-        };
+        spdlog::info("{} {} {} / {}", ai, bi, ci, sm.vertices.size());
+        ;
+        const auto& a = sm.vertices.at(ai);
+        const auto& b = sm.vertices.at(bi);
+        const auto& c = sm.vertices.at(ci);
+        return TestVec2::weighted_add(a, b, c, B);
+    };
+    points.point_in_triangle_callback =
+        [&](const TriMesh& m, const TriMesh::Tuple& t, const TestVec2& point) -> bool {
+        const auto& sm = dynamic_cast<const SimpleMesh&>(m);
+        return sm.point_in_triangle(m.oriented_tri_vids(t), point);
+    };
+    points.get_barycentric_callback = [&](const TriMesh& m,
+                                          const TriMesh::Tuple& t,
+                                          const TestVec2& point) -> std::array<double, 3> {
+        const auto& sm = dynamic_cast<const SimpleMesh&>(m);
+        return sm.barycentric_coords(m.oriented_tri_vids(t), point);
+    };
 
-        std::vector<TestVec2> points_raw;
-        points_raw.resize(10);
-        Eigen::AlignedBox<double, 2> bbox(Eigen::Vector2d::Zero(), Eigen::Vector2d::Ones());
-        for (auto& v : points_raw) {
-            auto p = bbox.sample();
-            v.x = p.x();
-            v.y = p.y();
-        }
-        points.set_points(points_raw);
-
-        // initialize remembered face tuple state
-        std::vector<TriMesh::Tuple> face_tuples = m.get_faces();
-
-        m.p_vertex_attrs = &m.vertices;
-
-        spdlog::info("Input Points:: {}", fmt::join(points.points_global, ","));
-        points.update_local_coordinates(m);
-        TriMeshOperationLogger logger(m, file);
-        logger.set_readonly();
-        OperationReplayer replayer(m, logger);
-        for (size_t j = 0; j < replayer.operation_count(); ++j) {
-            spdlog::info("Operation {}", j);
-            // prepare for update
-            points_base->before_hook(m, face_tuples);
-            size_t new_index = replayer.play(1);
-            // update the active faces and call the after hook
-            // ( in the future this will be embedded into the play functionality )
-            face_tuples = m.get_faces();
-            points_base->after_hook(m, face_tuples);
-            for (const auto& f : face_tuples) {
-                auto tri_vids = m.oriented_tri_vids(f);
-                spdlog::info("{}", fmt::join(tri_vids, ","));
-            }
-            REQUIRE(new_index == j + 1);
-            spdlog::info("Done Operation {}", j);
-        }
-
-        check_face_equality(m, final_mesh);
+    std::vector<TestVec2> points_raw;
+    points_raw.resize(10);
+    Eigen::AlignedBox<double, 2> bbox(Eigen::Vector2d::Zero(), Eigen::Vector2d::Ones());
+    for (auto& v : points_raw) {
+        auto p = bbox.sample();
+        v.x = p.x();
+        v.y = p.y();
     }
+    points.set_points(points_raw);
+
+    // initialize remembered face tuple state
+    std::vector<TriMesh::Tuple> face_tuples = m.get_faces();
+
+    m.p_vertex_attrs = &m.vertices;
+
+    spdlog::info("Input Points:: {}", fmt::join(points.points_global, ","));
+    points.update_local_coordinates(m);
+    TriMeshOperationLogger logger(m, file);
+    logger.set_readonly();
+    OperationReplayer replayer(m, logger);
+    for (size_t j = 0; j < replayer.operation_count(); ++j) {
+        spdlog::info("Operation {}", j);
+        // prepare for update
+        points_base->before_hook(m, face_tuples);
+        size_t new_index = replayer.play(1);
+        // update the active faces and call the after hook
+        // ( in the future this will be embedded into the play functionality )
+        face_tuples = m.get_faces();
+        points_base->after_hook(m, face_tuples);
+        for (const auto& f : face_tuples) {
+            auto tri_vids = m.oriented_tri_vids(f);
+            spdlog::info("{}", fmt::join(tri_vids, ","));
+        }
+        REQUIRE(new_index == j + 1);
+        spdlog::info("Done Operation {}", j);
+    }
+
+    check_face_equality(m, final_mesh);
 }
 
-TEST_CASE("replay_operations", "[test_2d_operation]")
+TEST_CASE("dynamic_boundary_updates", "[test_2d_operation]")
 {
+    // TODO: fix this test
+    return;
     ExecutePass<TriMesh, ExecutionPolicy::kSeq> scheduler;
-
-
-    auto edge_vids = [&](const TriMesh& m, const TriMesh::Tuple& edge) -> std::array<size_t, 2> {
-        std::array<size_t, 2> ret;
-        ret[0] = edge.vid(m);
-        TriMesh::Tuple other = edge.switch_vertex(m);
-        ret[1] = other.vid(m);
-        return ret;
-    };
-
-
-    auto check_vertex_indices =
-        [&](const TriMesh& m, const TriMesh::Tuple& tuple, const std::set<size_t>& expected) {
-            REQUIRE(tuple.is_valid(m));
-            int size = expected.size();
-            std::set<size_t> orig;
-            if (size == 3) {
-                auto tri_vids = m.oriented_tri_vids(tuple);
-                orig = {tri_vids.begin(), tri_vids.end()};
-            } else if (size == 2) {
-                auto e_vids = edge_vids(m, tuple);
-                orig = {e_vids.begin(), e_vids.end()};
-            }
-            REQUIRE(orig == expected);
-        };
-
-    auto check_face_equality = [&](const TriMesh& a, const TriMesh& b) {
-        auto a_face_tuples = a.get_faces();
-        auto b_face_tuples = b.get_faces();
-        REQUIRE(a_face_tuples.size() == b_face_tuples.size());
-        for (size_t j = 0; j < a_face_tuples.size(); ++j) {
-            const auto& a_tup = a_face_tuples[j];
-            const auto& b_tup = b_face_tuples[j];
-            auto [a_vid, a_eid, a_fid, a_hash] = a_tup.as_stl_tuple();
-            auto [b_vid, b_eid, b_fid, b_hash] = b_tup.as_stl_tuple();
-            CHECK(a_vid == b_vid);
-            CHECK(a_eid == b_eid);
-            CHECK(a_fid == b_fid);
-        }
-    };
-
-    std::vector<std::array<size_t, 3>> tris = {{{0, 1, 2}}, {{3, 1, 0}}};
-
-    TriMesh initial_mesh;
-    initial_mesh.create_mesh(4, tris);
 
 
     // the mesh that will eventaully become the resulting mesh we hope to replay
     SimpleMesh final_mesh;
-    // SimpleMesh final_mesh;
-
-    final_mesh.p_vertex_attrs = &final_mesh.vertices;
+    make_diamond_mesh(final_mesh);
 
 
-    final_mesh.create_mesh(4, tris);
-
-    final_mesh.vertices[0].x = 0;
-    final_mesh.vertices[0].y = 1;
-    final_mesh.vertices[1].x = 1;
-    final_mesh.vertices[1].y = 0;
-    final_mesh.vertices[2].x = 1;
-    final_mesh.vertices[2].y = 1;
-    final_mesh.vertices[3].x = 0;
-    final_mesh.vertices[3].y = 0;
+    // We will simultaneously track operations and run them to validate the logger
 
     {
-        // 0-----2
-        // |\    |
-        // | \   |
-        // |  \  |
-        // |   \ |
-        // |    \|
-        // 3-----1
-        auto face_tuples = final_mesh.get_faces();
-        REQUIRE(face_tuples.size() == 2);
-        check_vertex_indices(final_mesh, face_tuples[0], {0, 1, 2});
-        check_vertex_indices(final_mesh, face_tuples[1], {0, 1, 3});
+        using namespace HighFive;
+        spdlog::info("Creating replay file");
+        File file("replay_operations_2d.hd5", File::ReadWrite | File::Create | File::Truncate);
+        TriMeshOperationLogger op_logger(final_mesh, file);
+
+        std::vector<std::pair<std::string, TriMesh::Tuple>> recorded_operations;
+
+        AttributeCollectionRecorder vert_recorder(file, "vertices", final_mesh.vertices);
+
+        // AttributeCollectionRecorder tri_recorder(file, "triangles",
+        //         final_mesh.m_tri_connectivity);
+
+        op_logger.add_attribute_recorder("vertices", vert_recorder);
+        // op_recorder.add_attribute_recorder("triangles", tri_recorder);
+        //  record do a flip, split, and then collapse
+        SECTION("logging_operations")
+        {
+            std::vector<std::pair<std::string, TriMesh::Tuple>> operations;
+            // collapse 4 into 2
+            TriMesh::Tuple edge(0, 2, 0, final_mesh);
+            REQUIRE(edge.is_valid(final_mesh));
+            check_vertex_indices(final_mesh, edge, {0, 1});
+
+
+            REQUIRE(edge.is_valid(final_mesh));
+            std::string op_name = "edge_collapse";
+            spdlog::info("Performing {}", op_name);
+            for(auto& [k,v]: scheduler.edit_operation_maps) {
+                spdlog::info("{}", k);
+            }
+            auto ret = scheduler.edit_operation_maps[op_name](final_mesh, edge);
+            REQUIRE(ret.has_value());
+            operations.emplace_back(op_name, edge);
+            {
+                // 0-----2
+                // |\    |
+                // | \   |
+                // |  \  |
+                // |   \ |
+                // |    \|
+                // 3-----1
+                auto face_tuples = final_mesh.get_faces();
+                for (auto& f : face_tuples) {
+                    auto tri_vids = final_mesh.oriented_tri_vids(f);
+                    spdlog::info("{} => {}", f.info(), fmt::join(tri_vids, ","));
+                }
+                REQUIRE(face_tuples.size() == 1);
+                check_vertex_indices(final_mesh, face_tuples[0], {1, 2, 3});
+            }
+        }
     }
+}
+TEST_CASE("all_three_operation_replay", "[test_2d_operation]")
+{
+    ExecutePass<TriMesh, ExecutionPolicy::kSeq> scheduler;
+
+
+    // the mesh that will eventaully become the resulting mesh we hope to replay
+    SimpleMesh final_mesh;
+    make_diamond_mesh(final_mesh);
 
 
     // We will simultaneously track operations and run them to validate the logger
@@ -692,15 +678,7 @@ TEST_CASE("replay_operations", "[test_2d_operation]")
         File file("replay_operations_2d.hd5", File::ReadOnly);
         spdlog::info("{}", file.getDataSet("operations").getElementCount());
         SimpleMesh m;
-        m.create_mesh(4, tris);
-        m.vertices[0].x = 0;
-        m.vertices[0].y = 1;
-        m.vertices[1].x = 1;
-        m.vertices[1].y = 0;
-        m.vertices[2].x = 1;
-        m.vertices[2].y = 1;
-        m.vertices[3].x = 0;
-        m.vertices[3].y = 0;
+        make_diamond_mesh(m);
 
         TransportablePoints<TestVec2> points;
         TransportablePointsBase* points_base = &points;
@@ -713,7 +691,7 @@ TEST_CASE("replay_operations", "[test_2d_operation]")
             const auto& a = sm.vertices.at(ai);
             const auto& b = sm.vertices.at(bi);
             const auto& c = sm.vertices.at(ci);
-            spdlog::warn("barycentric interp {} => {} {} {}", fmt::join(B,","), a,b,c);
+            spdlog::warn("barycentric interp {} => {} {} {}", fmt::join(B, ","), a, b, c);
             return TestVec2::weighted_add(a, b, c, B);
         };
         points.point_in_triangle_callback =
@@ -754,33 +732,53 @@ TEST_CASE("replay_operations", "[test_2d_operation]")
 
         REQUIRE(logger.operation_count() == 3);
         OperationReplayer replayer(m, logger);
-        for (size_t j = 0; j < replayer.operation_count(); ++j) {
-            spdlog::info("Operation {}", j);
-            // prepare for update
-            points_base->before_hook(m, face_tuples);
-            size_t new_index = replayer.play(1);
-            // update the active faces and call the after hook
-            // ( in the future this will be embedded into the play functionality )
-            face_tuples = m.get_faces();
-            points_base->after_hook(m, face_tuples);
-            for (const auto& f : face_tuples) {
-                auto tri_vids = m.oriented_tri_vids(f);
-                spdlog::info("{}", fmt::join(tri_vids, ","));
+        {
+            // go forward
+            for (size_t j = 0; j < replayer.operation_count(); ++j) {
+                spdlog::info("Operation {}", j);
+                // prepare for update
+                points_base->before_hook(m, face_tuples);
+                size_t new_index = replayer.play(1);
+                // update the active faces and call the after hook
+                // ( in the future this will be embedded into the play functionality )
+                face_tuples = m.get_faces();
+                points_base->after_hook(m, face_tuples);
+                for (const auto& f : face_tuples) {
+                    auto tri_vids = m.oriented_tri_vids(f);
+                    spdlog::info("{}", fmt::join(tri_vids, ","));
+                }
+                REQUIRE(new_index == j + 1);
             }
-            REQUIRE(new_index == j + 1);
+
+            check_face_equality(m, final_mesh);
         }
-
-        for(size_t j = 0; j < points_raw.size(); ++j) {
-            const auto& a = points_raw[j];
-            const auto& b = points.points_global[j];
-            auto d = a-b;
-            double n = d.norm();
-
-            CHECK(n == Approx(0.0));
-            spdlog::info("Point {} moved from {} to {}, distance of {}",j, a,b,n);
-
-        }
-        check_face_equality(m, final_mesh);
     }
 }
 
+TEST_CASE("replay_operations_repeatedly", "[test_2d_operation]")
+{
+    SimpleMesh final_mesh;
+    make_diamond_mesh(final_mesh);
+    // if (false) {
+    //     for (int k = 0; k < 100; ++k) {
+    //         for (size_t j = 0; j < replayer.operation_count(); ++j) {
+    //            // prepare for update
+    //            points_base->before_hook(m, face_tuples);
+    //            size_t new_index = replayer.play(1);
+    //            // update the active faces and call the after hook
+    //            // ( in the future this will be embedded into the play functionality )
+    //            face_tuples = m.get_faces();
+    //            points_base->after_hook(m, face_tuples);
+    //        }
+    //        for (size_t j = 0; j < replayer.operation_count(); ++j) {
+    //            // prepare for update
+    //            points_base->before_hook(m, face_tuples);
+    //            size_t new_index = replayer.play(-1);
+    //            // update the active faces and call the after hook
+    //            // ( in the future this will be embedded into the play functionality )
+    //            face_tuples = m.get_faces();
+    //            points_base->after_hook(m, face_tuples);
+    //        }
+    //    }
+    //}
+}

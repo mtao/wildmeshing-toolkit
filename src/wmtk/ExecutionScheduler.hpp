@@ -40,7 +40,7 @@ struct ExecutePass
     using OperatorFunc = std::function<std::optional<std::vector<Tuple>>(AppMesh&, const Tuple&)>;
     constexpr static bool IsTetMesh = std::is_base_of_v<wmtk::TetMesh, AppMesh>;
     // assume other than tetmesh we just have TriMesh
-    using OperationType = std::conditional_t<IsTetMesh,OperatorFunc, TriMeshOperation>;
+    using OperationType = std::conditional_t<IsTetMesh, OperatorFunc, TriMeshOperation>;
     /**
      * @brief A dictionary that registers names with operations.
      *
@@ -125,10 +125,11 @@ struct ExecutePass
      *@note the constructor is differentiated by the type of mesh, namingly wmtk::TetMesh or
      *wmtk::TriMesh
      */
-    template <typename OpType> 
-        void add_operation(std::shared_ptr<OpType> op) {
-            new_edit_operation_maps[op->name()] = op;
-        }
+    template <typename OpType>
+    void add_operation(std::shared_ptr<OpType> op)
+    {
+        new_edit_operation_maps[op->name()] = op;
+    }
 
     ExecutePass(const std::map<Op, OperatorFunc>& customized_ops = {})
     {
@@ -189,10 +190,13 @@ struct ExecutePass
                 return std::make_pair<const Op, OperatorFunc>(
                     t.name(),
                     [](AppMesh& m, const Tuple& t) -> std::optional<std::vector<Tuple>> {
+                        spdlog::info("Running {}!", T().name());
                         auto retdata = T()(t, m);
                         if (retdata.success) {
+                            spdlog::info("Operation {} succeeded!", T().name());
                             return retdata.new_tris;
                         } else {
+                            spdlog::info("Operation {} failed!", T().name());
                             return {};
                         }
                     });
@@ -214,11 +218,6 @@ struct ExecutePass
             edit_operation_maps.insert(customized_ops.begin(), customized_ops.end());
         }
     }
-
-
-
-
-
 
 
 private:

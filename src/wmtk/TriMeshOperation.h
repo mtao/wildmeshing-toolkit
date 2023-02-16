@@ -29,9 +29,12 @@ protected:
     virtual bool after_check(const ExecuteReturnData& ret_data, TriMesh& m) = 0;
     virtual bool invariants(const ExecuteReturnData& ret_data, TriMesh& m);
 
+
     // forwarding of operations in TriMesh
-    wmtk::AttributeCollection<VertexConnectivity>& vertex_connectivity(TriMesh& m);
-    wmtk::AttributeCollection<TriangleConnectivity>& tri_connectivity(TriMesh& m);
+    static wmtk::AttributeCollection<VertexConnectivity>& vertex_connectivity(TriMesh& m);
+    static wmtk::AttributeCollection<TriangleConnectivity>& tri_connectivity(TriMesh& m);
+    static const wmtk::AttributeCollection<VertexConnectivity>& vertex_connectivity(const TriMesh& m);
+    static const wmtk::AttributeCollection<TriangleConnectivity>& tri_connectivity(const TriMesh& m);
 
     /**
      * @brief Get the next avaiblie global index for the triangle
@@ -84,6 +87,8 @@ public:
     bool before_check(const Tuple& t, TriMesh& m) override;
     bool after_check(const ExecuteReturnData& ret_data, TriMesh& m) override;
     std::string name() const override;
+
+    static bool check_link_condition(const Tuple& t, const TriMesh& m) ;
 };
 
 class TriMeshSmoothVertexOperation : public TriMeshOperation
