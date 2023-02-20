@@ -6,6 +6,10 @@
 include(gmp)
 include(fenvelope)
 
+if(NOT WMTK_APP_UNIFORM_REMESH) 
+    message(FATAL_ERROR "ExtremeOpt requires uniform remeshing; try WMTK_APP_UNIFORM_REMESH=ON")
+endif()
+
 add_library(wmtk_extreme_opt
 	opt.cpp
 	ExtremeOpt.cpp
