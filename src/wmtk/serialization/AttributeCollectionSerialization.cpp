@@ -1,7 +1,6 @@
 #include <wmtk/serialization/AttributeCollectionSerialization.h>
 #include <wmtk/utils/Logger.hpp>
 
-HIGHFIVE_REGISTER_TYPE(wmtk::AttributeCollectionRange, wmtk::AttributeCollectionRange::datatype);
 using namespace wmtk;
 HIGHFIVE_REGISTER_TYPE(wmtk::AttributeCollectionUpdate, wmtk::AttributeCollectionUpdate::datatype);
 
@@ -11,15 +10,9 @@ HighFive::CompoundType AttributeCollectionUpdate::datatype()
     return HighFive::CompoundType{
         {"old_size", HighFive::create_datatype<size_t>()},
         {"new_size", HighFive::create_datatype<size_t>()},
-        {"range", HighFive::create_datatype<AttributeCollectionRange>()}};
+        {"range", HighFive::create_datatype<serialization::Range>()}};
 }
 
-HighFive::CompoundType AttributeCollectionRange::datatype()
-{
-    return HighFive::CompoundType{
-        {"begin", HighFive::create_datatype<size_t>()},
-        {"end", HighFive::create_datatype<size_t>()}};
-}
 
 AttributeCollectionSerializationBase::AttributeCollectionSerializationBase(
     HighFive::File& file,

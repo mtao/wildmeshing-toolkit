@@ -1,5 +1,6 @@
 #pragma once
 #include <wmtk/serialization/Hdf5Utils.hpp>
+#include <wmtk/serialization/Range.h>
 
 
 // Attribute Change tables:
@@ -20,7 +21,7 @@
 // ============
 // size_t old_size;
 // size_t new_size;
-// AttributeCollectionRange range; <-- points into ATTR_value_changes
+// serialization::Range range; <-- points into ATTR_value_changes
 //
 
 //
@@ -82,12 +83,6 @@ class AbstractAttributeCollection;
 template <typename T>
 class AttributeCollection;
 
-struct AttributeCollectionRange
-{
-    size_t begin = 0;
-    size_t end = 0;
-    static HighFive::CompoundType datatype();
-};
 
 // internal Interface for adding an attribute to a logged hdf5 file
 // this is intended as an internal interface because Recording should only append while Replaying
@@ -211,7 +206,7 @@ struct AttributeCollectionUpdate
 
     size_t old_size = 0;
     size_t new_size = 0;
-    AttributeCollectionRange range;
+    serialization::Range range;
 
     static HighFive::CompoundType datatype();
 };
@@ -359,4 +354,4 @@ HighFive::CompoundType AttributeCollectionValueChange<T>::datatype()
 } // namespace wmtk
 
 
-WMTK_HDF5_DECLARE_ATTRIBUTE_TYPE(wmtk::AttributeCollectionRange)
+WMTK_HDF5_DECLARE_ATTRIBUTE_TYPE(wmtk::serialization::Range)
