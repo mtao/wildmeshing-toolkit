@@ -2,24 +2,11 @@
 
 #include <oneapi/tbb/concurrent_vector.h>
 #include <oneapi/tbb/mutex.h>
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wcast-qual"
-#elif (defined(__GNUC__) || defined(__GNUG__)) && !(defined(__clang__) || defined(__INTEL_COMPILER))
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wcast-qual"
-#pragma GCC diagnostic ignored "-Wswitch-enum"
-#endif
-#include <highfive/H5DataSet.hpp>
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#elif (defined(__GNUC__) || defined(__GNUG__)) && !(defined(__clang__) || defined(__INTEL_COMPILER))
-#pragma GCC diagnostic pop
-#endif
 #include <memory>
 #include <nlohmann/json.hpp>
 #include <string_view>
 #include <wmtk/utils/Logger.hpp>
+#include <wmtk/serialization/Range.h>
 
 namespace HighFive {
 class File;
@@ -31,6 +18,21 @@ class OperationSerialization;
 class OperationReplayer;
 class AttributeCollectionRecorderBase;
 ;
+
+// each operation is represented by a series of attribute collection updates. Each  attribute has its own name and its own table of AttributeCollectionUpdates
+// The AttributeCollectionUpdatesIndex table stores the name of the attribute and index into the respective AttributeCollectionUpdates table
+struct AttributeCollectionUpdatesIndex
+{
+    char name[20];
+    size_t index;
+    static HighFive::CompoundType datatype();
+};
+
+struct OperationData
+{
+    serialization::Range updates;
+    static HighFive::CompoundType datatype();
+};
 
 
 //class OperationRecorder
@@ -58,38 +60,38 @@ class AttributeCollectionRecorderBase;
 //};
 
 // expects an operation serialization format 
-class OperationSerialization
-{
-public:
-    friend class OperationRecorder;
-    friend class OperationReplayer;
-    friend class AttributeCollectionRecorderBase;
-    OperationSerialization(HighFive::File& file, const HighFive::DataType& operation_datatype);
-    virtual ~OperationSerialization();
-
-
-    // the total number of operations that were logged
-    size_t operation_count() const;
-    // the total number of attribute changes that were logged. multiple can happen per operation
-    size_t attribute_changes_count() const;
-
-
-protected:
-    HighFive::DataSet create_dataset(const std::string& name, const HighFive::DataType& datatype);
-
-private:
-    oneapi::tbb::mutex output_mutex;
-    HighFive::File& file;
-
-protected:
-    HighFive::DataSet m_operation_dataset;
-    HighFive::DataSet attribute_changes_dataset;
-    // std::ostream& output_stream;
-
-
-    // returns true if attribute was successfully recorded
-    std::array<size_t, 2> record_attribute(const std::string& attribute_name);
-};
-
-
+//class OperationSerialization
+//{
+//public:
+//    friend class OperationRecorder;
+//    friend class OperationReplayer;
+//    friend class AttributeCollectionRecorderBase;
+//    OperationSerialization(HighFive::File& file, const HighFive::DataType& operation_datatype);
+//    virtual ~OperationSerialization();
+//
+//
+//    // the total number of operations that were logged
+//    size_t operation_count() const;
+//    // the total number of attribute changes that were logged. multiple can happen per operation
+//    size_t attribute_changes_count() const;
+//
+//
+//protected:
+//    HighFive::DataSet create_dataset(const std::string& name, const HighFive::DataType& datatype);
+//
+//private:
+//    oneapi::tbb::mutex output_mutex;
+//    HighFive::File& file;
+//
+//protected:
+//    HighFive::DataSet m_operation_dataset;
+//    HighFive::DataSet attribute_changes_dataset;
+//    // std::ostream& output_stream;
+//
+//
+//    // returns true if attribute was successfully recorded
+//    std::array<size_t, 2> record_attribute(const std::string& attribute_name);
+//};
+//
+//
 } // namespace wmtk

@@ -25,7 +25,7 @@
 // performed in a source file
 #define WMTK_HIGHFIVE_DECLARE_TYPE(type) \
     template <>                          \
-    inline HighFive::DataType HighFive::create_datatype<type>();
+    HighFive::DataType HighFive::create_datatype<type>();
 
 
 namespace wmtk::utils {

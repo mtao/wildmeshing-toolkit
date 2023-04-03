@@ -1,7 +1,7 @@
 //#include <wmtk/TriMesh.h>
 //#include <wmtk/serialization/AttributeCollectionRecorder.h>
 //#include <wmtk/serialization/Hdf5Utils.hpp>
-//#include <wmtk/serialization/OperationSerialization.h>
+#include <wmtk/serialization/OperationSerialization.h>
 //#include <ostream>
 //#include <wmtk/utils/Logger.hpp>
 //#include <wmtk/serialization/OperationRecordingDataTypes.hpp>

@@ -10,7 +10,7 @@
 //        {"name", HighFive::create_datatype<char[20]>()},
 //        {"input_tuple", HighFive::create_datatype<TriMeshTupleData>()},
 //        {"output_tuple", HighFive::create_datatype<TriMeshTupleData>()},
-//        {"update_range", HighFive::create_datatype<AttributeCollectionRange>()},
+//        {"update_range", HighFive::create_datatype<serialization::Range>()},
 //        {"vertex_size", HighFive::create_datatype<size_t>()},
 //        {"triangle_size", HighFive::create_datatype<size_t>()}};
 //}

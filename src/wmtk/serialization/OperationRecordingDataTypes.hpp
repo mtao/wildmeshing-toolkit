@@ -28,7 +28,7 @@ struct OperationData
     char name[20];
     TupleType input_tuple;
     //TupleType output_tuple;
-    AttributeCollectionRange updates;
+    serialization::Range updates;
     size_t vertex_size = 0;
     size_t triangle_size = 0;
 
