@@ -81,16 +81,16 @@ void ExtremeOpt::create_mesh(
         vertex_attrs[i].pos = uv.row(i).transpose();
         vertex_attrs[i].pos_3d = V.row(i).transpose();
     }
+    
+    if (this->m_params.use_envelope)
+    {
     std::vector<Eigen::Vector3d> V_in(V.rows());
     std::vector<Eigen::Vector3i> F_in(F.rows());
     for (auto i = 0; i < V.rows(); i++) {
         V_in[i] = vertex_attrs[i].pos_3d;
     }
     for (int i = 0; i < F_in.size(); ++i) F_in[i] << F(i,0), F(i,1), F(i,2); 
-    
-    double diag = std::sqrt(std::pow(V.col(0).maxCoeff() - V.col(0).minCoeff(), 2)+std::pow(V.col(1).maxCoeff() - V.col(1).minCoeff(), 2)+std::pow(V.col(2).maxCoeff() - V.col(2).minCoeff(), 2));
-    if (this->m_params.use_envelope)
-    {
+        double diag = (V.colwise().maxCoeff().eval() - V.colwise().minCoeff().eval()).norm();
         m_envelope.use_exact = false;
         m_envelope.init(V_in, F_in, 0.01 * diag);
     }

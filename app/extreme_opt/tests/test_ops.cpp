@@ -86,7 +86,7 @@ void perform_checks(const ExtremeOpt& extremeopt, const double E_in)
     }
 }
 
-void test_collapse(const std::string& model_name)
+void test_collapse_all(const std::string& model_name)
 {
     extremeopt::ExtremeOpt extremeopt;
     extremeopt.m_params = default_params();
@@ -99,7 +99,7 @@ void test_collapse(const std::string& model_name)
 
     perform_checks(extremeopt, E_in);
 }
-void test_swap(const std::string& model_name)
+void test_swap_all(const std::string& model_name)
 {
     extremeopt::ExtremeOpt extremeopt;
     extremeopt.m_params = default_params();
@@ -113,7 +113,7 @@ void test_swap(const std::string& model_name)
     perform_checks(extremeopt, E_in);
 }
 
-void test_smooth(const std::string& model_name)
+void test_smooth_all(const std::string& model_name)
 {
     extremeopt::ExtremeOpt extremeopt;
     extremeopt.m_params = default_params();
@@ -128,9 +128,9 @@ void test_smooth(const std::string& model_name)
 }
 void test_model(const std::string& model_name)
 {
-    test_collapse(model_name);
-    test_swap(model_name);
-    test_smooth(model_name);
+    test_collapse_all(model_name);
+    test_swap_all(model_name);
+    test_smooth_all(model_name);
 }
 
 TEST_CASE("helmet", "[helmet]")
