@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <nlohmann/json_fwd.hpp>
 namespace extremeopt {
 struct Parameters
 {
@@ -23,6 +24,9 @@ struct Parameters
 
 
     bool use_max_energy = false;
+
+
+    void load(const nlohmann::json& js);;
     /* data */
 };
 

@@ -18,6 +18,7 @@ add_library(wmtk_extreme_opt
 	split.cpp
 	collapse.cpp
 	smooth.cpp
+	Parameters.cpp
 )
 add_library(wmtk::extreme_opt ALIAS wmtk_extreme_opt)
 

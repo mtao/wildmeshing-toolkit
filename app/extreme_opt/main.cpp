@@ -21,8 +21,7 @@
 #include <igl/read_triangle_mesh.h>
 #include <igl/upsample.h>
 #include <igl/writeOBJ.h>
-#include "json.hpp"
-using json = nlohmann::json;
+#include <nlohmann/json.hpp>
 
 double check_constraints(
     const Eigen::MatrixXi& EE,
@@ -237,27 +236,11 @@ int main(int argc, char** argv)
     wmtk::logger().info("Initial constraints error {}", cons_residual);
 
     std::ifstream js_in(input_json);
-    json config = json::parse(js_in);
+    nlohmann::json config = nlohmann::json::parse(js_in);
     
-    param.max_iters = config["max_iters"]; // iterations
-    param.E_target = config["E_target"]; // Energy target
-    param.ls_iters = config["ls_iters"]; // param for linesearch in smoothing operation
-    param.do_newton = config["do_newton"]; // do newton/gd steps for smoothing operation
-    param.do_collapse = config["do_collapse"]; // do edge_collapse or not
-    param.do_swap = config["do_swap"]; // do edge_swap or not
-    param.do_split = config["do_split"]; // do edge_split or not
-    param.global_upsample = config["global_upsample"];
-    // do global/local smooth (local smooth does not optimize boundary vertices)
-    param.local_smooth = config["local_smooth"];
-    param.global_smooth = config["global_smooth"];
-    param.use_envelope = config["use_envelope"];
-    param.elen_alpha = config["elen_alpha"];
-    param.do_projection = config["do_projection"];
-    param.with_cons = config["with_cons"];
-
-    param.save_meshes = config["save_meshes"];
+    param.load(config);
     param.model_name = model;
-    json opt_log;
+    nlohmann::json opt_log;
     opt_log["model_name"] = model;
     opt_log["args"] = config;
     std::ofstream js_out(output_dir + "/" + model + ".json");

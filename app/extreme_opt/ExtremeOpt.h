@@ -5,13 +5,12 @@
 #include <wmtk/TriMesh.h>
 #include <wmtk/TriMeshOperation.h>
 #include "Parameters.h"
-#include "json.hpp"
+#include <nlohmann/json.hpp>
 // #include <fastenvelope/FastEnvelope.h>
 #include <igl/AABB.h>
 #include <Eigen/Sparse>
 #include <sec/envelope/SampleEnvelope.hpp>
 
-using json = nlohmann::json;
 
 // #define OPT_MAX
 
@@ -141,7 +140,7 @@ public:
     bool is_inverted(const Tuple& loc) const;
 
     // Optimization
-    void do_optimization(json& opt_log);
+    void do_optimization(nlohmann::json& opt_log);
 
     // Vertex Smoothing
     bool smooth_before(const Tuple& t);

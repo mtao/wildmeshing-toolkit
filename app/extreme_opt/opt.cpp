@@ -21,7 +21,7 @@
 using namespace wmtk;
 
 
-void extremeopt::ExtremeOpt::do_optimization(json& opt_log)
+void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
 {
     igl::Timer timer;
     double time;
