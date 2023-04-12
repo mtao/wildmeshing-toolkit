@@ -17,7 +17,7 @@ public:
         operator bool() const { return success;}
     };
 
-    ExecuteReturnData operator()(TriMesh& m, const Tuple& t);
+    virtual ExecuteReturnData operator()(TriMesh& m, const Tuple& t);
     virtual std::string name() const = 0;
 
 
@@ -216,4 +216,18 @@ public:
     bool after(TriMesh& m, ExecuteReturnData& ret_data) override;
     std::string name() const override;
 };
+
+
+class TriMeshChainOperation: public TriMeshOperation {
+
+    public:
+    ExecuteReturnData operator()(TriMesh& m, const Tuple& t) override;
+    // does nothing because we are mostly overriding operator()
+    ExecuteReturnData execute(TriMesh& m, const Tuple& t) override;
+    // does nothing because we are mostly overriding operator()
+    bool before(TriMesh& m, const Tuple& t) override;
+    // does nothing because we are mostly overriding operator()
+    bool after(TriMesh& m, ExecuteReturnData& ret_data) override;
+        std::vector<TriMeshOperation> operations;
+}
 } // namespace wmtk

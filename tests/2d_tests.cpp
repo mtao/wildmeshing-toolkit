@@ -509,3 +509,9 @@ TEST_CASE("split_operation", "[test_2d_operation]")
     }
 }
 
+
+TEST_CASE("loop_subdivision_operation", "[test_2d_operation]")
+{
+    wmtk::TriMeshChainOperation split_op;
+    // TODO: make split -> swap
+}

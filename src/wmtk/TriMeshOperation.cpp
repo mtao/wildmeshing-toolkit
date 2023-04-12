@@ -684,3 +684,48 @@ std::string TriMeshConsolidateOperation::name() const
     return "consolidate";
 }
 
+auto TriMeshConsolidateOperation::execute(TriMesh& m, const Tuple& t) -> ExecuteReturnData {
+    ExecuteReturnData ret;
+    return ret;
+}
+bool TriMeshConsolidateOperation::before(TriMesh& m, const Tuple& t)
+{
+    return true;
+}
+bool TriMeshConsolidateOperation::after(TriMesh& m, ExecuteReturnData& ret_data)
+{
+    ret_data.success &= true;
+    return ret_data;
+}
+
+auto TriMeshChainOperation::operator()(TriMesh& m, const Tuple& t) -> ExecuteReturnData
+{
+    ExecuteReturnData retdata;
+    retdata.success = false;
+
+    m.start_protected_connectivity();
+    m.start_protected_attributes();
+    for(op: m_operations) {
+        if (op.before(m, t)) {
+            retdata = op.execute(m, t);
+
+            if (retdata.success) {
+                if (!(op.after(m, retdata) && op.invariants(m, retdata))) {
+                    retdata.success = false;
+                }
+            }
+        }
+        if(!retdata.success) {
+            break;
+        }
+    }
+
+    if (retdata.success == false) {
+        m.rollback_protected_connectivity();
+        m.rollback_protected_attributes();
+    }
+    m.release_protected_connectivity();
+    m.release_protected_attributes();
+
+    return retdata;
+}
