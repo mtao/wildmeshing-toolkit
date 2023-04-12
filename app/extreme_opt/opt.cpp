@@ -31,6 +31,7 @@ void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
     Eigen::MatrixXd V, uv;
     Eigen::MatrixXi F;
 
+    consolidate_mesh_cons(); // use the one with constraints
     export_mesh(V, F, uv);
     // get edge length thresholds for collapsing operation
     elen_threshold = 0;
@@ -90,7 +91,11 @@ void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
     wmtk::logger().info("Start Energy E = {}", E);
     wmtk::logger().info("Start E_max = {}", compute_energy_max(uv));
     opt_log["opt_log"].push_back(
-                {{"F_size", F.rows()}, {"V_size", V.rows()}, {"E_max", compute_energy_max(uv)}, {"E", E},{"E_avg", E / dblarea.sum()}});
+        {{"F_size", F.rows()},
+         {"V_size", V.rows()},
+         {"E_max", compute_energy_max(uv)},
+         {"E", E},
+         {"E_avg", E / dblarea.sum()}});
     double E_old = E;
     for (int i = 1; i <= m_params.max_iters; i++) {
         double E_max;
@@ -99,6 +104,7 @@ void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
             auto Es = compute_energy_all(uv);
             split_all_edges(Es);
 
+            consolidate_mesh_cons(); // use the one with constraints
             export_mesh(V, F, uv);
             get_grad_op(V, F, G_global);
             igl::doublearea(V, F, dblarea);
@@ -125,6 +131,7 @@ void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
             swap_all_edges();
             time = timer.getElapsedTime();
             wmtk::logger().info("edges swapping operation time serial: {}s", time);
+            consolidate_mesh_cons(); // use the one with constraints
             export_mesh(V, F, uv);
 
             get_grad_op(V, F, G_global);
@@ -147,6 +154,7 @@ void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
 
         if (this->m_params.do_collapse) {
             collapse_all_edges();
+            consolidate_mesh_cons(); // use the one with constraints
             export_mesh(V, F, uv);
             get_grad_op(V, F, G_global);
             igl::doublearea(V, F, dblarea);
@@ -174,6 +182,7 @@ void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
             smooth_all_vertices();
             time = timer.getElapsedTime();
             wmtk::logger().info("LOCAL smoothing operation time serial: {}s", time);
+            consolidate_mesh_cons(); // use the one with constraints
             export_mesh(V, F, uv);
             get_grad_op(V, F, G_global);
             igl::doublearea(V, F, dblarea);
@@ -188,6 +197,7 @@ void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
             smooth_global(1);
             time = timer.getElapsedTime();
             wmtk::logger().info("GLOBAL smoothing operation time serial: {}s", time);
+            consolidate_mesh_cons(); // use the one with constraints
             export_mesh(V, F, uv);
             get_grad_op(V, F, G_global);
             igl::doublearea(V, F, dblarea);
@@ -197,9 +207,21 @@ void extremeopt::ExtremeOpt::do_optimization(nlohmann::json& opt_log)
             wmtk::logger().info("E_avg = {}", E / dblarea.sum());
             wmtk::logger().info("E_max = {}", E_max);
         }
-        if (m_params.save_meshes) igl::writeOBJ("new_tests/" + m_params.model_name + "_step_" + std::to_string(i) + "_smoothed.obj", V, F, V, F, uv, F);
+        if (m_params.save_meshes)
+            igl::writeOBJ(
+                "new_tests/" + m_params.model_name + "_step_" + std::to_string(i) + "_smoothed.obj",
+                V,
+                F,
+                V,
+                F,
+                uv,
+                F);
         opt_log["opt_log"].push_back(
-                {{"F_size", F.rows()}, {"V_size", V.rows()}, {"E_max", E_max}, {"E", E}, {"E_avg", E / dblarea.sum()}});
+            {{"F_size", F.rows()},
+             {"V_size", V.rows()},
+             {"E_max", E_max},
+             {"E", E},
+             {"E_avg", E / dblarea.sum()}});
         // terminate criteria
         // if (E < m_params.E_target) {
         //     wmtk::logger().info(

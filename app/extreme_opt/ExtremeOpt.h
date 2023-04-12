@@ -4,8 +4,8 @@
 #include <igl/Timer.h>
 #include <wmtk/TriMesh.h>
 #include <wmtk/TriMeshOperation.h>
-#include "Parameters.h"
 #include <nlohmann/json.hpp>
+#include "Parameters.h"
 // #include <fastenvelope/FastEnvelope.h>
 #include <igl/AABB.h>
 #include <Eigen/Sparse>
@@ -43,6 +43,12 @@ public:
 class EdgeAttributes
 {
 public:
+    // the other edge that this is constrained with in counterclockwise order
+    // if this halfedge points this way
+    //  --->
+    //  -------
+    //  the other halfedge ponts this way across the seam
+    //  <---
     wmtk::TriMesh::Tuple pair;
 };
 
@@ -108,13 +114,13 @@ public:
     void update_constraints_EE_v(const Eigen::MatrixXi& EE);
 
     // Exports V and F of the stored mesh
-    void export_mesh(Eigen::MatrixXd& V, Eigen::MatrixXi& F, Eigen::MatrixXd& uv);
+    void export_mesh(Eigen::MatrixXd& V, Eigen::MatrixXi& F, Eigen::MatrixXd& uv) const;
 
     // Export constraints EE
     void export_EE(Eigen::MatrixXi& EE);
 
     // Writes a triangle mesh in OBJ format
-    void write_obj(const std::string& path);
+    void write_obj(const std::string& path) const;
 
     // Computes the quality of a triangle
     double get_quality(const Tuple& loc) const;
@@ -134,8 +140,7 @@ public:
         const Tuple& t,
         Eigen::MatrixXd& V_local,
         Eigen::MatrixXd& uv_local,
-        Eigen::MatrixXi& F_local
-    );
+        Eigen::MatrixXi& F_local);
     // Check if a triangle is inverted
     bool is_inverted(const Tuple& loc) const;
 

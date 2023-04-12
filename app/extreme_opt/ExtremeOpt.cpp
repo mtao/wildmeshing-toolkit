@@ -49,7 +49,7 @@ void ExtremeOpt::create_mesh(
     tree.init(V, F);
     input_V = V;
     input_F = F;
-    
+
     // Register attributes
     p_vertex_attrs = &vertex_attrs;
     p_face_attrs = &face_attrs;
@@ -81,15 +81,14 @@ void ExtremeOpt::create_mesh(
         vertex_attrs[i].pos = uv.row(i).transpose();
         vertex_attrs[i].pos_3d = V.row(i).transpose();
     }
-    
-    if (this->m_params.use_envelope)
-    {
-    std::vector<Eigen::Vector3d> V_in(V.rows());
-    std::vector<Eigen::Vector3i> F_in(F.rows());
-    for (auto i = 0; i < V.rows(); i++) {
-        V_in[i] = vertex_attrs[i].pos_3d;
-    }
-    for (int i = 0; i < F_in.size(); ++i) F_in[i] << F(i,0), F(i,1), F(i,2); 
+
+    if (this->m_params.use_envelope) {
+        std::vector<Eigen::Vector3d> V_in(V.rows());
+        std::vector<Eigen::Vector3i> F_in(F.rows());
+        for (auto i = 0; i < V.rows(); i++) {
+            V_in[i] = vertex_attrs[i].pos_3d;
+        }
+        for (int i = 0; i < F_in.size(); ++i) F_in[i] = F.row(i).transpose();
         double diag = (V.colwise().maxCoeff().eval() - V.colwise().minCoeff().eval()).norm();
         m_envelope.use_exact = false;
         m_envelope.init(V_in, F_in, 0.01 * diag);
@@ -151,7 +150,7 @@ void ExtremeOpt::update_constraints_EE_v(const Eigen::MatrixXi& EE)
     }
 }
 
-void ExtremeOpt::export_mesh(Eigen::MatrixXd& V, Eigen::MatrixXi& F, Eigen::MatrixXd& uv)
+void ExtremeOpt::export_mesh(Eigen::MatrixXd& V, Eigen::MatrixXi& F, Eigen::MatrixXd& uv) const
 {
     // consolidate_mesh();
     consolidate_mesh_cons(); // use the one with constraints
@@ -277,7 +276,6 @@ void ExtremeOpt::get_mesh_onering_edge(
     Eigen::MatrixXd& uv_local,
     Eigen::MatrixXi& F_local)
 {
-
     auto vid1 = t.vid(*this);
     auto vid_onering1 = get_one_ring_vids_for_vertex(vid1);
     auto locs1 = get_one_ring_tris_for_vertex(t);
@@ -287,14 +285,11 @@ void ExtremeOpt::get_mesh_onering_edge(
     auto locs2 = get_one_ring_tris_for_vertex(t.switch_vertex(*this));
 
     int V_size = vid_onering1.size() + vid_onering2.size() - 2;
-    int F_size = locs1.size() + locs2.size(); 
-    if (is_boundary_edge(t))
-    {
+    int F_size = locs1.size() + locs2.size();
+    if (is_boundary_edge(t)) {
         V_size -= 1;
         F_size -= 1;
-    }
-    else
-    {
+    } else {
         V_size -= 2;
         F_size -= 2;
     }
@@ -303,26 +298,22 @@ void ExtremeOpt::get_mesh_onering_edge(
     uv_local.resize(V_size, 2);
 
     std::vector<int> v_map(vertex_attrs.size(), -1);
-    for(int i = 0; i < vid_onering1.size(); i++)
-    {
+    for (int i = 0; i < vid_onering1.size(); i++) {
         v_map[vid_onering1[i]] = i;
         V_local.row(i) = vertex_attrs[vid_onering1[i]].pos_3d;
         uv_local.row(i) = vertex_attrs[vid_onering1[i]].pos;
     }
     int cnt = vid_onering1.size();
-    for (int i = 0; i < vid_onering2.size(); i++)
-    {
-        if (v_map[vid_onering2[i]] == -1)
-        {
+    for (int i = 0; i < vid_onering2.size(); i++) {
+        if (v_map[vid_onering2[i]] == -1) {
             v_map[vid_onering2[i]] = cnt;
             V_local.row(cnt) = vertex_attrs[vid_onering2[i]].pos_3d;
             uv_local.row(cnt) = vertex_attrs[vid_onering2[i]].pos;
             cnt++;
         }
     }
-    
-    if (cnt != V_size)
-    {
+
+    if (cnt != V_size) {
         std::cout << "V_size Error in get_mesh_one_ring_edge" << std::endl;
     }
 
@@ -337,20 +328,17 @@ void ExtremeOpt::get_mesh_onering_edge(
         }
     }
     int f_cnt = locs1.size();
-    for (int i = 0; i < locs2.size(); i++){
+    for (int i = 0; i < locs2.size(); i++) {
         int t_id = locs2[i].fid(*this);
-        if (!is_f_used[t_id])
-        {
+        if (!is_f_used[t_id]) {
             is_f_used[t_id] = true;
             auto local_tuples = oriented_tri_vertices(locs2[i]);
-            for (int j = 0; j < 3; j++)
-            {
+            for (int j = 0; j < 3; j++) {
                 F_local(f_cnt, j) = v_map[local_tuples[j].vid(*this)];
             }
             f_cnt++;
         }
     }
-
 }
 
 
@@ -433,8 +421,7 @@ void ExtremeOpt::consolidate_mesh_cons()
     if (p_edge_attrs) p_edge_attrs->resize(tri_capacity() * 3);
     if (p_face_attrs) p_face_attrs->resize(tri_capacity());
 
-    if (m_params.with_cons)
-    {
+    if (m_params.with_cons) {
         // update constraints(edge tuple pairs)
         for (int i = 0; i < tri_capacity(); i++) {
             for (int j = 0; j < 3; j++) {
@@ -451,8 +438,7 @@ void ExtremeOpt::consolidate_mesh_cons()
 }
 bool ExtremeOpt::invariants(const std::vector<Tuple>& new_tris)
 {
-    if (m_params.use_envelope)
-    {
+    if (m_params.use_envelope) {
         for (auto& t : new_tris) {
             std::array<Eigen::Vector3d, 3> tris;
             auto vs = oriented_tri_vertices(t);
@@ -461,8 +447,8 @@ bool ExtremeOpt::invariants(const std::vector<Tuple>& new_tris)
                 return false;
             }
         }
-    } 
-    
+    }
+
     return true;
 }
 

@@ -26,7 +26,8 @@ struct Parameters
     bool use_max_energy = false;
 
 
-    void load(const nlohmann::json& js);;
+    void load(const nlohmann::json& js);
+    nlohmann::json save() const;
     /* data */
 };
 

@@ -9,6 +9,7 @@ set(TEST_SOURCES
     Models.cpp
     main.cpp
     test_model_loader.cpp
+    checks.cpp
     )
 
 add_executable(extreme_opt_tests ${TEST_SOURCES})
