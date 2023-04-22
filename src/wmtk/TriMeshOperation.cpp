@@ -33,20 +33,16 @@ size_t TriMeshOperation::get_next_empty_slot_v(TriMesh& m)
 }
 
 
-auto TriMeshOperation::operator()(TriMesh& m, const Tuple& t) -> ExecuteReturnData
+bool TriMeshOperation::operator()(TriMesh& m, const Tuple& t)
 {
-    ExecuteReturnData retdata;
-    retdata.success = false;
+
+    bool success = true;
 
     m.start_protected_connectivity();
     m.start_protected_attributes();
-    if (before(m, t)) {
-        retdata = execute(m, t);
-
-        if (retdata.success) {
-            if (!(after(m, retdata) && invariants(m, retdata))) {
-                retdata.success = false;
-            }
+    if (success &= before(m, t)) {
+        if(success &= execute(m, t)) {
+            success &= (after(m) && invariants(m));
         }
     }
 
@@ -91,14 +87,45 @@ auto TriMeshSplitEdgeOperation::execute(TriMesh& m, const Tuple& t) -> ExecuteRe
     auto& vertex_connectivity = this->vertex_connectivity(m);
     auto& tri_connectivity = this->tri_connectivity(m);
 
+
+    //         v2                 v2
+    //        /|\                /|\
+    //       / | \              / | \
+    //      /  |  \            /  |  \
+    //     /   |   \          /   |   \
+    //    /    |    \  ==>   /____nv___\
+    //    \    |    /        \    |    /
+    //     \   |   /          \   |   /
+    //      \  |  /            \  |  /
+    //       \ | /              \ | /
+    //        \|/                \|/
+    //         v1                 v1
+
+    // First do the right side (which is guarnateed to exist) then do the left side
+    //         v2                      v2
+    //         |\                      |\
+    //         | \                     | \
+    //         |  \                    |  \
+    //         |   \                   |nf1\
+    //         |    \ fid1_v3   ==>    nv___\ fid1_v3
+    //         |    /                  |    /
+    //         |   /                   |f1 /
+    //         |  /                    |  /
+    //         | /                     | /
+    //         |/                      |/
+    //         v1                      v1
+
     // get local eid for return tuple construction
     auto eid = t.local_eid(m);
-
     // get the vids
     size_t vid1 = t.vid(m);
     size_t vid2 = m.switch_vertex(t).vid(m);
     size_t fid1 = t.fid(m);
     size_t fid1_vid3 = ((t.switch_vertex(m)).switch_edge(m)).switch_vertex(m).vid(m);
+
+    // get an opt for if an opposing face exists
+    std::optional<Tuple> fid2_opt = t.switch_face(m);
+
 
     for (auto vid : tri_connectivity[fid1].m_indices) {
         if ((vid != vid1) && (vid != vid2)) {
@@ -106,94 +133,178 @@ auto TriMeshSplitEdgeOperation::execute(TriMesh& m, const Tuple& t) -> ExecuteRe
             break;
         }
     }
-    std::optional<size_t> fid2;
-    if (t.switch_face(m).has_value()) fid2 = (t.switch_face(m).value()).fid(m);
-    std::optional<size_t> fid2_vid3;
-    if (fid2.has_value()) {
-        for (auto vid : tri_connectivity[fid2.value()].m_indices) {
+
+
+    // create new face and vertex that will be used
+    size_t new_vid = get_next_empty_slot_v(m);
+    vertex_connectivity[new_vid].m_is_removed = false;
+    size_t new_fid1 = get_next_empty_slot_t(m);
+    tri_connectivity[new_fid1].m_is_removed = false;
+
+
+    // shrink old triangle by substituting v2 with nv
+    // requires:
+    //  removing f1 from v2
+    //  adding f1 to nv
+    //  replacing v2 with nv in f1
+    //
+    //         v2
+    //         |\
+    //         | \
+    //         |  \
+    //         |   \
+    //         |    \ fid1_v3   ==>    nv___  fid1_v3
+    //         |    /                  |    /
+    //         |   /                   |f1 /
+    //         |  /                    |  /
+    //         | /                     | /
+    //         |/                      |/
+    //         v1                      v1
+    // (replace v2 with nv)
+    // first work on the vids
+    // the old triangles are connected to the vertex of t
+
+    //  removing f1 from v2
+    vector_erase(vertex_connectivity[vid2].m_conn_tris, fid1);
+    //  adding f1 to nv
+    vertex_connectivity[new_vid].m_conn_tris.push_back(fid1);
+    //  replacing v2 with nv in f1
+    size_t j = tri_connectivity[fid1].find(vid2);
+    tri_connectivity[fid1].m_indices[j] = new_vid;
+
+
+    // connect up the new face with the right ordering
+    // attach nf1 to v2, nv, fid1_v3
+    // construct nf1 with the right ordering
+    //
+    //            v2
+    //            |\
+    //            | \
+    //            |  \
+    //            |nf1\
+    //            nv___\ fid1_v3
+
+    // attach nf1 to v2, nv, fid1_v3
+    for (size_t vid : {vid2, new_vid, fid1_vid3}) {
+        vertex_connectivity[vid].m_conn_tris.push_back(new_fid1);
+    }
+
+    // construct nf1 with the right ordering
+    // preserving ordering requires comparing with the original triangle
+    // we use i,j,k to alias the proper indices.
+    // j was evaluated on the original triangle, i,k are sought here
+    //
+    //       v2______ fid1_v3   ==>    j____ k
+    //         |    /                  |    /
+    //         |   /                   |f1 /
+    //         |  /                    |  /
+    //         | /                     | /
+    //         |/                      |/
+    //         v1                      i
+    //
+    //                                 ||
+    //                                 || //orientation preserving
+    //                                 \/
+    //
+    //          v2                     j
+    //          |\                     |\
+    //          | \                    | \
+    //          |  \         <==       |  \
+    //          |nf1\                  |nf1\
+    //          nv___\ fid1_v3         i____\ k
+
+    // identify fid1_v3 and v1 indices
+    size_t i = tri_connectivity[fid1].find(vid1);
+    size_t k = tri_connectivity[fid1].find(fid1_vid3);
+    // replace values according to the above diagram
+    tri_connectivity[new_fid1].m_indices[i] = new_vid;
+    tri_connectivity[new_fid1].m_indices[j] = vid2;
+    tri_connectivity[new_fid1].m_indices[k] = fid1_vid3;
+
+
+    // To return a caanonical face for the returned tuple pick the min face
+    size_t new_fid = std::min(fid1, new_fid1);
+
+    t.print_info();
+    // if f2 exists then we have to do an analogous process to the above
+    if (fid2_opt.has_value()) {
+        const size_t fid2 = fid2_opt.value().fid(m);
+        // removing f2 from v2
+        // adding f2 to nv
+        // replacing v2 with nv in f2
+        // attach nf2 to v2, nv, fid2_v3
+        // construct nf2 with the right ordering
+        //         v2                    v2
+        //        /|                     /|
+        //       / |                    / |
+        //      /  |                   /  |
+        //     /   |         fid2_v3  /   |
+        //    / f2 |       ==>       /____nv
+        //    \    |                 \    |
+        //     \   |                  \   |
+        //      \  |                   \  |
+        //       \ |                    \ |
+        //        \|                     \|
+        //         v1                     v1
+        // get the id of the face
+        // get the other vertex
+        size_t fid2_vid3;
+        for (auto vid : tri_connectivity[fid2].m_indices) {
             if ((vid != vid1) && (vid != vid2)) {
                 fid2_vid3 = vid;
                 break;
             }
         }
-    }
 
-    size_t new_vid = get_next_empty_slot_v(m);
-    size_t new_fid1 = get_next_empty_slot_t(m);
-    std::optional<size_t> new_fid2;
-    if (fid2.has_value()) new_fid2 = get_next_empty_slot_t(m);
+        size_t new_fid2 = get_next_empty_slot_t(m);
+        tri_connectivity[new_fid2].m_is_removed = false;
 
-    // first work on the vids
-    // the old triangles are connected to the vertex of t
-    // fid1_vid3
-    {
-        auto& conn_tris = vertex_connectivity[fid1_vid3].m_conn_tris;
-        conn_tris.push_back(new_fid1);
-        std::sort(conn_tris.begin(), conn_tris.end());
-    }
-    // vid2
-    vector_erase(vertex_connectivity[vid2].m_conn_tris, fid1);
-    vertex_connectivity[vid2].m_conn_tris.push_back(new_fid1);
-    if (fid2.has_value()) {
-        vector_erase(vertex_connectivity[vid2].m_conn_tris, fid2.value());
-        vertex_connectivity[vid2].m_conn_tris.push_back(new_fid2.value());
-    }
-    std::sort(
-        vertex_connectivity[vid2].m_conn_tris.begin(),
-        vertex_connectivity[vid2].m_conn_tris.end());
-    // fid2_vid3
-    if (fid2_vid3.has_value()) {
-        vertex_connectivity[fid2_vid3.value()].m_conn_tris.push_back(new_fid2.value());
+
+        // removing f2 from v2
+        vector_erase(vertex_connectivity[vid2].m_conn_tris, fid2);
+        // adding f2 to nv
+        vertex_connectivity[new_vid].m_conn_tris.push_back(fid2);
+        // replacing v2 with nv in f2
+        j = tri_connectivity[fid2].find(vid2);
+        tri_connectivity[fid2].m_indices[j] = new_vid;
+        // attach nf2 to v2, nv, fid2_v3
+        for (const size_t vid : {vid2, new_vid, fid2_vid3}) {
+            vertex_connectivity[vid].m_conn_tris.push_back(new_fid2);
+        }
+
+        // {vid1,vid2,fid2_vid3} => {i,j,k} => {nv, vid2, fid2_v3}
+        // construct nf2 with the right ordering
+        i = tri_connectivity[fid2].find(vid1);
+        k = tri_connectivity[fid2].find(fid2_vid3);
+        tri_connectivity[new_fid2].m_indices[i] = new_vid;
+        tri_connectivity[new_fid2].m_indices[j] = vid2;
+        tri_connectivity[new_fid2].m_indices[k] = fid2_vid3;
+
         std::sort(
-            vertex_connectivity[fid2_vid3.value()].m_conn_tris.begin(),
-            vertex_connectivity[fid2_vid3.value()].m_conn_tris.end());
+            vertex_connectivity[fid2_vid3].m_conn_tris.begin(),
+            vertex_connectivity[fid2_vid3].m_conn_tris.end());
+
+
+        // as part of returning a caanonical face for the return tuple we check with new fid
+        new_fid = std::min(new_fid, new_fid2);
+
+        // update all modified hashes
+        tri_connectivity[fid2].hash++;
+        tri_connectivity[new_fid2].hash++;
     }
-
-    // new_vid
-    vertex_connectivity[new_vid].m_is_removed = false;
-    vertex_connectivity[new_vid].m_conn_tris.push_back(fid1);
-    vertex_connectivity[new_vid].m_conn_tris.push_back(new_fid1);
-    if (fid2.has_value()) {
-        vertex_connectivity[new_vid].m_conn_tris.push_back(fid2.value());
-        vertex_connectivity[new_vid].m_conn_tris.push_back(new_fid2.value());
+    // clean up new vertex connectivity orders for vertices modified
+    for (size_t vid : {vid2, new_vid, fid1_vid3}) {
+        std::sort(
+            vertex_connectivity[vid].m_conn_tris.begin(),
+            vertex_connectivity[vid].m_conn_tris.end());
     }
-    std::sort(
-        vertex_connectivity[new_vid].m_conn_tris.begin(),
-        vertex_connectivity[new_vid].m_conn_tris.end());
-
-
-    // now the triangles
-    // need to update the hash
-    // fid1 fid2 update m_indices and hash
-    size_t j = tri_connectivity[fid1].find(vid2);
-    tri_connectivity[fid1].m_indices[j] = new_vid;
+    // update all modified hashes
     tri_connectivity[fid1].hash++;
-    size_t i = tri_connectivity[fid1].find(vid1);
-    size_t k = tri_connectivity[fid1].find(fid1_vid3);
-    // new_fid1 m_indices in same order
-    tri_connectivity[new_fid1].m_indices[i] = new_vid;
-    tri_connectivity[new_fid1].m_indices[j] = vid2;
-    tri_connectivity[new_fid1].m_indices[k] = fid1_vid3;
     tri_connectivity[new_fid1].hash++;
-    tri_connectivity[new_fid1].m_is_removed = false;
-    if (fid2.has_value()) {
-        j = tri_connectivity[fid2.value()].find(vid2);
-        tri_connectivity[fid2.value()].m_indices[j] = new_vid;
-        tri_connectivity[fid2.value()].hash++;
-        i = tri_connectivity[fid2.value()].find(vid1);
-        k = tri_connectivity[fid2.value()].find(fid2_vid3.value());
-        // new_fid1 m_indices in same order
-        tri_connectivity[new_fid2.value()].m_indices[i] = new_vid;
-        tri_connectivity[new_fid2.value()].m_indices[j] = vid2;
-        tri_connectivity[new_fid2.value()].m_indices[k] = fid2_vid3.value();
-        tri_connectivity[new_fid2.value()].hash++;
-        tri_connectivity[new_fid2.value()].m_is_removed = false;
-    }
-    // make the new tuple
-    size_t new_fid = std::min(fid1, new_fid1);
-    if (new_fid2.has_value()) new_fid = std::min(new_fid, new_fid2.value());
+
+    // find the position of the new vertex in the selected face
     int l = tri_connectivity[new_fid].find(new_vid);
-    auto new_vertex = Tuple(new_vid, (l + 2) % 3, new_fid, m);
+    Tuple new_vertex(new_vid, (l + 2) % 3, new_fid, m);
     return_tuple = Tuple(vid1, eid, fid1, m);
     assert(new_vertex.is_valid(m));
     assert(return_tuple.is_valid(m));
@@ -684,3 +795,9 @@ std::string TriMeshConsolidateOperation::name() const
     return "consolidate";
 }
 
+
+void TriMeshOperation::ExecuteReturnData::combine(const ExecuteReturnData& other)
+{
+    this->success &= other.success;
+    this->new_tris.insert(this->new_tris.end(), other.new_tris.begin(), other.new_tris.end());
+}

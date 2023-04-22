@@ -33,7 +33,9 @@ enum class ExecutionPolicy { kSeq, kUnSeq, kPartition, kColor, kMax };
 
 using Op = std::string;
 
-template <class AppMesh, ExecutionPolicy policy = ExecutionPolicy::kSeq>
+
+
+template <class AppMesh, typename PriorityType=double, ExecutionPolicy policy = ExecutionPolicy::kSeq>
 struct ExecutePass
 {
     using Tuple = typename AppMesh::Tuple;
@@ -47,8 +49,9 @@ struct ExecutePass
      */
     std::map<
         Op, // strings
-        OperatorFunc>
+        OperatorFunc>// lambda function
         edit_operation_maps;
+
     std::map<
         Op, // strings
         std::shared_ptr<OperationType>>
@@ -57,7 +60,28 @@ struct ExecutePass
      * @brief Priority function (default to edge length)
      *
      */
-    std::function<double(const AppMesh&, Op op, const Tuple&)> priority = [](auto&, auto, auto&) {
+    std::function<PriorityType(const AppMesh&, Op op, const Tuple&)> priority = [](auto&, auto, auto&) {
+        return PriorityType{};
+    };
+
+
+
+    template <typename T>
+        concept HasSpaceship = (T <=> T);
+
+
+    template <HasSpaceShip PriorityType>
+        class ExecutePass {
+
+        };
+
+    struct DoublePriorityItem: requires {
+        double value;
+        std::strong_ordering operator<=>(DoublePriorityItem&) const {
+            return value <=> o.value;
+        }
+    };
+    std::function<std::shared_ptr<PriorityItem>(const AppMesh&, Op op, const Tuple&)> priority = [](auto&, auto, auto&) {
         return 0.;
     };
     /**
@@ -69,9 +93,11 @@ struct ExecutePass
      * @brief renew neighboring Tuples after each operation depends on the operation
      *
      */
-    std::function<std::vector<std::pair<Op, Tuple>>(const AppMesh&, Op, const std::vector<Tuple>&)>
+    [[deprecated]] std::function<std::vector<std::pair<Op, Tuple>>(const AppMesh&, Op, const std::vector<Tuple>&)>
         renew_neighbor_tuples =
-            [](auto&, auto, auto&) -> std::vector<std::pair<Op, Tuple>> { return {}; };
+            [](auto& mesh, auto opname, auto&) -> std::vector<std::pair<Op, Tuple>> {
+                mesh.operation_map[opname]->renew();
+            };
     /**
      * @brief lock the vertices concerned depends on the operation
      *
@@ -301,9 +327,10 @@ public:
                         } // this can encode, in qslim, recompute(energy) == weight.
                         std::vector<std::pair<Op, Tuple>> renewed_tuples;
                         if constexpr (std::is_base_of<wmtk::TriMesh, AppMesh>::value) {
-                            auto ret_data = (*new_edit_operation_maps[op])( m, tup);
-                            if (ret_data.success) {
-                                renewed_tuples = renew_neighbor_tuples(m, op, ret_data.new_tris);
+                            TriMeshOperation& tri_op = (*new_edit_operation_maps[op]);
+                            bool success = tri_op( m, tup);
+                            if (success) {
+                                renewed_tuples = tri_op.renew(m);
                                 cnt_success++;
                                 cnt_update++;
                             } else {

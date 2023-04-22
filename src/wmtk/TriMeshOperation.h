@@ -9,27 +9,36 @@ public:
     using Tuple = TriMesh::Tuple;
     using VertexConnectivity = TriMesh::VertexConnectivity;
     using TriangleConnectivity = TriMesh::TriangleConnectivity;
-    struct ExecuteReturnData
-    {
-        Tuple tuple;
-        std::vector<Tuple> new_tris;
-        bool success = false;
-        operator bool() const { return success;}
-    };
 
-    ExecuteReturnData operator()(TriMesh& m, const Tuple& t);
+    bool operator()(TriMesh& m, const Tuple& t);
     virtual std::string name() const = 0;
+
+
 
 
     TriMeshOperation() {}
     virtual ~TriMeshOperation() {}
 
+    tbb::enumerable_thread_specific<Tuple> output;
 protected:
     // returns the changed tris + whether success occured
-    virtual ExecuteReturnData execute(TriMesh& m, const Tuple& t) = 0;
+    virtual bool execute(TriMesh& m, const Tuple& t)  {
+        output.local() = new_tuple;
+    }
     virtual bool before(TriMesh& m, const Tuple& t) = 0;
-    virtual bool after(TriMesh& m, ExecuteReturnData& ret_data) = 0;
+    virtual bool after(TriMesh& m)  {
+        output.local() = new_tuple;
+    }
+    
+    // virtuals controlled by the mesh
     virtual bool invariants(TriMesh& m, ExecuteReturnData& ret_data);
+
+    virtual std::vector<Tuple> renew(ExecutePass& pass, TriMesh& m) {
+        Tuple o = output.local();
+        return one_ring_neighborhood(o);
+
+    }
+    //virtual void renew(TriMesh& m) {m.renew();}
 
 
     // forwarding of operations in TriMesh
@@ -90,7 +99,7 @@ public:
 
     ExecuteReturnData execute(TriMesh& m, const Tuple& t) override
     {
-        return execute( static_cast<MeshType&>(m), t);
+        return execute(static_cast<MeshType&>(m), t);
     }
     bool before(TriMesh& m, const Tuple& t) override
     {
@@ -98,35 +107,32 @@ public:
     }
     bool after(TriMesh& m, ExecuteReturnData& ret_data) override
     {
-        return after( static_cast<MeshType&>(m), ret_data);
+        return after(static_cast<MeshType&>(m), ret_data);
     }
     bool invariants(TriMesh& m, ExecuteReturnData& ret_data) override
     {
-        return invariants( static_cast<MeshType&>(m), ret_data);
+        return invariants(static_cast<MeshType&>(m), ret_data);
     }
 
 private:
     ExecuteReturnData execute(MeshType& m, const Tuple& t) { return derived().execute(m, t); }
     bool before(MeshType& m, const Tuple& t) { return derived().before(m, t); }
-    bool after( MeshType& m, ExecuteReturnData& ret_data)
-    {
-        return derived().after(m, ret_data);
-    }
-    bool invariants( MeshType& m, ExecuteReturnData& ret_data)
+    bool after(MeshType& m, ExecuteReturnData& ret_data) { return derived().after(m, ret_data); }
+    bool invariants(MeshType& m, ExecuteReturnData& ret_data)
     {
         return derived().invariants(m, ret_data);
     }
 };
 
 
-    /**
-     * Split an edge
-     *
-     * @param t Input Tuple for the edge to split.
-     * @param[out] new_edges a vector of Tuples refering to the triangles incident to the new vertex
-     * introduced
-     * @return if split succeed
-     */
+/**
+ * Split an edge
+ *
+ * @param t Input Tuple for the edge to split.
+ * @param[out] new_edges a vector of Tuples refering to the triangles incident to the new vertex
+ * introduced
+ * @return if split succeed
+ */
 class TriMeshSplitEdgeOperation : public TriMeshOperation
 {
 public:
@@ -142,16 +148,15 @@ public:
 };
 
 
-
-    /**
-     * Swap an edge
-     *
-     * @param t Input Tuple for the edge to be swaped.
-     * @param[out] new_edges a vector of Tuples refering to the triangles incident to the new edge
-     * introduced
-     * @note swap edge a,b to edge c,d
-     * @return if swap succeed
-     */
+/**
+ * Swap an edge
+ *
+ * @param t Input Tuple for the edge to be swaped.
+ * @param[out] new_edges a vector of Tuples refering to the triangles incident to the new edge
+ * introduced
+ * @note swap edge a,b to edge c,d
+ * @return if swap succeed
+ */
 class TriMeshSwapEdgeOperation : public TriMeshOperation
 {
 public:
@@ -161,15 +166,15 @@ public:
     std::string name() const override;
 };
 
-    /**
-     * Collapse an edge
-     *
-     * @param t Input Tuple for the edge to be collapsed.
-     * @param[out] new_edges a vector of Tuples refering to the triangles incident to the new vertex
-     * introduced
-     * @note collapse edge a,b and generate a new vertex c
-     * @return if collapse succeed
-     */
+/**
+ * Collapse an edge
+ *
+ * @param t Input Tuple for the edge to be collapsed.
+ * @param[out] new_edges a vector of Tuples refering to the triangles incident to the new vertex
+ * introduced
+ * @note collapse edge a,b and generate a new vertex c
+ * @return if collapse succeed
+ */
 class TriMeshEdgeCollapseOperation : public TriMeshOperation
 {
 public:
@@ -186,13 +191,13 @@ public:
     static bool check_link_condition(const TriMesh& m, const Tuple& t);
 };
 
-    /**
-     * Smooth a vertex
-     *
-     * @param t Input Tuple for the vertex
-     * @note no geometry changed here
-     * @return if smooth succeed
-     */
+/**
+ * Smooth a vertex
+ *
+ * @param t Input Tuple for the vertex
+ * @note no geometry changed here
+ * @return if smooth succeed
+ */
 class TriMeshSmoothVertexOperation : public TriMeshOperation
 {
 public:
