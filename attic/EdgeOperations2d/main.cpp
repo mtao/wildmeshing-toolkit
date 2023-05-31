@@ -1,6 +1,6 @@
 #include <EdgeOperations2d.h>
 #include <igl/is_edge_manifold.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/writeDMAT.h>
 #include <stdlib.h>
 #include <wmtk/TriMesh.h>
@@ -58,7 +58,7 @@ int main(int argc, char** argv)
     const std::string path = argv[1];
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     const Eigen::MatrixXd box_min = V.colwise().minCoeff();
     const Eigen::MatrixXd box_max = V.colwise().maxCoeff();

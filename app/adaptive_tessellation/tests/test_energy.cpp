@@ -1,5 +1,5 @@
 #include <igl/predicates/predicates.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <wmtk/utils/AMIPS2D.h>
 #include <wmtk/utils/AMIPS2D_autodiff.h>
 #include <wmtk/utils/BoundaryParametrization.h>

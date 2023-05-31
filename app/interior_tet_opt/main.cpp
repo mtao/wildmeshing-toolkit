@@ -20,8 +20,7 @@
 
 #include <igl/Timer.h>
 #include <igl/doublearea.h>
-#include <igl/readMESH.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 
 #include <geogram/points/kd_tree.h>
 

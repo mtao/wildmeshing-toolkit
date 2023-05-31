@@ -2,7 +2,7 @@
 #include <common.h>
 #include <wmtk/TetMesh.h>
 
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/write_triangle_mesh.h>
 #include <catch2/catch.hpp>
 #include <wmtk/utils/io.hpp>
@@ -20,8 +20,8 @@ TEST_CASE("mesh_improvement", "[tetwild_operation][.slow]")
     std::string input_path = WMTK_DATA_DIR "/37322.stl";
 
     Eigen::MatrixXd V;
-    Eigen::MatrixXd F;
-    igl::read_triangle_mesh(input_path, V, F);
+    Eigen::MatrixXi F;
+    wmtk::read_triangle_mesh(input_path, V, F);
 
     std::vector<Vector3d> vertices(V.rows());
     std::vector<std::array<size_t, 3>> faces(F.rows());
@@ -44,7 +44,7 @@ TEST_CASE("mesh_improvement", "[tetwild_operation][.slow]")
     envelope.init(vertices, env_faces, params.eps);
 
     wmtk::remove_duplicates(vertices, faces, params.diag_l);
-    Eigen::MatrixXd new_F(faces.size(), 3);
+    Eigen::MatrixXi new_F(faces.size(), 3);
     for (int i = 0; i < faces.size(); i++) {
         new_F(i, 0) = faces[i][0];
         new_F(i, 1) = faces[i][1];

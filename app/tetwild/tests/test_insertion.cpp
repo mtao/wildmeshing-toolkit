@@ -10,7 +10,7 @@
 #include "spdlog/common.h"
 #include "wmtk/utils/InsertTriangleUtils.hpp"
 
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <wmtk/utils/Partitioning.h>
 
 using namespace wmtk;
@@ -19,9 +19,9 @@ using namespace tetwild;
 TEST_CASE("triangle-insertion", "[tetwild_operation]")
 {
     Eigen::MatrixXd V;
-    Eigen::MatrixXd F;
+    Eigen::MatrixXi F;
     std::string input_path = WMTK_DATA_DIR "/37322.stl";
-    igl::read_triangle_mesh(input_path, V, F);
+    wmtk::read_triangle_mesh(input_path, V, F);
     wmtk::logger().info("Read Mesh V={}, F={}", V.rows(), F.rows());
 
     std::vector<Vector3d> vertices(V.rows());
@@ -60,9 +60,9 @@ TEST_CASE("triangle-insertion", "[tetwild_operation]")
 TEST_CASE("triangle-insertion-parallel", "[tetwild_operation][.]")
 {
     Eigen::MatrixXd V;
-    Eigen::MatrixXd F;
+    Eigen::MatrixXi F;
     std::string input_path = WMTK_DATA_DIR "/Octocat.obj";
-    igl::read_triangle_mesh(input_path, V, F);
+    wmtk::read_triangle_mesh(input_path, V, F);
     wmtk::logger().info("Read Mesh V={}, F={}", V.rows(), F.rows());
 
     std::vector<Vector3d> vertices(V.rows());
@@ -88,7 +88,7 @@ TEST_CASE("triangle-insertion-parallel", "[tetwild_operation][.]")
     envelope.init(vertices, env_faces, params.eps);
     
     wmtk::remove_duplicates(vertices, faces, params.diag_l);
-    Eigen::MatrixXd new_F(faces.size(), 3);
+    Eigen::MatrixXi new_F(faces.size(), 3);
     for (int i = 0; i < faces.size(); i++) {
         new_F(i, 0) = faces[i][0];
         new_F(i, 1) = faces[i][1];

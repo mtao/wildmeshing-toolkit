@@ -1,4 +1,5 @@
 #include "ManifoldUtils.hpp"
+#include <igl/predicates/predicates.h>
 #include <wmtk/utils/VectorUtils.h>
 
 // clang-format off

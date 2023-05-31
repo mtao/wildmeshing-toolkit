@@ -3,8 +3,6 @@
 #include <igl/facet_components.h>
 #include <igl/is_edge_manifold.h>
 #include <igl/is_vertex_manifold.h>
-#include <igl/readMSH.h>
-#include <igl/read_triangle_mesh.h>
 #include <igl/remove_duplicate_vertices.h>
 #include <lagrange/utils/fpe.h>
 #include <lagrange/utils/timing.h>
@@ -17,6 +15,7 @@
 #include <wmtk/utils/Image.h>
 #include <wmtk/utils/autodiff.h>
 #include <wmtk/utils/bicubic_interpolation.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <CLI/CLI.hpp>
 #include <fstream>
 #include <functional>
@@ -68,7 +67,7 @@ int main(int argc, char** argv)
     // Loading the input mesh
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(input_file, V, F);
+    bool ok = wmtk::read_triangle_mesh(input_file, V, F);
     assert(ok);
     wmtk::logger().info("/////input: {}", input_file);
     wmtk::logger().info("/////interpolation wrapping mode: {}", wrapping_mode);

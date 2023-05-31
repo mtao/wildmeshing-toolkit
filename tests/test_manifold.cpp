@@ -1,4 +1,4 @@
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <wmtk/TetMesh.h>
 #include <catch2/catch.hpp>
 
@@ -36,7 +36,7 @@ TEST_CASE("manifold-separate-test-37989", "[test_util]")
     std::string filename = WMTK_DATA_DIR "/37989_sf.obj";
     wmtk::manifold_internal::Vertices V;
     wmtk::manifold_internal::Facets F;
-    igl::read_triangle_mesh(filename, V, F);
+    wmtk::read_triangle_mesh(filename, V, F);
     REQUIRE_FALSE(igl::is_edge_manifold(F));
     std::vector<size_t> modified_vertices;
     wmtk::manifold_internal::resolve_nonmanifoldness(V, F, modified_vertices);

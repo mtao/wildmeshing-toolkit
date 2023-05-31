@@ -20,7 +20,7 @@
 #include <igl/Timer.h>
 #include <igl/boundary_facets.h>
 #include <igl/predicates/predicates.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/write_triangle_mesh.h>
 #include <spdlog/common.h>
 #include <CLI/CLI.hpp>

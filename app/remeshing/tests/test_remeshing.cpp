@@ -1,11 +1,12 @@
 #include <igl/is_edge_manifold.h>
 #include <igl/is_vertex_manifold.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/remove_duplicate_vertices.h>
 #include <remeshing/UniformRemeshing.h>
 #include <remeshing/UniformRemeshingOperations.h>
 #include <catch2/catch.hpp>
 #include <wmtk/utils/ManifoldUtils.hpp>
+#include <igl/predicates/predicates.h>
 
 
 using namespace wmtk;
@@ -17,7 +18,7 @@ TEST_CASE("uniform_remeshing", "[test_remeshing][.]")
     const std::string path = root + "/circle.obj";
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
 
@@ -63,7 +64,7 @@ TEST_CASE("test_swap", "[test_remeshing]")
 
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
 
@@ -105,7 +106,7 @@ TEST_CASE("test_split", "[test_remeshing]")
     const std::string path = root + "/fan.obj";
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
 
@@ -136,7 +137,7 @@ TEST_CASE("remeshing_hanging", "[test_remeshing]")
     wmtk::logger().info("remeshing on {}", path);
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
     Eigen::VectorXi SVI, SVJ;
     Eigen::MatrixXd temp_V = V; // for STL file
     igl::remove_duplicate_vertices(temp_V, 0, V, SVI, SVJ);
@@ -208,7 +209,7 @@ TEST_CASE("operation orient", "[test_remeshing]")
     const std::string path = root + "/fan.obj";
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
 
@@ -270,7 +271,7 @@ TEST_CASE("swap orient", "[test_remeshing]")
     const std::string path = root + "/fan.obj";
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
 

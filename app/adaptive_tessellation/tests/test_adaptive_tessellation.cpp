@@ -2,7 +2,7 @@
 #include <igl/facet_components.h>
 #include <igl/is_edge_manifold.h>
 #include <igl/is_vertex_manifold.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/remove_duplicate_vertices.h>
 #include <remeshing/UniformRemeshing.h>
 #include <wmtk/utils/AMIPS2D.h>
@@ -34,7 +34,7 @@ TEST_CASE("AABB")
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
 
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
     AdaptiveTessellation m;

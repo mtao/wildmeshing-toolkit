@@ -7,7 +7,7 @@
 #include <igl/Timer.h>
 #include <igl/is_edge_manifold.h>
 #include <igl/is_vertex_manifold.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 
 #include <Eigen/Core>
 #include <catch2/catch.hpp>
@@ -64,7 +64,7 @@ TEST_CASE("manifold-separate-test-37989", "[test_sec]")
     std::string filename = WMTK_DATA_DIR "/37989_sf.obj";
     wmtk::manifold_internal::Vertices V;
     wmtk::manifold_internal::Facets F;
-    igl::read_triangle_mesh(filename, V, F);
+    wmtk::read_triangle_mesh(filename, V, F);
     REQUIRE_FALSE(igl::is_edge_manifold(F));
     std::vector<size_t> modified_vertices;
     wmtk::manifold_internal::resolve_nonmanifoldness(V, F, modified_vertices);
@@ -186,7 +186,7 @@ TEST_CASE("shortest_edge_collapse_closed_mesh", "[test_sec]")
 
         Eigen::MatrixXd V;
         Eigen::MatrixXi F;
-        bool ok = igl::read_triangle_mesh(path, V, F);
+        bool ok = wmtk::read_triangle_mesh(path, V, F);
 
         REQUIRE(ok);
 
@@ -221,7 +221,7 @@ TEST_CASE("shortest_edge_collapse_octocat", "[test_sec][.slow]")
 
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
 
@@ -246,7 +246,7 @@ TEST_CASE("edge_manifold", "[test_sec]")
 
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
 
@@ -271,7 +271,7 @@ TEST_CASE("shortest_edge_collapse_circle", "[test_sec]")
 
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
 
@@ -301,7 +301,7 @@ TEST_CASE("metis_test_bigmesh", "[test_sec][.slow]")
 
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
     REQUIRE(ok);
 
     // change this for max concurrency

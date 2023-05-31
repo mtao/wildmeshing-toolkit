@@ -7,10 +7,8 @@
 #include <igl/Timer.h>
 #include <igl/is_edge_manifold.h>
 #include <igl/is_vertex_manifold.h>
-#include <igl/readOFF.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/remove_duplicate_vertices.h>
-#include <igl/writeDMAT.h>
 
 #include <stdlib.h>
 #include <chrono>
@@ -62,7 +60,7 @@ int main(int argc, char** argv)
 
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     Eigen::VectorXi SVI, SVJ;
     Eigen::MatrixXd temp_V = V; // for STL file

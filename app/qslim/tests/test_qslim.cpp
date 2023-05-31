@@ -1,4 +1,4 @@
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <qslim/QSLIM.h>
 
 #include <catch2/catch.hpp>
@@ -14,7 +14,7 @@ TEST_CASE("qec", "[test_qslim][.]")
 
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
     wmtk::logger().info("readin mesh is {}", ok);
     REQUIRE(ok);
     wmtk::logger().info("number of vertices {}", V.size());
@@ -43,7 +43,7 @@ TEST_CASE("qec_cost", "[test_qslim]")
 
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
     wmtk::logger().info("readin mesh is {}", ok);
     REQUIRE(ok);
     wmtk::logger().info("number of vertices {}", V.size());

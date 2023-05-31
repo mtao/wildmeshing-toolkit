@@ -1,10 +1,10 @@
 #include <catch2/catch.hpp>
 
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <wmtk/TetMesh.h>
 
 #include <igl/doublearea.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <wmtk/utils/TetraQualityUtils.hpp>
 #include "HarmonicTet.hpp"
 #include "spdlog/common.h"
@@ -76,7 +76,7 @@ TEST_CASE("harmonic-tet-swaps", "[harmtri][.slow]")
     {
         Eigen::MatrixXd V;
         Eigen::MatrixXi F;
-        igl::read_triangle_mesh(filename, V, F);
+        wmtk::read_triangle_mesh(filename, V, F);
         igl::upsample(V, F);
         wmtk::logger().info("Prepare to Delaunay: V {} F {}", V.rows(), F.rows());
         std::vector<wmtk::Point3D> points(V.rows());
@@ -117,7 +117,7 @@ TEST_CASE("parallel_harmonic-tet-swaps", "[parallel_harmtri][.slow]")
     {
         Eigen::MatrixXd V;
         Eigen::MatrixXi F;
-        igl::read_triangle_mesh(WMTK_DATA_DIR "/Octocat.obj", V, F);
+        wmtk::read_triangle_mesh(WMTK_DATA_DIR "/Octocat.obj", V, F);
         std::vector<wmtk::Point3D> points(V.rows());
         for (auto i = 0; i < V.rows(); i++) {
             for (auto j = 0; j < 3; j++) points[i][j] = V(i, j);

@@ -15,7 +15,7 @@
 #include <CLI/CLI.hpp>
 #include <igl/Timer.h>
 #include <igl/doublearea.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/remove_duplicate_vertices.h>
 #include <wmtk/utils/EnableWarnings.hpp>
 // clang-format on
@@ -96,7 +96,7 @@ auto process_points = [&args = args]() {
     {
         Eigen::MatrixXd V;
         Eigen::MatrixXi F;
-        igl::read_triangle_mesh(input, V, F);
+        wmtk::read_triangle_mesh(input, V, F);
         auto SV = V;
         Eigen::VectorXi SVI, SVJ;
         igl::remove_duplicate_vertices(SV, 1e-3, V, SVI, SVJ);

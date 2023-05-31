@@ -4,7 +4,7 @@
 
 #include <catch2/catch.hpp>
 
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 
 using namespace wmtk;
 using namespace tetwild;
@@ -15,7 +15,7 @@ TEST_CASE("optimize_mesh", "[test_runner]")
     const std::string path = root + "/Octocat.obj";
     Eigen::MatrixXd V;
     Eigen::MatrixXi F;
-    bool ok = igl::read_triangle_mesh(path, V, F);
+    bool ok = wmtk::read_triangle_mesh(path, V, F);
 
     REQUIRE(ok);
     REQUIRE(V.rows() == 18944);

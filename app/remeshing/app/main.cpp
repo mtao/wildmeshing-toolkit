@@ -5,7 +5,7 @@
 #include <wmtk/utils/Reader.hpp>
 
 #include <igl/Timer.h>
-#include <igl/read_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/writeDMAT.h>
 
 
