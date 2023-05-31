@@ -21,7 +21,6 @@
 #include <igl/boundary_facets.h>
 #include <igl/predicates/predicates.h>
 #include <wmtk/utils/triangle_mesh_io.h>
-#include <igl/write_triangle_mesh.h>
 #include <spdlog/common.h>
 #include <CLI/CLI.hpp>
 
@@ -201,7 +200,7 @@ int main(int argc, char** argv)
         for (auto i = 0; i < outface.size(); i++) {
             matF.row(i) << outface[i][0], outface[i][1], outface[i][2];
         }
-        igl::write_triangle_mesh(output_path + "_surface.obj", matV, matF);
+        wmtk::write_triangle_mesh(output_path + "_surface.obj", matV, matF);
         wmtk::logger().info("Output face size {}", outface.size());
         wmtk::logger().info("======= finish =========");
     }

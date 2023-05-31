@@ -4,6 +4,7 @@
 #include <igl/predicates/predicates.h>
 #include <wmtk/TriMesh.h>
 #include <wmtk/utils/VectorUtils.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <Eigen/Core>
 #include <Eigen/Geometry>
 #include <atomic>
@@ -713,7 +714,7 @@ bool UniformRemeshing::write_triangle_mesh(std::string path)
             F(i, j) = vs[j].vid(*this);
         }
     }
-    igl::write_triangle_mesh(path, V, F);
+    wmtk::write_triangle_mesh(path, V, F);
     bool manifold = check_edge_manifold();
     assert(manifold);
 

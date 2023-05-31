@@ -6,6 +6,7 @@
 #include <Eigen/Geometry>
 #include <wmtk/ExecutionScheduler.hpp>
 #include <wmtk/utils/TupleUtils.hpp>
+#include <wmtk/utils/triangle_mesh_io.h>
 
 using namespace wmtk;
 using namespace app::qslim;
@@ -337,7 +338,7 @@ bool QSLIM::write_triangle_mesh(std::string path)
         }
     }
 
-    return igl::write_triangle_mesh(path, V, F);
+    return wmtk::write_triangle_mesh(path, V, F);
 }
 
 bool QSLIM::collapse_edge_before(const Tuple& t)
