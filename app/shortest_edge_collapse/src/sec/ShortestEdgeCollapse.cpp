@@ -3,6 +3,7 @@
 #include <wmtk/utils/VectorUtils.h>
 #include <wmtk/ExecutionScheduler.hpp>
 #include <wmtk/utils/TupleUtils.hpp>
+#include <wmtk/utils/triangle_mesh_io.h>
 
 #include <Eigen/Core>
 #include <Eigen/Geometry>
@@ -134,7 +135,7 @@ bool ShortestEdgeCollapse::write_triangle_mesh(std::string path)
         }
     }
 
-    return igl::write_triangle_mesh(path, V, F);
+    return wmtk::write_triangle_mesh(path, V, F);
 }
 
 bool ShortestEdgeCollapse::collapse_edge_before(const Tuple& t)

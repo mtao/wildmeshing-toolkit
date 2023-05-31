@@ -17,7 +17,7 @@
 #include <Tracy.hpp>
 #include <igl/predicates/predicates.h>
 #include <igl/winding_number.h>
-#include <igl/write_triangle_mesh.h>
+#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/Timer.h>
 #include <igl/orientable_patches.h>
 #include <wmtk/utils/EnableWarnings.hpp>
@@ -391,7 +391,7 @@ void tetwild::TetWild::output_faces(
         matF.row(i) << outface[i][0], outface[i][1], outface[i][2];
     }
     wmtk::logger().info("Output face size {}", outface.size());
-    igl::write_triangle_mesh(file, matV, matF);
+    wmtk::write_triangle_mesh(file, matV, matF);
 }
 
 

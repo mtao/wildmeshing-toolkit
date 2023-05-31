@@ -8,6 +8,8 @@ namespace wmtk {
 
 bool read_triangle_mesh(const std::filesystem::path& path, Eigen::MatrixXd& V, Eigen::MatrixXi& F);
 bool read_triangle_mesh(const std::filesystem::path& path, Eigen::MatrixXf& V, Eigen::MatrixXi& F);
+bool write_triangle_mesh(const std::filesystem::path& path, const Eigen::MatrixXd& V, const Eigen::MatrixXi& F);
+bool write_triangle_mesh(const std::filesystem::path& path, const Eigen::MatrixXf& V, const Eigen::MatrixXi& F);
 
 bool read_triangle_mesh(
     const std::filesystem::path& path,

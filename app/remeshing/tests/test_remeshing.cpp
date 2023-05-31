@@ -1,12 +1,18 @@
+#include <wmtk/utils/triangle_mesh_io.h>
+
+// clang-format off
+#include <wmtk/utils/DisableWarnings.hpp>
 #include <igl/is_edge_manifold.h>
 #include <igl/is_vertex_manifold.h>
-#include <wmtk/utils/triangle_mesh_io.h>
 #include <igl/remove_duplicate_vertices.h>
+#include <igl/predicates/predicates.h>
+#include <wmtk/utils/EnableWarnings.hpp>
+// clang-format on
+
 #include <remeshing/UniformRemeshing.h>
 #include <remeshing/UniformRemeshingOperations.h>
 #include <catch2/catch.hpp>
 #include <wmtk/utils/ManifoldUtils.hpp>
-#include <igl/predicates/predicates.h>
 
 
 using namespace wmtk;
