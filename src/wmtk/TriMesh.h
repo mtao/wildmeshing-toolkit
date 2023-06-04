@@ -466,7 +466,7 @@ public:
     //     return m_conn_tris[index];
     // }
 
-    inline size_t operator[](const size_t index) const
+    size_t operator[](const size_t index) const
     {
         assert(index < m_conn_tris.size());
         return m_conn_tris[index];
@@ -513,13 +513,13 @@ public:
      */
     size_t hash = 0;
 
-    inline size_t& operator[](size_t index)
+    size_t& operator[](size_t index)
     {
         assert(index < 3);
         return m_indices[index];
     }
 
-    inline size_t operator[](size_t index) const
+    size_t operator[](size_t index) const
     {
         assert(index < 3);
         return m_indices[index];
@@ -529,9 +529,9 @@ public:
      * @return local vid of the vertex given the triangle
      * \n -1 if the vertex is not incident to the triangle
      */
-    inline int find(int v_id) const
+    int find(int v_id) const
     {
-        for (int j = 0; j < 3; j++) {
+        for (size_t j = 0; j < 3; j++) {
             if (v_id == m_indices[j]) return j;
         }
         return -1;
