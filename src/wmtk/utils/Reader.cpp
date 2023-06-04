@@ -1,4 +1,13 @@
 #include "Reader.hpp"
+#include <wmtk/utils/DisableWarnings.hpp>
+#include <geogram/mesh/mesh_io.h>
+#include <igl/is_edge_manifold.h>
+#include <igl/is_vertex_manifold.h>
+#include <igl/remove_duplicate_vertices.h>
+#include <igl/remove_unreferenced.h>
+#include <igl/resolve_duplicated_faces.h>
+#include <wmtk/utils/EnableWarnings.hpp>
+#include <wmtk/utils/ManifoldUtils.hpp>
 namespace wmtk {
 void stl_to_eigen(std::string input_surface, Eigen::MatrixXd& VI, Eigen::MatrixXi& FI)
 {

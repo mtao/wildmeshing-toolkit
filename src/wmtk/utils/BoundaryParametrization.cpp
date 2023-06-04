@@ -1,4 +1,13 @@
 #include "BoundaryParametrization.h"
+#include <wmtk/utils/DisableWarnings.hpp>
+#include <igl/boundary_loop.h>
+#include <igl/project_to_line_segment.h>
+#include <wmtk/utils/EnableWarnings.hpp>
+#include <Eigen/Cholesky>
+#include <wmtk/utils/Logger.hpp>
+#include <cmath>
+#include <Eigen/Dense>
+#include <Eigen/LU>
 namespace wmtk {
 void Boundary::construct_boudaries(const Eigen::MatrixXd& V, const Eigen::MatrixXi& F)
 {

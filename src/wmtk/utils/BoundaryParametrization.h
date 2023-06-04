@@ -1,14 +1,7 @@
 #pragma once
 
-#include <igl/boundary_loop.h>
-#include <igl/project_to_line_segment.h>
-#include <Eigen/Cholesky>
 #include <Eigen/Core>
-#include <Eigen/Dense>
-#include <Eigen/LU>
 #include <array>
-#include <cmath>
-#include "Logger.hpp"
 namespace wmtk {
 class Boundary
 {
