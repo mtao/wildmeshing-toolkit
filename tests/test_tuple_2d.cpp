@@ -269,9 +269,12 @@ TEST_CASE("2D_switch_sequences", "[tuple_operation],[tuple_2d]")
         for (const auto& t : vertices) {
             const Tuple t_long = m.switch_edge(m.switch_vertex(t));
             const Tuple t_short = m.switch_tuples(t, {PrimitiveType::Vertex, PrimitiveType::Edge});
+            const Tuple t_short_vt =
+                m.switch_tuples_unsafe_VT(t, PrimitiveType::Vertex, PrimitiveType::Edge);
             const Tuple t_short_u =
                 m.switch_tuples_unsafe(t, {PrimitiveType::Vertex, PrimitiveType::Edge});
             CHECK(tuple_equal(m, t_long, t_short));
+            CHECK(tuple_equal(m, t_long, t_short_vt));
             CHECK(tuple_equal(m, t_long, t_short_u));
             if (!m.is_boundary(t)) {
                 const Tuple _t_long = m.switch_edge(m.switch_face(t));

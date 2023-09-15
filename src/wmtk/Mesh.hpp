@@ -258,6 +258,9 @@ public:
         const Tuple& tuple,
         const std::initializer_list<PrimitiveType>& op_sequence) const;
 
+    template <typename... Rem>
+    Tuple switch_tuples_unsafe_VT(const Tuple& tuple, PrimitiveType p, Rem... rem) const;
+
     void set_capacities_from_flags();
     /**
      * @brief read in the m_capacities return the upper bound for the number of entities of the
@@ -435,6 +438,17 @@ Tuple Mesh::switch_tuples_unsafe(const Tuple& tuple, const ContainerType& sequen
         r = switch_tuple(r, primitive);
     }
     return r;
+}
+
+template <typename... Rem>
+Tuple Mesh::switch_tuples_unsafe_VT(const Tuple& tuple, PrimitiveType p, Rem... rem) const
+{
+    Tuple next = switch_tuple(tuple, p);
+    if constexpr (sizeof...(Rem) == 0) {
+        return next;
+    } else {
+        return switch_tuples_unsafe_VT(next, rem...);
+    }
 }
 
 } // namespace wmtk
