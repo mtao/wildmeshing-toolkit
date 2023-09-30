@@ -3,5 +3,5 @@
 #include "iterable/CofaceCellsIterable.hpp"
 
 namespace wmtk::simplex {
-CofaceCellsIterable coface_cells_iterable(const Mesh& mesh, const Simplex& simplex);
+CofaceCellsIterable top_level_cofaces_iterable(const Mesh& mesh, const Simplex& simplex);
 }
