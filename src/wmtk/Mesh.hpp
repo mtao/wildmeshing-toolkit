@@ -53,9 +53,6 @@ public:
 
     friend class operations::Operation;
 
-    // dimension is the dimension of the top level simplex in this mesh
-    // That is, a TriMesh is a 2, a TetMesh is a 3
-    Mesh(const long& dimension);
     Mesh(Mesh&& other);
     Mesh(const Mesh& other);
     Mesh& operator=(const Mesh& other);
@@ -138,6 +135,11 @@ public:
     virtual bool is_connectivity_valid() const = 0;
 
 protected: // member functions
+    // dimension is the dimension of the top level simplex in this mesh
+    // That is, a TriMesh is a 2, a TetMesh is a 3
+    Mesh(const long& dimension);
+
+
     Accessor<char> get_flag_accessor(PrimitiveType type);
     Accessor<long> get_cell_hash_accessor();
 
