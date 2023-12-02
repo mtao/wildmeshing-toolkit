@@ -12,10 +12,6 @@ template <typename T>
 class AccessorBase;
 
 template <typename T>
-class PerThreadAttributeScopeStacks;
-template <typename T>
-class AttributeScopeStack;
-template <typename T>
 class Attribute
 {
 public:
@@ -55,16 +51,10 @@ public:
 
     bool operator==(const Attribute<T>& o) const;
 
-    void push_scope();
-    void pop_scope(bool apply_updates);
-    void clear_current_scope();
 
-    // returns nullptr if no scope exists
-    AttributeScopeStack<T>* get_local_scope_stack_ptr();
 
 private:
     std::vector<T> m_data;
-    std::unique_ptr<PerThreadAttributeScopeStacks<T>> m_scope_stacks;
     long m_dimension = -1;
     T m_default_value = T(0);
 };

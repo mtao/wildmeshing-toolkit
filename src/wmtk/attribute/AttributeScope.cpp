@@ -23,9 +23,7 @@ auto AttributeScope<T>::load_const_cached_scalar_value(const AccessorBase<T>& ac
     const -> T
 {
     if (auto it = m_data.find(index); it != m_data.end()) {
-        const auto& dat = it->second.data;
-        assert(dat.size() == 1);
-        return dat(0);
+        return const_data(std::get<0>(it->second));
     } else if (m_parent) {
         return m_parent->load_const_cached_scalar_value(accessor, index);
     } else {
@@ -37,9 +35,7 @@ template <typename T>
 auto AttributeScope<T>::load_cached_scalar_value(AccessorBase<T>& accessor, long index) -> T&
 {
     if (auto it = m_data.find(index); it != m_data.end()) {
-        auto& dat = it->second.data;
-        assert(dat.size() == 1);
-        return dat(0);
+        return data(std::get<0>(it->second));
     } else if (m_parent) {
         return m_parent->load_cached_scalar_value(accessor, index);
     } else {
@@ -52,8 +48,7 @@ template <typename T>
 auto AttributeScope<T>::load_cached_vector_value(AccessorBase<T>& accessor, long index) -> MapResult
 {
     if (auto it = m_data.find(index); it != m_data.end()) {
-        auto& dat = it->second.data;
-        return MapResult(dat.data(), dat.size());
+        return data_as_map(std::get<0>(it.second));
     } else if (m_parent) {
         return m_parent->load_cached_vector_value(accessor, index);
     } else {
@@ -65,8 +60,7 @@ auto AttributeScope<T>::load_const_cached_vector_value(const AccessorBase<T>& ac
     const -> ConstMapResult
 {
     if (auto it = m_data.find(index); it != m_data.end()) {
-        auto& dat = it->second.data;
-        return ConstMapResult(dat.data(), dat.size());
+        return data_as_const_map(std::get<0>(it.second));
     } else if (m_parent) {
         return m_parent->load_const_cached_vector_value(accessor, index);
     } else {
@@ -81,7 +75,7 @@ auto AttributeScope<T>::load_it(
     bool mark_dirty) const -> typename DataStorage::iterator
 {
     auto [it, was_inserted] = AttributeCache<T>::load_it(index);
-    it->second.dirty |= mark_dirty;
+    std::get<1>(it->second)|= mark_dirty;
     if (was_inserted) {
         if (m_parent) {
             it->second.data = m_parent->load_const_cached_vector_value(accessor, index);
