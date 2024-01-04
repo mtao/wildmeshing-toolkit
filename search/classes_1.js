@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['basiccollapsenewattributestrategy_1886',['BasicCollapseNewAttributeStrategy',['../classwmtk_1_1operations_1_1tet__mesh_1_1_basic_collapse_new_attribute_strategy.html',1,'wmtk::operations::tet_mesh::BasicCollapseNewAttributeStrategy&lt; T &gt;'],['../classwmtk_1_1operations_1_1tri__mesh_1_1_basic_collapse_new_attribute_strategy.html',1,'wmtk::operations::tri_mesh::BasicCollapseNewAttributeStrategy&lt; T &gt;']]],
-  ['basicsplitnewattributestrategy_1887',['BasicSplitNewAttributeStrategy',['../classwmtk_1_1operations_1_1tet__mesh_1_1_basic_split_new_attribute_strategy.html',1,'wmtk::operations::tet_mesh::BasicSplitNewAttributeStrategy&lt; T &gt;'],['../classwmtk_1_1operations_1_1tri__mesh_1_1_basic_split_new_attribute_strategy.html',1,'wmtk::operations::tri_mesh::BasicSplitNewAttributeStrategy&lt; T &gt;']]],
-  ['boundaryawaycollapsenewattributestrategy_1888',['BoundaryAwayCollapseNewAttributeStrategy',['../classwmtk_1_1operations_1_1tri__mesh_1_1_boundary_away_collapse_new_attribute_strategy.html',1,'wmtk::operations::tri_mesh']]]
+  ['basecollapsenewattributestrategy_1858',['BaseCollapseNewAttributeStrategy',['../classwmtk_1_1operations_1_1_base_collapse_new_attribute_strategy.html',1,'wmtk::operations']]],
+  ['basesplitnewattributestrategy_1859',['BaseSplitNewAttributeStrategy',['../classwmtk_1_1operations_1_1_base_split_new_attribute_strategy.html',1,'wmtk::operations']]]
 ];

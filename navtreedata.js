@@ -86,23 +86,22 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_accessor_8cpp.html",
-"_logger_8hpp.html#a441d6ad4f19569c7d4946e743da1a925",
-"_sampling_8hpp.html#a7fb397130d29df144553a084734ea492add309e5586dd9ab277c7e1afa9c34bb6",
-"autogen_2tri__mesh_2local__switch__tuple_8cpp_source.html",
-"classwmtk_1_1_mesh.html#a956aac44b94a5742b67e721dfe4ee978",
-"classwmtk_1_1_simplicial_complex.html#a95bceffb3af1d1409ec140822a749520",
-"classwmtk_1_1attribute_1_1_attribute.html#aa0959fa93ac9259e385f325fa67b87f3",
-"classwmtk_1_1attribute_1_1_mesh_attributes.html#afce2d561011bf40d866a1a17e5b4c750",
-"classwmtk_1_1invariants_1_1_interior_edge_invariant.html",
-"classwmtk_1_1operations_1_1_edge_collapse.html#ab40d42fe863f35cab21ada5b93412909",
-"classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#a86e5bf60d691ede05b172b76b3e496e2",
-"classwmtk_1_1simplex_1_1_simplex_collection.html#aa4a2675404c8e8c1c3fd5a5e34042969",
-"functions_func_b.html",
-"namespacemembers.html",
-"namespacewmtk_1_1multimesh_1_1utils.html#aa0392bf28bb6c304127cf0eea634fee8",
-"struct_d_scalar2.html",
-"structwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_reference_wrapped_functor_return_type_3_01_23a8c2a4b43597b767a569292998b5bb.html#a7d6b4d6e7c6b4953bf12c6d182ac9aa2",
-"wildmeshing_8hpp.html"
+"_marching_options_8hpp.html#a5450a3ab21d590cbd8b68220592345f6",
+"_simplex_getter_8cpp.html#ac38b16089cd53ec4330d4f4aed46a086",
+"bicubic__interpolation_8cpp_source.html",
+"classwmtk_1_1_mesh.html#a9a1a8863d4694baab3679edfb5c0dccb",
+"classwmtk_1_1_tet_mesh.html#a19e60ea754380fcfcce2361b89589e49",
+"classwmtk_1_1attribute_1_1_attribute_handle.html#a8da4cfa7d519534743b3eee200578f6f",
+"classwmtk_1_1attribute_1_1_mutable_accessor.html#ac01c6d0499277ecd011b8d51961bdb7a",
+"classwmtk_1_1hash_3_01wmtk_1_1attribute_1_1_attribute_handle_01_4.html#ab5546dbb618c352cd28d4cedfcc27d21",
+"classwmtk_1_1operations_1_1_attributes_update_base.html#a4bea4266d7119bf32344e44ecc7a115e",
+"classwmtk_1_1operations_1_1edge__mesh_1_1_edge_operation_data.html#a1953b7fc9b69dc5fb1adaac297a8b7d7",
+"classwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_reference_wrapped_functor_return_cache.html#ae0f094cd19574b98771ed8eb7fac95b8",
+"functions_vars_d.html",
+"namespacewmtk.html#a0a7976035b3997694e57eb2e83d185fb",
+"namespacewmtk_1_1operations_1_1utils.html#a3e94d698922497c091993a8c5c7cd3a9",
+"struct_d_scalar2.html#a95a8b9016aa89344983169917c1c0671",
+"tet__mesh_2_collapse_new_attribute_topo_info_8cpp_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
