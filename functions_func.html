@@ -143,6 +143,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classwmtk_1_1_invariant_collection.html#a10f40accf62cfc42febcd68e40b004c6">wmtk::InvariantCollection</a>
 , <a class="el" href="classwmtk_1_1invariants_1_1_function_invariant.html#a7f10adfd6785666e6531cc7909b2a274">wmtk::invariants::FunctionInvariant</a>
 , <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a0c8a25754ca176f7d30bc01d02d6f33b">wmtk::invariants::Invariant</a>
+, <a class="el" href="classwmtk_1_1invariants_1_1_max_function_invariant.html#a1b7bbbbc2040253d110ed100054c9cb4">wmtk::invariants::MaxFunctionInvariant</a>
 , <a class="el" href="classwmtk_1_1invariants_1_1_min_incident_valence_invariant.html#a86763a63b94889f8e22cd9c705c84110">wmtk::invariants::MinIncidentValenceInvariant</a>
 , <a class="el" href="classwmtk_1_1operations_1_1_operation.html#a3cf4616909230345e0039b33c28d9214">wmtk::operations::Operation</a>
 , <a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#af83530e0ade4ad18992f3edc17a141ff">wmtk::SimplexInversionInvariant</a>
@@ -169,6 +170,11 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>as_string()
 : <a class="el" href="classwmtk_1_1utils_1_1_tuple_inspector.html#a7637fe37249cbe7262a4a5c931c40f75">wmtk::utils::TupleInspector</a>
 </li>
+<li>assert_capacity_valid()
+: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a899d353ddc2cf4666139c2d712284f98">wmtk::attribute::AttributeManager</a>
+, <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attributes.html#ab185c99164daadd77a830b0fe859ad30">wmtk::attribute::MeshAttributes&lt; T &gt;</a>
+, <a class="el" href="classwmtk_1_1_mesh.html#a61f2bd1d14343c57b62082ae877abde3">wmtk::Mesh</a>
+</li>
 <li>assign_collapsed()
 : <a class="el" href="classwmtk_1_1operations_1_1_collapse_new_attribute_strategy.html#a9019ee39c7ea7381c553f8e30b11262b">wmtk::operations::CollapseNewAttributeStrategy&lt; T &gt;</a>
 </li>
@@ -185,10 +191,13 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classwmtk_1_1attribute_1_1_accessor_base.html#a7d79b6640c27b53c1f370501c84b29b6">wmtk::attribute::AccessorBase&lt; _T &gt;</a>
 </li>
 <li>Attribute()
-: <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#a156720686b0e59cfc3c5e4dd0ff04e41">wmtk::attribute::Attribute&lt; T &gt;</a>
+: <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#aa0959fa93ac9259e385f325fa67b87f3">wmtk::attribute::Attribute&lt; T &gt;</a>
 </li>
 <li>attribute()
 : <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attributes.html#ad92ac78acac9a159db32c3922d203dde">wmtk::attribute::MeshAttributes&lt; T &gt;</a>
+</li>
+<li>attribute_count()
+: <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attributes.html#a782df93785c46a1a906984f7d519ffd5">wmtk::attribute::MeshAttributes&lt; T &gt;</a>
 </li>
 <li>attribute_handle()
 : <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attributes.html#a84aced1704735b3f36ba4e740ae01073">wmtk::attribute::MeshAttributes&lt; T &gt;</a>
@@ -211,7 +220,7 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 : <a class="el" href="classwmtk_1_1_attribute_cache_data.html#ab492a523cb0d9c0b2be6ef7cef545549">wmtk::AttributeCacheData&lt; T &gt;</a>
 </li>
 <li>AttributeHandle()
-: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_handle.html#a7f8fced84b323b8c79e39e58052a1c32">wmtk::attribute::AttributeHandle</a>
+: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_handle.html#a1da40262865fe4e669b9c3ffba43fc53">wmtk::attribute::AttributeHandle</a>
 </li>
 <li>AttributeManager()
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a3b04347c7c79c570ad20c88f29e779e5">wmtk::attribute::AttributeManager</a>
@@ -229,11 +238,17 @@ $(document).ready(function(){initNavTree('functions_func.html',''); initResizabl
 <li>AttributeScopeStack()
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_stack.html#ab5f7821839d803e79951251242bf3157">wmtk::attribute::AttributeScopeStack&lt; T &gt;</a>
 </li>
+<li>AttributesUpdate()
+: <a class="el" href="classwmtk_1_1operations_1_1_attributes_update.html#ab1a8207df4988f6459e7f36aceaa120b">wmtk::operations::AttributesUpdate</a>
+</li>
+<li>AttributesUpdateWithFunction()
+: <a class="el" href="classwmtk_1_1operations_1_1_attributes_update_with_function.html#a298db14393bd3f0f4454dabcc8084ccf">wmtk::operations::AttributesUpdateWithFunction</a>
+</li>
 <li>AttributeTransferStrategy()
 : <a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_strategy.html#add6ae343d68cad58dc943adca0139457">wmtk::operations::AttributeTransferStrategy&lt; MyType &gt;</a>
 </li>
 <li>AttributeTransferStrategyBase()
-: <a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html#ab9da713ef8bf4b17aa90faca9d5cf00a">wmtk::operations::AttributeTransferStrategyBase</a>
+: <a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html#a1f0e6eed3be553693b1d8e6feac98b64">wmtk::operations::AttributeTransferStrategyBase</a>
 </li>
 <li>AutoDiffRAII()
 : <a class="el" href="classwmtk_1_1function_1_1utils_1_1_auto_diff_r_a_i_i.html#a199b6168b9ef19ffada5b679dcf3fb01">wmtk::function::utils::AutoDiffRAII</a>

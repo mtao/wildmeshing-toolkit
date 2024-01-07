@@ -152,10 +152,10 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 </li>
 <li>serialize()
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#aa0543bdf757e0eb3154965c8ad15edc3">wmtk::attribute::Attribute&lt; T &gt;</a>
-, <a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a7a5985ce6165f84a0e8947967390d489">wmtk::attribute::AttributeManager</a>
+, <a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a2f9290f582622604dc0daba270c84f9b">wmtk::attribute::AttributeManager</a>
 , <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attributes.html#af3755612144a52fb4d518894186b882b">wmtk::attribute::MeshAttributes&lt; T &gt;</a>
-, <a class="el" href="classwmtk_1_1_mesh.html#a0b60c718ac7eeb8b41e1496473c9a519">wmtk::Mesh</a>
-, <a class="el" href="classwmtk_1_1_multi_mesh_manager.html#aace707432911c484982f266dca78d6e5">wmtk::MultiMeshManager</a>
+, <a class="el" href="classwmtk_1_1_mesh.html#aa77d8cd19421d1ce5959c8c0d3cb0b7e">wmtk::Mesh</a>
+, <a class="el" href="classwmtk_1_1_multi_mesh_manager.html#a8dcb566fc6859ab5e26ee40b3fe0d049">wmtk::MultiMeshManager</a>
 </li>
 <li>set()
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#adeb903fc24fc63c044f2fca7f9634710">wmtk::attribute::Attribute&lt; T &gt;</a>
@@ -191,6 +191,9 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 <li>set_face()
 : <a class="el" href="classwmtk_1_1_msh_reader.html#a013b767a49d468c3f33cabf96aa563c6">wmtk::MshReader</a>
 </li>
+<li>set_function()
+: <a class="el" href="classwmtk_1_1operations_1_1_attributes_update_with_function.html#a2d831318fdb7ad0d0528980f670ffce0">wmtk::operations::AttributesUpdateWithFunction</a>
+</li>
 <li>set_linear_solver_params()
 : <a class="el" href="classwmtk_1_1operations_1_1_optimization_smoothing.html#a05128377ac6b23c5a2dc99b80a06daee">wmtk::operations::OptimizationSmoothing</a>
 </li>
@@ -205,7 +208,7 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 : <a class="el" href="classwmtk_1_1operations_1_1_operation.html#afbd6dcef97f60e4109029fc8b985ddc0">wmtk::operations::Operation</a>
 </li>
 <li>set_rib_strategy()
-: <a class="el" href="classwmtk_1_1operations_1_1_split_new_attribute_strategy.html#a736dff31e721f6af81a578fd5ad41eab">wmtk::operations::SplitNewAttributeStrategy&lt; T &gt;</a>
+: <a class="el" href="classwmtk_1_1operations_1_1_split_new_attribute_strategy.html#af72084a0af62c320bbaa2e4387b68b26">wmtk::operations::SplitNewAttributeStrategy&lt; T &gt;</a>
 </li>
 <li>set_simplex_predicate()
 : <a class="el" href="classwmtk_1_1operations_1_1_new_attribute_strategy.html#aa6ffebc96bb7cf5d861585cf1924ff69">wmtk::operations::NewAttributeStrategy</a>
@@ -240,7 +243,7 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 , <a class="el" href="classstd_1_1numeric__limits_3_01_d_scalar2_3_01___scalar_00_01___gradient_00_01___hessian_01_4_01_4.html#a2b9384b0f583d9800811123fa1e0807b">std::numeric_limits&lt; DScalar2&lt; _Scalar, _Gradient, _Hessian &gt; &gt;</a>
 </li>
 <li>Simplex()
-: <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html#a3d986919d07615dc85757a5216c2089c">wmtk::simplex::Simplex</a>
+: <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html#a3a76ee20ee0fd27738bba1097cc1c2d8">wmtk::simplex::Simplex</a>
 </li>
 <li>simplex_is_in_intersection()
 : <a class="el" href="classwmtk_1_1components_1_1_tag_intersection.html#a7fa5965bec539d0db6775dfd0a9177d7">wmtk::components::TagIntersection</a>
@@ -304,14 +307,23 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 , <a class="el" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#aaf3714246bbe461555e1d0cb78f4f791">wmtk::TriMesh::TriMeshOperationExecutor</a>
 </li>
 <li>split_new_rib_edges()
-: <a class="el" href="classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a8af96f573f1a561ab9dda9375c2a2a4c">wmtk::operations::tri_mesh::EdgeOperationData</a>
+: <a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#affac0ce9f4e4bf2d80724c31186c2281">wmtk::operations::tet_mesh::EdgeOperationData</a>
+, <a class="el" href="classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a8af96f573f1a561ab9dda9375c2a2a4c">wmtk::operations::tri_mesh::EdgeOperationData</a>
+</li>
+<li>split_new_rib_faces()
+: <a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#af1fb41177c6ec48e607739caae953e66">wmtk::operations::tet_mesh::EdgeOperationData</a>
 </li>
 <li>split_output_edges()
 : <a class="el" href="classwmtk_1_1operations_1_1edge__mesh_1_1_edge_operation_data.html#aab21e7f4ee5ed99f1d35c23166b2d470">wmtk::operations::edge_mesh::EdgeOperationData</a>
+, <a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#aaac58f047b80d980bca85e827c34767a">wmtk::operations::tet_mesh::EdgeOperationData</a>
 , <a class="el" href="classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#afb2540171ed00a0002c0cc164f44cf4f">wmtk::operations::tri_mesh::EdgeOperationData</a>
 </li>
 <li>split_output_faces()
-: <a class="el" href="classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a3557aa84cf5634d2c476861d838ac4e0">wmtk::operations::tri_mesh::EdgeOperationData</a>
+: <a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#a3cfa0354922d6886f79d0d900861c7b2">wmtk::operations::tet_mesh::EdgeOperationData</a>
+, <a class="el" href="classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a3557aa84cf5634d2c476861d838ac4e0">wmtk::operations::tri_mesh::EdgeOperationData</a>
+</li>
+<li>split_output_tets()
+: <a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#a93b65b2e6050c50d8ae0ffb81ce186db">wmtk::operations::tet_mesh::EdgeOperationData</a>
 </li>
 <li>split_rib_simplices()
 : <a class="el" href="class_split_new_value_applicator_base.html#a9cc58fb3d2baaf9dba95fe97dbae9c2a">SplitNewValueApplicatorBase</a>
@@ -346,7 +358,7 @@ $(document).ready(function(){initNavTree('functions_func_s.html',''); initResiza
 : <a class="el" href="classwmtk_1_1_scheduler.html#a8f6696d2721e020eb8fd9afac9b1ac6f">wmtk::Scheduler</a>
 </li>
 <li>SubCacheHandle()
-: <a class="el" href="classwmtk_1_1io_1_1_sub_cache_handle.html#a623afd9816488a018595d00da72a0cc9">wmtk::io::SubCacheHandle</a>
+: <a class="el" href="classwmtk_1_1io_1_1_sub_cache_handle.html#aaf5fb07cb88b6a2ed3cbd09a960f6748">wmtk::io::SubCacheHandle</a>
 </li>
 <li>succeed()
 : <a class="el" href="classwmtk_1_1_scheduler_stats.html#a743d45b86c6ac7d696c26e2cad573ac9">wmtk::SchedulerStats</a>

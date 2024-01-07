@@ -1,5 +1,9 @@
 var dir_5421ed8c8fde3f7a08a046a47d931eae =
 [
+    [ "EdgeValenceInvariant.cpp", "_edge_valence_invariant_8cpp.html", null ],
+    [ "EdgeValenceInvariant.hpp", "_edge_valence_invariant_8hpp.html", [
+      [ "EdgeValenceInvariant", "classwmtk_1_1invariants_1_1_edge_valence_invariant.html", "classwmtk_1_1invariants_1_1_edge_valence_invariant" ]
+    ] ],
     [ "find_invariant_in_collection_by_type.hpp", "find__invariant__in__collection__by__type_8hpp.html", "find__invariant__in__collection__by__type_8hpp" ],
     [ "FunctionInvariant.cpp", "_function_invariant_8cpp.html", null ],
     [ "FunctionInvariant.hpp", "_function_invariant_8hpp.html", [
@@ -23,6 +27,10 @@ var dir_5421ed8c8fde3f7a08a046a47d931eae =
     [ "MaxEdgeLengthInvariant.hpp", "_max_edge_length_invariant_8hpp.html", [
       [ "MaxEdgeLengthInvariant", "classwmtk_1_1_max_edge_length_invariant.html", "classwmtk_1_1_max_edge_length_invariant" ]
     ] ],
+    [ "MaxFunctionInvariant.cpp", "_max_function_invariant_8cpp.html", null ],
+    [ "MaxFunctionInvariant.hpp", "_max_function_invariant_8hpp.html", [
+      [ "MaxFunctionInvariant", "classwmtk_1_1invariants_1_1_max_function_invariant.html", "classwmtk_1_1invariants_1_1_max_function_invariant" ]
+    ] ],
     [ "MinEdgeLengthInvariant.cpp", "_min_edge_length_invariant_8cpp.html", null ],
     [ "MinEdgeLengthInvariant.hpp", "_min_edge_length_invariant_8hpp.html", [
       [ "MinEdgeLengthInvariant", "classwmtk_1_1_min_edge_length_invariant.html", "classwmtk_1_1_min_edge_length_invariant" ]
@@ -42,6 +50,10 @@ var dir_5421ed8c8fde3f7a08a046a47d931eae =
     [ "MultiMeshTopologyInvariant.cpp", "_multi_mesh_topology_invariant_8cpp.html", null ],
     [ "MultiMeshTopologyInvariant.hpp", "_multi_mesh_topology_invariant_8hpp.html", [
       [ "MultiMeshEdgeTopologyInvariant", "classwmtk_1_1_multi_mesh_edge_topology_invariant.html", "classwmtk_1_1_multi_mesh_edge_topology_invariant" ]
+    ] ],
+    [ "NoBoundaryCollapseToInteriorInvariant.cpp", "_no_boundary_collapse_to_interior_invariant_8cpp.html", null ],
+    [ "NoBoundaryCollapseToInteriorInvariant.hpp", "_no_boundary_collapse_to_interior_invariant_8hpp.html", [
+      [ "NoBoundaryCollapseToInteriorInvariant", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant.html", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant" ]
     ] ],
     [ "SimplexInversionInvariant.cpp", "_simplex_inversion_invariant_8cpp.html", null ],
     [ "SimplexInversionInvariant.hpp", "_simplex_inversion_invariant_8hpp.html", [
