@@ -5,6 +5,7 @@
 #include <wmtk/attribute/MeshAttributes.hpp>
 
 #include <Eigen/Core>
+#include "AttributeFunction.hpp"
 
 namespace wmtk::function {
 
@@ -12,8 +13,8 @@ class PerSimplexFunction
 {
 public:
     PerSimplexFunction(
-        const Mesh& mesh,
-        const PrimitiveType primitive_type,
+        const Mesh& domain_mesh,
+        const PrimitiveType domain_primitive_type,
         const attribute::MeshAttributeHandle& variable_attribute_handle);
     virtual ~PerSimplexFunction() {}
 
@@ -24,7 +25,9 @@ public:
      * @param domain_simplex The domain that the function is defined over.
      * @return double The numerical value of the function at the input domain.
      */
-    virtual double get_value(const simplex::Simplex& domain_simplex) const = 0;
+    virtual double get_value(
+        const simplex::Simplex& domain_simplex,
+        const simplex::Simplex& variable_simplex) const = 0;
     virtual Eigen::VectorXd get_gradient(
         const simplex::Simplex& domain_simplex,
         const simplex::Simplex& variable_simplex) const
@@ -38,20 +41,11 @@ public:
         throw std::runtime_error("Hessian not implemented");
     }
 
-    inline const Mesh& mesh() const { return m_mesh; }
-    inline const attribute::MeshAttributeHandle& attribute_handle() const
-    {
-        assert(m_handle.is_valid());
-        return m_handle;
-    }
-
-    int64_t embedded_dimension() const;
-
 private:
-    attribute::MeshAttributeHandle m_handle;
-    const Mesh& m_mesh;
+    attribute::MeshAttributeHandle m_variable_handle;
 
 protected:
-    const PrimitiveType m_primitive_type;
+    const Mesh& m_domain_mesh;
+    const PrimitiveType m_domain_primitive_type;
 };
 } // namespace wmtk::function

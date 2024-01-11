@@ -1,18 +1,14 @@
 #pragma once
 
-#include "Function.hpp"
+#include "NeighborhoodFunction.hpp"
 
 namespace wmtk::function {
 
-class PerSimplexFunction;
 
-class LocalNeighborsSumFunction : public Function
+class LocalNeighborsSumFunction : public NeighborhoodFunction
 {
 public:
-    LocalNeighborsSumFunction(
-        Mesh& mesh,
-        const attribute::MeshAttributeHandle& handle,
-        PerSimplexFunction& function);
+    using NeighborhoodFunction::NeighborhoodFunction;
     /**
      * @brief collects the local neigh and call the same m_function on all simplicies
      *
@@ -39,8 +35,9 @@ public:
 
     std::vector<simplex::Simplex> domain(const simplex::Simplex& variable_simplex) const override;
 
+
 private:
-    PerSimplexFunction& m_function;
-    PrimitiveType m_domain_simplex_type;
+    template <typename ReturnType, typename Zero, typename Func>
+    ReturnType get(Func&& f, const simplex::Simplex& variable_simplex, Zero&& zero) const;
 };
 } // namespace wmtk::function

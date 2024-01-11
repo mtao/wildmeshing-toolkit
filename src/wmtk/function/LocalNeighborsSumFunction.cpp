@@ -7,15 +7,8 @@
 
 namespace wmtk::function {
 
-
-LocalNeighborsSumFunction::LocalNeighborsSumFunction(
-    Mesh& mesh,
-    const attribute::MeshAttributeHandle& handle,
-    PerSimplexFunction& function)
-    : Function(mesh, handle)
-    , m_function(function)
-{
-    m_domain_simplex_type = mesh.top_simplex_type();
+namespace {
+template <typename
 }
 
 std::vector<simplex::Simplex> LocalNeighborsSumFunction::domain(
@@ -27,60 +20,57 @@ std::vector<simplex::Simplex> LocalNeighborsSumFunction::domain(
         m_domain_simplex_type);
 }
 
-double LocalNeighborsSumFunction::get_value(const simplex::Simplex& variable_simplex) const
+
+template <typename ReturnType, typename Func>
+ReturnType LocalNeighborsSumFunction::get(
+    Func&& f,
+    const simplex::Simplex& variable_simplex,
+    Zero&& zero) const
 {
     const auto neighs = domain(variable_simplex);
     assert(variable_simplex.primitive_type() == attribute_type());
 
-    assert(embedded_dimension() == m_function.embedded_dimension());
-    assert(mesh() == m_function.mesh());
     // assert(attribute_handle() == m_function.attribute_handle());
 
-    double res = 0;
+    ReturnType t = zero;
     for (const simplex::Simplex& cell : neighs) {
         assert(cell.primitive_type() == m_domain_simplex_type);
-        res += m_function.get_value(cell);
+        res += func(cell);
     }
 
     return res;
+}
+
+double LocalNeighborsSumFunction::get_value(const simplex::Simplex& variable_simplex) const
+{
+    return get<double>(
+        [&](const simplex::Simplex& domain_simplex) {
+            return function().get_value(domain_simplex, variable_simplex);
+        },
+        variable_simplex,
+        0.0);
 }
 
 Eigen::VectorXd LocalNeighborsSumFunction::get_gradient(
     const simplex::Simplex& variable_simplex) const
 {
-    const auto neighs = domain(variable_simplex);
-    assert(variable_simplex.primitive_type() == attribute_type());
-    assert(embedded_dimension() == m_function.embedded_dimension());
-    assert(mesh() == m_function.mesh());
-    // assert(attribute_handle() == m_function.attribute_handle());
-
-    Eigen::VectorXd res = Eigen::VectorXd::Zero(embedded_dimension());
-
-    for (const simplex::Simplex& cell : neighs) {
-        assert(cell.primitive_type() == m_domain_simplex_type);
-        res += m_function.get_gradient(cell, variable_simplex);
-    }
-
-    return res;
+    return get<Eigen::VectorXd>(
+        [&](const simplex::Simplex& domain_simplex) {
+            return function().get_gradient(domain_simplex, variable_simplex);
+        },
+        variable_simplex,
+        Eigen::VectorXd::Zero(embedded_dimension()));
 }
 
 Eigen::MatrixXd LocalNeighborsSumFunction::get_hessian(
     const simplex::Simplex& variable_simplex) const
 {
-    const auto neighs = domain(variable_simplex);
-    assert(variable_simplex.primitive_type() == attribute_type());
-    assert(embedded_dimension() == m_function.embedded_dimension());
-    assert(mesh() == m_function.mesh());
-    // assert(attribute_handle() == m_function.attribute_handle());
-
-    Eigen::MatrixXd res = Eigen::MatrixXd::Zero(embedded_dimension(), embedded_dimension());
-
-    for (const simplex::Simplex& cell : neighs) {
-        assert(cell.primitive_type() == m_domain_simplex_type);
-        res += m_function.get_hessian(cell, variable_simplex);
-    }
-
-    return res;
+    return get<Eigen::MatrixXd>(
+        [&](const simplex::Simplex& domain_simplex) -> double {
+            return function().get_gradient(domain_simplex, variable_simplex);
+        },
+        variable_simplex,
+        Eigen::MatrixXd::Zero(embedded_dimension(), embedded_dimension()));
 }
 
 } // namespace wmtk::function
