@@ -265,26 +265,18 @@ const Mesh& MultiMeshManager::get_child_mesh(
 
     return *cur_mesh;
 }
-Mesh& MultiMeshManager::get_child_mesh(
-    Mesh& my_mesh,
-    const std::vector<int64_t>& relative_id)
+Mesh& MultiMeshManager::get_child_mesh(Mesh& my_mesh, const std::vector<int64_t>& relative_id)
 {
     return const_cast<Mesh&>(get_child_mesh(const_cast<const Mesh&>(my_mesh), relative_id));
-
 }
-const Mesh& MultiMeshManager::get_mesh(
-        const Mesh& my_mesh,
-        const std::vector<int64_t>& absolute_id) const
+const Mesh& MultiMeshManager::get_mesh(const Mesh& my_mesh, const std::vector<int64_t>& absolute_id)
+    const
 {
     const Mesh& root = get_root_mesh(my_mesh);
     return root.m_multi_mesh_manager.get_child_mesh(root, absolute_id);
-
-
 }
 
-Mesh& MultiMeshManager::get_mesh(
-    Mesh& my_mesh,
-    const std::vector<int64_t>& absolute_id)
+Mesh& MultiMeshManager::get_mesh(Mesh& my_mesh, const std::vector<int64_t>& absolute_id)
 {
     Mesh& root = get_root_mesh(my_mesh);
     return root.m_multi_mesh_manager.get_child_mesh(root, absolute_id);
@@ -400,6 +392,9 @@ std::vector<Tuple> MultiMeshManager::map_tuples(
 
     return root_ref.m_multi_mesh_manager.map_down_relative_tuples(root_ref, simplex, other_id);
 }
+
+const Mesh& MultiMeshManager::least_upper_bound(const Mesh& my_mesh, const Mesh& other) const {}
+Mesh& MultiMeshManager::least_upper_bound(Mesh& my_mesh, const Mesh& other) const {}
 
 std::vector<Tuple> MultiMeshManager::lub_map_tuples(
     const Mesh& my_mesh,
@@ -542,6 +537,15 @@ std::vector<Tuple> MultiMeshManager::map_to_child_tuples(
     const auto map_handle = child_data.map_handle;
     // we will overwrite these tuples inline with the mapped ones while running down the map
     // functionalities
+    //
+    //
+    // map an edge from tetmesh to trimesh
+    //
+    // everything returned:
+    // tuple points to same vertex and edge
+    //
+    // return 1 tuple containing all simplices <= my_simplex.priomitive_type() per simplex
+    //
     std::vector<Tuple> tuples = simplex::top_dimension_cofaces_tuples(my_mesh, my_simplex);
     /*
         get all tuples of child mesh top simplex type that contain my_simplex

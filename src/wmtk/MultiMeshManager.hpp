@@ -163,6 +163,13 @@ public:
      * */
     std::vector<simplex::Simplex>
     map(const Mesh& my_mesh, const Mesh& other_mesh, const simplex::Simplex& my_simplex) const;
+
+
+
+    const Mesh& least_upper_bound(const Mesh& my_mesh, const Mesh& other) const;
+    Mesh& least_upper_bound(Mesh& my_mesh, const Mesh& other) const;
+
+
     /**
      * @brief maps a simplex from this mesh to any other mesh using the LUB as the root
      *
