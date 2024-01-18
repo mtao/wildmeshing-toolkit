@@ -31,6 +31,7 @@ var hierarchy =
       ] ]
     ] ],
     [ "wmtk::function::utils::AutoDiffRAII", "classwmtk_1_1function_1_1utils_1_1_auto_diff_r_a_i_i.html", null ],
+    [ "wmtk::multimesh::BoundaryChecker", "classwmtk_1_1multimesh_1_1_boundary_checker.html", null ],
     [ "wmtk::io::Cache", "classwmtk_1_1io_1_1_cache.html", null ],
     [ "wmtk::io::CacheStack", "classwmtk_1_1io_1_1_cache_stack.html", null ],
     [ "wmtk::Cell", "classwmtk_1_1_cell.html", null ],
@@ -54,12 +55,17 @@ var hierarchy =
     [ "wmtk::components::base::ComponentOptionsBase", "structwmtk_1_1components_1_1base_1_1_component_options_base.html", null ],
     [ "wmtk::utils::metaprogramming::tuple::concatenate_types< T, U >", "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1concatenate__types.html", null ],
     [ "wmtk::utils::metaprogramming::tuple::concatenate_types< std::tuple< Ts... >, std::tuple< Us... > >", "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1concatenate__types_3_01std_1_1tuple_3_01_ts_86d0a69fecfbdc8ad2729d5312a1839cd.html", null ],
+    [ "wmtk::components::internal::DiskOptions::Coordinates", "structwmtk_1_1components_1_1internal_1_1_disk_options_1_1_coordinates.html", null ],
+    [ "wmtk::components::internal::Grid2Options::Coordinates", "structwmtk_1_1components_1_1internal_1_1_grid2_options_1_1_coordinates.html", null ],
+    [ "wmtk::components::internal::Grid3Options::Coordinates", "structwmtk_1_1components_1_1internal_1_1_grid3_options_1_1_coordinates.html", null ],
+    [ "wmtk::components::internal::TriangleFanOptions::Coordinates", "structwmtk_1_1components_1_1internal_1_1_triangle_fan_options_1_1_coordinates.html", null ],
     [ "wmtk::components::internal::DelaunayOptions", "structwmtk_1_1components_1_1internal_1_1_delaunay_options.html", null ],
     [ "wmtk::utils::metaprogramming::DerivedReferenceWrapperVariantTraits< BaseType_, DerivedTypes >", "structwmtk_1_1utils_1_1metaprogramming_1_1_derived_reference_wrapper_variant_traits.html", null ],
     [ "DiffScalarBase", "struct_diff_scalar_base.html", [
       [ "DScalar1< _Scalar, _Gradient >", "struct_d_scalar1.html", null ],
       [ "DScalar2< _Scalar, _Gradient, _Hessian >", "struct_d_scalar2.html", null ]
     ] ],
+    [ "wmtk::components::internal::DiskOptions", "classwmtk_1_1components_1_1internal_1_1_disk_options.html", null ],
     [ "wmtk::operations::tri_mesh::EdgeOperationData::EarData", "structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_ear_data.html", null ],
     [ "wmtk::operations::tet_mesh::EdgeOperationData::EarTet", "structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_ear_tet.html", null ],
     [ "wmtk::operations::EdgeOperationData", "classwmtk_1_1operations_1_1_edge_operation_data.html", [
@@ -95,6 +101,9 @@ var hierarchy =
     [ "wmtk::utils::metaprogramming::tuple::detail::get_unique_types_tuple< T, RemainingTuple >", "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__types__tuple.html", null ],
     [ "wmtk::utils::metaprogramming::tuple::detail::get_unique_types_tuple< T, std::tuple< Ts... > >", "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__types__tuple_3_01_t_00f3e1a7192a11c9414a9ffa12a7f4b214.html", null ],
     [ "wmtk::components::internal::GetAllMeshesOptions", "structwmtk_1_1components_1_1internal_1_1_get_all_meshes_options.html", null ],
+    [ "wmtk::components::internal::Grid2Options", "classwmtk_1_1components_1_1internal_1_1_grid2_options.html", null ],
+    [ "wmtk::components::internal::Grid3Options", "classwmtk_1_1components_1_1internal_1_1_grid3_options.html", null ],
+    [ "wmtk::components::internal::GridOptions", "classwmtk_1_1components_1_1internal_1_1_grid_options.html", null ],
     [ "wmtk::hash< T >", "classwmtk_1_1hash.html", null ],
     [ "wmtk::hash< wmtk::attribute::AttributeHandle >", "classwmtk_1_1hash_3_01wmtk_1_1attribute_1_1_attribute_handle_01_4.html", [
       [ "std::hash< wmtk::attribute::AttributeHandle >", "classstd_1_1hash_3_01wmtk_1_1attribute_1_1_attribute_handle_01_4.html", null ]
@@ -133,7 +142,6 @@ var hierarchy =
     [ "wmtk::operations::tet_mesh::EdgeOperationData::IncidentTetData", "structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html", null ],
     [ "wmtk::components::internal::InputOptions", "structwmtk_1_1components_1_1internal_1_1_input_options.html", null ],
     [ "wmtk::invariants::Invariant", "classwmtk_1_1invariants_1_1_invariant.html", [
-      [ "wmtk::InvariantCollection", "classwmtk_1_1_invariant_collection.html", null ],
       [ "wmtk::MaxEdgeLengthInvariant", "classwmtk_1_1_max_edge_length_invariant.html", null ],
       [ "wmtk::MinEdgeLengthInvariant", "classwmtk_1_1_min_edge_length_invariant.html", null ],
       [ "wmtk::MultiMeshEdgeTopologyInvariant", "classwmtk_1_1_multi_mesh_edge_topology_invariant.html", null ],
@@ -144,11 +152,13 @@ var hierarchy =
       [ "wmtk::TodoLargerInvariant", "classwmtk_1_1_todo_larger_invariant.html", null ],
       [ "wmtk::TodoSmallerInvariant", "classwmtk_1_1_todo_smaller_invariant.html", null ],
       [ "wmtk::invariants::EdgeValenceInvariant", "classwmtk_1_1invariants_1_1_edge_valence_invariant.html", null ],
+      [ "wmtk::invariants::EnvelopeInvariant", "classwmtk_1_1invariants_1_1_envelope_invariant.html", null ],
       [ "wmtk::invariants::FunctionInvariant", "classwmtk_1_1invariants_1_1_function_invariant.html", null ],
       [ "wmtk::invariants::InteriorSimplexInvariant", "classwmtk_1_1invariants_1_1_interior_simplex_invariant.html", [
         [ "wmtk::invariants::InteriorEdgeInvariant", "classwmtk_1_1invariants_1_1_interior_edge_invariant.html", null ],
         [ "wmtk::invariants::InteriorVertexInvariant", "classwmtk_1_1invariants_1_1_interior_vertex_invariant.html", null ]
       ] ],
+      [ "wmtk::invariants::InvariantCollection", "classwmtk_1_1invariants_1_1_invariant_collection.html", null ],
       [ "wmtk::invariants::MaxFunctionInvariant", "classwmtk_1_1invariants_1_1_max_function_invariant.html", null ],
       [ "wmtk::invariants::MinIncidentValenceInvariant", "classwmtk_1_1invariants_1_1_min_incident_valence_invariant.html", null ],
       [ "wmtk::invariants::NoBoundaryCollapseToInteriorInvariant", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant.html", null ],
@@ -157,7 +167,6 @@ var hierarchy =
       [ "wmtk::invariants::ValenceImprovementInvariant", "classwmtk_1_1invariants_1_1_valence_improvement_invariant.html", null ],
       [ "wmtk::invariants::internal::ConstantInvariant", "classwmtk_1_1invariants_1_1internal_1_1_constant_invariant.html", null ]
     ] ],
-    [ "wmtk::components::internal::IsotropicRemeshing", "classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html", null ],
     [ "wmtk::components::internal::IsotropicRemeshingAttributes", "structwmtk_1_1components_1_1internal_1_1_isotropic_remeshing_attributes.html", null ],
     [ "wmtk::components::internal::IsotropicRemeshingOptions", "structwmtk_1_1components_1_1internal_1_1_isotropic_remeshing_options.html", null ],
     [ "wmtk::simplex::LinkIterable", "classwmtk_1_1simplex_1_1_link_iterable.html", null ],
@@ -201,7 +210,8 @@ var hierarchy =
     [ "wmtk::operations::Operation", "classwmtk_1_1operations_1_1_operation.html", [
       [ "wmtk::operations::AttributesUpdate", "classwmtk_1_1operations_1_1_attributes_update.html", [
         [ "wmtk::operations::AttributesUpdateWithFunction", "classwmtk_1_1operations_1_1_attributes_update_with_function.html", null ],
-        [ "wmtk::operations::OptimizationSmoothing", "classwmtk_1_1operations_1_1_optimization_smoothing.html", null ]
+        [ "wmtk::operations::OptimizationSmoothing", "classwmtk_1_1operations_1_1_optimization_smoothing.html", null ],
+        [ "wmtk::operations::composite::ProjectOperation", "classwmtk_1_1operations_1_1composite_1_1_project_operation.html", null ]
       ] ],
       [ "wmtk::operations::MeshOperation", "classwmtk_1_1operations_1_1_mesh_operation.html", [
         [ "wmtk::operations::EdgeCollapse", "classwmtk_1_1operations_1_1_edge_collapse.html", null ],
@@ -232,6 +242,7 @@ var hierarchy =
     [ "polysolve::nonlinear::Problem", null, [
       [ "wmtk::operations::OptimizationSmoothing::WMTKProblem", "classwmtk_1_1operations_1_1_optimization_smoothing_1_1_w_m_t_k_problem.html", null ]
     ] ],
+    [ "wmtk::components::internal::ProceduralOptions", "structwmtk_1_1components_1_1internal_1_1_procedural_options.html", null ],
     [ "wmtk::Rational", "classwmtk_1_1_rational.html", null ],
     [ "wmtk::simplex::RawSimplex", "classwmtk_1_1simplex_1_1_raw_simplex.html", null ],
     [ "wmtk::simplex::RawSimplexCollection", "classwmtk_1_1simplex_1_1_raw_simplex_collection.html", null ],
@@ -279,6 +290,7 @@ var hierarchy =
     [ "wmtk::components::internal::TagIntersectionOptions", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_options.html", null ],
     [ "wmtk::components::internal::TagIntersectionValues", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_values.html", null ],
     [ "wmtk::simplex::TopDimensionCofacesIterable", "classwmtk_1_1simplex_1_1_top_dimension_cofaces_iterable.html", null ],
+    [ "wmtk::components::internal::TriangleFanOptions", "classwmtk_1_1components_1_1internal_1_1_triangle_fan_options.html", null ],
     [ "wmtk::Tuple", "classwmtk_1_1_tuple.html", null ],
     [ "wmtk::utils::TupleCellLessThan", "classwmtk_1_1utils_1_1_tuple_cell_less_than.html", null ],
     [ "wmtk::utils::TupleInspector", "classwmtk_1_1utils_1_1_tuple_inspector.html", null ],

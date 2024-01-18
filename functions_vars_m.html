@@ -124,6 +124,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1components_1_1internal_1_1_tag_attribute.html#a1d7c5256383e7f6ed0eaedbe28372273">wmtk::components::internal::TagAttribute</a>
 , <a class="el" href="classwmtk_1_1operations_1_1_optimization_smoothing_1_1_w_m_t_k_problem.html#a4d57884076c1682c40c47d0e31a3d4b0">wmtk::operations::OptimizationSmoothing::WMTKProblem</a>
 </li>
+<li>m_active
+: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_stack.html#aa452d83614280fb38411552c9b1aa332">wmtk::attribute::AttributeScopeStack&lt; T &gt;</a>
+</li>
 <li>m_after
 : <a class="el" href="classwmtk_1_1invariants_1_1internal_1_1_constant_invariant.html#a0b74eb6267283cb9526ddeab4fd8a3c5">wmtk::invariants::internal::ConstantInvariant</a>
 </li>
@@ -137,13 +140,17 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1_mesh.html#af64daf6aaf6ffd14ce791695d6428cbc">wmtk::Mesh</a>
 </li>
 <li>m_attributes
-: <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attributes.html#a4f53b9f6fbb7da3f0ab16eadbb0e8569">wmtk::attribute::MeshAttributes&lt; T &gt;</a>
+: <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attributes.html#a0f5e1ce753026d570ed579f1120879d6">wmtk::attribute::MeshAttributes&lt; T &gt;</a>
 </li>
 <li>m_base_handle
 : <a class="el" href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html#a62604c0627ef1d827b82cdd747c6c1ed">wmtk::attribute::TypedAttributeHandle&lt; T &gt;</a>
 </li>
 <li>m_before
 : <a class="el" href="classwmtk_1_1invariants_1_1internal_1_1_constant_invariant.html#a3eb76c184bfee58ba11590012c98945f">wmtk::invariants::internal::ConstantInvariant</a>
+</li>
+<li>m_bvh
+: <a class="el" href="classwmtk_1_1invariants_1_1_envelope_invariant.html#abce7700146882e35e1136041e53d6e26">wmtk::invariants::EnvelopeInvariant</a>
+, <a class="el" href="classwmtk_1_1operations_1_1composite_1_1_project_operation.html#a309f3e5a5520db00b941013de1289964">wmtk::operations::composite::ProjectOperation</a>
 </li>
 <li>m_cache
 : <a class="el" href="classwmtk_1_1multimesh_1_1_multi_mesh_simplex_visitor.html#a9779d9864a6e3ae4c44ab2be4ad81c47">wmtk::multimesh::MultiMeshSimplexVisitor&lt; cell_dimension_, NodeFunctor_ &gt;</a>
@@ -155,7 +162,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1io_1_1_cache.html#affff86466804a066815b4ca15c3829bb">wmtk::io::Cache</a>
 </li>
 <li>m_cache_stack
-: <a class="el" href="classwmtk_1_1attribute_1_1_caching_accessor.html#a2ceb9a737cf5f203c334b46f183a1746">wmtk::attribute::CachingAccessor&lt; T &gt;</a>
+: <a class="el" href="classwmtk_1_1attribute_1_1_caching_accessor.html#a236ef64700046d9e5f05cc32a794b6c1">wmtk::attribute::CachingAccessor&lt; T &gt;</a>
 </li>
 <li>m_caches
 : <a class="el" href="classwmtk_1_1io_1_1_cache_stack.html#aaacaf2a344bf256ee74106e251089609">wmtk::io::CacheStack</a>
@@ -169,17 +176,12 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_char_attributes
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a1d14fdf5596beb7534c341c4aa160329">wmtk::attribute::AttributeManager</a>
 </li>
-<li>m_checkpoint_index
-: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope.html#a6370156b83173384cdc378c573fd48e9">wmtk::attribute::AttributeScope&lt; T &gt;</a>
-</li>
-<li>m_checkpoints
-: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_stack.html#a8cfd3c46e0efde366e80b6d16a5e0219">wmtk::attribute::AttributeScopeStack&lt; T &gt;</a>
-</li>
 <li>m_child_id
 : <a class="el" href="classwmtk_1_1_multi_mesh_manager.html#a38112ba70d3abedb6850b442843ce631">wmtk::MultiMeshManager</a>
 </li>
 <li>m_child_mesh
 : <a class="el" href="classwmtk_1_1_multi_mesh_edge_topology_invariant.html#ab83a3c1102b57317d9d1f5c498ba3f1e">wmtk::MultiMeshEdgeTopologyInvariant</a>
+, <a class="el" href="classwmtk_1_1operations_1_1composite_1_1_project_operation.html#a168abe8b4c8b908c6ac16a94b764421c">wmtk::operations::composite::ProjectOperation</a>
 </li>
 <li>m_children
 : <a class="el" href="classwmtk_1_1_multi_mesh_manager.html#a31162534ed431907e6f2ad56e3d8ed41">wmtk::MultiMeshManager</a>
@@ -205,15 +207,16 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 , <a class="el" href="classwmtk_1_1simplex_1_1_top_dimension_cofaces_iterable.html#a5bb09e93f7e86eb609761c0d494cf325">wmtk::simplex::TopDimensionCofacesIterable</a>
 </li>
 <li>m_coordinate_handle
-: <a class="el" href="classwmtk_1_1_max_edge_length_invariant.html#a6b1b2ee4014a5047bb33e22656f2f9c0">wmtk::MaxEdgeLengthInvariant</a>
+: <a class="el" href="classwmtk_1_1invariants_1_1_envelope_invariant.html#aa5cb3de3628dd4fe7d8e5270369cc8ab">wmtk::invariants::EnvelopeInvariant</a>
+, <a class="el" href="classwmtk_1_1_max_edge_length_invariant.html#a6b1b2ee4014a5047bb33e22656f2f9c0">wmtk::MaxEdgeLengthInvariant</a>
 , <a class="el" href="classwmtk_1_1_min_edge_length_invariant.html#a3f08f7d6f8e0717daaaffa365edfd7e8">wmtk::MinEdgeLengthInvariant</a>
 , <a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#aa4929b25b76e3ccfb66177dc1d2401d1">wmtk::SimplexInversionInvariant</a>
 </li>
+<li>m_coordinates
+: <a class="el" href="classwmtk_1_1operations_1_1composite_1_1_project_operation.html#a5fc6e6ef1a19551330ca5faf5a40e692">wmtk::operations::composite::ProjectOperation</a>
+</li>
 <li>m_critical_points
 : <a class="el" href="classwmtk_1_1multimesh_1_1utils_1_1internal_1_1_tuple_tag.html#aea5d78d589e51a908246569981f9a910">wmtk::multimesh::utils::internal::TupleTag</a>
-</li>
-<li>m_current
-: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_stack.html#a57d767dba301577b6dfc5b0b53ab32ab">wmtk::attribute::AttributeScopeStack&lt; T &gt;</a>
 </li>
 <li>m_damping_factor
 : <a class="el" href="classwmtk_1_1operations_1_1_vertex_tangential_laplacian_smooth.html#ab77241aa30cbc525897d5bbfc02af358">wmtk::operations::VertexTangentialLaplacianSmooth</a>
@@ -222,9 +225,6 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#abd4ae2278ecfb722ba3cb8e1c0f18b77">wmtk::attribute::Attribute&lt; T &gt;</a>
 , <a class="el" href="classwmtk_1_1attribute_1_1_attribute_cache.html#ac5518d087f33efe8fbf218bad1254789">wmtk::attribute::AttributeCache&lt; T &gt;</a>
 , <a class="el" href="classwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_reference_wrapped_functor_return_cache.html#a9fa14f38973e98fb5b4e26a7d4775dd2">wmtk::utils::metaprogramming::detail::ReferenceWrappedFunctorReturnCache&lt; Functor, BaseVariantTraitsType, OtherArgumentTypes &gt;</a>
-</li>
-<li>m_debug_output
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a02fd571f547c54a412c907ad844dd367">wmtk::components::internal::IsotropicRemeshing</a>
 </li>
 <li>m_default_value
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#a03af7f23d69aacf3f0fba85fa19d5646">wmtk::attribute::Attribute&lt; T &gt;</a>
@@ -235,18 +235,6 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_dimension
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#a3d2b408cca634ef9ab1a93106514d4f2">wmtk::attribute::Attribute&lt; T &gt;</a>
 , <a class="el" href="classwmtk_1_1_cell.html#a0c66199df63b67ab0a9add8180f88e3d">wmtk::Cell</a>
-</li>
-<li>m_do_collapse
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a54ef5ad2c69ebf0dee43affff6f1ddf6">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_do_smooth
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a3ec26cafcffda470b6fd579c03f01274">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_do_split
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#aa1758dd6c9ac86aef4b85a0c42e6c5b8">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_do_swap
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a0aa44057c18ace0e822c1f440e8e23cb">wmtk::components::internal::IsotropicRemeshing</a>
 </li>
 <li>m_domain_simplex_type
 : <a class="el" href="classwmtk_1_1function_1_1_local_neighbors_sum_function.html#a946acbb8bf9e688cab44c10445d73e23">wmtk::function::LocalNeighborsSumFunction</a>
@@ -262,6 +250,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_ee_handle
 : <a class="el" href="classwmtk_1_1_edge_mesh.html#a07b759fafee886dc6e149f11ee70173a">wmtk::EdgeMesh</a>
+</li>
+<li>m_ef_accessor
+: <a class="el" href="classwmtk_1_1_tri_mesh.html#ad28c3132648a5ffaf902e23ae29c52f7">wmtk::TriMesh</a>
 </li>
 <li>m_ef_handle
 : <a class="el" href="classwmtk_1_1_tri_mesh.html#a92e785babe37d54053ad2625192715ac">wmtk::TriMesh</a>
@@ -280,6 +271,15 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1operations_1_1_optimization_smoothing.html#a55c2d5c10d01a96fc87b1e305b68b798">wmtk::operations::OptimizationSmoothing</a>
 , <a class="el" href="classwmtk_1_1operations_1_1_optimization_smoothing_1_1_w_m_t_k_problem.html#a0073734a78d52d8bbc13ab344598528e">wmtk::operations::OptimizationSmoothing::WMTKProblem</a>
 </li>
+<li>m_envelope
+: <a class="el" href="classwmtk_1_1invariants_1_1_envelope_invariant.html#a28b2f11435f8aa1982f84db589ed3b08">wmtk::invariants::EnvelopeInvariant</a>
+</li>
+<li>m_envelope_size
+: <a class="el" href="classwmtk_1_1invariants_1_1_envelope_invariant.html#a91afb4ae30b04095739f234f52d913c6">wmtk::invariants::EnvelopeInvariant</a>
+</li>
+<li>m_et_accessor
+: <a class="el" href="classwmtk_1_1_tet_mesh.html#a35e97b506a635f7f10214975ffa54101">wmtk::TetMesh</a>
+</li>
 <li>m_et_handle
 : <a class="el" href="classwmtk_1_1_tet_mesh.html#ad79a9956fced8fa0d1f67ec5db050fb4">wmtk::TetMesh</a>
 </li>
@@ -289,8 +289,14 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_failed
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_handle.html#a6a5438a82adba26a148ebb26e300ca68">wmtk::attribute::AttributeScopeHandle</a>
 </li>
+<li>m_fe_accessor
+: <a class="el" href="classwmtk_1_1_tri_mesh.html#aadf4e7686d7d36de140a02413c9f74a7">wmtk::TriMesh</a>
+</li>
 <li>m_fe_handle
 : <a class="el" href="classwmtk_1_1_tri_mesh.html#aee4400faf6321de90be23e29ddc97520">wmtk::TriMesh</a>
+</li>
+<li>m_ff_accessor
+: <a class="el" href="classwmtk_1_1_tri_mesh.html#a263eea21afea58afb140591e1809a4b1">wmtk::TriMesh</a>
 </li>
 <li>m_ff_handle
 : <a class="el" href="classwmtk_1_1_tri_mesh.html#a85ddeff576e8934ddf89c12b60aa8773">wmtk::TriMesh</a>
@@ -310,6 +316,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_flag_handles
 : <a class="el" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">wmtk::Mesh</a>
 </li>
+<li>m_ft_accessor
+: <a class="el" href="classwmtk_1_1_tet_mesh.html#a693987a2bc8afede23117fbc19f18a21">wmtk::TetMesh</a>
+</li>
 <li>m_ft_handle
 : <a class="el" href="classwmtk_1_1_tet_mesh.html#addc5c7f65a1fbc15798bf93a688895d2">wmtk::TetMesh</a>
 </li>
@@ -323,6 +332,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_functor
 : <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a1bc42b537642167d3c4c4789b67faceb">wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt;</a>
+</li>
+<li>m_fv_accessor
+: <a class="el" href="classwmtk_1_1_tri_mesh.html#a8c69894c116cfe2baddd34583507c92b">wmtk::TriMesh</a>
 </li>
 <li>m_fv_handle
 : <a class="el" href="classwmtk_1_1_tri_mesh.html#ad14934859b207e0797c4496676b0ce2c">wmtk::TriMesh</a>
@@ -342,8 +354,11 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_handles
 : <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attributes.html#a5a1f05a517e3cf5e2578cfc1b58b7fd0">wmtk::attribute::MeshAttributes&lt; T &gt;</a>
 </li>
+<li>m_has_child_mesh_in_dimension
+: <a class="el" href="classwmtk_1_1_multi_mesh_manager.html#ad2bc845e3c9b3858cc0c62beb3cab00e">wmtk::MultiMeshManager</a>
+</li>
 <li>m_hash
-: <a class="el" href="classwmtk_1_1_tuple.html#a96075e2788e20deb652f59c71d57df95">wmtk::Tuple</a>
+: <a class="el" href="classwmtk_1_1_tuple.html#a10f85b7b8281fe289dac98cd339f3fd6">wmtk::Tuple</a>
 </li>
 <li>m_hdf5_file
 : <a class="el" href="classwmtk_1_1_h_d_f5_writer.html#a7b750afd9b35c8460da761e55529dc31">wmtk::HDF5Writer</a>
@@ -365,28 +380,10 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_input_values
 : <a class="el" href="classwmtk_1_1components_1_1internal_1_1_marching.html#a19cdc86a5c898bf9954fe1b544d82485">wmtk::components::internal::Marching</a>
 </li>
-<li>m_invariant_interior_edge
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a11d3736e6162b7ba90482ae9d339edd7">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_invariant_interior_vertex
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a64287846675a571b9d90a50bcd88cb40">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_invariant_link_condition
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#abf2eb30cb55d56451d07614a8d9247ec">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_invariant_max_edge_length
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a616413cc60aab62cf961003d085b6a00">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_invariant_min_edge_length
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#ae7cfe64dc4eaa1d7798f55d722447d20">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_invariant_valence_improve
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a0e678a41402f449f35de0e4e3657a1d5">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
 <li>m_invariants
-: <a class="el" href="classwmtk_1_1_invariant_collection.html#abb84250ea1b5baa92582dbde66efa531">wmtk::InvariantCollection</a>
-, <a class="el" href="classwmtk_1_1operations_1_1_operation.html#ae7a2f0abd67ba3649d112a1f50e8b100">wmtk::operations::Operation</a>
-, <a class="el" href="classwmtk_1_1operations_1_1_optimization_smoothing_1_1_w_m_t_k_problem.html#a0a979448d9288478f47b52c7a6b6b398">wmtk::operations::OptimizationSmoothing::WMTKProblem</a>
+: <a class="el" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">wmtk::invariants::InvariantCollection</a>
+, <a class="el" href="classwmtk_1_1operations_1_1_operation.html#acde05432c356e62eb0d2b860527406df">wmtk::operations::Operation</a>
+, <a class="el" href="classwmtk_1_1operations_1_1_optimization_smoothing_1_1_w_m_t_k_problem.html#ac1cee29134c5b867f3766744138cc5ed">wmtk::operations::OptimizationSmoothing::WMTKProblem</a>
 </li>
 <li>m_is_self_loop
 : <a class="el" href="classwmtk_1_1operations_1_1edge__mesh_1_1_edge_operation_data.html#a5fcc0128be450249f9aef5bb7d002479">wmtk::operations::edge_mesh::EdgeOperationData</a>
@@ -394,32 +391,23 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_label_attributes
 : <a class="el" href="classwmtk_1_1components_1_1internal_1_1_regular_space.html#ace574c73116a95fdf7b7893aa5b0c931">wmtk::components::internal::RegularSpace</a>
 </li>
-<li>m_leaf
-: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_stack.html#a53a918905d5552dafb216b92fa2b737a">wmtk::attribute::AttributeScopeStack&lt; T &gt;</a>
-</li>
-<li>m_length_max
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a4a447c8fd6a52693e0a95f11249ce733">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_length_min
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#ab77b24a931515ba0a1e4cdaf19050904">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
 <li>m_linear_solver_params
 : <a class="el" href="classwmtk_1_1operations_1_1_optimization_smoothing.html#a0b294a51164d3e6ad4d5cdafbfeb7163">wmtk::operations::OptimizationSmoothing</a>
 </li>
 <li>m_local_eid
-: <a class="el" href="classwmtk_1_1_tuple.html#ab6812a58209b9d87962268cd5754ce2e">wmtk::Tuple</a>
+: <a class="el" href="classwmtk_1_1_tuple.html#a8c04aeb01e397c0d6875027ec10537e2">wmtk::Tuple</a>
 </li>
 <li>m_local_fid
-: <a class="el" href="classwmtk_1_1_tuple.html#a4386155e0a6113f83d9a9594a49a3068">wmtk::Tuple</a>
+: <a class="el" href="classwmtk_1_1_tuple.html#ab545a470bd56805326c4b14a6c5ef0b8">wmtk::Tuple</a>
 </li>
 <li>m_local_vid
-: <a class="el" href="classwmtk_1_1_tuple.html#a9ec96973116848d92dd532d43205faf7">wmtk::Tuple</a>
-</li>
-<li>m_lock_boundary
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#ab1b2f020bc883e87229b49fe42b96f2e">wmtk::components::internal::IsotropicRemeshing</a>
+: <a class="el" href="classwmtk_1_1_tuple.html#a11df1551a5946604bf1b990fcf8978ad">wmtk::Tuple</a>
 </li>
 <li>m_long_attributes
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#ae201e683b171d8bab0592d0f64122e12">wmtk::attribute::AttributeManager</a>
+</li>
+<li>m_main_op
+: <a class="el" href="classwmtk_1_1operations_1_1composite_1_1_project_operation.html#abfe8e27e150542afc8a0654734f95891">wmtk::operations::composite::ProjectOperation</a>
 </li>
 <li>m_manager
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_handle.html#a940945ee93e7e0a51a3c7479e5cb8f73">wmtk::attribute::AttributeScopeHandle</a>
@@ -431,7 +419,6 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_mesh
 : <a class="el" href="classwmtk_1_1attribute_1_1_accessor_base.html#a9e62d9e7f94c35b1591ff708c79023e0">wmtk::attribute::AccessorBase&lt; _T &gt;</a>
 , <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#a581a7733744c671289d7062785a4f044">wmtk::attribute::MeshAttributeHandle</a>
-, <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a3f1b6432c8a644843e9c002c6535f449">wmtk::components::internal::IsotropicRemeshing</a>
 , <a class="el" href="classwmtk_1_1components_1_1internal_1_1_marching.html#a2b346a8176ea0eb2e9bfbdc1b6e66151">wmtk::components::internal::Marching</a>
 , <a class="el" href="classwmtk_1_1components_1_1internal_1_1_regular_space.html#a4346093021531fc39343ca4be9e74b85">wmtk::components::internal::RegularSpace</a>
 , <a class="el" href="classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#a0021b296dcd26aaea0e07305a7236a5e">wmtk::EdgeMesh::EdgeMeshOperationExecutor</a>
@@ -451,14 +438,14 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 , <a class="el" href="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor.html#a9d9f35a7d1960db08bf76cf4a54f1699">wmtk::TetMesh::TetMeshOperationExecutor</a>
 , <a class="el" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a91b12d90db098f3a1a09e2fbd85ceb22">wmtk::TriMesh::TriMeshOperationExecutor</a>
 </li>
+<li>m_meshes
+: <a class="el" href="classwmtk_1_1multimesh_1_1_boundary_checker.html#ae8f475e6492612c9b8d4fb6a8ef9049a">wmtk::multimesh::BoundaryChecker</a>
+</li>
 <li>m_min_valence
 : <a class="el" href="classwmtk_1_1invariants_1_1_min_incident_valence_invariant.html#a3701b623d86ef647f39b0cb177024138">wmtk::invariants::MinIncidentValenceInvariant</a>
 </li>
 <li>m_mm_level
 : <a class="el" href="classwmtk_1_1_mesh_writer.html#a77c65229fe9fbb1e8aa42b9544a4eba8">wmtk::MeshWriter</a>
-</li>
-<li>m_mode
-: <a class="el" href="classwmtk_1_1attribute_1_1_caching_accessor.html#aec8f5ea7a0131afda0418aba881c611f">wmtk::attribute::CachingAccessor&lt; T &gt;</a>
 </li>
 <li>m_mode_x
 : <a class="el" href="classwmtk_1_1components_1_1adaptive__tessellation_1_1image_1_1_image.html#aa2460b3bcbe27226caa4fa07c07a76ce">wmtk::components::adaptive_tessellation::image::Image</a>
@@ -468,6 +455,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_multi_mesh_manager
 : <a class="el" href="classwmtk_1_1_mesh.html#af67ee2baeee30f785211e781d4b814eb">wmtk::Mesh</a>
+</li>
+<li>m_multimesh_names
+: <a class="el" href="classwmtk_1_1io_1_1_cache.html#a4c0a73298c728ff284fcfda84127b5c0">wmtk::io::Cache</a>
 </li>
 <li>m_name
 : <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#ac4daf81bf9c387665b75f7c85c35a6b7">wmtk::attribute::Attribute&lt; T &gt;</a>
@@ -479,6 +469,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_new_attr_strategies
 : <a class="el" href="classwmtk_1_1operations_1_1_edge_collapse.html#a781135a6a0f34f1007b321bdc0f2a8a7">wmtk::operations::EdgeCollapse</a>
 , <a class="el" href="classwmtk_1_1operations_1_1_edge_split.html#a467c74256f567740ee192ce1c210f8c4">wmtk::operations::EdgeSplit</a>
+</li>
+<li>m_next
+: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope.html#a317ad21fce17b5ba575df9e52952e4be">wmtk::attribute::AttributeScope&lt; T &gt;</a>
 </li>
 <li>m_node_functor
 : <a class="el" href="classwmtk_1_1multimesh_1_1_multi_mesh_simplex_visitor.html#acc72d86ae596839068ab38379d91dd31">wmtk::multimesh::MultiMeshSimplexVisitor&lt; cell_dimension_, NodeFunctor_ &gt;</a>
@@ -514,34 +507,23 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1components_1_1internal_1_1_marching.html#a83d3a4476ee390a972c5c26b00c21473">wmtk::components::internal::Marching</a>
 </li>
 <li>m_paraview_file
-: <a class="el" href="classwmtk_1_1io_1_1_paraview_writer_1_1_paraview_internal_writer.html#aa2c6874b63c60c571953a5043c00deab">wmtk::io::ParaviewWriter::ParaviewInternalWriter</a>
+: <a class="el" href="classwmtk_1_1io_1_1_paraview_writer_1_1_paraview_internal_writer.html#a6f22ff88336d8bde77e0c2e7738ef9ff">wmtk::io::ParaviewWriter::ParaviewInternalWriter</a>
 </li>
 <li>m_parent
-: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope.html#a488b37c742fb6615ad272ced3a87e2a4">wmtk::attribute::AttributeScope&lt; T &gt;</a>
-, <a class="el" href="classwmtk_1_1_multi_mesh_manager.html#a153890693c34327539e83cbdf3436926">wmtk::MultiMeshManager</a>
+: <a class="el" href="classwmtk_1_1_multi_mesh_manager.html#a153890693c34327539e83cbdf3436926">wmtk::MultiMeshManager</a>
 </li>
 <li>m_parent_handle
 : <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ac5cd8fe704e6576b71278a3c4bac1296">wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt;</a>
 </li>
 <li>m_pass_through_attributes
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a6f2c17cfadc15fcdfa9cf99f8d2a125f">wmtk::components::internal::IsotropicRemeshing</a>
-, <a class="el" href="classwmtk_1_1components_1_1internal_1_1_marching.html#afbe6362daeef53f999df3522da9bb157">wmtk::components::internal::Marching</a>
+: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_marching.html#afbe6362daeef53f999df3522da9bb157">wmtk::components::internal::Marching</a>
 , <a class="el" href="classwmtk_1_1components_1_1internal_1_1_regular_space.html#a69e7dc418d34baf2df3e32078c2b60a4">wmtk::components::internal::RegularSpace</a>
-</li>
-<li>m_pos_attribute
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a27539e5e70d47711c7216b386e3e5774">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_pos_collapse_strategy
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#aad22c0fbbbbc61b1b48fe33f307a5cdc">wmtk::components::internal::IsotropicRemeshing</a>
 </li>
 <li>m_pos_evaluator
 : <a class="el" href="classwmtk_1_1function_1_1_position_map_a_m_i_p_s2_d.html#a55afe6388c60948ceb60671cb17f1ef5">wmtk::function::PositionMapAMIPS2D</a>
 </li>
-<li>m_preserve_childmesh_geometry
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#a49036ad6665d93642017bb15dd0eb925">wmtk::components::internal::IsotropicRemeshing</a>
-</li>
-<li>m_preserve_childmesh_topology
-: <a class="el" href="classwmtk_1_1components_1_1internal_1_1_isotropic_remeshing.html#aeceff865251c335fb7250dc3473b61ff">wmtk::components::internal::IsotropicRemeshing</a>
+<li>m_previous
+: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope.html#a96d1856abcc32c9b3a9c7e31cf544efc">wmtk::attribute::AttributeScope&lt; T &gt;</a>
 </li>
 <li>m_previous_variable_count
 : <a class="el" href="classwmtk_1_1function_1_1utils_1_1_auto_diff_r_a_i_i.html#ad0808ed576521cb93d2d72a47d671f5a">wmtk::function::utils::AutoDiffRAII</a>
@@ -636,6 +618,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_stacks
 : <a class="el" href="classwmtk_1_1attribute_1_1_per_thread_attribute_scope_stacks.html#a92c35255069e1eca3da80203ebe7a3d9">wmtk::attribute::PerThreadAttributeScopeStacks&lt; T &gt;</a>
 </li>
+<li>m_start
+: <a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_stack.html#ae327630746537c5c88a9ed23d5d557ef">wmtk::attribute::AttributeScopeStack&lt; T &gt;</a>
+</li>
 <li>m_stats
 : <a class="el" href="classwmtk_1_1_scheduler.html#ae6e69c480d906eedbdd71efa8389d737">wmtk::Scheduler</a>
 </li>
@@ -656,8 +641,14 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 <li>m_tag_val
 : <a class="el" href="classwmtk_1_1components_1_1_tag_attribute.html#ac8ad8ac5cf3c2ad440405cd2b41f2be3">wmtk::components::TagAttribute</a>
 </li>
+<li>m_te_accessor
+: <a class="el" href="classwmtk_1_1_tet_mesh.html#abd8c62c86892e03be0bf18be09ca0175">wmtk::TetMesh</a>
+</li>
 <li>m_te_handle
 : <a class="el" href="classwmtk_1_1_tet_mesh.html#aca1ac4cb99a0325f6c7ebe70ddc3a4d7">wmtk::TetMesh</a>
+</li>
+<li>m_tf_accessor
+: <a class="el" href="classwmtk_1_1_tet_mesh.html#a99dc7d626260cc67554c182ebd7f1ab0">wmtk::TetMesh</a>
 </li>
 <li>m_tf_handle
 : <a class="el" href="classwmtk_1_1_tet_mesh.html#a98098ab1b07f28fec1c490935658d0fa">wmtk::TetMesh</a>
@@ -675,6 +666,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1operations_1_1_collapse_new_attribute_strategy.html#a64316f49c11e4b7b8a3d115317f86daa">wmtk::operations::CollapseNewAttributeStrategy&lt; T &gt;</a>
 , <a class="el" href="classwmtk_1_1operations_1_1_split_new_attribute_strategy.html#a766c88f23e0b44f567866eeef8936a8f">wmtk::operations::SplitNewAttributeStrategy&lt; T &gt;</a>
 </li>
+<li>m_tt_accessor
+: <a class="el" href="classwmtk_1_1_tet_mesh.html#aa24bb190e6e900d53f7e6abe18185cb5">wmtk::TetMesh</a>
+</li>
 <li>m_tt_handle
 : <a class="el" href="classwmtk_1_1_tet_mesh.html#a0324575981a105ded12d323bcc9617b0">wmtk::TetMesh</a>
 </li>
@@ -683,6 +677,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 , <a class="el" href="classwmtk_1_1_primitive.html#a32f2e56fa9b2c3c9bfa61d388a1b1987">wmtk::Primitive</a>
 , <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html#ae6f1a6f4019192a7cd533a477f33708a">wmtk::simplex::Simplex</a>
 </li>
+<li>m_tv_accessor
+: <a class="el" href="classwmtk_1_1_tet_mesh.html#af3d9f803d4c67dfdb4f1174987cfa2ca">wmtk::TetMesh</a>
+</li>
 <li>m_tv_handle
 : <a class="el" href="classwmtk_1_1_tet_mesh.html#a5c00984b7ab73179fc327a11d3c2329f">wmtk::TetMesh</a>
 </li>
@@ -690,6 +687,15 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1components_1_1adaptive__tessellation_1_1image_1_1_sampling_analytic_function.html#a278c6344b7e66c4d1046f0957ce4d042">wmtk::components::adaptive_tessellation::image::SamplingAnalyticFunction</a>
 , <a class="el" href="classwmtk_1_1invariants_1_1_function_invariant.html#a9c747610557b7526d9f5ffad2fbfd5fd">wmtk::invariants::FunctionInvariant</a>
 , <a class="el" href="classwmtk_1_1invariants_1_1_max_function_invariant.html#a8d08d0d125d713bef7c5206e1bdb3a8d">wmtk::invariants::MaxFunctionInvariant</a>
+</li>
+<li>m_use_before
+: <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#ab446a9ff46edf173b85dce44be44f94e">wmtk::invariants::Invariant</a>
+</li>
+<li>m_use_new_state_in_after
+: <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a3092f132cda6319a3263ca0bae260241">wmtk::invariants::Invariant</a>
+</li>
+<li>m_use_old_state_in_after
+: <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a3848c3d3ffc5cbe840c96a9ffe80ca04">wmtk::invariants::Invariant</a>
 </li>
 <li>m_use_random_priority
 : <a class="el" href="classwmtk_1_1operations_1_1_operation.html#ad6face771ab900e9c86723f72e6f312e">wmtk::operations::Operation</a>
@@ -726,11 +732,17 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classwmtk_1_1io_1_1_paraview_writer.html#af89c24cfde3d7e97baa10156f2f651e5">wmtk::io::ParaviewWriter</a>
 , <a class="el" href="classwmtk_1_1io_1_1_paraview_writer_1_1_paraview_internal_writer.html#a0237d04ee670aa4c8a32583d75022251">wmtk::io::ParaviewWriter::ParaviewInternalWriter</a>
 </li>
+<li>m_vf_accessor
+: <a class="el" href="classwmtk_1_1_tri_mesh.html#a60dc8a8244e4bc9850dabc48ce520268">wmtk::TriMesh</a>
+</li>
 <li>m_vf_handle
 : <a class="el" href="classwmtk_1_1_tri_mesh.html#a2a281cb6c2329cb4e6d41fd42523900a">wmtk::TriMesh</a>
 </li>
 <li>m_visitor
 : <a class="el" href="classwmtk_1_1multimesh_1_1_multi_mesh_simplex_event_visitor.html#a7f83f23f56f4937136cc13d856e70fc6">wmtk::multimesh::MultiMeshSimplexEventVisitor&lt; cell_dimension, Functor &gt;</a>
+</li>
+<li>m_vt_accessor
+: <a class="el" href="classwmtk_1_1_tet_mesh.html#af1ee5c66e9304e709968563ad17f7977">wmtk::TetMesh</a>
 </li>
 <li>m_vt_handle
 : <a class="el" href="classwmtk_1_1_tet_mesh.html#a19e60ea754380fcfcce2361b89589e49">wmtk::TetMesh</a>
@@ -749,6 +761,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>map_to_parent_handle
 : <a class="el" href="classwmtk_1_1_multi_mesh_manager.html#ab80eb2e89f9b93986164596573136165">wmtk::MultiMeshManager</a>
+</li>
+<li>MAX_ATTR_SIZE
+: <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#aff5c5473cf78590e9c7ddaf7ac0107ef">wmtk::attribute::Attribute&lt; T &gt;</a>
 </li>
 <li>max_digits10
 : <a class="el" href="classstd_1_1numeric__limits_3_01_d_scalar1_3_01___scalar_00_01___gradient_01_4_01_4.html#a29820d8f9786c26dadbd1d7c413353ab">std::numeric_limits&lt; DScalar1&lt; _Scalar, _Gradient &gt; &gt;</a>

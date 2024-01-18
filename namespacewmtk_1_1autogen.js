@@ -1,16 +1,16 @@
 var namespacewmtk_1_1autogen =
 [
     [ "edge_mesh", "namespacewmtk_1_1autogen_1_1edge__mesh.html", [
-      [ "is_ccw", "namespacewmtk_1_1autogen_1_1edge__mesh.html#a5cfd95f0785aaf28d3db71df4c2962f4", null ],
-      [ "local_switch_tuple", "namespacewmtk_1_1autogen_1_1edge__mesh.html#a289dc9f9e340c16441b5836902e62b97", null ],
-      [ "tuple_is_valid_for_ccw", "namespacewmtk_1_1autogen_1_1edge__mesh.html#a20c5c841b8b31bd199ad3d8101a248d6", null ]
+      [ "is_ccw", "namespacewmtk_1_1autogen_1_1edge__mesh.html#ae81f8da85475a6ccd7e65b4350abe0dc", null ],
+      [ "local_switch_tuple", "namespacewmtk_1_1autogen_1_1edge__mesh.html#a31f57ece5d376a6b13f38500d5fc34dc", null ],
+      [ "tuple_is_valid_for_ccw", "namespacewmtk_1_1autogen_1_1edge__mesh.html#afb3d180f181d8352f0abb21cac35788f", null ]
     ] ],
     [ "tet_mesh", "namespacewmtk_1_1autogen_1_1tet__mesh.html", [
-      [ "is_ccw", "namespacewmtk_1_1autogen_1_1tet__mesh.html#ab14e25a013981cc952447c45b8d5e6a4", null ],
-      [ "local_id_table_offset", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a566270606c3dee2567711e20c7abca82", null ],
-      [ "local_switch_tuple", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a109e710981529ead37347cc1f5e34a68", null ],
+      [ "is_ccw", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a4243da89f13477619412eb6b6820fd7f", null ],
+      [ "local_id_table_offset", "namespacewmtk_1_1autogen_1_1tet__mesh.html#ace6b80b1be9aec0d6a5ac5d144b40965", null ],
+      [ "local_switch_tuple", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a4060d948aa959f21810c425f3f197dd5", null ],
       [ "lvid_leid_lfid_from_table_offset", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a25a52c95d0e04d803d206f61bc2986b2", null ],
-      [ "tuple_is_valid_for_ccw", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a1e7250959dcea0303c1c53fd24a24c0c", null ],
+      [ "tuple_is_valid_for_ccw", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a217b7c5c5312a716ad27c99abcfc0eb1", null ],
       [ "auto_3d_edges", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a1513d9ac4f9575ff4b6fc27dc184a74d", null ],
       [ "auto_3d_faces", "namespacewmtk_1_1autogen_1_1tet__mesh.html#ae4da48e11cbc774ada95b54023555917", null ],
       [ "auto_3d_table_ccw", "namespacewmtk_1_1autogen_1_1tet__mesh.html#ad415b6b2d9178dff559a4bf689f7e345", null ],
@@ -22,11 +22,11 @@ var namespacewmtk_1_1autogen =
       [ "auto_3d_table_vertex", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a6405c6f318d77c27b48d2311f3ff89f0", null ]
     ] ],
     [ "tri_mesh", "namespacewmtk_1_1autogen_1_1tri__mesh.html", [
-      [ "is_ccw", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a6be2df6fcccd4af73e898020019ea7d2", null ],
-      [ "local_id_table_offset", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a2e9c17c0c6953ce9fdd56ebbfb6f01df", null ],
-      [ "local_switch_tuple", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a79e963b6d495f42faa81a8b3651c5976", null ],
+      [ "is_ccw", "namespacewmtk_1_1autogen_1_1tri__mesh.html#aaab85f5120a223c29bae0881cd7f2c87", null ],
+      [ "local_id_table_offset", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a1c9b651c47ee993e160a8dca570cf35c", null ],
+      [ "local_switch_tuple", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a91e6b348f528d93ad6d9031bae1480da", null ],
       [ "lvid_leid_from_table_offset", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a8ebe5892d2ca5e457f09075b0160df0e", null ],
-      [ "tuple_is_valid_for_ccw", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a65661dca6fabc826945165d3a0851efe", null ],
+      [ "tuple_is_valid_for_ccw", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a786155d6d2270c482ffd6a96d3211867", null ],
       [ "auto_2d_edges", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a6dbba4867ca242453fe3ab2b14a6a471", null ],
       [ "auto_2d_table_ccw", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a4b8703af50eea4f51c57896f2780c07c", null ],
       [ "auto_2d_table_complete_edge", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a242dee029a09527b1887f869e698b46c", null ],
