@@ -128,31 +128,38 @@ void HDF5Writer::write_internal(
     m_hdf5_file->writeAttribute(get_type<T>(), ss.str(), "type");
 }
 
-void HDF5Writer::write_top_simplex_type(const PrimitiveType type)
+void HDF5Writer::write_mesh_metadata(const Mesh& m)
 {
     m_hdf5_file->writeAttribute(type, dataset_path(), "top_simplex_type");
 }
 
-void HDF5Writer::write_absolute_id(const std::vector<int64_t>& id)
+std::string HDFWriter::name() const
 {
-    if (id.empty() || m_mm_level == 0) {
-        m_name = "";
-    } else {
-        m_name = fmt::format("mesh_{}", fmt::join(id, ""));
-    }
+    return fmt::format("mesh_{}", fmt::join(id, ""));
+}
 
-    ++m_mm_level;
-
+void HDFWriter::set_current_mesh(const Mesh& m) const
+{
+    MeshWriter::set_current_mesh(m);
     m_hdf5_file->createGroup(dataset_path());
+}
 
-    if (!id.empty()) m_hdf5_file->writeAttribute(id, dataset_path(), "absolute_id");
+void HDF5Writer::write_absolute_id()
+{
+    if (!id.empty()) m_hdf5_file->writeAttribute(m_current_id, dataset_path(), "absolute_id");
+}
+
+bool HDFWriter::writing_root_mesh() const
+{
+    return m_current_id.empty();
 }
 
 std::string HDF5Writer::dataset_path() const
 {
     std::string res = "WMTK";
 
-    if (!m_name.empty()) res += "/multimesh/" + m_name;
+    const std::string my_name = name();
+    if (!name.empty()) res += "/multimesh/" + name;
 
     return res;
 }

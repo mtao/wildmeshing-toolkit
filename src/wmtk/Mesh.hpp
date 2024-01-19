@@ -64,6 +64,9 @@ class SimplexComparisons;
 } // namespace simplex
 
 namespace io {
+    namespace internal {
+        class MeshVisitor;
+    }
 class ParaviewWriter;
 }
 namespace multimesh {
@@ -98,6 +101,7 @@ public:
     friend class attribute::TupleAccessor;
     friend class io::ParaviewWriter;
     friend class HDF5Reader;
+    friend class io::internal::MeshVisitor;
     friend class multimesh::attribute::UseParentScopeRAII;
     friend class MultiMeshManager;
     friend class attribute::AttributeManager;

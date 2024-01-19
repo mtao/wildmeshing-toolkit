@@ -51,7 +51,8 @@ public:
 
 private:
     std::shared_ptr<h5pp::File> m_hdf5_file;
-    std::string m_name;
+
+    std::string name() const;
 
     std::string dataset_path() const;
 

@@ -14,8 +14,6 @@ public:
 
     virtual bool write(const int dim) = 0;
 
-    virtual void write_top_simplex_type(const PrimitiveType type) = 0;
-    virtual void write_absolute_id(const std::vector<int64_t>& id) = 0;
 
     virtual void write_capacities(const std::vector<int64_t>& capacities) = 0;
 
@@ -47,8 +45,12 @@ public:
         const std::vector<Rational>& val,
         const Rational& default_val) = 0;
 
+
+    virtual void set_current_mesh(const Mesh& m) const;
+
 protected:
-    int64_t m_mm_level = 0;
+    std::vector<int64_t> m_current_id;
+    bool writing_root_mesh() const;
 };
 
 } // namespace wmtk
