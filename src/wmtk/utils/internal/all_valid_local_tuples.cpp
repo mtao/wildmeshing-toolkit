@@ -10,19 +10,10 @@
 #include <wmtk/autogen/tet_mesh/is_ccw.hpp>
 #include <wmtk/autogen/tri_mesh/is_ccw.hpp>
 using namespace wmtk::autogen;
-namespace wmtk::tests {
+namespace wmtk::utils::internal {
 std::vector<PrimitiveType> primitives_up_to(PrimitiveType pt)
 {
-    std::vector<PrimitiveType> r;
-
-    switch (pt) {
-    case PrimitiveType::Tetrahedron: r.emplace_back(PrimitiveType::Face); [[fallthrough]];
-    case PrimitiveType::Face: r.emplace_back(PrimitiveType::Edge); [[fallthrough]];
-    case PrimitiveType::Edge: r.emplace_back(PrimitiveType::Vertex); [[fallthrough]];
-    case PrimitiveType::Vertex:
-    default: break;
-    }
-    return r;
+    return wmtk::utils::primitives_below(wmtk::utils::primitive_below(pt));
 }
 
 

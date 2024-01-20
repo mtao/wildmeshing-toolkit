@@ -130,7 +130,7 @@ void SplitNewAttributeStrategy<T>::update(
         const auto& return_data_variant =
             data.get_variant(mesh(), wmtk::simplex::Simplex::edge(input_tuple));
 
-        for (const PrimitiveType pt : wmtk::utils::primitive_below(mesh().top_simplex_type())) {
+        for (const PrimitiveType pt : wmtk::utils::primitives_below(mesh().top_simplex_type())) {
             {
                 auto old_simps =
                     m_topo_info->input_ear_simplices(return_data_variant, input_tuple, pt);

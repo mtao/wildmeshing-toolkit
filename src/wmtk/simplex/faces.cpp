@@ -11,7 +11,7 @@ SimplexCollection faces(const Mesh& mesh, const Simplex& simplex, const bool sor
 {
     SimplexCollection collection(mesh);
 
-    const auto primitive_range = wmtk::utils::primitive_below(simplex.primitive_type());
+    const auto primitive_range = wmtk::utils::primitives_below(simplex.primitive_type());
     for (size_t i = 1; i < primitive_range.size(); ++i) {
         collection.add(faces_single_dimension(mesh, simplex, primitive_range[i]));
     }

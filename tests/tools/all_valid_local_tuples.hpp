@@ -4,7 +4,7 @@
 #include <wmtk/Primitive.hpp>
 #include <wmtk/Tuple.hpp>
 
-namespace wmtk::utils::internal {
+namespace wmtk::tests {
 std::vector<PrimitiveType> primitives_up_to(PrimitiveType pt);
 
 

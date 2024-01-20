@@ -59,6 +59,9 @@ class UpdateEdgeOperationMultiMeshMapFunctor;
 namespace simplex {
 class RawSimplex;
 namespace utils {
+    namespace internal {
+        class MeshVisitor;
+    }
 class SimplexComparisons;
 }
 } // namespace simplex
@@ -101,6 +104,7 @@ public:
     friend class multimesh::attribute::UseParentScopeRAII;
     friend class MultiMeshManager;
     friend class attribute::AttributeManager;
+    friend class utils::internal::MeshVisitor;
     template <int64_t cell_dimension, typename NodeFunctor>
     friend class multimesh::MultiMeshSimplexVisitor;
     template <typename Visitor>

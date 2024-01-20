@@ -47,7 +47,7 @@ TEST_CASE("multimesh_boundary", "[multimesh]")
 
     { // check that boundarychecker does the normal boundary fine
         multimesh::BoundaryChecker bc;
-        for (PrimitiveType pt : wmtk::utils::primitive_below(PrimitiveType::Edge)) {
+        for (PrimitiveType pt : wmtk::utils::primitives_below(PrimitiveType::Edge)) {
             auto simplices = dptr->get_all(pt);
             // c and dptr have the same triangles so no mapping is required
 
@@ -58,7 +58,7 @@ TEST_CASE("multimesh_boundary", "[multimesh]")
     }
     {
         multimesh::BoundaryChecker bc(c);
-        for (PrimitiveType pt : wmtk::utils::primitive_below(PrimitiveType::Edge)) {
+        for (PrimitiveType pt : wmtk::utils::primitives_below(PrimitiveType::Edge)) {
             auto simplices = dptr->get_all(pt);
             // c and dptr have the same triangles so no mapping is required
             // also, dptr is_boundary implies c is_boundary
@@ -69,7 +69,7 @@ TEST_CASE("multimesh_boundary", "[multimesh]")
     }
     {
         multimesh::BoundaryChecker bc(edge_mesh);
-        for (PrimitiveType pt : wmtk::utils::primitive_below(PrimitiveType::Edge)) {
+        for (PrimitiveType pt : wmtk::utils::primitives_below(PrimitiveType::Edge)) {
             auto simplices = dptr->get_all(pt);
             // the edge mesh was constructed by lookign at the boundary of c
             // c and dptr have the same triangles so no mapping is required

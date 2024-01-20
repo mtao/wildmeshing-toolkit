@@ -18,7 +18,7 @@ std::vector<PrimitiveType> primitive_range(PrimitiveType pt0, PrimitiveType pt1)
     }
     return r;
 }
-std::vector<PrimitiveType> primitive_above(PrimitiveType pt, bool lower_to_upper)
+std::vector<PrimitiveType> primitives_above(PrimitiveType pt, bool lower_to_upper)
 {
     if (lower_to_upper) {
         return primitive_range(pt, PrimitiveType::Tetrahedron);
@@ -26,7 +26,7 @@ std::vector<PrimitiveType> primitive_above(PrimitiveType pt, bool lower_to_upper
         return primitive_range(PrimitiveType::Tetrahedron, pt);
     }
 }
-std::vector<PrimitiveType> primitive_below(PrimitiveType pt, bool lower_to_upper)
+std::vector<PrimitiveType> primitives_below(PrimitiveType pt, bool lower_to_upper)
 {
     if (lower_to_upper) {
         return primitive_range(PrimitiveType::Vertex, pt);
