@@ -3,7 +3,10 @@ var dir_8064400ec315cfa027df172c4bbead09 =
     [ "adaptive_tessellation", "dir_7bf5342592ae79a05a3333a4b5931c9f.html", "dir_7bf5342592ae79a05a3333a4b5931c9f" ],
     [ "base", "dir_f9bd88f53b0c297f06c5045d55a00b25.html", "dir_f9bd88f53b0c297f06c5045d55a00b25" ],
     [ "delaunay", "dir_120f1c8542a0cba5e040bcc9c13f01c7.html", "dir_120f1c8542a0cba5e040bcc9c13f01c7" ],
+    [ "export_cache", "dir_488008072c6d8e80a67c53c9b7ccc715.html", "dir_488008072c6d8e80a67c53c9b7ccc715" ],
+    [ "fusion", "dir_0d398ff59971483c55b4ec200bbd8b7a.html", "dir_0d398ff59971483c55b4ec200bbd8b7a" ],
     [ "get_all_meshes", "dir_b2d191c30a0ac97cb22cf3f9f0f3525c.html", "dir_b2d191c30a0ac97cb22cf3f9f0f3525c" ],
+    [ "import_cache", "dir_22b43c33bddaa23d2296d412278b9c44.html", "dir_22b43c33bddaa23d2296d412278b9c44" ],
     [ "input", "dir_e0cf493bf1bfe6224d1526deac845e4d.html", "dir_e0cf493bf1bfe6224d1526deac845e4d" ],
     [ "isotropic_remeshing", "dir_d288396ca2ef99bf1ae7c96bebdbd65f.html", "dir_d288396ca2ef99bf1ae7c96bebdbd65f" ],
     [ "main", "dir_749fffb3726be896a01a9082e729c4a0.html", "dir_749fffb3726be896a01a9082e729c4a0" ],
@@ -14,5 +17,7 @@ var dir_8064400ec315cfa027df172c4bbead09 =
     [ "procedural", "dir_8b2be0710edb097d46e1a67e80e3ee84.html", "dir_8b2be0710edb097d46e1a67e80e3ee84" ],
     [ "regular_space", "dir_ffc7dbb4cb583ea418cd8e4d7b4953b6.html", "dir_ffc7dbb4cb583ea418cd8e4d7b4953b6" ],
     [ "tag_intersection", "dir_236cd121496d30414baca33d30c032b6.html", "dir_236cd121496d30414baca33d30c032b6" ],
+    [ "to_points", "dir_454c3ee98c04fd346c5af9042a1b2fa0.html", "dir_454c3ee98c04fd346c5af9042a1b2fa0" ],
+    [ "triangle_insertion", "dir_f76ce0e7f34f4da57b8f683c66be780e.html", "dir_f76ce0e7f34f4da57b8f683c66be780e" ],
     [ "wildmeshing", "dir_f0ba732ac9befee6d2ad8ef858a89f32.html", "dir_f0ba732ac9befee6d2ad8ef858a89f32" ]
 ];
