@@ -16,7 +16,12 @@ var annotated_dup =
     [ "wmtk", "namespacewmtk.html", [
       [ "attribute", "namespacewmtk_1_1attribute.html", [
         [ "internal", "namespacewmtk_1_1attribute_1_1internal.html", [
-          [ "CheckpointScope", "classwmtk_1_1attribute_1_1internal_1_1_checkpoint_scope.html", "classwmtk_1_1attribute_1_1internal_1_1_checkpoint_scope" ]
+          [ "CheckpointScope", "classwmtk_1_1attribute_1_1internal_1_1_checkpoint_scope.html", "classwmtk_1_1attribute_1_1internal_1_1_checkpoint_scope" ],
+          [ "CompoundAccessor", "classwmtk_1_1attribute_1_1internal_1_1_compound_accessor.html", "classwmtk_1_1attribute_1_1internal_1_1_compound_accessor" ]
+        ] ],
+        [ "utils", "namespacewmtk_1_1attribute_1_1utils.html", [
+          [ "HybridRationalAttribute", "classwmtk_1_1attribute_1_1utils_1_1_hybrid_rational_attribute.html", "classwmtk_1_1attribute_1_1utils_1_1_hybrid_rational_attribute" ],
+          [ "HybridRationalAccessor", "classwmtk_1_1attribute_1_1utils_1_1_hybrid_rational_accessor.html", "classwmtk_1_1attribute_1_1utils_1_1_hybrid_rational_accessor" ]
         ] ],
         [ "Accessor", "classwmtk_1_1attribute_1_1_accessor.html", "classwmtk_1_1attribute_1_1_accessor" ],
         [ "Attribute", "classwmtk_1_1attribute_1_1_attribute.html", "classwmtk_1_1attribute_1_1_attribute" ],
@@ -33,7 +38,8 @@ var annotated_dup =
         [ "CachingAccessor", "classwmtk_1_1attribute_1_1_caching_accessor.html", "classwmtk_1_1attribute_1_1_caching_accessor" ],
         [ "AttributeScope", "classwmtk_1_1attribute_1_1_attribute_scope.html", "classwmtk_1_1attribute_1_1_attribute_scope" ],
         [ "AttributeScopeHandle", "classwmtk_1_1attribute_1_1_attribute_scope_handle.html", "classwmtk_1_1attribute_1_1_attribute_scope_handle" ],
-        [ "MeshAttributeHandle", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html", "classwmtk_1_1attribute_1_1_mesh_attribute_handle" ]
+        [ "MeshAttributeHandle", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html", "classwmtk_1_1attribute_1_1_mesh_attribute_handle" ],
+        [ "TupleAccessor", "classwmtk_1_1attribute_1_1_tuple_accessor.html", "classwmtk_1_1attribute_1_1_tuple_accessor" ]
       ] ],
       [ "components", "namespacewmtk_1_1components.html", [
         [ "adaptive_tessellation", "namespacewmtk_1_1components_1_1adaptive__tessellation.html", [
@@ -121,6 +127,7 @@ var annotated_dup =
         [ "NoBoundaryCollapseToInteriorInvariant", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant.html", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant" ],
         [ "TetMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant.html", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant" ],
         [ "TriMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant.html", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant" ],
+        [ "uvEdgeInvariant", "classwmtk_1_1invariants_1_1uv_edge_invariant.html", "classwmtk_1_1invariants_1_1uv_edge_invariant" ],
         [ "ValenceImprovementInvariant", "classwmtk_1_1invariants_1_1_valence_improvement_invariant.html", "classwmtk_1_1invariants_1_1_valence_improvement_invariant" ]
       ] ],
       [ "io", "namespacewmtk_1_1io.html", [
@@ -292,6 +299,10 @@ var annotated_dup =
       [ "MultiMeshMapValidInvariant", "classwmtk_1_1_multi_mesh_map_valid_invariant.html", "classwmtk_1_1_multi_mesh_map_valid_invariant" ],
       [ "MultiMeshEdgeTopologyInvariant", "classwmtk_1_1_multi_mesh_edge_topology_invariant.html", "classwmtk_1_1_multi_mesh_edge_topology_invariant" ],
       [ "SimplexInversionInvariant", "classwmtk_1_1_simplex_inversion_invariant.html", "classwmtk_1_1_simplex_inversion_invariant" ],
+      [ "Swap23EnergyBeforeInvariant", "classwmtk_1_1_swap23_energy_before_invariant.html", "classwmtk_1_1_swap23_energy_before_invariant" ],
+      [ "Swap32EnergyBeforeInvariant", "classwmtk_1_1_swap32_energy_before_invariant.html", "classwmtk_1_1_swap32_energy_before_invariant" ],
+      [ "Swap44_2EnergyBeforeInvariant", "classwmtk_1_1_swap44__2_energy_before_invariant.html", "classwmtk_1_1_swap44__2_energy_before_invariant" ],
+      [ "Swap44EnergyBeforeInvariant", "classwmtk_1_1_swap44_energy_before_invariant.html", "classwmtk_1_1_swap44_energy_before_invariant" ],
       [ "TodoInvariant", "classwmtk_1_1_todo_invariant.html", "classwmtk_1_1_todo_invariant" ],
       [ "TodoLargerInvariant", "classwmtk_1_1_todo_larger_invariant.html", "classwmtk_1_1_todo_larger_invariant" ],
       [ "TodoSmallerInvariant", "classwmtk_1_1_todo_smaller_invariant.html", "classwmtk_1_1_todo_smaller_invariant" ],
