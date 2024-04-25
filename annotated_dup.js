@@ -10,6 +10,7 @@ var annotated_dup =
       [ "hash< wmtk::attribute::TypedAttributeHandle< char > >", "classstd_1_1hash_3_01wmtk_1_1attribute_1_1_typed_attribute_handle_3_01char_01_4_01_4.html", null ],
       [ "hash< wmtk::attribute::TypedAttributeHandle< wmtk::Rational > >", "classstd_1_1hash_3_01wmtk_1_1attribute_1_1_typed_attribute_handle_3_01wmtk_1_1_rational_01_4_01_4.html", null ],
       [ "hash< wmtk::attribute::MeshAttributeHandle >", "classstd_1_1hash_3_01wmtk_1_1attribute_1_1_mesh_attribute_handle_01_4.html", null ],
+      [ "hash< wmtk::attribute::utils::HybridRationalAttribute< D > >", "classstd_1_1hash_3_01wmtk_1_1attribute_1_1utils_1_1_hybrid_rational_attribute_3_01_d_01_4_01_4.html", null ],
       [ "numeric_limits< DScalar1< _Scalar, _Gradient > >", "classstd_1_1numeric__limits_3_01_d_scalar1_3_01___scalar_00_01___gradient_01_4_01_4.html", null ],
       [ "numeric_limits< DScalar2< _Scalar, _Gradient, _Hessian > >", "classstd_1_1numeric__limits_3_01_d_scalar2_3_01___scalar_00_01___gradient_00_01___hessian_01_4_01_4.html", null ]
     ] ],
@@ -17,7 +18,9 @@ var annotated_dup =
       [ "attribute", "namespacewmtk_1_1attribute.html", [
         [ "internal", "namespacewmtk_1_1attribute_1_1internal.html", [
           [ "CheckpointScope", "classwmtk_1_1attribute_1_1internal_1_1_checkpoint_scope.html", "classwmtk_1_1attribute_1_1internal_1_1_checkpoint_scope" ],
-          [ "CompoundAccessor", "classwmtk_1_1attribute_1_1internal_1_1_compound_accessor.html", "classwmtk_1_1attribute_1_1internal_1_1_compound_accessor" ]
+          [ "CompoundAccessor", "classwmtk_1_1attribute_1_1internal_1_1_compound_accessor.html", "classwmtk_1_1attribute_1_1internal_1_1_compound_accessor" ],
+          [ "is_typed_attribute_handle", "structwmtk_1_1attribute_1_1internal_1_1is__typed__attribute__handle.html", null ],
+          [ "is_typed_attribute_handle< TypedAttributeHandle< T > >", "structwmtk_1_1attribute_1_1internal_1_1is__typed__attribute__handle_3_01_typed_attribute_handle_3_01_t_01_4_01_4.html", null ]
         ] ],
         [ "utils", "namespacewmtk_1_1attribute_1_1utils.html", [
           [ "HybridRationalAttribute", "classwmtk_1_1attribute_1_1utils_1_1_hybrid_rational_attribute.html", "classwmtk_1_1attribute_1_1utils_1_1_hybrid_rational_attribute" ],
@@ -68,6 +71,8 @@ var annotated_dup =
           [ "MarchingAttributes", "structwmtk_1_1components_1_1internal_1_1_marching_attributes.html", "structwmtk_1_1components_1_1internal_1_1_marching_attributes" ],
           [ "MarchingOptions", "structwmtk_1_1components_1_1internal_1_1_marching_options.html", "structwmtk_1_1components_1_1internal_1_1_marching_options" ],
           [ "MeshInfoOptions", "structwmtk_1_1components_1_1internal_1_1_mesh_info_options.html", "structwmtk_1_1components_1_1internal_1_1_mesh_info_options" ],
+          [ "MultiMeshFromTag", "classwmtk_1_1components_1_1internal_1_1_multi_mesh_from_tag.html", "classwmtk_1_1components_1_1internal_1_1_multi_mesh_from_tag" ],
+          [ "MultiMeshFromTagOptions", "structwmtk_1_1components_1_1internal_1_1_multi_mesh_from_tag_options.html", "structwmtk_1_1components_1_1internal_1_1_multi_mesh_from_tag_options" ],
           [ "OutputAttributes", "structwmtk_1_1components_1_1internal_1_1_output_attributes.html", "structwmtk_1_1components_1_1internal_1_1_output_attributes" ],
           [ "OutputOptions", "structwmtk_1_1components_1_1internal_1_1_output_options.html", "structwmtk_1_1components_1_1internal_1_1_output_options" ],
           [ "DiskOptions", "classwmtk_1_1components_1_1internal_1_1_disk_options.html", "classwmtk_1_1components_1_1internal_1_1_disk_options" ],
@@ -80,7 +85,8 @@ var annotated_dup =
           [ "RegularSpaceOptions", "structwmtk_1_1components_1_1internal_1_1_regular_space_options.html", "structwmtk_1_1components_1_1internal_1_1_regular_space_options" ],
           [ "TagIntersectionAttributes", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_attributes.html", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_attributes" ],
           [ "TagIntersectionValues", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_values.html", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_values" ],
-          [ "TagIntersectionOptions", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_options.html", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_options" ]
+          [ "TagIntersectionOptions", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_options.html", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_options" ],
+          [ "WindingNumberOptions", "structwmtk_1_1components_1_1internal_1_1_winding_number_options.html", "structwmtk_1_1components_1_1internal_1_1_winding_number_options" ]
         ] ],
         [ "FusionOptions", "structwmtk_1_1components_1_1_fusion_options.html", "structwmtk_1_1components_1_1_fusion_options" ],
         [ "MultimeshUVOptions", "structwmtk_1_1components_1_1_multimesh_u_v_options.html", "structwmtk_1_1components_1_1_multimesh_u_v_options" ],
@@ -125,6 +131,7 @@ var annotated_dup =
         [ "MaxFunctionInvariant", "classwmtk_1_1invariants_1_1_max_function_invariant.html", "classwmtk_1_1invariants_1_1_max_function_invariant" ],
         [ "MinIncidentValenceInvariant", "classwmtk_1_1invariants_1_1_min_incident_valence_invariant.html", "classwmtk_1_1invariants_1_1_min_incident_valence_invariant" ],
         [ "NoBoundaryCollapseToInteriorInvariant", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant.html", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant" ],
+        [ "SeparateSubstructuresInvariant", "classwmtk_1_1invariants_1_1_separate_substructures_invariant.html", "classwmtk_1_1invariants_1_1_separate_substructures_invariant" ],
         [ "TetMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant.html", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant" ],
         [ "TriMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant.html", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant" ],
         [ "uvEdgeInvariant", "classwmtk_1_1invariants_1_1uv_edge_invariant.html", "classwmtk_1_1invariants_1_1uv_edge_invariant" ],
@@ -187,8 +194,11 @@ var annotated_dup =
         [ "utils", "namespacewmtk_1_1operations_1_1utils.html", [
           [ "MultiMeshEdgeCollapseFunctor", "classwmtk_1_1operations_1_1utils_1_1_multi_mesh_edge_collapse_functor.html", "classwmtk_1_1operations_1_1utils_1_1_multi_mesh_edge_collapse_functor" ],
           [ "MultiMeshEdgeSplitFunctor", "classwmtk_1_1operations_1_1utils_1_1_multi_mesh_edge_split_functor.html", "classwmtk_1_1operations_1_1utils_1_1_multi_mesh_edge_split_functor" ],
+          [ "RoundRationalToDouble", "classwmtk_1_1operations_1_1utils_1_1_round_rational_to_double.html", "classwmtk_1_1operations_1_1utils_1_1_round_rational_to_double" ],
           [ "UpdateEdgeOperationMultiMeshMapFunctor", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor" ]
         ] ],
+        [ "AdjustSizingField", "classwmtk_1_1operations_1_1_adjust_sizing_field.html", "classwmtk_1_1operations_1_1_adjust_sizing_field" ],
+        [ "AMIPSOptimizationSmoothing", "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing.html", "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing" ],
         [ "BaseCollapseNewAttributeStrategy", "classwmtk_1_1operations_1_1_base_collapse_new_attribute_strategy.html", "classwmtk_1_1operations_1_1_base_collapse_new_attribute_strategy" ],
         [ "CollapseNewAttributeStrategy", "classwmtk_1_1operations_1_1_collapse_new_attribute_strategy.html", "classwmtk_1_1operations_1_1_collapse_new_attribute_strategy" ],
         [ "CollapseNewAttributeTopoInfo", "classwmtk_1_1operations_1_1_collapse_new_attribute_topo_info.html", "classwmtk_1_1operations_1_1_collapse_new_attribute_topo_info" ],
@@ -205,7 +215,9 @@ var annotated_dup =
         [ "EdgeOperationData", "classwmtk_1_1operations_1_1_edge_operation_data.html", "classwmtk_1_1operations_1_1_edge_operation_data" ],
         [ "EdgeSplit", "classwmtk_1_1operations_1_1_edge_split.html", "classwmtk_1_1operations_1_1_edge_split" ],
         [ "Operation", "classwmtk_1_1operations_1_1_operation.html", "classwmtk_1_1operations_1_1_operation" ],
+        [ "OperationSequence", "classwmtk_1_1operations_1_1_operation_sequence.html", "classwmtk_1_1operations_1_1_operation_sequence" ],
         [ "OptimizationSmoothing", "classwmtk_1_1operations_1_1_optimization_smoothing.html", "classwmtk_1_1operations_1_1_optimization_smoothing" ],
+        [ "Rounding", "classwmtk_1_1operations_1_1_rounding.html", "classwmtk_1_1operations_1_1_rounding" ],
         [ "VertexLaplacianSmooth", "classwmtk_1_1operations_1_1_vertex_laplacian_smooth.html", "classwmtk_1_1operations_1_1_vertex_laplacian_smooth" ],
         [ "VertexTangentialLaplacianSmooth", "classwmtk_1_1operations_1_1_vertex_tangential_laplacian_smooth.html", "classwmtk_1_1operations_1_1_vertex_tangential_laplacian_smooth" ]
       ] ],
@@ -291,6 +303,7 @@ var annotated_dup =
       [ "hash< wmtk::attribute::AttributeHandle >", "classwmtk_1_1hash_3_01wmtk_1_1attribute_1_1_attribute_handle_01_4.html", "classwmtk_1_1hash_3_01wmtk_1_1attribute_1_1_attribute_handle_01_4" ],
       [ "hash< wmtk::attribute::TypedAttributeHandle< T > >", "classwmtk_1_1hash_3_01wmtk_1_1attribute_1_1_typed_attribute_handle_3_01_t_01_4_01_4.html", "classwmtk_1_1hash_3_01wmtk_1_1attribute_1_1_typed_attribute_handle_3_01_t_01_4_01_4" ],
       [ "hash< wmtk::attribute::MeshAttributeHandle >", "classwmtk_1_1hash_3_01wmtk_1_1attribute_1_1_mesh_attribute_handle_01_4.html", "classwmtk_1_1hash_3_01wmtk_1_1attribute_1_1_mesh_attribute_handle_01_4" ],
+      [ "hash< attribute::utils::HybridRationalAttribute< D > >", "classwmtk_1_1hash_3_01attribute_1_1utils_1_1_hybrid_rational_attribute_3_01_d_01_4_01_4.html", "classwmtk_1_1hash_3_01attribute_1_1utils_1_1_hybrid_rational_attribute_3_01_d_01_4_01_4" ],
       [ "Cell", "classwmtk_1_1_cell.html", "classwmtk_1_1_cell" ],
       [ "EdgeMesh", "classwmtk_1_1_edge_mesh.html", "classwmtk_1_1_edge_mesh" ],
       [ "MaxEdgeLengthInvariant", "classwmtk_1_1_max_edge_length_invariant.html", "classwmtk_1_1_max_edge_length_invariant" ],
@@ -298,6 +311,7 @@ var annotated_dup =
       [ "MultiMeshLinkConditionInvariant", "classwmtk_1_1_multi_mesh_link_condition_invariant.html", "classwmtk_1_1_multi_mesh_link_condition_invariant" ],
       [ "MultiMeshMapValidInvariant", "classwmtk_1_1_multi_mesh_map_valid_invariant.html", "classwmtk_1_1_multi_mesh_map_valid_invariant" ],
       [ "MultiMeshEdgeTopologyInvariant", "classwmtk_1_1_multi_mesh_edge_topology_invariant.html", "classwmtk_1_1_multi_mesh_edge_topology_invariant" ],
+      [ "RoundedInvariant", "classwmtk_1_1_rounded_invariant.html", "classwmtk_1_1_rounded_invariant" ],
       [ "SimplexInversionInvariant", "classwmtk_1_1_simplex_inversion_invariant.html", "classwmtk_1_1_simplex_inversion_invariant" ],
       [ "Swap23EnergyBeforeInvariant", "classwmtk_1_1_swap23_energy_before_invariant.html", "classwmtk_1_1_swap23_energy_before_invariant" ],
       [ "Swap32EnergyBeforeInvariant", "classwmtk_1_1_swap32_energy_before_invariant.html", "classwmtk_1_1_swap32_energy_before_invariant" ],

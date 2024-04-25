@@ -13,11 +13,13 @@ var dir_8064400ec315cfa027df172c4bbead09 =
     [ "marching", "dir_145469d5d06a9748959b595d0fe366d4.html", "dir_145469d5d06a9748959b595d0fe366d4" ],
     [ "mesh_info", "dir_ef2077f00f6d93181a0f0da46f35925c.html", "dir_ef2077f00f6d93181a0f0da46f35925c" ],
     [ "multimesh", "dir_0e72e826919e32d8aac03d0c721d7327.html", "dir_0e72e826919e32d8aac03d0c721d7327" ],
+    [ "multimesh_from_tag", "dir_60ec0aab65c8103e117c49149e720d40.html", "dir_60ec0aab65c8103e117c49149e720d40" ],
     [ "output", "dir_7229508ae5de74012573e9c75a559ae0.html", "dir_7229508ae5de74012573e9c75a559ae0" ],
     [ "procedural", "dir_8b2be0710edb097d46e1a67e80e3ee84.html", "dir_8b2be0710edb097d46e1a67e80e3ee84" ],
     [ "regular_space", "dir_ffc7dbb4cb583ea418cd8e4d7b4953b6.html", "dir_ffc7dbb4cb583ea418cd8e4d7b4953b6" ],
     [ "tag_intersection", "dir_236cd121496d30414baca33d30c032b6.html", "dir_236cd121496d30414baca33d30c032b6" ],
     [ "to_points", "dir_454c3ee98c04fd346c5af9042a1b2fa0.html", "dir_454c3ee98c04fd346c5af9042a1b2fa0" ],
     [ "triangle_insertion", "dir_f76ce0e7f34f4da57b8f683c66be780e.html", "dir_f76ce0e7f34f4da57b8f683c66be780e" ],
-    [ "wildmeshing", "dir_f0ba732ac9befee6d2ad8ef858a89f32.html", "dir_f0ba732ac9befee6d2ad8ef858a89f32" ]
+    [ "wildmeshing", "dir_f0ba732ac9befee6d2ad8ef858a89f32.html", "dir_f0ba732ac9befee6d2ad8ef858a89f32" ],
+    [ "winding_number", "dir_3a84f599e713eb10dddeb5122417155d.html", "dir_3a84f599e713eb10dddeb5122417155d" ]
 ];
