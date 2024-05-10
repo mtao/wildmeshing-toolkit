@@ -1,6 +1,10 @@
 var dir_5421ed8c8fde3f7a08a046a47d931eae =
 [
     [ "internal", "dir_af25b58b4991ea2b2d7f34ae17b9e50b.html", "dir_af25b58b4991ea2b2d7f34ae17b9e50b" ],
+    [ "CollapseEnergyBeforeInvariant.cpp", "_collapse_energy_before_invariant_8cpp.html", null ],
+    [ "CollapseEnergyBeforeInvariant.hpp", "_collapse_energy_before_invariant_8hpp.html", [
+      [ "CollapseEnergyBeforeInvariant", "classwmtk_1_1invariants_1_1_collapse_energy_before_invariant.html", "classwmtk_1_1invariants_1_1_collapse_energy_before_invariant" ]
+    ] ],
     [ "EdgeValenceInvariant.cpp", "_edge_valence_invariant_8cpp.html", null ],
     [ "EdgeValenceInvariant.hpp", "_edge_valence_invariant_8hpp.html", [
       [ "EdgeValenceInvariant", "classwmtk_1_1invariants_1_1_edge_valence_invariant.html", "classwmtk_1_1invariants_1_1_edge_valence_invariant" ]
@@ -64,6 +68,10 @@ var dir_5421ed8c8fde3f7a08a046a47d931eae =
     [ "NoBoundaryCollapseToInteriorInvariant.hpp", "_no_boundary_collapse_to_interior_invariant_8hpp.html", [
       [ "NoBoundaryCollapseToInteriorInvariant", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant.html", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant" ]
     ] ],
+    [ "NoChildMeshAttachingInvariant.cpp", "_no_child_mesh_attaching_invariant_8cpp.html", null ],
+    [ "NoChildMeshAttachingInvariant.hpp", "_no_child_mesh_attaching_invariant_8hpp.html", [
+      [ "NoChildMeshAttachingInvariant", "classwmtk_1_1invariants_1_1_no_child_mesh_attaching_invariant.html", "classwmtk_1_1invariants_1_1_no_child_mesh_attaching_invariant" ]
+    ] ],
     [ "RoundedInvariant.cpp", "_rounded_invariant_8cpp.html", null ],
     [ "RoundedInvariant.hpp", "_rounded_invariant_8hpp.html", [
       [ "RoundedInvariant", "classwmtk_1_1_rounded_invariant.html", "classwmtk_1_1_rounded_invariant" ]
@@ -84,13 +92,13 @@ var dir_5421ed8c8fde3f7a08a046a47d931eae =
     [ "Swap32EnergyBeforeInvariant.hpp", "_swap32_energy_before_invariant_8hpp.html", [
       [ "Swap32EnergyBeforeInvariant", "classwmtk_1_1_swap32_energy_before_invariant.html", "classwmtk_1_1_swap32_energy_before_invariant" ]
     ] ],
-    [ "Swap44_2EnergyBeforeInvariant.cpp", "_swap44__2_energy_before_invariant_8cpp.html", null ],
-    [ "Swap44_2EnergyBeforeInvariant.hpp", "_swap44__2_energy_before_invariant_8hpp.html", [
-      [ "Swap44_2EnergyBeforeInvariant", "classwmtk_1_1_swap44__2_energy_before_invariant.html", "classwmtk_1_1_swap44__2_energy_before_invariant" ]
-    ] ],
     [ "Swap44EnergyBeforeInvariant.cpp", "_swap44_energy_before_invariant_8cpp.html", null ],
     [ "Swap44EnergyBeforeInvariant.hpp", "_swap44_energy_before_invariant_8hpp.html", [
       [ "Swap44EnergyBeforeInvariant", "classwmtk_1_1_swap44_energy_before_invariant.html", "classwmtk_1_1_swap44_energy_before_invariant" ]
+    ] ],
+    [ "Swap56EnergyBeforeInvariant.cpp", "_swap56_energy_before_invariant_8cpp.html", null ],
+    [ "Swap56EnergyBeforeInvariant.hpp", "_swap56_energy_before_invariant_8hpp.html", [
+      [ "Swap56EnergyBeforeInvariant", "classwmtk_1_1_swap56_energy_before_invariant.html", "classwmtk_1_1_swap56_energy_before_invariant" ]
     ] ],
     [ "TetMeshSubstructureTopologyPreservingInvariant.cpp", "_tet_mesh_substructure_topology_preserving_invariant_8cpp.html", null ],
     [ "TetMeshSubstructureTopologyPreservingInvariant.hpp", "_tet_mesh_substructure_topology_preserving_invariant_8hpp.html", [

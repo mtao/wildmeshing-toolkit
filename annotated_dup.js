@@ -17,6 +17,10 @@ var annotated_dup =
     [ "wmtk", "namespacewmtk.html", [
       [ "attribute", "namespacewmtk_1_1attribute.html", [
         [ "internal", "namespacewmtk_1_1attribute_1_1internal.html", [
+          [ "AttributeMapCache", "classwmtk_1_1attribute_1_1internal_1_1_attribute_map_cache.html", "classwmtk_1_1attribute_1_1internal_1_1_attribute_map_cache" ],
+          [ "AttributeTransactionStack", "classwmtk_1_1attribute_1_1internal_1_1_attribute_transaction_stack.html", "classwmtk_1_1attribute_1_1internal_1_1_attribute_transaction_stack" ],
+          [ "AttributeCacheData", "classwmtk_1_1attribute_1_1internal_1_1_attribute_cache_data.html", "classwmtk_1_1attribute_1_1internal_1_1_attribute_cache_data" ],
+          [ "AttributeFlatCache", "classwmtk_1_1attribute_1_1internal_1_1_attribute_flat_cache.html", "classwmtk_1_1attribute_1_1internal_1_1_attribute_flat_cache" ],
           [ "CheckpointScope", "classwmtk_1_1attribute_1_1internal_1_1_checkpoint_scope.html", "classwmtk_1_1attribute_1_1internal_1_1_checkpoint_scope" ],
           [ "CompoundAccessor", "classwmtk_1_1attribute_1_1internal_1_1_compound_accessor.html", "classwmtk_1_1attribute_1_1internal_1_1_compound_accessor" ],
           [ "is_typed_attribute_handle", "structwmtk_1_1attribute_1_1internal_1_1is__typed__attribute__handle.html", null ],
@@ -33,8 +37,6 @@ var annotated_dup =
         [ "AccessorBase", "classwmtk_1_1attribute_1_1_accessor_base.html", "classwmtk_1_1attribute_1_1_accessor_base" ],
         [ "PerThreadAttributeScopeStacks", "classwmtk_1_1attribute_1_1_per_thread_attribute_scope_stacks.html", "classwmtk_1_1attribute_1_1_per_thread_attribute_scope_stacks" ],
         [ "AttributeScopeStack", "classwmtk_1_1attribute_1_1_attribute_scope_stack.html", "classwmtk_1_1attribute_1_1_attribute_scope_stack" ],
-        [ "AttributeCache", "classwmtk_1_1attribute_1_1_attribute_cache.html", "classwmtk_1_1attribute_1_1_attribute_cache" ],
-        [ "AttributeCacheData", "classwmtk_1_1attribute_1_1_attribute_cache_data.html", "classwmtk_1_1attribute_1_1_attribute_cache_data" ],
         [ "TypedAttributeHandle", "classwmtk_1_1attribute_1_1_typed_attribute_handle.html", "classwmtk_1_1attribute_1_1_typed_attribute_handle" ],
         [ "AttributeHandle", "classwmtk_1_1attribute_1_1_attribute_handle.html", "classwmtk_1_1attribute_1_1_attribute_handle" ],
         [ "AttributeManager", "classwmtk_1_1attribute_1_1_attribute_manager.html", "classwmtk_1_1attribute_1_1_attribute_manager" ],
@@ -119,6 +121,7 @@ var annotated_dup =
         [ "internal", "namespacewmtk_1_1invariants_1_1internal.html", [
           [ "ConstantInvariant", "classwmtk_1_1invariants_1_1internal_1_1_constant_invariant.html", "classwmtk_1_1invariants_1_1internal_1_1_constant_invariant" ]
         ] ],
+        [ "CollapseEnergyBeforeInvariant", "classwmtk_1_1invariants_1_1_collapse_energy_before_invariant.html", "classwmtk_1_1invariants_1_1_collapse_energy_before_invariant" ],
         [ "EdgeValenceInvariant", "classwmtk_1_1invariants_1_1_edge_valence_invariant.html", "classwmtk_1_1invariants_1_1_edge_valence_invariant" ],
         [ "EnvelopeInvariant", "classwmtk_1_1invariants_1_1_envelope_invariant.html", "classwmtk_1_1invariants_1_1_envelope_invariant" ],
         [ "FunctionInvariant", "classwmtk_1_1invariants_1_1_function_invariant.html", "classwmtk_1_1invariants_1_1_function_invariant" ],
@@ -131,6 +134,7 @@ var annotated_dup =
         [ "MaxFunctionInvariant", "classwmtk_1_1invariants_1_1_max_function_invariant.html", "classwmtk_1_1invariants_1_1_max_function_invariant" ],
         [ "MinIncidentValenceInvariant", "classwmtk_1_1invariants_1_1_min_incident_valence_invariant.html", "classwmtk_1_1invariants_1_1_min_incident_valence_invariant" ],
         [ "NoBoundaryCollapseToInteriorInvariant", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant.html", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant" ],
+        [ "NoChildMeshAttachingInvariant", "classwmtk_1_1invariants_1_1_no_child_mesh_attaching_invariant.html", "classwmtk_1_1invariants_1_1_no_child_mesh_attaching_invariant" ],
         [ "SeparateSubstructuresInvariant", "classwmtk_1_1invariants_1_1_separate_substructures_invariant.html", "classwmtk_1_1invariants_1_1_separate_substructures_invariant" ],
         [ "TetMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant.html", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant" ],
         [ "TriMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant.html", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant" ],
@@ -199,6 +203,7 @@ var annotated_dup =
         ] ],
         [ "AdjustSizingField", "classwmtk_1_1operations_1_1_adjust_sizing_field.html", "classwmtk_1_1operations_1_1_adjust_sizing_field" ],
         [ "AMIPSOptimizationSmoothing", "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing.html", "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing" ],
+        [ "AndOperationSequence", "classwmtk_1_1operations_1_1_and_operation_sequence.html", "classwmtk_1_1operations_1_1_and_operation_sequence" ],
         [ "BaseCollapseNewAttributeStrategy", "classwmtk_1_1operations_1_1_base_collapse_new_attribute_strategy.html", "classwmtk_1_1operations_1_1_base_collapse_new_attribute_strategy" ],
         [ "CollapseNewAttributeStrategy", "classwmtk_1_1operations_1_1_collapse_new_attribute_strategy.html", "classwmtk_1_1operations_1_1_collapse_new_attribute_strategy" ],
         [ "CollapseNewAttributeTopoInfo", "classwmtk_1_1operations_1_1_collapse_new_attribute_topo_info.html", "classwmtk_1_1operations_1_1_collapse_new_attribute_topo_info" ],
@@ -214,9 +219,11 @@ var annotated_dup =
         [ "EdgeCollapse", "classwmtk_1_1operations_1_1_edge_collapse.html", "classwmtk_1_1operations_1_1_edge_collapse" ],
         [ "EdgeOperationData", "classwmtk_1_1operations_1_1_edge_operation_data.html", "classwmtk_1_1operations_1_1_edge_operation_data" ],
         [ "EdgeSplit", "classwmtk_1_1operations_1_1_edge_split.html", "classwmtk_1_1operations_1_1_edge_split" ],
+        [ "MinOperationSequence", "classwmtk_1_1operations_1_1_min_operation_sequence.html", "classwmtk_1_1operations_1_1_min_operation_sequence" ],
         [ "Operation", "classwmtk_1_1operations_1_1_operation.html", "classwmtk_1_1operations_1_1_operation" ],
         [ "OperationSequence", "classwmtk_1_1operations_1_1_operation_sequence.html", "classwmtk_1_1operations_1_1_operation_sequence" ],
         [ "OptimizationSmoothing", "classwmtk_1_1operations_1_1_optimization_smoothing.html", "classwmtk_1_1operations_1_1_optimization_smoothing" ],
+        [ "OrOperationSequence", "classwmtk_1_1operations_1_1_or_operation_sequence.html", "classwmtk_1_1operations_1_1_or_operation_sequence" ],
         [ "Rounding", "classwmtk_1_1operations_1_1_rounding.html", "classwmtk_1_1operations_1_1_rounding" ],
         [ "VertexLaplacianSmooth", "classwmtk_1_1operations_1_1_vertex_laplacian_smooth.html", "classwmtk_1_1operations_1_1_vertex_laplacian_smooth" ],
         [ "VertexTangentialLaplacianSmooth", "classwmtk_1_1operations_1_1_vertex_tangential_laplacian_smooth.html", "classwmtk_1_1operations_1_1_vertex_tangential_laplacian_smooth" ]
@@ -315,8 +322,8 @@ var annotated_dup =
       [ "SimplexInversionInvariant", "classwmtk_1_1_simplex_inversion_invariant.html", "classwmtk_1_1_simplex_inversion_invariant" ],
       [ "Swap23EnergyBeforeInvariant", "classwmtk_1_1_swap23_energy_before_invariant.html", "classwmtk_1_1_swap23_energy_before_invariant" ],
       [ "Swap32EnergyBeforeInvariant", "classwmtk_1_1_swap32_energy_before_invariant.html", "classwmtk_1_1_swap32_energy_before_invariant" ],
-      [ "Swap44_2EnergyBeforeInvariant", "classwmtk_1_1_swap44__2_energy_before_invariant.html", "classwmtk_1_1_swap44__2_energy_before_invariant" ],
       [ "Swap44EnergyBeforeInvariant", "classwmtk_1_1_swap44_energy_before_invariant.html", "classwmtk_1_1_swap44_energy_before_invariant" ],
+      [ "Swap56EnergyBeforeInvariant", "classwmtk_1_1_swap56_energy_before_invariant.html", "classwmtk_1_1_swap56_energy_before_invariant" ],
       [ "TodoInvariant", "classwmtk_1_1_todo_invariant.html", "classwmtk_1_1_todo_invariant" ],
       [ "TodoLargerInvariant", "classwmtk_1_1_todo_larger_invariant.html", "classwmtk_1_1_todo_larger_invariant" ],
       [ "TodoSmallerInvariant", "classwmtk_1_1_todo_smaller_invariant.html", "classwmtk_1_1_todo_smaller_invariant" ],
