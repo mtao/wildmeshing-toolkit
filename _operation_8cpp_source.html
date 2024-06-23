@@ -180,7 +180,7 @@ $(document).ready(function(){initNavTree('_operation_8cpp_source.html',''); init
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        <span class="keywordflow">return</span> {};</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#if defined(WMTK_ENABLE_HASH_UPDATE) </span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#if defined(WMTK_ENABLE_HASH_UPDATE)</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> simplex_resurrect =</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <a class="code" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a>(<a class="code" href="classwmtk_1_1operations_1_1_operation.html#a524a78a76bb262cffcaafdd36afa037b">mesh</a>(), simplex.<a class="code" href="classwmtk_1_1simplex_1_1_simplex.html#ad2cc0340a0772b7d6f03ba7a781d1163">primitive_type</a>(), resurrect_tuple(simplex.<a class="code" href="classwmtk_1_1simplex_1_1_simplex.html#a3650fd31ff1864285502dba66db3c73c">tuple</a>()));</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#else</span></div>
@@ -212,11 +212,11 @@ $(document).ready(function(){initNavTree('_operation_8cpp_source.html',''); init
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="comment">//     return false;</span></div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="comment">// }</span></div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classwmtk_1_1operations_1_1_operation.html#a524a78a76bb262cffcaafdd36afa037b">mesh</a>().is_removed(simplex.<a class="code" href="classwmtk_1_1simplex_1_1_simplex.html#a3650fd31ff1864285502dba66db3c73c">tuple</a>())) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classwmtk_1_1operations_1_1_operation.html#a524a78a76bb262cffcaafdd36afa037b">mesh</a>().is_removed(simplex.<a class="code" href="classwmtk_1_1simplex_1_1_simplex.html#a3650fd31ff1864285502dba66db3c73c">tuple</a>()) || !<a class="code" href="classwmtk_1_1operations_1_1_operation.html#a524a78a76bb262cffcaafdd36afa037b">mesh</a>().is_valid(simplex)) {</div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    }</div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#if defined(WMTK_ENABLE_HASH_UPDATE) </span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="preprocessor">#if defined(WMTK_ENABLE_HASH_UPDATE)</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> simplex_resurrect =</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <a class="code" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a>(<a class="code" href="classwmtk_1_1operations_1_1_operation.html#a524a78a76bb262cffcaafdd36afa037b">mesh</a>(), simplex.<a class="code" href="classwmtk_1_1simplex_1_1_simplex.html#ad2cc0340a0772b7d6f03ba7a781d1163">primitive_type</a>(), resurrect_tuple(simplex.<a class="code" href="classwmtk_1_1simplex_1_1_simplex.html#a3650fd31ff1864285502dba66db3c73c">tuple</a>()));</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="preprocessor">#else</span></div>
@@ -286,7 +286,7 @@ $(document).ready(function(){initNavTree('_operation_8cpp_source.html',''); init
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    }</div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;}</div>
 <div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">#if defined(WMTK_ENABLE_HASH_UPDATE) </span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">#if defined(WMTK_ENABLE_HASH_UPDATE)</span></div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<a class="code" href="classwmtk_1_1_tuple.html">Tuple</a> Operation::resurrect_tuple(<span class="keyword">const</span> <a class="code" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; tuple)<span class="keyword"> const</span></div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="keyword"></span>{</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classwmtk_1_1operations_1_1_operation.html#a524a78a76bb262cffcaafdd36afa037b">mesh</a>().resurrect_tuple(tuple, hash_accessor());</div>
