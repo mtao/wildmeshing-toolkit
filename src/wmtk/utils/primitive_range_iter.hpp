@@ -13,10 +13,17 @@ template <
     bool Inverted = (Start > End)>
 class PrimitiveTypeRange
 {
+    public:
     using integral_type = std::underlying_type_t<PrimitiveType>;
     class iterator
     {
     public:
+        using difference_type = integral_type;
+        using value_type = PrimitiveType;
+        using pointer = nullptr_t;
+        using iterator_category = std::bidirectional_iterator_tag;
+        using reference= value_type&;
+
         iterator(const integral_type pt)
             : m_value(pt)
         {}
@@ -39,12 +46,12 @@ class PrimitiveTypeRange
                 return pt - 1;
             }
         }
-        auto operator++() -> iterator
+        auto operator++() -> iterator&
         {
             m_value = increment(m_value);
             return *this;
         }
-        auto operator--() -> iterator
+        auto operator--() -> iterator&
         {
             m_value = decrement(m_value);
             return *this;
@@ -62,7 +69,17 @@ class PrimitiveTypeRange
             return iterator(pt);
         }
 
+        bool operator==(const iterator& o) const {
+            return m_value == o.m_value;
+        }
+        bool operator!=(const iterator& o) const {
+            return m_value != o.m_value;
+        }
+        bool operator<(const iterator& o) const {
+            return m_value < o.m_value;
+        }
         auto operator*() const -> PrimitiveType { return static_cast<PrimitiveType>(m_value); }
+        //auto operator*() const -> PrimitiveType { return static_cast<PrimitiveType>(m_value); }
 
     private:
         integral_type m_value;
@@ -80,16 +97,21 @@ class PrimitiveTypeRange
 
 // returns a vector of primitives including the endpoints of the range
 template <PrimitiveType Start, PrimitiveType End>
-auto primitive_range()
+auto primitive_range_iter()
 {
     using integral_type = std::underlying_type_t<PrimitiveType>;
     constexpr static auto StartI = static_cast<integral_type>(Start);
     constexpr static auto EndI = static_cast<integral_type>(End);
-    return detail::PrimitiveTypeRange<StartI, EndI>{};
+
+    return detail::PrimitiveTypeRange<StartI, 
+           EndI
+
+           + (StartI < EndI ? 1 : -1)
+               >{};
 }
 // returns a vector of primitives including the endpoint
 template <PrimitiveType Start, bool LowerToUpper = true>
-auto primitive_above()
+auto primitive_above_iter()
 {
     constexpr static PrimitiveType End = PrimitiveType::Tetrahedron;
     using integral_type = std::underlying_type_t<PrimitiveType>;
@@ -103,7 +125,7 @@ auto primitive_above()
 }
 // returns a vector of primitives including the endpoint
 template <PrimitiveType End, bool LowerToUpper = true>
-primitive_below()
+auto primitive_below_iter()
 {
     constexpr static PrimitiveType Start = PrimitiveType::Vertex;
     using integral_type = std::underlying_type_t<PrimitiveType>;
