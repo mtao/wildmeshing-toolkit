@@ -72,7 +72,6 @@ TEST_CASE("primitive_above", "[primitive]")
             PrimitiveType::Tetrahedron};
         CHECK(a == b);
     }
-    
 }
 TEST_CASE("primitive_below", "[primitive]")
 {
@@ -112,73 +111,72 @@ TEST_CASE("primitive_below", "[primitive]")
 
 
 namespace {
-    template <PrimitiveType pt, bool l2u>
-    void test_below() {
-        auto below = wmtk::utils::primitive_below(pt, l2u);
-        auto below_it = wmtk::utils::template primitive_below_iter<pt,l2u>();
+template <PrimitiveType pt, bool l2u>
+void test_below()
+{
+    auto below = wmtk::utils::primitive_below(pt, l2u);
+    auto below_it = wmtk::utils::template primitive_below_iter<l2u>(pt);
 
-        std::vector<PrimitiveType> below_it_vec(below_it.begin(),below_it.end());
-        CHECK(below == below_it_vec);
-
-    }
-    template <PrimitiveType pt, bool l2u>
-    void test_above() {
-        auto above = wmtk::utils::primitive_above(pt, l2u);
-        auto above_it = wmtk::utils::template primitive_above_iter<pt,l2u>();
-
-        std::vector<PrimitiveType> above_it_vec(above_it.begin(),above_it.end());
-        CHECK(above == above_it_vec);
-
-    }
-    template <PrimitiveType Start, PrimitiveType End>
-    void test_range() {
-        auto range = wmtk::utils::primitive_range(Start, End);
-        auto range_it = wmtk::utils::template primitive_range_iter<Start,End>();
-
-        std::vector<PrimitiveType> range_it_vec(range_it.begin(),range_it.end());
-        CHECK(range == range_it_vec);
-
-    }
+    std::vector<PrimitiveType> below_it_vec(below_it.begin(), below_it.end());
+    CHECK(below == below_it_vec);
 }
+template <PrimitiveType pt, bool l2u>
+void test_above()
+{
+    auto above = wmtk::utils::primitive_above(pt, l2u);
+    auto above_it = wmtk::utils::template primitive_above_iter<l2u>(pt);
+
+    std::vector<PrimitiveType> above_it_vec(above_it.begin(), above_it.end());
+    CHECK(above == above_it_vec);
+}
+template <PrimitiveType Start, PrimitiveType End>
+void test_range()
+{
+    auto range = wmtk::utils::primitive_range(Start, End);
+    auto range_it = wmtk::utils::template primitive_range_iter<(Start <= End)>(Start, End);
+
+    std::vector<PrimitiveType> range_it_vec(range_it.begin(), range_it.end());
+    CHECK(range == range_it_vec);
+}
+} // namespace
 
 TEST_CASE("primitive_range_iter", "[primitive]")
 {
+    test_below<PrimitiveType::Vertex, false>();
+    test_below<PrimitiveType::Edge, false>();
+    test_below<PrimitiveType::Triangle, false>();
+    test_below<PrimitiveType::Tetrahedron, false>();
+    test_below<PrimitiveType::Vertex, true>();
+    test_below<PrimitiveType::Edge, true>();
+    test_below<PrimitiveType::Triangle, true>();
+    test_below<PrimitiveType::Tetrahedron, true>();
 
-    test_below<PrimitiveType::Vertex,false>();
-    test_below<PrimitiveType::Edge,false>();
-    test_below<PrimitiveType::Triangle,false>();
-    test_below<PrimitiveType::Tetrahedron,false>();
-    test_below<PrimitiveType::Vertex,true>();
-    test_below<PrimitiveType::Edge,true>();
-    test_below<PrimitiveType::Triangle,true>();
-    test_below<PrimitiveType::Tetrahedron,true>();
+    test_above<PrimitiveType::Vertex, false>();
+    test_above<PrimitiveType::Edge, false>();
+    test_above<PrimitiveType::Triangle, false>();
+    test_above<PrimitiveType::Tetrahedron, false>();
+    test_above<PrimitiveType::Vertex, true>();
+    test_above<PrimitiveType::Edge, true>();
+    test_above<PrimitiveType::Triangle, true>();
+    test_above<PrimitiveType::Tetrahedron, true>();
 
-    test_above<PrimitiveType::Vertex,false>();
-    test_above<PrimitiveType::Edge,false>();
-    test_above<PrimitiveType::Triangle,false>();
-    test_above<PrimitiveType::Tetrahedron,false>();
-    test_above<PrimitiveType::Vertex,true>();
-    test_above<PrimitiveType::Edge,true>();
-    test_above<PrimitiveType::Triangle,true>();
-    test_above<PrimitiveType::Tetrahedron,true>();
+    test_range<PrimitiveType::Vertex, PrimitiveType::Vertex>();
+    test_range<PrimitiveType::Edge, PrimitiveType::Vertex>();
+    test_range<PrimitiveType::Triangle, PrimitiveType::Vertex>();
+    test_range<PrimitiveType::Tetrahedron, PrimitiveType::Vertex>();
 
-    test_range<PrimitiveType::Vertex,PrimitiveType::Vertex>();
-    test_range<PrimitiveType::Edge,PrimitiveType::Vertex>();
-    test_range<PrimitiveType::Triangle,PrimitiveType::Vertex>();
-    test_range<PrimitiveType::Tetrahedron,PrimitiveType::Vertex>();
+    test_range<PrimitiveType::Vertex, PrimitiveType::Edge>();
+    test_range<PrimitiveType::Edge, PrimitiveType::Edge>();
+    test_range<PrimitiveType::Triangle, PrimitiveType::Edge>();
+    test_range<PrimitiveType::Tetrahedron, PrimitiveType::Edge>();
 
-    test_range<PrimitiveType::Vertex,PrimitiveType::Edge>();
-    test_range<PrimitiveType::Edge,PrimitiveType::Edge>();
-    test_range<PrimitiveType::Triangle,PrimitiveType::Edge>();
-    test_range<PrimitiveType::Tetrahedron,PrimitiveType::Edge>();
+    test_range<PrimitiveType::Vertex, PrimitiveType::Triangle>();
+    test_range<PrimitiveType::Edge, PrimitiveType::Triangle>();
+    test_range<PrimitiveType::Triangle, PrimitiveType::Triangle>();
+    test_range<PrimitiveType::Tetrahedron, PrimitiveType::Triangle>();
 
-    test_range<PrimitiveType::Vertex,PrimitiveType::Triangle>();
-    test_range<PrimitiveType::Edge,PrimitiveType::Triangle>();
-    test_range<PrimitiveType::Triangle,PrimitiveType::Triangle>();
-    test_range<PrimitiveType::Tetrahedron,PrimitiveType::Triangle>();
-
-    test_range<PrimitiveType::Vertex,PrimitiveType::Tetrahedron>();
-    test_range<PrimitiveType::Edge,PrimitiveType::Tetrahedron>();
-    test_range<PrimitiveType::Triangle,PrimitiveType::Tetrahedron>();
-    test_range<PrimitiveType::Tetrahedron,PrimitiveType::Tetrahedron>();
+    test_range<PrimitiveType::Vertex, PrimitiveType::Tetrahedron>();
+    test_range<PrimitiveType::Edge, PrimitiveType::Tetrahedron>();
+    test_range<PrimitiveType::Triangle, PrimitiveType::Tetrahedron>();
+    test_range<PrimitiveType::Tetrahedron, PrimitiveType::Tetrahedron>();
 }
