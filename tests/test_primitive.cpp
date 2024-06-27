@@ -2,6 +2,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include <wmtk/utils/primitive_range_iter.hpp>
+#include <spdlog/spdlog.h>
 
 using namespace wmtk;
 TEST_CASE("primitive_range", "[primitive]")
@@ -115,7 +116,7 @@ template <PrimitiveType pt, bool l2u>
 void test_below()
 {
     auto below = wmtk::utils::primitive_below(pt, l2u);
-    auto below_it = wmtk::utils::template primitive_below_iter<l2u>(pt);
+    auto below_it = wmtk::utils::primitive_below_iter(pt,l2u);
 
     std::vector<PrimitiveType> below_it_vec(below_it.begin(), below_it.end());
     CHECK(below == below_it_vec);
@@ -124,7 +125,7 @@ template <PrimitiveType pt, bool l2u>
 void test_above()
 {
     auto above = wmtk::utils::primitive_above(pt, l2u);
-    auto above_it = wmtk::utils::template primitive_above_iter<l2u>(pt);
+    auto above_it = wmtk::utils::primitive_above_iter(pt, l2u);
 
     std::vector<PrimitiveType> above_it_vec(above_it.begin(), above_it.end());
     CHECK(above == above_it_vec);
@@ -132,15 +133,21 @@ void test_above()
 template <PrimitiveType Start, PrimitiveType End>
 void test_range()
 {
+    spdlog::info("{} {}", int8_t(Start), int8_t(End));
     auto range = wmtk::utils::primitive_range(Start, End);
-    auto range_it = wmtk::utils::template primitive_range_iter<(Start <= End)>(Start, End);
+    auto range_it = wmtk::utils::primitive_range_iter(Start, End);
 
     std::vector<PrimitiveType> range_it_vec(range_it.begin(), range_it.end());
+    REQUIRE(range.size() == range_it_vec.size());
+    for(size_t j = 0; j < range.size(); ++j) {
+        spdlog::warn("{} {}", int8_t(range[j]), int8_t(range_it_vec[j]));
+    }
+
     CHECK(range == range_it_vec);
 }
 } // namespace
 
-TEST_CASE("primitive_range_iter", "[primitive]")
+TEST_CASE("primitive_range_iteration", "[primitive]")
 {
     test_below<PrimitiveType::Vertex, false>();
     test_below<PrimitiveType::Edge, false>();
@@ -179,4 +186,25 @@ TEST_CASE("primitive_range_iter", "[primitive]")
     test_range<PrimitiveType::Edge, PrimitiveType::Tetrahedron>();
     test_range<PrimitiveType::Triangle, PrimitiveType::Tetrahedron>();
     test_range<PrimitiveType::Tetrahedron, PrimitiveType::Tetrahedron>();
+}
+
+TEST_CASE("primitive_range_iteration_pop_back", "[primitive]")
+{
+
+    PrimitiveType TopType = PrimitiveType::Triangle;
+    PrimitiveType BottomType = PrimitiveType::Edge;
+
+    auto range2 = wmtk::utils::primitive_range(TopType, BottomType);
+    {
+    auto range = wmtk::utils::primitive_range_iter(TopType, BottomType );
+    std::vector<PrimitiveType> range_vec(range.begin(),range.end());
+
+    assert(range_vec == range2);
+    }
+    range2.pop_back();
+
+    auto range = wmtk::utils::primitive_range_iter(TopType, BottomType + 1);
+    std::vector<PrimitiveType> range_vec(range.begin(),range.end());
+
+    REQUIRE(range_vec == range2);
 }

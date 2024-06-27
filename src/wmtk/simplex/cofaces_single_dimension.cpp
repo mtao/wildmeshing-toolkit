@@ -8,6 +8,7 @@
 #include <wmtk/simplex/utils/tuple_vector_to_homogeneous_simplex_vector.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/TupleCellLessThanFunctor.hpp>
+#include <wmtk/utils/primitive_range_iter.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "internal/boundary_with_preserved_face.hpp"
 #include "link.hpp"
@@ -60,11 +61,25 @@ std::vector<Tuple> cofaces_single_dimension_tuples(
 
 
     assert(my_simplex.primitive_type() < cofaces_type);
-    auto range = wmtk::utils::primitive_range(mesh.top_simplex_type(), cofaces_type);
-    range.pop_back();
-    for (const auto& pt : range) {
+    auto range2 = wmtk::utils::primitive_range(mesh.top_simplex_type(), cofaces_type);
+    {
+    auto range = wmtk::utils::primitive_range_iter(mesh.top_simplex_type(), cofaces_type );
+    std::vector<PrimitiveType> range_vec(range.begin(),range.end());
+
+    assert(range_vec == range2);
+    }
+    range2.pop_back();
+
+    for (const auto& pt : range2) {
         tuples = boundary_with_preserved_face_tuples(mesh, tuples, pt, my_simplex.primitive_type());
     }
+    auto range = wmtk::utils::primitive_range_iter(mesh.top_simplex_type(), cofaces_type + 1);
+    //for (const auto& pt : range) {
+    //    tuples = boundary_with_preserved_face_tuples(mesh, tuples, pt, my_simplex.primitive_type());
+    //}
+    std::vector<PrimitiveType> range_vec(range.begin(),range.end());
+
+    assert(range_vec == range2);
     return tuples;
 }
 
