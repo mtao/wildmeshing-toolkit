@@ -1506,6 +1506,11 @@ TEST_CASE("simplex_link_tetmesh", "[simplex_collection]")
 TEST_CASE("simplex_cofaces_single_dimension", "[simplex_collection][2D]")
 {
     tests::DEBUG_TriMesh m = tests::hex_plus_two();
+    //    0---1---2
+    //   /0\1/2\3/4\ .
+    //  3---4---5---6
+    //   \5/6\7/  .
+    //    7---8
 
     SECTION("vertex_interior")
     {

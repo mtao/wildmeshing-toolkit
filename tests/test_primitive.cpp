@@ -1,8 +1,8 @@
+#include <spdlog/spdlog.h>
 #include <algorithm>
 #include <catch2/catch_test_macros.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include <wmtk/utils/primitive_range_iter.hpp>
-#include <spdlog/spdlog.h>
 
 using namespace wmtk;
 TEST_CASE("primitive_range", "[primitive]")
@@ -116,7 +116,7 @@ template <PrimitiveType pt, bool l2u>
 void test_below()
 {
     auto below = wmtk::utils::primitive_below(pt, l2u);
-    auto below_it = wmtk::utils::primitive_below_iter(pt,l2u);
+    auto below_it = wmtk::utils::primitive_below_iter(pt, l2u);
 
     std::vector<PrimitiveType> below_it_vec(below_it.begin(), below_it.end());
     CHECK(below == below_it_vec);
@@ -139,7 +139,7 @@ void test_range()
 
     std::vector<PrimitiveType> range_it_vec(range_it.begin(), range_it.end());
     REQUIRE(range.size() == range_it_vec.size());
-    for(size_t j = 0; j < range.size(); ++j) {
+    for (size_t j = 0; j < range.size(); ++j) {
         spdlog::warn("{} {}", int8_t(range[j]), int8_t(range_it_vec[j]));
     }
 
@@ -190,21 +190,20 @@ TEST_CASE("primitive_range_iteration", "[primitive]")
 
 TEST_CASE("primitive_range_iteration_pop_back", "[primitive]")
 {
-
     PrimitiveType TopType = PrimitiveType::Triangle;
     PrimitiveType BottomType = PrimitiveType::Edge;
 
     auto range2 = wmtk::utils::primitive_range(TopType, BottomType);
     {
-    auto range = wmtk::utils::primitive_range_iter(TopType, BottomType );
-    std::vector<PrimitiveType> range_vec(range.begin(),range.end());
+        auto range = wmtk::utils::primitive_range_iter(TopType, BottomType);
+        std::vector<PrimitiveType> range_vec(range.begin(), range.end());
 
-    assert(range_vec == range2);
+        assert(range_vec == range2);
     }
     range2.pop_back();
 
     auto range = wmtk::utils::primitive_range_iter(TopType, BottomType + 1);
-    std::vector<PrimitiveType> range_vec(range.begin(),range.end());
+    std::vector<PrimitiveType> range_vec(range.begin(), range.end());
 
     REQUIRE(range_vec == range2);
 }
