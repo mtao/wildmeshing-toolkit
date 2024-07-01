@@ -1,8 +1,7 @@
 #include "faces.hpp"
 #include "boundary.hpp"
 
-#include <wmtk/utils/primitive_range.hpp>
-
+#include <wmtk/utils/primitive_range_iter.hpp>
 #include "faces_single_dimension.hpp"
 
 
@@ -18,9 +17,8 @@ SimplexCollection faces(const Mesh& mesh, const Simplex& simplex, const bool sor
 
 void faces(SimplexCollection& simplex_collection, const Simplex& simplex, const bool sort_and_clean)
 {
-    const auto primitive_range = wmtk::utils::primitive_below(simplex.primitive_type());
-    for (size_t i = 1; i < primitive_range.size(); ++i) {
-        faces_single_dimension(simplex_collection, simplex, primitive_range[i]);
+    for (auto pt : wmtk::utils::primitive_below_iter(simplex.primitive_type() - 1, false)) {
+        faces_single_dimension(simplex_collection, simplex, pt);
     }
 
 

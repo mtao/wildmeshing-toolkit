@@ -207,3 +207,45 @@ TEST_CASE("primitive_range_iteration_pop_back", "[primitive]")
 
     REQUIRE(range_vec == range2);
 }
+
+TEST_CASE("primitive_range_iteration_from_one", "[primitive]")
+{
+    for (PrimitiveType pt = PrimitiveType::Edge; pt <= PrimitiveType::Tetrahedron; pt = pt + 1) {
+        const auto primitive_range = wmtk::utils::primitive_below(pt);
+        std::vector<wmtk::PrimitiveType> pts;
+        for (size_t i = 1; i < primitive_range.size(); ++i) {
+            pts.emplace_back(primitive_range[i]);
+        }
+
+        auto range = wmtk::utils::primitive_below_iter(pt - 1, false);
+        std::vector<wmtk::PrimitiveType> range_vec(range.begin(), range.end());
+        CHECK(pts == range_vec);
+    }
+    for (PrimitiveType pt = PrimitiveType::Vertex; pt <= PrimitiveType::Tetrahedron; pt = pt + 1) {
+        PrimitiveType simplex_ptype = pt;
+        for (PrimitiveType pt2 = PrimitiveType::Vertex; pt2 <= pt; pt2 = pt2 + 1) {
+            PrimitiveType face_ptype = pt2;
+            PrimitiveType start = simplex_ptype - 1;
+            PrimitiveType end = face_ptype + 1;
+            auto switch_tuple_types = wmtk::utils::primitive_range_iter(start, end);
+
+            std::vector<PrimitiveType> switch_tuple_types_old =
+                wmtk::utils::primitive_range(simplex_ptype, face_ptype);
+
+            spdlog::info("{} => {} so {} {}", simplex_ptype, face_ptype, start, end);
+
+            std::vector<PrimitiveType> mine;
+            if (start >= end) {
+                mine = {switch_tuple_types.begin(), switch_tuple_types.end()};
+            }
+
+            std::vector<PrimitiveType> target;
+            for (size_t i = 1; i < switch_tuple_types_old.size() - 1; ++i) {
+                target.emplace_back(switch_tuple_types_old[i]);
+            }
+
+
+            CHECK(mine == target);
+        }
+    }
+}
