@@ -99,6 +99,10 @@ var annotated_dup =
         [ "PeriodicOptimizationOptions", "structwmtk_1_1components_1_1_periodic_optimization_options.html", "structwmtk_1_1components_1_1_periodic_optimization_options" ],
         [ "TagAttribute", "classwmtk_1_1components_1_1_tag_attribute.html", "classwmtk_1_1components_1_1_tag_attribute" ],
         [ "TagIntersection", "classwmtk_1_1components_1_1_tag_intersection.html", "classwmtk_1_1components_1_1_tag_intersection" ],
+        [ "AABBWrapper", "classwmtk_1_1components_1_1_a_a_b_b_wrapper.html", "classwmtk_1_1components_1_1_a_a_b_b_wrapper" ],
+        [ "ElementInQueue", "classwmtk_1_1components_1_1_element_in_queue.html", "classwmtk_1_1components_1_1_element_in_queue" ],
+        [ "cmp_s", "structwmtk_1_1components_1_1cmp__s.html", "structwmtk_1_1components_1_1cmp__s" ],
+        [ "cmp_l", "structwmtk_1_1components_1_1cmp__l.html", "structwmtk_1_1components_1_1cmp__l" ],
         [ "ToPtsOptions", "structwmtk_1_1components_1_1_to_pts_options.html", "structwmtk_1_1components_1_1_to_pts_options" ],
         [ "TriInsOptions", "structwmtk_1_1components_1_1_tri_ins_options.html", "structwmtk_1_1components_1_1_tri_ins_options" ],
         [ "WildmeshingOptionsAttributes", "structwmtk_1_1components_1_1_wildmeshing_options_attributes.html", "structwmtk_1_1components_1_1_wildmeshing_options_attributes" ],
@@ -309,6 +313,7 @@ var annotated_dup =
         [ "mesh_type_from_primitive_type< PrimitiveType::Triangle >", "structwmtk_1_1utils_1_1mesh__type__from__primitive__type_3_01_primitive_type_1_1_triangle_01_4.html", "structwmtk_1_1utils_1_1mesh__type__from__primitive__type_3_01_primitive_type_1_1_triangle_01_4" ],
         [ "mesh_type_from_primitive_type< PrimitiveType::Tetrahedron >", "structwmtk_1_1utils_1_1mesh__type__from__primitive__type_3_01_primitive_type_1_1_tetrahedron_01_4.html", "structwmtk_1_1utils_1_1mesh__type__from__primitive__type_3_01_primitive_type_1_1_tetrahedron_01_4" ],
         [ "RandomSeedSingleton", "classwmtk_1_1utils_1_1_random_seed_singleton.html", "classwmtk_1_1utils_1_1_random_seed_singleton" ],
+        [ "StopWatch", "classwmtk_1_1utils_1_1_stop_watch.html", "classwmtk_1_1utils_1_1_stop_watch" ],
         [ "TupleCellLessThan", "classwmtk_1_1utils_1_1_tuple_cell_less_than.html", "classwmtk_1_1utils_1_1_tuple_cell_less_than" ],
         [ "TupleInspector", "classwmtk_1_1utils_1_1_tuple_inspector.html", null ]
       ] ],
