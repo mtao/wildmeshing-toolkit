@@ -17,7 +17,6 @@ var annotated_dup =
     [ "wmtk", "namespacewmtk.html", [
       [ "attribute", "namespacewmtk_1_1attribute.html", [
         [ "internal", "namespacewmtk_1_1attribute_1_1internal.html", [
-          [ "AttributeMapCache", "classwmtk_1_1attribute_1_1internal_1_1_attribute_map_cache.html", "classwmtk_1_1attribute_1_1internal_1_1_attribute_map_cache" ],
           [ "AttributeTransactionStack", "classwmtk_1_1attribute_1_1internal_1_1_attribute_transaction_stack.html", "classwmtk_1_1attribute_1_1internal_1_1_attribute_transaction_stack" ],
           [ "AttributeCacheData", "classwmtk_1_1attribute_1_1internal_1_1_attribute_cache_data.html", "classwmtk_1_1attribute_1_1internal_1_1_attribute_cache_data" ],
           [ "AttributeFlatCache", "classwmtk_1_1attribute_1_1internal_1_1_attribute_flat_cache.html", "classwmtk_1_1attribute_1_1internal_1_1_attribute_flat_cache" ],
@@ -36,7 +35,6 @@ var annotated_dup =
         [ "AccessorCache", "classwmtk_1_1attribute_1_1_accessor_cache.html", null ],
         [ "AccessorBase", "classwmtk_1_1attribute_1_1_accessor_base.html", "classwmtk_1_1attribute_1_1_accessor_base" ],
         [ "PerThreadAttributeScopeStacks", "classwmtk_1_1attribute_1_1_per_thread_attribute_scope_stacks.html", "classwmtk_1_1attribute_1_1_per_thread_attribute_scope_stacks" ],
-        [ "AttributeScopeStack", "classwmtk_1_1attribute_1_1_attribute_scope_stack.html", "classwmtk_1_1attribute_1_1_attribute_scope_stack" ],
         [ "TypedAttributeHandle", "classwmtk_1_1attribute_1_1_typed_attribute_handle.html", "classwmtk_1_1attribute_1_1_typed_attribute_handle" ],
         [ "AttributeHandle", "classwmtk_1_1attribute_1_1_attribute_handle.html", "classwmtk_1_1attribute_1_1_attribute_handle" ],
         [ "AttributeManager", "classwmtk_1_1attribute_1_1_attribute_manager.html", "classwmtk_1_1attribute_1_1_attribute_manager" ],
@@ -45,6 +43,21 @@ var annotated_dup =
         [ "AttributeScopeHandle", "classwmtk_1_1attribute_1_1_attribute_scope_handle.html", "classwmtk_1_1attribute_1_1_attribute_scope_handle" ],
         [ "MeshAttributeHandle", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html", "classwmtk_1_1attribute_1_1_mesh_attribute_handle" ],
         [ "TupleAccessor", "classwmtk_1_1attribute_1_1_tuple_accessor.html", "classwmtk_1_1attribute_1_1_tuple_accessor" ]
+      ] ],
+      [ "autogen", "namespacewmtk_1_1autogen.html", [
+        [ "edge_mesh", "namespacewmtk_1_1autogen_1_1edge__mesh.html", [
+          [ "SimplexDart", "classwmtk_1_1autogen_1_1edge__mesh_1_1_simplex_dart.html", "classwmtk_1_1autogen_1_1edge__mesh_1_1_simplex_dart" ]
+        ] ],
+        [ "point_mesh", "namespacewmtk_1_1autogen_1_1point__mesh.html", [
+          [ "SimplexDart", "classwmtk_1_1autogen_1_1point__mesh_1_1_simplex_dart.html", "classwmtk_1_1autogen_1_1point__mesh_1_1_simplex_dart" ]
+        ] ],
+        [ "tet_mesh", "namespacewmtk_1_1autogen_1_1tet__mesh.html", [
+          [ "SimplexDart", "classwmtk_1_1autogen_1_1tet__mesh_1_1_simplex_dart.html", "classwmtk_1_1autogen_1_1tet__mesh_1_1_simplex_dart" ]
+        ] ],
+        [ "tri_mesh", "namespacewmtk_1_1autogen_1_1tri__mesh.html", [
+          [ "SimplexDart", "classwmtk_1_1autogen_1_1tri__mesh_1_1_simplex_dart.html", "classwmtk_1_1autogen_1_1tri__mesh_1_1_simplex_dart" ]
+        ] ],
+        [ "SimplexDart", "classwmtk_1_1autogen_1_1_simplex_dart.html", "classwmtk_1_1autogen_1_1_simplex_dart" ]
       ] ],
       [ "components", "namespacewmtk_1_1components.html", [
         [ "adaptive_tessellation", "namespacewmtk_1_1components_1_1adaptive__tessellation.html", [
@@ -99,6 +112,7 @@ var annotated_dup =
         [ "PeriodicOptimizationOptions", "structwmtk_1_1components_1_1_periodic_optimization_options.html", "structwmtk_1_1components_1_1_periodic_optimization_options" ],
         [ "TagAttribute", "classwmtk_1_1components_1_1_tag_attribute.html", "classwmtk_1_1components_1_1_tag_attribute" ],
         [ "TagIntersection", "classwmtk_1_1components_1_1_tag_intersection.html", "classwmtk_1_1components_1_1_tag_intersection" ],
+        [ "Random", "classwmtk_1_1components_1_1_random.html", null ],
         [ "AABBWrapper", "classwmtk_1_1components_1_1_a_a_b_b_wrapper.html", "classwmtk_1_1components_1_1_a_a_b_b_wrapper" ],
         [ "ElementInQueue", "classwmtk_1_1components_1_1_element_in_queue.html", "classwmtk_1_1components_1_1_element_in_queue" ],
         [ "cmp_s", "structwmtk_1_1components_1_1cmp__s.html", "structwmtk_1_1components_1_1cmp__s" ],

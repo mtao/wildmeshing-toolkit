@@ -26,10 +26,8 @@ var hierarchy =
       [ "wmtk::attribute::AttributeScope< T >", "classwmtk_1_1attribute_1_1_attribute_scope.html", null ]
     ] ],
     [ "wmtk::attribute::AttributeHandle", "classwmtk_1_1attribute_1_1_attribute_handle.html", null ],
-    [ "wmtk::attribute::internal::AttributeMapCache< T >", "classwmtk_1_1attribute_1_1internal_1_1_attribute_map_cache.html", null ],
     [ "wmtk::attribute::AttributeScopeHandle", "classwmtk_1_1attribute_1_1_attribute_scope_handle.html", null ],
     [ "wmtk::multimesh::attribute::AttributeScopeHandle", "classwmtk_1_1multimesh_1_1attribute_1_1_attribute_scope_handle.html", null ],
-    [ "wmtk::attribute::AttributeScopeStack< T >", "classwmtk_1_1attribute_1_1_attribute_scope_stack.html", null ],
     [ "wmtk::attribute::internal::AttributeTransactionStack< T >", "classwmtk_1_1attribute_1_1internal_1_1_attribute_transaction_stack.html", null ],
     [ "wmtk::operations::AttributeTransferStrategyBase", "classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html", [
       [ "wmtk::operations::AttributeTransferStrategy< MyType >", "classwmtk_1_1operations_1_1_attribute_transfer_strategy.html", [
@@ -317,6 +315,7 @@ var hierarchy =
       [ "wmtk::operations::OptimizationSmoothing::WMTKProblem< T >", "classwmtk_1_1operations_1_1_optimization_smoothing_1_1_w_m_t_k_problem.html", null ]
     ] ],
     [ "wmtk::components::internal::ProceduralOptions", "structwmtk_1_1components_1_1internal_1_1_procedural_options.html", null ],
+    [ "wmtk::components::Random", "classwmtk_1_1components_1_1_random.html", null ],
     [ "wmtk::utils::RandomSeedSingleton", "classwmtk_1_1utils_1_1_random_seed_singleton.html", null ],
     [ "wmtk::Rational", "classwmtk_1_1_rational.html", null ],
     [ "wmtk::simplex::RawSimplex", "classwmtk_1_1simplex_1_1_raw_simplex.html", null ],
@@ -348,6 +347,11 @@ var hierarchy =
     [ "wmtk::simplex::Simplex", "classwmtk_1_1simplex_1_1_simplex.html", null ],
     [ "wmtk::simplex::SimplexCollection", "classwmtk_1_1simplex_1_1_simplex_collection.html", null ],
     [ "wmtk::simplex::utils::SimplexComparisons", "classwmtk_1_1simplex_1_1utils_1_1_simplex_comparisons.html", null ],
+    [ "wmtk::autogen::edge_mesh::SimplexDart", "classwmtk_1_1autogen_1_1edge__mesh_1_1_simplex_dart.html", null ],
+    [ "wmtk::autogen::point_mesh::SimplexDart", "classwmtk_1_1autogen_1_1point__mesh_1_1_simplex_dart.html", null ],
+    [ "wmtk::autogen::SimplexDart", "classwmtk_1_1autogen_1_1_simplex_dart.html", null ],
+    [ "wmtk::autogen::tet_mesh::SimplexDart", "classwmtk_1_1autogen_1_1tet__mesh_1_1_simplex_dart.html", null ],
+    [ "wmtk::autogen::tri_mesh::SimplexDart", "classwmtk_1_1autogen_1_1tri__mesh_1_1_simplex_dart.html", null ],
     [ "wmtk::simplex::internal::SimplexEqualFunctor", "structwmtk_1_1simplex_1_1internal_1_1_simplex_equal_functor.html", null ],
     [ "wmtk::simplex::internal::SimplexLessFunctor", "structwmtk_1_1simplex_1_1internal_1_1_simplex_less_functor.html", null ],
     [ "wmtk::operations::SplitNewAttributeTopoInfo", "classwmtk_1_1operations_1_1_split_new_attribute_topo_info.html", [
