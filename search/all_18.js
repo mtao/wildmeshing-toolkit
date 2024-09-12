@@ -1,14 +1,16 @@
 var searchData=
 [
-  ['_7eaccessorbase_2632',['~AccessorBase',['../classwmtk_1_1attribute_1_1_accessor_base.html#a56688d914c375c2211d6cc9ef7c1be80',1,'wmtk::attribute::AccessorBase']]],
-  ['_7eamips_2633',['~AMIPS',['../classwmtk_1_1function_1_1_a_m_i_p_s.html#aabd704d8176315319d98eb67ba42a069',1,'wmtk::function::AMIPS']]],
-  ['_7eandoperationsequence_2634',['~AndOperationSequence',['../classwmtk_1_1operations_1_1_and_operation_sequence.html#ace3a330ab5fa520fd6f2f167085e8aa5',1,'wmtk::operations::AndOperationSequence']]],
-  ['_7eattribute_2635',['~Attribute',['../classwmtk_1_1attribute_1_1_attribute.html#ac896350897d0776a396e8c7833e69046',1,'wmtk::attribute::Attribute']]],
-  ['_7eattributeflatcache_2636',['~AttributeFlatCache',['../classwmtk_1_1attribute_1_1internal_1_1_attribute_flat_cache.html#a00fad5ff87475f3eaec02459772ae827',1,'wmtk::attribute::internal::AttributeFlatCache']]],
-  ['_7eattributemanager_2637',['~AttributeManager',['../classwmtk_1_1attribute_1_1_attribute_manager.html#ae019ea0db1256194b97d665dc0fdb800',1,'wmtk::attribute::AttributeManager']]],
-  ['_7eattributescope_2638',['~AttributeScope',['../classwmtk_1_1attribute_1_1_attribute_scope.html#a56e50ca40781875a79fb11da4849047e',1,'wmtk::attribute::AttributeScope']]],
-  ['_7eattributescopehandle_2639',['~AttributeScopeHandle',['../classwmtk_1_1attribute_1_1_attribute_scope_handle.html#a27affbdd18de7d5661f47e2e36066ac0',1,'wmtk::attribute::AttributeScopeHandle::~AttributeScopeHandle()'],['../classwmtk_1_1multimesh_1_1attribute_1_1_attribute_scope_handle.html#ae44d5236bae2f5abca94a1ce83235b3f',1,'wmtk::multimesh::attribute::AttributeScopeHandle::~AttributeScopeHandle()']]],
-  ['_7eattributetransactionstack_2640',['~AttributeTransactionStack',['../classwmtk_1_1attribute_1_1internal_1_1_attribute_transaction_stack.html#aa5a8e5b605ac00a7e6921b683e141bf1',1,'wmtk::attribute::internal::AttributeTransactionStack']]],
+  ['_7eaccessorbase_2630',['~AccessorBase',['../classwmtk_1_1attribute_1_1_accessor_base.html#a56688d914c375c2211d6cc9ef7c1be80',1,'wmtk::attribute::AccessorBase']]],
+  ['_7eamips_2631',['~AMIPS',['../classwmtk_1_1function_1_1_a_m_i_p_s.html#aabd704d8176315319d98eb67ba42a069',1,'wmtk::function::AMIPS']]],
+  ['_7eandoperationsequence_2632',['~AndOperationSequence',['../classwmtk_1_1operations_1_1_and_operation_sequence.html#ace3a330ab5fa520fd6f2f167085e8aa5',1,'wmtk::operations::AndOperationSequence']]],
+  ['_7eattribute_2633',['~Attribute',['../classwmtk_1_1attribute_1_1_attribute.html#ac896350897d0776a396e8c7833e69046',1,'wmtk::attribute::Attribute']]],
+  ['_7eattributeflatcache_2634',['~AttributeFlatCache',['../classwmtk_1_1attribute_1_1internal_1_1_attribute_flat_cache.html#a00fad5ff87475f3eaec02459772ae827',1,'wmtk::attribute::internal::AttributeFlatCache']]],
+  ['_7eattributemanager_2635',['~AttributeManager',['../classwmtk_1_1attribute_1_1_attribute_manager.html#ae019ea0db1256194b97d665dc0fdb800',1,'wmtk::attribute::AttributeManager']]],
+  ['_7eattributescope_2636',['~AttributeScope',['../classwmtk_1_1attribute_1_1_attribute_scope.html#a56e50ca40781875a79fb11da4849047e',1,'wmtk::attribute::AttributeScope']]],
+  ['_7eattributescopehandle_2637',['~AttributeScopeHandle',['../classwmtk_1_1attribute_1_1_attribute_scope_handle.html#a27affbdd18de7d5661f47e2e36066ac0',1,'wmtk::attribute::AttributeScopeHandle::~AttributeScopeHandle()'],['../classwmtk_1_1multimesh_1_1attribute_1_1_attribute_scope_handle.html#ae44d5236bae2f5abca94a1ce83235b3f',1,'wmtk::multimesh::attribute::AttributeScopeHandle::~AttributeScopeHandle()']]],
+  ['_7eattributetransactionstack_2638',['~AttributeTransactionStack',['../classwmtk_1_1attribute_1_1internal_1_1_attribute_transaction_stack.html#aa5a8e5b605ac00a7e6921b683e141bf1',1,'wmtk::attribute::internal::AttributeTransactionStack']]],
+  ['_7eattributetransferconfiguration_2639',['~AttributeTransferConfiguration',['../classwmtk_1_1operations_1_1_attribute_transfer_configuration.html#a812879004ee4cf399978779d89c75215',1,'wmtk::operations::AttributeTransferConfiguration']]],
+  ['_7eattributetransferedge_2640',['~AttributeTransferEdge',['../classwmtk_1_1operations_1_1_attribute_transfer_edge.html#aef64944c919739b144e22ba16a6ea96a',1,'wmtk::operations::AttributeTransferEdge']]],
   ['_7eattributetransferstrategybase_2641',['~AttributeTransferStrategyBase',['../classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html#a6f7eb84716656758c191bf5facc48924',1,'wmtk::operations::AttributeTransferStrategyBase']]],
   ['_7eautodiffraii_2642',['~AutoDiffRAII',['../classwmtk_1_1function_1_1utils_1_1_auto_diff_r_a_i_i.html#a27694992128c3b0013c49de1727076c3',1,'wmtk::function::utils::AutoDiffRAII']]],
   ['_7ecache_2643',['~Cache',['../classwmtk_1_1io_1_1_cache.html#aea4db91323c5bbca79864b1a7214d7d5',1,'wmtk::io::Cache']]],
@@ -41,8 +43,7 @@ var searchData=
   ['_7escheduler_2670',['~Scheduler',['../classwmtk_1_1_scheduler.html#a3eaa0588a750aa419ee594106c7210e3',1,'wmtk::Scheduler']]],
   ['_7esplitnewattributetopoinfo_2671',['~SplitNewAttributeTopoInfo',['../classwmtk_1_1operations_1_1_split_new_attribute_topo_info.html#ab1b60961b8cbbaf4b73a8665af12ce66',1,'wmtk::operations::SplitNewAttributeTopoInfo']]],
   ['_7estopwatch_2672',['~StopWatch',['../classwmtk_1_1utils_1_1_stop_watch.html#a33d613cecc45e1803132d7765d06c843',1,'wmtk::utils::StopWatch']]],
-  ['_7esubcachehandle_2673',['~SubCacheHandle',['../classwmtk_1_1io_1_1_sub_cache_handle.html#aac0b7311233b4678d0ad48bcd5594711',1,'wmtk::io::SubCacheHandle']]],
-  ['_7etriangleamips_2674',['~TriangleAMIPS',['../classwmtk_1_1function_1_1_triangle_a_m_i_p_s.html#a2b330224a28a295bb7bdd146a20d15cd',1,'wmtk::function::TriangleAMIPS']]],
-  ['_7euseparentscoperaii_2675',['~UseParentScopeRAII',['../classwmtk_1_1multimesh_1_1attribute_1_1_use_parent_scope_r_a_i_i.html#a6a2deaf9e4b3bc43db8ba58d396b08a3',1,'wmtk::multimesh::attribute::UseParentScopeRAII']]],
-  ['_7evertexlaplaciansmooth_2676',['~VertexLaplacianSmooth',['../classwmtk_1_1operations_1_1_vertex_laplacian_smooth.html#a076a973e83b444a20a7625288ea342db',1,'wmtk::operations::VertexLaplacianSmooth']]]
+  ['_7etriangleamips_2673',['~TriangleAMIPS',['../classwmtk_1_1function_1_1_triangle_a_m_i_p_s.html#a2b330224a28a295bb7bdd146a20d15cd',1,'wmtk::function::TriangleAMIPS']]],
+  ['_7euseparentscoperaii_2674',['~UseParentScopeRAII',['../classwmtk_1_1multimesh_1_1attribute_1_1_use_parent_scope_r_a_i_i.html#a6a2deaf9e4b3bc43db8ba58d396b08a3',1,'wmtk::multimesh::attribute::UseParentScopeRAII']]],
+  ['_7evertexlaplaciansmooth_2675',['~VertexLaplacianSmooth',['../classwmtk_1_1operations_1_1_vertex_laplacian_smooth.html#a076a973e83b444a20a7625288ea342db',1,'wmtk::operations::VertexLaplacianSmooth']]]
 ];
