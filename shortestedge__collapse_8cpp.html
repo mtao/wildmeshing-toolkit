@@ -139,7 +139,6 @@ $(document).ready(function(){initNavTree('shortestedge__collapse_8cpp.html','');
 <code>#include &lt;<a class="el" href="_new_attribute_strategy_8hpp_source.html">wmtk/operations/attribute_new/NewAttributeStrategy.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_attribute_transfer_strategy_8hpp_source.html">wmtk/operations/attribute_update/AttributeTransferStrategy.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_logger_8hpp_source.html">wmtk/utils/Logger.hpp</a>&gt;</code><br />
-<code>#include &quot;<a class="el" href="_s_e_c_options_8hpp_source.html">internal/SECOptions.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for shortestedge_collapse.cpp:</div>
 <div class="dyncontent">
@@ -158,8 +157,12 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a769d2bf3c79d6e770cb957f4b59b64fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components.html#a769d2bf3c79d6e770cb957f4b59b64fd">wmtk::components::shortestedge_collapse</a> (const utils::Paths &amp;paths, const <a class="el" href="test__component__wildmeshing_8cpp.html#ab701e3ac61a85b337ec5c1abaad6742d">nlohmann::json</a> &amp;j, io::Cache &amp;cache)</td></tr>
-<tr class="separator:a769d2bf3c79d6e770cb957f4b59b64fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a4b32383fdc9c2eb8334cc8ef947a5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components.html#ae3a4b32383fdc9c2eb8334cc8ef947a5">wmtk::components::shortestedge_collapse</a> (TriMesh &amp;mesh, const ShortestEdgeCollapseOptions &amp;options)</td></tr>
+<tr class="memdesc:ae3a4b32383fdc9c2eb8334cc8ef947a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform shortest-edge collapse on a triangular surface mesh.  <a href="namespacewmtk_1_1components.html#ae3a4b32383fdc9c2eb8334cc8ef947a5">More...</a><br /></td></tr>
+<tr class="separator:ae3a4b32383fdc9c2eb8334cc8ef947a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3154cdbc6047eee67258b69cc7d5e7cf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components.html#a3154cdbc6047eee67258b69cc7d5e7cf">wmtk::components::shortestedge_collapse</a> (TriMesh &amp;mesh, const attribute::MeshAttributeHandle &amp;position_handle, const double length_rel, std::optional&lt; bool &gt; lock_boundary={}, std::optional&lt; double &gt; envelope_size={}, std::optional&lt; attribute::MeshAttributeHandle &gt; inversion_position_handle={}, const std::vector&lt; attribute::MeshAttributeHandle &gt; &amp;pass_through={})</td></tr>
+<tr class="memdesc:a3154cdbc6047eee67258b69cc7d5e7cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Perform shortest-edge collapse on a triangular surface mesh.  <a href="namespacewmtk_1_1components.html#a3154cdbc6047eee67258b69cc7d5e7cf">More...</a><br /></td></tr>
+<tr class="separator:a3154cdbc6047eee67258b69cc7d5e7cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
