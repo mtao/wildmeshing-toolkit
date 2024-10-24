@@ -73,6 +73,9 @@ var annotated_dup =
           [ "NamedMultiMesh", "classwmtk_1_1components_1_1input_1_1_named_multi_mesh.html", "classwmtk_1_1components_1_1input_1_1_named_multi_mesh" ]
         ] ],
         [ "internal", "namespacewmtk_1_1components_1_1internal.html", [
+          [ "bbox", "structwmtk_1_1components_1_1internal_1_1bbox.html", "structwmtk_1_1components_1_1internal_1_1bbox" ],
+          [ "Segment", "classwmtk_1_1components_1_1internal_1_1_segment.html", "classwmtk_1_1components_1_1internal_1_1_segment" ],
+          [ "EdgeInsOptions", "structwmtk_1_1components_1_1internal_1_1_edge_ins_options.html", "structwmtk_1_1components_1_1internal_1_1_edge_ins_options" ],
           [ "ExportCacheOptions", "structwmtk_1_1components_1_1internal_1_1_export_cache_options.html", "structwmtk_1_1components_1_1internal_1_1_export_cache_options" ],
           [ "GetAllMeshesOptions", "structwmtk_1_1components_1_1internal_1_1_get_all_meshes_options.html", "structwmtk_1_1components_1_1internal_1_1_get_all_meshes_options" ],
           [ "ImportCacheOptions", "structwmtk_1_1components_1_1internal_1_1_import_cache_options.html", "structwmtk_1_1components_1_1internal_1_1_import_cache_options" ],
@@ -100,12 +103,16 @@ var annotated_dup =
           [ "ProceduralOptions", "structwmtk_1_1components_1_1procedural_1_1_procedural_options.html", "structwmtk_1_1components_1_1procedural_1_1_procedural_options" ],
           [ "TriangleFanOptions", "classwmtk_1_1components_1_1procedural_1_1_triangle_fan_options.html", "classwmtk_1_1components_1_1procedural_1_1_triangle_fan_options" ]
         ] ],
+        [ "shortest_edge_collapse", "namespacewmtk_1_1components_1_1shortest__edge__collapse.html", [
+          [ "ShortestEdgeCollapseOptions", "structwmtk_1_1components_1_1shortest__edge__collapse_1_1_shortest_edge_collapse_options.html", "structwmtk_1_1components_1_1shortest__edge__collapse_1_1_shortest_edge_collapse_options" ]
+        ] ],
         [ "triangle_insertion", "namespacewmtk_1_1components_1_1triangle__insertion.html", [
           [ "ChildMeshes", "classwmtk_1_1components_1_1triangle__insertion_1_1_child_meshes.html", "classwmtk_1_1components_1_1triangle__insertion_1_1_child_meshes" ]
         ] ],
         [ "utils", "namespacewmtk_1_1components_1_1utils.html", [
           [ "ComponentOptionsBase", "structwmtk_1_1components_1_1utils_1_1_component_options_base.html", "structwmtk_1_1components_1_1utils_1_1_component_options_base" ]
         ] ],
+        [ "EdgeInsertionMeshes", "structwmtk_1_1components_1_1_edge_insertion_meshes.html", "structwmtk_1_1components_1_1_edge_insertion_meshes" ],
         [ "TagAttribute", "classwmtk_1_1components_1_1_tag_attribute.html", "classwmtk_1_1components_1_1_tag_attribute" ],
         [ "Marching", "classwmtk_1_1components_1_1_marching.html", "classwmtk_1_1components_1_1_marching" ],
         [ "MarchingOptions", "structwmtk_1_1components_1_1_marching_options.html", "structwmtk_1_1components_1_1_marching_options" ],
@@ -114,7 +121,6 @@ var annotated_dup =
         [ "MultimeshBOptions", "structwmtk_1_1components_1_1_multimesh_b_options.html", "structwmtk_1_1components_1_1_multimesh_b_options" ],
         [ "MultimeshTOptions", "structwmtk_1_1components_1_1_multimesh_t_options.html", "structwmtk_1_1components_1_1_multimesh_t_options" ],
         [ "PeriodicOptimizationOptions", "structwmtk_1_1components_1_1_periodic_optimization_options.html", "structwmtk_1_1components_1_1_periodic_optimization_options" ],
-        [ "ShortestEdgeCollapseOptions", "structwmtk_1_1components_1_1_shortest_edge_collapse_options.html", "structwmtk_1_1components_1_1_shortest_edge_collapse_options" ],
         [ "TagIntersection", "classwmtk_1_1components_1_1_tag_intersection.html", "classwmtk_1_1components_1_1_tag_intersection" ],
         [ "Random", "classwmtk_1_1components_1_1_random.html", null ],
         [ "AABBWrapper", "classwmtk_1_1components_1_1_a_a_b_b_wrapper.html", "classwmtk_1_1components_1_1_a_a_b_b_wrapper" ],
@@ -122,6 +128,8 @@ var annotated_dup =
         [ "cmp_s", "structwmtk_1_1components_1_1cmp__s.html", "structwmtk_1_1components_1_1cmp__s" ],
         [ "cmp_l", "structwmtk_1_1components_1_1cmp__l.html", "structwmtk_1_1components_1_1cmp__l" ],
         [ "ToPtsOptions", "classwmtk_1_1components_1_1_to_pts_options.html", "classwmtk_1_1components_1_1_to_pts_options" ],
+        [ "EnvelopeOptions", "structwmtk_1_1components_1_1_envelope_options.html", "structwmtk_1_1components_1_1_envelope_options" ],
+        [ "WildMeshingOptions", "structwmtk_1_1components_1_1_wild_meshing_options.html", "structwmtk_1_1components_1_1_wild_meshing_options" ],
         [ "WildmeshingOptionsAttributes", "structwmtk_1_1components_1_1_wildmeshing_options_attributes.html", "structwmtk_1_1components_1_1_wildmeshing_options_attributes" ],
         [ "WildmeshingOptionsEnvelopeMesh", "structwmtk_1_1components_1_1_wildmeshing_options_envelope_mesh.html", "structwmtk_1_1components_1_1_wildmeshing_options_envelope_mesh" ],
         [ "WildmeshingOptionsEnvelope", "structwmtk_1_1components_1_1_wildmeshing_options_envelope.html", "structwmtk_1_1components_1_1_wildmeshing_options_envelope" ],
@@ -150,6 +158,8 @@ var annotated_dup =
         [ "CollapseSoftEnergyBeforeInvariant", "classwmtk_1_1invariants_1_1_collapse_soft_energy_before_invariant.html", "classwmtk_1_1invariants_1_1_collapse_soft_energy_before_invariant" ],
         [ "EdgeValenceInvariant", "classwmtk_1_1invariants_1_1_edge_valence_invariant.html", "classwmtk_1_1invariants_1_1_edge_valence_invariant" ],
         [ "EnvelopeInvariant", "classwmtk_1_1invariants_1_1_envelope_invariant.html", "classwmtk_1_1invariants_1_1_envelope_invariant" ],
+        [ "FrozenVertexInvariant", "classwmtk_1_1invariants_1_1_frozen_vertex_invariant.html", "classwmtk_1_1invariants_1_1_frozen_vertex_invariant" ],
+        [ "FrozenOppVertexInvariant", "classwmtk_1_1invariants_1_1_frozen_opp_vertex_invariant.html", "classwmtk_1_1invariants_1_1_frozen_opp_vertex_invariant" ],
         [ "FunctionInvariant", "classwmtk_1_1invariants_1_1_function_invariant.html", "classwmtk_1_1invariants_1_1_function_invariant" ],
         [ "FusionEdgeInvariant", "classwmtk_1_1invariants_1_1_fusion_edge_invariant.html", "classwmtk_1_1invariants_1_1_fusion_edge_invariant" ],
         [ "InteriorEdgeInvariant", "classwmtk_1_1invariants_1_1_interior_edge_invariant.html", "classwmtk_1_1invariants_1_1_interior_edge_invariant" ],
@@ -280,10 +290,12 @@ var annotated_dup =
           [ "SimplexComparisons", "classwmtk_1_1simplex_1_1utils_1_1_simplex_comparisons.html", null ]
         ] ],
         [ "IdSimplex", "classwmtk_1_1simplex_1_1_id_simplex.html", "classwmtk_1_1simplex_1_1_id_simplex" ],
+        [ "IdSimplexCollection", "classwmtk_1_1simplex_1_1_id_simplex_collection.html", "classwmtk_1_1simplex_1_1_id_simplex_collection" ],
         [ "ClosedStarIterable", "classwmtk_1_1simplex_1_1_closed_star_iterable.html", "classwmtk_1_1simplex_1_1_closed_star_iterable" ],
         [ "CofacesInSimplexIterable", "classwmtk_1_1simplex_1_1_cofaces_in_simplex_iterable.html", "classwmtk_1_1simplex_1_1_cofaces_in_simplex_iterable" ],
         [ "CofacesSingleDimensionIterable", "classwmtk_1_1simplex_1_1_cofaces_single_dimension_iterable.html", "classwmtk_1_1simplex_1_1_cofaces_single_dimension_iterable" ],
         [ "FacesIterable", "classwmtk_1_1simplex_1_1_faces_iterable.html", "classwmtk_1_1simplex_1_1_faces_iterable" ],
+        [ "HalfClosedStarIterable", "classwmtk_1_1simplex_1_1_half_closed_star_iterable.html", "classwmtk_1_1simplex_1_1_half_closed_star_iterable" ],
         [ "LinkIterable", "classwmtk_1_1simplex_1_1_link_iterable.html", "classwmtk_1_1simplex_1_1_link_iterable" ],
         [ "LinkSingleDimensionIterable", "classwmtk_1_1simplex_1_1_link_single_dimension_iterable.html", "classwmtk_1_1simplex_1_1_link_single_dimension_iterable" ],
         [ "OpenStarIterable", "classwmtk_1_1simplex_1_1_open_star_iterable.html", "classwmtk_1_1simplex_1_1_open_star_iterable" ],

@@ -187,7 +187,7 @@ $(document).ready(function(){initNavTree('_swap23_energy_before_invariant_8cpp_s
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                positions_double[old_tets[i][3]][2],</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            }});</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            <span class="keywordflow">if</span> (energy &gt; old_energy_max) old_energy_max = energy;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            old_energy_max = std::max(energy, old_energy_max);</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;            <span class="keyword">auto</span> energy = <a class="code" href="namespacewmtk_1_1function_1_1utils.html#a818b9b16f06339c34d08eceeb5342470">wmtk::function::utils::Tet_AMIPS_energy</a>({{</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                positions_double[old_tets[i][1]][0],</div>
@@ -204,7 +204,7 @@ $(document).ready(function(){initNavTree('_swap23_energy_before_invariant_8cpp_s
 <div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                positions_double[old_tets[i][3]][2],</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            }});</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            <span class="keywordflow">if</span> (energy &gt; old_energy_max) old_energy_max = energy;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            old_energy_max = std::max(energy, old_energy_max);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        }</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
@@ -229,7 +229,7 @@ $(document).ready(function(){initNavTree('_swap23_energy_before_invariant_8cpp_s
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;                positions_double[new_tets[i][3]][2],</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            }});</div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keywordflow">if</span> (energy &gt; new_energy_max) new_energy_max = energy;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            new_energy_max = std::max(energy, new_energy_max);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        } <span class="keywordflow">else</span> {</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keyword">auto</span> energy = <a class="code" href="namespacewmtk_1_1function_1_1utils.html#a818b9b16f06339c34d08eceeb5342470">wmtk::function::utils::Tet_AMIPS_energy</a>({{</div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                positions_double[new_tets[i][1]][0],</div>
@@ -246,7 +246,7 @@ $(document).ready(function(){initNavTree('_swap23_energy_before_invariant_8cpp_s
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                positions_double[new_tets[i][3]][2],</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            }});</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            <span class="keywordflow">if</span> (energy &gt; new_energy_max) new_energy_max = energy;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            new_energy_max = std::max(energy, new_energy_max);</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        }</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    }</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
@@ -258,7 +258,7 @@ $(document).ready(function(){initNavTree('_swap23_energy_before_invariant_8cpp_s
 <div class="ttc" id="a_swap23_energy_before_invariant_8hpp_html"><div class="ttname"><a href="_swap23_energy_before_invariant_8hpp.html">Swap23EnergyBeforeInvariant.hpp</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html"><div class="ttname"><a href="classwmtk_1_1_mesh.html">wmtk::Mesh</a></div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8hpp_source.html#l00104">Mesh.hpp:105</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html_a4a20dcdac339e7a4f6f8a6570114cbe6"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a4a20dcdac339e7a4f6f8a6570114cbe6">wmtk::Mesh::create_const_accessor</a></div><div class="ttdeci">const attribute::Accessor&lt; T, Mesh, D &gt; create_const_accessor(const attribute::MeshAttributeHandle &amp;handle) const</div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_a7f8a7b7d592fdbf672f2c6c9653487ea"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a7f8a7b7d592fdbf672f2c6c9653487ea">wmtk::Mesh::switch_tuples</a></div><div class="ttdeci">Tuple switch_tuples(const Tuple &amp;tuple, const ContainerType &amp;op_sequence) const</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8hpp_source.html#l00956">Mesh.hpp:956</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_a7f8a7b7d592fdbf672f2c6c9653487ea"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a7f8a7b7d592fdbf672f2c6c9653487ea">wmtk::Mesh::switch_tuples</a></div><div class="ttdeci">Tuple switch_tuples(const Tuple &amp;tuple, const ContainerType &amp;op_sequence) const</div><div class="ttdef"><b>Definition:</b> <a href="_mesh_8hpp_source.html#l00962">Mesh.hpp:962</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html_a965a8a24158c4aa8580c57ba09f885f7"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a965a8a24158c4aa8580c57ba09f885f7">wmtk::Mesh::switch_tuple</a></div><div class="ttdeci">virtual Tuple switch_tuple(const Tuple &amp;tuple, PrimitiveType type) const =0</div><div class="ttdoc">switch the orientation of the Tuple of the given dimension</div></div>
 <div class="ttc" id="aclasswmtk_1_1_swap23_energy_before_invariant_html_a48d52350d65ce9ead910c797a8d72f1e"><div class="ttname"><a href="classwmtk_1_1_swap23_energy_before_invariant.html#a48d52350d65ce9ead910c797a8d72f1e">wmtk::Swap23EnergyBeforeInvariant::m_coordinate_handle</a></div><div class="ttdeci">const attribute::TypedAttributeHandle&lt; Rational &gt; m_coordinate_handle</div><div class="ttdef"><b>Definition:</b> <a href="_swap23_energy_before_invariant_8hpp_source.html#l00018">Swap23EnergyBeforeInvariant.hpp:18</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_swap23_energy_before_invariant_html_ab44b90bbea65c45e354fc3e72ecf0b29"><div class="ttname"><a href="classwmtk_1_1_swap23_energy_before_invariant.html#ab44b90bbea65c45e354fc3e72ecf0b29">wmtk::Swap23EnergyBeforeInvariant::before</a></div><div class="ttdeci">bool before(const simplex::Simplex &amp;t) const override</div><div class="ttdef"><b>Definition:</b> <a href="_swap23_energy_before_invariant_8cpp_source.html#l00014">Swap23EnergyBeforeInvariant.cpp:14</a></div></div>

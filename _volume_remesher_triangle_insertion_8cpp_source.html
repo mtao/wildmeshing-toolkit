@@ -390,46 +390,42 @@ $(document).ready(function(){initNavTree('_volume_remesher_triangle_insertion_8c
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;    }</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keywordflow">for</span> (int64_t i = 0; i &lt; tets_final.size(); ++i) {</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        assert(tets_final[i][0] &gt;= 0);</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        assert(tets_final[i][1] &gt;= 0);</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        assert(tets_final[i][2] &gt;= 0);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        assert(tets_final[i][3] &gt;= 0);</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        assert(tets_final[i][0] &lt; V_final_rational.rows());</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        assert(tets_final[i][1] &lt; V_final_rational.rows());</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        assert(tets_final[i][2] &lt; V_final_rational.rows());</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        assert(tets_final[i][3] &lt; V_final_rational.rows());</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        assert(tets_final[i][0] &lt; V_final_rational.rows());</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        assert(tets_final[i][1] &lt; V_final_rational.rows());</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;        assert(tets_final[i][2] &lt; V_final_rational.rows());</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        assert(tets_final[i][3] &lt; V_final_rational.rows());</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        assert(tets_final[i][0] != tets_final[i][1]);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        assert(tets_final[i][0] != tets_final[i][2]);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        assert(tets_final[i][0] != tets_final[i][3]);</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        assert(tets_final[i][0] != tets_final[i][1]);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        assert(tets_final[i][0] != tets_final[i][2]);</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        assert(tets_final[i][0] != tets_final[i][3]);</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        assert(tets_final[i][1] != tets_final[i][2]);</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        assert(tets_final[i][1] != tets_final[i][3]);</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;        assert(tets_final[i][2] != tets_final[i][3]);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        assert(tets_final[i][1] != tets_final[i][2]);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        assert(tets_final[i][1] != tets_final[i][3]);</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;        assert(tets_final[i][2] != tets_final[i][3]);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        TV_final.row(i) &lt;&lt; tets_final[i][0], tets_final[i][1], tets_final[i][2], tets_final[i][3];</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <a class="code" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().info(<span class="stringliteral">&quot;done&quot;</span>);</div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        TV_final.row(i) &lt;&lt; tets_final[i][0], tets_final[i][1], tets_final[i][2], tets_final[i][3];</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    }</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <a class="code" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().info(<span class="stringliteral">&quot;done&quot;</span>);</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <a class="code" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().info(<span class="stringliteral">&quot;init tetmesh...&quot;</span>);</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="comment">// initialize tetmesh</span></div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    std::shared_ptr&lt;wmtk::TetMesh&gt; m = std::make_shared&lt;wmtk::TetMesh&gt;();</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    m-&gt;initialize(TV_final);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="comment">// mesh_utils::set_matrix_attribute(V_final, &quot;vertices&quot;, PrimitiveType::Vertex, *m);</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <a class="code" href="namespacewmtk_1_1mesh__utils.html#ad92eb4095d516f6a20e25587f9effe80">mesh_utils::set_matrix_attribute</a>(V_final_rational, <span class="stringliteral">&quot;vertices&quot;</span>, <a class="code" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, *m);</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <a class="code" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().info(<span class="stringliteral">&quot;init tetmesh finished.&quot;</span>);</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160; </div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">if</span> (!m-&gt;is_connectivity_valid()) {</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;        <a class="code" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().error(<span class="stringliteral">&quot;invalid tetmesh connectivity after insertion&quot;</span>);</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;invalid tetmesh connectivity by insertion&quot;</span>);</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    }</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keywordflow">return</span> std::make_tuple(m, tet_face_on_input_surface);</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;}</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;} <span class="comment">// namespace wmtk::utils</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <a class="code" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().info(<span class="stringliteral">&quot;init tetmesh...&quot;</span>);</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;    <span class="comment">// initialize tetmesh</span></div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    std::shared_ptr&lt;wmtk::TetMesh&gt; m = std::make_shared&lt;wmtk::TetMesh&gt;();</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    m-&gt;initialize(TV_final);</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="comment">// mesh_utils::set_matrix_attribute(V_final, &quot;vertices&quot;, PrimitiveType::Vertex, *m);</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <a class="code" href="namespacewmtk_1_1mesh__utils.html#ad92eb4095d516f6a20e25587f9effe80">mesh_utils::set_matrix_attribute</a>(V_final_rational, <span class="stringliteral">&quot;vertices&quot;</span>, <a class="code" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, *m);</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <a class="code" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().info(<span class="stringliteral">&quot;init tetmesh finished.&quot;</span>);</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160; </div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    <span class="keywordflow">if</span> (!m-&gt;is_connectivity_valid()) {</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        <a class="code" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().error(<span class="stringliteral">&quot;invalid tetmesh connectivity after insertion&quot;</span>);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;invalid tetmesh connectivity by insertion&quot;</span>);</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;    }</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">return</span> std::make_tuple(m, tet_face_on_input_surface);</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;}</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160; </div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;} <span class="comment">// namespace wmtk::utils</span></div>
 <div class="ttc" id="a_logger_8hpp_html"><div class="ttname"><a href="_logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="a_mesh_8hpp_html"><div class="ttname"><a href="_mesh_8hpp.html">Mesh.hpp</a></div></div>
 <div class="ttc" id="a_rational_8hpp_html"><div class="ttname"><a href="_rational_8hpp.html">Rational.hpp</a></div></div>
@@ -440,11 +436,11 @@ $(document).ready(function(){initNavTree('_volume_remesher_triangle_insertion_8c
 <div class="ttc" id="anamespacewmtk_1_1mesh__utils_html_ad92eb4095d516f6a20e25587f9effe80"><div class="ttname"><a href="namespacewmtk_1_1mesh__utils.html#ad92eb4095d516f6a20e25587f9effe80">wmtk::mesh_utils::set_matrix_attribute</a></div><div class="ttdeci">attribute::MeshAttributeHandle set_matrix_attribute(const Mat &amp;data, const std::string &amp;name, const PrimitiveType &amp;type, Mesh &amp;mesh)</div><div class="ttdef"><b>Definition:</b> <a href="mesh__utils_8hpp_source.html#l00009">mesh_utils.hpp:9</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1utils_html"><div class="ttname"><a href="namespacewmtk_1_1utils.html">wmtk::utils</a></div><div class="ttdef"><b>Definition:</b> <a href="_tuple_8hpp_source.html#l00022">Tuple.hpp:22</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1utils_html_a3787bc051f3f90a7a2f0571c47f01957"><div class="ttname"><a href="namespacewmtk_1_1utils.html#a3787bc051f3f90a7a2f0571c47f01957">wmtk::utils::generate_raw_tetmesh_from_input_surface</a></div><div class="ttdeci">std::tuple&lt; std::shared_ptr&lt; wmtk::TetMesh &gt;, std::vector&lt; std::array&lt; bool, 4 &gt; &gt; &gt; generate_raw_tetmesh_from_input_surface(const RowVectors3d &amp;V, const RowVectors3l &amp;F, const RowVectors3d &amp;background_V, const RowVectors4l &amp;background_TV)</div><div class="ttdoc">input a triangle surface mesh, embed it into a background tet mesh, track the input surfaces on the t...</div><div class="ttdef"><b>Definition:</b> <a href="_volume_remesher_triangle_insertion_8cpp_source.html#l00025">VolumeRemesherTriangleInsertion.cpp:25</a></div></div>
-<div class="ttc" id="anamespacewmtk_html_a37203f2b30de348a8320e593889600ee"><div class="ttname"><a href="namespacewmtk.html#a37203f2b30de348a8320e593889600ee">wmtk::RowVectors3l</a></div><div class="ttdeci">RowVectors&lt; int64_t, 3 &gt; RowVectors3l</div><div class="ttdef"><b>Definition:</b> <a href="_types_8hpp_source.html#l00046">Types.hpp:46</a></div></div>
-<div class="ttc" id="anamespacewmtk_html_a68b3d5c28c73e45250340c19898d8ed1"><div class="ttname"><a href="namespacewmtk.html#a68b3d5c28c73e45250340c19898d8ed1">wmtk::RowVectors4l</a></div><div class="ttdeci">RowVectors&lt; int64_t, 4 &gt; RowVectors4l</div><div class="ttdef"><b>Definition:</b> <a href="_types_8hpp_source.html#l00047">Types.hpp:47</a></div></div>
+<div class="ttc" id="anamespacewmtk_html_a37203f2b30de348a8320e593889600ee"><div class="ttname"><a href="namespacewmtk.html#a37203f2b30de348a8320e593889600ee">wmtk::RowVectors3l</a></div><div class="ttdeci">RowVectors&lt; int64_t, 3 &gt; RowVectors3l</div><div class="ttdef"><b>Definition:</b> <a href="_types_8hpp_source.html#l00047">Types.hpp:47</a></div></div>
+<div class="ttc" id="anamespacewmtk_html_a68b3d5c28c73e45250340c19898d8ed1"><div class="ttname"><a href="namespacewmtk.html#a68b3d5c28c73e45250340c19898d8ed1">wmtk::RowVectors4l</a></div><div class="ttdeci">RowVectors&lt; int64_t, 4 &gt; RowVectors4l</div><div class="ttdef"><b>Definition:</b> <a href="_types_8hpp_source.html#l00048">Types.hpp:48</a></div></div>
 <div class="ttc" id="anamespacewmtk_html_a6a35f11c12436093d26fdd8be6fecc06"><div class="ttname"><a href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a></div><div class="ttdeci">spdlog::logger &amp; logger()</div><div class="ttdoc">Retrieves the current logger.</div><div class="ttdef"><b>Definition:</b> <a href="_logger_8cpp_source.html#l00058">Logger.cpp:58</a></div></div>
-<div class="ttc" id="anamespacewmtk_html_a9726dab4eead2fc65c8d06890a5ee8fd"><div class="ttname"><a href="namespacewmtk.html#a9726dab4eead2fc65c8d06890a5ee8fd">wmtk::RowVectors3d</a></div><div class="ttdeci">RowVectors&lt; double, 3 &gt; RowVectors3d</div><div class="ttdef"><b>Definition:</b> <a href="_types_8hpp_source.html#l00050">Types.hpp:50</a></div></div>
-<div class="ttc" id="anamespacewmtk_html_a9c2c9efa5cb9ea96d2b8ef464a8b724f"><div class="ttname"><a href="namespacewmtk.html#a9c2c9efa5cb9ea96d2b8ef464a8b724f">wmtk::RowVectors3r</a></div><div class="ttdeci">RowVectors&lt; Rational, 3 &gt; RowVectors3r</div><div class="ttdef"><b>Definition:</b> <a href="_types_8hpp_source.html#l00052">Types.hpp:52</a></div></div>
+<div class="ttc" id="anamespacewmtk_html_a9726dab4eead2fc65c8d06890a5ee8fd"><div class="ttname"><a href="namespacewmtk.html#a9726dab4eead2fc65c8d06890a5ee8fd">wmtk::RowVectors3d</a></div><div class="ttdeci">RowVectors&lt; double, 3 &gt; RowVectors3d</div><div class="ttdef"><b>Definition:</b> <a href="_types_8hpp_source.html#l00051">Types.hpp:51</a></div></div>
+<div class="ttc" id="anamespacewmtk_html_a9c2c9efa5cb9ea96d2b8ef464a8b724f"><div class="ttname"><a href="namespacewmtk.html#a9c2c9efa5cb9ea96d2b8ef464a8b724f">wmtk::RowVectors3r</a></div><div class="ttdeci">RowVectors&lt; Rational, 3 &gt; RowVectors3r</div><div class="ttdef"><b>Definition:</b> <a href="_types_8hpp_source.html#l00053">Types.hpp:53</a></div></div>
 <div class="ttc" id="anamespacewmtk_html_af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6"><div class="ttname"><a href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::PrimitiveType::Vertex</a></div><div class="ttdeci">@ Vertex</div></div>
 <div class="ttc" id="aorient_8hpp_html"><div class="ttname"><a href="orient_8hpp.html">orient.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
