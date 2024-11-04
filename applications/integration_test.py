@@ -18,8 +18,11 @@ class IntegrationTest(unittest.TestCase):
     BINARY_FOLDER = fix_path(os.environ['WMTK_BINARY_FOLDER']) if "WMTK_BINARY_FOLDER" in os.environ else None
     CONFIG_FILE = fix_path(os.environ['WMTK_CONFIG_FILE']) if "WMTK_CONFIG_FILE" in os.environ else None
 
-    def __init__(self, name, test_config, configs_to_run = None, run_all = False):
+    def __init__(self, name, test_config, configs_to_run = None, run_all = False, write_scripts_only=False, write_scripts_output_path =None):
         super().__init__()
+        self.write_scripts_only = write_scripts_only
+        self.write_scripts_output_path = write_scripts_output_path
+
         self.working_dir_fp = tempfile.TemporaryDirectory()
         self.working_dir = self.working_dir_fp.name
 
@@ -54,10 +57,55 @@ class IntegrationTest(unittest.TestCase):
     def tearDown(self):
         self.working_dir_fp.cleanup()
 
+    # Takes an integration test json and creates a settings json
+    def generate_input_json(self, input_json_file, output_json_file = None):
+        # load the input json
+        with open(input_json_file) as f:
+            input_js = json.load(f)
+
+
+        # prepare it with reporter data
+        input_tag = self.config["input_tag"]
+        if output_json_file is not None:
+            oracle_tag = self.config["oracle_tag"]
+            input_js[oracle_tag] = os.path.abspath(os.path.join(self.config_folder, output_json_file))
+        return input_js
+
+
+    def write_execution_script(self, integration_json_file_path, output_path, output_json_path = None):
+
+        assert(os.path.exists(output_path))
+
+
+        ext = ".json"
+        assert(integration_json_file_path.endswith(ext))
+        filename = os.path.basename(integration_json_file_path)[:-len(ext)]
+
+        filename = self.name + "_" + filename
+        sh_filepath = os.path.join(output_path, filename + ".sh")
+        js_filepath = os.path.join(output_path, filename + ".js")
+
+
+        with open(js_filepath,"w") as fd:
+            input_js = self.generate_input_json(integration_json_file_path, output_json_file = output_json_path)
+            json.dump(input_js, fd)
+
+
+        with open(sh_filepath,"w") as fd:
+            fd.writelines(
+                    ["#!/bin/bash",
+            #fd.writeline(f"pushd {self.working_dir}")
+            " ".join(self.execute_json_command(js_filepath))
+                     ])
+            #fd.writeline(f"popd")
+            fd.close()
+
+    def execute_json_command(self, json_file_path):
+        return [self.executable] +self.extra_flags + [ "-j", json_file_path]
 
     def execute_json(self, json_file_path):
 
-        cmd = [self.executable] +self.extra_flags + [ "-j", json_file_path]
+        cmd = self.execute_json_command(json_file_path)
         res = subprocess.run(cmd, cwd=self.working_dir, capture_output=True)
 
         if res.returncode != 0:
@@ -68,15 +116,7 @@ class IntegrationTest(unittest.TestCase):
 
     def create_reporter(self, input_json_file, output_json_file):
 
-        # load the input json
-        with open(input_json_file) as f:
-            input_js = json.load(f)
-
-
-        # prepare it with reporter data
-        input_tag = self.config["input_tag"]
-        oracle_tag = self.config["oracle_tag"]
-        input_js[oracle_tag] = os.path.abspath(os.path.join(self.config_folder, output_json_file))
+        input_js = self.generate_input_json(input_json_path,output_json_file = output_json_file)
 
         with tempfile.NamedTemporaryFile(mode='w', delete=True) as input_json:
             json.dump(input_js, input_json)
@@ -92,6 +132,12 @@ class IntegrationTest(unittest.TestCase):
 
     def run_one(self, test_file):
         self.assertTrue(os.path.exists(test_file), f"{test_file} does not exist")
+
+        if self.write_scripts_only:
+            print(f"Writing execution script for {test_file}")
+            assert(self.write_scripts_output_path is not None)
+            self.write_execution_script(test_file, self.write_scripts_output_path)
+            return
 
         input_tag = self.config["input_tag"]
         oracle_tag = self.config["oracle_tag"]
@@ -175,7 +221,7 @@ def load_config_json(config_file):
             del config["skip"]
     return config
 
-def make_suite(config_file, single_application = None, single_config = None, run_all = False):
+def make_suite(config_file, single_application = None, single_config = None, run_all = False, write_scripts_only = False, write_scripts_output_path = None):
     config = load_config_json(config_file)
 
     suite = unittest.TestSuite()
@@ -185,7 +231,7 @@ def make_suite(config_file, single_application = None, single_config = None, run
             continue
         if single_application is None or key == single_application:
             # expects a list of configs to run
-            suite.addTest(IntegrationTest(key,value, None if single_config is None else [single_config], run_all))
+            suite.addTest(IntegrationTest(key,value, None if single_config is None else [single_config], run_all = run_all, write_scripts_only = write_scripts_only, write_scripts_output_path = write_scripts_output_path))
     return suite
 
 
@@ -196,11 +242,14 @@ if __name__ == '__main__':
                     prog='WMTK Integration Test',
                     description='Run integration tests for WMTK')
 
-    parser.add_argument('-c', '--test_config', help="Path to the json config file for integration testing parameters")
-    parser.add_argument('-b', '--binary_folder', help="Path to the folder that contains the apps binaries")
-    parser.add_argument('-t', '--test-application', help="Runs tests for a single application")
-    parser.add_argument('-s', '--test-script', help="Runs a particular test script")
-    parser.add_argument('-a', '--all-tests', help="Runs all tests, including slow ones", action='store_true')
+    def add_default_arguments(my_parser):
+        my_parser.add_argument('-c', '--test_config', help="Path to the json config file for integration testing parameters")
+        my_parser.add_argument('-b', '--binary_folder', help="Path to the folder that contains the apps binaries")
+        my_parser.add_argument('-t', '--test-application', help="Runs tests for a single application")
+        my_parser.add_argument('-s', '--test-script', help="Runs a particular test script")
+        my_parser.add_argument('-a', '--all-tests', help="Runs all tests, including slow ones", action='store_true')
+
+    add_default_arguments(parser)
 
     subparsers = parser.add_subparsers(help="subcommand help", dest="subcommand")
     create_parser = subparsers.add_parser(name="create",help="create integration test json")
@@ -208,6 +257,10 @@ if __name__ == '__main__':
     create_parser.add_argument("-b", '--binary', help="Name of the binary being run")
     create_parser.add_argument("-i", '--input', help="input config")
     create_parser.add_argument("-o", '--output', help="output config filename, placed in config folder")
+
+    extract_parser = subparsers.add_parser(name="extract",help="extract integration test jsons for manual running")
+    add_default_arguments(extract_parser)
+    extract_parser.add_argument("-o", '--output', help="output folder")
 
     args = parser.parse_args()
 
@@ -259,5 +312,10 @@ if __name__ == '__main__':
         test = IntegrationTest(binary,my_config)
         test.create_reporter(args.input,args.output)
         pass
+    elif args.subcommand == "extract":
+        suite = make_suite(config_file, args.test_application, args.test_script, args.all_tests, write_scripts_only = True, write_scripts_output_path = args.output)
+        runner = unittest.TextTestRunner()
+        result = runner.run(suite)
+
 
 
