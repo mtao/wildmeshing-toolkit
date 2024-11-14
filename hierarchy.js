@@ -206,6 +206,8 @@ var hierarchy =
       [ "wmtk::RoundedInvariant", "classwmtk_1_1_rounded_invariant.html", null ],
       [ "wmtk::SimplexInversionInvariant< T >", "classwmtk_1_1_simplex_inversion_invariant.html", null ],
       [ "wmtk::Swap23EnergyBeforeInvariant", "classwmtk_1_1_swap23_energy_before_invariant.html", null ],
+      [ "wmtk::Swap2dEdgeLengthInvariant", "classwmtk_1_1_swap2d_edge_length_invariant.html", null ],
+      [ "wmtk::Swap2dUnroundedVertexInvariant", "classwmtk_1_1_swap2d_unrounded_vertex_invariant.html", null ],
       [ "wmtk::Swap32EnergyBeforeInvariant", "classwmtk_1_1_swap32_energy_before_invariant.html", null ],
       [ "wmtk::Swap32EnergyBeforeInvariantDouble", "classwmtk_1_1_swap32_energy_before_invariant_double.html", null ],
       [ "wmtk::Swap44EnergyBeforeInvariant", "classwmtk_1_1_swap44_energy_before_invariant.html", null ],
@@ -263,6 +265,7 @@ var hierarchy =
     [ "wmtk::multimesh::Mappable", "classwmtk_1_1multimesh_1_1_mappable.html", [
       [ "wmtk::multimesh::MappableContainer", "classwmtk_1_1multimesh_1_1_mappable_container.html", null ]
     ] ],
+    [ "wmtk::multimesh::utils::MapValidator", "classwmtk_1_1multimesh_1_1utils_1_1_map_validator.html", null ],
     [ "wmtk::components::Marching", "classwmtk_1_1components_1_1_marching.html", null ],
     [ "wmtk::components::MarchingOptions", "structwmtk_1_1components_1_1_marching_options.html", null ],
     [ "wmtk::utils::mesh_type_from_dimension< DIM >", "structwmtk_1_1utils_1_1mesh__type__from__dimension.html", null ],
@@ -429,8 +432,8 @@ var hierarchy =
     [ "wmtk::simplex::internal::VisitedArray< T, ArraySize >", "classwmtk_1_1simplex_1_1internal_1_1_visited_array.html", null ],
     [ "wmtk::simplex::internal::VisitedArray< int64_t >", "classwmtk_1_1simplex_1_1internal_1_1_visited_array.html", null ],
     [ "wmtk::simplex::internal::VisitedArray< wmtk::simplex::IdSimplex >", "classwmtk_1_1simplex_1_1internal_1_1_visited_array.html", null ],
-    [ "wmtk::components::WildmeshingOptions", "structwmtk_1_1components_1_1_wildmeshing_options.html", null ],
     [ "wmtk::components::WildMeshingOptions", "structwmtk_1_1components_1_1_wild_meshing_options.html", null ],
+    [ "wmtk::components::WildmeshingOptions", "structwmtk_1_1components_1_1_wildmeshing_options.html", null ],
     [ "wmtk::components::WildmeshingOptionsAttributes", "structwmtk_1_1components_1_1_wildmeshing_options_attributes.html", null ],
     [ "wmtk::components::WildmeshingOptionsEnvelope", "structwmtk_1_1components_1_1_wildmeshing_options_envelope.html", null ],
     [ "wmtk::components::WildmeshingOptionsEnvelopeMesh", "structwmtk_1_1components_1_1_wildmeshing_options_envelope_mesh.html", null ],

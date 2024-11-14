@@ -199,7 +199,8 @@ var annotated_dup =
         [ "utils", "namespacewmtk_1_1multimesh_1_1utils.html", [
           [ "internal", "namespacewmtk_1_1multimesh_1_1utils_1_1internal.html", [
             [ "TupleTag", "classwmtk_1_1multimesh_1_1utils_1_1internal_1_1_tuple_tag.html", "classwmtk_1_1multimesh_1_1utils_1_1internal_1_1_tuple_tag" ]
-          ] ]
+          ] ],
+          [ "MapValidator", "classwmtk_1_1multimesh_1_1utils_1_1_map_validator.html", "classwmtk_1_1multimesh_1_1utils_1_1_map_validator" ]
         ] ],
         [ "MultiMeshSimplexVisitor", "classwmtk_1_1multimesh_1_1_multi_mesh_simplex_visitor.html", "classwmtk_1_1multimesh_1_1_multi_mesh_simplex_visitor" ],
         [ "MultiMeshVisitor", "classwmtk_1_1multimesh_1_1_multi_mesh_visitor.html", "classwmtk_1_1multimesh_1_1_multi_mesh_visitor" ],
@@ -385,6 +386,8 @@ var annotated_dup =
       [ "RoundedInvariant", "classwmtk_1_1_rounded_invariant.html", "classwmtk_1_1_rounded_invariant" ],
       [ "SimplexInversionInvariant", "classwmtk_1_1_simplex_inversion_invariant.html", "classwmtk_1_1_simplex_inversion_invariant" ],
       [ "Swap23EnergyBeforeInvariant", "classwmtk_1_1_swap23_energy_before_invariant.html", "classwmtk_1_1_swap23_energy_before_invariant" ],
+      [ "Swap2dEdgeLengthInvariant", "classwmtk_1_1_swap2d_edge_length_invariant.html", "classwmtk_1_1_swap2d_edge_length_invariant" ],
+      [ "Swap2dUnroundedVertexInvariant", "classwmtk_1_1_swap2d_unrounded_vertex_invariant.html", "classwmtk_1_1_swap2d_unrounded_vertex_invariant" ],
       [ "Swap32EnergyBeforeInvariant", "classwmtk_1_1_swap32_energy_before_invariant.html", "classwmtk_1_1_swap32_energy_before_invariant" ],
       [ "Swap32EnergyBeforeInvariantDouble", "classwmtk_1_1_swap32_energy_before_invariant_double.html", "classwmtk_1_1_swap32_energy_before_invariant_double" ],
       [ "Swap44EnergyBeforeInvariant", "classwmtk_1_1_swap44_energy_before_invariant.html", "classwmtk_1_1_swap44_energy_before_invariant" ],
