@@ -12,9 +12,8 @@
 #include <wmtk/invariants/InvariantCollection.hpp>
 
 #include <wmtk/Mesh.hpp>
-#include "internal/configure_collapse.hpp"
 #include "internal/configure_split.hpp"
-#include "internal/configure_swap.hpp"
+#include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 
 namespace wmtk::components::isotropic_remeshing {
 void IsotropicRemeshing::configure_split()
@@ -26,6 +25,17 @@ void IsotropicRemeshing::configure_split()
 
     if (m_options.lock_boundary && !m_options.use_for_periodic) {
         op->add_invariant(m_interior_position_invariants);
+    }
+
+    for(const auto& [child,parent]: m_options.copied_attributes) {
+        op->set_new_attribute_strategy(
+                child,
+            operations::SplitBasicStrategy::None,
+            operations::SplitRibBasicStrategy::None);
+
+        op->add_transfer_strategy(
+                wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(parent,child));
+
     }
 
     assert(op->attribute_new_all_configured());

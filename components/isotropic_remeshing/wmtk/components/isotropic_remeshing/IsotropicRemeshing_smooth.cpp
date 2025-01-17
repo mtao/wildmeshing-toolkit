@@ -1,3 +1,4 @@
+#include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 
 #include <memory>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
@@ -104,5 +105,12 @@ void IsotropicRemeshing::configure_smooth()
     // }
 
     if (update_position) proj_op->add_transfer_strategy(update_position);
+
+    for(const auto& [child,parent]: m_options.copied_attributes) {
+
+        proj_op->add_transfer_strategy(
+                wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(parent,child));
+
+    }
 }
 } // namespace wmtk::components::isotropic_remeshing

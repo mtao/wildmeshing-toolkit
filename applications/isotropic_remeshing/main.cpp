@@ -120,6 +120,16 @@ int main(int argc, char* argv[])
             assert(options.pass_through_attributes.back().is_valid());
         }
     }
+    if (j.contains("copied_attributes")) {
+        for (const auto& [child,parent]: j["copied_attributes"].items()) {
+            options.copied_attributes.emplace_back(
+                wmtk::components::multimesh::utils::get_attribute(mc, wmtk::components::multimesh::utils::AttributeDescription(child,std::optional<int64_t>{},{})),
+                wmtk::components::multimesh::utils::get_attribute(mc, parent)
+                );
+            assert(options.copied_attributes.back().first.is_valid());
+            assert(options.copied_attributes.back().second.is_valid());
+        }
+    }
     for (const auto& attr : options.pass_through_attributes) {
         spdlog::info("Pass through: {}", attr.name());
     }

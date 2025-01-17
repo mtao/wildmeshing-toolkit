@@ -1,4 +1,5 @@
 #pragma once
+#include <tuple>
 #include <memory>
 #include <nlohmann/json_fwd.hpp>
 #include <optional>
@@ -23,6 +24,7 @@ struct IsotropicRemeshingOptions
     wmtk::attribute::MeshAttributeHandle position_attribute;
     std::optional<wmtk::attribute::MeshAttributeHandle> inversion_position_attribute;
     std::vector<wmtk::attribute::MeshAttributeHandle> other_position_attributes;
+    std::vector<std::pair<wmtk::attribute::MeshAttributeHandle, wmtk::attribute::MeshAttributeHandle>> copied_attributes;
     std::optional<wmtk::attribute::MeshAttributeHandle> sizing_field_attribute;
     std::optional<wmtk::attribute::MeshAttributeHandle> visited_edge_flag;
     std::optional<wmtk::attribute::MeshAttributeHandle> target_edge_length;

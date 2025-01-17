@@ -8,6 +8,10 @@
         "combo.trims/vertex_position",
         "combo.patches/vertex_position"
     ],
+    "copied_attributes": {
+        "combo.trims/vertex_position": "combo/vertex_position",
+        "combo.patches/vertex_position": "combo/vertex_position"
+    },
     "pass_through_attributes": [
         "combo.trims/edge_labels",
         "combo.patches/patch_labels"
@@ -16,13 +20,13 @@
         "combo.critical_points",
         "combo.trims"
     ],
-    "iterations": 10,
-    "length_rel": 0.1,
+    "iterations": 50,
+    "length_rel": 0.01,
     "use_for_periodic": false,
     "edge_swap_mode": "valence",
     "use_split": true,
-    "use_collapse": false,
-    "use_swap": false,
+    "use_collapse": true,
+    "use_swap": true,
     "use_smooth": true,
     "2envelope_size": 1e-3,
     "fix_uv_seam": false,
@@ -32,13 +36,17 @@
             "type": ".vtu",
             "position_attribute": "vertex_position"
         },
+        "combo.patches": {"path": "volume_split",
+            "type": ".vtu",
+            "position_attribute": "vertex_position"
+        },
         "combo.trims": {"path": "trims",
             "type": ".vtu",
             "position_attribute": "vertex_position"
         }
     },
     "intermediate_output_format": {
-        "pos": {
+        "combo.patches": {
             "path": "box_{:04}",
             "type": ".vtu",
             "position_attribute": "vertex_position"

@@ -440,6 +440,17 @@ TEST_CASE("swap_multimesh_edge", "[operations][swap][2D]")
         TriEdgeSwap op(m);
         op.add_invariant(std::make_shared<InteriorEdgeInvariant>(m));
         op.collapse().add_invariant(std::make_shared<MultiMeshLinkConditionInvariant>(m));
+
+        std::vector<std::array<Tuple,2>> edges;
+        edges.emplace_back(
+                std::array<Tuple,2>{{Tuple(0,-1,-1,0), Tuple(1,0,-1,0)}});
+        edges.emplace_back(
+                std::array<Tuple,2>{{Tuple(0,-1,-1,1), Tuple(1,2,-1,1)}});
+
+        Tuple t(0,2,-1,0);
+        simplex::Simplex e(PrimitiveType::Edge, t);
+
+        REQUIRE(!m.is_boundary(e));
     }
 }
 

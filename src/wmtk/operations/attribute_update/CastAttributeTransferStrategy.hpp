@@ -68,4 +68,6 @@ public:
         : BaseType(my_handle, parent_handle, &convert)
     {}
 };
+
+
 } // namespace wmtk::operations::utils

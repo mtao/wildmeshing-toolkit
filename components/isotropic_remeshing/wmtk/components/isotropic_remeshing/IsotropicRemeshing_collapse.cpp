@@ -8,6 +8,7 @@
 #include <wmtk/utils/Logger.hpp>
 #include "IsotropicRemeshing.hpp"
 
+#include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 
 #include <Eigen/Geometry>
 #include <wmtk/invariants/InvariantCollection.hpp>
@@ -26,6 +27,16 @@ void IsotropicRemeshing::configure_collapse()
     if (m_envelope_invariants) {
         spdlog::info("Attaching envelope invariants");
         op->add_invariant(m_envelope_invariants);
+    }
+
+    for(const auto& [child,parent]: m_options.copied_attributes) {
+        op->set_new_attribute_strategy(
+                child,
+            operations::CollapseBasicStrategy::None);
+
+        op->add_transfer_strategy(
+                wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(parent,child));
+
     }
     assert(op->attribute_new_all_configured());
     m_collapse = op;
