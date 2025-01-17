@@ -7,9 +7,11 @@ namespace wmtk::invariants {
 CannotMapSimplexInvariant::CannotMapSimplexInvariant(
     const Mesh& parent_mesh,
     const Mesh& child_mesh,
-    PrimitiveType pt)
+    PrimitiveType pt,
+    bool inv)
     : Invariant(parent_mesh, true, false, false)
     , m_child_mesh(child_mesh)
+    , inverse(inv)
     , m_mapped_simplex_type(pt)
 {}
 CannotMapSimplexInvariant::CannotMapSimplexInvariant(
@@ -20,9 +22,17 @@ CannotMapSimplexInvariant::CannotMapSimplexInvariant(
 bool CannotMapSimplexInvariant::before(const simplex::Simplex& s) const
 {
     if (m_mapped_simplex_type == m_child_mesh.top_simplex_type()) {
-        return before_same_dimension(s);
+        if (inverse) {
+            return !before_same_dimension(s);
+        } else {
+            return before_same_dimension(s);
+        }
     }
-    return before_default(s);
+    if (inverse) {
+        return !before_default(s);
+    } else {
+        return before_default(s);
+    }
 }
 bool CannotMapSimplexInvariant::before_same_dimension_vertex(const simplex::Simplex& s) const
 {

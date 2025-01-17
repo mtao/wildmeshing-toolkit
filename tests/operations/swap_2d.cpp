@@ -1,4 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
+#include <wmtk/utils/TupleInspector.hpp>
+#include <wmtk/utils/mesh_utils.hpp>
+
 #include <filesystem>
 #include <numeric>
 #include <set>
@@ -15,9 +18,11 @@
 #include <wmtk/operations/composite/TriEdgeSwap.hpp>
 #include <wmtk/operations/composite/TriFaceSplit.hpp>
 #include <wmtk/simplex/link.hpp>
+#include <wmtk/simplex/utils/SimplexComparisons.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
 #include "../tools/DEBUG_TriMesh.hpp"
+#include "../tools/EdgeMesh_examples.hpp"
 #include "../tools/TriMesh_examples.hpp"
 #include "../tools/redirect_logger_to_cout.hpp"
 
@@ -434,23 +439,170 @@ TEST_CASE("swap_multimesh_edge", "[operations][swap][2D]")
 {
     using namespace operations::composite;
 
-    SECTION("counter_clockwise")
+    std::vector<std::array<Tuple, 2>> edges;
+    edges.emplace_back(std::array<Tuple, 2>{{Tuple(1, -1, -1, 0), Tuple(1, 0, -1, 0)}});
+    edges.emplace_back(std::array<Tuple, 2>{{Tuple(0, -1, -1, 1), Tuple(1, 2, -1, 1)}});
+
+    VectorXl indices(4);
+    indices(0) = 0;
+    indices(1) = 1;
+    indices(2) = 2;
+    indices(3) = 3;
     {
-        DEBUG_TriMesh m = interior_edge();
-        TriEdgeSwap op(m);
-        op.add_invariant(std::make_shared<InteriorEdgeInvariant>(m));
-        op.collapse().add_invariant(std::make_shared<MultiMeshLinkConditionInvariant>(m));
+        auto m = std::make_shared<TriMesh>(quad());
+        auto em = std::make_shared<EdgeMesh>(tests::two_segments());
+        m->register_child_mesh(em, edges);
 
-        std::vector<std::array<Tuple,2>> edges;
-        edges.emplace_back(
-                std::array<Tuple,2>{{Tuple(0,-1,-1,0), Tuple(1,0,-1,0)}});
-        edges.emplace_back(
-                std::array<Tuple,2>{{Tuple(0,-1,-1,1), Tuple(1,2,-1,1)}});
+        REQUIRE(wmtk::simplex::utils::SimplexComparisons::equal(*m, PV, edges[0][1], edges[1][1]));
 
-        Tuple t(0,2,-1,0);
-        simplex::Simplex e(PrimitiveType::Edge, t);
 
-        REQUIRE(!m.is_boundary(e));
+        REQUIRE(wmtk::simplex::utils::SimplexComparisons::equal(*em, PV, edges[0][0], edges[1][0]));
+
+
+        Tuple vert_on_mm_t(1, 2, -1, 0);
+        Tuple vert_opp_mm_t(0, 2, -1, 0);
+        simplex::Simplex edge_to_mm(PrimitiveType::Edge, vert_on_mm_t);
+        simplex::Simplex edge_opp_mm(PrimitiveType::Edge, vert_opp_mm_t);
+
+        CHECK(m->is_boundary(PE, Tuple(1, 0, -1, 0)));
+        CHECK(m->is_boundary(PE, Tuple(0, 1, -1, 0)));
+        CHECK(!m->is_boundary(PE, Tuple(0, 2, -1, 0)));
+        CHECK(!m->is_boundary(PE, Tuple(1, 0, -1, 1)));
+        CHECK(m->is_boundary(PE, Tuple(0, 1, -1, 1)));
+        CHECK(m->is_boundary(PE, Tuple(0, 2, -1, 1)));
+        REQUIRE(!m->is_boundary(edge_to_mm));
+        REQUIRE(!m->is_boundary(edge_opp_mm));
+        REQUIRE(m->is_boundary(PrimitiveType::Edge, edges[0][1]));
+        REQUIRE(m->is_boundary(PrimitiveType::Edge, edges[1][1]));
+
+        {
+            simplex::Simplex v(PrimitiveType::Vertex, vert_opp_mm_t);
+            auto mapped_vs = m->map(*em, v);
+            REQUIRE(mapped_vs.size() == 0);
+        }
+        {
+            simplex::Simplex v(PrimitiveType::Vertex, vert_on_mm_t);
+            auto mapped_vs = m->map(*em, v);
+            REQUIRE(mapped_vs.size() == 1);
+            for (const auto& mapped_v : mapped_vs) {
+                CHECK(wmtk::simplex::utils::SimplexComparisons::equal(
+                    *em,
+                    PV,
+                    mapped_v.tuple(),
+                    edges[0][0]));
+                CHECK(wmtk::simplex::utils::SimplexComparisons::equal(
+                    *em,
+                    PV,
+                    mapped_v.tuple(),
+                    edges[1][0]));
+            }
+        }
+    }
+    {
+        auto m = std::make_shared<TriMesh>(quad());
+        auto em = std::make_shared<EdgeMesh>(tests::two_segments());
+        m->register_child_mesh(em, edges);
+
+        auto indices_handle = mesh_utils::set_matrix_attribute(
+            indices,
+
+            "index",
+            wmtk::PrimitiveType::Vertex,
+            *m);
+        auto indices_acc = m->create_const_accessor<int64_t>(indices_handle);
+        TriEdgeSwap op(*m);
+        op.add_invariant(std::make_shared<InteriorEdgeInvariant>(*m));
+        op.collapse().add_invariant(std::make_shared<MultiMeshLinkConditionInvariant>(*m));
+
+
+        op.collapse().set_new_attribute_strategy(indices_handle, CollapseBasicStrategy::CopyOther);
+        op.split().set_new_attribute_strategy(indices_handle);
+
+        Tuple vert_on_mm_t(1, 2, -1, 0);
+        simplex::Simplex edge_to_mm(PrimitiveType::Edge, vert_on_mm_t);
+        op(edge_to_mm);
+        auto after_fs = m->get_all(PF);
+        for (const auto& t : after_fs) {
+            spdlog::info("{}", wmtk::utils::TupleInspector::as_string(t));
+        }
+        for (const auto& t : em->get_all(PE)) {
+            spdlog::info(
+                "{} -> {}",
+                wmtk::utils::TupleInspector::as_string(t),
+                wmtk::utils::TupleInspector::as_string(
+                    em->map_to_root(simplex::Simplex::edge(t)).tuple()));
+        }
+
+        // make sure the two edges in the child mesh that point to each other still point to the
+        // vertex
+        {
+            auto e0 = em->map_to_root(simplex::Simplex::vertex(edges[0][0]));
+            auto e1 = em->map_to_root(simplex::Simplex::vertex(edges[1][0]));
+            REQUIRE(wmtk::simplex::utils::SimplexComparisons::equal(*m, e0, e1));
+
+
+            CHECK(indices_acc.const_scalar_attribute(e0) == 1);
+            CHECK(indices_acc.const_scalar_attribute(e1) == 1);
+
+            CHECK(indices_acc.const_scalar_attribute(m->switch_vertex(e0.tuple())) == 2);
+            CHECK(indices_acc.const_scalar_attribute(m->switch_vertex(e1.tuple())) == 3);
+            CHECK(
+                indices_acc.const_scalar_attribute(
+                    m->switch_tuples(e0.tuple(), {PV, PE, PF, PE, PV})) == 0);
+        }
+    }
+    {
+        auto m = std::make_shared<TriMesh>(quad());
+        auto em = std::make_shared<EdgeMesh>(tests::two_segments());
+        m->register_child_mesh(em, edges);
+
+        auto indices_handle = mesh_utils::set_matrix_attribute(
+            indices,
+
+            "index",
+            wmtk::PrimitiveType::Vertex,
+            *m);
+        auto indices_acc = m->create_const_accessor<int64_t>(indices_handle);
+        TriEdgeSwap op(*m);
+        op.add_invariant(std::make_shared<InteriorEdgeInvariant>(*m));
+        op.collapse().add_invariant(std::make_shared<MultiMeshLinkConditionInvariant>(*m));
+
+        op.collapse().set_new_attribute_strategy(indices_handle, CollapseBasicStrategy::CopyOther);
+        op.split().set_new_attribute_strategy(indices_handle);
+
+        Tuple vert_opp_mm_t(0, 2, -1, 0);
+        simplex::Simplex edge_opp_mm(PrimitiveType::Edge, vert_opp_mm_t);
+        op(edge_opp_mm);
+        auto after_fs = m->get_all(PF);
+        for (const auto& t : after_fs) {
+            spdlog::info("{}", wmtk::utils::TupleInspector::as_string(t));
+        }
+        for (const auto& t : em->get_all(PE)) {
+            spdlog::info(
+                "{} -> {}",
+                wmtk::utils::TupleInspector::as_string(t),
+                wmtk::utils::TupleInspector::as_string(
+                    em->map_to_root(simplex::Simplex::edge(t)).tuple()));
+        }
+
+        // vertex
+        // make sure the two edges in the child mesh that point to each other still point to the
+        // vertex
+        {
+            auto e0 = em->map_to_root(simplex::Simplex::vertex(edges[0][0]));
+            auto e1 = em->map_to_root(simplex::Simplex::vertex(edges[1][0]));
+            REQUIRE(wmtk::simplex::utils::SimplexComparisons::equal(*m, e0, e1));
+
+
+            CHECK(indices_acc.const_scalar_attribute(e0) == 1);
+            CHECK(indices_acc.const_scalar_attribute(e1) == 1);
+
+            CHECK(indices_acc.const_scalar_attribute(m->switch_vertex(e0.tuple())) == 2);
+            CHECK(indices_acc.const_scalar_attribute(m->switch_vertex(e1.tuple())) == 3);
+            CHECK(
+                indices_acc.const_scalar_attribute(
+                    m->switch_tuples(e0.tuple(), {PV, PE, PF, PE, PV})) == 0);
+        }
     }
 }
 

@@ -1,6 +1,9 @@
 #include "configure_collapse.hpp"
+#include <fmt/ranges.h>
+#include <spdlog/spdlog.h>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
+#include <wmtk/invariants/CannotMapSimplexInvariant.hpp>
 #include <wmtk/invariants/InvariantCollection.hpp>
 #include <wmtk/invariants/MaxEdgeLengthInvariant.hpp>
 #include <wmtk/invariants/MultiMeshLinkConditionInvariant.hpp>
@@ -11,7 +14,6 @@
 #include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/attribute_new/CollapseNewAttributeStrategy.hpp>
 #include "../IsotropicRemeshingOptions.hpp"
-#include <wmtk/invariants/CannotMapSimplexInvariant.hpp>
 namespace wmtk::components::isotropic_remeshing::internal {
 
 std::shared_ptr<wmtk::invariants::InvariantCollection> collapse_core_invariants(
@@ -62,10 +64,14 @@ std::shared_ptr<wmtk::invariants::InvariantCollection> collapse_invariants(
     if (options.mesh_collection != nullptr) {
         for (const auto& mesh_name : options.static_mesh_names) {
             auto& mesh2 = options.mesh_collection->get_mesh(mesh_name);
-            ic_root->add(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
-                m,
-                mesh2,
-                PrimitiveType::Vertex));
+            // if (mesh2.top_simplex_type() == PrimitiveType::Edge) {
+            //     ic_root->add(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+            //         m,
+            //         mesh2,
+            //         PrimitiveType::Vertex,
+            //         true));
+            // }
+            ic_root->add(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(m, mesh2));
         }
     }
     /*
@@ -102,6 +108,7 @@ void configure_collapse(
     const auto positions = options.all_positions();
 
     if (options.lock_boundary && !options.use_for_periodic) {
+        assert(false);
         // set collapse towards boundary
         for (auto& p : positions) {
             auto tmp = std::make_shared<operations::CollapseNewAttributeStrategy<double>>(p);
@@ -120,6 +127,29 @@ void configure_collapse(
         for (auto& p : positions) {
             ec.set_new_attribute_strategy(p, operations::CollapseBasicStrategy::Mean);
         }
+    }
+
+    if (options.mesh_collection != nullptr) {
+        std::vector<std::shared_ptr<Mesh>> static_meshes;
+        for (const auto& mesh_name : options.static_mesh_names) {
+            auto& mesh2 = options.mesh_collection->get_mesh(mesh_name);
+            static_meshes.emplace_back(mesh2.shared_from_this());
+        }
+        auto strat_ptr_const = ec.get_new_attribute_strategy(options.position_attribute);
+        auto strat_ptr =
+            std::const_pointer_cast<wmtk::operations::BaseCollapseNewAttributeStrategy>(
+                strat_ptr_const);
+        strat_ptr->set_simplex_predicate([static_meshes, &m](const simplex::Simplex& s) -> bool {
+            simplex::Simplex sv = simplex::Simplex(PrimitiveType::Vertex, s.tuple());
+            for (const auto& mptr : static_meshes) {
+                bool mappable = m.can_map(*mptr, sv);
+                if (mappable) {
+                    return true;
+                }
+            }
+            return false;
+            return {};
+        });
     }
 
     for (const auto& attr : options.pass_through_attributes) {

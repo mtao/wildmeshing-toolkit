@@ -73,16 +73,10 @@ std::shared_ptr<wmtk::operations::composite::EdgeSwap> tri_swap(
     if (options.mesh_collection != nullptr) {
         for (const auto& mesh_name : options.static_mesh_names) {
             auto& mesh2 = options.mesh_collection->get_mesh(mesh_name);
-            swap->split().add_invariant(
-                std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
-                    mesh,
-                    mesh2,
-                    wmtk::PrimitiveType::Vertex));
-            swap->collapse().add_invariant(
-                std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
-                    mesh,
-                    mesh2,
-                    wmtk::PrimitiveType::Vertex));
+            swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+                mesh,
+                mesh2,
+                wmtk::PrimitiveType::Triangle));
         }
     }
     // for (const auto& p : options.tag_attributes) {
@@ -111,14 +105,16 @@ void configure_swap_transfer(
     const attribute::MeshAttributeHandle& vertex_handle)
 {
     swap.split().set_new_attribute_strategy(vertex_handle);
-
-    swap.split().set_new_attribute_strategy(
-        vertex_handle,
-        wmtk::operations::SplitBasicStrategy::None,
-        wmtk::operations::SplitRibBasicStrategy::Mean);
     swap.collapse().set_new_attribute_strategy(
         vertex_handle,
         wmtk::operations::CollapseBasicStrategy::CopyOther);
+    // swap.split().set_new_attribute_strategy(
+    //     vertex_handle,
+    //     wmtk::operations::SplitBasicStrategy::None,
+    //     wmtk::operations::SplitRibBasicStrategy::Mean);
+    // swap.collapse().set_new_attribute_strategy(
+    //     vertex_handle,
+    //     wmtk::operations::CollapseBasicStrategy::CopyOther);
 }
 
 } // namespace wmtk::components::isotropic_remeshing::internal

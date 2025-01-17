@@ -19,12 +19,22 @@ TriMesh single_2d_nonequilateral_triangle_with_positions();
 
 // a single triangle with position
 TriMesh single_2d_triangle_with_random_positions(size_t seed = 123);
-//  3--1--- 0
+
+// global indices
+//  3-- --- 0
 //   |     / \ .
-//   2 f1 /2   1
+//     f1 /2
 //   |  0/ f0  \ .
 //   |  /       \ .
-//  1  ----0---- 2
+//  1  ---- ---- 2
+//
+//  local indices
+//  0--1---2 0
+//   |     / \
+//   2    /2   1
+//   |  0/     \ .
+//   |  /       \ .
+//  1 1----0---- 2
 //
 TriMesh one_ear(); // an alias for quad
 TriMesh quad();
