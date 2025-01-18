@@ -391,7 +391,7 @@ void MshReader::validate<3>()
             // swap col 0 and 1 of S
             S.col(0).swap(S.col(1));
             wmtk::logger().info(
-                "Input tet orientation is inverted, swapping col 0 and 1 of TV matirx.");
+                "Input tet orientation is inverted, swapping col 0 and 1 of TV matrix.");
         }
     }
 
