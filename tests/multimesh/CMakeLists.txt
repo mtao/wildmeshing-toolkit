@@ -10,5 +10,7 @@ set(TEST_SOURCES
     consolidate.cpp
     test_ids.cpp
     transport_tuple.cpp
+
+    point.cpp
 )
 target_sources(wmtk_tests PRIVATE ${TEST_SOURCES})
