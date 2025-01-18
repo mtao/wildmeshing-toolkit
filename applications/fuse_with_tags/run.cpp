@@ -69,6 +69,31 @@ wmtk::components::multimesh::NamedMultiMesh& run(
         auto id = mesh->absolute_multi_mesh_id();
         assert(id.size() == 1);
         names[id[0]] = name;
+
+#if !defined(NDEBUG)
+        size_t count = 0;
+#endif
+        for(const auto& t: mesh->get_all(mesh->top_simplex_type())) {
+#if !defined(NDEBUG)
+            count++;
+#endif
+            auto maps = mesh->map(*mptr, simplex::Simplex(mesh->top_simplex_type(),t));
+            assert(maps.size() == 1);
+            auto maps2 = mptr->map(*mesh, maps[0]);
+            assert(maps2.size() == 1);
+            assert(maps2[0].tuple() == t);
+        }
+        for(const auto& t: mesh->get_all(mptr->top_simplex_type())) {
+            auto maps = mptr->map(*mesh, simplex::Simplex(mesh->top_simplex_type(), t));
+            if(!maps.empty()) {
+                assert(maps.size() == 1);
+#if !defined(NDEBUG)
+                count--;
+#endif
+            }
+        }
+        assert(count == 0);
+
     }
     nlohmann::ordered_json js;
     js[params.output_name] = names;
