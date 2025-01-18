@@ -1,5 +1,6 @@
 #include "transport_tuple.hpp"
-#include <spdlog/spdlog.h>
+//#include <wmtk/utils/TupleInspector.hpp>
+//#include <spdlog/spdlog.h>
 #include <wmtk/autogen/SimplexDart.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
 #include "find_local_dart_action.hpp"
@@ -40,6 +41,9 @@ Tuple transport_tuple(
     const Tuple& source,
     PrimitiveType primitive_type)
 {
+    assert(!base_source.is_null());
+    assert(!base_target.is_null());
+    assert(!source.is_null());
     auto dart = internal::transport_tuple_dart(
         base_source,
         base_target,
@@ -55,8 +59,10 @@ Tuple transport_tuple(
         base_primitive_type,
         source,
         primitive_type);
+        return seq;
     assert( dart == seq);
     */
+    assert(!dart.is_null());
     return dart;
 }
 
@@ -73,6 +79,9 @@ Tuple transport_tuple(
 
     int8_t src_dart = sd.valid_index_from_tuple(source);
     const int8_t tgt_dart = sd.product(action, src_dart);
-    return sd.update_tuple_from_valid_index(source, tgt_dart);
+    //spdlog::warn("base action{} final action{} src_dart{} tgt_dart{}", base_action, action, src_dart, tgt_dart);
+    const auto r = sd.update_tuple_from_valid_index(source, tgt_dart);
+    //spdlog::info("{}", wmtk::utils::TupleInspector::as_string(r));
+    return r;
 }
 } // namespace wmtk::multimesh::utils

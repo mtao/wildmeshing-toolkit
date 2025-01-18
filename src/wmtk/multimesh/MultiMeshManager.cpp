@@ -53,11 +53,16 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
         multimesh::utils::read_tuple_map_attribute(map_accessor, source_tuple);
 
     if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
+
+            logger().debug(
+                "[{} -> {}] got source or target null",
+                wmtk::utils::TupleInspector::as_string(source_mesh_base_tuple),
+                wmtk::utils::TupleInspector::as_string(target_mesh_base_tuple));
         return Tuple(); // return null tuple
     }
 
-    // assert(source_mesh.is_valid(source_mesh_base_tuple));
-    // assert(target_mesh.is_valid(target_mesh_base_tuple));
+     assert(source_mesh.is_valid(source_mesh_base_tuple));
+     assert(target_mesh.is_valid(target_mesh_base_tuple));
 
 
     if (source_mesh_base_tuple.m_global_cid != source_mesh_target_tuple.m_global_cid) {
@@ -103,6 +108,9 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     // we want to repeat switches from source_base_tuple -> source_tuple to
     // target_base _tuple -> return value
     //
+    assert(source_mesh.is_valid(source_mesh_base_tuple));
+    assert(source_mesh.is_valid(source_mesh_target_tuple));
+    assert(target_mesh.is_valid(target_mesh_base_tuple));
     return multimesh::utils::transport_tuple(
         source_mesh_base_tuple,
         source_mesh_target_tuple,
@@ -469,9 +477,12 @@ MultiMeshManager::map_up_to_tuples(const Mesh& my_mesh, const Mesh& other, const
     // get a root tuple by converting the tuple up parent meshes until root is found
     Tuple cur_tuple = tuple;
     const Mesh* cur_mesh = &my_mesh;
+    assert(cur_mesh->is_valid(cur_tuple));
     while (cur_mesh != &other) {
         cur_tuple = cur_mesh->m_multi_mesh_manager.map_tuple_to_parent_tuple(*cur_mesh, cur_tuple);
+        assert(!cur_tuple.is_null());
         cur_mesh = cur_mesh->m_multi_mesh_manager.m_parent;
+        assert(cur_mesh->is_valid(cur_tuple));
         assert(cur_mesh != nullptr);
     }
     return std::pair<const Mesh&, Tuple>(*cur_mesh, cur_tuple);
@@ -485,9 +496,12 @@ MultiMeshManager::map_up_to_tuples(const Mesh& my_mesh, const Tuple& tuple, int6
     // get a root tuple by converting the tuple up parent meshes until root is found
     Tuple cur_tuple = tuple;
     const Mesh* cur_mesh = &my_mesh;
+    assert(cur_mesh->is_valid(cur_tuple));
     for (int64_t d = 0; d < depth; ++d) {
         cur_tuple = cur_mesh->m_multi_mesh_manager.map_tuple_to_parent_tuple(*cur_mesh, cur_tuple);
+        assert(!cur_tuple.is_null());
         cur_mesh = cur_mesh->m_multi_mesh_manager.m_parent;
+        assert(cur_mesh->is_valid(cur_tuple));
         assert(cur_mesh != nullptr);
     }
     // assert(cur_mesh->m_multi_mesh_manager
@@ -510,6 +524,7 @@ std::vector<Tuple> MultiMeshManager::map_down_relative_tuples(
     std::vector<Tuple> tuples;
     tuples.emplace_back(my_simplex.tuple());
     const Mesh* cur_mesh = &my_mesh;
+    assert(cur_mesh->is_valid(my_simplex.tuple()));
 
     for (auto it = relative_id.cbegin(); it != relative_id.cend(); ++it) {
         // get the select ID from the child map
@@ -519,6 +534,7 @@ std::vector<Tuple> MultiMeshManager::map_down_relative_tuples(
         // for every tuple we have try to collect all versions
         std::vector<Tuple> new_tuples;
         for (const Tuple& t : tuples) {
+            assert(cur_mesh->is_valid(t));
             // get new tuples for every version that exists
             std::vector<Tuple> n = cur_mesh->m_multi_mesh_manager.map_to_child_tuples(
                 *cur_mesh,
@@ -608,6 +624,7 @@ Tuple MultiMeshManager::map_tuple_to_root_tuple(const Mesh& my_mesh, const Tuple
         return my_tuple;
     } else {
         const Tuple ptup = map_tuple_to_parent_tuple(my_mesh, my_tuple);
+        assert(!ptup.is_null());
         assert(m_parent->is_valid(ptup));
         return m_parent->m_multi_mesh_manager.map_tuple_to_root_tuple(*m_parent, ptup);
     }
@@ -639,7 +656,9 @@ Tuple MultiMeshManager::map_tuple_to_parent_tuple(const Mesh& my_mesh, const Tup
     // assert(!map_handle.is_null());
 
     auto map_accessor = my_mesh.create_const_accessor(map_handle);
-    return map_tuple_between_meshes(my_mesh, parent_mesh, map_accessor, my_tuple);
+    auto cur_tup = map_tuple_between_meshes(my_mesh, parent_mesh, map_accessor, my_tuple);
+    assert(!cur_tup.is_null());
+    return cur_tup;
 }
 
 
