@@ -249,26 +249,26 @@ fuse(
 
     {
         std::vector<std::array<Tuple, 2>> point_tuples;
+        std::vector<int64_t> point_indices;
         int64_t max_index = -1;
-        for (const auto& [id, _] : corner_vertices) {
-            assert(id >= 0);
-            max_index = std::max<int64_t>(id, max_index);
-        }
-        point_tuples.resize(max_index + 1);
-        assert(point_tuples.size() == corner_vertices.size());
 
+        {
+        int index = 0;
         for (const auto& [id, pairs] : corner_vertices) {
             for (const auto& [mesh_id, t] : pairs) {
                 const auto& em = ranges.at(patch_ids_to_name.at(mesh_id));
                 const Tuple t2 = em.update_to_fused(t);
                 //const Tuple t2 = t; // em.update_to_fused(t);
                 assert(mptr->is_valid(t2));
-                point_tuples[id] = std::array<Tuple, 2>{{Tuple(-1, -1, -1, id), t2}};
+                point_tuples.emplace_back(std::array<Tuple, 2>{{Tuple(-1, -1, -1, index++), t2}});
+                point_indices.emplace_back(id);
                 break;
             }
         }
+        }
         auto pm = std::make_shared<wmtk::PointMesh>();
         pm->initialize(point_tuples.size());
+        wmtk::mesh_utils::set_scalar_attribute(point_indices, "critical_point_id", PrimitiveType::Vertex, *pm);
         for (const auto& [a, b] : point_tuples) {
             assert(!a.is_null());
             assert(!pm->is_removed(a));

@@ -7,7 +7,7 @@
 namespace wmtk::mesh_utils {
 template <typename Mat>
 inline attribute::MeshAttributeHandle set_matrix_attribute(
-    const Mat& data,
+    const Eigen::MatrixBase<Mat>& data,
     const std::string& name,
     const PrimitiveType& type,
     Mesh& mesh)
@@ -23,6 +23,28 @@ inline attribute::MeshAttributeHandle set_matrix_attribute(
     for (size_t i = 0; i < tuples.size(); ++i) {
         const auto& t = tuples[i];
         accessor.vector_attribute(t) = data.row(i).transpose();
+    }
+
+    return handle;
+}
+template <typename T>
+inline attribute::MeshAttributeHandle set_scalar_attribute(
+    const std::vector<T>& data,
+    const std::string& name,
+    const PrimitiveType& type,
+    Mesh& mesh)
+{
+    attribute::MeshAttributeHandle handle =
+        mesh.template register_attribute<T>(name, type, 1);
+
+
+    auto thandle = handle.as<T>();
+
+    auto accessor = mesh.create_accessor(thandle);
+    const auto tuples = mesh.get_all(type);
+    for (size_t i = 0; i < tuples.size(); ++i) {
+        const auto& t = tuples[i];
+        accessor.scalar_attribute(t) = data[i];
     }
 
     return handle;
