@@ -48,4 +48,16 @@ std::vector<std::pair<std::string, OutputOptions>> parse_output(const nlohmann::
     }
     return ret;
 }
+
 } // namespace wmtk::components::output
+namespace nlohmann {
+
+void adl_serializer<wmtk::components::output::OutputOptionsCollection>::to_json(json& j, const wmtk::components::output::OutputOptionsCollection & p) {
+    j = nlohmann::json::array();
+    std::copy(p.begin(),p.end(),std::back_inserter(j));
+}
+
+void adl_serializer<wmtk::components::output::OutputOptionsCollection>::from_json(const json& j, wmtk::components::output::OutputOptionsCollection& p) {
+    p = wmtk::components::output::parse_output(j);
+}
+}

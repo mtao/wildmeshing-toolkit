@@ -20,14 +20,14 @@
         "combo.critical_points",
         "combo.trims"
     ],
-    "iterations": 50,
-    "length_rel": 0.01,
+    "iterations": 10,
+    "length_rel": 0.1,
     "use_for_periodic": false,
     "edge_swap_mode": "valence",
     "use_split": true,
-    "use_collapse": true,
-    "use_swap": false,
-    "use_smooth": true,
+    "use_collapse": false,
+    "use_swap": true,
+    "use_smooth": false,
     "2envelope_size": 1e-3,
     "fix_uv_seam": false,
     "lock_boundary": false,
@@ -46,8 +46,13 @@
         }
     },
     "intermediate_output_format": {
-        "combo.patches": {
+        "combo": {
             "path": "box_{:04}",
+            "type": ".vtu",
+            "position_attribute": "vertex_position"
+        },
+        "combo.trims": {
+            "path": "box_trims_{:04}",
             "type": ".vtu",
             "position_attribute": "vertex_position"
         }

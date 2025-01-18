@@ -9,7 +9,6 @@
 #include <wmtk/components/input/InputOptions.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
-#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
 #include "wmtk/components/utils/PathResolver.hpp"
 
@@ -92,58 +91,13 @@ int main(int argc, char* argv[])
                              "exception to help debugging");
         mc.is_valid(true);
     }
+    spdlog::info("Parsing isotropic params");
 
     wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions options;
 
-    options.load_json(j);
+    options.load_json(j, mc);
+    spdlog::info("filling in mesh attributes");
 
-    options.position_attribute =
-        wmtk::components::multimesh::utils::get_attribute(mc, j["position_attribute"]);
-
-    assert(options.position_attribute.is_valid());
-
-    if (j.contains("inversion_position_attribute")) {
-        options.inversion_position_attribute = wmtk::components::multimesh::utils::get_attribute(
-            mc,
-            j["inversion_position_attribute"]);
-    }
-    if (j.contains("other_position_attributes")) {
-        for (const auto& other : j["other_position_attributes"]) {
-            options.other_position_attributes.emplace_back(
-                wmtk::components::multimesh::utils::get_attribute(mc, other));
-        }
-    }
-    if (j.contains("pass_through_attributes")) {
-        for (const auto& other : j["pass_through_attributes"]) {
-            options.pass_through_attributes.emplace_back(
-                wmtk::components::multimesh::utils::get_attribute(mc, other));
-            assert(options.pass_through_attributes.back().is_valid());
-        }
-    }
-    if (j.contains("copied_attributes")) {
-        for (const auto& [child,parent]: j["copied_attributes"].items()) {
-            options.copied_attributes.emplace_back(
-                wmtk::components::multimesh::utils::get_attribute(mc, wmtk::components::multimesh::utils::AttributeDescription(child,std::optional<int64_t>{},{})),
-                wmtk::components::multimesh::utils::get_attribute(mc, parent)
-                );
-            assert(options.copied_attributes.back().first.is_valid());
-            assert(options.copied_attributes.back().second.is_valid());
-        }
-    }
-    for (const auto& attr : options.pass_through_attributes) {
-        spdlog::info("Pass through: {}", attr.name());
-    }
-    if (j.contains("static_mesh_names")) {
-        for (const auto& other : j["static_mesh_names"]) {
-            options.static_mesh_names.emplace_back(other);
-        }
-    }
-
-    options.mesh_collection = &mc;
-    if (j.contains("intermediate_output_format")) {
-        options.intermediate_output_format = j["intermediate_output_format"];
-    }
-    assert(options.position_attribute.is_valid());
     wmtk::components::isotropic_remeshing::isotropic_remeshing(options);
 
     // input uv mesh
@@ -154,7 +108,9 @@ int main(int argc, char* argv[])
     // call isotropic_remeshing
 
 
-    auto output_opts = wmtk::components::output::parse_output(j["output"]);
+    spdlog::info("making opts");
+    auto output_opts = j["output"].get<wmtk::components::output::OutputOptionsCollection>();
+    spdlog::info("end making intermediate opts");
     wmtk::components::output::output(mc, output_opts);
 
     // auto out_opts = j["output"].get<wmtk::components::output::OutputOptions>();

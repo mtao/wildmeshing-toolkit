@@ -176,6 +176,7 @@ void IsotropicRemeshing::run()
         }
         for (const auto& [name, opts] : m_options.intermediate_output_format) {
             auto opt = wmtk::components::output::utils::format(opts, index);
+            spdlog::info("Temp logging {} as {}",  name, opt.path.string());
             wmtk::components::output::output(m_options.mesh_collection->get_mesh(name), opt);
         }
     };

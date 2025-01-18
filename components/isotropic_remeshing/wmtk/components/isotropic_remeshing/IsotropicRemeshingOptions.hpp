@@ -51,7 +51,7 @@ struct IsotropicRemeshingOptions
     std::optional<double> envelope_size; // 1e-3
 
 
-    void load_json(const nlohmann::json& js);
+    void load_json(const nlohmann::json& js, wmtk::components::multimesh::MeshCollection& mc);
     void write_json(nlohmann::json& js) const;
 
 
@@ -72,7 +72,7 @@ struct IsotropicRemeshingOptions
     wmtk::components::multimesh::MeshCollection* mesh_collection = nullptr;
     // format for outputting intermediate results. Assumed to just be a frame number, i.e something
     // like format("path_{}.hdf5",0) to generate path_0.hdf5
-    std::map<std::string, wmtk::components::output::OutputOptions> intermediate_output_format;
+    std::vector<std::pair<std::string, wmtk::components::output::OutputOptions>> intermediate_output_format;
 };
 
 
