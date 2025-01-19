@@ -20,23 +20,29 @@
         "combo.critical_points",
         "combo.trims"
     ],
+    "utility_attributes": {
+        "combo/edge_length": {
+            "type": "edge_length",
+            "position_attribute": "combo/vertex_position"
+        }
+    },
     "iterations": 50,
     "length_rel": 0.01,
     "use_for_periodic": false,
-        "swap": {
-            "enabled": true,
-            "mode": "valence"
-        },
-        "collapse": {
-            "enabled": true,
-            "priority": "min_edge_length"
-        },
-        "split": {
-            "enabled" :true
-        },
-        "smooth": {
-            "enabled" :true
-        },
+    "swap": {
+        "enabled": true,
+        "mode": "valence"
+    },
+    "collapse": {
+        "enabled": true,
+        "priority": "min_edge_length"
+    },
+    "split": {
+        "enabled" :true
+    },
+    "smooth": {
+        "enabled" :true
+    },
     "2envelope_size": 1e-3,
     "fix_uv_seam": false,
     "lock_boundary": false,

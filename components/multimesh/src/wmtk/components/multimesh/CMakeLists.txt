@@ -39,6 +39,9 @@ set(SRC_FILES
 
     utils/get_attribute.hpp
     utils/get_attribute.cpp
+    utils/create_attribute.hpp
+    utils/create_attribute.cpp
+    utils/decompose_attribute_path.hpp
     utils/detail/attribute_error.hpp
 
     utils/detail/named_error_text.hpp
