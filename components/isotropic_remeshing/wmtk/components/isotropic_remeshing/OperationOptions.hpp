@@ -15,6 +15,13 @@ struct PriorityOptions
 };
 struct InvariantOptions
 {
+    std::string mesh_path;
+    std::string type;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
+};
+
+struct MinEdgeLengthInavariant 
+{
     std::string type;
     std::string mesh_path;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)

@@ -76,6 +76,9 @@ struct IsotropicRemeshingOptions
     // like format("path_{}.hdf5",0) to generate path_0.hdf5
     std::vector<std::pair<std::string, wmtk::components::output::OutputOptions>>
         intermediate_output_format;
+
+
+    void fill_operation_parameters();
 };
 
 

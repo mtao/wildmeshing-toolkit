@@ -180,4 +180,8 @@ std::vector<wmtk::attribute::MeshAttributeHandle> IsotropicRemeshingOptions::all
     return r;
 }
 
+    void fill_operation_parameters() {
+
+
+    }
 } // namespace wmtk::components::isotropic_remeshing
