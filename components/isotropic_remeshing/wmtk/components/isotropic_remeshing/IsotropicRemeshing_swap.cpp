@@ -13,15 +13,41 @@
 #include <wmtk/utils/Logger.hpp>
 #include "IsotropicRemeshing.hpp"
 #include "internal/configure_collapse.hpp"
-#include "internal/configure_split.hpp"
-#include "internal/configure_swap.hpp"
 namespace wmtk::components::isotropic_remeshing {
+namespace internal {
+namespace {
+
+void configure_swap_transfer(
+    operations::composite::EdgeSwap& swap,
+    const attribute::MeshAttributeHandle& handle)
+{
+    switch (handle.primitive_type()) {
+    case wmtk::PrimitiveType::Vertex: {
+        swap.split().set_new_attribute_strategy(handle);
+        swap.collapse().set_new_attribute_strategy(
+            handle,
+            wmtk::operations::CollapseBasicStrategy::CopyOther);
+        return;
+    }
+    case wmtk::PrimitiveType::Edge:
+    case wmtk::PrimitiveType::Triangle:
+        swap.split().set_new_attribute_strategy(handle);
+        swap.collapse().set_new_attribute_strategy(
+            handle,
+            wmtk::operations::CollapseBasicStrategy::CopyOther);
+        break;
+    case wmtk::PrimitiveType::Tetrahedron:
+    default: assert(false);
+    }
+}
+} // namespace
+} // namespace internal
 
 void IsotropicRemeshing::configure_swap()
 {
     // adds common invariants like inversion check and asserts taht the swap is ready for prime time
     wmtk::logger().debug("Configure isotropic remeshing swap");
-    if (m_options.edge_swap_mode == EdgeSwapMode::Skip) {
+    if (m_options.swap.mode == EdgeSwapMode::Skip) {
         return;
     }
     wmtk::Mesh& mesh = m_options.position_attribute.mesh();
@@ -41,7 +67,7 @@ void IsotropicRemeshing::configure_swap()
     const std::optional<attribute::MeshAttributeHandle>& position_for_inversion =
         m_options.inversion_position_attribute;
 
-    switch (m_options.edge_swap_mode) {
+    switch (m_options.swap.mode) {
     case EdgeSwapMode::Valence: {
         auto tri = dynamic_cast<TriMesh*>(&mesh);
         if (tri == nullptr) {
@@ -95,7 +121,7 @@ void IsotropicRemeshing::configure_swap()
     }
     if (m_options.mesh_collection != nullptr) {
         if (!m_options.static_cell_complex.empty()) {
-            assert(options.size() == m.top_cell_dimension());
+            assert(m_options.static_cell_complex.size() == mesh.top_cell_dimension());
             std::vector<std::shared_ptr<Mesh>> static_meshes;
             for (const auto& mesh_name : m_options.static_cell_complex) {
                 auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
@@ -134,7 +160,8 @@ void IsotropicRemeshing::configure_swap()
             */
         }
     }
-    internal::finalize_swap(*m_swap, m_options);
+    assert(m_swap->split().attribute_new_all_configured());
+    assert(m_swap->collapse().attribute_new_all_configured());
     // m_swap = op;
 }
 } // namespace wmtk::components::isotropic_remeshing

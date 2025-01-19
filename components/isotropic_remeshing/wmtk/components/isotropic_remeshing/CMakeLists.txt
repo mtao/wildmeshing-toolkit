@@ -25,9 +25,12 @@ set(SRC_FILES
     internal/configure_split.hpp
     internal/configure_split.cpp
 
-    internal/configure_swap.hpp
-    internal/configure_swap.cpp
-    internal/configure_swap_tetmesh.cpp
+    OperationOptions.hpp
+    OperationOptions.cpp
+
+    #internal/configure_swap.hpp
+    #internal/configure_swap.cpp
+    #internal/configure_swap_tetmesh.cpp
 
     )
 

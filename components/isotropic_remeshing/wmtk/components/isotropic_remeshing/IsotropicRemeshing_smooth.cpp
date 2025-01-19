@@ -89,7 +89,7 @@ void IsotropicRemeshing::configure_smooth()
     }
     if (m_options.mesh_collection != nullptr) {
         if (!m_options.static_cell_complex.empty()) {
-            assert(options.size() == m.top_cell_dimension());
+            assert(m_options.static_cell_complex.size() == mesh.top_cell_dimension());
 
             std::vector<std::shared_ptr<Mesh>> static_meshes;
             for (const auto& mesh_name : m_options.static_cell_complex) {

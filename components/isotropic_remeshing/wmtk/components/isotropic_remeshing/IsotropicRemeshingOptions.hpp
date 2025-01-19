@@ -5,7 +5,7 @@
 #include <tuple>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
-#include "EdgeSwapMode.hpp"
+#include "OperationOptions.hpp"
 
 
 namespace wmtk::components::multimesh {
@@ -41,14 +41,14 @@ struct IsotropicRemeshingOptions
     bool use_for_periodic = false;
     bool fix_uv_seam = true;
 
-    bool use_split = true;
-    bool use_swap = true;
-    bool use_collapse = true;
-    bool use_smooth = true;
+    EdgeSplitOptions split;
+    EdgeCollapseOptions collapse;
+    VertexSmoothOptions smooth;
+    EdgeSwapOptions swap;
+
     // this should be true for periodic
     bool separate_substructures = false;
 
-    EdgeSwapMode edge_swap_mode = EdgeSwapMode::Skip;
 
     std::optional<double> envelope_size; // 1e-3
 

@@ -25,12 +25,6 @@ std::shared_ptr<wmtk::operations::Operation> tet_swap(
     const IsotropicRemeshingOptions& options);
 
 
-void finalize_swap(operations::composite::EdgeSwap& op, const IsotropicRemeshingOptions& options)
-{
-    assert(op.split().attribute_new_all_configured());
-    assert(op.collapse().attribute_new_all_configured());
-};
-
 namespace {
 std::shared_ptr<wmtk::operations::composite::EdgeSwap> tri_swap(
     TriMesh& mesh,

@@ -23,23 +23,20 @@
     "iterations": 50,
     "length_rel": 0.01,
     "use_for_periodic": false,
-    "operation_settings": {
         "swap": {
             "enabled": true,
-            "invariants": "valence_improvement"
+            "mode": "valence"
         },
         "collapse": {
             "enabled": true,
-            "priority": "min_edge_length",
-            "invariants": "valence_improvement"
+            "priority": "min_edge_length"
         },
         "split": {
-            "enabled" true;
+            "enabled" :true
         },
         "smooth": {
-            "enabled" true;
-        }
-    }
+            "enabled" :true
+        },
     "2envelope_size": 1e-3,
     "fix_uv_seam": false,
     "lock_boundary": false,

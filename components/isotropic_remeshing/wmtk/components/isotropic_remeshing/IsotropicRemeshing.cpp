@@ -55,7 +55,7 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
 
 
     // split
-    if (m_options.use_split) {
+    if (m_options.split.enabled) {
         configure_split();
         assert(bool(m_split));
         m_operations.emplace_back("split", m_split);
@@ -67,7 +67,7 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
     //////////////////////////////////////////
     // collapse
 
-    if (m_options.use_collapse) {
+    if (m_options.collapse.enabled) {
         configure_collapse();
         assert(bool(m_collapse));
         m_operations.emplace_back("collapse", m_collapse);
@@ -79,18 +79,18 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
     //////////////////////////////////////////
     // swap
 
-    if (m_options.use_swap) {
+    if (m_options.swap.enabled) {
         configure_swap();
         assert(bool(m_swap));
         m_operations.emplace_back("swap", m_swap);
-    } else if (m_options.edge_swap_mode != EdgeSwapMode::Skip) {
+    } else if (m_options.swap.mode != EdgeSwapMode::Skip) {
         wmtk::logger().info("Running Isotropic Remeshing without a swap configured despite being "
                             "supposed to use them");
     }
 
     //////////////////////////////////////////
     // smooth
-    if (m_options.use_smooth) {
+    if (m_options.smooth.enabled) {
         configure_smooth();
         assert(bool(m_smooth));
         m_operations.emplace_back("smooth", m_smooth);

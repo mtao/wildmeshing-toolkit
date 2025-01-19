@@ -118,7 +118,7 @@ void configure_collapse(
 
     if (options.mesh_collection != nullptr) {
         if (!options.static_cell_complex.empty()) {
-            assert(options.size() == m.top_cell_dimension());
+            assert(options.static_cell_complex.size() == m.top_cell_dimension());
 
             std::vector<std::shared_ptr<Mesh>> static_meshes;
             for (const auto& mesh_name : options.static_cell_complex) {
