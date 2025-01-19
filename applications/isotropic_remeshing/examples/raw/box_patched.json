@@ -23,11 +23,23 @@
     "iterations": 50,
     "length_rel": 0.01,
     "use_for_periodic": false,
-    "edge_swap_mode": "valence",
-    "use_split": true,
-    "use_collapse": true,
-    "use_swap": true,
-    "use_smooth": true,
+    "operation_settings": {
+        "swap": {
+            "enabled": true,
+            "invariants": "valence_improvement"
+        },
+        "collapse": {
+            "enabled": true,
+            "priority": "min_edge_length",
+            "invariants": "valence_improvement"
+        },
+        "split": {
+            "enabled" true;
+        },
+        "smooth": {
+            "enabled" true;
+        }
+    }
     "2envelope_size": 1e-3,
     "fix_uv_seam": false,
     "lock_boundary": false,
