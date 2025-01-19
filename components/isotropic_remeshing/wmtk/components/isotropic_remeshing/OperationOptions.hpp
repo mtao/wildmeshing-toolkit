@@ -28,7 +28,7 @@ struct InvariantOptions
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
 };
 
-class TransferStrategyOptions;
+struct TransferStrategyOptions;
 
 struct TransferStrategyData
 {
@@ -40,6 +40,7 @@ struct TransferStrategyData
 
 
         const TransferStrategyOptions& opts) const = 0;
+    virtual std::unique_ptr<TransferStrategyData> clone() const = 0;
 };
 
 struct EdgeLengthTransferStrategyData : public TransferStrategyData
@@ -50,13 +51,19 @@ struct EdgeLengthTransferStrategyData : public TransferStrategyData
     void to_json(nlohmann::json&) const final;
     void from_json(const nlohmann::json&) final;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EdgeLengthTransferStrategyData)
-    virtual std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create(
+    std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create(
         wmtk::components::multimesh::MeshCollection& mc,
         const TransferStrategyOptions& opts) const final;
+    std::unique_ptr<TransferStrategyData> clone() const final;
 };
 
 struct TransferStrategyOptions
 {
+    TransferStrategyOptions() = default;
+    TransferStrategyOptions(const TransferStrategyOptions&);
+    TransferStrategyOptions(TransferStrategyOptions&&) = default;
+    TransferStrategyOptions& operator=(const TransferStrategyOptions&);
+    TransferStrategyOptions& operator=(TransferStrategyOptions&&) = default;
     std::string attribute_path;
     std::string type;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(TransferStrategyOptions)

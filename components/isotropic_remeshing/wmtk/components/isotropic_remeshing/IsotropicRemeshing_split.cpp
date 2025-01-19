@@ -37,6 +37,10 @@ void IsotropicRemeshing::configure_split()
                 wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(parent,child));
 
     }
+    for (const auto& transfer : m_operation_transfers) {
+        op->set_new_attribute_strategy(transfer->handle());
+        op->add_transfer_strategy(transfer);
+    }
 
     assert(op->attribute_new_all_configured());
     m_split = op;

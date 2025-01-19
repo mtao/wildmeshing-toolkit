@@ -11,7 +11,7 @@
 
 #define DEFAULT_PARSABLE_ARGS                                                                    \
     iterations, lock_boundary, use_for_periodic, fix_uv_seam, intermediate_output_format, split, \
-        swap, collapse, smooth
+        swap, collapse, smooth, utility_attributes
 
 namespace wmtk::components::isotropic_remeshing {
 namespace {
@@ -180,8 +180,5 @@ std::vector<wmtk::attribute::MeshAttributeHandle> IsotropicRemeshingOptions::all
     return r;
 }
 
-    void fill_operation_parameters() {
-
-
-    }
+void fill_operation_parameters() {}
 } // namespace wmtk::components::isotropic_remeshing

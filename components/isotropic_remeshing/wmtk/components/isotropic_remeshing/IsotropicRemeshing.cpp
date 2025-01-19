@@ -1,5 +1,6 @@
 
 #include "IsotropicRemeshing.hpp"
+#include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 
 // main execution tools
 #include <wmtk/Scheduler.hpp>
@@ -44,6 +45,17 @@ IsotropicRemeshing::~IsotropicRemeshing() = default;
 IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
     : m_options(opts)
 {
+    for (const auto& [child, parent] : m_options.copied_attributes) {
+        m_operation_transfers.emplace_back(
+            wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
+                parent,
+                child));
+    }
+    for (const auto& transfer : m_options.utility_attributes) {
+        m_operation_transfers.emplace_back(transfer.create(*m_options.mesh_collection));
+    }
+
+
     if (!m_options.position_attribute.is_valid()) {
         throw std::runtime_error("Isotropic remeshing run without a valid position attribute");
     }
@@ -176,7 +188,7 @@ void IsotropicRemeshing::run()
         }
         for (const auto& [name, opts] : m_options.intermediate_output_format) {
             auto opt = wmtk::components::output::utils::format(opts, index);
-            spdlog::info("Temp logging {} as {}",  name, opt.path.string());
+            spdlog::info("Temp logging {} as {}", name, opt.path.string());
             wmtk::components::output::output(m_options.mesh_collection->get_mesh(name), opt);
         }
     };

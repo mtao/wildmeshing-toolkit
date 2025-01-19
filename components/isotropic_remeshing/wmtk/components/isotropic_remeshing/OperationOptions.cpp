@@ -109,8 +109,9 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(TransferStrategyOptions)
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(attribute_path, type);
 
     if (nlohmann_json_t.type == ("edge_length")) {
+        assert(nlohmann_json_j.contains("parameters"));
         nlohmann_json_t.data = std::make_unique<EdgeLengthTransferStrategyData>();
-        nlohmann_json_t.data->from_json(nlohmann_json_j["options"]);
+        nlohmann_json_t.data->from_json(nlohmann_json_j["parameters"]);
     }
 }
 
@@ -156,7 +157,7 @@ EdgeLengthTransferStrategyData::create(
     auto pos_attr = wmtk::components::multimesh::utils::get_attribute(mc, {position_attribute});
     auto el_attr = wmtk::components::multimesh::utils::create_attribute(
         mc,
-        {position_attribute, 1, pos_attr.held_type(), 1});
+        {opts.attribute_path, 1, pos_attr.held_type(), 1});
 
 
     return std::visit(
@@ -201,4 +202,21 @@ EdgeLengthTransferStrategyData::create(
         pos_attr.handle());
 }
 
+std::unique_ptr<TransferStrategyData> EdgeLengthTransferStrategyData::clone() const
+{
+    return std::make_unique<EdgeLengthTransferStrategyData>(*this);
+}
+
+TransferStrategyOptions::TransferStrategyOptions(const TransferStrategyOptions& o)
+    : attribute_path(o.attribute_path)
+    , type(o.type)
+    , data(o.data->clone())
+{}
+TransferStrategyOptions& TransferStrategyOptions::operator=(const TransferStrategyOptions& o)
+{
+    this->attribute_path = o.attribute_path;
+    this->type = o.type;
+    this->data = o.data->clone();
+    return *this;
+}
 } // namespace wmtk::components::isotropic_remeshing

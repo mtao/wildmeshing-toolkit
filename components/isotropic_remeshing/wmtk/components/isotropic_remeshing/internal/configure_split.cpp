@@ -38,13 +38,6 @@ void configure_split(operations::EdgeSplit& es, Mesh& m, const IsotropicRemeshin
     for (const auto& attr : options.pass_through_attributes) {
         es.set_new_attribute_strategy(attr);
     }
-
-    // for (const auto& attr : options.tag_attributes) {
-    //    //es.set_new_attribute_strategy(attr, wmtk::operations::SplitBasicStrategy::None, wmtk::operations::SplitRibBasicStrategy::None);
-    //    es.set_new_attribute_strategy(attr, wmtk::operations::SplitBasicStrategy::Copy,
-    //    wmtk::operations::SplitRibBasicStrategy::Min);
-    //}
-    assert(es.attribute_new_all_configured());
 }
 
 } // namespace wmtk::components::isotropic_remeshing::internal

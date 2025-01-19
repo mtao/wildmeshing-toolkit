@@ -20,12 +20,15 @@
         "combo.critical_points",
         "combo.trims"
     ],
-    "utility_attributes": {
-        "combo/edge_length": {
+    "utility_attributes": [
+        { 
+            "attribute_name": "combo/edge_length",
             "type": "edge_length",
-            "position_attribute": "combo/vertex_position"
+            "parameters": {
+                "position_attribute": "combo/vertex_position"
+            }
         }
-    },
+    ],
     "iterations": 50,
     "length_rel": 0.01,
     "use_for_periodic": false,

@@ -160,6 +160,13 @@ void IsotropicRemeshing::configure_swap()
             */
         }
     }
+    for (const auto& transfer : m_operation_transfers) {
+        m_swap->split().set_new_attribute_strategy(transfer->handle());
+        m_swap->split().add_transfer_strategy(transfer);
+        m_swap->collapse().set_new_attribute_strategy(transfer->handle());
+        m_swap->collapse().add_transfer_strategy(transfer);
+
+    }
     assert(m_swap->split().attribute_new_all_configured());
     assert(m_swap->collapse().attribute_new_all_configured());
     // m_swap = op;

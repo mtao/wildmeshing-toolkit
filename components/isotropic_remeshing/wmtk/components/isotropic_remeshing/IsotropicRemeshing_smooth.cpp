@@ -118,11 +118,8 @@ void IsotropicRemeshing::configure_smooth()
 
     if (update_position) proj_op->add_transfer_strategy(update_position);
 
-    for (const auto& [child, parent] : m_options.copied_attributes) {
-        proj_op->add_transfer_strategy(
-            wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
-                parent,
-                child));
+    for (const auto& transfer : m_operation_transfers) {
+        proj_op->add_transfer_strategy(transfer);
     }
 }
 } // namespace wmtk::components::isotropic_remeshing

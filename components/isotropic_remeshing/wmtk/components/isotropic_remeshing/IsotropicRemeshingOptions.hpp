@@ -45,6 +45,7 @@ struct IsotropicRemeshingOptions
     EdgeCollapseOptions collapse;
     VertexSmoothOptions smooth;
     EdgeSwapOptions swap;
+    std::vector<TransferStrategyOptions> utility_attributes;
 
     // this should be true for periodic
     bool separate_substructures = false;

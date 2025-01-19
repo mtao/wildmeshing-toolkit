@@ -66,6 +66,7 @@ void output(const Mesh& mesh, const OutputOptions& opts)
                 }
             },
             opts.position_attribute);
+        assert(mesh.has_attribute<double>(name, PrimitiveType::Vertex));
         std::array<bool, 4> out = {{false, false, false, false}};
         for (int64_t d = 0; d <= mesh.top_cell_dimension(); ++d) {
             out[d] = true;

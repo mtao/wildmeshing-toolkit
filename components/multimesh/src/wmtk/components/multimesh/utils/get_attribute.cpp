@@ -70,7 +70,7 @@ wmtk::attribute::MeshAttributeHandle get_attribute(
 
         assert(ret.is_valid());
         uint8_t simplex_dimension = wmtk::get_primitive_type_id(prim);
-        if (dimension.has_value() || (ret.dimension() == dimension.value())) {
+        if (!dimension.has_value() || (ret.dimension() == dimension.value())) {
             possibilities.emplace_back(AttributeDescription{name, simplex_dimension, t});
         }
     };
