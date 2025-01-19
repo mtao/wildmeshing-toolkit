@@ -8,6 +8,6 @@ var simplex_2_a_m_i_p_s_8cpp =
     [ "Tri_AMIPS_energy_aux", "simplex_2_a_m_i_p_s_8cpp.html#a0f2873967a14fbcbbeec00a67b79303b", null ],
     [ "Tri_AMIPS_hessian", "simplex_2_a_m_i_p_s_8cpp.html#a8573ef05c1016e7127e37128472dcc35", null ],
     [ "Tri_AMIPS_jacobian", "simplex_2_a_m_i_p_s_8cpp.html#a9567d869f1e3e762ec382755de6da7df", null ],
-    [ "unbox", "simplex_2_a_m_i_p_s_8cpp.html#ae671fa9e27ca8687ce906dc2cda5287f", null ],
-    [ "unbox", "simplex_2_a_m_i_p_s_8cpp.html#ac01c542b5c742bfb6ce210eca1511e90", null ]
+    [ "unbox", "simplex_2_a_m_i_p_s_8cpp.html#a5e4b1dba88a6d85fac91a19926b779da", null ],
+    [ "unbox", "simplex_2_a_m_i_p_s_8cpp.html#a67740d79bcee725a6f251b2eebcf7cf2", null ]
 ];

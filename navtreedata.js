@@ -25,36 +25,16 @@
 var NAVTREE =
 [
   [ "Wildmeshing Toolkit", "index.html", [
-    [ "Code Structure and Manual", "index.html", [
-      [ "Key Concepts", "index.html#autotoc_md1", null ],
-      [ "Data Structure", "index.html#autotoc_md2", [
-        [ "Tuple", "index.html#autotoc_md3", null ]
-      ] ],
-      [ "Repository Structure", "index.html#autotoc_md4", [
-        [ "attribute — Management of Mesh Attributes, Caching, and Checkpoints", "index.html#autotoc_md5", [
-          [ "Public interface description:", "index.html#autotoc_md6", null ],
-          [ "Private API development details:", "index.html#autotoc_md7", null ]
-        ] ],
-        [ "autogen — Automatic Generation of Connectivity Tables", "index.html#autotoc_md8", null ],
-        [ "function — Interfaces and implementations of functions for optimization", "index.html#autotoc_md9", null ],
-        [ "invariants", "index.html#autotoc_md10", null ],
-        [ "io", "index.html#autotoc_md11", null ],
-        [ "multimesh", "index.html#autotoc_md12", null ],
-        [ "operations", "index.html#autotoc_md13", null ],
-        [ "optimization", "index.html#autotoc_md14", null ],
-        [ "simplex", "index.html#autotoc_md15", null ],
-        [ "utils", "index.html#autotoc_md16", null ]
-      ] ]
+    [ "Code Structure and Manual", "index.html", "index" ],
+    [ "Attributes", "md_src_2wmtk_2attribute_2_r_e_a_d_m_e.html", null ],
+    [ "Simplex Iterables", "md_src_2wmtk_2simplex_2iterable_2_r_e_a_d_m_e.html", null ],
+    [ "Simplex", "md_src_2wmtk_2simplex_2_r_e_a_d_m_e.html", null ],
+    [ "README", "md_src_2wmtk_2utils_2metaprogramming_2_r_e_a_d_m_e.html", null ],
+    [ "Procedural Component", "md_components_2procedural_2wmtk_2components_2procedural_2_r_e_a_d_m_e.html", null ],
+    [ "Components", "md_components_2_r_e_a_d_m_e.html", [
+      [ "Components VS Applications", "md_components_2_r_e_a_d_m_e.html#autotoc_md29", null ]
     ] ],
-    [ "Attributes", "md_src_wmtk_attribute__r_e_a_d_m_e.html", null ],
-    [ "Simplex Iterables", "md_src_wmtk_simplex_iterable__r_e_a_d_m_e.html", null ],
-    [ "Simplex", "md_src_wmtk_simplex__r_e_a_d_m_e.html", null ],
-    [ "README", "md_src_wmtk_utils_metaprogramming__r_e_a_d_m_e.html", null ],
-    [ "Procedural Component", "md_components_procedural_wmtk_components_procedural__r_e_a_d_m_e.html", null ],
-    [ "Components", "md_components__r_e_a_d_m_e.html", [
-      [ "Components VS Applications", "md_components__r_e_a_d_m_e.html#autotoc_md29", null ]
-    ] ],
-    [ "Guide for Using Integration Test", "md_components_tests_integration_guide.html", null ],
+    [ "Guide for Using Integration Test", "md_components_2tests_2integration__guide.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -77,7 +57,7 @@ var NAVTREE =
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ],
-        [ "Related Functions", "functions_rela.html", null ]
+        [ "Related Symbols", "functions_rela.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
@@ -99,35 +79,49 @@ var NAVTREEINDEX =
 [
 "_a_m_i_p_s_optimization_smoothing_8cpp.html",
 "_enums_8hpp.html#a653093b9017535b9104355bd94c44a8aa68e55eab4f30286567022eafb9fa79f6",
-"_min_edge_length_invariant_8cpp.html",
-"_sampling_8hpp.html#a7fb397130d29df144553a084734ea492ab0e18393c9d9190d969c6c48ace3d89c",
-"_update_strategy_collection_8hpp.html",
-"classwmtk_1_1_edge_mesh.html#a858527dd650e9b888f757f3e70f0940e",
-"classwmtk_1_1_mesh_writer.html#a463022bba1535693e611a15aad8fc58d",
-"classwmtk_1_1_tet_mesh.html#ae58d34c1d9187e00091f2e4ace26452f",
-"classwmtk_1_1attribute_1_1_attribute.html#a54a0f1a318e8ee28844c041daf3357ad",
-"classwmtk_1_1attribute_1_1_mesh_attributes.html#a7b72c62c5ccbbdcd7496d1fbbb81a594",
-"classwmtk_1_1components_1_1_marching.html#a4aa2be90a6fffb3f28ca0901060a1d1d",
-"classwmtk_1_1components_1_1utils_1_1_path_resolver.html#aed6d8d3ae93086b2ccd77a880e5b5d13",
-"classwmtk_1_1invariants_1_1internal_1_1_constant_invariant.html#af71ed599b48d824e916995e21d7bd685",
-"classwmtk_1_1multimesh_1_1_multi_mesh_visitor.html#af96eb5f5350414a1c8e01c8a826c49e3",
-"classwmtk_1_1operations_1_1_new_attribute_strategy.html#a155ed8a03db1ff2f4659e30ee59ac11a",
-"classwmtk_1_1operations_1_1edge__mesh_1_1_split_new_attribute_topo_info.html#a8e9e1fb7ca8656fb98295b118a54b909",
-"classwmtk_1_1simplex_1_1_cofaces_single_dimension_iterable_1_1_iterator.html#af023938ed0a8a97185ac7045feac13ae",
-"classwmtk_1_1simplex_1_1_top_dimension_cofaces_iterable_1_1_iterator.html#a021f795ffcaac43faa799b04e8329a0b",
-"delaunay_8hpp.html#a12bd8646c56df6a1f46dba67ab86ebd7",
-"edge__mesh_2simplex__index__from__valid__index_8hpp.html#a76e9a88b353dcde30081482e504d9cef",
-"get__unique__remove__void__types_8hpp.html#a8e9bde7f74ae72dda89821b14b0e7474",
-"longest__edge__split_8cpp.html#a91cd0e6f904d4c6d1e0000504cc0a257",
-"namespacewmtk.html#a2c2f69681944a1e58a9b93dcd76e95ed",
-"namespacewmtk_1_1components.html#a403c0e375fda50adea6309e27156f36b",
-"namespacewmtk_1_1multimesh_1_1utils.html#a1994ce6db858a973cdb70ce53d0ea290",
-"open__star_8cpp.html#a0e571467fb4068842d9c1a38a433f1ed",
-"struct_d_scalar1.html#ad428dc0d1dbc11a0d3476518ede88e27",
-"structwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh_1_1_node.html#a74d22a38d8b1d408af10a743eb93c64b",
-"tag__intersection_8hpp.html#ae22ac68a5d85a281c4aeafa97f5230bc",
-"top__dimension__cofaces_8cpp.html#a0101f27eb2ad82814390b92ab1a4d1a0",
-"utils_2_a_m_i_p_s_8hpp.html#a818b9b16f06339c34d08eceeb5342470"
+"_min_incident_valence_invariant_8cpp_source.html",
+"_scheduler_8hpp.html",
+"_update_edge_operation_multi_mesh_map_functor_8cpp_source.html",
+"classwmtk_1_1_edge_mesh.html#a04f6595fe85e52dc6bf1e02512120100",
+"classwmtk_1_1_mesh.html#a3faf39088ce02c2a2f208c762d6f2b52",
+"classwmtk_1_1_mesh_c_r_t_p.html#a169bfa91876ab0af8a9f65d7ef666160",
+"classwmtk_1_1_scheduler.html#a246ccf6605333ebb7c020aa8fae1e959",
+"classwmtk_1_1_tet_mesh.html#a858527dd650e9b888f757f3e70f0940e",
+"classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54ec111e8890281195a6d2449f822f02",
+"classwmtk_1_1attribute_1_1_attribute.html#a03af7f23d69aacf3f0fba85fa19d5646",
+"classwmtk_1_1attribute_1_1_attribute_scope.html#a66557c7989cfceac6a4478eb5e02e66d",
+"classwmtk_1_1attribute_1_1_mesh_attributes.html#a4f739618d61b5d574ea7225624d32e22",
+"classwmtk_1_1attribute_1_1internal_1_1_attribute_transaction_stack.html#a3cef96df9f0defca4bf0605df8d95eb6",
+"classwmtk_1_1components_1_1_element_in_queue.html#add9eee8bc996a25688aa77ac370a82a7",
+"classwmtk_1_1components_1_1internal_1_1_multi_mesh_from_tag.html#ac8a271d2a09951f4113feac98693dd97",
+"classwmtk_1_1components_1_1triangle__insertion_1_1_child_meshes.html",
+"classwmtk_1_1invariants_1_1_collapse_soft_energy_before_invariant.html",
+"classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant.html#aa6dc014c8027e10d5d86423596a0b582",
+"classwmtk_1_1multimesh_1_1_mappable.html#ae796e6dde1bbe981dc0547e97718e58e",
+"classwmtk_1_1multimesh_1_1_multi_mesh_simplex_visitor_executor.html#a849d59dd59f45849c3dc70b46d2299a7",
+"classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_periodic_1_1_w_m_t_k_a_m_i_p_s_problem.html#aa72e82c9d14ec1fd64ba6b07c87e418c",
+"classwmtk_1_1operations_1_1_edge_split.html#a325a9f9311ad1218c93e71895594a898",
+"classwmtk_1_1operations_1_1_split_new_attribute_strategy.html#a1282c0c0bb587db235a9c40f9a78471f",
+"classwmtk_1_1operations_1_1edge__mesh_1_1_edge_operation_data.html#a70ec27cd0c23efc4fd940d963c1e4db1",
+"classwmtk_1_1operations_1_1tri__mesh_1_1_collapse_new_attribute_topo_info.html#acbba0b976e6fd3d1c93eee417bacb7e8",
+"classwmtk_1_1simplex_1_1_cofaces_single_dimension_iterable.html#aaf157af9f221da9ba0b9b982e3ecff53",
+"classwmtk_1_1simplex_1_1_link_single_dimension_iterable.html#a82ff991e4127738f51a0b20058961444",
+"classwmtk_1_1simplex_1_1_simplex_collection.html#af66394c610ee9b919b56aab5026a0d41",
+"classwmtk_1_1utils_1_1_stop_watch.html#a89783cd0e98658789903f37bed8948e3",
+"dir_364dc4d2e2e8f725fe93794021b11fff.html",
+"extract__operation__tuples_8cpp_source.html",
+"index.html",
+"merkle__tree_8hpp_source.html",
+"namespacewmtk.html#ac50b37058fe2693a7f9d8b42c7d869af",
+"namespacewmtk_1_1components_1_1adaptive__tessellation_1_1image.html#ab9ecbf7a08d5688cf988593103797350",
+"namespacewmtk_1_1operations.html#a653093b9017535b9104355bd94c44a8aa6adf97f83acf6453d4a6a4b1070f3754",
+"periodic__optimization_8cpp.html#a4166e4880553cfacbf79ac3515a637cd",
+"struct_d_scalar2.html#ab1f2b0b1844b64d403ce751628b03d0c",
+"structwmtk_1_1components_1_1internal_1_1_edge_ins_options.html#aa79a2600879f19ab7a68361c8b19e861",
+"structwmtk_1_1components_1_1shortest__edge__collapse_1_1_shortest_edge_collapse_options.html#a052a54670c69bade842cbc673e2a45cb",
+"structwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1as__variant__impl.html#a9d9e369b5230eaccb1b1da1c9dfbe224",
+"tests_2input_8cpp.html#ac75dc6f525d583460008c72f843a1ffc",
+"tri__mesh_2local__id__table__offset_8hxx_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
