@@ -1,8 +1,8 @@
 #pragma once
-#include <tuple>
 #include <memory>
 #include <nlohmann/json_fwd.hpp>
 #include <optional>
+#include <tuple>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include "EdgeSwapMode.hpp"
@@ -24,12 +24,14 @@ struct IsotropicRemeshingOptions
     wmtk::attribute::MeshAttributeHandle position_attribute;
     std::optional<wmtk::attribute::MeshAttributeHandle> inversion_position_attribute;
     std::vector<wmtk::attribute::MeshAttributeHandle> other_position_attributes;
-    std::vector<std::pair<wmtk::attribute::MeshAttributeHandle, wmtk::attribute::MeshAttributeHandle>> copied_attributes;
+    std::vector<
+        std::pair<wmtk::attribute::MeshAttributeHandle, wmtk::attribute::MeshAttributeHandle>>
+        copied_attributes;
     std::optional<wmtk::attribute::MeshAttributeHandle> sizing_field_attribute;
     std::optional<wmtk::attribute::MeshAttributeHandle> visited_edge_flag;
     std::optional<wmtk::attribute::MeshAttributeHandle> target_edge_length;
 
-    std::vector<std::string> static_mesh_names;
+    std::vector<std::string> static_cell_complex;
 
     std::vector<wmtk::attribute::MeshAttributeHandle> pass_through_attributes;
     int64_t iterations = 10;
@@ -72,7 +74,8 @@ struct IsotropicRemeshingOptions
     wmtk::components::multimesh::MeshCollection* mesh_collection = nullptr;
     // format for outputting intermediate results. Assumed to just be a frame number, i.e something
     // like format("path_{}.hdf5",0) to generate path_0.hdf5
-    std::vector<std::pair<std::string, wmtk::components::output::OutputOptions>> intermediate_output_format;
+    std::vector<std::pair<std::string, wmtk::components::output::OutputOptions>>
+        intermediate_output_format;
 };
 
 

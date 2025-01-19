@@ -1,10 +1,10 @@
 #include "IsotropicRemeshingOptions.hpp"
-#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
-#include <wmtk/components/output/parse_output.hpp>
-#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <fmt/format.h>
 #include <algorithm>
 #include <nlohmann/json.hpp>
+#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
+#include <wmtk/components/output/parse_output.hpp>
 #include <wmtk/utils/Logger.hpp>
 
 #include <wmtk/Mesh.hpp>
@@ -120,7 +120,9 @@ void from_json(const nlohmann::json& nlohmann_json_j, IsotropicRemeshingOptions&
             swap_name));
     }
 }
-void IsotropicRemeshingOptions::load_json(const nlohmann::json& j, wmtk::components::multimesh::MeshCollection& mc)
+void IsotropicRemeshingOptions::load_json(
+    const nlohmann::json& j,
+    wmtk::components::multimesh::MeshCollection& mc)
 {
     mesh_collection = &mc;
     from_json(j, *this);
@@ -149,11 +151,15 @@ void IsotropicRemeshingOptions::load_json(const nlohmann::json& j, wmtk::compone
         }
     }
     if (j.contains("copied_attributes")) {
-        for (const auto& [child,parent]: j["copied_attributes"].items()) {
+        for (const auto& [child, parent] : j["copied_attributes"].items()) {
             copied_attributes.emplace_back(
-                wmtk::components::multimesh::utils::get_attribute(mc, wmtk::components::multimesh::utils::AttributeDescription(child,std::optional<int64_t>{},{})),
-                wmtk::components::multimesh::utils::get_attribute(mc, parent)
-                );
+                wmtk::components::multimesh::utils::get_attribute(
+                    mc,
+                    wmtk::components::multimesh::utils::AttributeDescription(
+                        child,
+                        std::optional<int64_t>{},
+                        {})),
+                wmtk::components::multimesh::utils::get_attribute(mc, parent));
             assert(copied_attributes.back().first.is_valid());
             assert(copied_attributes.back().second.is_valid());
         }
@@ -161,16 +167,16 @@ void IsotropicRemeshingOptions::load_json(const nlohmann::json& j, wmtk::compone
     for (const auto& attr : pass_through_attributes) {
         spdlog::info("Pass through: {}", attr.name());
     }
-    if (j.contains("static_mesh_names")) {
-        for (const auto& other : j["static_mesh_names"]) {
-            static_mesh_names.emplace_back(other);
+    if (j.contains("static_cell_complex")) {
+        for (const auto& other : j["static_cell_complex"]) {
+            static_cell_complex.emplace_back(other);
         }
     }
 
     if (j.contains("intermediate_output_format")) {
-    spdlog::info("making intermediate opts");
-    intermediate_output_format = j["intermediate_output_format"];
-    spdlog::info("end making intermediate opts");
+        spdlog::info("making intermediate opts");
+        intermediate_output_format = j["intermediate_output_format"];
+        spdlog::info("end making intermediate opts");
     }
     assert(position_attribute.is_valid());
 }

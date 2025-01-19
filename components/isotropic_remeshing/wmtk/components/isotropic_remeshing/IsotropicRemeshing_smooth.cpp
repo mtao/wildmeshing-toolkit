@@ -3,6 +3,7 @@
 #include <memory>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/output/utils/format.hpp>
+#include <wmtk/invariants/CannotMapSimplexInvariant.hpp>
 #include <wmtk/invariants/EnvelopeInvariant.hpp>
 #include <wmtk/invariants/SimplexInversionInvariant.hpp>
 #include <wmtk/invariants/uvEdgeInvariant.hpp>
@@ -14,7 +15,6 @@
 #include <wmtk/operations/utils/VertexTangentialLaplacianSmooth.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include "IsotropicRemeshing.hpp"
-#include <wmtk/invariants/CannotMapSimplexInvariant.hpp>
 
 
 namespace wmtk::components::isotropic_remeshing {
@@ -88,10 +88,22 @@ void IsotropicRemeshing::configure_smooth()
             other_positions.front().mesh()));
     }
     if (m_options.mesh_collection != nullptr) {
-        for (const auto& mesh_name : m_options.static_mesh_names) {
-            auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
+        if (!m_options.static_cell_complex.empty()) {
+            assert(options.size() == m.top_cell_dimension());
+
+            std::vector<std::shared_ptr<Mesh>> static_meshes;
+            for (const auto& mesh_name : m_options.static_cell_complex) {
+                auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
+                static_meshes.emplace_back(mesh2.shared_from_this());
+            }
             op_smooth->add_invariant(
-                std::make_shared<invariants::CannotMapSimplexInvariant>(mesh, mesh2));
+                std::make_shared<invariants::CannotMapSimplexInvariant>(mesh, *static_meshes[0]));
+
+            // TODO: try to enable sliding along axis?
+            op_smooth->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+                mesh,
+                *static_meshes[1],
+                wmtk::PrimitiveType::Vertex));
         }
     }
 
@@ -106,11 +118,11 @@ void IsotropicRemeshing::configure_smooth()
 
     if (update_position) proj_op->add_transfer_strategy(update_position);
 
-    for(const auto& [child,parent]: m_options.copied_attributes) {
-
+    for (const auto& [child, parent] : m_options.copied_attributes) {
         proj_op->add_transfer_strategy(
-                wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(parent,child));
-
+            wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
+                parent,
+                child));
     }
 }
 } // namespace wmtk::components::isotropic_remeshing

@@ -16,18 +16,18 @@
         "combo.trims/edge_labels",
         "combo.patches/patch_labels"
     ],
-    "static_mesh_names": [
+    "static_cell_complex": [
         "combo.critical_points",
         "combo.trims"
     ],
-    "iterations": 10,
-    "length_rel": 0.1,
+    "iterations": 50,
+    "length_rel": 0.01,
     "use_for_periodic": false,
     "edge_swap_mode": "valence",
     "use_split": true,
-    "use_collapse": false,
+    "use_collapse": true,
     "use_swap": true,
-    "use_smooth": false,
+    "use_smooth": true,
     "2envelope_size": 1e-3,
     "fix_uv_seam": false,
     "lock_boundary": false,

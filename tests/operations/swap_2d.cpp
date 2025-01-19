@@ -599,6 +599,9 @@ TEST_CASE("swap_multimesh_edge", "[operations][swap][2D]")
 
             CHECK(indices_acc.const_scalar_attribute(m->switch_vertex(e0.tuple())) == 2);
             CHECK(indices_acc.const_scalar_attribute(m->switch_vertex(e1.tuple())) == 3);
+            REQUIRE(wmtk::simplex::utils::SimplexComparisons::equal(*m, wmtk::PrimitiveType::Vertex,
+                    m->switch_tuples(e0.tuple(), {PV, PE, PF, PE, PV}),
+                    m->switch_tuples(e1.tuple(), {PV, PE, PF, PE, PV})));
             CHECK(
                 indices_acc.const_scalar_attribute(
                     m->switch_tuples(e0.tuple(), {PV, PE, PF, PE, PV})) == 0);

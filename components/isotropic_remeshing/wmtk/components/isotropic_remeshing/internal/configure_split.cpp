@@ -39,11 +39,6 @@ void configure_split(operations::EdgeSplit& es, Mesh& m, const IsotropicRemeshin
         es.set_new_attribute_strategy(attr);
     }
 
-    if (options.mesh_collection != nullptr) {
-        for (const auto& mesh_name : options.static_mesh_names) {
-            const auto& mesh_ptr = options.mesh_collection->get_mesh(mesh_name);
-        }
-    }
     // for (const auto& attr : options.tag_attributes) {
     //    //es.set_new_attribute_strategy(attr, wmtk::operations::SplitBasicStrategy::None, wmtk::operations::SplitRibBasicStrategy::None);
     //    es.set_new_attribute_strategy(attr, wmtk::operations::SplitBasicStrategy::Copy,

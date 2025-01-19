@@ -1,7 +1,12 @@
+#include <wmtk/components/multimesh/MeshCollection.hpp>
+#include <wmtk/invariants/CannotMapSimplexInvariant.hpp>
+#include <wmtk/invariants/InteriorSimplexInvariant.hpp>
 #include <wmtk/invariants/SimplexInversionInvariant.hpp>
 #include <wmtk/invariants/ValenceImprovementInvariant.hpp>
+#include <wmtk/invariants/internal/ConstantInvariant.hpp>
 #include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/EdgeSplit.hpp>
+#include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 #include <wmtk/operations/composite/EdgeSwap.hpp>
 #include <wmtk/operations/composite/TetEdgeSwap.hpp>
 #include <wmtk/operations/composite/TriEdgeSwap.hpp>
@@ -79,6 +84,55 @@ void IsotropicRemeshing::configure_swap()
     for (const auto& attr : m_options.pass_through_attributes) {
         m_swap->split().set_new_attribute_strategy(attr);
         m_swap->collapse().set_new_attribute_strategy(attr);
+    }
+    for (const auto& [child, parent] : m_options.copied_attributes) {
+        m_swap->split().set_new_attribute_strategy(child);
+        m_swap->collapse().set_new_attribute_strategy(child);
+        m_swap->add_transfer_strategy(
+            wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
+                parent,
+                child));
+    }
+    if (m_options.mesh_collection != nullptr) {
+        if (!m_options.static_cell_complex.empty()) {
+            assert(options.size() == m.top_cell_dimension());
+            std::vector<std::shared_ptr<Mesh>> static_meshes;
+            for (const auto& mesh_name : m_options.static_cell_complex) {
+                auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
+                static_meshes.emplace_back(mesh2.shared_from_this());
+            }
+            m_swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+                mesh,
+                *static_meshes[1],
+                wmtk::PrimitiveType::Edge,
+                false));
+            /*
+            for (const auto& mptr : static_meshes) {
+                auto& mesh2 = *mptr;
+                m_swap->collapse().add_invariant(
+                    std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(mesh, mesh2));
+                switch (mesh2.top_simplex_type()) {
+                case wmtk::PrimitiveType::Triangle:
+                    m_swap->add_invariant(
+                        std::make_shared<wmtk::invariants::InteriorSimplexInvariant>(
+                            mesh2,
+                            wmtk::PrimitiveType::Edge));
+                    break;
+                case wmtk::PrimitiveType::Edge:
+                    m_swap->add_invariant(
+                        std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+                            mesh,
+                            mesh2,
+                            wmtk::PrimitiveType::Edge,
+                            false));
+                    break;
+                case wmtk::PrimitiveType::Vertex: break;
+                case wmtk::PrimitiveType::Tetrahedron:
+                default: assert(false);
+                }
+            }
+            */
+        }
     }
     internal::finalize_swap(*m_swap, m_options);
     // m_swap = op;
