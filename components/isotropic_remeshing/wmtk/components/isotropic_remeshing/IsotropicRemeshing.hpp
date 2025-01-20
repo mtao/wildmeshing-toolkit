@@ -1,5 +1,6 @@
 #pragma once
 #include "IsotropicRemeshingOptions.hpp"
+#include <wmtk/invariants/Invariant.hpp>
 
 
 namespace wmtk {
@@ -40,6 +41,8 @@ private:
     IsotropicRemeshingOptions m_options;
 
 
+
+
     std::shared_ptr<operations::EdgeSplit> m_split;
     std::shared_ptr<operations::EdgeCollapse> m_collapse;
     std::shared_ptr<operations::composite::EdgeSwap> m_swap;
@@ -54,6 +57,7 @@ private:
 
     std::shared_ptr<wmtk::invariants::InvariantCollection> m_interior_position_invariants;
     std::shared_ptr<wmtk::invariants::InvariantCollection> m_interior_edge_invariants;
+    std::shared_ptr<wmtk::invariants::InvariantCollection> m_universal_invariants;
 
     void configure_split();
     void configure_collapse();

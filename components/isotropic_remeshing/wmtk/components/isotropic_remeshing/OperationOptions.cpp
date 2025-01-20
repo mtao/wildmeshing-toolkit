@@ -5,35 +5,52 @@
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 
 namespace wmtk::components::isotropic_remeshing {
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(PriorityOptions)
-{
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(PriorityOptions){
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, attribute_path)
     //
 }
 
-WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PriorityOptions)
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PriorityOptions){
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(type, attribute_path)
+    //
+} WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(InvariantOptions)
 {
     //
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type)
+
+    auto ap = static_cast<const AttributeInvariantParameters*>(nlohmann_json_t.parameters.get())
+                  ->attribute_path;
+    nlohmann_json_j["attribute_path"] = ap;
 }
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(InvariantOptions){
-
-    //
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, mesh_path)}
-
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(InvariantOptions)
-{}
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(type)
+    auto p = std::make_unique<AttributeInvariantParameters>();
+    p->attribute_path = nlohmann_json_j["attribute_path"];
+    nlohmann_json_t.parameters = std::move(p);
+}
 
-
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions){
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
+{
     //
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, enabled)
-
+    if (const auto& p = nlohmann_json_t.priority; p) {
+        nlohmann_json_j["priority"] = *p;
+    }
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(OperationOptions)
 {
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(OperationOptions);
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(mesh_path, enabled);
+
+    if (nlohmann_json_j.contains("priority")) {
+        auto p = std::make_shared<PriorityOptions>();
+        p->attribute_path = nlohmann_json_j["priority"]["attribute_path"];
+        nlohmann_json_t.priority = std::move(p);
+        spdlog::info("{}", nlohmann_json_t.priority->attribute_path);
+    }
 
     //
 }

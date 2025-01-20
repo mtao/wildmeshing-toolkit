@@ -1,6 +1,9 @@
 
 #include "IsotropicRemeshing.hpp"
+#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
+#include "invariants/ImprovementInvariant.hpp"
 
 // main execution tools
 #include <wmtk/Scheduler.hpp>
@@ -54,6 +57,13 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
     for (const auto& transfer : m_options.utility_attributes) {
         m_operation_transfers.emplace_back(transfer.create(*m_options.mesh_collection));
     }
+
+    m_universal_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(
+        m_options.position_attribute.mesh());
+    m_universal_invariants->add(std::make_shared<invariants::ImprovementInvariant>(
+        wmtk::components::multimesh::utils::get_attribute(
+            *m_options.mesh_collection,
+            {"combo/min_mean_area_measure"})));
 
 
     if (!m_options.position_attribute.is_valid()) {
@@ -138,18 +148,18 @@ void IsotropicRemeshing::make_interior_invariants()
 {
     auto position = m_options.position_attribute;
     Mesh& mesh = position.mesh();
-    auto invariant_interior_vertex = std::make_shared<invariants::InvariantCollection>(mesh);
-    m_interior_edge_invariants = std::make_shared<invariants::InvariantCollection>(mesh);
+    auto invariant_interior_vertex = std::make_shared<wmtk::invariants::InvariantCollection>(mesh);
+    m_interior_edge_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(mesh);
 
     auto set_all_invariants = [&](auto&& m) {
         // TODO: this used to do vertex+edge, but just checkign for vertex should be sufficient?
         for (PrimitiveType pt = PrimitiveType::Vertex; pt < m.top_simplex_type(); pt = pt + 1) {
             invariant_interior_vertex->add(
-                std::make_shared<invariants::InteriorSimplexInvariant>(m, pt));
+                std::make_shared<wmtk::invariants::InteriorSimplexInvariant>(m, pt));
         }
 
         m_interior_edge_invariants->add(
-            std::make_shared<invariants::InteriorSimplexInvariant>(m, PrimitiveType::Edge));
+            std::make_shared<wmtk::invariants::InteriorSimplexInvariant>(m, PrimitiveType::Edge));
     };
     wmtk::multimesh::MultiMeshVisitor visitor(set_all_invariants);
     visitor.execute_from_root(mesh);
@@ -249,7 +259,7 @@ void IsotropicRemeshing::make_envelopes()
     }
     auto envelope_positions = all_envelope_positions();
 
-    std::vector<std::shared_ptr<invariants::EnvelopeInvariant>> envelope_invariants;
+    std::vector<std::shared_ptr<wmtk::invariants::EnvelopeInvariant>> envelope_invariants;
 
 
     std::transform(
@@ -257,13 +267,13 @@ void IsotropicRemeshing::make_envelopes()
         envelope_positions.end(),
         std::back_inserter(envelope_invariants),
         [&](const wmtk::attribute::MeshAttributeHandle& mah) {
-            return std::make_shared<invariants::EnvelopeInvariant>(
+            return std::make_shared<wmtk::invariants::EnvelopeInvariant>(
                 mah,
                 std::sqrt(2) * m_options.envelope_size.value(),
                 mah);
         });
 
-    m_envelope_invariants = std::make_shared<invariants::InvariantCollection>(
+    m_envelope_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(
         m_options.position_attribute.mesh().get_multi_mesh_root());
 
     for (const auto& invar : envelope_invariants) {

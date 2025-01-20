@@ -43,13 +43,17 @@
     "use_for_periodic": false,
     "swap": {
         "enabled": true,
-        "mode": "valence"
+        "mode": "valence",
+        "priority": {
+            "type": "attribute",
+            "attribute_path": "combo/min_mean_area_measure"
+        }
     },
     "collapse": {
         "enabled": true,
         "priority": {
             "type": "attribute",
-            "attribute_path": "combo/min_area_mean_measure"
+            "attribute_path": "combo/min_mean_area_measure"
         }
     },
     "split": {

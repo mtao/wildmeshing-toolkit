@@ -29,6 +29,8 @@ set(SRC_FILES
     OperationOptions.cpp
 
 
+    invariants/ImprovementInvariant.hpp
+    invariants/ImprovementInvariant.cpp
     #internal/configure_swap.hpp
     #internal/configure_swap.cpp
     #internal/configure_swap_tetmesh.cpp

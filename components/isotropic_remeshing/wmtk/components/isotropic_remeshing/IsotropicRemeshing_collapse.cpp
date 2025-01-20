@@ -1,4 +1,6 @@
 
+#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/invariants/InvariantCollection.hpp>
 #include <wmtk/invariants/MultiMeshLinkConditionInvariant.hpp>
 #include <wmtk/invariants/MultiMeshMapValidInvariant.hpp>
@@ -21,7 +23,7 @@ void IsotropicRemeshing::configure_collapse()
 {
     wmtk::logger().debug("Configure isotropic remeshing collapse");
     wmtk::Mesh& mesh = m_options.position_attribute.mesh();
-    auto op = std::make_shared<operations::EdgeCollapse>(mesh);
+    auto& op = m_collapse = std::make_shared<operations::EdgeCollapse>(mesh);
     internal::configure_collapse(*op, mesh, m_options);
 
     if (m_envelope_invariants) {
@@ -29,20 +31,39 @@ void IsotropicRemeshing::configure_collapse()
         op->add_invariant(m_envelope_invariants);
     }
 
-    for(const auto& [child,parent]: m_options.copied_attributes) {
-        op->set_new_attribute_strategy(
-                child,
-            operations::CollapseBasicStrategy::None);
+    for (const auto& [child, parent] : m_options.copied_attributes) {
+        op->set_new_attribute_strategy(child, operations::CollapseBasicStrategy::None);
 
         op->add_transfer_strategy(
-                wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(parent,child));
-
+            wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
+                parent,
+                child));
     }
     for (const auto& transfer : m_operation_transfers) {
         op->set_new_attribute_strategy(transfer->handle());
         op->add_transfer_strategy(transfer);
     }
+
+    if (m_options.collapse.priority) {
+        auto ap = m_options.collapse.priority->attribute_path;
+        if (!ap.empty()) {
+            auto priority_attribute = wmtk::components::multimesh::utils::get_attribute(
+                *m_options.mesh_collection,
+                wmtk::components::multimesh::utils::AttributeDescription{ap});
+            auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
+                auto acc =
+                    priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
+                return acc.const_scalar_attribute(s);
+            };
+            op->set_priority(priority_func);
+            spdlog::warn("Collapse got its priority set to attribute {}", ap);
+        }
+    }
+
+    if (m_universal_invariants) {
+        op->add_invariant(m_universal_invariants);
+    }
+
     assert(op->attribute_new_all_configured());
-    m_collapse = op;
 }
 } // namespace wmtk::components::isotropic_remeshing

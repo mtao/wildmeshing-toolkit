@@ -121,5 +121,8 @@ void IsotropicRemeshing::configure_smooth()
     for (const auto& transfer : m_operation_transfers) {
         proj_op->add_transfer_strategy(transfer);
     }
+    //if (m_universal_invariants) {
+    //    proj_op->add_invariant(m_universal_invariants);
+    //}
 }
 } // namespace wmtk::components::isotropic_remeshing

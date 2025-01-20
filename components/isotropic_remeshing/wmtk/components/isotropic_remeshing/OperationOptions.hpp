@@ -10,21 +10,27 @@ namespace wmtk::components::isotropic_remeshing {
 
 struct PriorityOptions
 {
+    std::string type;
+    std::string attribute_path; // TODO move this into a child 
     static PriorityOptions create(const nlohmann::json& js);
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(PriorityOptions)
 };
+
+
+struct InvariantParameters {};
+
 struct InvariantOptions
 {
-    std::string mesh_path;
     std::string type;
+    std::unique_ptr<InvariantParameters> parameters;
+
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
 };
 
 
-struct MinEdgeLengthInavariant
+struct AttributeInvariantParameters: public InvariantParameters
 {
-    std::string type;
-    std::string mesh_path;
+    std::string attribute_path;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
 };
 
