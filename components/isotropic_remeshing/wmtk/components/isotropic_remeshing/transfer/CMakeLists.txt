@@ -1,0 +1,13 @@
+
+target_sources(wmtk_${COMPONENT_NAME} PRIVATE 
+TransferStrategyOptions.cpp
+TransferStrategyParameters.cpp
+TransferStrategyOptions.hpp
+TransferStrategyParameters.hpp
+TransferStrategyParameters_macros.hpp
+EdgeLengthTransferStrategyParameters.cpp
+EdgeLengthTransferStrategyParameters.hpp
+
+init.hpp
+init.cpp
+)

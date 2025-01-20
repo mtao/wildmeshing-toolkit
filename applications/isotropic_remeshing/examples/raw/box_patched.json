@@ -22,11 +22,9 @@
     ],
     "utility_attributes": [
         { 
-            "attribute_name": "combo/edge_length",
             "type": "edge_length",
-            "parameters": {
-                "position_attribute": "combo/vertex_position"
-            }
+            "attribute_path": "combo/edge_length",
+            "position_attribute": "combo/vertex_position"
         }
     ],
     "iterations": 50,

@@ -6,6 +6,9 @@
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
 #include <wmtk/utils/Logger.hpp>
+#include "transfer/TransferStrategyOptions.hpp"
+#include "transfer/init.hpp"
+
 
 #include <wmtk/Mesh.hpp>
 
@@ -14,6 +17,11 @@
         swap, collapse, smooth, utility_attributes
 
 namespace wmtk::components::isotropic_remeshing {
+
+IsotropicRemeshingOptions::IsotropicRemeshingOptions()
+{
+    wmtk::components::isotropic_remeshing::transfer::init();
+}
 namespace {
 
 // compute the length relative to the bounding box diagonal

@@ -6,6 +6,7 @@
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include "OperationOptions.hpp"
+#include "transfer/TransferStrategyOptions.hpp"
 
 
 namespace wmtk::components::multimesh {
@@ -20,6 +21,7 @@ namespace wmtk::components::isotropic_remeshing {
 
 struct IsotropicRemeshingOptions
 {
+    IsotropicRemeshingOptions();
     // std::shared_ptr<TriMesh> input;
     wmtk::attribute::MeshAttributeHandle position_attribute;
     std::optional<wmtk::attribute::MeshAttributeHandle> inversion_position_attribute;
@@ -45,7 +47,7 @@ struct IsotropicRemeshingOptions
     EdgeCollapseOptions collapse;
     VertexSmoothOptions smooth;
     EdgeSwapOptions swap;
-    std::vector<TransferStrategyOptions> utility_attributes;
+    std::vector<transfer::TransferStrategyOptions> utility_attributes;
 
     // this should be true for periodic
     bool separate_substructures = false;
