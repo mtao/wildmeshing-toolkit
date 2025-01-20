@@ -1,4 +1,5 @@
 #include "TransferStrategyOptions.hpp"
+#include <wmtk/operations/attribute_update/AttributeTransferStrategyBase.hpp>
 #include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
@@ -43,6 +44,9 @@ std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> TransferStrateg
     wmtk::components::multimesh::MeshCollection& mc) const
 {
     assert(parameters);
-    return parameters->create(mc, *this);
+    auto t = parameters->create(mc, *this);
+    spdlog::info("Creating attribute transfer {}", attribute_path);
+    t->run_on_all();
+    return t;
 }
 } // namespace wmtk::components::isotropic_remeshing::transfer

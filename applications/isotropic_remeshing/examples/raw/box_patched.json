@@ -25,6 +25,17 @@
             "type": "edge_length",
             "attribute_path": "combo/edge_length",
             "position_attribute": "combo/vertex_position"
+        },
+        { 
+            "type": "mean_ratio_measure",
+            "attribute_path": "combo/mean_area_measure",
+            "position_attribute": "combo/vertex_position"
+        },
+        { 
+            "type": "min",
+            "attribute_path": "combo/min_mean_area_measure",
+            "simplex_dimension": 1,
+            "base_attribute_path": "combo/mean_area_measure"
         }
     ],
     "iterations": 50,
@@ -36,7 +47,10 @@
     },
     "collapse": {
         "enabled": true,
-        "priority": "min_edge_length"
+        "priority": {
+            "type": "attribute",
+            "attribute_path": "combo/min_area_mean_measure"
+        }
     },
     "split": {
         "enabled" :true

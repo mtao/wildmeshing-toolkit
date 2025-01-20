@@ -8,6 +8,14 @@ TransferStrategyParameters_macros.hpp
 EdgeLengthTransferStrategyParameters.cpp
 EdgeLengthTransferStrategyParameters.hpp
 
+MeanRatioMeasureTransferStrategyParameters.hpp
+MeanRatioMeasureTransferStrategyParameters.cpp
+
+MeanTransferStrategyParameters.hpp
+MeanTransferStrategyParameters.cpp
+MinTransferStrategyParameters.hpp
+MinTransferStrategyParameters.cpp
+
 init.hpp
 init.cpp
 )

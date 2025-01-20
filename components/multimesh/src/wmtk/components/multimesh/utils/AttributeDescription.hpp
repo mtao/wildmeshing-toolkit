@@ -49,7 +49,7 @@ struct AttributeDescription
         const std::optional<attribute::AttributeType>& t,
         const std::optional<int64_t>& dim = {})
         : path(p)
-        , simplex_dimension(dim)
+        , simplex_dimension(simp_dim)
         , type(t)
         , dimension(dim)
     {}
