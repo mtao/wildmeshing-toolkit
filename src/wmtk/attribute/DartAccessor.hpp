@@ -114,22 +114,40 @@ public:
         return sa[get_boundary_local_index(d)];
     }
 
-    static wmtk::attribute::TypedAttributeHandle<int64_t>
-    register_attribute(MeshType& m, const std::string_view& name, bool do_populate = false)
+    static wmtk::attribute::TypedAttributeHandle<int64_t> register_boundary_topology_attribute(
+        MeshType& m,
+        const std::string_view& name,
+        bool do_populate = false)
     {
-        auto handle = m.template register_attribute_typed<int64_t>(
-            std::string(name),
-            m.top_simplex_type() - 1,
-            Dim + 1,
-            false,
-            -1);
+        auto handle = register_attribute(m, name, m.top_simplex_type() - 1);
         if (do_populate) {
             DartAccessor acc(m, handle);
             acc.populate();
         }
+    }
+
+    static wmtk::attribute::TypedAttributeHandle<int64_t>
+    register_attribute(MeshType& m, const std::string_view& name, PrimitiveType pt)
+    {
+        // add one for the orientation pack
+        auto handle =
+            m.template register_attribute_typed<int64_t>(std::string(name), pt, Dim + 1, false, -1);
         return handle;
     }
 
+
+    // maps (pt,a) to (opt,oa) then (opt,b)
+    static wmtk::autogen::Dart
+    fuse(PrimitiveType pt, const autogen::Dart& a, PrimitiveType opt, const autogen::Dart& b)
+    {
+        const autogen::SimplexDart& sd = autogen::SimplexDart::get_singleton(pt);
+        const autogen::SimplexDart& osd = autogen::SimplexDart::get_singleton(pt);
+
+        int8_t oa = sd.convert(a.local_orientation(), osd);
+
+        int8_t act = autogen::find_local_dart_action(osd, oa, b.local_orientation());
+        return autogen::Dart(b.global_id(), act);
+    }
     void fuse(const autogen::Dart& d, const autogen::Dart& od)
     {
         const PrimitiveType FT = mesh().top_simplex_type();
@@ -138,7 +156,9 @@ public:
             autogen::find_local_dart_action(sd, d.local_orientation(), od.local_orientation());
         int8_t invact = sd.inverse(act);
         get_neighbor(d) = autogen::Dart{od.global_id(), act};
+        assert(get_neighbor(d) == fuse(FT, d, FT, od));
         get_neighbor(od) = autogen::Dart{d.global_id(), invact};
+        assert(get_neighbor(od) == fuse(FT, od, FT, d));
     }
     void populate()
     {
@@ -192,13 +212,24 @@ template <typename Handle>
 DartAccessor(const TriMesh&, const Handle&) -> DartAccessor<4, TriMesh>;
 template <typename Handle>
 DartAccessor(const TetMesh&, const Handle&) -> DartAccessor<5, TetMesh>;
+template <typename Handle>
+DartAccessor(const Mesh& p, const Handle&) -> DartAccessor<Eigen::Dynamic, Mesh>;
+
+
+template <int Dim, typename MeshType = Mesh>
+auto register_dart_attribute(MeshType& mesh, const std::string_view& name, PrimitiveType pt)
+{
+    return DartAccessor<Dim, Mesh>::register_attribute(mesh, name, pt);
+}
 
 template <typename MeshType>
-auto register_dart_attribute(MeshType& mesh, const std::string_view& name, bool do_populate = false)
+auto register_dart_boundary_topology_attribute(
+    MeshType& mesh,
+    const std::string_view& name,
+    bool do_populate = false)
 {
-    return decltype(DartAccessor(
-        mesh,
-        std::declval<MeshAttributeHandle>()))::register_attribute(mesh, name, do_populate);
+    return decltype(DartAccessor(mesh, std::declval<MeshAttributeHandle>()))::
+        register_boundary_topology_attribute(mesh, name, do_populate);
 }
 
 } // namespace wmtk::attribute

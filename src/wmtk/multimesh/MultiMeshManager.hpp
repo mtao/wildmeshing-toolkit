@@ -10,6 +10,9 @@
 // just for friending later on
 #include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/utils/MerkleTreeInteriorNode.hpp>
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+#include <wmtk/attribute/DartAccessor.hpp>
+#endif
 
 
 namespace wmtk {
@@ -55,6 +58,12 @@ namespace wmtk::multimesh {
 class MultiMeshManager : public wmtk::utils::MerkleTreeInteriorNode
 {
 public:
+    using AccessorType =
+#if defined WMTK_ENABLED_MULTIMESH_DART
+        wmtk::attribute::DartAccessor;
+#else
+        wmtk::attribute::Accessor<int64_t>;
+#endif
     // utility function for mapping the same set of simplices (or a subset of equivalent simplices)
     friend std::vector<std::array<Tuple, 2>> multimesh::same_simplex_dimension_surjection(
         const Mesh& parent,
@@ -417,8 +426,15 @@ protected: // protected to enable unit testing
     static Tuple map_tuple_between_meshes(
         const Mesh& source_mesh,
         const Mesh& target_mesh,
-        const wmtk::attribute::Accessor<int64_t>& source_to_target_map_accessor,
+        const AccessorType& source_to_target_map_accessor,
         const Tuple& source_tuple);
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    
+    static Tuple map_tuple_between_meshes(
+        const AccessorType& source_to_target_map_accessor,
+            PrimitiveType target_pt,
+        const Tuple& source_tuple);
+#endif
 
     const std::vector<ChildData>& children() const { return m_children; }
     std::vector<ChildData>& children() { return m_children; }
@@ -431,11 +447,9 @@ protected: // protected to enable unit testing
     static std::string child_to_parent_map_attribute_name();
 
     // returns {parent_to_child, child_to_parent} accessors
-    std::array<wmtk::attribute::Accessor<int64_t>, 2> get_map_accessors(
-        Mesh& my_mesh,
-        ChildData& c);
+    std::array<AccessorType, 2> get_map_accessors(Mesh& my_mesh, ChildData& c);
     // returns {parent_to_child, child_to_parent} accessors
-    std::array<const wmtk::attribute::Accessor<int64_t>, 2> get_map_const_accessors(
+    std::array<const AccessorType, 2> get_map_const_accessors(
         const Mesh& my_mesh,
         const ChildData& c) const;
 
@@ -501,17 +515,11 @@ protected: // protected to enable unit testing
         int64_t gid);
 
     // helper for updating multimap used in the update multimesh edge functor
-    static int64_t child_global_cid(
-        const wmtk::attribute::Accessor<int64_t>& parent_to_child,
-        int64_t parent_gid);
+    static int64_t child_global_cid(const AccessorType& parent_to_child, int64_t parent_gid);
     // helper for updating multimap used in the update multimesh edge functor
-    static int64_t parent_global_cid(
-        const wmtk::attribute::Accessor<int64_t>& child_to_parent,
-        int64_t child_gid);
+    static int64_t parent_global_cid(const AccessorType& child_to_parent, int64_t child_gid);
     // helper for updating multimap used in the update multimesh edge functor
-    static int64_t parent_local_fid(
-        const wmtk::attribute::Accessor<int64_t>& child_to_parent,
-        int64_t child_gid);
+    static int64_t parent_local_fid(const AccessorType& child_to_parent, int64_t child_gid);
 
 
     // ===============================================================================

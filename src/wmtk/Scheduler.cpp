@@ -32,10 +32,13 @@ Scheduler::~Scheduler() = default;
 
 SchedulerStats Scheduler::run_operation_on_all(operations::Operation& op)
 {
+    return run_operation_on_all(op, op.mesh());
+
+}
+SchedulerStats Scheduler::run_operation_on_all(operations::Operation& op, const Mesh& m)
+{
     SchedulerStats res;
     std::vector<simplex::Simplex> simplices;
-    // op.reserve_enough_simplices();
-
     const auto type = op.primitive_type();
     {
         POLYSOLVE_SCOPED_STOPWATCH("Collecting primitives", res.collecting_time, logger());
@@ -44,6 +47,15 @@ SchedulerStats Scheduler::run_operation_on_all(operations::Operation& op)
         simplices =
             wmtk::simplex::utils::tuple_vector_to_homogeneous_simplex_vector(op.mesh(), tups, type);
     }
+    res += run_operation_on_all(op,std::move(simplices)) ;
+    return res;
+}
+
+SchedulerStats Scheduler::run_operation_on_all(operations::Operation& op, std::vector<simplex::Simplex>&& simplices)
+{
+    // op.reserve_enough_simplices();
+
+    SchedulerStats res;
 
     logger().debug("Executing on {} simplices", simplices.size());
     std::vector<std::pair<int64_t, double>> order;

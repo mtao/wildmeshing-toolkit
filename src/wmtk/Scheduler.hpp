@@ -91,6 +91,9 @@ public:
     Scheduler();
     ~Scheduler();
 
+    SchedulerStats run_operation_on_all(operations::Operation& op, const Mesh& m);
+    SchedulerStats run_operation_on_all(operations::Operation& op, std::vector<simplex::Simplex>&& m);
+
     SchedulerStats run_operation_on_all(operations::Operation& op);
     SchedulerStats run_operation_on_all(
         operations::Operation& op,

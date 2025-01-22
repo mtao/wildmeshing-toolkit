@@ -45,6 +45,27 @@ void symmetric_write_tuple_map_attributes(
     write_tuple_map_attribute(a_to_b, a_tuple, b_tuple);
     write_tuple_map_attribute(b_to_a, b_tuple, a_tuple);
 }
+
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+template <typename MeshA, typename MeshB>
+void symmetric_write_tuple_map_attributes(
+    wmtk::attribute::DartAccessor<1, MeshA>& a_to_b,
+    wmtk::attribute::DartAccessor<1, MeshA>& b_to_a,
+    const Tuple& a_tuple,
+    const Tuple& b_tuple)
+{
+    const PrimitiveType apt = a_to_b.mesh().top_simplex_type();
+    const PrimitiveType bpt = b_to_b.mesh().top_simplex_type();
+    const autogen::SimplexDart& sd =
+        autogen::SimplexDart::get_singleton(apt);
+    const autogen::SimplexDart& osd =
+        autogen::SimplexDart::get_singleton(bpt);
+    sd.dart_from_tuple(a);
+    osd.dart_from_tuple(b);
+    a_to_b(a) = a_to_b::fuse(apt,a,bpt,b);
+    b_to_a(b) = b_to_a::fuse(apt,a,bpt,b);
+}
+#endif
 void write_tuple_map_attribute_slow(
     Mesh& source_mesh,
     TypedAttributeHandle<int64_t> map_handle,

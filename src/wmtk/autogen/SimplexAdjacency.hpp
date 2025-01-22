@@ -14,9 +14,26 @@ public:
     DartWrap operator[](int64_t index) { return dart_as_tuple(index); }
     Dart operator[](int64_t index) const { return dart_as_tuple(index); }
 
+    template <typename IT, typename OT>
+    DartWrap& operator=(const _Dart<IT, OT>& d)
+        requires(Dim == 1)
+    {
+        (*this)[0] = d;
+        return dart_as_tuple(0);
+    }
+    operator DartWrap()
+        requires(Dim == 1)
+    {
+        return dart_as_tuple(0);
+    }
+    operator Dart() const
+        requires(Dim == 1)
+    {
+        return dart_as_tuple(0);
+    }
 
 private:
-    const Dart dart_as_tuple(int64_t index) const
+    Dart dart_as_tuple(int64_t index) const
     {
         return Dart(m_global_ids[index], m_local_orientations[index]);
     }

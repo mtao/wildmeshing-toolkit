@@ -38,32 +38,32 @@ TEST_CASE("multimesh_attribute_description_json", "[components][multimesh]")
     };
     {
         AD ad{"double_test", 0, AT::Double};
-        JS js{{"path", "double_test"}, {"dimension", 0}, {"type", "double"}};
+        JS js{{"path", "double_test"}, {"simplex_dimension", 0}, {"type", "double"}};
         check(ad, js);
     }
     {
         AD ad{"rational_test", 0, AT::Rational};
-        JS js{{"path", "rational_test"}, {"dimension", 0}, {"type", "rational"}};
+        JS js{{"path", "rational_test"}, {"simplex_dimension", 0}, {"type", "rational"}};
         check(ad, js);
     }
     {
         AD ad{"int_test", 0, AT::Int64};
-        JS js{{"path", "int_test"}, {"dimension", 0}, {"type", "int"}};
+        JS js{{"path", "int_test"}, {"simplex_dimension", 0}, {"type", "int"}};
         check(ad, js);
     }
     {
         AD ad{"char_test", 0, AT::Char};
-        JS js{{"path", "char_test"}, {"dimension", 0}, {"type", "char"}};
+        JS js{{"path", "char_test"}, {"simplex_dimension", 0}, {"type", "char"}};
         check(ad, js);
     }
     {
         AD ad{"double_test", 1, AT::Double};
-        JS js{{"path", "double_test"}, {"dimension", 1}, {"type", "double"}};
+        JS js{{"path", "double_test"}, {"simplex_dimension", 1}, {"type", "double"}};
         check(ad, js);
     }
     {
         AD ad{"double_test", 2, AT::Double};
-        JS js{{"path", "double_test"}, {"dimension", 2}, {"type", "double"}};
+        JS js{{"path", "double_test"}, {"simplex_dimension", 2}, {"type", "double"}};
         check(ad, js);
     }
 
@@ -74,7 +74,7 @@ TEST_CASE("multimesh_attribute_description_json", "[components][multimesh]")
     }
     {
         auto ad = make_AD("double_test", 2, {});
-        JS js{{"path", "double_test"}, {"dimension", 2}};
+        JS js{{"path", "double_test"}, {"simplex_dimension", 2}};
         check(ad, js);
     }
     {
