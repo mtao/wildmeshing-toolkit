@@ -19,6 +19,9 @@
 #include "utils/local_switch_tuple.hpp"
 #include "utils/transport_tuple.hpp"
 #include "utils/tuple_map_attribute_io.hpp"
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+#include <wmtk/autogen/SimplexDart.hpp>
+#endif
 
 namespace wmtk::multimesh {
 
@@ -39,7 +42,7 @@ void MultiMeshManager::detach_children()
 
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
 
-static Tuple MultiMeshManager::map_tuple_between_meshes(
+Tuple MultiMeshManager::map_tuple_between_meshes(
     const AccessorType& source_to_target_map_accessor,
     PrimitiveType target_pt,
     const Tuple& source_tuple)
@@ -50,8 +53,10 @@ static Tuple MultiMeshManager::map_tuple_between_meshes(
     wmtk::autogen::Dart source_dart = sd.dart_from_tuple(source_tuple);
 
     int8_t osource_orient = sd.convert(source_dart.local_orientation(), osd);
-    DartWrap act = source_to_target_map_accessor(source_dart);
-    Dart target_dart = (act.global_id(), osd.osd.product(act.local_orientation(), osource_orient));
+    autogen::Dart act = source_to_target_map_accessor[source_dart];
+    autogen::Dart target_dart = {
+        act.global_id(),
+        osd.product(act.local_orientation(), osource_orient)};
     return sd.tuple_from_dart(target_dart);
 }
 #endif
@@ -275,8 +280,9 @@ void MultiMeshManager::register_child_mesh(
         child_primitive_type);
 
     auto child_to_parent_accessor =
-        wmtk::attribute::DartAccessor(child_mesh, child_to_parent_handle);
-    auto parent_to_child_accessor = wmtk::attribute::DartAccessor(my_mesh, parent_to_child_handle);
+        wmtk::attribute::DartAccessor<1, Mesh>(child_mesh, child_to_parent_handle);
+    auto parent_to_child_accessor =
+        wmtk::attribute::DartAccessor<1, Mesh>(my_mesh, parent_to_child_handle);
 #else
     auto child_to_parent_handle = child_mesh.register_attribute_typed<int64_t>(
         child_to_parent_map_attribute_name(),
@@ -733,7 +739,7 @@ std::vector<Tuple> MultiMeshManager::map_to_child_tuples(
 #endif
     for (Tuple& tuple : tuples) {
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-    tuple = map_tuple_between_meshes(map_accessor, child_pt,  tuple);
+        tuple = map_tuple_between_meshes(map_accessor, child_pt, tuple);
 #else
         tuple = map_tuple_between_meshes(my_mesh, child_mesh, map_accessor, tuple);
 #endif
@@ -832,7 +838,7 @@ auto MultiMeshManager::get_map_accessors(Mesh& my_mesh, ChildData& c) -> std::ar
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
     return std::array<AccessorType, 2>{
         {AccessorType(my_mesh, parent_to_child_handle),
-         AccessorType(cihld_mesh, child_to_parent_handle)}};
+         AccessorType(child_mesh, child_to_parent_handle)}};
 #else
     return std::array<wmtk::attribute::Accessor<int64_t>, 2>{
         {my_mesh.create_accessor(parent_to_child_handle),
@@ -849,14 +855,32 @@ auto MultiMeshManager::get_map_const_accessors(const Mesh& my_mesh, const ChildD
 
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
     return std::array<const AccessorType, 2>{
-        {const AccessorType(my_mesh, parent_to_child_handle),
-         const AccessorType(cihld_mesh, child_to_parent_handle)}};
+        {AccessorType(my_mesh, parent_to_child_handle),
+         AccessorType(child_mesh, child_to_parent_handle)}};
 #else
 
     return std::array<const wmtk::attribute::Accessor<int64_t>, 2>{
         {my_mesh.create_const_accessor(parent_to_child_handle),
          child_mesh.create_const_accessor(child_to_parent_handle)}};
 #endif
+}
+auto MultiMeshManager::get_map_accessors(Mesh& my_mesh, Mesh& c) -> std::array<AccessorType, 2>
+{
+    assert(&my_mesh.m_multi_mesh_manager == this);
+    int64_t child_id = c.m_multi_mesh_manager.child_id();
+    auto& child_data = children().at(child_id);
+    assert(child_data.mesh.get() == &c);
+    return get_map_accessors(my_mesh, child_data);
+}
+// returns {parent_to_child, child_to_parent} accessors
+auto MultiMeshManager::get_map_const_accessors(const Mesh& my_mesh, const Mesh& c) const
+    -> std::array<const AccessorType, 2>
+{
+    assert(&my_mesh.m_multi_mesh_manager == this);
+    int64_t child_id = c.m_multi_mesh_manager.child_id();
+    const auto& child_data = children().at(child_id);
+    assert(child_data.mesh.get() == &c);
+    return get_map_const_accessors(my_mesh, child_data);
 }
 std::string MultiMeshManager::child_to_parent_map_attribute_name()
 {

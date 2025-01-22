@@ -60,7 +60,7 @@ class MultiMeshManager : public wmtk::utils::MerkleTreeInteriorNode
 public:
     using AccessorType =
 #if defined WMTK_ENABLED_MULTIMESH_DART
-        wmtk::attribute::DartAccessor;
+        wmtk::attribute::DartAccessor<1,Mesh>;
 #else
         wmtk::attribute::Accessor<int64_t>;
 #endif
@@ -452,6 +452,12 @@ protected: // protected to enable unit testing
     std::array<const AccessorType, 2> get_map_const_accessors(
         const Mesh& my_mesh,
         const ChildData& c) const;
+    // returns {parent_to_child, child_to_parent} accessors
+    std::array<AccessorType, 2> get_map_accessors(Mesh& my_mesh, Mesh& c);
+    // returns {parent_to_child, child_to_parent} accessors
+    std::array<const AccessorType, 2> get_map_const_accessors(
+        const Mesh& my_mesh,
+        const Mesh& c) const;
 
 
     //===========

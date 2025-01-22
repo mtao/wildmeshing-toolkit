@@ -2,6 +2,7 @@
 #include <Eigen/Core>
 #include <memory>
 #include <vector>
+#include <wmtk/multimesh/MultiMeshManager.hpp>
 
 namespace wmtk {
 class Mesh;
@@ -104,10 +105,10 @@ private:
 
 private:
     int64_t parent_global_cid(
-        const attribute::Accessor<int64_t, Mesh, Eigen::Dynamic>& parent_to_child,
+        const multimesh::MultiMeshManager::AccessorType& parent_to_child,
         int64_t parent_gid) const;
     int64_t child_global_cid(
-        const attribute::Accessor<int64_t, Mesh, Eigen::Dynamic>& parent_to_child,
+        const multimesh::MultiMeshManager::AccessorType& parent_to_child,
         int64_t parent_gid) const;
     void update_all_hashes(
         Mesh& m,
@@ -118,7 +119,7 @@ private:
 
     // for tet
     int64_t parent_local_fid(
-        const attribute::Accessor<int64_t, Mesh, Eigen::Dynamic>& parent_to_child,
+        const multimesh::MultiMeshManager::AccessorType& parent_to_child,
         int64_t parent_gid) const;
 
     void update_ear_replacement(TetMesh& m, const tet_mesh::EdgeOperationData& tmoe) const;

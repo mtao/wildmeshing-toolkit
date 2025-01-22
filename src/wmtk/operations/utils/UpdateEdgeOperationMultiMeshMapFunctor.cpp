@@ -55,12 +55,8 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                 continue; // only deal with child edgemeshes
             }
 
-            const auto& child_mmmanager = child_ptr->m_multi_mesh_manager;
-            int64_t child_id = child_mmmanager.child_id();
-            auto child_to_parent_handle = child_mmmanager.map_to_parent_handle;
-            auto parent_to_child_handle = parent_mmmanager.children().at(child_id).map_handle;
-            auto child_to_parent_accessor = child_ptr->create_accessor(child_to_parent_handle);
-            auto parent_to_child_accessor = m.create_accessor(parent_to_child_handle);
+            auto [parent_to_child_accessor, child_to_parent_accessor] =
+                parent_mmmanager.get_map_accessors(m, *child_ptr);
             auto child_cell_flag_accessor = child_ptr->get_const_flag_accessor(PrimitiveType::Edge);
 
             std::vector<std::pair<Tuple, Tuple>> update_pairs;
@@ -147,13 +143,8 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
             if (child_ptr->top_cell_dimension() == 2) {
                 // handle with child tri mesh
                 // update merge faces here
-                const auto& child_mmmanager = child_ptr->m_multi_mesh_manager;
-                const int64_t child_id = child_mmmanager.child_id();
-                const auto child_to_parent_handle = child_mmmanager.map_to_parent_handle;
-                const auto parent_to_child_handle =
-                    parent_mmmanager.children().at(child_id).map_handle;
-                auto child_to_parent_accessor = child_ptr->create_accessor(child_to_parent_handle);
-                auto parent_to_child_accessor = m.create_accessor(parent_to_child_handle);
+                auto [parent_to_child_accessor, child_to_parent_accessor] =
+                    parent_mmmanager.get_map_accessors(m, *child_ptr);
                 auto child_cell_flag_accessor =
                     child_ptr->get_const_flag_accessor(PrimitiveType::Triangle);
 
@@ -244,12 +235,8 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                 // handle with child edge mesh
                 // update merge edges here
                 // there are three ear edges per side
-                const auto& child_mmmanager = child_ptr->m_multi_mesh_manager;
-                int64_t child_id = child_mmmanager.child_id();
-                auto child_to_parent_handle = child_mmmanager.map_to_parent_handle;
-                auto parent_to_child_handle = parent_mmmanager.children().at(child_id).map_handle;
-                auto child_to_parent_accessor = child_ptr->create_accessor(child_to_parent_handle);
-                auto parent_to_child_accessor = m.create_accessor(parent_to_child_handle);
+                auto [parent_to_child_accessor, child_to_parent_accessor] =
+                    parent_mmmanager.get_map_accessors(m, *child_ptr);
                 auto child_cell_flag_accessor =
                     child_ptr->get_const_flag_accessor(PrimitiveType::Edge);
 
@@ -363,12 +350,8 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const auto& parent_spine_v = parent_tmoe.incident_vids();
 
     auto& parent_mmmanager = parent_mesh.m_multi_mesh_manager;
-    auto& child_mmmanager = child_mesh.m_multi_mesh_manager;
-    auto child_to_parent_handle = child_mmmanager.map_to_parent_handle;
-    int64_t child_id = child_mmmanager.child_id();
-    auto parent_to_child_handle = parent_mmmanager.children().at(child_id).map_handle;
-    auto child_to_parent_accessor = child_mesh.create_accessor(child_to_parent_handle);
-    auto parent_to_child_accessor = parent_mesh.create_accessor(parent_to_child_handle);
+    auto [parent_to_child_accessor, child_to_parent_accessor] =
+        parent_mmmanager.get_map_accessors(parent_mesh, child_mesh);
 
 
     // update the new edges added by split
@@ -423,14 +406,10 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
 
 
     auto& parent_mmmanager = parent_mesh.m_multi_mesh_manager;
-    auto& child_mmmanager = child_mesh.m_multi_mesh_manager;
 
-    auto child_to_parent_handle = child_mmmanager.map_to_parent_handle;
 
-    int64_t child_id = child_mmmanager.child_id();
-    auto parent_to_child_handle = parent_mmmanager.children().at(child_id).map_handle;
-    auto child_to_parent_accessor = child_mesh.create_accessor(child_to_parent_handle);
-    auto parent_to_child_accessor = parent_mesh.create_accessor(parent_to_child_handle);
+    auto [parent_to_child_accessor, child_to_parent_accessor] =
+        parent_mmmanager.get_map_accessors(parent_mesh, child_mesh);
 
     // logger().trace(
     //     "Child had {} datas, parent had {} datas",
@@ -541,14 +520,9 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const auto& parent_incident_face_datas = parent_tmoe.incident_face_datas();
 
     auto& parent_mmmanager = parent_mesh.m_multi_mesh_manager;
-    auto& child_mmmanager = child_mesh.m_multi_mesh_manager;
 
-    auto child_to_parent_handle = child_mmmanager.map_to_parent_handle;
-
-    int64_t child_id = child_mmmanager.child_id();
-    auto parent_to_child_handle = parent_mmmanager.children().at(child_id).map_handle;
-    auto child_to_parent_accessor = child_mesh.create_accessor(child_to_parent_handle);
-    auto parent_to_child_accessor = parent_mesh.create_accessor(parent_to_child_handle);
+    auto [parent_to_child_accessor, child_to_parent_accessor] =
+        parent_mmmanager.get_map_accessors(parent_mesh, child_mesh);
 
     int64_t target_parent_tid =
         parent_global_cid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
@@ -619,14 +593,10 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const auto& child_spine_v = child_fmoe.incident_vids();
 
     auto& parent_mmmanager = parent_mesh.m_multi_mesh_manager;
-    auto& child_mmmanager = child_mesh.m_multi_mesh_manager;
 
-    auto child_to_parent_handle = child_mmmanager.map_to_parent_handle;
 
-    int64_t child_id = child_mmmanager.child_id();
-    auto parent_to_child_handle = parent_mmmanager.children().at(child_id).map_handle;
-    auto child_to_parent_accessor = child_mesh.create_accessor(child_to_parent_handle);
-    auto parent_to_child_accessor = parent_mesh.create_accessor(parent_to_child_handle);
+    auto [parent_to_child_accessor, child_to_parent_accessor] =
+        parent_mmmanager.get_map_accessors(parent_mesh, child_mesh);
 
     for (const auto& child_data : child_incident_face_datas) {
         int64_t target_parent_tid = parent_global_cid(child_to_parent_accessor, child_data.fid);
@@ -705,14 +675,10 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const auto& child_spine_v = child_tmoe.incident_vids();
 
     auto& parent_mmmanager = parent_mesh.m_multi_mesh_manager;
-    auto& child_mmmanager = child_mesh.m_multi_mesh_manager;
 
-    auto child_to_parent_handle = child_mmmanager.map_to_parent_handle;
 
-    int64_t child_id = child_mmmanager.child_id();
-    auto parent_to_child_handle = parent_mmmanager.children().at(child_id).map_handle;
-    auto child_to_parent_accessor = child_mesh.create_accessor(child_to_parent_handle);
-    auto parent_to_child_accessor = parent_mesh.create_accessor(parent_to_child_handle);
+    auto [parent_to_child_accessor, child_to_parent_accessor] =
+        parent_mmmanager.get_map_accessors(parent_mesh, child_mesh);
 
     for (const auto& child_data : child_incident_tet_datas) {
         int64_t target_parent_tid = parent_global_cid(child_to_parent_accessor, child_data.tid);
@@ -823,20 +789,20 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
 }
 
 int64_t UpdateEdgeOperationMultiMeshMapFunctor::child_global_cid(
-    const attribute::Accessor<int64_t, Mesh, Eigen::Dynamic>& parent_to_child,
+    const multimesh::MultiMeshManager::AccessorType& parent_to_child,
     int64_t parent_gid) const
 {
     return MultiMeshManager::child_global_cid(parent_to_child, parent_gid);
 }
 int64_t UpdateEdgeOperationMultiMeshMapFunctor::parent_global_cid(
-    const attribute::Accessor<int64_t, Mesh, Eigen::Dynamic>& child_to_parent,
+    const multimesh::MultiMeshManager::AccessorType& child_to_parent,
     int64_t child_gid) const
 {
     return MultiMeshManager::parent_global_cid(child_to_parent, child_gid);
 }
 
 int64_t UpdateEdgeOperationMultiMeshMapFunctor::parent_local_fid(
-    const attribute::Accessor<int64_t, Mesh, Eigen::Dynamic>& child_to_parent,
+    const multimesh::MultiMeshManager::AccessorType& child_to_parent,
     int64_t child_gid) const
 {
     return MultiMeshManager::parent_local_fid(child_to_parent, child_gid);
