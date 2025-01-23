@@ -3,7 +3,7 @@
 #include <Eigen/Core>
 
 #include <initializer_list>
-#include <wmtk/autogen/Dart.hpp>
+#include <wmtk/dart/Dart.hpp>
 
 #include <memory>
 #include <tuple>
@@ -329,7 +329,7 @@ protected:
      * @return Tuple
      */
     virtual Tuple tuple_from_id(const PrimitiveType type, const int64_t gid) const = 0;
-    virtual autogen::Dart dart_from_id(const PrimitiveType type, const int64_t gid) const;
+    virtual dart::Dart dart_from_id(const PrimitiveType type, const int64_t gid) const;
     simplex::NavigatableSimplex simplex_from_id(const PrimitiveType type, const int64_t gid) const;
     std::vector<std::vector<int64_t>> simplices_to_gids(
         const std::vector<std::vector<simplex::Simplex>>& simplices) const;
@@ -851,11 +851,11 @@ protected:
 
     int64_t id(const simplex::NavigatableSimplex& s) const { return s.index(); }
     int64_t id(const simplex::IdSimplex& s) const { return s.index(); }
-    int64_t id(const autogen::Dart& s, PrimitiveType type) const
+    int64_t id(const dart::Dart& s, PrimitiveType type) const
     {
         return id_virtual(s.global_id(), s.local_orientation(), type);
     }
-    int64_t id(const autogen::DartWrap& s, PrimitiveType type) const
+    int64_t id(const dart::DartWrap& s, PrimitiveType type) const
     {
         return id_virtual(s.global_id(), s.local_orientation(), type);
     }

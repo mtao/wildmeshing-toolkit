@@ -2,8 +2,7 @@
 
 #include <spdlog/stopwatch.h>
 #include <catch2/catch_test_macros.hpp>
-#include <wmtk/attribute/Attribute.hpp>
-#include <wmtk/attribute/DartAccessor.hpp>
+#include <wmtk/dart/DartTopologyAccessor.hpp>
 #include <wmtk/attribute/TupleAccessor.hpp>
 #include <wmtk/io/read_mesh.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
@@ -16,19 +15,19 @@ TEST_CASE("dart_access", "[dart_accessor]")
 {
     auto mesh = wmtk::tests::three_neighbors();
 
-    auto handle = wmtk::attribute::register_dart_boundary_topology_attribute(mesh, "dart", true);
+    auto handle = wmtk::dart::register_dart_boundary_topology_attribute(mesh, "dart", true);
 
-    wmtk::attribute::DartAccessor acc(mesh, handle);
+    wmtk::dart::DartTopologyAccessor acc(mesh, handle);
 
-    auto sd = wmtk::autogen::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
+    auto sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
 
 
     for (const wmtk::Tuple& t : mesh.get_all(wmtk::PrimitiveType::Edge)) {
-        wmtk::autogen::Dart d = sd.dart_from_tuple(t);
+        wmtk::dart::Dart d = sd.dart_from_tuple(t);
         for (wmtk::PrimitiveType pt : {wmtk::PrimitiveType::Vertex, wmtk::PrimitiveType::Edge}) {
             wmtk::Tuple ot = mesh.switch_tuple(t, pt);
             auto od = acc.switch_dart(d, pt);
-            wmtk::autogen::Dart od2 = sd.dart_from_tuple(ot);
+            wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
             CHECK(od.global_id() == od2.global_id());
             CHECK(od.local_orientation() == od2.local_orientation());
         }
@@ -38,7 +37,7 @@ TEST_CASE("dart_access", "[dart_accessor]")
         if (!is_boundary_m) {
             wmtk::Tuple ot = mesh.switch_tuple(t, wmtk::PrimitiveType::Triangle);
             auto od = acc.switch_dart(d, wmtk::PrimitiveType::Triangle);
-            wmtk::autogen::Dart od2 = sd.dart_from_tuple(ot);
+            wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
             CHECK(od.global_id() == od2.global_id());
             CHECK(od.local_orientation() == od2.local_orientation());
         }
@@ -57,10 +56,10 @@ TEST_CASE("dart_performance", "[performance][.]")
 
     auto mesh_in = std::static_pointer_cast<wmtk::TriMesh>(wmtk::io::read_mesh(meshfile));
     wmtk::TriMesh& mesh = *mesh_in;
-    auto handle = wmtk::attribute::register_dart_boundary_topology_attribute(mesh, "dart", true);
+    auto handle = wmtk::dart::register_dart_boundary_topology_attribute(mesh, "dart", true);
     std::vector<wmtk::Tuple> all_tuples = mesh.get_all(wmtk::PrimitiveType::Edge);
-    auto sd = wmtk::autogen::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
-    std::vector<wmtk::autogen::Dart> all_darts;
+    auto sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
+    std::vector<wmtk::dart::Dart> all_darts;
     for (const auto& t : all_tuples) {
         all_darts.emplace_back(sd.dart_from_tuple(t));
     }
@@ -68,11 +67,11 @@ TEST_CASE("dart_performance", "[performance][.]")
         spdlog::stopwatch sw;
         auto test_handle =
             mesh.register_attribute<int64_t>("Test attr", wmtk::PrimitiveType::Edge, 1, true);
-        wmtk::attribute::DartAccessor acc(mesh, handle);
+        wmtk::dart::DartTopologyAccessor acc(mesh, handle);
 
         auto test_acc = mesh.create_accessor<int64_t, 1>(test_handle);
         for (int j = 0; j < iterations; ++j) {
-            for (const wmtk::autogen::Dart& d : all_darts) {
+            for (const wmtk::dart::Dart& d : all_darts) {
                 bool is_boundary_d = acc.is_boundary(d);
                 if (!is_boundary_d) {
                     auto od = acc.switch_dart(d, wmtk::PrimitiveType::Triangle);
@@ -86,12 +85,12 @@ TEST_CASE("dart_performance", "[performance][.]")
         spdlog::stopwatch sw;
         auto test_handle =
             mesh.register_attribute<int64_t>("Test attr", wmtk::PrimitiveType::Edge, 1, true);
-        wmtk::attribute::DartAccessor acc(mesh, handle);
+        wmtk::dart::DartTopologyAccessor acc(mesh, handle);
 
         auto test_acc = mesh.create_accessor<int64_t, 1>(test_handle);
         for (int j = 0; j < iterations; ++j) {
             for (const wmtk::Tuple& t : all_tuples) {
-                wmtk::autogen::Dart d = sd.dart_from_tuple(t);
+                wmtk::dart::Dart d = sd.dart_from_tuple(t);
 
                 bool is_boundary_d = acc.is_boundary(d);
                 if (!is_boundary_d) {

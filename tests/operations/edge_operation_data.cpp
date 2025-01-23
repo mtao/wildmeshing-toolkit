@@ -9,7 +9,7 @@
 #include <tools/TetMesh_examples.hpp>
 #include <tools/TriMesh_examples.hpp>
 #include <tools/single_simplex_mesh.hpp>
-#include <wmtk/autogen/utils/largest_shared_subdart_size.hpp>
+#include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/operations/EdgeOperationData.hpp>
 #include <wmtk/operations/internal/CollapseAlternateFacetData.hpp>
 #include <wmtk/operations/internal/SplitAlternateFacetData.hpp>
@@ -28,14 +28,14 @@ TEST_CASE("split_facet_maps", "[operations][data]")
     for (wmtk::PrimitiveType mesh_type : wmtk::utils::primitive_range(
              wmtk::PrimitiveType::Edge,
              wmtk::PrimitiveType::Tetrahedron)) {
-        wmtk::autogen::SimplexDart sd(mesh_type);
+        wmtk::dart::SimplexDart sd(mesh_type);
         wmtk::operations::internal::SplitAlternateFacetData data;
 
         auto& scm = data.m_facet_maps;
 
 
         auto add = [&](int64_t index, int8_t s, const std::array<int64_t, 2>& pr) {
-            scm.emplace_back(wmtk::autogen::Dart(index, s % sd.size()), pr);
+            scm.emplace_back(wmtk::dart::Dart(index, s % sd.size()), pr);
         };
 
         add(0, 2, std::array<int64_t, 2>{{1, 2}});
@@ -74,12 +74,12 @@ TEST_CASE("split_facet_maps", "[operations][data]")
                     boundary_type);
             }
             for (int8_t j = 0; j < sd.size(); ++j) {
-                int left_efficacy = wmtk::autogen::utils::largest_shared_subdart_size(
+                int left_efficacy = wmtk::dart::utils::largest_shared_subdart_size(
                     mesh_type,
                     j,
                     boundary_type,
                     boundaries[0]);
-                int right_efficacy = wmtk::autogen::utils::largest_shared_subdart_size(
+                int right_efficacy = wmtk::dart::utils::largest_shared_subdart_size(
                     mesh_type,
                     j,
                     boundary_type,
@@ -125,7 +125,7 @@ TEST_CASE("split_facet_maps_mesh", "[operations][data]")
     for (wmtk::PrimitiveType mesh_type : wmtk::utils::primitive_range(
              wmtk::PrimitiveType::Edge,
              wmtk::PrimitiveType::Tetrahedron)) {
-        wmtk::autogen::SimplexDart sd(mesh_type);
+        wmtk::dart::SimplexDart sd(mesh_type);
 
 
         const int8_t LA = wmtk::operations::internal::left_ear_action(mesh_type);
@@ -137,7 +137,7 @@ TEST_CASE("split_facet_maps_mesh", "[operations][data]")
             auto mesh_ptr = wmtk::tests::tools::single_simplex_mesh(mesh_type);
             spdlog::info("Mesh dimension: {}", mesh_ptr->top_cell_dimension());
 
-            wmtk::Tuple t = sd.tuple_from_dart(wmtk::autogen::Dart(0, edge_orientation));
+            wmtk::Tuple t = sd.tuple_from_dart(wmtk::dart::Dart(0, edge_orientation));
             // data.add(*mesh_ptr, t);
             //  std::array<int8_t, 2> boundaries;
             //   for (size_t j = 0; j < 2; ++j) {
@@ -157,9 +157,9 @@ TEST_CASE("split_facet_maps_mesh", "[operations][data]")
             const auto& scm_data = split_data.m_facet_maps[0];
 
             wmtk::Tuple left_tuple = sd.tuple_from_dart(
-                wmtk::autogen::Dart(scm_data.new_facet_indices[0], edge_orientation));
+                wmtk::dart::Dart(scm_data.new_facet_indices[0], edge_orientation));
             wmtk::Tuple right_tuple = sd.tuple_from_dart(
-                wmtk::autogen::Dart(scm_data.new_facet_indices[1], edge_orientation));
+                wmtk::dart::Dart(scm_data.new_facet_indices[1], edge_orientation));
             spdlog::info(
                 "{} {}",
                 wmtk::utils::TupleInspector::as_string(left_tuple),
@@ -292,7 +292,7 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
 
 
             auto m = wmtk::tests::two_neighbors();
-            wmtk::autogen::SimplexDart sd(m.top_simplex_type());
+            wmtk::dart::SimplexDart sd(m.top_simplex_type());
             auto& m_debug = reinterpret_cast<wmtk::tests::DEBUG_Mesh&>(m);
             auto& m_tri_debug = reinterpret_cast<wmtk::tests::DEBUG_TriMesh&>(m);
 

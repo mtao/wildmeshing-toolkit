@@ -43,6 +43,8 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
     auto& parent_mmmanager = m.m_multi_mesh_manager;
     const auto& parent_incident_vids = fmoe.incident_vids();
 
+    dart::SimplexDart parent_sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
+
     for (const auto& parent_data : parent_incident_datas) {
         // std::cout << parent_data.fid << " has been processed" << std::endl;
 
@@ -70,12 +72,25 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                 assert(parent_merged_eid != -1);
                 assert(parent_new_fid != -1);
 
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+                dart::SimplexDart child_sd =
+                    dart::SimplexDart::get_singleton(child_ptr->top_simplex_type());
+                wmtk::dart::Dart parent_to_child_dart =
+                    parent_to_child_accessor.IndexBaseType::operator[](parent_ear_eid_old);
+                // the child to parent is always the global id
+                auto child_to_parent_dart = child_to_parent_accessor.IndexBaseType::operator[](
+                    parent_to_child_dart.global_id());
+                Tuple parent_tuple = parent_sd.tuple_from_dart(parent_to_child_dart);
+                Tuple child_tuple = child_sd.tuple_from_dart(child_to_parent_dart);
+
+#else
                 auto parent_to_child_data = Mesh::get_index_access(parent_to_child_accessor)
                                                 .const_vector_attribute(parent_ear_eid_old);
 
                 Tuple parent_tuple, child_tuple;
                 std::tie(parent_tuple, child_tuple) =
                     wmtk::multimesh::utils::vectors_to_tuples(parent_to_child_data);
+#endif
 
                 if (child_tuple.is_null()) {
                     // not child_tuple on this parent edge
@@ -132,7 +147,8 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
 {
     const auto& parent_incident_tet_datas = tmoe.incident_tet_datas();
     const auto& parent_incident_face_datas = tmoe.incident_face_datas();
-    auto parent_mmmanager = m.m_multi_mesh_manager;
+    auto& parent_mmmanager = m.m_multi_mesh_manager;
+    dart::SimplexDart parent_sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
 
     for (const auto& parent_data : parent_incident_tet_datas) {
         for (auto child_ptr : m.get_child_meshes()) {
@@ -159,13 +175,25 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                     assert(parent_merged_fid != -1);
                     assert(parent_new_tid != -1);
 
-                    auto parent_to_child_data = Mesh::get_index_access(parent_to_child_accessor)
-                                                    .const_vector_attribute(parent_ear_fid_old);
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+                    dart::SimplexDart child_sd =
+                        dart::SimplexDart::get_singleton(child_ptr->top_simplex_type());
+                    wmtk::dart::Dart parent_to_child_dart =
+                        parent_to_child_accessor.IndexBaseType::operator[](parent_ear_fid_old);
+                    // the child to parent is always the global id
+                    auto child_to_parent_dart = child_to_parent_accessor.IndexBaseType::operator[](
+                        parent_to_child_dart.global_id());
+                    Tuple parent_tuple = parent_sd.tuple_from_dart(parent_to_child_dart);
+                    Tuple child_tuple = child_sd.tuple_from_dart(child_to_parent_dart);
 
-                    // TUPLE_SIZE is the number of tuples in terms of lon
+#else
+                    auto parent_to_child_data = Mesh::get_index_access(parent_to_child_accessor)
+                                                    .const_vector_attribute(parent_ear_eid_old);
+
                     Tuple parent_tuple, child_tuple;
                     std::tie(parent_tuple, child_tuple) =
                         wmtk::multimesh::utils::vectors_to_tuples(parent_to_child_data);
+#endif
 
                     if (child_tuple.is_null()) {
                         // not child_tuple on this parent face
@@ -262,7 +290,22 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                     assert(parent_merged_fid != -1);
                     assert(parent_new_tid != -1);
 
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+                    dart::SimplexDart child_sd =
+                        dart::SimplexDart::get_singleton(child_ptr->top_simplex_type());
+#endif
                     for (int i = 0; i < 3; ++i) {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+                        wmtk::dart::Dart parent_to_child_dart =
+                            parent_to_child_accessor.IndexBaseType::operator[](parent_old_eids[i]);
+                        // the child to parent is always the global id
+                        auto child_to_parent_dart =
+                            child_to_parent_accessor.IndexBaseType::operator[](
+                                parent_to_child_dart.global_id());
+                        Tuple parent_tuple = parent_sd.tuple_from_dart(parent_to_child_dart);
+                        Tuple child_tuple = child_sd.tuple_from_dart(child_to_parent_dart);
+
+#else
                         auto parent_to_child_data = Mesh::get_index_access(parent_to_child_accessor)
                                                         .const_vector_attribute(parent_old_eids[i]);
 
@@ -270,6 +313,7 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                         Tuple parent_tuple, child_tuple;
                         std::tie(parent_tuple, child_tuple) =
                             wmtk::multimesh::utils::vectors_to_tuples(parent_to_child_data);
+#endif
 
                         if (child_tuple.is_null()) {
                             // not child_tuple on this parent edge

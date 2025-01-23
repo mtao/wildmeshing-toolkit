@@ -1,20 +1,20 @@
 #include "CollapseAlternateFacetData.hpp"
 #include <array>
 #include <vector>
-#include <wmtk/autogen/find_local_dart_action.hpp>
+#include <wmtk/dart/find_local_dart_action.hpp>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/autogen/subgroup/convert.hpp>
-#include <wmtk/autogen/Dart.hpp>
-#include <wmtk/autogen/SimplexDart.hpp>
-#include <wmtk/autogen/local_dart_action.hpp>
+#include <wmtk/dart/Dart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/local_dart_action.hpp>
 #include <wmtk/multimesh/utils/find_local_dart_action.hpp>
 #include <wmtk/multimesh/utils/find_local_switch_sequence.hpp>
 #include <wmtk/utils/primitive_range.hpp>
-#include "wmtk/autogen/SimplexDart.hpp"
+#include "wmtk/dart/SimplexDart.hpp"
 #include "wmtk/utils/TupleInspector.hpp"
 #include <wmtk/utils/Logger.hpp>
 #include "ear_actions.hpp"
-#include <wmtk/autogen/utils/share_simplex.hpp>
+#include <wmtk/dart/utils/share_simplex.hpp>
 
 namespace wmtk::operations::internal {
 namespace {
@@ -72,8 +72,8 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
 {
     const auto& data = get_alternatives_data(t);
 
-    const wmtk::autogen::SimplexDart& sd = wmtk::autogen::SimplexDart::get_singleton(mesh_pt);
-    const wmtk::autogen::Dart t_dart = sd.dart_from_tuple(t);
+    const wmtk::dart::SimplexDart& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
+    const wmtk::dart::Dart t_dart = sd.dart_from_tuple(t);
 
     auto ear_orientations = ear_actions(mesh_pt);
     for(auto& ear_orientation: ear_orientations) {
@@ -144,9 +144,9 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
         //const int8_t ear_orientation = ear_orientation[index];
 
         //const int8_t in_ear_action =
-        //    wmtk::autogen::find_local_dart_action(sd, t_dart.local_orientation(), ear_orientation);
+        //    wmtk::dart::find_local_dart_action(sd, t_dart.local_orientation(), ear_orientation);
 
-        //if(wmtk::autogen::subgroup::can_convert(mesh_pt, mesh_pt - 1, in_ear_action)) {
+        //if(wmtk::dart::subgroup::can_convert(mesh_pt, mesh_pt - 1, in_ear_action)) {
 
         //}
         // const PrimitiveType mappable_dart_dimension = a;
@@ -155,7 +155,7 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
         // } else {
         //     int8_t projected_subdart = sd.convert(action, , mesh_pt - 1);
         //     int8_t mapped_dart = sd.product(tup.local_orientation(), action);
-        //     const wmtk::autogen::Dart d(tup.global_id(), mapped_dart);
+        //     const wmtk::dart::Dart d(tup.global_id(), mapped_dart);
         //     return sd.tuple_from_dart(d);
         // }
         return {};

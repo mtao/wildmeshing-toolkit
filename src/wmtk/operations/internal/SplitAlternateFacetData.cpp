@@ -4,7 +4,7 @@
 #include <cassert>
 #include <vector>
 #include <wmtk/Mesh.hpp>
-#include <wmtk/autogen/SimplexDart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/operations/EdgeOperationData.hpp>
 #include <wmtk/utils/TupleInspector.hpp>
 #include "ear_actions.hpp"
@@ -53,7 +53,7 @@ auto SplitAlternateFacetData::add_facet(const wmtk::Mesh& mesh, const wmtk::Tupl
     -> const Data&
 {
     const PrimitiveType mesh_pt = mesh.top_simplex_type();
-    const auto& sd = wmtk::autogen::SimplexDart::get_singleton(mesh_pt);
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
     return m_facet_maps.emplace_back(sd.dart_from_tuple(edge_tuple), nfa);
 }
 
@@ -73,7 +73,7 @@ auto SplitAlternateFacetData::get_alternative(
     const auto alts_it = get_alternative_facets_it(wmtk::utils::TupleInspector::global_cid(t));
     assert(alts_it != m_facet_maps.end());
 
-    const auto& sd = wmtk::autogen::SimplexDart::get_singleton(mesh_pt);
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
 
     int64_t new_global_cid = alts_it->new_gid(mesh_pt, sd.valid_index_from_tuple(t));
 

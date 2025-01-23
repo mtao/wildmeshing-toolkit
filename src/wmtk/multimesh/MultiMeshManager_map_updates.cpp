@@ -3,8 +3,8 @@
 #include <functional>
 #include <set>
 #include <wmtk/Mesh.hpp>
-#include <wmtk/autogen/Dart.hpp>
-#include <wmtk/autogen/SimplexDart.hpp>
+#include <wmtk/dart/Dart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/operations/EdgeOperationData.hpp>
 #include <wmtk/operations/internal/CollapseAlternateFacetData.hpp>
 #include <wmtk/operations/internal/SplitAlternateFacetData.hpp>

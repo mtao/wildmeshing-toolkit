@@ -1,6 +1,6 @@
 #include "LinkSingleDimensionIterable.hpp"
 
-#include <wmtk/autogen/SimplexDart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/autogen/local_switch_tuple.hpp>
 #include <wmtk/simplex/cofaces_in_simplex_iterable.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
@@ -142,7 +142,7 @@ Tuple LinkSingleDimensionIterable::Iterator::navigate_to_link(Tuple t)
     // invert the simplex using SimplexDart
     const Mesh& mesh = m_container.m_mesh;
     // const PrimitiveType& mesh_pt = mesh.top_simplex_type();
-    // autogen::SimplexDart sd(mesh_pt);
+    // dart::SimplexDart sd(mesh_pt);
 
     // switch (mesh.top_simplex_type()) {
     // case PrimitiveType::Triangle: {

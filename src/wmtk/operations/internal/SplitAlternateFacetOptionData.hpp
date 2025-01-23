@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
-#include <wmtk/autogen/Dart.hpp>
-#include <wmtk/autogen/SimplexDart.hpp>
+#include <wmtk/dart/Dart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 namespace wmtk {
 class Mesh;
 namespace autogen {
@@ -12,7 +12,7 @@ namespace wmtk::operations::internal {
 class SplitAlternateFacetOptionData
 {
 public:
-    using Dart = autogen::Dart;
+    using Dart = dart::Dart;
     SplitAlternateFacetOptionData(
         const Dart& input_tuple,
         const std::array<int64_t, 2>& new_facet_indices);

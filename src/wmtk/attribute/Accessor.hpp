@@ -1,5 +1,5 @@
 #pragma once
-#include <wmtk/autogen/Dart.hpp>
+#include <wmtk/dart/Dart.hpp>
 #include <wmtk/simplex/IdSimplex.hpp>
 #include <wmtk/simplex/Simplex.hpp>
 #include "CachingAccessor.hpp"
@@ -15,9 +15,11 @@ class DEBUG_TriMesh;
 class DEBUG_EdgeMesh;
 } // namespace tests
 } // namespace wmtk
-namespace wmtk::attribute {
+namespace wmtk::dart {
 template <int Dim, typename MeshType>
 class DartAccessor;
+}
+namespace wmtk::attribute {
 /**
  * A CachingAccessor that uses tuples for accessing attributes instead of indices.
  * As global simplex ids should not be publicly available, this accessor uses the Mesh.id()
@@ -34,7 +36,7 @@ public:
     friend class wmtk::PointMesh;
 
     template <int Dim2, typename MeshType2>
-    friend class DartAccessor;
+    friend class dart::DartAccessor;
     using Scalar = T;
 
     using BaseType = AccessorBase<T, Dim>;
@@ -93,7 +95,7 @@ protected:
     int64_t index(const Tuple& t) const;
     int64_t index(const simplex::Simplex& t) const;
     int64_t index(const simplex::IdSimplex& t) const;
-    int64_t index(const autogen::Dart& t) const;
+    int64_t index(const dart::Dart& t) const;
 
     using CachingBaseType::base_type;
     CachingBaseType& caching_base_type() { return *this; }

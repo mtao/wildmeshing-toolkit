@@ -1,6 +1,5 @@
 #include "MultiMeshManager.hpp"
 #include <cassert>
-#include <wmtk/attribute/DartAccessor.hpp>
 #include <wmtk/utils/vector_hash.hpp>
 // debug function that reads into this structure
 #include "utils/check_map_valid.hpp"
@@ -20,7 +19,8 @@
 #include "utils/transport_tuple.hpp"
 #include "utils/tuple_map_attribute_io.hpp"
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-#include <wmtk/autogen/SimplexDart.hpp>
+#include <wmtk/dart/DartAccessor.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 #endif
 
 namespace wmtk::multimesh {
@@ -47,19 +47,36 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     PrimitiveType target_pt,
     const Tuple& source_tuple)
 {
-    const autogen::SimplexDart& sd = autogen::SimplexDart::get_singleton(
-        source_to_target_map_accessor.mesh().top_simplex_type());
-    const autogen::SimplexDart& osd = autogen::SimplexDart::get_singleton(target_pt);
-    wmtk::autogen::Dart source_dart = sd.dart_from_tuple(source_tuple);
+    const dart::SimplexDart& sd =
+        dart::SimplexDart::get_singleton(source_to_target_map_accessor.mesh().top_simplex_type());
+    const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(target_pt);
+    wmtk::dart::Dart source_dart = sd.dart_from_tuple(source_tuple);
 
     int8_t osource_orient = sd.convert(source_dart.local_orientation(), osd);
-    autogen::Dart act = source_to_target_map_accessor[source_dart];
-    autogen::Dart target_dart = {
+    dart::Dart act = source_to_target_map_accessor[source_dart];
+
+    if (act.global_id() != source_dart.global_id()) {
+        const auto& source_mesh = source_to_target_map_accessor.mesh();
+        assert(source_mesh.top_simplex_type() > target_pt);
+        const std::vector<Tuple> equivalent_tuples = simplex::top_dimension_cofaces_tuples(
+            source_mesh,
+            simplex::Simplex(target_pt, source_tuple));
+        for (const auto& t : equivalent_tuples) {
+            if (t.m_global_cid == source_dart.global_id()) {
+                // TODO: fix
+
+                break;
+            }
+        }
+    }
+
+
+    dart::Dart target_dart = {
         act.global_id(),
         osd.product(act.local_orientation(), osource_orient)};
     return sd.tuple_from_dart(target_dart);
 }
-#endif
+#else
 Tuple MultiMeshManager::map_tuple_between_meshes(
     const Mesh& source_mesh,
     const Mesh& target_mesh,
@@ -142,6 +159,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
         target_mesh_primitive_type);
 }
 
+#endif
 
 MultiMeshManager::MultiMeshManager(int64_t dimension)
     : m_has_child_mesh_in_dimension(dimension, false)

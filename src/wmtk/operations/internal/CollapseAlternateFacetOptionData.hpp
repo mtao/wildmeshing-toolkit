@@ -1,7 +1,7 @@
 #pragma once
 #include <array>
-#include <wmtk/autogen/Dart.hpp>
-#include <wmtk/autogen/SimplexDart.hpp>
+#include <wmtk/dart/Dart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 namespace wmtk {
 class Mesh;
 namespace autogen {
@@ -12,13 +12,13 @@ namespace wmtk::operations::internal {
 class CollapseAlternateFacetOptionData
 {
 public:
-    using Dart = autogen::Dart;
+    using Dart = dart::Dart;
     CollapseAlternateFacetOptionData(const Mesh& m, const Tuple& input_tuple);
     CollapseAlternateFacetOptionData(
         const Mesh& m,
-        const autogen::SimplexDart& sd,
+        const dart::SimplexDart& sd,
         const Tuple& input_tuple);
-    autogen::Dart input;
+    dart::Dart input;
 
     // Stores {ear_global_id, M}
     // where M is defined by:
@@ -31,7 +31,7 @@ public:
     // Let M be  Ob = M Oa.
     // Note that for D-1 subdart encoded on G, M will return the equivalent D-1 subdart on Ge
     //
-    std::array<autogen::Dart, 2> alts;
+    std::array<dart::Dart, 2> alts;
     std::array<int8_t, 2> local_boundary_indices;
 
     // Let d be a dart where every D-simplex for D <the input mesh dimension
@@ -44,7 +44,7 @@ public:
     //
     Dart convert(const Dart& d, size_t index) const;
 
-    Dart map_dart_to_alt(const wmtk::autogen::SimplexDart& sd, const Dart& d, int8_t index) const;
+    Dart map_dart_to_alt(const wmtk::dart::SimplexDart& sd, const Dart& d, int8_t index) const;
 
 
 private:

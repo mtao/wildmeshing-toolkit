@@ -2,10 +2,10 @@
 #include <vector>
 #include <wmtk/Primitive.hpp>
 #include <wmtk/Tuple.hpp>
-namespace wmtk::autogen {
+namespace wmtk::dart {
 class SimplexDart;
 class Dart;
-} // namespace wmtk::autogen
+} // namespace wmtk::dart
 
 namespace wmtk::multimesh::utils {
 
@@ -14,11 +14,11 @@ namespace wmtk::multimesh::utils {
 // base_target = switch_tuples(base_source, operations)
 int8_t find_local_dart_action(PrimitiveType mesh_type, const Tuple& source, const Tuple& target);
 int8_t find_local_dart_action(
-    const wmtk::autogen::SimplexDart& sd,
+    const wmtk::dart::SimplexDart& sd,
     const Tuple& source,
     const Tuple& target);
 int8_t find_local_dart_action(
-    const wmtk::autogen::SimplexDart& sd,
-    const wmtk::autogen::Dart& source,
-    const wmtk::autogen::Dart& target);
+    const wmtk::dart::SimplexDart& sd,
+    const wmtk::dart::Dart& source,
+    const wmtk::dart::Dart& target);
 } // namespace wmtk::multimesh::utils

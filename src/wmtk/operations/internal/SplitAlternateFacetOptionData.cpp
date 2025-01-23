@@ -1,5 +1,5 @@
 #include "SplitAlternateFacetOptionData.hpp"
-#include <wmtk/autogen/utils/largest_shared_subdart_size.hpp>
+#include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/operations/internal/ear_actions.hpp>
 
 
@@ -16,7 +16,7 @@ auto make_inds()
         using T = decltype(size_const);
         constexpr static size_t C = T::value;
         std::array<PairPair, C> ret = {};
-        const auto& sd = wmtk::autogen::SimplexDart(PrimitiveType(Dim));
+        const auto& sd = wmtk::dart::SimplexDart(PrimitiveType(Dim));
         const auto boundary_type = PrimitiveType(Dim - 1);
         for (size_t j = 0; j < ret.size(); ++j) {
             auto& r = ret[j];
@@ -50,7 +50,7 @@ auto make_inds()
 }
 template <size_t ArrSize>
 const std::array<int8_t, 2>& boundary_indices_(
-    const wmtk::autogen::SimplexDart& sd,
+    const wmtk::dart::SimplexDart& sd,
     int8_t o,
     const std::array<PairPair, ArrSize>& arr)
 {
@@ -68,7 +68,7 @@ const std::array<int8_t, 2>& boundary_indices_(
 }
 
 const std::array<int8_t, 2>& boundary_indices_(
-    const wmtk::autogen::SimplexDart& sd,
+    const wmtk::dart::SimplexDart& sd,
     int8_t orientation)
 {
     const static std::array<PairPair, 1> edge_inds = make_inds<1>();
@@ -91,7 +91,7 @@ const std::array<int8_t, 2>& boundary_indices_(
 auto SplitAlternateFacetOptionData::boundary_indices(PrimitiveType mesh_type) const
     -> const std::array<int8_t, 2>&
 {
-    const auto& sd = wmtk::autogen::SimplexDart::get_singleton(mesh_type);
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
     const auto& boundary_inds = boundary_indices_(sd, input.local_orientation());
     return boundary_inds;
 }
@@ -107,7 +107,7 @@ SplitAlternateFacetOptionData::SplitAlternateFacetOptionData(
 auto SplitAlternateFacetOptionData::new_gid(PrimitiveType mesh_type, int8_t orientation) const
     -> int64_t
 {
-    const auto& sd = wmtk::autogen::SimplexDart::get_singleton(mesh_type);
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
     const auto& boundary_simplex_indices = boundary_indices(mesh_type);
 
 
@@ -115,7 +115,7 @@ auto SplitAlternateFacetOptionData::new_gid(PrimitiveType mesh_type, int8_t orie
     // the local indices of the ears of faces
 
     auto get_size = [&](size_t index) {
-        return wmtk::autogen::utils::largest_shared_subdart_size(
+        return wmtk::dart::utils::largest_shared_subdart_size(
             mesh_type,
             orientation,
             boundary_type,

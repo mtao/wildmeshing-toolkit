@@ -11,7 +11,7 @@
 #include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/utils/MerkleTreeInteriorNode.hpp>
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-#include <wmtk/attribute/DartAccessor.hpp>
+#include <wmtk/dart/DartAccessor.hpp>
 #endif
 
 
@@ -60,7 +60,7 @@ class MultiMeshManager : public wmtk::utils::MerkleTreeInteriorNode
 public:
     using AccessorType =
 #if defined WMTK_ENABLED_MULTIMESH_DART
-        wmtk::attribute::DartAccessor<1,Mesh>;
+        wmtk::dart::DartAccessor<1, Mesh>;
 #else
         wmtk::attribute::Accessor<int64_t>;
 #endif
@@ -423,16 +423,17 @@ protected: // protected to enable unit testing
 
     // utility static function for mapping a tuple between the source and target given a specified
     // map accessor
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+
+    static Tuple map_tuple_between_meshes(
+        const AccessorType& source_to_target_map_accessor,
+        PrimitiveType target_pt,
+        const Tuple& source_tuple);
+#else
     static Tuple map_tuple_between_meshes(
         const Mesh& source_mesh,
         const Mesh& target_mesh,
         const AccessorType& source_to_target_map_accessor,
-        const Tuple& source_tuple);
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
-    
-    static Tuple map_tuple_between_meshes(
-        const AccessorType& source_to_target_map_accessor,
-            PrimitiveType target_pt,
         const Tuple& source_tuple);
 #endif
 
@@ -455,9 +456,8 @@ protected: // protected to enable unit testing
     // returns {parent_to_child, child_to_parent} accessors
     std::array<AccessorType, 2> get_map_accessors(Mesh& my_mesh, Mesh& c);
     // returns {parent_to_child, child_to_parent} accessors
-    std::array<const AccessorType, 2> get_map_const_accessors(
-        const Mesh& my_mesh,
-        const Mesh& c) const;
+    std::array<const AccessorType, 2> get_map_const_accessors(const Mesh& my_mesh, const Mesh& c)
+        const;
 
 
     //===========

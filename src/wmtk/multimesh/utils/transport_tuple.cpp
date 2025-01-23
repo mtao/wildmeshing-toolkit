@@ -1,7 +1,7 @@
 #include "transport_tuple.hpp"
 //#include <wmtk/utils/TupleInspector.hpp>
 //#include <spdlog/spdlog.h>
-#include <wmtk/autogen/SimplexDart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
 #include "find_local_dart_action.hpp"
 #include "find_local_switch_sequence.hpp"
@@ -29,8 +29,8 @@ Tuple transport_tuple_dart(
     const Tuple& source,
     PrimitiveType primitive_type)
 {
-    wmtk::autogen::SimplexDart base_sd(base_primitive_type);
-    wmtk::autogen::SimplexDart sd(primitive_type);
+    wmtk::dart::SimplexDart base_sd(base_primitive_type);
+    wmtk::dart::SimplexDart sd(primitive_type);
     return transport_tuple(base_sd, sd, base_source, base_target, source);
 }
 } // namespace internal
@@ -67,8 +67,8 @@ Tuple transport_tuple(
 }
 
 Tuple transport_tuple(
-    const wmtk::autogen::SimplexDart& base_sd,
-    const wmtk::autogen::SimplexDart& sd,
+    const wmtk::dart::SimplexDart& base_sd,
+    const wmtk::dart::SimplexDart& sd,
     const Tuple& base_source,
     const Tuple& base_target,
     const Tuple& source)

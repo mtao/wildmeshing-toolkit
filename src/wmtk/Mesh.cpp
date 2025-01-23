@@ -1,6 +1,6 @@
 #include "Mesh.hpp"
 #include <numeric>
-#include <wmtk/autogen/SimplexDart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 
 #include <wmtk/io/MeshWriter.hpp>
 #include <wmtk/utils/Logger.hpp>
@@ -46,9 +46,9 @@ Tuple Mesh::get_tuple_from_id_simplex(const simplex::IdSimplex& s) const
 {
     return tuple_from_id(s.primitive_type(), s.index());
 }
-autogen::Dart Mesh::dart_from_id(const PrimitiveType type, const int64_t gid) const
+dart::Dart Mesh::dart_from_id(const PrimitiveType type, const int64_t gid) const
 {
-    const auto& sd = autogen::SimplexDart::get_singleton(top_simplex_type());
+    const auto& sd = dart::SimplexDart::get_singleton(top_simplex_type());
     return sd.dart_from_tuple(tuple_from_id(type, gid));
 }
 

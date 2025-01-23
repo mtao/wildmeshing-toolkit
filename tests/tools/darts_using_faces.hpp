@@ -3,7 +3,7 @@
 #include <optional>
 #include <vector>
 #include <wmtk/PrimitiveType.hpp>
-#include <wmtk/autogen/Dart.hpp>
+#include <wmtk/dart/Dart.hpp>
 
 namespace wmtk::tests::tools {
 
