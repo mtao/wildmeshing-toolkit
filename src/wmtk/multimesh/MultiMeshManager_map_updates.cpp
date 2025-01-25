@@ -44,7 +44,6 @@ std::tuple<Tuple, Tuple>
 MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const
 {
     assert(&my_mesh.m_multi_mesh_manager == this);
-    dart::SimplexDart parent_sd = dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
     auto [parent_to_child_accessor, child_to_parent_accessor] =
         get_map_const_accessors(my_mesh, child_mesh);
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
@@ -60,7 +59,7 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
 
 #else
     auto parent_to_child_data =
-        Mesh::get_index_access(parent_to_child_accessor).const_vector_attribute(parent_ear_eid_old);
+        Mesh::get_index_access(parent_to_child_accessor).const_vector_attribute(index);
 
     return wmtk::multimesh::utils::vectors_to_tuples(parent_to_child_data);
 #endif
