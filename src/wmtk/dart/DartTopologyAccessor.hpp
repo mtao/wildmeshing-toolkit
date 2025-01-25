@@ -30,7 +30,7 @@ public:
     template <typename IT, typename OT>
     dart::Dart switch_facet(const dart::_Dart<IT, OT>& d) const
     {
-        return switch_facet(d.global_id(), d.local_orientation());
+        return switch_facet(d.global_id(), d.permutation());
     }
 
     template <typename IT, typename OT>
@@ -103,7 +103,7 @@ public:
     }
 
 private:
-    dart::Dart switch_facet(int64_t global_id, int8_t local_orientation) const
+    dart::Dart switch_facet(int64_t global_id, int8_t permutation) const
     {
         PrimitiveType FT = mesh().top_simplex_type();
         PrimitiveType BT = FT - 1;
@@ -111,12 +111,12 @@ private:
 
 
         const auto anchor =
-            IndexBaseType::operator[](global_id)[sd.simplex_index(local_orientation, BT)];
+            IndexBaseType::operator[](global_id)[sd.simplex_index(permutation, BT)];
 
 
         return dart::Dart(
             anchor.global_id(),
-            sd.product(anchor.local_orientation(), local_orientation));
+            sd.product(anchor.permutation(), permutation));
     }
 };
 

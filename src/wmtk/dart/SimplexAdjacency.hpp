@@ -35,13 +35,13 @@ public:
 private:
     Dart dart_as_tuple(int64_t index) const
     {
-        return Dart(m_global_ids[index], m_local_orientations[index]);
+        return Dart(m_global_ids[index], m_permutations[index]);
     }
     DartWrap dart_as_tuple(int64_t index)
     {
-        return DartWrap(m_global_ids[index], m_local_orientations[index]);
+        return DartWrap(m_global_ids[index], m_permutations[index]);
     }
     std::array<int64_t, Dim> m_global_ids;
-    std::array<int8_t, Dim> m_local_orientations;
+    std::array<int8_t, Dim> m_permutations;
 };
 } // namespace wmtk::autogen

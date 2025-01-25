@@ -77,7 +77,7 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
 
     auto ear_orientations = ear_actions(mesh_pt);
     for(auto& ear_orientation: ear_orientations) {
-        ear_orientation = sd.product(ear_orientation ,data.input.local_orientation());
+        ear_orientation = sd.product(ear_orientation ,data.input.permutation());
 
     }
 
@@ -144,7 +144,7 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
         //const int8_t ear_orientation = ear_orientation[index];
 
         //const int8_t in_ear_action =
-        //    wmtk::dart::find_local_dart_action(sd, t_dart.local_orientation(), ear_orientation);
+        //    wmtk::dart::find_local_dart_action(sd, t_dart.permutation(), ear_orientation);
 
         //if(wmtk::dart::subgroup::can_convert(mesh_pt, mesh_pt - 1, in_ear_action)) {
 
@@ -154,7 +154,7 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
         //     return {};
         // } else {
         //     int8_t projected_subdart = sd.convert(action, , mesh_pt - 1);
-        //     int8_t mapped_dart = sd.product(tup.local_orientation(), action);
+        //     int8_t mapped_dart = sd.product(tup.permutation(), action);
         //     const wmtk::dart::Dart d(tup.global_id(), mapped_dart);
         //     return sd.tuple_from_dart(d);
         // }

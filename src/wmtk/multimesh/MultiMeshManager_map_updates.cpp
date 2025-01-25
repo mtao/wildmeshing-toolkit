@@ -430,7 +430,7 @@ int64_t MultiMeshManager::parent_global_cid(const AccessorType& child_to_parent,
 int64_t MultiMeshManager::parent_local_fid(const AccessorType& child_to_parent, int64_t child_gid)
 {
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-    auto o = child_to_parent.IndexBaseType::operator[](child_gid)[0].local_orientation();
+    auto o = child_to_parent.IndexBaseType::operator[](child_gid)[0].permutation();
     return wmtk::dart::SimplexDart::get_singleton(child_to_parent.mesh().top_simplex_type())
         .simplex_index(o, PrimitiveType::Triangle);
 #else

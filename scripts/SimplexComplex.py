@@ -5,7 +5,7 @@ class SimplexComplex:
         self.__simplices__ = list(map(lambda x: list(map(frozenset,x)), simplices))
         
         self.__valid_indices__ = [self.get_index(t) for t in self.all_tuples() if self.valid_tuple(t)]
-        self.__valid_index_map__ = {k:v for v,k in enumerate(self.__valid_indices__)}
+        self.__permutation_index_map__ = {k:v for v,k in enumerate(self.__valid_indices__)}
 
     def __getitem__(self, index):
         return self.__simplices__.__getitem__(index)
@@ -34,14 +34,14 @@ class SimplexComplex:
                      for d in range(len(ss)-1))
 
     def valid_tuple_index_as_simplicial_set(self, index):
-        t = self.valid_tuple_from_valid_index(index)
+        t = self.valid_tuple_from_permutation_index(index)
         return self.valid_tuple_as_simplicial_set(t)
 
     def simplicial_set_as_valid_tuple_index(self,ss):
         tup = self.simplicial_set_as_valid_tuple(ss)
         return self.valid_tuples().index(tup)
 
-    def identity_valid_index(self):
+    def identity_permutation_index(self):
         return self.simplicial_set_as_valid_tuple_index(tuple(range(len(self)+1)))
 
     def __len__(self):
@@ -68,7 +68,7 @@ class SimplexComplex:
     def tuple_from_index(self,index):
         return self.all_tuples()[index]
 
-    def valid_tuple_from_valid_index(self,index):
+    def valid_tuple_from_permutation_index(self,index):
         return self.tuple_from_index(self.__valid_indices__[index])
 
     def valid_tuple_size(self):
@@ -80,8 +80,8 @@ class SimplexComplex:
 
     def index_switch(self,tuple_index, d):
         return self.get_index(self.switch(self.tuple_from_index(tuple_index), d))
-    def valid_index_switch(self,tuple_index, d):
-        return self.__valid_index_map__[
+    def permutation_index_switch(self,tuple_index, d):
+        return self.__permutation_index_map__[
             self.index_switch(
         self.__valid_indices__[tuple_index], d)
         ]
@@ -109,7 +109,7 @@ class SimplexComplex:
 
 
 def valid_switch_table(sc):
-    return [[sc.valid_index_switch(i,d) for d in range(len(sc))] for i in range(sc.valid_tuple_size())]
+    return [[sc.permutation_index_switch(i,d) for d in range(len(sc))] for i in range(sc.valid_tuple_size())]
 
 
 def valid_switch_product_table(sc):
@@ -119,8 +119,8 @@ def valid_switch_product_table(sc):
 def valid_switch_inverse_table(sc):
     table = valid_switch_product_table(sc)
     size = sc.valid_tuple_size()
-    identity_valid_index = sc.simplicial_set_as_valid_tuple_index(tuple(range(len(sc)+1)))
-    return [table[i].index(identity_valid_index) for i in range(size)] 
+    identity_permutation_index = sc.simplicial_set_as_valid_tuple_index(tuple(range(len(sc)+1)))
+    return [table[i].index(identity_permutation_index) for i in range(size)] 
 
 def valid_switch_edge_mirror_table(sc):
     table = valid_switch_product_table(sc)
@@ -192,7 +192,7 @@ def face_changing_subdart_tables(sc, dimension):
 
         
     def compute_preserved_dim(action):
-        act = sc.valid_tuple_from_valid_index(action)
+        act = sc.valid_tuple_from_permutation_index(action)
         s = sc.valid_tuple_as_simplicial_set(act)
         for i,j in enumerate(s):
             if i != j:
@@ -260,7 +260,7 @@ def face_changing_subdart_tables(sc, dimension):
                 max_dim[vindex][index] = compute_preserved_dim(aindex) 
 
                 # print(preserved_dims,compute_preserved_dim(aindex),  p)
-                if aindex == sc.identity_valid_index():
+                if aindex == sc.identity_permutation_index():
                     break
             #print()
             

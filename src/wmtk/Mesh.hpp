@@ -853,11 +853,11 @@ protected:
     int64_t id(const simplex::IdSimplex& s) const { return s.index(); }
     int64_t id(const dart::Dart& s, PrimitiveType type) const
     {
-        return id_virtual(s.global_id(), s.local_orientation(), type);
+        return id_virtual(s.global_id(), s.permutation(), type);
     }
     int64_t id(const dart::DartWrap& s, PrimitiveType type) const
     {
-        return id_virtual(s.global_id(), s.local_orientation(), type);
+        return id_virtual(s.global_id(), s.permutation(), type);
     }
     /// Forwarding version of id on simplices that does id caching
     virtual int64_t id(const simplex::Simplex& s) const = 0;

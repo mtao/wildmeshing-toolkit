@@ -32,8 +32,8 @@ int8_t find_local_dart_action(
 {
     return wmtk::dart::find_local_dart_action(
         sd,
-        source.local_orientation(),
-        target.local_orientation());
+        source.permutation(),
+        target.permutation());
 }
 
 } // namespace wmtk::multimesh::utils

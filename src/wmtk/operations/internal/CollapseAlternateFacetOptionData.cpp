@@ -58,7 +58,7 @@ auto CollapseAlternateFacetOptionData::get_neighbor_action(
         int8_t source_orientation = sd.valid_index_from_tuple(t);
         r = m.switch_tuple(r, m.top_simplex_type());
         d = sd.dart_from_tuple(r);
-        int8_t& target_orientation = d.local_orientation();
+        int8_t& target_orientation = d.permutation();
         int8_t old = target_orientation;
 
         // encode the relative orientaiton at the d orientation
@@ -76,7 +76,7 @@ auto CollapseAlternateFacetOptionData::get_neighbor_action(
         const int8_t& local_boundary_index = local_boundary_indices[index];
 
         if(transform.is_null()) {
-            Dart newd(d.global_id(), wmtk::dart::utils::edge_mirror(sd,d.local_orientation(), input.local_orientation()));
+            Dart newd(d.global_id(), wmtk::dart::utils::edge_mirror(sd,d.permutation(), input.permutation()));
             return map_dart_to_alt(sd,newd,1 - index);
         }
 

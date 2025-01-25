@@ -18,14 +18,14 @@ public:
     IndexType& global_id() { return std::get<0>(*this); }
     IndexType global_id() const { return std::get<0>(*this); }
 
-    OrientType& local_orientation() { return std::get<1>(*this); }
-    OrientType local_orientation() const { return std::get<1>(*this); }
+    OrientType& permutation() { return std::get<1>(*this); }
+    OrientType permutation() const { return std::get<1>(*this); }
 
     bool is_null() const { return global_id() == -1; }
 
     operator std::string() const
     {
-        return fmt::format("Dart[{}:{}]", global_id(), local_orientation());
+        return fmt::format("Dart[{}:{}]", global_id(), permutation());
     }
 
     const tuple_type& as_tuple() const { return static_cast<const tuple_type&>(*this); }
@@ -50,14 +50,14 @@ public:
     using _DartType::_DartType;
     using _DartType::global_id;
     using _DartType::is_null;
-    using _DartType::local_orientation;
+    using _DartType::permutation;
     using _DartType::operator=;
     Dart()
         : _Dart(-1, -1)
     {}
     template <typename A, typename B>
     Dart(const _Dart<A, B>& o)
-        : _DartType(o.global_id(), o.local_orientation())
+        : _DartType(o.global_id(), o.permutation())
     {}
 };
 
@@ -68,7 +68,7 @@ public:
     using _DartType::_DartType;
     using _DartType::global_id;
     using _DartType::is_null;
-    using _DartType::local_orientation;
+    using _DartType::permutation;
     using _DartType::operator=;
 };
 } // namespace wmtk::autogen

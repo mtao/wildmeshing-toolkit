@@ -75,7 +75,7 @@ public:
 
 protected:
     int64_t id(const Tuple& tuple, PrimitiveType type) const;
-    int64_t id(int64_t global_id, int8_t orientation, PrimitiveType pt) const;
+    int64_t id(int64_t global_id, int8_t permutation_index, PrimitiveType pt) const;
     using MeshCRTP<TriMesh>::id; // getting the (simplex) prototype
 
     int64_t id_vertex(const Tuple& tuple) const { return id(tuple, PrimitiveType::Vertex); }
@@ -151,9 +151,9 @@ inline int64_t TriMesh::id(const Tuple& tuple, PrimitiveType type) const
 
     return -1;
 }
-inline int64_t TriMesh::id(int64_t global_id, int8_t orientation, PrimitiveType pt) const
+inline int64_t TriMesh::id(int64_t global_id, int8_t permutation_index, PrimitiveType pt) const
 {
-    int8_t index = autogen::tri_mesh::SimplexDart::simplex_index(pt, orientation);
+    int8_t index = autogen::tri_mesh::SimplexDart::simplex_index(pt, permutation_index);
     switch (pt) {
     case PrimitiveType::Vertex: {
         return m_fv_accessor->index_access().const_scalar_attribute(global_id,index);

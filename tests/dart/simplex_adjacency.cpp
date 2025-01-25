@@ -26,15 +26,15 @@ TEST_CASE("simplex_adjacency_io", "[dart]")
     CHECK(sa[0].global_id() == -1);
     CHECK(sa[1].global_id() == 0);
     CHECK(sa[2].global_id() == 5);
-    CHECK(sa[0].local_orientation() == 1);
-    CHECK(sa[1].local_orientation() == 2);
-    CHECK(sa[2].local_orientation() == 3);
+    CHECK(sa[0].permutation() == 1);
+    CHECK(sa[1].permutation() == 2);
+    CHECK(sa[2].permutation() == 3);
 
     auto saf = sa[0];
     CHECK(saf.global_id() == -1);
-    CHECK(saf.local_orientation() == 1);
+    CHECK(saf.permutation() == 1);
 
     saf = Dart(20, 30);
     CHECK(sa[0].global_id() == 20);
-    CHECK(sa[0].local_orientation() == 30);
+    CHECK(sa[0].permutation() == 30);
 }

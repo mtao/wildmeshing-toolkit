@@ -92,7 +92,7 @@ auto SplitAlternateFacetOptionData::boundary_indices(PrimitiveType mesh_type) co
     -> const std::array<int8_t, 2>&
 {
     const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
-    const auto& boundary_inds = boundary_indices_(sd, input.local_orientation());
+    const auto& boundary_inds = boundary_indices_(sd, input.permutation());
     return boundary_inds;
 }
 

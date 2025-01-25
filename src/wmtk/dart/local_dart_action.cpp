@@ -10,7 +10,7 @@ int8_t local_dart_action(const SimplexDart& sd, int8_t s, int8_t action)
 }
 Dart local_dart_action(const SimplexDart& sd, const Dart& d, int8_t action)
 {
-    return {d.global_id(), local_dart_action(sd, d.local_orientation(), action)};
+    return {d.global_id(), local_dart_action(sd, d.permutation(), action)};
 }
 
 } // namespace wmtk::dart

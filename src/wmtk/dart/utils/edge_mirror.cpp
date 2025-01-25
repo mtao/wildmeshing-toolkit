@@ -7,11 +7,11 @@
 namespace wmtk::dart ::utils{
 
 
-    int8_t edge_mirror(const SimplexDart& sd, int8_t orientation, int8_t edge_local_index) {
+    int8_t edge_mirror(const SimplexDart& sd, int8_t permutation_index, int8_t edge_local_index) {
 
         return 0;
         //int8_t 
-        //return orientation;
+        //return permutation_index;
 
     }
     

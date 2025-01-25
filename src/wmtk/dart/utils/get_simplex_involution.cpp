@@ -14,9 +14,9 @@ wmtk::dart::Dart get_simplex_involution_downwards(
     const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
     const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(opt);
 
-    int8_t oa = sd.convert(a.local_orientation(), osd);
+    int8_t oa = sd.convert(a.permutation(), osd);
 
-    int8_t act = dart::find_local_dart_action(osd, oa, b.local_orientation());
+    int8_t act = dart::find_local_dart_action(osd, oa, b.permutation());
     return dart::Dart(b.global_id(), act);
 }
 wmtk::dart::Dart get_simplex_involution(
@@ -31,7 +31,7 @@ wmtk::dart::Dart get_simplex_involution(
         // opt is greater, so the dart is encoded in terms of opt
         auto dart = get_simplex_involution_downwards(pt,a,opt,b);
         const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(opt);
-        dart.local_orientation() = osd.inverse(dart.local_orientation());
+        dart.permutation() = osd.inverse(dart.permutation());
         return dart;
     }
 }
@@ -45,7 +45,7 @@ std::pair<wmtk::dart::Dart, wmtk::dart::Dart> get_simplex_involution_pair(
         auto d = get_simplex_involution(pt,a,opt,b);
 
         const dart::SimplexDart& osd = dart::SimplexDart::get_singleton( std::max(pt,opt));
-        wmtk::dart::Dart od(a.global_id(), osd.inverse(d.local_orientation()));
+        wmtk::dart::Dart od(a.global_id(), osd.inverse(d.permutation()));
         return {d,od};
     }
 } // namespace wmtk::dart::utils

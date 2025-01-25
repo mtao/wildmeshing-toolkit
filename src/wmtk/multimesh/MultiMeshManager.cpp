@@ -52,7 +52,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(target_pt);
     wmtk::dart::Dart source_dart = sd.dart_from_tuple(source_tuple);
 
-    int8_t osource_orient = sd.convert(source_dart.local_orientation(), osd);
+    int8_t osource_orient = sd.convert(source_dart.permutation(), osd);
     dart::Dart act = source_to_target_map_accessor[source_dart];
 
     if (act.global_id() != source_dart.global_id()) {
@@ -73,7 +73,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
 
     dart::Dart target_dart = {
         act.global_id(),
-        osd.product(act.local_orientation(), osource_orient)};
+        osd.product(act.permutation(), osource_orient)};
     return sd.tuple_from_dart(target_dart);
 }
 #else

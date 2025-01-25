@@ -7,6 +7,6 @@ namespace wmtk::dart {
 namespace wmtk::dart::utils{
 
 
-    int8_t edge_mirror(const SimplexDart& sd, int8_t orientation, int8_t edge_dart);
+    int8_t edge_mirror(const SimplexDart& sd, int8_t permutation_index, int8_t edge_dart);
     
 }

@@ -29,7 +29,7 @@ TEST_CASE("dart_access", "[dart_accessor]")
             auto od = acc.switch_dart(d, pt);
             wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
             CHECK(od.global_id() == od2.global_id());
-            CHECK(od.local_orientation() == od2.local_orientation());
+            CHECK(od.permutation() == od2.permutation());
         }
         bool is_boundary_m = mesh.is_boundary(wmtk::PrimitiveType::Edge, t);
         bool is_boundary_d = acc.is_boundary(d);
@@ -39,7 +39,7 @@ TEST_CASE("dart_access", "[dart_accessor]")
             auto od = acc.switch_dart(d, wmtk::PrimitiveType::Triangle);
             wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
             CHECK(od.global_id() == od2.global_id());
-            CHECK(od.local_orientation() == od2.local_orientation());
+            CHECK(od.permutation() == od2.permutation());
         }
     }
 }

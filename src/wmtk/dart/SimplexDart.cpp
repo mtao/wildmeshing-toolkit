@@ -34,17 +34,17 @@ template <typename
     */
 
 
-#define GET_OP(NAME, RETTYPE)                                                 \
-    auto get_##NAME(PrimitiveType pt)->SimplexDart::RETTYPE                   \
-    {                                                                         \
-        switch (pt) {                                                         \
-        case PrimitiveType::Edge: return &edge_mesh::SimplexDart::NAME;       \
-        case PrimitiveType::Triangle: return &tri_mesh::SimplexDart::NAME;    \
-        case PrimitiveType::Tetrahedron: return &tet_mesh::SimplexDart::NAME; \
-        case PrimitiveType::Vertex: return &point_mesh::SimplexDart::NAME;    \
-        default: assert(false);                                               \
-        }                                                                     \
-        return nullptr;                                                       \
+#define GET_OP(NAME, RETTYPE)                                    \
+    auto get_##NAME(PrimitiveType pt)->SimplexDart::RETTYPE      \
+    {                                                            \
+        switch (pt) {                                            \
+        case PrimitiveType::Edge: return &edge_mesh::NAME;       \
+        case PrimitiveType::Triangle: return &tri_mesh::NAME;    \
+        case PrimitiveType::Tetrahedron: return &tet_mesh::NAME; \
+        case PrimitiveType::Vertex: return &point_mesh::NAME;    \
+        default: assert(false);                                  \
+        }                                                        \
+        return nullptr;                                          \
     }
 GET_OP(product, binary_op_type)
 GET_OP(inverse, unary_op_type)
@@ -53,17 +53,17 @@ GET_OP(identity, nullary_op_type)
 GET_OP(opposite, nullary_op_type)
 } // namespace
 
-#define FORWARD_OP(NAME, OP, RETTYPE, DEFAULT)                               \
-    auto SimplexDart::NAME() const -> RETTYPE                                \
-    {                                                                        \
-        switch (m_simplex_type) {                                            \
-        case PrimitiveType::Edge: return edge_mesh::SimplexDart::OP();       \
-        case PrimitiveType::Triangle: return tri_mesh::SimplexDart::OP();    \
-        case PrimitiveType::Tetrahedron: return tet_mesh::SimplexDart::OP(); \
-        case PrimitiveType::Vertex: return point_mesh::SimplexDart::OP();    \
-        default: assert(false);                                              \
-        }                                                                    \
-        return DEFAULT;                                                      \
+#define FORWARD_OP(NAME, OP, RETTYPE, DEFAULT)                  \
+    auto SimplexDart::NAME() const -> RETTYPE                   \
+    {                                                           \
+        switch (m_simplex_type) {                               \
+        case PrimitiveType::Edge: return edge_mesh::OP();       \
+        case PrimitiveType::Triangle: return tri_mesh::OP();    \
+        case PrimitiveType::Tetrahedron: return tet_mesh::OP(); \
+        case PrimitiveType::Vertex: return point_mesh::OP();    \
+        default: assert(false);                                 \
+        }                                                       \
+        return DEFAULT;                                         \
     }
 
 FORWARD_OP(size, size, size_t, {})
@@ -101,7 +101,7 @@ int8_t SimplexDart::inverse(int8_t a) const
 }
 Dart SimplexDart::act(const Dart& d, int8_t action) const
 {
-    return Dart(d.global_id(), product(action, d.local_orientation()));
+    return Dart(d.global_id(), product(action, d.permutation()));
 }
 
 int8_t SimplexDart::primitive_as_index(wmtk::PrimitiveType pt) const
@@ -145,7 +145,7 @@ int8_t SimplexDart::convert(int8_t valid_index, const SimplexDart& target) const
 
 wmtk::Tuple SimplexDart::tuple_from_dart(const Dart& dart) const
 {
-    return tuple_from_valid_index(dart.global_id(), dart.local_orientation());
+    return tuple_from_valid_index(dart.global_id(), dart.permutation());
 }
 Dart SimplexDart::dart_from_tuple(const wmtk::Tuple& t) const
 {
@@ -156,7 +156,7 @@ Dart SimplexDart::dart_from_tuple(const wmtk::Tuple& t) const
 
 int8_t SimplexDart::simplex_index(const Dart& dart, PrimitiveType simplex_type) const
 {
-    return simplex_index(dart.local_orientation(), simplex_type);
+    return simplex_index(dart.permutation(), simplex_type);
 }
 int8_t SimplexDart::simplex_index(const int8_t valid_index, PrimitiveType simplex_type) const
 {

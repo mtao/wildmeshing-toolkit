@@ -70,7 +70,7 @@ TEST_CASE("split_facet_maps", "[operations][data]")
             std::array<int8_t, 2> boundaries;
             for (size_t j = 0; j < 2; ++j) {
                 boundaries[j] = sd.simplex_index(
-                    sd.product(actions[j], scm_data.input.local_orientation()),
+                    sd.product(actions[j], scm_data.input.permutation()),
                     boundary_type);
             }
             for (int8_t j = 0; j < sd.size(); ++j) {
@@ -142,7 +142,7 @@ TEST_CASE("split_facet_maps_mesh", "[operations][data]")
             //  std::array<int8_t, 2> boundaries;
             //   for (size_t j = 0; j < 2; ++j) {
             //       boundaries[j] = sd.simplex_index(
-            //           sd.product(actions[j], scm_data.input.local_orientation()),
+            //           sd.product(actions[j], scm_data.input.permutation()),
             //           boundary_type);
             //   }
 
@@ -238,7 +238,7 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D][.]")
                     const auto& alt = d.alts[k];
                     REQUIRE(alt.is_null() == bits[k]);
                      const auto& i = d.local_boundary_indices[k];
-                     spdlog::info("Bdata {}:{} global id {}  with local orientation {} => points to {}", j, k, alt.global_id(), alt.local_orientation(), i);
+                     spdlog::info("Bdata {}:{} global id {}  with local orientation {} => points to {}", j, k, alt.global_id(), alt.permutation(), i);
                 }
             }
         }
@@ -438,8 +438,8 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
                 CHECK(left_dart.global_id() == 1);
                 CHECK(right_dart.global_id() == 2);
 
-                auto left_act = sd.act(main_dart, left_dart.local_orientation());
-                auto right_act = sd.act(main_dart, right_dart.local_orientation());
+                auto left_act = sd.act(main_dart, left_dart.permutation());
+                auto right_act = sd.act(main_dart, right_dart.permutation());
                 fmt::print(
                     "{} => {} {} == {} {} (ignore the global ids)\n",
                     std::string(main_dart),
@@ -447,8 +447,8 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
                     std::string(right_alt_opp_dart),
                     std::string(left_act),
                     std::string(right_act));
-                CHECK(left_alt_opp_dart.local_orientation() == left_act.local_orientation());
-                CHECK(right_alt_opp_dart.local_orientation() == right_act.local_orientation());
+                CHECK(left_alt_opp_dart.permutation() == left_act.permutation());
+                CHECK(right_alt_opp_dart.permutation() == right_act.permutation());
             }
             std::vector<std::tuple<wmtk::Tuple, wmtk::Tuple>> left_alternatives, right_alternatives;
 
