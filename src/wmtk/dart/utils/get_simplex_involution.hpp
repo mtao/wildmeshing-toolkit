@@ -4,6 +4,14 @@
 
 namespace wmtk::dart::utils {
 
+    // pt >= opt
+wmtk::dart::Dart get_simplex_involution_downwards(
+    PrimitiveType pt,
+    const dart::Dart& a,
+    PrimitiveType opt,
+    const dart::Dart& b);
+
+
 // maps (pt,a) to (opt,oa) then (opt,b)
 wmtk::dart::Dart get_simplex_involution(
     PrimitiveType pt,

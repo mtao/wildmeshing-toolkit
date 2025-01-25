@@ -288,19 +288,19 @@ void MultiMeshManager::register_child_mesh(
 
 
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-    auto child_to_parent_handle = wmtk::attribute::register_dart_attribute<1>(
+    auto child_to_parent_handle = wmtk::dart::register_dart_attribute<1>(
         child_mesh,
         child_to_parent_map_attribute_name(),
         child_primitive_type);
-    auto parent_to_child_handle = wmtk::attribute::register_dart_attribute<1>(
+    auto parent_to_child_handle = wmtk::dart::register_dart_attribute<1>(
         my_mesh,
         parent_to_child_map_attribute_name(new_child_id),
         child_primitive_type);
 
     auto child_to_parent_accessor =
-        wmtk::attribute::DartAccessor<1, Mesh>(child_mesh, child_to_parent_handle);
+        wmtk::dart::DartAccessor<1, Mesh>(child_mesh, child_to_parent_handle);
     auto parent_to_child_accessor =
-        wmtk::attribute::DartAccessor<1, Mesh>(my_mesh, parent_to_child_handle);
+        wmtk::dart::DartAccessor<1, Mesh>(my_mesh, parent_to_child_handle);
 #else
     auto child_to_parent_handle = child_mesh.register_attribute_typed<int64_t>(
         child_to_parent_map_attribute_name(),
@@ -712,7 +712,7 @@ Tuple MultiMeshManager::map_tuple_to_parent_tuple(const Mesh& my_mesh, const Tup
 
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
     auto map_accessor = AccessorType(my_mesh, map_handle);
-    auto cur_tup = map_tuple_between_meshes(map_accessor, my_tuple);
+    auto cur_tup = map_tuple_between_meshes(map_accessor, parent_mesh.top_simplex_type(), my_tuple);
     assert(!cur_tup.is_null());
     return cur_tup;
 

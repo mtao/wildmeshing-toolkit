@@ -527,6 +527,12 @@ protected: // protected to enable unit testing
     // helper for updating multimap used in the update multimesh edge functor
     static int64_t parent_local_fid(const AccessorType& child_to_parent, int64_t child_gid);
 
+    std::tuple<Tuple, Tuple>
+    mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, const Tuple& t) const;
+
+    std::tuple<Tuple, Tuple>
+    mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const;
+
 
     // ===============================================================================
     // ===============================================================================

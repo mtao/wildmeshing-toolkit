@@ -35,6 +35,36 @@ Tuple find_valid_tuple(
 
 } // namespace
 
+std::tuple<Tuple, Tuple>
+MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, const Tuple& t) const
+{
+    return {};
+}
+std::tuple<Tuple, Tuple>
+MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const
+{
+    assert(&my_mesh.m_multi_mesh_manager == this);
+    dart::SimplexDart parent_sd = dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
+    auto [parent_to_child_accessor, child_to_parent_accessor] =
+        get_map_const_accessors(my_mesh, child_mesh);
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    dart::SimplexDart child_sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
+    wmtk::dart::Dart parent_to_child_dart =
+        parent_to_child_accessor.IndexBaseType::operator[](index);
+    // the child to parent is always the global id
+    auto child_to_parent_dart =
+        child_to_parent_accessor.IndexBaseType::operator[](parent_to_child_dart.global_id());
+    Tuple parent_tuple = parent_sd.tuple_from_dart(parent_to_child_dart);
+    Tuple child_tuple = child_sd.tuple_from_dart(child_to_parent_dart);
+    return {parent_tuple, child_tuple};
+
+#else
+    auto parent_to_child_data =
+        Mesh::get_index_access(parent_to_child_accessor).const_vector_attribute(parent_ear_eid_old);
+
+    return wmtk::multimesh::utils::vectors_to_tuples(parent_to_child_data);
+#endif
+}
 
 void MultiMeshManager::update_child_handles(Mesh& my_mesh)
 {
@@ -62,9 +92,10 @@ void MultiMeshManager::update_maps_from_edge_operation(
     PrimitiveType primitive_type,
     const operations::EdgeOperationData& operation_data)
 {
-    // Assumes that the child mesh does not have a simplex affected by the operation (such cases are
-    // evaluated by a  multimesh topological guarantee or handled by operation specific code. This
-    // just makes sure that the tuple used to map to a child mesh still exists after an operation
+    // Assumes that the child mesh does not have a simplex affected by the operation (such cases
+    // are evaluated by a  multimesh topological guarantee or handled by operation specific
+    // code. This just makes sure that the tuple used to map to a child mesh still exists after
+    // an operation
 
     if (children().empty()) {
         return;
@@ -101,15 +132,7 @@ void MultiMeshManager::update_maps_from_edge_operation(
                 continue;
             }
 
-            auto parent_to_child_data =
-                Mesh::get_index_access(parent_to_child_accessor).const_vector_attribute(gid);
-
-            // wmtk::attribute::TupleAccessor<wmtk::Mesh> tuple_accessor(m, int64_t_handle);
-
-            // read off the data in the Tuple format
-            Tuple parent_tuple, child_tuple;
-            std::tie(parent_tuple, child_tuple) =
-                wmtk::multimesh::utils::vectors_to_tuples(parent_to_child_data);
+            auto [parent_tuple, child_tuple] = mapped_tuples(my_mesh, *child_data.mesh, gid);
 
 
             // If the parent tuple is valid, it means this parent-child pair has already been
@@ -199,14 +222,8 @@ void MultiMeshManager::update_map_tuple_hashes(
             //     fmt::join(child_mesh.absolute_multi_mesh_id(), ","),
             //     original_parent_gid);
             //  read off the original map's data
-            auto parent_to_child_data = Mesh::get_index_access(parent_to_child_accessor)
-                                            .const_vector_attribute(original_parent_gid);
-            // wmtk::attribute::TupleAccessor<wmtk::Mesh> tuple_accessor(m, int64_t_handle);
-
-            // read off the data in the Tuple format
-            Tuple parent_tuple, child_tuple;
-            std::tie(parent_tuple, child_tuple) =
-                wmtk::multimesh::utils::vectors_to_tuples(parent_to_child_data);
+            auto [parent_tuple, child_tuple] =
+                mapped_tuples(my_mesh, *child_data.mesh, original_parent_gid);
 
             // If the parent tuple is valid, it means this parent-child pair has already been
             // handled, so we can skip it
@@ -383,35 +400,42 @@ std::optional<Tuple> MultiMeshManager::find_tuple_from_gid(
         return *it;
     }
 }
-int64_t MultiMeshManager::child_global_cid(
-    const wmtk::attribute::Accessor<int64_t>& parent_to_child,
-    int64_t parent_gid)
+int64_t MultiMeshManager::child_global_cid(const AccessorType& parent_to_child, int64_t parent_gid)
 {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    return parent_to_child.IndexBaseType::operator[](parent_gid)[0].global_id();
+#else
     // look at src/wmtk/multimesh/utils/tuple_map_attribute_io.cpp to see what index global_cid gets mapped to)
     // 2 is the size of a tuple is 2 longs, global_cid currently gets written to position 3
     // 5 is the size of a tuple is 5 longs, global_cid currently gets written to position 3
     return Mesh::get_index_access(parent_to_child)
         .vector_attribute(parent_gid)(
             wmtk::multimesh::utils::TUPLE_SIZE + wmtk::multimesh::utils::GLOBAL_ID_INDEX);
+#endif
 }
-int64_t MultiMeshManager::parent_global_cid(
-    const wmtk::attribute::Accessor<int64_t>& child_to_parent,
-    int64_t child_gid)
+int64_t MultiMeshManager::parent_global_cid(const AccessorType& child_to_parent, int64_t child_gid)
 {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    return child_to_parent.IndexBaseType::operator[](child_gid)[0].global_id();
+#else
     // look at src/wmtk/multimesh/utils/tuple_map_attribute_io.cpp to see what index global_cid gets mapped to)
     // 2 is the size of a tuple is 2 longs, global_cid currently gets written to position 3
     // 5 is the size of a tuple is 5 longs, global_cid currently gets written to position 2
     return Mesh::get_index_access(child_to_parent)
         .vector_attribute(child_gid)(
             wmtk::multimesh::utils::TUPLE_SIZE + wmtk::multimesh::utils::GLOBAL_ID_INDEX);
+#endif
 }
 
-int64_t MultiMeshManager::parent_local_fid(
-    const wmtk::attribute::Accessor<int64_t>& child_to_parent,
-    int64_t child_gid)
+int64_t MultiMeshManager::parent_local_fid(const AccessorType& child_to_parent, int64_t child_gid)
 {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    auto o = child_to_parent.IndexBaseType::operator[](child_gid)[0].local_orientation();
+    return wmtk::dart::SimplexDart::get_singleton(child_to_parent.mesh().top_simplex_type())
+        .simplex_index(o, PrimitiveType::Triangle);
+#else
     // look at src/wmtk/multimesh/utils/tuple_map_attribute_io.cpp to see what index global_cid gets mapped to)
-#if defined WMTK_DISABLE_COMPRESSED_MULTIMESH_TUPLE
+#if defined(WMTK_DISABLE_COMPRESSED_MULTIMESH_TUPLE)
     // 5 is the size of a tuple is 5 longs, global_cid currently gets written to position 3
     return Mesh::get_index_access(child_to_parent)
         .vector_attribute(child_gid)(wmtk::multimesh::utils::TUPLE_SIZE + 2);
@@ -423,6 +447,7 @@ int64_t MultiMeshManager::parent_local_fid(
                 wmtk::multimesh::utils::TUPLE_SIZE + (1 - wmtk::multimesh::utils::GLOBAL_ID_INDEX));
     auto vptr = reinterpret_cast<const int8_t*>(&v);
     return vptr[2];
+#endif
 #endif
 }
 
