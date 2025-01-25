@@ -22,7 +22,7 @@ TEST_CASE("tuple_dart_index_dart_vs_switch", "[tuple]")
 
         for (const auto& t : tuples) {
             CHECK(tuple_is_valid_for_ccw(mesh_type, t));
-            int8_t tuple_as_index = sd.valid_index_from_tuple(t);
+            int8_t tuple_as_index = sd.permutation_index_from_tuple(t);
             for (PrimitiveType pt : primitives_up_to(mesh_type)) {
                 Tuple manual_switch = local_switch_tuple(mesh_type, t, pt);
 
@@ -52,7 +52,7 @@ TEST_CASE("tuple_dart_products_vs_switch", "[tuple]")
             CHECK(tuple_is_valid_for_ccw(mesh_type, t));
             auto run = [&]() {
                 Tuple manual_switch = t;
-                const int8_t initial_index = sd.valid_index_from_tuple(t);
+                const int8_t initial_index = sd.permutation_index_from_tuple(t);
                 const dart::Dart initial_dart = sd.dart_from_tuple(t);
                 int8_t index = initial_index;
                 int8_t op = sd.identity();
@@ -65,9 +65,9 @@ TEST_CASE("tuple_dart_products_vs_switch", "[tuple]")
                     index = sd.product(sd.primitive_as_index(s), index);
                 }
 
-                Tuple product_switch = sd.update_tuple_from_valid_index(t, index);
+                Tuple product_switch = sd.update_tuple_from_permutation_index(t, index);
                 Tuple product_switch2 =
-                    sd.update_tuple_from_valid_index(t, sd.product(op, initial_index));
+                    sd.update_tuple_from_permutation_index(t, sd.product(op, initial_index));
 
                 const dart::Dart output = sd.act(initial_dart, op);
 
@@ -200,8 +200,8 @@ int8_t equal_subdart_dimension(PrimitiveType mesh_type, int8_t a, int8_t b)
 
     return equal_subdart_dimension(
         mesh_type,
-        sd.tuple_from_valid_index(0, a),
-        sd.tuple_from_valid_index(0, b));
+        sd.tuple_from_permutation_index(0, a),
+        sd.tuple_from_permutation_index(0, b));
 }
 
 constexpr int fact(int n)

@@ -3,7 +3,7 @@
 #include <wmtk/dart/SimplexAdjacency.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/autogen/utils/local_id_table_offset.hpp>
-#include <wmtk/dart/utils/simplex_index_from_valid_index.hpp>
+#include <wmtk/dart/utils/simplex_index_from_permutation_index.hpp>
 
 #include <wmtk/utils/TupleInspector.hpp>
 #include <wmtk/utils/primitive_range.hpp>
@@ -27,7 +27,7 @@ TEST_CASE("tuple_autogen_valid_indices_equal", "[tuple]")
 
         std::vector<int8_t> indices_from_tuples, valid_indices_from_tuples;
         for (const auto& t : tuples) {
-            indices_from_tuples.emplace_back(sd.valid_index_from_tuple(t));
+            indices_from_tuples.emplace_back(sd.permutation_index_from_tuple(t));
             valid_indices_from_tuples.emplace_back(
                 wmtk::autogen::utils::local_id_table_offset(mesh_type, t));
         }
@@ -51,13 +51,13 @@ TEST_CASE("tuple_autogen_index_dart_tuple_conversion", "[tuple]")
         dart::SimplexDart sd(mesh_type);
 
         for (const auto& t : tuples) {
-            int8_t i = sd.valid_index_from_tuple(t);
-            Tuple nt = sd.tuple_from_valid_index(0, i);
+            int8_t i = sd.permutation_index_from_tuple(t);
+            Tuple nt = sd.tuple_from_permutation_index(0, i);
 
             for (PrimitiveType pt = PrimitiveType::Vertex; pt < mesh_type; pt = pt + 1) {
                 CHECK(
                     sd.simplex_index(i, pt) ==
-                    wmtk::dart::utils::simplex_index_from_valid_index(mesh_type, i, pt));
+                    wmtk::dart::utils::simplex_index_from_permutation_index(mesh_type, i, pt));
                 CHECK(sd.simplex_index(i, pt) == wmtk::utils::TupleInspector::local_id(nt, pt));
             }
 
