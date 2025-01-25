@@ -21,8 +21,8 @@ int8_t find_local_dart_action(
 {
     // target = R * source
     // target * source^{-1} = R
-    int8_t src = sd.valid_index_from_tuple(source);
-    int8_t tgt = sd.valid_index_from_tuple(target);
+    int8_t src = sd.permutation_index_from_tuple(source);
+    int8_t tgt = sd.permutation_index_from_tuple(target);
     return wmtk::dart::find_local_dart_action(sd, src, tgt);
 }
 int8_t find_local_dart_action(

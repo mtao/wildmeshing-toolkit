@@ -75,7 +75,7 @@ auto SplitAlternateFacetData::get_alternative(
 
     const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
 
-    int64_t new_global_cid = alts_it->new_gid(mesh_pt, sd.valid_index_from_tuple(t));
+    int64_t new_global_cid = alts_it->new_gid(mesh_pt, sd.permutation_index_from_tuple(t));
 
 
     return {

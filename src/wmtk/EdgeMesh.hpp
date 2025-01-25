@@ -119,7 +119,7 @@ inline int64_t EdgeMesh::id(const Tuple& tuple, PrimitiveType type) const
 
 inline int64_t EdgeMesh::id(int64_t global_id, int8_t permutation_index, PrimitiveType pt) const
 {
-    int8_t index = autogen::edge_mesh::SimplexDart::simplex_index(pt, permutation_index);
+    int8_t index = autogen::edge_mesh::simplex_index(pt, permutation_index);
     switch (pt) {
     case PrimitiveType::Vertex: {
         const attribute::Accessor<int64_t, EdgeMesh> ev_accessor =

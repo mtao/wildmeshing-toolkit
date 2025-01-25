@@ -5,10 +5,10 @@
 #include <wmtk/autogen/tet_mesh/SimplexDart.hpp>
 #include <wmtk/autogen/tri_mesh/SimplexDart.hpp>
 #include <wmtk/utils/TupleInspector.hpp>
-#include "simplex_index_from_valid_index.hpp"
+#include "utils/simplex_index_from_permutation_index.hpp"
 #include "subgroup/convert.hpp"
-#include "tuple_from_valid_index.hpp"
-#include "valid_index_from_tuple.hpp"
+#include "utils/tuple_from_permutation_index.hpp"
+#include "utils/permutation_index_from_tuple.hpp"
 
 using namespace wmtk::autogen;
 namespace wmtk::dart {
@@ -34,6 +34,7 @@ template <typename
     */
 
 
+/*
 #define GET_OP(NAME, RETTYPE)                                    \
     auto get_##NAME(PrimitiveType pt)->SimplexDart::RETTYPE      \
     {                                                            \
@@ -71,7 +72,7 @@ using DynamicIntMap = VectorX<int8_t>::ConstMapType;
 namespace {
 const static DynamicIntMap nullmap = DynamicIntMap(nullptr, 0);
 }
-FORWARD_OP(valid_indices, valid_indices_dynamic, DynamicIntMap, nullmap)
+FORWARD_OP(permutation_indices, permutation_indices_dynamic, DynamicIntMap, nullmap)
 
 SimplexDart::SimplexDart(wmtk::PrimitiveType simplex_type)
     : m_simplex_type(simplex_type)
@@ -116,51 +117,54 @@ int8_t SimplexDart::opposite() const
 {
     return m_opposite();
 }
-wmtk::Tuple SimplexDart::tuple_from_valid_index(int64_t gid, int8_t index) const
+wmtk::Tuple SimplexDart::tuple_from_permutation_index(int64_t gid, int8_t index) const
 {
-    return wmtk::dart::tuple_from_valid_index(m_simplex_type, gid, index);
+    return utils::tuple_from_permutation_index(m_simplex_type, gid, index);
 }
-wmtk::Tuple SimplexDart::update_tuple_from_valid_index(const Tuple& t, int8_t index) const
+wmtk::Tuple SimplexDart::update_tuple_from_permutation_index(const Tuple& t, int8_t index) const
 {
-    return wmtk::dart::tuple_from_valid_index(
+    return utils::tuple_from_permutation_index(
         m_simplex_type,
         wmtk::utils::TupleInspector::global_cid(t),
         index);
 }
-int8_t SimplexDart::valid_index_from_tuple(const wmtk::Tuple& t) const
+int8_t SimplexDart::permutation_index_from_tuple(const wmtk::Tuple& t) const
 {
-    return wmtk::dart::valid_index_from_tuple(m_simplex_type, t);
+    return utils::permutation_index_from_tuple(m_simplex_type, t);
 }
 
-int8_t SimplexDart::convert(int8_t valid_index, const SimplexDart& target) const
+int8_t SimplexDart::convert(int8_t permutation_index, const SimplexDart& target) const
 {
     if (target.m_simplex_type == PrimitiveType::Vertex) {
         return 0;
     } else if (m_simplex_type == PrimitiveType::Vertex) {
         return target.identity();
     } else {
-        return subgroup::convert(m_simplex_type, target.m_simplex_type, valid_index);
+        return subgroup::convert(m_simplex_type, target.m_simplex_type, permutation_index);
     }
 }
 
 wmtk::Tuple SimplexDart::tuple_from_dart(const Dart& dart) const
 {
-    return tuple_from_valid_index(dart.global_id(), dart.permutation());
+    return tuple_from_permutation_index(dart.global_id(), dart.permutation());
 }
 Dart SimplexDart::dart_from_tuple(const wmtk::Tuple& t) const
 {
     return Dart{
         wmtk::utils::TupleInspector::global_cid(t),
-        wmtk::dart::valid_index_from_tuple(m_simplex_type, t)};
+        wmtk::dart::permutation_index_from_tuple(m_simplex_type, t)};
 }
 
 int8_t SimplexDart::simplex_index(const Dart& dart, PrimitiveType simplex_type) const
 {
     return simplex_index(dart.permutation(), simplex_type);
 }
-int8_t SimplexDart::simplex_index(const int8_t valid_index, PrimitiveType simplex_type) const
+int8_t SimplexDart::simplex_index(const int8_t permutation_index, PrimitiveType simplex_type) const
 {
-    return simplex_index_from_valid_index(m_simplex_type, valid_index, simplex_type);
+    return utils::simplex_index_from_permutation_index(m_simplex_type, permutation_index, simplex_type);
 }
 } // namespace wmtk::dart
+    */
 
+}
+}

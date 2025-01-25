@@ -4,8 +4,8 @@
 #include <wmtk/Tuple.hpp>
 
 namespace wmtk::autogen::tri_mesh {
-int8_t valid_index_from_tuple(const Tuple& t);
+int8_t permutation_index_from_tuple(const Tuple& t);
 
 }
 
-#include "valid_index_from_tuple.hxx"
+#include "permutation_index_from_tuple.hxx"

@@ -55,7 +55,7 @@ auto CollapseAlternateFacetOptionData::get_neighbor_action(
     Dart d;
     if (!m.is_boundary(boundary_type, r)) {
         const auto& sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
-        int8_t source_orientation = sd.valid_index_from_tuple(t);
+        int8_t source_orientation = sd.permutation_index_from_tuple(t);
         r = m.switch_tuple(r, m.top_simplex_type());
         d = sd.dart_from_tuple(r);
         int8_t& target_orientation = d.permutation();

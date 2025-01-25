@@ -75,7 +75,7 @@ std::vector<Tuple> all_valid_local_tuples(PrimitiveType pt, int64_t global_id)
     size_t size = sd.size();
     tups.reserve(size);
     for (int8_t idx = 0; idx < size; ++idx) {
-        tups.emplace_back(sd.tuple_from_valid_index(global_id, idx));
+        tups.emplace_back(sd.tuple_from_permutation_index(global_id, idx));
     }
 
     return tups;

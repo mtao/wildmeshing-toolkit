@@ -12,14 +12,7 @@ set(SRC_FILES
     Dart.hpp
     Dart.cpp
 
-    tuple_from_valid_index.hpp
-    tuple_from_valid_index.cpp
 
-    valid_index_from_tuple.hpp
-    valid_index_from_tuple.cpp
-
-    simplex_index_from_valid_index.hpp
-    simplex_index_from_valid_index.cpp
 
     subgroup/convert.hpp
 

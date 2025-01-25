@@ -5,7 +5,7 @@
 
 #include "Dart.hpp"
 namespace wmtk::dart {
-// TODO: valid_index here currently stands for the range [0,N] rfather than the set of discontiguous
+// TODO: permutation_index here currently stands for the range [0,N] rfather than the set of discontiguous
 // valid indices stored in each mesh. This nomenclature needs to be cleaned up.
 class SimplexDart_
 {
@@ -23,12 +23,12 @@ public:
     virtual wmtk::PrimitiveType simplex_type() const = 0;
     virtual int8_t simplex_index(wmtk::PrimitiveType type, int8_t permutation_index) const = 0;
     // returns the action equivalent to switching by a particular primitive
-    virtual int8_t primitive_as_index(wmtk::PrimitiveType pt) const = 0;
+    virtual int8_t primitive_switch_as_permutation_index(wmtk::PrimitiveType pt) const = 0;
 
 
     Dart act(const Dart& d, int8_t action) const;
     wmtk::Tuple as_tuple(int64_t gid, int8_t permutation_index) const;
-    wmtk::Tuple update_tuple_from_permutation(const Tuple& t, int8_t valid_index) const;
+    wmtk::Tuple update_tuple_from_permutation(const Tuple& t, int8_t permutation_index) const;
 
     wmtk::Tuple as_tuple(const Dart& dart) const;
     Dart as_dart(const wmtk::Tuple& t) const;
@@ -61,16 +61,16 @@ public:
 
     Dart act(const Dart& d, int8_t action) const;
 
-    wmtk::Tuple tuple_from_valid_index(int64_t gid, int8_t valid_index) const;
-    wmtk::Tuple update_tuple_from_valid_index(const Tuple& t, int8_t valid_index) const;
+    wmtk::Tuple tuple_from_permutation_index(int64_t gid, int8_t permutation_index) const;
+    wmtk::Tuple update_tuple_from_permutation_index(const Tuple& t, int8_t permutation_index) const;
 
     wmtk::Tuple tuple_from_dart(const Dart& dart) const;
     Dart dart_from_tuple(const wmtk::Tuple& t) const;
 
-    int8_t valid_index_from_tuple(const wmtk::Tuple& t) const;
+    int8_t permutation_index_from_tuple(const wmtk::Tuple& t) const;
 
 
-    int8_t simplex_index(const int8_t valid_index, PrimitiveType simplex_type) const;
+    int8_t simplex_index(const int8_t permutation_index, PrimitiveType simplex_type) const;
     int8_t simplex_index(const Dart& dart, PrimitiveType simplex_type) const;
 
     using binary_op_type = int8_t (*)(int8_t, int8_t);
@@ -83,7 +83,7 @@ public:
 
 
     // converts input valid_indx to the target mesh
-    int8_t convert(int8_t valid_index, const SimplexDart& target) const;
+    int8_t convert(int8_t permutation_index, const SimplexDart& target) const;
 
 
     wmtk::PrimitiveType simplex_type() const { return m_simplex_type; }

@@ -77,10 +77,10 @@ Tuple transport_tuple(
     const int8_t action = base_sd.convert(base_action, sd);
 
 
-    int8_t src_dart = sd.valid_index_from_tuple(source);
+    int8_t src_dart = sd.permutation_index_from_tuple(source);
     const int8_t tgt_dart = sd.product(action, src_dart);
     //spdlog::warn("base action{} final action{} src_dart{} tgt_dart{}", base_action, action, src_dart, tgt_dart);
-    const auto r = sd.update_tuple_from_valid_index(source, tgt_dart);
+    const auto r = sd.update_tuple_from_permutation_index(source, tgt_dart);
     //spdlog::info("{}", wmtk::utils::TupleInspector::as_string(r));
     return r;
 }
