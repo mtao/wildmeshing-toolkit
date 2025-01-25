@@ -1,0 +1,44 @@
+#include "SimplexDart.hpp"
+namespace wmtk::autogen::{{ namespace }} {
+
+    SimplexDart::~SimplexDart() = default;
+    int8_t SimplexDart::product(int8_t a, int8_t b) const  {
+        return {{ namespace }}::product(a,b);
+        //
+    }
+    int8_t SimplexDart::inverse(int8_t a) const  {
+        return {{ namespace }}::inverse(a);
+        //
+    }
+    int8_t SimplexDart::primitive_switch_as_permutation_index(wmtk::PrimitiveType pt) const  {
+        //
+        return {{ namespace }}::primitive_switch_as_permutation_index(pt);
+    }
+    int8_t SimplexDart::identity() const  {
+        return {{ namespace }}::identity();
+        //
+    }
+    int8_t SimplexDart::opposite() const  {
+        return {{ namespace }}::opposite();
+        //
+    }
+    size_t SimplexDart::size()  const  {
+        return {{ namespace }}::size();
+        //
+    }
+
+    VectorX<int8_t>::ConstMapType SimplexDart::permutation_indices() const  {
+        //
+
+        return {{ namespace }}::permutation_indices();
+    }
+
+    int8_t SimplexDart::simplex_index(wmtk::PrimitiveType type, int8_t permutation_index) const  {
+        return {{ namespace }}::simplex_index(type, permutation_index);
+        //
+    }
+    wmtk::PrimitiveType SimplexDart::simplex_type() const  {
+        return {{ namespace }}::simplex_type();
+        //
+    }
+}
