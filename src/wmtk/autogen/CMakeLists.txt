@@ -27,6 +27,7 @@ foreach(MESH_TYPE edge_mesh tri_mesh tet_mesh)
             tuple_from_permutation_index.hpp
             tuple_from_permutation_index.hxx
             SimplexDart.hpp
+            SimplexDart.cpp
             local_switch_tuple.hpp
             local_switch_tuple.hxx
             is_ccw.hpp

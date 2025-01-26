@@ -13,23 +13,23 @@ constexpr PrimitiveType primitive_type = wmtk::PrimitiveType::Triangle;
 constexpr int8_t simplex_dimension = get_primitive_type_id(primitive_type);
 } // namespace constants
 
-int8_t product(int8_t a, int8_t b)
+inline int8_t product(int8_t a, int8_t b)
 {
     return auto_valid_switch_product_table[b][a];
 }
-int8_t inverse(int8_t a)
+inline int8_t inverse(int8_t a)
 {
     return auto_valid_switch_inverse_table[a];
 }
-int8_t primitive_switch_as_permutation_index(wmtk::PrimitiveType pt)
+inline int8_t permutation_index_from_primitive_switch(wmtk::PrimitiveType pt)
 {
     return auto_valid_tuple_switch_indices[get_primitive_type_id(pt)];
 }
-int8_t identity()
+inline int8_t identity()
 {
     return auto_valid_tuple_switch_indices[constants::simplex_dimension];
 }
-int8_t opposite()
+inline int8_t opposite()
 {
     return auto_valid_tuple_switch_indices[constants::simplex_dimension + 1];
 }
@@ -38,36 +38,35 @@ constexpr size_t size()
     return sizeof(auto_valid_tuple_indices) / sizeof(int8_t);
 }
 
-auto permutation_indices()
+inline auto permutation_indices()
 {
     return wmtk::utils::array_to_map(auto_valid_tuple_indices);
 }
-auto permutation_indices_dynamic()
+inline auto permutation_indices_dynamic()
 {
     return VectorX<int8_t>::ConstMapType(auto_valid_tuple_indices, size());
 }
 
-int8_t simplex_index(wmtk::PrimitiveType type, int8_t permutation_index)
+inline int8_t simplex_index(int8_t permutation_index, wmtk::PrimitiveType type)
 {
     return auto_valid_tuples[permutation_index][get_primitive_type_id(type)];
 }
 
 
-class SimplexDart : public wmtk::dart::SimplexDart_
+class SimplexDart : public wmtk::dart::SimplexDart
 {
 public:
     ~SimplexDart() override;
     int8_t product(int8_t a, int8_t b) const final;
     int8_t inverse(int8_t a) const final;
     // returns the action equivalent to switching by a particular primitive
-    int8_t primitive_switch_as_permutation_index(wmtk::PrimitiveType pt) const final;
+    int8_t permutation_index_from_primitive_switch(wmtk::PrimitiveType pt) const final;
     int8_t identity() const final;
     int8_t opposite() const final;
     size_t size() const final;
 
     VectorX<int8_t>::ConstMapType permutation_indices() const final;
-
-    int8_t simplex_index(wmtk::PrimitiveType type, int8_t permutation_index) const final;
+    int8_t simplex_index(int8_t permutation_index, wmtk::PrimitiveType type) const final;
     wmtk::PrimitiveType simplex_type() const final;
 };
 } // namespace wmtk::autogen::tri_mesh

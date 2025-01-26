@@ -153,7 +153,7 @@ inline int64_t TriMesh::id(const Tuple& tuple, PrimitiveType type) const
 }
 inline int64_t TriMesh::id(int64_t global_id, int8_t permutation_index, PrimitiveType pt) const
 {
-    int8_t index = autogen::tri_mesh::simplex_index(pt, permutation_index);
+    int8_t index = autogen::tri_mesh::simplex_index(permutation_index, pt);
     switch (pt) {
     case PrimitiveType::Vertex: {
         return m_fv_accessor->index_access().const_scalar_attribute(global_id,index);

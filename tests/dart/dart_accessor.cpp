@@ -19,7 +19,7 @@ TEST_CASE("dart_access", "[dart_accessor]")
 
     wmtk::dart::DartTopologyAccessor acc(mesh, handle);
 
-    auto sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
+    const auto &sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
 
 
     for (const wmtk::Tuple& t : mesh.get_all(wmtk::PrimitiveType::Edge)) {
@@ -58,7 +58,7 @@ TEST_CASE("dart_performance", "[performance][.]")
     wmtk::TriMesh& mesh = *mesh_in;
     auto handle = wmtk::dart::register_dart_boundary_topology_attribute(mesh, "dart", true);
     std::vector<wmtk::Tuple> all_tuples = mesh.get_all(wmtk::PrimitiveType::Edge);
-    auto sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
+    const auto &sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
     std::vector<wmtk::dart::Dart> all_darts;
     for (const auto& t : all_tuples) {
         all_darts.emplace_back(sd.dart_from_tuple(t));

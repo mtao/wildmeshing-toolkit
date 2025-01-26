@@ -8,7 +8,7 @@ auto make_opp_actions() -> std::array<int8_t, 4>
     darts[0] = 0;
     for (int8_t j = 1; j < darts.size(); ++j) {
         PrimitiveType pt = get_primitive_type_from_id(j);
-        wmtk::dart::SimplexDart sd(pt);
+        const wmtk::dart::SimplexDart& sd = wmtk::dart::SimplexDart::get_singleton(pt);
         darts[j] = sd.opposite();
     }
     //
@@ -23,7 +23,7 @@ auto make_left_ear_darts() -> std::array<int8_t, 4>
     auto darts = make_opp_actions();
     for (int8_t j = 1; j < darts.size(); ++j) {
         PrimitiveType pt = get_primitive_type_from_id(j);
-        wmtk::dart::SimplexDart sd(pt);
+        const wmtk::dart::SimplexDart& sd = wmtk::dart::SimplexDart::get_singleton(pt);
         int8_t& action = darts[j];
         action = sd.product(action, sd.primitive_as_index(wmtk::PrimitiveType::Vertex));
     }

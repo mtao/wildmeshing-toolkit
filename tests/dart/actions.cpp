@@ -1,8 +1,8 @@
 #include <catch2/catch_test_macros.hpp>
-#include <wmtk/dart/SimplexDart.hpp>
-#include <wmtk/dart/local_dart_action.hpp>
 #include <wmtk/autogen/is_ccw.hpp>
 #include <wmtk/autogen/local_switch_tuple.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/local_dart_action.hpp>
 #include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/dart/utils/subdart_maximal_action_to_face.hpp>
 #include "tools/DEBUG_Tuple.hpp"
@@ -18,7 +18,7 @@ TEST_CASE("tuple_dart_index_dart_vs_switch", "[tuple]")
     for (PrimitiveType mesh_type :
          {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
         auto tuples = all_valid_local_tuples(mesh_type);
-        dart::SimplexDart sd(mesh_type);
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
 
         for (const auto& t : tuples) {
             CHECK(tuple_is_valid_for_ccw(mesh_type, t));
@@ -45,8 +45,8 @@ TEST_CASE("tuple_dart_products_vs_switch", "[tuple]")
 
         std::vector<PrimitiveType> sequence;
 
-        dart::SimplexDart sd(mesh_type);
 
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
 
         for (const auto& t : tuples) {
             CHECK(tuple_is_valid_for_ccw(mesh_type, t));
@@ -125,14 +125,14 @@ TEST_CASE("tuple_dart_index_dart_map_between_simplices", "[tuple]")
     // homomorphism
     for (PrimitiveType mesh_type :
          {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
-        dart::SimplexDart sd(mesh_type);
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
         for (PrimitiveType mesh_type2 :
              {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
             if (mesh_type > mesh_type2) {
                 continue;
             }
 
-            dart::SimplexDart sd2(mesh_type2);
+            const auto& sd2 = wmtk::dart::SimplexDart::get_singleton(mesh_type2);
             for (int8_t index = 0; index < sd.size(); ++index) {
                 // make sure mapping to a higher dimensional simplex and back always returns the
                 // same dart (injectivity)
@@ -279,7 +279,7 @@ TEST_CASE("maximal_subdart_switches", "[tuple]")
     // when other meshes are available add them here
     for (PrimitiveType mesh_type :
          {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
-        dart::SimplexDart sd(mesh_type);
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
         for (int8_t index = 0; index < sd.size(); ++index) {
             for (PrimitiveType simplex_type :
                  {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {

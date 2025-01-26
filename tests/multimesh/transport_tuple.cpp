@@ -16,13 +16,13 @@ TEST_CASE("transport_tuple", "[tuple][multimesh]")
     // when other meshes are available add them here
     for (PrimitiveType base_mesh_type :
          {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
-        dart::SimplexDart base_sd(base_mesh_type);
+        const auto& base_sd = wmtk::dart::SimplexDart::get_singleton(base_mesh_type);
 
         auto base_all_tuples = all_valid_local_tuples(base_mesh_type);
         for (PrimitiveType mesh_type :
              {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
             auto all_tuples = all_valid_local_tuples(mesh_type);
-            dart::SimplexDart sd(mesh_type);
+            const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
 
             for (const auto& base_source : base_all_tuples) {
                 for (const auto& base_target : base_all_tuples) {

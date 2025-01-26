@@ -5,25 +5,24 @@
 
 #include "Dart.hpp"
 namespace wmtk::dart {
-// TODO: permutation_index here currently stands for the range [0,N] rfather than the set of discontiguous
-// valid indices stored in each mesh. This nomenclature needs to be cleaned up.
-class SimplexDart_
+// TODO: permutation_index here currently stands for the range [0,N] rfather than the set of
+// discontiguous valid indices stored in each mesh. This nomenclature needs to be cleaned up.
+class SimplexDart
 {
 public:
     // to avoid potential construction costs we have some singletons available
-    static const SimplexDart_& get_singleton(wmtk::PrimitiveType simplex_type);
-    virtual ~SimplexDart_() = 0;
+    static const SimplexDart& get_singleton(wmtk::PrimitiveType simplex_type);
+    virtual ~SimplexDart();
     virtual int8_t product(int8_t a, int8_t b) const = 0;
     virtual int8_t inverse(int8_t a) const = 0;
-    virtual int8_t primitive_to_index(wmtk::PrimitiveType pt) const = 0;
     virtual int8_t identity() const = 0;
     virtual int8_t opposite() const = 0;
     virtual size_t size() const = 0;
     virtual VectorX<int8_t>::ConstMapType permutation_indices() const = 0;
     virtual wmtk::PrimitiveType simplex_type() const = 0;
-    virtual int8_t simplex_index(wmtk::PrimitiveType type, int8_t permutation_index) const = 0;
+    virtual int8_t simplex_index(int8_t permutation_index, wmtk::PrimitiveType type) const = 0;
     // returns the action equivalent to switching by a particular primitive
-    virtual int8_t primitive_switch_as_permutation_index(wmtk::PrimitiveType pt) const = 0;
+    virtual int8_t permutation_index_from_primitive_switch(wmtk::PrimitiveType pt) const = 0;
 
 
     Dart act(const Dart& d, int8_t action) const;
@@ -37,7 +36,25 @@ public:
 
 
     int8_t simplex_index(const Dart& dart, PrimitiveType simplex_type) const;
+
+    wmtk::Tuple tuple_from_permutation_index(int64_t gid, int8_t permutation_index) const;
+    wmtk::Tuple update_tuple_from_permutation_index(const Tuple& t, int8_t permutation_index) const;
+
+    wmtk::Tuple tuple_from_dart(const Dart& dart) const;
+    Dart dart_from_tuple(const wmtk::Tuple& t) const;
+
+    int8_t permutation_index_from_tuple(const wmtk::Tuple& t) const;
+
+    int8_t primitive_as_index(wmtk::PrimitiveType pt) const
+    {
+        return permutation_index_from_primitive_switch(pt);
+    }
+
+
+    // converts input valid_indx to the target mesh
+    int8_t convert(int8_t permutation_index, const SimplexDart& target) const;
 };
+/*
 class SimplexDart
 {
 public:
@@ -97,4 +114,5 @@ private:
     const nullary_op_type m_identity;
     const nullary_op_type m_opposite;
 };
+*/
 } // namespace wmtk::dart

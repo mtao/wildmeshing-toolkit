@@ -28,7 +28,7 @@ TEST_CASE("split_facet_maps", "[operations][data]")
     for (wmtk::PrimitiveType mesh_type : wmtk::utils::primitive_range(
              wmtk::PrimitiveType::Edge,
              wmtk::PrimitiveType::Tetrahedron)) {
-        wmtk::dart::SimplexDart sd(mesh_type);
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
         wmtk::operations::internal::SplitAlternateFacetData data;
 
         auto& scm = data.m_facet_maps;
@@ -125,7 +125,7 @@ TEST_CASE("split_facet_maps_mesh", "[operations][data]")
     for (wmtk::PrimitiveType mesh_type : wmtk::utils::primitive_range(
              wmtk::PrimitiveType::Edge,
              wmtk::PrimitiveType::Tetrahedron)) {
-        wmtk::dart::SimplexDart sd(mesh_type);
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
 
 
         const int8_t LA = wmtk::operations::internal::left_ear_action(mesh_type);
@@ -237,8 +237,14 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D][.]")
                 for (size_t k = 0; k < 2; ++k) {
                     const auto& alt = d.alts[k];
                     REQUIRE(alt.is_null() == bits[k]);
-                     const auto& i = d.local_boundary_indices[k];
-                     spdlog::info("Bdata {}:{} global id {}  with local orientation {} => points to {}", j, k, alt.global_id(), alt.permutation(), i);
+                    const auto& i = d.local_boundary_indices[k];
+                    spdlog::info(
+                        "Bdata {}:{} global id {}  with local orientation {} => points to {}",
+                        j,
+                        k,
+                        alt.global_id(),
+                        alt.permutation(),
+                        i);
                 }
             }
         }
@@ -267,11 +273,11 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D][.]")
 
                 const auto& tup = both[j];
                 // boundary == bits is 1
-                 //spdlog::info(
-                 //   "{}: {} => {}",
-                 //   j,
-                 //   wmtk::utils::TupleInspector::as_string(tup),
-                    //bits[j]);
+                // spdlog::info(
+                //   "{}: {} => {}",
+                //   j,
+                //   wmtk::utils::TupleInspector::as_string(tup),
+                // bits[j]);
                 REQUIRE(tup.is_null() == bits[j]);
                 if (!bits[j]) { // not boundary
                     // check that the tuple returned makes sense
@@ -292,7 +298,7 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
 
 
             auto m = wmtk::tests::two_neighbors();
-            wmtk::dart::SimplexDart sd(m.top_simplex_type());
+            const auto& sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
             auto& m_debug = reinterpret_cast<wmtk::tests::DEBUG_Mesh&>(m);
             auto& m_tri_debug = reinterpret_cast<wmtk::tests::DEBUG_TriMesh&>(m);
 

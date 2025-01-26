@@ -16,7 +16,7 @@ auto make_inds()
         using T = decltype(size_const);
         constexpr static size_t C = T::value;
         std::array<PairPair, C> ret = {};
-        const auto& sd = wmtk::dart::SimplexDart(PrimitiveType(Dim));
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(PrimitiveType(Dim));
         const auto boundary_type = PrimitiveType(Dim - 1);
         for (size_t j = 0; j < ret.size(); ++j) {
             auto& r = ret[j];

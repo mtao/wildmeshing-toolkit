@@ -29,8 +29,8 @@ Tuple transport_tuple_dart(
     const Tuple& source,
     PrimitiveType primitive_type)
 {
-    wmtk::dart::SimplexDart base_sd(base_primitive_type);
-    wmtk::dart::SimplexDart sd(primitive_type);
+    const auto& base_sd = wmtk::dart::SimplexDart::get_singleton(base_primitive_type);
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(primitive_type);
     return transport_tuple(base_sd, sd, base_source, base_target, source);
 }
 } // namespace internal

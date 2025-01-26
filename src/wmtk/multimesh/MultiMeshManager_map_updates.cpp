@@ -47,7 +47,8 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
     auto [parent_to_child_accessor, child_to_parent_accessor] =
         get_map_const_accessors(my_mesh, child_mesh);
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-    dart::SimplexDart child_sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
+    const dart::SimplexDart& parent_sd = dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
+    const dart::SimplexDart& child_sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
     wmtk::dart::Dart parent_to_child_dart =
         parent_to_child_accessor.IndexBaseType::operator[](index);
     // the child to parent is always the global id

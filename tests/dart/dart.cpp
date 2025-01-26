@@ -1,8 +1,8 @@
 #include <catch2/catch_test_macros.hpp>
 #include <numeric>
+#include <wmtk/autogen/utils/local_id_table_offset.hpp>
 #include <wmtk/dart/SimplexAdjacency.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
-#include <wmtk/autogen/utils/local_id_table_offset.hpp>
 #include <wmtk/dart/utils/simplex_index_from_permutation_index.hpp>
 
 #include <wmtk/utils/TupleInspector.hpp>
@@ -15,30 +15,31 @@ using namespace wmtk::dart;
 using namespace wmtk::tests;
 
 
-
-TEST_CASE("tuple_autogen_valid_indices_equal", "[tuple]")
+TEST_CASE("tuple_autogen_permutation_indices_equal", "[tuple]")
 {
     // when other meshes are available add them here
     for (PrimitiveType mesh_type :
          {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
         auto tuples = wmtk::tests::all_valid_local_tuples(mesh_type);
-        dart::SimplexDart sd(mesh_type);
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
 
 
-        std::vector<int8_t> indices_from_tuples, valid_indices_from_tuples;
+        std::vector<int8_t> indices_from_tuples, permutation_indices_from_tuples;
         for (const auto& t : tuples) {
             indices_from_tuples.emplace_back(sd.permutation_index_from_tuple(t));
-            valid_indices_from_tuples.emplace_back(
+            permutation_indices_from_tuples.emplace_back(
                 wmtk::autogen::utils::local_id_table_offset(mesh_type, t));
         }
-        VectorX<int8_t> valid_indices = sd.valid_indices();
-        std::vector<int8_t> range(valid_indices.size());
+        VectorX<int8_t> permutation_indices = sd.permutation_indices();
+        std::vector<int8_t> range(permutation_indices.size());
         std::iota(range.begin(), range.end(), 0);
         CHECK(range == indices_from_tuples);
 
-        std::vector<int8_t> valid_indices_vec(valid_indices.begin(), valid_indices.end());
+        std::vector<int8_t> permutation_indices_vec(
+            permutation_indices.begin(),
+            permutation_indices.end());
 
-        CHECK(valid_indices_vec == valid_indices_from_tuples);
+        CHECK(permutation_indices_vec == permutation_indices_from_tuples);
     }
 }
 
@@ -48,7 +49,7 @@ TEST_CASE("tuple_autogen_index_dart_tuple_conversion", "[tuple]")
     for (PrimitiveType mesh_type :
          {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
         auto tuples = wmtk::tests::all_valid_local_tuples(mesh_type);
-        dart::SimplexDart sd(mesh_type);
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
 
         for (const auto& t : tuples) {
             int8_t i = sd.permutation_index_from_tuple(t);
@@ -72,8 +73,8 @@ TEST_CASE("tuple_autogen_index_dart_group_structure", "[tuple]")
     // when other meshes are available add them here
     for (PrimitiveType mesh_type :
          {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
-        dart::SimplexDart sd(mesh_type);
-        assert(size_t(sd.valid_indices().size()) == sd.size());
+        const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
+        assert(size_t(sd.permutation_indices().size()) == sd.size());
 
         for (PrimitiveType pt : wmtk::utils::primitive_below(mesh_type)) {
             const int8_t index_switch = sd.primitive_as_index(pt);
@@ -95,5 +96,4 @@ TEST_CASE("tuple_autogen_index_dart_group_structure", "[tuple]")
         }
     }
 }
-
 

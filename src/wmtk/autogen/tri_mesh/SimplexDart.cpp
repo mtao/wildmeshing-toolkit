@@ -1,7 +1,7 @@
 #include "SimplexDart.hpp"
 namespace wmtk::autogen::tri_mesh {
 
-SimplexDart::~SimplexDart() = default;
+SimplexDart::~SimplexDart() {}
 int8_t SimplexDart::product(int8_t a, int8_t b) const
 {
     return tri_mesh::product(a, b);
@@ -12,10 +12,10 @@ int8_t SimplexDart::inverse(int8_t a) const
     return tri_mesh::inverse(a);
     //
 }
-int8_t SimplexDart::primitive_switch_as_permutation_index(wmtk::PrimitiveType pt) const
+int8_t SimplexDart::permutation_index_from_primitive_switch(wmtk::PrimitiveType pt) const
 {
     //
-    return tri_mesh::primitive_switch_as_permutation_index(pt);
+    return tri_mesh::permutation_index_from_primitive_switch(pt);
 }
 int8_t SimplexDart::identity() const
 {
@@ -37,17 +37,17 @@ VectorX<int8_t>::ConstMapType SimplexDart::permutation_indices() const
 {
     //
 
-    return tri_mesh::permutation_indices();
+    return tri_mesh::permutation_indices_dynamic();
 }
 
-int8_t SimplexDart::simplex_index(wmtk::PrimitiveType type, int8_t permutation_index) const
+int8_t SimplexDart::simplex_index(int8_t permutation_index, wmtk::PrimitiveType type) const
 {
-    return tri_mesh::simplex_index(type, permutation_index);
+    return tri_mesh::simplex_index(permutation_index, type);
     //
 }
 wmtk::PrimitiveType SimplexDart::simplex_type() const
 {
-    return tri_mesh::simplex_type();
+    return tri_mesh::constants::primitive_type;
     //
 }
 } // namespace wmtk::autogen::tri_mesh

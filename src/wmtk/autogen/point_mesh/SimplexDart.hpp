@@ -6,37 +6,69 @@
 #include <cassert>
 #include <wmtk/PrimitiveType.hpp>
 #include <wmtk/Types.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
 
 namespace wmtk::autogen::point_mesh {
-class SimplexDart
+namespace constants {
+constexpr PrimitiveType primitive_type = wmtk::PrimitiveType::Vertex;
+constexpr int8_t simplex_dimension = get_primitive_type_id(primitive_type);
+
+extern const std::array<int8_t, 1> _indices;
+} // namespace constants
+
+inline int8_t product(int8_t a, int8_t b)
+{
+    assert(a == 0 && b == 0);
+    return 0;
+}
+inline int8_t inverse(int8_t a)
+{
+    return 0;
+}
+inline int8_t permutation_index_from_primitive_switch(wmtk::PrimitiveType)
+{
+    return 0;
+}
+inline int8_t identity()
+{
+    return 0;
+}
+inline int8_t opposite()
+{
+    return 0;
+}
+inline int8_t simplex_index(int8_t permutation_index, wmtk::PrimitiveType type)
+{
+    return 0;
+}
+constexpr inline size_t size()
+{
+    return 1;
+}
+
+inline auto permutation_indices()
+{
+    return Vector<int8_t, 1>::ConstMapType(constants::_indices.data());
+}
+inline auto permutation_indices_dynamic()
+{
+    return VectorX<int8_t>::ConstMapType(constants::_indices.data(), size());
+}
+
+class SimplexDart : public wmtk::dart::SimplexDart
 {
 public:
-    SimplexDart();
+    ~SimplexDart() override;
+    int8_t product(int8_t a, int8_t b) const final;
+    int8_t inverse(int8_t a) const final;
+    // returns the action equivalent to switching by a particular primitive
+    int8_t permutation_index_from_primitive_switch(wmtk::PrimitiveType pt) const final;
+    int8_t identity() const final;
+    int8_t opposite() const final;
+    size_t size() const final;
 
-    static int8_t product(int8_t a, int8_t b)
-    {
-        assert(a == 0 && b == 0);
-        return 0;
-    }
-    static int8_t inverse(int8_t a) { return 0; }
-    static int8_t primitive_to_index(wmtk::PrimitiveType) { return 0; }
-    static int8_t identity() { return 0; }
-    static int8_t opposite() { return 0; }
-    constexpr static size_t size() { return 1; }
-
-    const static std::array<int8_t, 1> _indices;
-    static auto valid_indices() { return Vector<int8_t, 1>::ConstMapType(_indices.data()); }
-    static auto valid_indices_dynamic()
-    {
-        return VectorX<int8_t>::ConstMapType(_indices.data(), size());
-    }
-
-    // constexpr static Eigen::Map<const Eigen::Matrix<int8_t, SimplexDart::size(), 1>>
-    // constexpr static auto valid_indices()
-    //{
-    //    return Vector<int8_t,return sizeof(auto_valid_tuple_indices) / sizeof(int8_t); }
-    //           {auto_valid_tuple_indices};
-    //}
+    VectorX<int8_t>::ConstMapType permutation_indices() const final;
+    int8_t simplex_index(int8_t permutation_index, wmtk::PrimitiveType type) const final;
+    wmtk::PrimitiveType simplex_type() const final;
 };
-
 } // namespace wmtk::autogen::point_mesh
