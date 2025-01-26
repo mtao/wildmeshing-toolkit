@@ -16,6 +16,8 @@ TEST_CASE("dart_access", "[dart_accessor]")
     auto mesh = wmtk::tests::three_neighbors();
 
     auto handle = wmtk::dart::register_dart_boundary_topology_attribute(mesh, "dart", true);
+    
+
 
     wmtk::dart::DartTopologyAccessor acc(mesh, handle);
 

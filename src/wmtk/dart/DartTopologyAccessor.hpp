@@ -1,4 +1,5 @@
 #pragma once
+#include <spdlog/spdlog.h>
 #include <wmtk/dart/find_local_dart_action.hpp>
 #include "DartAccessor.hpp"
 #include "utils/get_simplex_involution.hpp"
@@ -13,6 +14,7 @@ public:
 
 public:
     using BaseType::BaseType;
+    using BaseType::size;
 
     using IndexBaseType::mesh;
     static wmtk::attribute::TypedAttributeHandle<int64_t> register_boundary_topology_attribute(
@@ -98,6 +100,13 @@ public:
                 assert(ot != t);
                 const dart::Dart od = sd.dart_from_tuple(ot);
                 fuse(d, od);
+            }
+        }
+        for(int j = 0; j < size(); ++j) {
+            auto row = IndexBaseType::operator[](j);
+            spdlog::info("Row {}", j);
+            for(const auto& r: row) {
+                spdlog::info("{} {}", r.global_id(), r.permutation());
             }
         }
     }

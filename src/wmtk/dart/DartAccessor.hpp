@@ -51,6 +51,10 @@ public:
 
     const MeshType& mesh() const { return m_base_accessor.mesh(); }
 
+    size_t size() {
+        return m_base_accessor.size() / (Dim + 1);
+    }
+
 
 protected:
     BaseAccessor m_base_accessor;
@@ -67,6 +71,7 @@ protected:
 
 public:
     using IndexBaseType::IndexBaseType;
+    using IndexBaseType::size;
 
     using IndexBaseType::mesh;
     friend class wmtk::operations::utils::UpdateEdgeOperationMultiMeshMapFunctor;

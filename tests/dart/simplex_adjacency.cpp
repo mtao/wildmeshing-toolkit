@@ -37,4 +37,12 @@ TEST_CASE("simplex_adjacency_io", "[dart]")
     saf = Dart(20, 30);
     CHECK(sa[0].global_id() == 20);
     CHECK(sa[0].permutation() == 30);
+
+    int count = 0;
+    for(const auto& dw: sa) {
+
+        auto dw2 = sa[count++];
+        assert(dw2 == Dart(sa));
+    }
+
 }

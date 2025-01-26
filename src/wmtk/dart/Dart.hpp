@@ -7,6 +7,7 @@
 namespace wmtk::dart {
 class Dart;
 class DartWrap;
+class ConstDartWrap;
 
 template <typename IndexType, typename OrientType>
 class _Dart : public std::tuple<IndexType, OrientType>
@@ -65,6 +66,17 @@ class DartWrap : public _Dart<int64_t&, int8_t&>
 {
 public:
     using _DartType = _Dart<int64_t&, int8_t&>;
+    using _DartType::_DartType;
+    using _DartType::global_id;
+    using _DartType::is_null;
+    using _DartType::permutation;
+    using _DartType::operator=;
+};
+
+class ConstDartWrap : public _Dart<const int64_t&, const int8_t&>
+{
+public:
+    using _DartType = _Dart<const int64_t&, const int8_t&>;
     using _DartType::_DartType;
     using _DartType::global_id;
     using _DartType::is_null;
