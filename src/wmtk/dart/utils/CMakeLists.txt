@@ -30,6 +30,8 @@ set(SRC_FILES
 
     permutation_index_from_tuple.hpp
     permutation_index_from_tuple.cpp
+
+    get_simplex_dart.hpp
     )
 
 target_sources(wildmeshing_toolkit PRIVATE ${SRC_FILES})

@@ -1,5 +1,8 @@
 #include "UpdateEdgeOperationMultiMeshMapFunctor.hpp"
 
+#include <wmtk/operations/edge_mesh/EdgeOperationData.hpp>
+#include <wmtk/operations/tri_mesh/EdgeOperationData.hpp>
+#include <wmtk/operations/tet_mesh/EdgeOperationData.hpp>
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/PointMesh.hpp>

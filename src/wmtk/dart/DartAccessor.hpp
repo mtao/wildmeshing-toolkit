@@ -52,7 +52,7 @@ public:
     const MeshType& mesh() const { return m_base_accessor.mesh(); }
 
     size_t size() {
-        return m_base_accessor.size() / (Dim + 1);
+        return m_base_accessor.reserved_size() / (Dim + 1);
     }
 
 

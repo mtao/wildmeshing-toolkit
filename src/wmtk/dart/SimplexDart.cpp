@@ -13,20 +13,22 @@
 
 using namespace wmtk::autogen;
 namespace wmtk::dart {
+namespace {
+const static point_mesh::SimplexDart psd_singleton;
+const static edge_mesh::SimplexDart esd_singleton;
+const static tri_mesh::SimplexDart fsd_singleton;
+const static tet_mesh::SimplexDart tsd_singleton;
+} // namespace
 SimplexDart::~SimplexDart() = default;
 
 const SimplexDart& SimplexDart::get_singleton(wmtk::PrimitiveType simplex_type)
 {
-    const static point_mesh::SimplexDart pm;
-    const static edge_mesh::SimplexDart em;
-    const static tri_mesh::SimplexDart fm;
-    const static tet_mesh::SimplexDart tm;
     switch (simplex_type) {
-    case PrimitiveType::Vertex: return pm;
-    case PrimitiveType::Edge: return em;
-    case PrimitiveType::Triangle: return fm;
+    case PrimitiveType::Vertex: return psd_singleton;
+    case PrimitiveType::Edge: return esd_singleton;
+    case PrimitiveType::Triangle: return fsd_singleton;
     default:
-    case PrimitiveType::Tetrahedron: return tm;
+    case PrimitiveType::Tetrahedron: return tsd_singleton;
     }
 }
 wmtk::Tuple SimplexDart::tuple_from_permutation_index(int64_t gid, int8_t index) const
@@ -45,7 +47,6 @@ int8_t SimplexDart::permutation_index_from_tuple(const wmtk::Tuple& t) const
     auto r = utils::permutation_index_from_tuple(simplex_type(), t);
     spdlog::info("{}", r);
     return r;
-
 }
 
 int8_t SimplexDart::convert(int8_t permutation_index, const SimplexDart& target) const

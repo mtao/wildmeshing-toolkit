@@ -41,8 +41,9 @@ TEST_CASE("simplex_adjacency_io", "[dart]")
     int count = 0;
     for(const auto& dw: sa) {
 
-        auto dw2 = sa[count++];
-        assert(dw2 == Dart(sa));
+        Dart dw2 = sa[count++];
+        CHECK(dw2 == dw);
     }
+    CHECK(count == 3);
 
 }

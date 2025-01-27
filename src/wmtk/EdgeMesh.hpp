@@ -1,8 +1,7 @@
 #pragma once
 
 #include <Eigen/Core>
-#include <wmtk/autogen/edge_mesh/SimplexDart.hpp>
-#include <wmtk/operations/edge_mesh/EdgeOperationData.hpp>
+#include <wmtk/autogen/edge_mesh/simplex_index_from_permutation_index.hpp>
 #include "MeshCRTP.hpp"
 #include "Tuple.hpp"
 
@@ -119,7 +118,7 @@ inline int64_t EdgeMesh::id(const Tuple& tuple, PrimitiveType type) const
 
 inline int64_t EdgeMesh::id(int64_t global_id, int8_t permutation_index, PrimitiveType pt) const
 {
-    int8_t index = autogen::edge_mesh::simplex_index(permutation_index, pt);
+    int8_t index = autogen::edge_mesh::simplex_index_from_permutation_index(permutation_index, pt);
     switch (pt) {
     case PrimitiveType::Vertex: {
         const attribute::Accessor<int64_t, EdgeMesh> ev_accessor =

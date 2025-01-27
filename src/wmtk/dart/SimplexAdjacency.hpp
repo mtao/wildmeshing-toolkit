@@ -62,8 +62,11 @@ public:
             m_index++;
             return n;
         }
-        std::strong_ordering operator<=>(const Iterator & o) const {
+        auto operator<=>(const Iterator & o) const -> std::strong_ordering {
             return m_index <=> o.m_index;
+        }
+        auto operator!=(const Iterator & o) const -> bool {
+            return m_index != o.m_index;
         }
 
     };
