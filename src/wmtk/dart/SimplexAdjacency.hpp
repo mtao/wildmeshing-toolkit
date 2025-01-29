@@ -85,7 +85,7 @@ public:
 private:
     ConstDartWrap dart_as_tuple(int64_t index) const
     {
-        return Dart(m_global_ids[index], m_permutations[index]);
+        return ConstDartWrap(m_global_ids[index], m_permutations[index]);
     }
     DartWrap dart_as_tuple(int64_t index)
     {

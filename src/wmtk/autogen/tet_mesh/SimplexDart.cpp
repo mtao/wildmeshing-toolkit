@@ -1,7 +1,7 @@
 #include "SimplexDart.hpp"
 namespace wmtk::autogen::tet_mesh {
 
-SimplexDart::~SimplexDart() {}
+SimplexDart::~SimplexDart() = default;
 int8_t SimplexDart::product(int8_t a, int8_t b) const
 {
     return tet_mesh::product(a, b);

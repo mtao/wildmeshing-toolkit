@@ -183,6 +183,35 @@ def switch_normal_subgroup_table(sc, subgroup_sc):
     return tuple(group_to_subgroup),tuple(subgroup_to_group)
 
 
+# maps a simplex 
+def canonical_subdart_orientation(sc, dimension):
+    num_valid = sc.valid_tuple_size()
+    num_faces = len(sc[dimension])
+
+    data = []
+    # for each tuple, for each simplex at the given dimension
+    for vindex, vt in enumerate(sc.valid_tuples()):
+        ss = sc.valid_tuple_as_simplicial_set(vt)
+        ssl = list(ss)
+        x =ssl[:dimension+1]
+        x.sort() 
+        ssl[:dimension+1] = x
+        ovt = sc.simplicial_set_as_valid_tuple_index(ssl)
+        data.append(ovt)
+    return data
+
+def valid_tuple_permutations(sc):
+    num_valid = sc.valid_tuple_size()
+
+    data = []
+    # for each tuple, for each simplex at the given dimension
+    for vindex, vt in enumerate(sc.valid_tuples()):
+        ss = sc.valid_tuple_as_simplicial_set(vt)
+        data.append(ss)
+    return data
+
+
+
 def face_changing_subdart_tables(sc, dimension):
     #print(sc[dimension])
     #print(sc.valid_tuples())

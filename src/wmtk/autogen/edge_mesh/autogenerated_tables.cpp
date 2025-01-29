@@ -19,4 +19,6 @@ const int8_t auto_valid_tuple_switch_indices[3] = {1, 0, 1};
 
 const int8_t auto_valid_switch_edge_mirror_indices[2] = {1, 0};
 
+const int8_t permutations[2][2] = {{0, 1}, {1, 0}};
+
 } // namespace wmtk::autogen::edge_mesh

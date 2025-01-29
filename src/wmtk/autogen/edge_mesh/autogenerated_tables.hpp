@@ -30,4 +30,7 @@ extern const int8_t auto_valid_tuple_switch_indices[3];
 extern const int8_t auto_valid_switch_edge_mirror_indices[2];
 
 
+extern const int8_t permutations[2][2];
+
+
 } // namespace wmtk::autogen::edge_mesh

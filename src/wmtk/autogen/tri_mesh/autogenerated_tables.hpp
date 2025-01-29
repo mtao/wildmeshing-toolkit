@@ -54,4 +54,10 @@ extern const int8_t subdart_preserving_action_1[6][3];
 extern const int8_t max_subdart_preservation_dimension_1[6][3];
 
 
+extern const int8_t permutations[6][3];
+
+
+extern const int8_t canonical_subdart_orientation[1][6];
+
+
 } // namespace wmtk::autogen::tri_mesh
