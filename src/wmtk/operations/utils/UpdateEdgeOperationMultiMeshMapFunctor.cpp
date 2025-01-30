@@ -1,14 +1,14 @@
 #include "UpdateEdgeOperationMultiMeshMapFunctor.hpp"
 
-#include <wmtk/operations/edge_mesh/EdgeOperationData.hpp>
-#include <wmtk/operations/tri_mesh/EdgeOperationData.hpp>
-#include <wmtk/operations/tet_mesh/EdgeOperationData.hpp>
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/TetMesh.hpp>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
+#include <wmtk/operations/edge_mesh/EdgeOperationData.hpp>
+#include <wmtk/operations/tet_mesh/EdgeOperationData.hpp>
+#include <wmtk/operations/tri_mesh/EdgeOperationData.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
 #include <wmtk/utils/TupleInspector.hpp>
 
@@ -74,7 +74,12 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                 assert(parent_merged_eid != -1);
                 assert(parent_new_fid != -1);
 
+#if defined(WMTK_USE_CXX20)
                 const auto [parent_tuple, child_tuple] =
+#else
+                Tuple parent_tuple, child_tuple;
+                std::tie(parent_tuple, child_tuple) =
+#endif
                     parent_mmmanager.mapped_tuples(m, *child_ptr, parent_ear_eid_old);
 
                 if (child_tuple.is_null()) {
@@ -159,7 +164,12 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                     assert(parent_merged_fid != -1);
                     assert(parent_new_tid != -1);
 
+#if defined(WMTK_USE_CXX20)
                     const auto [parent_tuple, child_tuple] =
+#else
+                    Tuple parent_tuple, child_tuple;
+                    std::tie(parent_tuple, child_tuple) =
+#endif
                         parent_mmmanager.mapped_tuples(m, *child_ptr, parent_ear_fid_old);
 
                     if (child_tuple.is_null()) {
@@ -258,7 +268,12 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                     assert(parent_new_tid != -1);
 
                     for (int i = 0; i < 3; ++i) {
+#if defined(WMTK_USE_CXX20)
                         const auto [parent_tuple, child_tuple] =
+#else
+                        Tuple parent_tuple, child_tuple;
+                        std::tie(parent_tuple, child_tuple) =
+#endif
                             parent_mmmanager.mapped_tuples(m, *child_ptr, parent_old_eids[i]);
 
                         if (child_tuple.is_null()) {

@@ -55,7 +55,8 @@ auto mean_area_measure(const ColVectors<T, Dim>& M) -> Vector<T, 1>
         assert(false);
     }
 
-    const double prefactor = 2 * std::numbers::sqrt3;
+    const double prefactor = 2 * std::sqrt(3.0);
+    //const double prefactor = 2 * std::numbers::sqrt3;
 
     return Eigen::Vector<T, 1>::Constant(prefactor * area / sq_length_sum);
 };
