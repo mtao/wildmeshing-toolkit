@@ -17,23 +17,31 @@ public:
 
     template <typename IT, typename OT>
     DartWrap operator=(const _Dart<IT, OT>& d)
+#if defined(WMTK_ENABLED_CPP20)
         requires(Dim == 1)
+#endif
     {
         (*this)[0] = d;
         return dart_as_tuple(0);
     }
     operator DartWrap()
+#if defined(WMTK_ENABLED_CPP20)
         requires(Dim == 1)
+#endif
     {
         return dart_as_tuple(0);
     }
     operator ConstDartWrap() const
+#if defined(WMTK_ENABLED_CPP20)
         requires(Dim == 1)
+#endif
     {
         return dart_as_tuple(0);
     }
     operator Dart() const
+#if defined(WMTK_ENABLED_CPP20)
         requires(Dim == 1)
+#endif
     {
         return dart_as_tuple(0);
     }
@@ -50,7 +58,11 @@ public:
         DW operator*() const { 
             return m_adj[m_index];
         }
-        DartWrap operator*() requires (!IsConst){ 
+        DartWrap operator*() 
+#if defined(WMTK_ENABLED_CPP20)
+            requires (!IsConst)
+#endif
+            { 
             return m_adj[m_index];
         }
         Iterator& operator++() {
@@ -62,9 +74,15 @@ public:
             m_index++;
             return n;
         }
+#if defined(WMTK_ENABLED_CPP20)
         auto operator<=>(const Iterator & o) const -> std::strong_ordering {
             return m_index <=> o.m_index;
         }
+#else
+        auto operator<=(const Iterator & o) const -> bool {
+            return m_index <= o.m_index;
+        }
+#endif
         auto operator!=(const Iterator & o) const -> bool {
             return m_index != o.m_index;
         }
