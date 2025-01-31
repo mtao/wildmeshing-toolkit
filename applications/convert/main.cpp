@@ -222,13 +222,18 @@ int main(int argc, char* argv[])
 
     fs::path input;
     fs::path output;
+    std::string input_position;
+    std::string output_position;
     std::string type;
     CLI::App* run_cmd = app.add_subcommand("run", "Convert mesh to another type");
     run_cmd->add_option("-i, --input", input, "input file")
         ->required(true)
         ->check(CLI::ExistingFile);
 
+    run_cmd->add_option("--input-position", input_position, "input position attribute name");
+
     run_cmd->add_option("-o, --output", output, "output file");
+    run_cmd->add_option("--output-position", output_position, "output position attribute name");
     run_cmd->add_option("-t, --type", type, "output file type, knows [vtu,hdf5]");
     add_it_path(*run_cmd);
 
