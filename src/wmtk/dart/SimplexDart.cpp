@@ -45,7 +45,6 @@ wmtk::Tuple SimplexDart::update_tuple_from_permutation_index(const Tuple& t, int
 int8_t SimplexDart::permutation_index_from_tuple(const wmtk::Tuple& t) const
 {
     auto r = utils::permutation_index_from_tuple(simplex_type(), t);
-    spdlog::info("{}", r);
     return r;
 }
 

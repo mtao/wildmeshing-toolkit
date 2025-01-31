@@ -4,16 +4,42 @@
         "name_spec":
         "main"
     },
-    "position_attribute": "vertices",
-    "iterations": 30,
+    "position_attribute": "main/vertices",
+    "iterations": 20,
     "length_rel": 0.05,
-    "length_abs": -1,
     "use_for_periodic": false,
     "edge_swap_mode": "valence",
     "fix_uv_seam": false,
     "lock_boundary": false,
+    "utility_attributes": [
+        { 
+            "type": "edge_length",
+            "attribute_path": "main/edge_length",
+            "position_attribute": "main/vertices"
+        }
+    ],
+    "swap": {
+        "enabled": false,
+        "mode": "valence"
+    },
+    "collapse": {
+        "enabled": true,
+        "priority": {
+            "type": "attribute",
+            "attribute_path": "main/edge_length"
+        }
+    },
+    "split": {
+        "enabled" :true
+    },
+    "smooth": {
+        "enabled" :true
+    },
     "output": {
+        "main": {
         "file": "tetwild_fig8_mid",
+        "position_attribute": "main/vertices",
         "type": ".vtu"
+        }
     }
 }

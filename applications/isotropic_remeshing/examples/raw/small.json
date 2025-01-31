@@ -6,13 +6,33 @@
         "main"
     },
     "position_attribute": "vertices",
-    "other_position_attributes": [
-        "vertices"
-    ],
     "iterations": 100,
     "length_rel": 0.2,
     "use_for_periodic": false,
-    "edge_swap_mode": "valence",
+    "swap": {
+        "enabled": true,
+        "mode": "valence"
+    },
+    "utility_attributes": [
+        { 
+            "type": "edge_length",
+            "attribute_path": "main/edge_length",
+            "position_attribute": "main/vertices"
+        }
+    ],
+    "collapse": {
+        "enabled": true,
+        "priority": {
+            "type": "attribute",
+            "attribute_path": "main/edge_length"
+        }
+    },
+    "split": {
+        "enabled" :true
+    },
+    "smooth": {
+        "enabled" :true
+    },
     "fix_uv_seam": false,
     "lock_boundary": false,
     "envelope_size": 1e-3,

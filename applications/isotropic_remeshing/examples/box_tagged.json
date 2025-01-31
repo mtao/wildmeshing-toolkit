@@ -1,0 +1,118 @@
+{
+  "input": {
+    "collapse": {
+      "enabled": true,
+      "priority": {
+        "attribute_path": "combo/min_mean_area_measure",
+        "type": "attribute"
+      }
+    },
+    "copied_attributes": {
+      "combo.patches/vertex_position": "combo/vertex_position",
+      "combo.trims/vertex_position": "combo/vertex_position"
+    },
+    "envelope_size_commented_out": 0.001,
+    "fix_uv_seam": false,
+    "input": {
+      "name_spec_file": "cad/Box_patched_names.json",
+      "path": "cad/Box_patched.hdf5"
+    },
+    "intermediate_output_format": {
+      "combo": {
+        "path": "box_{:04}",
+        "position_attribute": "vertex_position",
+        "type": ".vtu"
+      },
+      "combo.trims": {
+        "path": "box_trims_{:04}",
+        "position_attribute": "vertex_position",
+        "type": ".vtu"
+      }
+    },
+    "iterations": 10,
+    "length_rel": 0.01,
+    "lock_boundary": false,
+    "other_position_attributes": [
+      "combo.trims/vertex_position",
+      "combo.patches/vertex_position"
+    ],
+    "output": {
+      "combo": {
+        "path": "volume",
+        "position_attribute": "vertex_position",
+        "type": ".vtu"
+      },
+      "combo.patches": {
+        "path": "volume_split",
+        "position_attribute": "vertex_position",
+        "type": ".vtu"
+      },
+      "combo.trims": {
+        "path": "trims",
+        "position_attribute": "vertex_position",
+        "type": ".vtu"
+      }
+    },
+    "pass_through_attributes": [
+      "combo.trims/edge_labels",
+      "combo.patches/patch_labels"
+    ],
+    "position_attribute": "combo/vertex_position",
+    "smooth": {
+      "enabled": true
+    },
+    "split": {
+      "enabled": true
+    },
+    "static_cell_complex": [
+      "combo.critical_points",
+      "combo.trims"
+    ],
+    "swap": {
+      "enabled": true,
+      "mode": "valence",
+      "priority": {
+        "attribute_path": "combo/min_mean_area_measure",
+        "type": "attribute"
+      }
+    },
+    "use_for_periodic": false,
+    "utility_attributes": [
+      {
+        "attribute_path": "combo/edge_length",
+        "position_attribute": "combo/vertex_position",
+        "type": "edge_length"
+      },
+      {
+        "attribute_path": "combo/mean_area_measure",
+        "position_attribute": "combo/vertex_position",
+        "type": "mean_ratio_measure"
+      },
+      {
+        "attribute_path": "combo/min_mean_area_measure",
+        "base_attribute_path": "combo/mean_area_measure",
+        "simplex_dimension": 1,
+        "type": "min"
+      }
+    ]
+  },
+  "stats": {
+    "combo": {
+      "edges": 40677,
+      "faces": 27118,
+      "vertices": 13561
+    },
+    "combo.critical_points": {
+      "vertices": 8
+    },
+    "combo.patches": {
+      "edges": 41305,
+      "faces": 27118,
+      "vertices": 14193
+    },
+    "combo.trims": {
+      "edges": 628,
+      "vertices": 640
+    }
+  }
+}

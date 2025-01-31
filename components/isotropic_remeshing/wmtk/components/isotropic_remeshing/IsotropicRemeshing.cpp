@@ -60,10 +60,9 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
 
     m_universal_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(
         m_options.position_attribute.mesh());
-    m_universal_invariants->add(std::make_shared<invariants::ImprovementInvariant>(
-        wmtk::components::multimesh::utils::get_attribute(
-            *m_options.mesh_collection,
-            {"combo/min_mean_area_measure"})));
+    for (const auto& attr : m_options.improvement_attributes) {
+        m_universal_invariants->add(std::make_shared<invariants::ImprovementInvariant>(attr));
+    }
 
 
     if (!m_options.position_attribute.is_valid()) {

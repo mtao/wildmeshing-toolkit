@@ -38,7 +38,7 @@
             "base_attribute_path": "combo/mean_area_measure"
         }
     ],
-    "iterations": 50,
+    "iterations": 10,
     "length_rel": 0.01,
     "use_for_periodic": false,
     "swap": {
@@ -62,7 +62,7 @@
     "smooth": {
         "enabled" :true
     },
-    "2envelope_size": 1e-3,
+    "envelope_size_commented_out": 1e-3,
     "fix_uv_seam": false,
     "lock_boundary": false,
     "output": {

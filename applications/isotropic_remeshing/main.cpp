@@ -9,6 +9,7 @@
 #include <wmtk/components/input/InputOptions.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
 #include "wmtk/components/utils/PathResolver.hpp"
 
@@ -97,6 +98,13 @@ int main(int argc, char* argv[])
 
     options.load_json(j, mc);
     spdlog::info("filling in mesh attributes");
+    if (input_js.contains("improvement_attributes")) {
+        for (const auto& attribute : input_js["improvement_attributes"]) {
+            options.improvement_attributes.emplace_back(
+                wmtk::components::multimesh::utils::get_attribute(mc, attribute));
+        }
+    }
+
 
     wmtk::components::isotropic_remeshing::isotropic_remeshing(options);
 

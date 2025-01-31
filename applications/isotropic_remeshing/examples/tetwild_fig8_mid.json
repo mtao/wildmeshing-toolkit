@@ -7,18 +7,21 @@
         "type": "attribute"
       }
     },
+    "edge_swap_mode": "valence",
     "fix_uv_seam": false,
     "input": {
-      "name_spec": "main",
-      "path": "100071_sf.msh"
+      "file": "tetwild_fig8_mid.msh",
+      "name_spec": "main"
     },
-    "iterations": 10,
-    "length_rel": 0.01,
+    "iterations": 20,
+    "length_rel": 0.05,
     "lock_boundary": false,
     "output": {
-      "path": "100071_sf",
-      "position_attribute": "main/vertices",
-      "type": ".vtu"
+      "main": {
+        "file": "tetwild_fig8_mid",
+        "position_attribute": "main/vertices",
+        "type": ".vtu"
+      }
     },
     "position_attribute": "main/vertices",
     "smooth": {
@@ -28,7 +31,7 @@
       "enabled": true
     },
     "swap": {
-      "enabled": true,
+      "enabled": false,
       "mode": "valence"
     },
     "use_for_periodic": false,
@@ -42,9 +45,10 @@
   },
   "stats": {
     "main": {
-      "edges": 55173,
-      "faces": 36782,
-      "vertices": 18387
+      "cells": 7070,
+      "edges": 8141,
+      "faces": 14380,
+      "vertices": 832
     }
   }
 }

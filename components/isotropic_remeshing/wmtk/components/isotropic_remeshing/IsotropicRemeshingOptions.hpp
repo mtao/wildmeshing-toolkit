@@ -49,6 +49,8 @@ struct IsotropicRemeshingOptions
     EdgeSwapOptions swap;
     std::vector<transfer::TransferStrategyOptions> utility_attributes;
 
+    std::vector<attribute::MeshAttributeHandle> improvement_attributes;
+
     // this should be true for periodic
     bool separate_substructures = false;
 

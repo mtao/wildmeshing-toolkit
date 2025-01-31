@@ -83,7 +83,7 @@ void IsotropicRemeshing::configure_smooth()
 
     // hack for uv
     if (m_options.fix_uv_seam) {
-        proj_op->add_invariant(std::make_shared<wmtk::invariants::uvEdgeInvariant>(
+        m_smooth->add_invariant(std::make_shared<wmtk::invariants::uvEdgeInvariant>(
             mesh,
             other_positions.front().mesh()));
     }
@@ -108,7 +108,7 @@ void IsotropicRemeshing::configure_smooth()
     }
 
     if (position_for_inversion) {
-        proj_op->add_invariant(std::make_shared<SimplexInversionInvariant<double>>(
+        m_smooth->add_invariant(std::make_shared<SimplexInversionInvariant<double>>(
             position_for_inversion.value().mesh(),
             position_for_inversion.value().as<double>()));
     }
@@ -116,10 +116,12 @@ void IsotropicRemeshing::configure_smooth()
     //     op_smooth->add_invariant(m_envelope_invariants);
     // }
 
-    if (update_position) proj_op->add_transfer_strategy(update_position);
+    if (update_position) {
+        m_smooth->add_transfer_strategy(update_position);
+    }
 
     for (const auto& transfer : m_operation_transfers) {
-        proj_op->add_transfer_strategy(transfer);
+        m_smooth->add_transfer_strategy(transfer);
     }
     //if (m_universal_invariants) {
     //    proj_op->add_invariant(m_universal_invariants);
