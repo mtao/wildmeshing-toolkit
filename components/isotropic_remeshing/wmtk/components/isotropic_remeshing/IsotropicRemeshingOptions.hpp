@@ -39,9 +39,9 @@ struct IsotropicRemeshingOptions
     int64_t iterations = 10;
     double length_abs = 0;
     double length_rel = 0;
-    bool lock_boundary = true;
+    bool lock_boundary = false;
     bool use_for_periodic = false;
-    bool fix_uv_seam = true;
+    bool fix_uv_seam = false;
 
     EdgeSplitOptions split;
     EdgeCollapseOptions collapse;
