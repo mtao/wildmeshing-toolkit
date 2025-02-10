@@ -169,19 +169,7 @@ void IsotropicRemeshing::configure_swap()
         m_swap->collapse().add_transfer_strategy(transfer);
     }
     if (m_options.swap.priority) {
-        auto ap = m_options.swap.priority->attribute_path;
-        if (!ap.empty()) {
-            auto priority_attribute = wmtk::components::multimesh::utils::get_attribute(
-                *m_options.mesh_collection,
-                wmtk::components::multimesh::utils::AttributeDescription{ap});
-            auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
-                auto acc =
-                    priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
-                return acc.const_scalar_attribute(s);
-            };
-            m_swap->set_priority(priority_func);
-            spdlog::warn("Collapse got its priority set to attribute {}", ap);
-        }
+        m_options.swap.priority->assign_to(*m_options.mesh_collection, *m_swap);
     }
     if (m_universal_invariants) {
         m_swap->add_invariant(m_universal_invariants);

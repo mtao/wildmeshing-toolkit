@@ -45,19 +45,7 @@ void IsotropicRemeshing::configure_collapse()
     }
 
     if (m_options.collapse.priority) {
-        auto ap = m_options.collapse.priority->attribute_path;
-        if (!ap.empty()) {
-            auto priority_attribute = wmtk::components::multimesh::utils::get_attribute(
-                *m_options.mesh_collection,
-                wmtk::components::multimesh::utils::AttributeDescription{ap});
-            auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
-                auto acc =
-                    priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
-                return acc.const_scalar_attribute(s);
-            };
-            op->set_priority(priority_func);
-            spdlog::warn("Collapse got its priority set to attribute {}", ap);
-        }
+        m_options.collapse.priority->assign_to(*m_options.mesh_collection, *op);
     }
 
     if (m_universal_invariants) {

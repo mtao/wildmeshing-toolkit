@@ -20,7 +20,7 @@ void IsotropicRemeshing::configure_split()
 {
     wmtk::logger().debug("Configure isotropic remeshing split");
     wmtk::Mesh& mesh = m_options.position_attribute.mesh();
-    auto& op = m_split= std::make_shared<operations::EdgeSplit>(mesh);
+    auto& op = m_split = std::make_shared<operations::EdgeSplit>(mesh);
     internal::configure_split(*op, mesh, m_options);
 
     if (m_options.lock_boundary && !m_options.use_for_periodic) {
@@ -42,11 +42,14 @@ void IsotropicRemeshing::configure_split()
         op->set_new_attribute_strategy(transfer->handle());
         op->add_transfer_strategy(transfer);
     }
+    if (m_options.split.priority) {
+        m_options.split.priority->assign_to(*m_options.mesh_collection, *op);
+    }
 
-    //if (m_universal_invariants) {
-    //    m_split->add_invariant(m_universal_invariants);
-    //}
+
+    // if (m_universal_invariants) {
+    //     m_split->add_invariant(m_universal_invariants);
+    // }
     assert(op->attribute_new_all_configured());
-    
 }
 } // namespace wmtk::components::isotropic_remeshing

@@ -91,10 +91,13 @@ public:
     Scheduler();
     ~Scheduler();
 
-    SchedulerStats run_operation_on_all(operations::Operation& op, const Mesh& m);
+    // runs operation on the specified simplices
     SchedulerStats run_operation_on_all(operations::Operation& op, std::vector<simplex::Simplex>&& m);
-
+    // runs on all all k-simplices on the mesh (where k is the op's simplex type)
+    SchedulerStats run_operation_on_all(operations::Operation& op, const Mesh& m);
+    // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
     SchedulerStats run_operation_on_all(operations::Operation& op);
+
     SchedulerStats run_operation_on_all(
         operations::Operation& op,
         const TypedAttributeHandle<char>& flag_handle);

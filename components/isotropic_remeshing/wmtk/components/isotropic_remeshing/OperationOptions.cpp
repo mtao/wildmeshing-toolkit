@@ -2,7 +2,12 @@
 #include <fmt/format.h>
 #include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
+#include <wmtk/Mesh.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
+#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
+#include <wmtk/operations/Operation.hpp>
+#include <wmtk/simplex/Simplex.hpp>
 
 namespace wmtk::components::isotropic_remeshing {
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(PriorityOptions){
@@ -10,10 +15,43 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(PriorityOptions){
     //
 }
 
-WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PriorityOptions){
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PriorityOptions)
+{
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(type, attribute_path)
     //
-} WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(InvariantOptions)
+}
+
+void PriorityOptions::assign_to(
+    const wmtk::components::multimesh::MeshCollection& mc,
+    wmtk::operations::Operation& op) const
+{
+    if (type == "random") {
+        op.use_random_priority() = false;
+        op.set_priority(nullptr);
+    } else if (type == "random") {
+        op.use_random_priority() = true;
+        op.set_priority(nullptr);
+    } else if (type == "attribute") {
+        op.use_random_priority() = false;
+        auto ap = attribute_path;
+        if (!ap.empty()) {
+            auto priority_attribute = wmtk::components::multimesh::utils::get_attribute(
+                mc,
+                wmtk::components::multimesh::utils::AttributeDescription{ap});
+            auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
+                auto acc =
+                    priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
+                return acc.const_scalar_attribute(s);
+            };
+            op.set_priority(priority_func);
+        }
+    } else {
+        assert(false); // tried to assign an invalid priority
+    }
+}
+
+
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(InvariantOptions)
 {
     //
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type)
@@ -49,11 +87,11 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(OperationOptions)
         auto p = std::make_shared<PriorityOptions>();
         p->attribute_path = nlohmann_json_j["priority"]["attribute_path"];
         nlohmann_json_t.priority = std::move(p);
-        spdlog::info("{}", nlohmann_json_t.priority->attribute_path);
     }
 
     //
 }
+
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EdgeSplitOptions)
 {

@@ -6,18 +6,32 @@
 
 #include "EdgeSwapMode.hpp"
 
+namespace wmtk {
+namespace operations {
+class Operation;
+}
+namespace components::multimesh {
+class MeshCollection;
+}
+} // namespace wmtk
 namespace wmtk::components::isotropic_remeshing {
 
 struct PriorityOptions
 {
     std::string type;
-    std::string attribute_path; // TODO move this into a child 
+    std::string attribute_path; // TODO move this into a child
     static PriorityOptions create(const nlohmann::json& js);
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(PriorityOptions)
+
+    void assign_to(
+        const wmtk::components::multimesh::MeshCollection& mc,
+        wmtk::operations::Operation&) const;
 };
 
 
-struct InvariantParameters {};
+struct InvariantParameters
+{
+};
 
 struct InvariantOptions
 {
@@ -28,7 +42,7 @@ struct InvariantOptions
 };
 
 
-struct AttributeInvariantParameters: public InvariantParameters
+struct AttributeInvariantParameters : public InvariantParameters
 {
     std::string attribute_path;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
