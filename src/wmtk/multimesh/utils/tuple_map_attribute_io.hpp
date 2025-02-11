@@ -10,16 +10,6 @@
 namespace wmtk::multimesh::utils {
 
 
-template <typename MeshA, typename MeshB>
-void symmetric_write_tuple_map_attributes(
-    wmtk::attribute::Accessor<int64_t, MeshA>& a_to_b,
-    wmtk::attribute::Accessor<int64_t, MeshB>& b_to_a,
-    const Tuple& a_tuple,
-    const Tuple& b_tuple)
-{
-    write_tuple_map_attribute(a_to_b, a_tuple, b_tuple);
-    write_tuple_map_attribute(b_to_a, b_tuple, a_tuple);
-}
 
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
 template <typename MeshA, typename MeshB>
@@ -80,5 +70,15 @@ std::tuple<Tuple, Tuple> read_tuple_map_attribute_slow(
     const Mesh& source_mesh,
     TypedAttributeHandle<int64_t> map_handle,
     const Tuple& source_tuple);
+template <typename MeshA, typename MeshB>
+void symmetric_write_tuple_map_attributes(
+    wmtk::attribute::Accessor<int64_t, MeshA>& a_to_b,
+    wmtk::attribute::Accessor<int64_t, MeshB>& b_to_a,
+    const Tuple& a_tuple,
+    const Tuple& b_tuple)
+{
+    write_tuple_map_attribute(a_to_b, a_tuple, b_tuple);
+    write_tuple_map_attribute(b_to_a, b_tuple, a_tuple);
+}
 #endif
 } // namespace wmtk::multimesh::utils
