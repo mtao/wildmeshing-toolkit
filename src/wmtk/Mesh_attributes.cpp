@@ -266,14 +266,30 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
     }
 
     {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+
+#else
         constexpr static int64_t TUPLE_SIZE = multimesh::utils::TUPLE_SIZE; // in terms of int64_t
         constexpr static int64_t GLOBAL_ID_INDEX = multimesh::utils::GLOBAL_ID_INDEX;
         const static std::vector<Eigen::Index> image_map_offsets{
             Eigen::Index(TUPLE_SIZE + GLOBAL_ID_INDEX)};
         const static std::vector<Eigen::Index> domain_map_offsets{Eigen::Index(GLOBAL_ID_INDEX)};
+#endif
         size_t dim = get_primitive_type_id(top_simplex_type());
         const auto& top_map = old2new[dim];
         if (auto parent_ptr = m_multi_mesh_manager.m_parent; parent_ptr != nullptr) {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+            auto [parent_to_me, me_to_parent] =
+                parent_ptr->m_multi_mesh_manager.get_map_accessors(*parent_ptr, *this);
+
+
+            const auto& sd = dart::SimplexDart::get_singleton(top_simplex_type());
+            for (const auto& t : get_all(top_simplex_type())) {
+                dart::Dart d = me_to_parent[sd.dart_from_tuple(t)];
+                dart::DartWrap dw = parent_to_me[d];
+                dw = dart::Dart{top_map[dw.global_id()], dw.permutation()};
+            }
+#else
             {
                 int64_t child_id = m_multi_mesh_manager.m_child_id;
                 const auto& child_data = parent_ptr->m_multi_mesh_manager.m_children[child_id];
@@ -289,9 +305,21 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
                 auto& attr = acc.attribute();
                 attr.index_remap(top_map, domain_map_offsets);
             }
+#endif
         }
 
         for (const auto& child_data : m_multi_mesh_manager.m_children) {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+            auto [me_to_child, child_to_me] =
+                m_multi_mesh_manager.get_map_accessors(*this, *child_data.mesh);
+
+            const auto& sd = dart::SimplexDart::get_singleton(top_simplex_type());
+            for (const auto& t : get_all(top_simplex_type())) {
+                dart::Dart d = me_to_child[sd.dart_from_tuple(t)];
+                dart::DartWrap dw = child_to_me[d];
+                dw = dart::Dart{top_map[dw.global_id()], dw.permutation()};
+            }
+#else
             {
                 const auto handle = child_data.map_handle;
                 auto acc = create_accessor(handle);
@@ -304,6 +332,7 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
                 auto& attr = acc.attribute();
                 attr.index_remap(top_map, image_map_offsets);
             }
+#endif
         }
     }
 

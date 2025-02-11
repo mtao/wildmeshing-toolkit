@@ -8,6 +8,37 @@
 
 // #define WMTK_DISABLE_COMPRESSED_MULTIMESH_TUPLE
 namespace wmtk::multimesh::utils {
+
+
+template <typename MeshA, typename MeshB>
+void symmetric_write_tuple_map_attributes(
+    wmtk::attribute::Accessor<int64_t, MeshA>& a_to_b,
+    wmtk::attribute::Accessor<int64_t, MeshB>& b_to_a,
+    const Tuple& a_tuple,
+    const Tuple& b_tuple)
+{
+    write_tuple_map_attribute(a_to_b, a_tuple, b_tuple);
+    write_tuple_map_attribute(b_to_a, b_tuple, a_tuple);
+}
+
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+template <typename MeshA, typename MeshB>
+void symmetric_write_tuple_map_attributes(
+    wmtk::dart::DartAccessor<1, MeshA>& a_to_b,
+    wmtk::dart::DartAccessor<1, MeshB>& b_to_a,
+    const Tuple& a_tuple,
+    const Tuple& b_tuple)
+{
+    const PrimitiveType apt = a_to_b.mesh().top_simplex_type();
+    const PrimitiveType bpt = b_to_a.mesh().top_simplex_type();
+    const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(apt);
+    const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(bpt);
+    auto a = sd.dart_from_tuple(a_tuple);
+    auto b = osd.dart_from_tuple(b_tuple);
+    std::tie(a_to_b[a], b_to_a[b]) = wmtk::dart::utils::get_simplex_involution_pair(apt, a, bpt, b);
+}
+#else
+
 #if defined WMTK_DISABLE_COMPRESSED_MULTIMESH_TUPLE
 constexpr static int64_t TUPLE_SIZE = 4; // in terms of int64_t
 constexpr static int64_t GLOBAL_ID_INDEX = 3;
@@ -38,36 +69,6 @@ template <typename MeshType>
 std::tuple<Tuple, Tuple> read_tuple_map_attribute(
     const wmtk::attribute::Accessor<int64_t, MeshType>& accessor,
     const Tuple& source_tuple);
-
-
-template <typename MeshA, typename MeshB>
-void symmetric_write_tuple_map_attributes(
-    wmtk::attribute::Accessor<int64_t, MeshA>& a_to_b,
-    wmtk::attribute::Accessor<int64_t, MeshB>& b_to_a,
-    const Tuple& a_tuple,
-    const Tuple& b_tuple)
-{
-    write_tuple_map_attribute(a_to_b, a_tuple, b_tuple);
-    write_tuple_map_attribute(b_to_a, b_tuple, a_tuple);
-}
-
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
-template <typename MeshA, typename MeshB>
-void symmetric_write_tuple_map_attributes(
-    wmtk::dart::DartAccessor<1, MeshA>& a_to_b,
-    wmtk::dart::DartAccessor<1, MeshB>& b_to_a,
-    const Tuple& a_tuple,
-    const Tuple& b_tuple)
-{
-    const PrimitiveType apt = a_to_b.mesh().top_simplex_type();
-    const PrimitiveType bpt = b_to_a.mesh().top_simplex_type();
-    const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(apt);
-    const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(bpt);
-    auto a = sd.dart_from_tuple(a_tuple);
-    auto b = osd.dart_from_tuple(b_tuple);
-    std::tie(a_to_b[a], b_to_a[b]) = wmtk::dart::utils::get_simplex_involution_pair(apt, a, bpt, b);
-}
-#endif
 void write_tuple_map_attribute_slow(
     Mesh& source_mesh,
     TypedAttributeHandle<int64_t> map_handle,
@@ -79,4 +80,5 @@ std::tuple<Tuple, Tuple> read_tuple_map_attribute_slow(
     const Mesh& source_mesh,
     TypedAttributeHandle<int64_t> map_handle,
     const Tuple& source_tuple);
+#endif
 } // namespace wmtk::multimesh::utils

@@ -12,6 +12,7 @@
 using namespace wmtk::tests;
 namespace {} // namespace
 
+#if !defined(WMTK_ENABLED_MULTIMESH_DART)
 TEST_CASE("tuple_to_int64_t_storage", "[accessor]")
 {
     std::array basic_data = {
@@ -33,6 +34,7 @@ TEST_CASE("tuple_to_int64_t_storage", "[accessor]")
         CHECK(idat(1) == iptr[1]);
     }
 }
+#endif
 
 TEST_CASE("test_single_tuple_accessor", "[accessor]")
 {

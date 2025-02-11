@@ -43,8 +43,6 @@ HDF5Reader::HDF5Reader() {}
 
 std::shared_ptr<Mesh> HDF5Reader::read(const std::filesystem::path& filename)
 {
-    constexpr static int64_t TWO_TUPLE_SIZE = wmtk::multimesh::utils::TWO_TUPLE_SIZE;
-    constexpr static int64_t DEFAULT_TUPLES_VALUES = wmtk::multimesh::utils::DEFAULT_TUPLES_VALUES;
 
     h5pp::File hdf5_file(filename, h5pp::FileAccess::READONLY);
 

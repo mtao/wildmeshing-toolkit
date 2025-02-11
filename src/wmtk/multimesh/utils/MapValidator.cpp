@@ -27,6 +27,9 @@ bool MapValidator::check_all() const
 
 bool MapValidator::check_child_map_attributes_valid() const
 {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
+    return true;
+#endif
     bool ok = true;
     for (const auto& [cptr, attr] : m_mesh.m_multi_mesh_manager.m_children) {
         const auto& child = *cptr;
@@ -41,6 +44,7 @@ bool MapValidator::check_child_map_attributes_valid() const
                 auto tups = simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
                 for (const auto& source_tuple : tups) {
+#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
                     const auto [source_mesh_base_tuple, target_mesh_base_tuple] =
                         multimesh::utils::read_tuple_map_attribute(map_accessor, source_tuple);
                     if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
@@ -73,6 +77,7 @@ bool MapValidator::check_child_map_attributes_valid() const
                         );
                         ok = false;
                     }
+#endif
                 }
             }
         }
@@ -93,7 +98,44 @@ bool MapValidator::check_parent_map_attribute_valid() const
 
     wmtk::PrimitiveType prim_type = m_mesh.top_simplex_type();
 
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    auto [parent_to_me, me_to_parent] =
+        parent.m_multi_mesh_manager.get_map_const_accessors(parent, m_mesh);
+            const auto& sd = dart::SimplexDart::get_singleton(m_mesh.top_simplex_type());
+#endif
     for (const auto& source_tuple : m_mesh.get_all(prim_type)) {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+
+        dart::Dart d = me_to_parent[sd.dart_from_tuple(source_tuple)];
+        if(d.is_null()) {
+            ok = false;
+            wmtk::logger().error(
+                "Map from child {} to parent {} on tuple {} (dim {}) has null entry {},{}",
+                fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
+                fmt::join(parent.absolute_multi_mesh_id(), ","),
+                m_mesh.top_cell_dimension(),
+                wmtk::utils::TupleInspector::as_string(source_tuple),
+                d.global_id()
+                ,
+                d.permutation()
+            );
+        }
+        dart::ConstDartWrap dw = parent_to_me[d];
+
+        if(dw.is_null()) {
+            ok = false;
+            wmtk::logger().error(
+                "Map from child {} to parent {} on tuple {} (dim {}) has null entry {},{}",
+                fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
+                fmt::join(parent.absolute_multi_mesh_id(), ","),
+                m_mesh.top_cell_dimension(),
+                wmtk::utils::TupleInspector::as_string(source_tuple),
+                d.global_id()
+                ,
+                d.permutation()
+            );
+        }
+#else
         const auto [source_mesh_base_tuple, target_mesh_base_tuple] =
             multimesh::utils::read_tuple_map_attribute(map_accessor, source_tuple);
         if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
@@ -123,6 +165,7 @@ bool MapValidator::check_parent_map_attribute_valid() const
             );
             ok = false;
         }
+#endif
     }
     return ok;
 }

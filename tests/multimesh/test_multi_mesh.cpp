@@ -32,6 +32,7 @@ namespace {} // namespace
 
 void print_tuple_map(const DEBUG_TriMesh& parent, const DEBUG_MultiMeshManager& p_mul_manager)
 {
+#if !defined(WMTK_ENABLED_MULTIMESH_DART)
     int64_t child_id = 0;
 
     for (auto& child_data : p_mul_manager.children()) {
@@ -52,6 +53,7 @@ void print_tuple_map(const DEBUG_TriMesh& parent, const DEBUG_MultiMeshManager& 
         }
         std::cout << std::endl;
     }
+#endif
 }
 
 TEST_CASE("test_register_child_mesh_bijection", "[multimesh][2D]")
@@ -194,6 +196,7 @@ TEST_CASE("test_register_child_mesh", "[multimesh][2D]")
                 std::tuple<Tuple, Tuple>{child1.tuple_from_id(PF, 1), parent.tuple_from_id(PF, 1)}};
 
 
+#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
             for (int64_t parent_index = 0; parent_index < 3; ++parent_index) {
                 auto ptuple = parent.tuple_from_id(PF, parent_index);
                 auto p_to_c0_tuple_tuple =
@@ -218,6 +221,7 @@ TEST_CASE("test_register_child_mesh", "[multimesh][2D]")
 
                 CHECK(c1_to_p_tuple_tuple == c1_to_p_map[child1_index]);
             }
+#endif
         }
         {
             std::vector<Tuple> p_to_c0_map{Tuple(), Tuple(), child0.tuple_from_id(PF, 0)};
@@ -487,6 +491,7 @@ TEST_CASE("multi_mesh_register_2D_and_1D_single_triangle", "[multimesh][1D][2D]"
                 std::tuple<Tuple, Tuple>{child1.tuple_from_id(PE, 1), parent.tuple_from_id(PE, 2)}};
 
 
+#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
             for (int64_t parent_index = 0; parent_index < 3; ++parent_index) {
                 auto ptuple = parent.tuple_from_id(PE, parent_index);
                 auto p_to_c0_tuple_tuple =
@@ -511,6 +516,7 @@ TEST_CASE("multi_mesh_register_2D_and_1D_single_triangle", "[multimesh][1D][2D]"
 
                 CHECK(c1_to_p_tuple_tuple == c1_to_p_map[child1_index]);
             }
+#endif
         }
 
         // test map_to_child_tuples and map_to_parent_tuple
@@ -688,6 +694,7 @@ TEST_CASE("multi_mesh_register_between_2D_and_1D_one_ear", "[multimesh][1D][2D]"
                 std::tuple<Tuple, Tuple>{child1.tuple_from_id(PE, 1), parent.tuple_from_id(PE, 3)}};
 
 
+#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
             for (int64_t parent_index = 0; parent_index < 3; ++parent_index) {
                 auto ptuple = parent.tuple_from_id(PE, parent_index);
                 auto p_to_c0_tuple_tuple =
@@ -712,6 +719,7 @@ TEST_CASE("multi_mesh_register_between_2D_and_1D_one_ear", "[multimesh][1D][2D]"
 
                 CHECK(c1_to_p_tuple_tuple == c1_to_p_map[child1_index]);
             }
+#endif
         }
 
         // test map_to_child_tuples and map_to_parent_tuple

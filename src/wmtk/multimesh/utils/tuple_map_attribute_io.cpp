@@ -13,6 +13,7 @@
 namespace wmtk::multimesh::utils {
 
 
+#if !defined(WMTK_ENABLED_MULTIMESH_DART)
 namespace {
 using Vec84 = Vector<int8_t, 4>;
 }
@@ -163,4 +164,5 @@ std::tuple<Tuple, Tuple> read_tuple_map_attribute_slow(
     auto acc = source_mesh.create_const_accessor(map_handle);
     return read_tuple_map_attribute(acc, source_tuple);
 }
+#endif
 } // namespace wmtk::multimesh::utils
