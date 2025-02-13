@@ -13,7 +13,6 @@
 #include <wmtk/utils/primitive_range.hpp>
 #include "ear_actions.hpp"
 #include "wmtk/dart/SimplexDart.hpp"
-#include "wmtk/utils/TupleInspector.hpp"
 
 namespace wmtk::operations::internal {
 namespace {
@@ -60,7 +59,7 @@ auto CollapseAlternateFacetData::get_alternative_data_it(const int64_t& input_fa
 }
 auto CollapseAlternateFacetData::get_alternatives_data(const Tuple& t) const -> const Data&
 {
-    auto it = get_alternative_data_it(t.m_global_cid);
+    auto it = get_alternative_data_it(t.global_cid());
     assert(it != m_data.cend());
     return *it;
 }

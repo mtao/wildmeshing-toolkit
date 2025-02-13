@@ -125,6 +125,7 @@ auto Accessor<T, MeshType, Dim>::topological_scalar_attribute(const ArgType& t) 
     return CachingBaseType::scalar_attribute(idx);
 }
 
+<<<<<<< HEAD
 template <typename T, typename MeshType, int Dim>
 template <typename ArgType>
 auto Accessor<T, MeshType, Dim>::const_topological_scalar_attribute(const ArgType& t) const -> T
@@ -133,6 +134,8 @@ auto Accessor<T, MeshType, Dim>::const_topological_scalar_attribute(const ArgTyp
     return CachingBaseType::const_scalar_attribute(idx);
 }
 
+=======
+>>>>>>> upstream/main
 
 template <typename T, typename MeshType, int Dim>
 T Accessor<T, MeshType, Dim>::const_topological_scalar_attribute(const Tuple& t, PrimitiveType pt)
@@ -141,11 +144,11 @@ T Accessor<T, MeshType, Dim>::const_topological_scalar_attribute(const Tuple& t,
     assert(mesh().top_simplex_type() == BaseType::primitive_type());
     switch (pt) {
     case PrimitiveType::Vertex:
-        return CachingBaseType::const_scalar_attribute(t.m_global_cid, t.m_local_vid);
+        return CachingBaseType::const_scalar_attribute(t.global_cid(), t.local_vid());
     case PrimitiveType::Edge:
-        return CachingBaseType::const_scalar_attribute(t.m_global_cid, t.m_local_eid);
+        return CachingBaseType::const_scalar_attribute(t.global_cid(), t.local_eid());
     case PrimitiveType::Triangle:
-        return CachingBaseType::const_scalar_attribute(t.m_global_cid, t.m_local_fid);
+        return CachingBaseType::const_scalar_attribute(t.global_cid(), t.local_fid());
     case PrimitiveType::Tetrahedron: [[fallthrough]];
     default: return T(0);
     }

@@ -5,7 +5,6 @@
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/utils/simplex_index_from_permutation_index.hpp>
 
-#include <wmtk/utils/TupleInspector.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "tools/all_valid_local_tuples.hpp"
 #include "tools/darts_using_faces.hpp"
@@ -59,7 +58,7 @@ TEST_CASE("tuple_autogen_index_dart_tuple_conversion", "[tuple]")
                 CHECK(
                     sd.simplex_index(i, pt) ==
                     wmtk::dart::utils::simplex_index_from_permutation_index(mesh_type, i, pt));
-                CHECK(sd.simplex_index(i, pt) == wmtk::utils::TupleInspector::local_id(nt, pt));
+                CHECK(sd.simplex_index(i, pt) == nt.local_id( pt));
             }
 
 
@@ -96,4 +95,3 @@ TEST_CASE("tuple_autogen_index_dart_group_structure", "[tuple]")
         }
     }
 }
-

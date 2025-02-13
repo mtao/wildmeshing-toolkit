@@ -45,11 +45,6 @@
 namespace wmtk {
 namespace tests {
 class DEBUG_Mesh;
-namespace tools {
-
-class TestTools;
-
-}
 } // namespace tests
 // thread management tool that we will PImpl
 namespace attribute {
@@ -74,13 +69,6 @@ namespace utils {
 class UpdateEdgeOperationMultiMeshMapFunctor;
 }
 } // namespace operations
-
-namespace simplex {
-class RawSimplex;
-namespace utils {
-class SimplexComparisons;
-}
-} // namespace simplex
 
 namespace io {
 class ParaviewWriter;
@@ -113,7 +101,6 @@ class TupleTag;
 class Mesh : public std::enable_shared_from_this<Mesh>, public wmtk::utils::MerkleTreeInteriorNode
 {
 public:
-    friend class tests::tools::TestTools;
     friend class tests::DEBUG_Mesh;
     template <typename T, int Dim>
     friend class attribute::AccessorBase;
@@ -136,11 +123,6 @@ public:
     friend class multimesh::attribute::AttributeScopeHandle;
     friend class multimesh::utils::internal::TupleTag;
     friend class operations::utils::UpdateEdgeOperationMultiMeshMapFunctor;
-    friend class simplex::RawSimplex;
-    friend class simplex::Simplex;
-    friend class simplex::IdSimplex;
-    friend class simplex::SimplexCollection;
-    friend class simplex::utils::SimplexComparisons;
     friend class operations::Operation;
     friend class operations::EdgeCollapse;
     friend class operations::EdgeSplit;
@@ -834,7 +816,7 @@ protected:
     // creates a scope as int64_t as the AttributeScopeHandle exists
     [[nodiscard]] attribute::AttributeScopeHandle create_single_mesh_scope();
 
-protected:
+public:
     /**
      * @brief return the global id of the Tuple of the given dimension
      *
@@ -861,6 +843,8 @@ protected:
     }
     /// Forwarding version of id on simplices that does id caching
     virtual int64_t id(const simplex::Simplex& s) const = 0;
+
+protected:
     /// Internal utility to allow id to be virtual with a non-virtual overload in derived -Mesh classes.
     /// Mesh::id invokes Mesh::id_virtual which is final overriden by MeshCRTP<TriMesh>::id_virtual, which in turn invokes MeshCRTP<TriMesh>::id, and then TriMesh::id.
     /// This circuitous mechanism makes MeshCRTP<TriMesh>::id and TriMesh::id fully inlineable, so code that wants to take in any derived class can get optimized results with MeshCRTP, or for cases where classes want to utilize just TriMesh they can get inline/accelerated usage as well.

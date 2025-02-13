@@ -2,7 +2,6 @@
 #include <catch2/catch_test_macros.hpp>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include "DEBUG_Mesh.hpp"
 
 #include <wmtk/utils/Logger.hpp>

@@ -71,7 +71,6 @@ public:
 
     std::vector<Tuple> orient_vertices(const Tuple& t) const override;
 
-protected:
     int64_t id(const Tuple& tuple, PrimitiveType type) const;
     int64_t id(int64_t global_id, int8_t permutation_index, PrimitiveType pt) const;
     using MeshCRTP<TriMesh>::id; // getting the (simplex) prototype
@@ -80,6 +79,7 @@ protected:
     int64_t id_edge(const Tuple& tuple) const { return id(tuple, PrimitiveType::Edge); }
     int64_t id_face(const Tuple& tuple) const { return id(tuple, PrimitiveType::Triangle); }
 
+protected:
     /**
      * @brief internal function that returns the tuple of requested type, and has the global index
      * cid
@@ -141,7 +141,7 @@ inline int64_t TriMesh::id(const Tuple& tuple, PrimitiveType type) const
         return v;
     }
     case PrimitiveType::Triangle: {
-        return tuple.m_global_cid;
+        return tuple.global_cid();
     }
     case PrimitiveType::Tetrahedron: [[fallthrough]];
     default: assert(false); // "Tuple id: Invalid primitive type"

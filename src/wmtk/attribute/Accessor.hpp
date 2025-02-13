@@ -5,11 +5,14 @@
 #include "CachingAccessor.hpp"
 
 namespace wmtk {
+
 class Mesh;
 class TriMesh;
 class TetMesh;
 class TriMeshOperationExecutor;
 class EdgeMesh;
+class PointMesh;
+
 namespace tests {
 class DEBUG_TriMesh;
 class DEBUG_EdgeMesh;

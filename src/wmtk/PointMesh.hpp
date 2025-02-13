@@ -43,7 +43,6 @@ public:
 
     std::vector<Tuple> orient_vertices(const Tuple& tuple) const override;
 
-protected:
     using MeshCRTP<PointMesh>::id; // getting the (simplex) prototype
     int64_t id(const Tuple& tuple, PrimitiveType type) const;
     int64_t id(int64_t global_id, int8_t orientation, PrimitiveType pt) const
@@ -52,6 +51,7 @@ protected:
         return global_id;
     }
 
+protected:
     /**
      * @brief internal function that returns the tuple of requested type, and has the global index
      * cid
@@ -65,7 +65,7 @@ protected:
 inline int64_t PointMesh::id(const Tuple& tuple, PrimitiveType type) const
 {
     switch (type) {
-    case PrimitiveType::Vertex: return tuple.m_global_cid;
+    case PrimitiveType::Vertex: return tuple.global_cid();
     case PrimitiveType::Edge:
     case PrimitiveType::Triangle:
     case PrimitiveType::Tetrahedron:

@@ -15,7 +15,6 @@
 #include <wmtk/operations/internal/SplitAlternateFacetData.hpp>
 #include <wmtk/operations/internal/ear_actions.hpp>
 #include <wmtk/operations/utils/MultiMeshEdgeSplitFunctor.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "../tools/EdgeMesh_examples.hpp"
 #include "../tools/global_ids.hpp"
@@ -162,17 +161,17 @@ TEST_CASE("split_facet_maps_mesh", "[operations][data]")
                 wmtk::dart::Dart(scm_data.new_facet_indices[1], edge_orientation));
             spdlog::info(
                 "{} {}",
-                wmtk::utils::TupleInspector::as_string(left_tuple),
-                wmtk::utils::TupleInspector::as_string(right_tuple));
+                std::string(left_tuple),
+                std::string(right_tuple));
 
             const auto left_global_ids = wmtk::tests::tools::global_ids(*mesh_ptr, left_tuple);
             const auto right_global_ids = wmtk::tests::tools::global_ids(*mesh_ptr, right_tuple);
 
             spdlog::info(
                 "{}:{} {}:{}",
-                wmtk::utils::TupleInspector::as_string(left_tuple),
+                left_tuple.as_string(),
                 fmt::join(left_global_ids, ","),
-                wmtk::utils::TupleInspector::as_string(right_tuple),
+                right_tuple.as_string(),
                 fmt::join(right_global_ids, ","));
 
             int8_t left_size = wmtk::tests::tools::global_index_max_subdart_size(
@@ -199,7 +198,7 @@ void collapse_facet_maps_impl(
     const std::vector<std::tuple<wmtk::Tuple, std::bitset<2>>>& tuples_with_boundary_info)
 {
     for (const auto& [tuple, bits] : tuples_with_boundary_info) {
-        spdlog::info("Adding {}", wmtk::utils::TupleInspector::as_string(tuple));
+        spdlog::info("Adding {}", std::string(tuple));
         data.add(m, tuple);
     }
 
@@ -274,10 +273,17 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D][.]")
                 const auto& tup = both[j];
                 // boundary == bits is 1
                 // spdlog::info(
+<<<<<<< HEAD
                 //   "{}: {} => {}",
                 //   j,
-                //   wmtk::utils::TupleInspector::as_string(tup),
+                //   std::string(tup),
                 // bits[j]);
+=======
+                //    "{}: {} => {}",
+                //    j,
+                //    tup.as_string(),
+                //    bits[j]);
+>>>>>>> upstream/main
                 REQUIRE(tup.is_null() == bits[j]);
                 if (!bits[j]) { // not boundary
                     // check that the tuple returned makes sense
@@ -436,8 +442,8 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
 
                 const auto& left_dart = dat.alts[0];
                 const auto& right_dart = dat.alts[1];
-                const int8_t left_ear_eid = wmtk::utils::TupleInspector::local_eid(left_ear);
-                const int8_t right_ear_eid = wmtk::utils::TupleInspector::local_eid(right_ear);
+                const int8_t left_ear_eid = left_ear.local_eid();
+                const int8_t right_ear_eid = right_ear.local_eid();
                 CHECK(left_ear_eid == dat.local_boundary_indices[0]);
                 CHECK(right_ear_eid == dat.local_boundary_indices[1]);
 
@@ -486,11 +492,11 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
                 const auto& [c, d] = ret;
                 spdlog::info(
                     "Input {}: Expecteed two alts{} {} => Got two alts{} {}",
-                    wmtk::utils::TupleInspector::as_string(t),
-                    wmtk::utils::TupleInspector::as_string(a),
-                    wmtk::utils::TupleInspector::as_string(b),
-                    wmtk::utils::TupleInspector::as_string(c),
-                    wmtk::utils::TupleInspector::as_string(d));
+                    t.as_string(),
+                    a.as_string(),
+                    b.as_string(),
+                    c.as_string(),
+                    d.as_string());
                 // notation is triangle; vertex, edge (matches global; local vid, local eid)
                 // 0; 1,2 (global: 0; 1,0)
                 // currently: 1;1,0 2;1,2 => 1;1,2 2;1,0

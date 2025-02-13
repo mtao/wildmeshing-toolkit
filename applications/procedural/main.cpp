@@ -9,9 +9,9 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
 
+#include <wmtk/components/input/input.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/output/output.hpp>
-#include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 
 #include <wmtk/TriMesh.hpp>
@@ -64,9 +64,6 @@ int run(const fs::path& config_path)
             return std::make_tuple(std::move(m), h);
         },
         options.settings);
-
-
-    using namespace internal;
 
     if (!bool(mesh)) {
         throw std::runtime_error("Did not obtain a mesh when generating a procedural one");

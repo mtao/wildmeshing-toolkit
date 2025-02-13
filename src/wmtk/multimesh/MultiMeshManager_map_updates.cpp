@@ -9,7 +9,6 @@
 #include <wmtk/operations/internal/CollapseAlternateFacetData.hpp>
 #include <wmtk/operations/internal/SplitAlternateFacetData.hpp>
 #include <wmtk/utils/Logger.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include "MultiMeshManager.hpp"
 #include "utils/local_switch_tuple.hpp"
 #include "utils/transport_tuple.hpp"
@@ -236,9 +235,6 @@ void MultiMeshManager::update_map_tuple_hashes(
             // check if the map is handled in the ear case
             // if the child simplex is deleted then we can skip it
             if (child_mesh.is_removed(child_tuple)) {
-                // spdlog::info("Perhaps incorrect tuple map {} => {}",
-                // wmtk::utils::TupleInspector::as_string(parent_tuple),
-                // wmtk::utils::TupleInspector::as_string(child_tuple));
                 // continue;
             }
             // assert(!child_mesh.is_removed(child_tuple));
@@ -249,7 +245,7 @@ void MultiMeshManager::update_map_tuple_hashes(
                 my_mesh,
                 my_mesh.top_simplex_type(),
                 equivalent_parent_tuples,
-                parent_tuple.m_global_cid);
+                parent_tuple.global_cid());
             // assert(old_tuple_opt.has_value());
             if (!old_tuple_opt.has_value()) {
                 continue;
@@ -272,11 +268,6 @@ void MultiMeshManager::update_map_tuple_hashes(
             // assert(new_parent_shared_opt.has_value());
 
             Tuple new_parent_tuple_shared = new_parent_shared_opt.value();
-            // logger().trace(
-            //     "{} => {} ==> {}",
-            //     wmtk::utils::TupleInspector::as_string(old_simplex.tuple()),
-            //     wmtk::utils::TupleInspector::as_string(parent_tuple),
-            //     wmtk::utils::TupleInspector::as_string(child_tuple));
 
             parent_tuple = wmtk::multimesh::utils::transport_tuple(
                 old_simplex.tuple(),
@@ -352,7 +343,7 @@ std::optional<Tuple> MultiMeshManager::find_valid_tuple_from_split(
     const PrimitiveType primitive_type = old_simplex.primitive_type();
 
     for (const auto& [old_cid, new_cids] : split_cell_maps) {
-        if (old_cid != old_tuple.m_global_cid) {
+        if (old_cid != old_tuple.global_cid()) {
             continue;
         }
 
@@ -366,9 +357,9 @@ std::optional<Tuple> MultiMeshManager::find_valid_tuple_from_split(
         const Tuple& old_cid_tuple = old_tuple_opt.value();
         for (const int64_t new_cid : new_cids) {
             Tuple tuple(
-                old_cid_tuple.m_local_vid,
-                old_cid_tuple.m_local_eid,
-                old_cid_tuple.m_local_fid,
+                old_cid_tuple.local_vid(),
+                old_cid_tuple.local_eid(),
+                old_cid_tuple.local_fid(),
                 new_cid);
 
 
