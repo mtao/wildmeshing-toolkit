@@ -61,7 +61,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
             source_mesh,
             simplex::Simplex(target_pt, source_tuple));
         for (const auto& t : equivalent_tuples) {
-            if (t.m_global_cid == source_dart.global_id()) {
+            if (t.global_cid() == source_dart.global_id()) {
                 // TODO: fix
 
                 break;
@@ -95,8 +95,8 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
         logger().debug(
             "[{} -> {}] got source or target null",
-            wmtk::utils::TupleInspector::as_string(source_mesh_base_tuple),
-            wmtk::utils::TupleInspector::as_string(target_mesh_base_tuple));
+            std::string(source_mesh_base_tuple),
+            std::string(target_mesh_base_tuple));
         return Tuple(); // return null tuple
     }
 

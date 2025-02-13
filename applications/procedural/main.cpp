@@ -9,7 +9,6 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
 
-#include <wmtk/components/input/input.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/output/output.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>

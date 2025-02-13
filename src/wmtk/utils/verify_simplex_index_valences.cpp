@@ -5,7 +5,6 @@
 #include <wmtk/simplex/cofaces_single_dimension.hpp>
 #include <wmtk/simplex/faces_single_dimension.hpp>
 #include <wmtk/utils/Logger.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "internal/IndexSimplexMapper.hpp"
 namespace wmtk::utils {

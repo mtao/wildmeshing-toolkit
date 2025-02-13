@@ -4,9 +4,7 @@
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/utils/EigenMatrixWriter.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
-#include "wmtk/utils/TupleInspector.hpp"
 
 
 void EigenMeshes::compute_vf()
@@ -57,10 +55,10 @@ std::map<std::string, EigenMeshes> get_meshes(
 }
 wmtk::Tuple EigenMeshes::update_to_fused(const wmtk::Tuple& t) const
 {
-    assert(wmtk::utils::TupleInspector::global_cid(t) < F.M.rows());
+    assert(t.global_cid() < F.M.rows());
     return wmtk::Tuple(
-        wmtk::utils::TupleInspector::local_vid(t),
-        wmtk::utils::TupleInspector::local_eid(t),
-        wmtk::utils::TupleInspector::local_fid(t),
-        wmtk::utils::TupleInspector::global_cid(t) + F.start());
+        t.local_vid(),
+        t.local_eid(),
+        t.local_fid(),
+        t.global_cid() + F.start());
 }

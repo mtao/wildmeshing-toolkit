@@ -167,7 +167,6 @@ void IsotropicRemeshing::make_interior_invariants()
 
 void IsotropicRemeshing::run()
 {
-    using namespace internal;
 
 
     // TODO: brig me back!

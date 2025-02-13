@@ -7,7 +7,6 @@
 #include <wmtk/io/read_mesh.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
 #include <wmtk/utils/Logger.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include "tools/TriMesh_examples.hpp"
 
 TEST_CASE("dart_access", "[dart_accessor]")
@@ -117,7 +116,7 @@ TEST_CASE("dart_performance", "[performance][.]")
                 bool is_boundary_m = mesh.is_boundary(wmtk::PrimitiveType::Edge, t);
                 if (!is_boundary_m) {
                     wmtk::Tuple ot = mesh.switch_tuple(t, wmtk::PrimitiveType::Triangle);
-                    test_acc.scalar_attribute(ot) = wmtk::utils::TupleInspector::global_cid(ot);
+                    test_acc.scalar_attribute(ot) = ot.global_cid();
                 }
             }
         }

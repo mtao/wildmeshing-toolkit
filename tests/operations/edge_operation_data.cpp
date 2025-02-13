@@ -273,17 +273,10 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D][.]")
                 const auto& tup = both[j];
                 // boundary == bits is 1
                 // spdlog::info(
-<<<<<<< HEAD
-                //   "{}: {} => {}",
-                //   j,
-                //   std::string(tup),
-                // bits[j]);
-=======
                 //    "{}: {} => {}",
                 //    j,
                 //    tup.as_string(),
                 //    bits[j]);
->>>>>>> upstream/main
                 REQUIRE(tup.is_null() == bits[j]);
                 if (!bits[j]) { // not boundary
                     // check that the tuple returned makes sense

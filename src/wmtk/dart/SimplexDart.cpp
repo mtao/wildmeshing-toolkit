@@ -5,7 +5,6 @@
 #include <wmtk/autogen/point_mesh/SimplexDart.hpp>
 #include <wmtk/autogen/tet_mesh/SimplexDart.hpp>
 #include <wmtk/autogen/tri_mesh/SimplexDart.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include "subgroup/convert.hpp"
 #include "utils/permutation_index_from_tuple.hpp"
 #include "utils/simplex_index_from_permutation_index.hpp"
@@ -39,7 +38,7 @@ wmtk::Tuple SimplexDart::update_tuple_from_permutation_index(const Tuple& t, int
 {
     return utils::tuple_from_permutation_index(
         simplex_type(),
-        wmtk::utils::TupleInspector::global_cid(t),
+        t.global_cid(),
         index);
 }
 int8_t SimplexDart::permutation_index_from_tuple(const wmtk::Tuple& t) const
@@ -66,7 +65,7 @@ wmtk::Tuple SimplexDart::tuple_from_dart(const Dart& dart) const
 Dart SimplexDart::dart_from_tuple(const wmtk::Tuple& t) const
 {
     return Dart{
-        wmtk::utils::TupleInspector::global_cid(t),
+        t.global_cid(),
         wmtk::dart::utils::permutation_index_from_tuple(simplex_type(), t)};
 }
 

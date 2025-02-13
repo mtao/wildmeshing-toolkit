@@ -10,7 +10,6 @@
 #include <wmtk/io/ParaviewWriter.hpp>
 #include <wmtk/io/internal/get_attribute_handles.hpp>
 #include <wmtk/utils/DisjointSet.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
 #include "edges_to_tuples.hpp"
 

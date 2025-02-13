@@ -1,5 +1,4 @@
 #include "transport_tuple.hpp"
-//#include <wmtk/utils/TupleInspector.hpp>
 //#include <spdlog/spdlog.h>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
@@ -81,7 +80,7 @@ Tuple transport_tuple(
     const int8_t tgt_dart = sd.product(action, src_dart);
     //spdlog::warn("base action{} final action{} src_dart{} tgt_dart{}", base_action, action, src_dart, tgt_dart);
     const auto r = sd.update_tuple_from_permutation_index(source, tgt_dart);
-    //spdlog::info("{}", wmtk::utils::TupleInspector::as_string(r));
+    //spdlog::info("{}", std::string(r));
     return r;
 }
 } // namespace wmtk::multimesh::utils

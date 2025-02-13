@@ -4,7 +4,6 @@
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/utils/simplex_index_from_valid_index.hpp>
 
-#include <wmtk/utils/TupleInspector.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "tools/all_valid_local_tuples.hpp"
 #include "tools/darts_using_faces.hpp"

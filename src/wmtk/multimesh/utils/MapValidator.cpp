@@ -113,7 +113,7 @@ bool MapValidator::check_parent_map_attribute_valid() const
                 fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
                 fmt::join(parent.absolute_multi_mesh_id(), ","),
                 m_mesh.top_cell_dimension(),
-                wmtk::utils::TupleInspector::as_string(source_tuple),
+                std::string(source_tuple),
                 d.global_id()
                 ,
                 d.permutation()
@@ -128,7 +128,7 @@ bool MapValidator::check_parent_map_attribute_valid() const
                 fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
                 fmt::join(parent.absolute_multi_mesh_id(), ","),
                 m_mesh.top_cell_dimension(),
-                wmtk::utils::TupleInspector::as_string(source_tuple),
+                std::string(source_tuple),
                 d.global_id()
                 ,
                 d.permutation()

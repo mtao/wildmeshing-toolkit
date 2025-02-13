@@ -1,5 +1,4 @@
 #include <catch2/catch_test_macros.hpp>
-#include <wmtk/utils/TupleInspector.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
 
 #include <filesystem>
@@ -523,13 +522,13 @@ TEST_CASE("swap_multimesh_edge", "[operations][swap][2D]")
         op(edge_to_mm);
         auto after_fs = m->get_all(PF);
         for (const auto& t : after_fs) {
-            spdlog::info("{}", wmtk::utils::TupleInspector::as_string(t));
+            spdlog::info("{}", std::string(t));
         }
         for (const auto& t : em->get_all(PE)) {
             spdlog::info(
                 "{} -> {}",
-                wmtk::utils::TupleInspector::as_string(t),
-                wmtk::utils::TupleInspector::as_string(
+                std::string(t),
+                std::string(
                     em->map_to_root(simplex::Simplex::edge(t)).tuple()));
         }
 
@@ -575,13 +574,13 @@ TEST_CASE("swap_multimesh_edge", "[operations][swap][2D]")
         op(edge_opp_mm);
         auto after_fs = m->get_all(PF);
         for (const auto& t : after_fs) {
-            spdlog::info("{}", wmtk::utils::TupleInspector::as_string(t));
+            spdlog::info("{}", std::string(t));
         }
         for (const auto& t : em->get_all(PE)) {
             spdlog::info(
                 "{} -> {}",
-                wmtk::utils::TupleInspector::as_string(t),
-                wmtk::utils::TupleInspector::as_string(
+                std::string(t),
+                std::string(
                     em->map_to_root(simplex::Simplex::edge(t)).tuple()));
         }
 
