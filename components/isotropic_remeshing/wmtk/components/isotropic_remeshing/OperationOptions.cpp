@@ -11,14 +11,14 @@
 
 namespace wmtk::components::isotropic_remeshing {
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(PriorityOptions){
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, attribute_path)
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, attribute_path, minimize)
     //
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PriorityOptions)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(type, attribute_path)
-    //
+    WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(PriorityOptions);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(type, attribute_path, minimize);
 }
 
 void PriorityOptions::assign_to(
@@ -38,12 +38,21 @@ void PriorityOptions::assign_to(
             auto priority_attribute = wmtk::components::multimesh::utils::get_attribute(
                 mc,
                 wmtk::components::multimesh::utils::AttributeDescription{ap});
+            if(minimize) {
             auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
                 auto acc =
                     priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
                 return acc.const_scalar_attribute(s);
             };
             op.set_priority(priority_func);
+            } else {
+            auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
+                auto acc =
+                    priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
+                return -acc.const_scalar_attribute(s);
+            };
+            op.set_priority(priority_func);
+            }
         }
     } else {
         assert(false); // tried to assign an invalid priority
@@ -85,7 +94,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(OperationOptions)
 
     if (nlohmann_json_j.contains("priority")) {
         auto p = std::make_shared<PriorityOptions>();
-        p->attribute_path = nlohmann_json_j["priority"]["attribute_path"];
+        *p = nlohmann_json_j["priority"];
         nlohmann_json_t.priority = std::move(p);
     }
 
