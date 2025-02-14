@@ -1,15 +1,12 @@
 #include "TransferStrategyOptions.hpp"
-#include <wmtk/operations/attribute_update/AttributeTransferStrategyBase.hpp>
 #include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
-#include "TransferStrategyParameters.hpp"
+#include <wmtk/operations/attribute_update/AttributeTransferStrategyBase.hpp>
+#include "TransferStrategy.hpp"
 namespace wmtk::components::mesh_info::transfer {
 
-std::map<
-    std::string,
-    std::function<std::unique_ptr<TransferStrategyParameters>(const nlohmann::json&)>>
-    TransferStrategyOptions::s_registered_transfers;
+TransferStrategyRegistry TransferStrategyOptions::s_transfer_registry;
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(TransferStrategyOptions){
     //
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute_path, type)
@@ -21,7 +18,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(TransferStrategyOptions)
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute_path, type);
 
     nlohmann_json_t.parameters =
-        TransferStrategyOptions::s_registered_transfers.at(nlohmann_json_t.type)(nlohmann_json_j);
+        TransferStrategyOptions::s_transfer_registry.create(nlohmann_json_t.type, nlohmann_json_j);
     assert(nlohmann_json_t.parameters);
 }
 TransferStrategyOptions::~TransferStrategyOptions() = default;

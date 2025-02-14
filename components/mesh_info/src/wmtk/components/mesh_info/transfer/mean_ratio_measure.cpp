@@ -1,4 +1,4 @@
-#include "MeanRatioMeasureTransferStrategyParameters.hpp"
+#include "mean_ratio_measure.hpp"
 #include <nlohmann/json.hpp>
 #include <wmtk/Types.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
@@ -7,20 +7,20 @@
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include "TransferStrategyOptions.hpp"
-#include "TransferStrategyParameters_macros.hpp"
+#include "TransferStrategy_macros.hpp"
 namespace wmtk::components::mesh_info::transfer {
 
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MeanRatioMeasureTransferStrategy){
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MeanRatioMeasure){
     //
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(position_attribute)}
 
-WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MeanRatioMeasureTransferStrategy)
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MeanRatioMeasure)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(position_attribute);
 }
 
-MeanRatioMeasureTransferStrategy::MeanRatioMeasureTransferStrategy() = default;
-MeanRatioMeasureTransferStrategy::~MeanRatioMeasureTransferStrategy() = default;
+MeanRatioMeasure::MeanRatioMeasure() = default;
+MeanRatioMeasure::~MeanRatioMeasure() = default;
 
 namespace {
 template <typename T, int Dim>
@@ -63,7 +63,7 @@ auto mean_area_measure(const ColVectors<T, Dim>& M) -> Vector<T, 1>
 } // namespace
 
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-MeanRatioMeasureTransferStrategy::create(
+MeanRatioMeasure::create(
     wmtk::components::multimesh::MeshCollection& mc,
 
     const TransferStrategyOptions& opts) const
@@ -109,6 +109,6 @@ MeanRatioMeasureTransferStrategy::create(
         pos_attr.handle());
 }
 
-WMTK_TRANSFER_ALL_DEFINITIONS(MeanRatioMeasureTransferStrategy, "mean_ratio_measure")
+WMTK_TRANSFER_ALL_DEFINITIONS(MeanRatioMeasure, "mean_ratio_measure")
 
 } // namespace wmtk::components::mesh_info::transfer

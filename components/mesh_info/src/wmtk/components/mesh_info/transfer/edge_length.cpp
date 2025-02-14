@@ -1,4 +1,4 @@
-#include "EdgeLengthTransferStrategyParameters.hpp"
+#include "edge_length.hpp"
 #include <nlohmann/json.hpp>
 #include <wmtk/Types.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
@@ -7,20 +7,20 @@
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include "TransferStrategyOptions.hpp"
-#include "TransferStrategyParameters_macros.hpp"
+#include "TransferStrategy_macros.hpp"
 namespace wmtk::components::mesh_info::transfer {
 
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EdgeLengthTransferStrategyParameters){
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EdgeLength){
     //
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(position_attribute)}
 
-WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeLengthTransferStrategyParameters)
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeLength)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(position_attribute);
 }
 
-EdgeLengthTransferStrategyParameters::EdgeLengthTransferStrategyParameters() = default;
-EdgeLengthTransferStrategyParameters::~EdgeLengthTransferStrategyParameters() = default;
+EdgeLength::EdgeLength() = default;
+EdgeLength::~EdgeLength() = default;
 
 namespace {
 template <typename T, int Dim>
@@ -31,7 +31,7 @@ auto edge_length(const ColVectors<T, Dim>& M) -> Vector<T, 1>
 } // namespace
 
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-EdgeLengthTransferStrategyParameters::create(
+EdgeLength::create(
     wmtk::components::multimesh::MeshCollection& mc,
 
     const TransferStrategyOptions& opts) const
@@ -84,6 +84,6 @@ EdgeLengthTransferStrategyParameters::create(
         pos_attr.handle());
 }
 
-WMTK_TRANSFER_ALL_DEFINITIONS(EdgeLengthTransferStrategyParameters, "edge_length")
+WMTK_TRANSFER_ALL_DEFINITIONS(EdgeLength, "edge_length")
 
 } // namespace wmtk::components::mesh_info::transfer

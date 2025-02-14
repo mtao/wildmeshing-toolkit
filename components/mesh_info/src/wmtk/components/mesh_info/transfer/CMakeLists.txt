@@ -1,20 +1,26 @@
 
 target_sources(wmtk_${COMPONENT_NAME} PRIVATE 
 TransferStrategyOptions.cpp
-TransferStrategyParameters.cpp
 TransferStrategyOptions.hpp
-TransferStrategyParameters.hpp
-TransferStrategyParameters_macros.hpp
-EdgeLengthTransferStrategyParameters.cpp
-EdgeLengthTransferStrategyParameters.hpp
+TransferStrategyRegistry.cpp
+TransferStrategyRegistry.hpp
 
-MeanRatioMeasureTransferStrategyParameters.hpp
-MeanRatioMeasureTransferStrategyParameters.cpp
+TransferStrategy.cpp
+TransferStrategy.hpp
 
-MeanTransferStrategyParameters.hpp
-MeanTransferStrategyParameters.cpp
-MinTransferStrategyParameters.hpp
-MinTransferStrategyParameters.cpp
+TransferStrategy_macros.hpp
+edge_length.cpp
+edge_length.hpp
+
+mean_ratio_measure.hpp
+mean_ratio_measure.cpp
+
+mean_neighbor.hpp
+mean_neighbor.cpp
+min_neighbor.hpp
+min_neighbor.cpp
+max_neighbor.hpp
+max_neighbor.cpp
 
 init.hpp
 init.cpp

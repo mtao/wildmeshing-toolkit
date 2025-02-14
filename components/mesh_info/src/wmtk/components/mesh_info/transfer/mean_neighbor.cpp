@@ -1,4 +1,4 @@
-#include "MinTransferStrategyParameters.hpp"
+#include "mean_neighbor.hpp"
 #include <nlohmann/json.hpp>
 #include <wmtk/Types.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
@@ -7,31 +7,31 @@
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include "TransferStrategyOptions.hpp"
-#include "TransferStrategyParameters_macros.hpp"
+#include "TransferStrategy_macros.hpp"
 namespace wmtk::components::mesh_info::transfer {
 
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MinTransferStrategyParameters){
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MeanNeighbor){
     //
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(base_attribute_path, simplex_dimension)}
 
-WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MinTransferStrategyParameters)
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MeanNeighbor)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(base_attribute_path, simplex_dimension);
 }
 
-MinTransferStrategyParameters::MinTransferStrategyParameters() = default;
-MinTransferStrategyParameters::~MinTransferStrategyParameters() = default;
+MeanNeighbor::MeanNeighbor() = default;
+MeanNeighbor::~MeanNeighbor() = default;
 
 namespace {
 template <typename T, int Dim>
 auto mean_neighbor(const ColVectors<T, Dim>& M) -> Vector<T, Dim>
 {
-    return M.rowwise().minCoeff();
+    return M.rowwise().mean();
 };
 } // namespace
 
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-MinTransferStrategyParameters::create(
+MeanNeighbor::create(
     wmtk::components::multimesh::MeshCollection& mc,
 
     const TransferStrategyOptions& opts) const
@@ -75,6 +75,6 @@ MinTransferStrategyParameters::create(
         pos_attr.handle());
 }
 
-WMTK_TRANSFER_ALL_DEFINITIONS(MinTransferStrategyParameters, "mean_neighbor")
+WMTK_TRANSFER_ALL_DEFINITIONS(MeanNeighbor, "mean_neighbor")
 
 } // namespace wmtk::components::mesh_info::transfer

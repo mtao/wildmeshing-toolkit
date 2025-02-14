@@ -11,9 +11,9 @@ class MeshCollection;
 } // namespace wmtk
 namespace wmtk::components::mesh_info::transfer {
 struct TransferStrategyOptions;
-struct TransferStrategyParameters
+struct TransferStrategy
 {
-    virtual ~TransferStrategyParameters();
+    virtual ~TransferStrategy();
     // virtual std::string name() const = 0;
     virtual void to_json(nlohmann::json&) const = 0;
     virtual void from_json(const nlohmann::json&) = 0;
@@ -21,7 +21,8 @@ struct TransferStrategyParameters
         wmtk::components::multimesh::MeshCollection& mc,
         const TransferStrategyOptions& opts) const = 0;
 
-    virtual std::unique_ptr<TransferStrategyParameters> clone() const = 0;
+
+    virtual std::unique_ptr<TransferStrategy> clone() const = 0;
 };
 
 } // namespace wmtk::components::mesh_info::transfer
