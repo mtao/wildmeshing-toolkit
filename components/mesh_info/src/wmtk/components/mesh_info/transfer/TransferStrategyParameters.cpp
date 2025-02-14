@@ -1,5 +1,5 @@
 #include "TransferStrategyParameters.hpp"
-namespace wmtk::components::isotropic_remeshing::transfer {
+namespace wmtk::components::mesh_info::transfer {
 
 TransferStrategyParameters::~TransferStrategyParameters() = default;
 }

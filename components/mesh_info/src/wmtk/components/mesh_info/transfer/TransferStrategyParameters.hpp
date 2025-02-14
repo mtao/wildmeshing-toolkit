@@ -9,7 +9,7 @@ namespace components::multimesh {
 class MeshCollection;
 }
 } // namespace wmtk
-namespace wmtk::components::isotropic_remeshing::transfer {
+namespace wmtk::components::mesh_info::transfer {
 struct TransferStrategyOptions;
 struct TransferStrategyParameters
 {
@@ -24,5 +24,5 @@ struct TransferStrategyParameters
     virtual std::unique_ptr<TransferStrategyParameters> clone() const = 0;
 };
 
-} // namespace wmtk::components::isotropic_remeshing::transfer
+} // namespace wmtk::components::mesh_info::transfer
 

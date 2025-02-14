@@ -1,12 +1,10 @@
 #pragma once
-#include <memory>
 #include <nlohmann/json_fwd.hpp>
 #include <optional>
-#include <tuple>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include "OperationOptions.hpp"
-#include "transfer/TransferStrategyOptions.hpp"
+#include <wmtk/components/mesh_info/transfer/TransferStrategyOptions.hpp>
 
 
 namespace wmtk::components::multimesh {
@@ -47,7 +45,7 @@ struct IsotropicRemeshingOptions
     EdgeCollapseOptions collapse;
     VertexSmoothOptions smooth;
     EdgeSwapOptions swap;
-    std::vector<transfer::TransferStrategyOptions> utility_attributes;
+    std::vector<mesh_info::transfer::TransferStrategyOptions> utility_attributes;
 
     std::vector<attribute::MeshAttributeHandle> improvement_attributes;
 

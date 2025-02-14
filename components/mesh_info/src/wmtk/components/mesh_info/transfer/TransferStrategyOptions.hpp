@@ -10,7 +10,7 @@ namespace components::multimesh {
 class MeshCollection;
 }
 } // namespace wmtk
-namespace wmtk::components::isotropic_remeshing::transfer {
+namespace wmtk::components::mesh_info::transfer {
 struct TransferStrategyParameters;
 struct TransferStrategyOptions
 {
@@ -51,4 +51,4 @@ void TransferStrategyOptions::register_transfer(const std::string& name)
         });
     }
 }
-} // namespace wmtk::components::isotropic_remeshing::transfer
+} // namespace wmtk::components::mesh_info::transfer

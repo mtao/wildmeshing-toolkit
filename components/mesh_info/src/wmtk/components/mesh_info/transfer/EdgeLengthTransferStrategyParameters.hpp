@@ -3,7 +3,7 @@
 #include <wmtk/components/utils/json_macros.hpp>
 #include "TransferStrategyParameters.hpp"
 
-namespace wmtk::components::isotropic_remeshing::transfer {
+namespace wmtk::components::mesh_info::transfer {
 
 struct EdgeLengthTransferStrategyParameters : public TransferStrategyParameters
 {
@@ -19,4 +19,4 @@ struct EdgeLengthTransferStrategyParameters : public TransferStrategyParameters
     std::unique_ptr<TransferStrategyParameters> clone() const final;
 };
 
-} // namespace wmtk::components::isotropic_remeshing::transfer
+} // namespace wmtk::components::mesh_info::transfer

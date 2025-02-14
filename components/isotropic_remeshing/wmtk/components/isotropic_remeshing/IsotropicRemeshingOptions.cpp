@@ -6,8 +6,8 @@
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
 #include <wmtk/utils/Logger.hpp>
-#include "transfer/TransferStrategyOptions.hpp"
-#include "transfer/init.hpp"
+#include <wmtk/components/mesh_info/transfer/TransferStrategyOptions.hpp>
+#include <wmtk/components/mesh_info/transfer/init.hpp>
 
 
 #include <wmtk/Mesh.hpp>
@@ -20,7 +20,7 @@ namespace wmtk::components::isotropic_remeshing {
 
 IsotropicRemeshingOptions::IsotropicRemeshingOptions()
 {
-    wmtk::components::isotropic_remeshing::transfer::init();
+    wmtk::components::mesh_info::transfer::init();
 }
 namespace {
 

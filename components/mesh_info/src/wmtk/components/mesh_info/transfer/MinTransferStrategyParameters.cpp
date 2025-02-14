@@ -1,4 +1,4 @@
-#include "MeanTransferStrategyParameters.hpp"
+#include "MinTransferStrategyParameters.hpp"
 #include <nlohmann/json.hpp>
 #include <wmtk/Types.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
@@ -8,30 +8,30 @@
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include "TransferStrategyOptions.hpp"
 #include "TransferStrategyParameters_macros.hpp"
-namespace wmtk::components::isotropic_remeshing::transfer {
+namespace wmtk::components::mesh_info::transfer {
 
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MeanTransferStrategyParameters){
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MinTransferStrategyParameters){
     //
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(base_attribute_path, simplex_dimension)}
 
-WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MeanTransferStrategyParameters)
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MinTransferStrategyParameters)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(base_attribute_path, simplex_dimension);
 }
 
-MeanTransferStrategyParameters::MeanTransferStrategyParameters() = default;
-MeanTransferStrategyParameters::~MeanTransferStrategyParameters() = default;
+MinTransferStrategyParameters::MinTransferStrategyParameters() = default;
+MinTransferStrategyParameters::~MinTransferStrategyParameters() = default;
 
 namespace {
 template <typename T, int Dim>
 auto mean_neighbor(const ColVectors<T, Dim>& M) -> Vector<T, Dim>
 {
-    return M.rowwise().mean();
+    return M.rowwise().minCoeff();
 };
 } // namespace
 
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-MeanTransferStrategyParameters::create(
+MinTransferStrategyParameters::create(
     wmtk::components::multimesh::MeshCollection& mc,
 
     const TransferStrategyOptions& opts) const
@@ -75,6 +75,6 @@ MeanTransferStrategyParameters::create(
         pos_attr.handle());
 }
 
-WMTK_TRANSFER_ALL_DEFINITIONS(MeanTransferStrategyParameters, "mean_neighbor")
+WMTK_TRANSFER_ALL_DEFINITIONS(MinTransferStrategyParameters, "mean_neighbor")
 
-} // namespace wmtk::components::isotropic_remeshing::transfer
+} // namespace wmtk::components::mesh_info::transfer

@@ -4,7 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "TransferStrategyParameters.hpp"
-namespace wmtk::components::isotropic_remeshing::transfer {
+namespace wmtk::components::mesh_info::transfer {
 
 std::map<
     std::string,
@@ -49,4 +49,4 @@ std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> TransferStrateg
     t->run_on_all();
     return t;
 }
-} // namespace wmtk::components::isotropic_remeshing::transfer
+} // namespace wmtk::components::mesh_info::transfer

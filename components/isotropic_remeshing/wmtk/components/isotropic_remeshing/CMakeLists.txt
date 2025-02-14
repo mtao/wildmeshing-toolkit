@@ -38,7 +38,6 @@ set(SRC_FILES
     )
 
 
-add_subdirectory(transfer)
 #CURRENT_COMPONENT_LIB_NAME is set from the main cmake
 target_sources(wmtk_${COMPONENT_NAME} PRIVATE ${SRC_FILES})
-target_link_libraries(wmtk_${COMPONENT_NAME} PRIVATE nlohmann_json wmtk::output)
+target_link_libraries(wmtk_${COMPONENT_NAME} PRIVATE nlohmann_json wmtk::output wmtk::mesh_info)

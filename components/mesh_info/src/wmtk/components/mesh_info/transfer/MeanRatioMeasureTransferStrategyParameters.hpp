@@ -3,21 +3,20 @@
 #include <wmtk/components/utils/json_macros.hpp>
 #include "TransferStrategyParameters.hpp"
 
-namespace wmtk::components::isotropic_remeshing::transfer {
+namespace wmtk::components::mesh_info::transfer {
 
-struct MinTransferStrategyParameters : public TransferStrategyParameters
+struct MeanRatioMeasureTransferStrategy : public TransferStrategyParameters
 {
-    MinTransferStrategyParameters();
-    ~MinTransferStrategyParameters();
-    std::string base_attribute_path;
-    int8_t simplex_dimension;
+    MeanRatioMeasureTransferStrategy();
+    ~MeanRatioMeasureTransferStrategy();
+    std::string position_attribute;
     void to_json(nlohmann::json&) const final;
     void from_json(const nlohmann::json&) final;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MinTransferStrategyParameters)
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeanRatioMeasureTransferStrategy)
     std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create(
         wmtk::components::multimesh::MeshCollection& mc,
         const TransferStrategyOptions& opts) const final;
     std::unique_ptr<TransferStrategyParameters> clone() const final;
 };
 
-} // namespace wmtk::components::isotropic_remeshing::transfer
+} // namespace wmtk::components::mesh_info::transfer

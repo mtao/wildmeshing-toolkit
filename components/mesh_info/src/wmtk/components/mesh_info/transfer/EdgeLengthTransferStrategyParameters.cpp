@@ -8,7 +8,7 @@
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include "TransferStrategyOptions.hpp"
 #include "TransferStrategyParameters_macros.hpp"
-namespace wmtk::components::isotropic_remeshing::transfer {
+namespace wmtk::components::mesh_info::transfer {
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EdgeLengthTransferStrategyParameters){
     //
@@ -86,4 +86,4 @@ EdgeLengthTransferStrategyParameters::create(
 
 WMTK_TRANSFER_ALL_DEFINITIONS(EdgeLengthTransferStrategyParameters, "edge_length")
 
-} // namespace wmtk::components::isotropic_remeshing::transfer
+} // namespace wmtk::components::mesh_info::transfer
