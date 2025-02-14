@@ -4,7 +4,7 @@ var searchData=
   ['paraviewwriter_2ehpp_1',['ParaviewWriter.hpp',['../_paraview_writer_8hpp.html',1,'']]],
   ['pathresolver_2ecpp_2',['PathResolver.cpp',['../_path_resolver_8cpp.html',1,'']]],
   ['pathresolver_2ehpp_3',['PathResolver.hpp',['../_path_resolver_8hpp.html',1,'']]],
-  ['periodic_5foptimization_2ecpp_4',['periodic_optimization.cpp',['../periodic__optimization_8cpp.html',1,'(Global Namespace)'],['../internal_2periodic__optimization_8cpp.html',1,'(Global Namespace)']]],
+  ['periodic_5foptimization_2ecpp_4',['periodic_optimization.cpp',['../internal_2periodic__optimization_8cpp.html',1,'(Global Namespace)'],['../periodic__optimization_8cpp.html',1,'(Global Namespace)']]],
   ['periodic_5foptimization_2ehpp_5',['periodic_optimization.hpp',['../periodic__optimization_8hpp.html',1,'(Global Namespace)'],['../internal_2periodic__optimization_8hpp.html',1,'(Global Namespace)']]],
   ['periodicoptimizationoptions_2ehpp_6',['PeriodicOptimizationOptions.hpp',['../_periodic_optimization_options_8hpp.html',1,'']]],
   ['persimplexautodifffunction_2ecpp_7',['PerSimplexAutodiffFunction.cpp',['../_per_simplex_autodiff_function_8cpp.html',1,'']]],

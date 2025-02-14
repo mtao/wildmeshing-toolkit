@@ -46,8 +46,6 @@ var dir_9f42d488f21f30bdc75c62948fa574ea =
     [ "trimesh_topology_initialization.cpp", "trimesh__topology__initialization_8cpp.html", "trimesh__topology__initialization_8cpp" ],
     [ "trimesh_topology_initialization.h", "trimesh__topology__initialization_8h.html", "trimesh__topology__initialization_8h" ],
     [ "TupleCellLessThanFunctor.hpp", "_tuple_cell_less_than_functor_8hpp.html", "_tuple_cell_less_than_functor_8hpp" ],
-    [ "TupleInspector.cpp", "_tuple_inspector_8cpp.html", null ],
-    [ "TupleInspector.hpp", "_tuple_inspector_8hpp.html", "_tuple_inspector_8hpp" ],
     [ "vector_hash.cpp", "vector__hash_8cpp.html", "vector__hash_8cpp" ],
     [ "vector_hash.hpp", "vector__hash_8hpp.html", "vector__hash_8hpp" ],
     [ "VolumeRemesherTriangleInsertion.cpp", "_volume_remesher_triangle_insertion_8cpp.html", "_volume_remesher_triangle_insertion_8cpp" ],

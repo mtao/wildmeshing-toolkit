@@ -15,7 +15,6 @@ var namespacewmtk_1_1utils =
     [ "RandomSeedSingleton", "classwmtk_1_1utils_1_1_random_seed_singleton.html", "classwmtk_1_1utils_1_1_random_seed_singleton" ],
     [ "StopWatch", "classwmtk_1_1utils_1_1_stop_watch.html", "classwmtk_1_1utils_1_1_stop_watch" ],
     [ "TupleCellLessThan", "classwmtk_1_1utils_1_1_tuple_cell_less_than.html", "classwmtk_1_1utils_1_1_tuple_cell_less_than" ],
-    [ "TupleInspector", "classwmtk_1_1utils_1_1_tuple_inspector.html", null ],
     [ "mesh_type_from_dimension_t", "namespacewmtk_1_1utils.html#a02b16973a282fa6a4702845ea983d170", null ],
     [ "mesh_type_from_primitive_type_t", "namespacewmtk_1_1utils.html#a4a14004fe275472582e54f21d079b230", null ],
     [ "array_to_map", "namespacewmtk_1_1utils.html#ab868c1a067fef7acace11234f38e71cc", null ],

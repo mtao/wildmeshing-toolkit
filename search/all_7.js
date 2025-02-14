@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['gather_5fattributes_0',['gather_attributes',['../namespacewmtk_1_1components.html#a7447d90d4590819b69239d895ea5dc86',1,'wmtk::components::gather_attributes(io::Cache &amp;cache, Mesh &amp;mesh, const internal::RegularSpaceOptions &amp;options)'],['../namespacewmtk_1_1components.html#a0271fbc50dba277ddd2d1d3e32d1fb3d',1,'wmtk::components::gather_attributes(io::Cache &amp;cache, const Mesh &amp;mesh, const internal::TagIntersectionOptions &amp;options)']]],
+  ['gather_5fattributes_0',['gather_attributes',['../namespacewmtk_1_1components.html#a0271fbc50dba277ddd2d1d3e32d1fb3d',1,'wmtk::components::gather_attributes(io::Cache &amp;cache, const Mesh &amp;mesh, const internal::TagIntersectionOptions &amp;options)'],['../namespacewmtk_1_1components.html#a7447d90d4590819b69239d895ea5dc86',1,'wmtk::components::gather_attributes(io::Cache &amp;cache, Mesh &amp;mesh, const internal::RegularSpaceOptions &amp;options)']]],
   ['generate_1',['generate',['../classwmtk_1_1io_1_1_msh_reader.html#a5993331b70b939129568f8dea340e61d',1,'wmtk::io::MshReader']]],
   ['generate_5fraw_5ftetmesh_5ffrom_5finput_5fsurface_2',['generate_raw_tetmesh_from_input_surface',['../namespacewmtk_1_1utils.html#a3787bc051f3f90a7a2f0571c47f01957',1,'wmtk::utils']]],
   ['generate_5fsimplicial_5fembedding_3',['generate_simplicial_embedding',['../structwmtk_1_1components_1_1_simplicial_embedding_options.html#a128751db4bbf9bf99347aba366fba195',1,'wmtk::components::SimplicialEmbeddingOptions']]],
@@ -32,7 +32,7 @@ var searchData=
   ['get_5fattribute_5fhandle_5ftyped_29',['get_attribute_handle_typed',['../classwmtk_1_1_mesh.html#a5049277866dd8a895a4d9521b29e6ed6',1,'wmtk::Mesh']]],
   ['get_5fattribute_5fname_30',['get_attribute_name',['../classwmtk_1_1_mesh.html#a9c80d92eb6c801b64d52444a9f98d4d3',1,'wmtk::Mesh::get_attribute_name(const TypedAttributeHandle&lt; T &gt; &amp;handle) const'],['../classwmtk_1_1_mesh.html#ad4b3cd5af2e441de6c59c5e9794a84d3',1,'wmtk::Mesh::get_attribute_name(const attribute::MeshAttributeHandle::HandleVariant &amp;handle) const']]],
   ['get_5fattributes_31',['get_attributes',['../namespacewmtk_1_1components_1_1utils.html#af6aefcc543c7737abce06f5f8bad7dbd',1,'wmtk::components::utils']]],
-  ['get_5fattributes_2ecpp_32',['get_attributes.cpp',['../utils_2wmtk_2components_2utils_2get__attributes_8cpp.html',1,'(Global Namespace)'],['../multimesh_2tests_2get__attributes_8cpp.html',1,'(Global Namespace)']]],
+  ['get_5fattributes_2ecpp_32',['get_attributes.cpp',['../multimesh_2tests_2get__attributes_8cpp.html',1,'(Global Namespace)'],['../utils_2wmtk_2components_2utils_2get__attributes_8cpp.html',1,'(Global Namespace)']]],
   ['get_5fattributes_2ehpp_33',['get_attributes.hpp',['../get__attributes_8hpp.html',1,'']]],
   ['get_5fbicubic_5fmatrix_34',['get_bicubic_matrix',['../namespacewmtk_1_1components_1_1adaptive__tessellation_1_1image.html#a7d050dc4705108dbea5c56147710eddd',1,'wmtk::components::adaptive_tessellation::image']]],
   ['get_5fcache_35',['get_cache',['../classwmtk_1_1attribute_1_1_attribute_scope.html#a999e98d99e1b7c2d41403956f9f5f87d',1,'wmtk::attribute::AttributeScope']]],
@@ -152,7 +152,7 @@ var searchData=
   ['getrss_2eh_149',['getRSS.h',['../get_r_s_s_8h.html',1,'']]],
   ['getvalue_150',['getvalue',['../struct_d_scalar1.html#aeb8af2533209850e51cfd669438171fa',1,'DScalar1::getValue()'],['../struct_d_scalar2.html#a3881245b59ef8abcb2dada50b2470bd5',1,'DScalar2::getValue()']]],
   ['getvariablecount_151',['getVariableCount',['../struct_diff_scalar_base.html#a663329a7a315a38a711116c4dd056995',1,'DiffScalarBase']]],
-  ['global_5fcid_152',['global_cid',['../classwmtk_1_1utils_1_1_tuple_inspector.html#a5a92c6323c9678ae3785e395bc84d4a9',1,'wmtk::utils::TupleInspector']]],
+  ['global_5fcid_152',['global_cid',['../classwmtk_1_1_tuple.html#aef64a43ff5f5617dbc99d865356bbc25',1,'wmtk::Tuple']]],
   ['global_5fid_153',['global_id',['../classwmtk_1_1autogen_1_1_dart.html#a5613d5dbf1e5523f5206a17c4b2018bd',1,'wmtk::autogen::Dart::global_id() const'],['../classwmtk_1_1autogen_1_1_dart.html#a3fb0fe4fc739bd74267822053ef27cc5',1,'wmtk::autogen::Dart::global_id()']]],
   ['global_5fids_5fto_5fpotential_5ftuples_154',['global_ids_to_potential_tuples',['../classwmtk_1_1operations_1_1_edge_operation_data.html#a46996078702aaa4c9f74f8f4f3d7bafa',1,'wmtk::operations::EdgeOperationData']]],
   ['global_5fids_5fto_5fupdate_155',['global_ids_to_update',['../classwmtk_1_1operations_1_1_edge_operation_data.html#a227b86248f90a144459163c575fbb46c',1,'wmtk::operations::EdgeOperationData']]],

@@ -45,7 +45,7 @@ var searchData=
   ['as_5fdscalar_42',['as_DScalar',['../namespacewmtk_1_1function_1_1utils.html#a747befc99405311bdfff72d2636dfcc1',1,'wmtk::function::utils']]],
   ['as_5ffrom_5fheld_5ftype_43',['as_from_held_type',['../classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#ad9819e403fe9a7a2880fe5423226d1d2',1,'wmtk::attribute::MeshAttributeHandle']]],
   ['as_5fmesh_5fvariant_44',['as_mesh_variant',['../namespacewmtk_1_1utils_1_1metaprogramming.html#aa5a891c5f82fc2a28e4fbdfc325b46f0',1,'wmtk::utils::metaprogramming']]],
-  ['as_5fstring_45',['as_string',['../classwmtk_1_1utils_1_1_tuple_inspector.html#a7637fe37249cbe7262a4a5c931c40f75',1,'wmtk::utils::TupleInspector']]],
+  ['as_5fstring_45',['as_string',['../classwmtk_1_1_tuple.html#a017feb5f1130167098ddea591fd256a1',1,'wmtk::Tuple']]],
   ['as_5ftuple_46',['as_tuple',['../classwmtk_1_1autogen_1_1_dart.html#a6a8abbb585f194117b3cd90e33668150',1,'wmtk::autogen::Dart::as_tuple()'],['../classwmtk_1_1simplex_1_1_id_simplex.html#a12a0de9e744f487a3c70f02205f67a31',1,'wmtk::simplex::IdSimplex::as_tuple()']]],
   ['as_5fvariant_47',['as_variant',['../namespacewmtk_1_1utils_1_1metaprogramming.html#a0afbab5688eebca9617e4910e3b7fbb2',1,'wmtk::utils::metaprogramming']]],
   ['assert_5fcapacity_5fvalid_48',['assert_capacity_valid',['../classwmtk_1_1attribute_1_1_attribute_manager.html#a899d353ddc2cf4666139c2d712284f98',1,'wmtk::attribute::AttributeManager::assert_capacity_valid()'],['../classwmtk_1_1attribute_1_1_mesh_attributes.html#ab185c99164daadd77a830b0fe859ad30',1,'wmtk::attribute::MeshAttributes::assert_capacity_valid()'],['../classwmtk_1_1_mesh.html#a61f2bd1d14343c57b62082ae877abde3',1,'wmtk::Mesh::assert_capacity_valid()']]],

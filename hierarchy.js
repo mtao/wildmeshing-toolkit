@@ -434,7 +434,6 @@ var hierarchy =
     [ "wmtk::Tuple", "classwmtk_1_1_tuple.html", null ],
     [ "wmtk::attribute::TupleAccessor< MeshType, Dim >", "classwmtk_1_1attribute_1_1_tuple_accessor.html", null ],
     [ "wmtk::utils::TupleCellLessThan", "classwmtk_1_1utils_1_1_tuple_cell_less_than.html", null ],
-    [ "wmtk::utils::TupleInspector", "classwmtk_1_1utils_1_1_tuple_inspector.html", null ],
     [ "wmtk::multimesh::utils::internal::TupleTag", "classwmtk_1_1multimesh_1_1utils_1_1internal_1_1_tuple_tag.html", null ],
     [ "wmtk::attribute::type_from_attribute_type_enum< AT >", "structwmtk_1_1attribute_1_1type__from__attribute__type__enum.html", null ],
     [ "wmtk::attribute::type_from_attribute_type_enum< AttributeType::Char >", "structwmtk_1_1attribute_1_1type__from__attribute__type__enum_3_01_attribute_type_1_1_char_01_4.html", null ],

@@ -15,7 +15,6 @@ var namespacewmtk_1_1multimesh_1_1utils =
     [ "find_local_dart_action", "namespacewmtk_1_1multimesh_1_1utils.html#a2af1d1801a5c9f96ea855cfd6ee69afd", null ],
     [ "find_local_dart_action", "namespacewmtk_1_1multimesh_1_1utils.html#a99c0d3cb32c7003b624dd8b6e79b3540", null ],
     [ "find_local_switch_sequence", "namespacewmtk_1_1multimesh_1_1utils.html#a99cdf56ec6abe68409d30e0b67f4ce82", null ],
-    [ "find_local_switch_sequence_to_face", "namespacewmtk_1_1multimesh_1_1utils.html#a17949fccf9839f2d0802546a257a2dc1", null ],
     [ "local_switch_tuple", "namespacewmtk_1_1multimesh_1_1utils.html#af9c45a14e7a1550a7f54d461b61c5c04", null ],
     [ "local_switch_tuples", "namespacewmtk_1_1multimesh_1_1utils.html#a35bfe2b004961f1f59b80cc181de7443", null ],
     [ "local_switch_tuples", "namespacewmtk_1_1multimesh_1_1utils.html#af71d6d20a76616d671ae5f53350107b4", null ],

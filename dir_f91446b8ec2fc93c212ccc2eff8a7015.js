@@ -11,8 +11,6 @@ var dir_f91446b8ec2fc93c212ccc2eff8a7015 =
     [ "find_local_dart_action.hpp", "multimesh_2utils_2find__local__dart__action_8hpp.html", "multimesh_2utils_2find__local__dart__action_8hpp" ],
     [ "find_local_switch_sequence.cpp", "find__local__switch__sequence_8cpp.html", "find__local__switch__sequence_8cpp" ],
     [ "find_local_switch_sequence.hpp", "find__local__switch__sequence_8hpp.html", "find__local__switch__sequence_8hpp" ],
-    [ "find_local_switch_sequence_to_face.cpp", "find__local__switch__sequence__to__face_8cpp.html", "find__local__switch__sequence__to__face_8cpp" ],
-    [ "find_local_switch_sequence_to_face.hpp", "find__local__switch__sequence__to__face_8hpp.html", "find__local__switch__sequence__to__face_8hpp" ],
     [ "local_switch_tuple.cpp", "multimesh_2utils_2local__switch__tuple_8cpp.html", "multimesh_2utils_2local__switch__tuple_8cpp" ],
     [ "local_switch_tuple.hpp", "multimesh_2utils_2local__switch__tuple_8hpp.html", "multimesh_2utils_2local__switch__tuple_8hpp" ],
     [ "MapValidator.cpp", "_map_validator_8cpp.html", null ],

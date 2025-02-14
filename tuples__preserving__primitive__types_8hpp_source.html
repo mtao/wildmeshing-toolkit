@@ -130,20 +130,26 @@ $(document).ready(function(){initNavTree('tuples__preserving__primitive__types_8
 <a href="tuples__preserving__primitive__types_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="_tuple_8hpp.html">wmtk/Tuple.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="_primitive_type_8hpp.html">wmtk/PrimitiveType.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="_tuple_8hpp.html">wmtk/Tuple.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1simplex.html">wmtk::simplex</a> {</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>std::vector&lt;Tuple&gt; <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a9596b1dd0c3bbd8fc2dc1faac7321034">tuples_preserving_primitive_types</a>(</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">const</span> Mesh&amp; mesh,</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">const</span> Tuple&amp; t,</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> ptype1,</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> ptype2);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace wmtk::simplex</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk.html">wmtk</a> {</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">class </span>Mesh;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>}</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1simplex.html">wmtk::simplex</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>std::vector&lt;Tuple&gt; <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a9596b1dd0c3bbd8fc2dc1faac7321034">tuples_preserving_primitive_types</a>(</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keyword">const</span> Mesh&amp; mesh,</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keyword">const</span> Tuple&amp; t,</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> ptype1,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> ptype2);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>} <span class="comment">// namespace wmtk::simplex</span></div>
+<div class="ttc" id="a_primitive_type_8hpp_html"><div class="ttname"><a href="_primitive_type_8hpp.html">PrimitiveType.hpp</a></div></div>
 <div class="ttc" id="a_tuple_8hpp_html"><div class="ttname"><a href="_tuple_8hpp.html">Tuple.hpp</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1simplex_html"><div class="ttname"><a href="namespacewmtk_1_1simplex.html">wmtk::simplex</a></div><div class="ttdef"><b>Definition</b> <a href="_cell_8hpp_source.html#l00007">Cell.hpp:7</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1simplex_html_a9596b1dd0c3bbd8fc2dc1faac7321034"><div class="ttname"><a href="namespacewmtk_1_1simplex.html#a9596b1dd0c3bbd8fc2dc1faac7321034">wmtk::simplex::tuples_preserving_primitive_types</a></div><div class="ttdeci">std::vector&lt; Tuple &gt; tuples_preserving_primitive_types(const Mesh &amp;mesh, const Tuple &amp;t, const PrimitiveType simplex_ptype, const PrimitiveType face_ptype)</div><div class="ttdoc">Compute all tuples that contain simplex(ptype1, t) and that are contained by simplex(ptype2,...</div><div class="ttdef"><b>Definition</b> <a href="tuples__preserving__primitive__types_8cpp_source.html#l00009">tuples_preserving_primitive_types.cpp:9</a></div></div>
+<div class="ttc" id="anamespacewmtk_html"><div class="ttname"><a href="namespacewmtk.html">wmtk</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00006">Accessor.hpp:6</a></div></div>
 <div class="ttc" id="anamespacewmtk_html_af11e67c10a0ab2b57b9bbc3998b62345"><div class="ttname"><a href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">wmtk::PrimitiveType</a></div><div class="ttdeci">PrimitiveType</div><div class="ttdef"><b>Definition</b> <a href="_primitive_type_8hpp_source.html#l00009">PrimitiveType.hpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

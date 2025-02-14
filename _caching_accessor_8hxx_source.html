@@ -226,18 +226,16 @@ $(document).ready(function(){initNavTree('_caching_accessor_8hxx_source.html',''
 <div class="foldopen" id="foldopen00075" data-start="{" data-end="}">
 <div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="classwmtk_1_1attribute_1_1_caching_accessor.html#a1082ba3fd4f20f59ec2a756c74b9c57d">   75</a></span><span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code hl_function" href="classwmtk_1_1attribute_1_1_caching_accessor.html#aba9f0415cf55bccd139eb4bd40ca00b9">CachingAccessor&lt;T, Dim&gt;::vector_attribute</a>(<span class="keyword">const</span> int64_t index) <span class="keyword">const</span> -&gt; <a class="code hl_typedef" href="classwmtk_1_1attribute_1_1_caching_accessor.html#a098d08ff9be2220c72decf6697e95d6f">ConstMapResult&lt;&gt;</a></div>
 <div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>{</div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classwmtk_1_1attribute_1_1_accessor.html#ae6897ea7037851ddd5794d580cd80d9b">   77</a></span>    <span class="keywordflow">return</span> const_vector_attribute(index);</div>
-<div class="foldopen" id="foldopen00078" data-start="{" data-end="}">
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">return</span> const_vector_attribute(index);</div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classwmtk_1_1attribute_1_1_caching_accessor.html#ae7a77d50d8acb8ea7ecba48f6ae7deb4">   78</a></span>}</div>
-<div class="foldopen" id="foldopen00079" data-start="{" data-end="}">
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno"><a class="line" href="classwmtk_1_1attribute_1_1_accessor.html#a5c079927e83df2dda85ce429416cc19c">   79</a></span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> Dim&gt;</div>
-<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classwmtk_1_1attribute_1_1_caching_accessor.html#a8268878ace9898355ad4c6d1f94a6cc0">   80</a></span><span class="keyword">inline</span> <a class="code hl_typedef" href="classwmtk_1_1attribute_1_1_accessor_base.html#ab1883d5e8a530b899930b30ae20ed74b">T</a> <a class="code hl_function" href="classwmtk_1_1attribute_1_1_caching_accessor.html#a73f8d78b708406dcd6433398e3954e72">CachingAccessor&lt;T, Dim&gt;::scalar_attribute</a>(<span class="keyword">const</span> int64_t index)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">return</span> const_scalar_attribute(index);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
 </div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> Dim&gt;</div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classwmtk_1_1attribute_1_1_accessor.html#ae6897ea7037851ddd5794d580cd80d9b">   80</a></span><span class="keyword">inline</span> <a class="code hl_typedef" href="classwmtk_1_1attribute_1_1_accessor_base.html#ab1883d5e8a530b899930b30ae20ed74b">T</a> <a class="code hl_function" href="classwmtk_1_1attribute_1_1_caching_accessor.html#a73f8d78b708406dcd6433398e3954e72">CachingAccessor&lt;T, Dim&gt;::scalar_attribute</a>(<span class="keyword">const</span> int64_t index)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span><span class="keyword"></span>{</div>
+<div class="foldopen" id="foldopen00082" data-start="{" data-end="}">
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno"><a class="line" href="classwmtk_1_1attribute_1_1_accessor.html#a5c079927e83df2dda85ce429416cc19c">   82</a></span>    <span class="keywordflow">return</span> const_scalar_attribute(index);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T, <span class="keywordtype">int</span> Dim&gt;</div>
 <div class="foldopen" id="foldopen00086" data-start="{" data-end="}">
@@ -274,13 +272,11 @@ $(document).ready(function(){initNavTree('_caching_accessor_8hxx_source.html',''
 </div>
 </div>
 </div>
-</div>
-</div>
 <div class="ttc" id="a_attribute_scope_8hpp_html"><div class="ttname"><a href="_attribute_scope_8hpp.html">AttributeScope.hpp</a></div></div>
 <div class="ttc" id="a_attribute_transaction_stack_8hpp_html"><div class="ttname"><a href="_attribute_transaction_stack_8hpp.html">AttributeTransactionStack.hpp</a></div></div>
 <div class="ttc" id="a_caching_accessor_8hpp_html"><div class="ttname"><a href="_caching_accessor_8hpp.html">CachingAccessor.hpp</a></div></div>
 <div class="ttc" id="a_rational_8hpp_html"><div class="ttname"><a href="_rational_8hpp.html">Rational.hpp</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html"><div class="ttname"><a href="classwmtk_1_1_mesh.html">wmtk::Mesh</a></div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00106">Mesh.hpp:107</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html"><div class="ttname"><a href="classwmtk_1_1_mesh.html">wmtk::Mesh</a></div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00094">Mesh.hpp:95</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_accessor_base_html"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_accessor_base.html">wmtk::attribute::AccessorBase&lt; T, Dim &gt;</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_accessor_base_html_ab1883d5e8a530b899930b30ae20ed74b"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_accessor_base.html#ab1883d5e8a530b899930b30ae20ed74b">wmtk::attribute::AccessorBase::T</a></div><div class="ttdeci">_T T</div><div class="ttdef"><b>Definition</b> <a href="_accessor_base_8hpp_source.html#l00030">AccessorBase.hpp:30</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_caching_accessor_html_a06e6d82dc64f5c84201f1856de817b76"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_caching_accessor.html#a06e6d82dc64f5c84201f1856de817b76">wmtk::attribute::CachingAccessor::MapResult</a></div><div class="ttdeci">typename BaseType::template MapResult&lt; D &gt; MapResult</div><div class="ttdef"><b>Definition</b> <a href="_caching_accessor_8hpp_source.html#l00033">CachingAccessor.hpp:33</a></div></div>
@@ -295,7 +291,7 @@ $(document).ready(function(){initNavTree('_caching_accessor_8hxx_source.html',''
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_caching_accessor_html_ae6897ea7037851ddd5794d580cd80d9b"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_caching_accessor.html#ae6897ea7037851ddd5794d580cd80d9b">wmtk::attribute::CachingAccessor::has_stack</a></div><div class="ttdeci">bool has_stack() const</div><div class="ttdef"><b>Definition</b> <a href="_caching_accessor_8hxx_source.html#l00027">CachingAccessor.hxx:27</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_caching_accessor_html_ae7a77d50d8acb8ea7ecba48f6ae7deb4"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_caching_accessor.html#ae7a77d50d8acb8ea7ecba48f6ae7deb4">wmtk::attribute::CachingAccessor::writing_enabled</a></div><div class="ttdeci">bool writing_enabled() const</div><div class="ttdef"><b>Definition</b> <a href="_caching_accessor_8hxx_source.html#l00033">CachingAccessor.hxx:33</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_typed_attribute_handle_html"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html">wmtk::attribute::TypedAttributeHandle</a></div><div class="ttdoc">Handle that represents attributes for some mesh.</div><div class="ttdef"><b>Definition</b> <a href="_typed_attribute_handle_8hpp_source.html#l00027">TypedAttributeHandle.hpp:28</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1attribute_html"><div class="ttname"><a href="namespacewmtk_1_1attribute.html">wmtk::attribute</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00017">Accessor.hpp:17</a></div></div>
+<div class="ttc" id="anamespacewmtk_1_1attribute_html"><div class="ttname"><a href="namespacewmtk_1_1attribute.html">wmtk::attribute</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00020">Accessor.hpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->
