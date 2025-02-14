@@ -30,12 +30,9 @@ wmtk::application_utils
 wmtk_register_integration_test(
     EXEC_NAME isotropic_remeshing_app
     CONFIG_FILE ${CMAKE_CURRENT_SOURCE_DIR}/test_config.json
-    GIT_REPOSITORY "https://github.com/wildmeshing/data.git"
-    GIT_TAG 
-    e5538e0af5b5b37aa7f5e4119cfe252f77dd9358
     CONFIG_PATH ${CMAKE_CURRENT_SOURCE_DIR}/examples
-
 )
+
 #
 #wmtk_register_integration_test(
 #    EXEC_NAME isotropic_remeshing_uv_app
