@@ -26,6 +26,9 @@ Rational::Rational(bool rounded)
 Rational::Rational(int v, bool rounded)
     : Rational((double)v, rounded)
 {}
+Rational::Rational(Eigen::Index v, bool rounded)
+    : Rational((double)v, rounded)
+{}
 
 Rational::Rational(double d, bool rounded)
     : m_is_rounded(rounded)

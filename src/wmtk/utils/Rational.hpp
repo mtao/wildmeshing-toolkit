@@ -14,6 +14,7 @@ class Rational
 public:
     Rational(bool rounded = false);
     Rational(int v, bool rounded = false);
+    Rational(Eigen::Index v, bool rounded = false);
     Rational(double d, bool rounded = false);
     Rational(const mpq_t& v_);
     Rational(const Rational& other);

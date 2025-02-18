@@ -1,24 +1,27 @@
 #pragma once
 #include <nlohmann/json_fwd.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
-#include "TransferStrategy.hpp"
+#include "SingleAttributeTransferStrategyFactory.hpp"
 
 namespace wmtk::components::mesh_info::transfer {
 
-struct MeanNeighbor : public TransferStrategy
+template <typename InT, int InDim, typename OutT, int OutDim>
+struct MeanNeighborFunctor
 {
-    MeanNeighbor();
-    ~MeanNeighbor() override;
-    std::string base_attribute_path;
-    int8_t simplex_dimension;
-    void to_json(nlohmann::json&) const final;
-    void from_json(const nlohmann::json&) final;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeanNeighbor)
-    auto create(
-        wmtk::components::multimesh::MeshCollection& mc,
-        const TransferStrategyOptions& opts) const
-        -> std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> final;
-    auto clone() const -> std::unique_ptr<TransferStrategy> final;
+    constexpr static bool validInDim() { return true; }
+    constexpr static bool validOutDim()
+    {
+        return OutDim == Eigen::Dynamic || InDim == Eigen::Dynamic || OutDim == InDim;
+    }
+    constexpr static bool validType() { return std::is_same_v<InT, OutT>; }
+    constexpr static bool valid() { return validInDim() && validOutDim() && validType(); }
+
+    static auto execute(Eigen::Ref<const ColVectors<InT, InDim>> M) -> Vector<OutT, OutDim>
+    {
+        return M.rowwise().mean().template cast<OutT>();
+    };
 };
+
+using MeanNeighbor = SingleAttributeTransferStrategyFactory<MeanNeighborFunctor>;
 
 } // namespace wmtk::components::mesh_info::transfer

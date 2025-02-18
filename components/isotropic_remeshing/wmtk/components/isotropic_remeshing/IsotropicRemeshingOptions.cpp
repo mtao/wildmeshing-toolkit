@@ -2,19 +2,19 @@
 #include <fmt/format.h>
 #include <algorithm>
 #include <nlohmann/json.hpp>
+#include <wmtk/components/mesh_info/transfer/TransferStrategyFactory.hpp>
+#include <wmtk/components/mesh_info/transfer/init.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
 #include <wmtk/utils/Logger.hpp>
-#include <wmtk/components/mesh_info/transfer/TransferStrategyOptions.hpp>
-#include <wmtk/components/mesh_info/transfer/init.hpp>
 
 
 #include <wmtk/Mesh.hpp>
 
 #define DEFAULT_PARSABLE_ARGS                                                                    \
     iterations, lock_boundary, use_for_periodic, fix_uv_seam, intermediate_output_format, split, \
-        swap, collapse, smooth, utility_attributes
+        swap, collapse, smooth //, utility_attributes
 
 namespace wmtk::components::isotropic_remeshing {
 
