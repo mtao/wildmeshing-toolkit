@@ -8,6 +8,7 @@ namespace wmtk::components::mesh_info::transfer {
 template <typename InT, int InDim, typename OutT, int OutDim>
 struct EdgeLengthFunctor
 {
+    EdgeLengthFunctor(const nlohmann::json& js) {}
     constexpr static bool validInDim() { return true; }
     constexpr static bool validOutDim() { return OutDim == Eigen::Dynamic || OutDim == 1; }
     constexpr static bool validType()
@@ -19,6 +20,10 @@ struct EdgeLengthFunctor
     {
         return Vector<OutT, 1>::Constant(M.rows(), 1, (M.col(0) - M.col(1)).norm());
     };
+    auto operator()(Eigen::Ref<const ColVectors<InT, InDim>> M) const -> Vector<OutT, OutDim>
+    {
+        return execute(M);
+    }
 };
 
 using EdgeLength = SingleAttributeTransferStrategyFactory<EdgeLengthFunctor>;

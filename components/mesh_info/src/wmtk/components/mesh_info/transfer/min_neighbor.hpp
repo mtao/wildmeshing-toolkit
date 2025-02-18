@@ -8,6 +8,7 @@ namespace wmtk::components::mesh_info::transfer {
 template <typename InT, int InDim, typename OutT, int OutDim>
 struct MinNeighborFunctor
 {
+    MinNeighborFunctor(const nlohmann::json& js) {}
     constexpr static bool validInDim() { return true; }
     constexpr static bool validOutDim()
     {
@@ -16,10 +17,15 @@ struct MinNeighborFunctor
     constexpr static bool validType() { return std::is_same_v<InT, OutT>; }
     constexpr static bool valid() { return validInDim() && validOutDim() && validType(); }
 
+
     static auto execute(Eigen::Ref<const ColVectors<InT, InDim>> M) -> Vector<OutT, OutDim>
     {
         return M.rowwise().minCoeff().template cast<OutT>();
     };
+    auto operator()(Eigen::Ref<const ColVectors<InT, InDim>> M) const -> Vector<OutT, OutDim>
+    {
+        return execute(M);
+    }
 };
 
 using MinNeighbor = SingleAttributeTransferStrategyFactory<MinNeighborFunctor>;

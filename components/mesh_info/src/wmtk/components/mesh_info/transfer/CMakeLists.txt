@@ -15,7 +15,13 @@ edge_length.cpp
 edge_length.hpp
 
 mean_ratio_measure.hpp
-#mean_ratio_measure.cpp
+mean_ratio_measure.cpp
+
+normal.cpp
+normal.hpp
+
+edge_angle.hpp
+edge_angle.cpp
 
 mean_neighbor.hpp
 mean_neighbor.cpp

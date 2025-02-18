@@ -1,15 +1,16 @@
-#include "mean_ratio_measure.hpp"
+
+#include "edge_angle.hpp"
 #include <nlohmann/json.hpp>
 #include "SingleAttributeTransferStrategyFactory.hpp"
 namespace wmtk::components::mesh_info::transfer {
 
 
 template <>
-SingleAttributeTransferStrategyFactory<
-    MeanRatioMeasureFunctor>::SingleAttributeTransferStrategyFactory() = default;
+SingleAttributeTransferStrategyFactory<EdgeAngleFunctor>::SingleAttributeTransferStrategyFactory() =
+    default;
 template <>
 SingleAttributeTransferStrategyFactory<
-    MeanRatioMeasureFunctor>::~SingleAttributeTransferStrategyFactory() = default;
+    EdgeAngleFunctor>::~SingleAttributeTransferStrategyFactory() = default;
 
 
 } // namespace wmtk::components::mesh_info::transfer

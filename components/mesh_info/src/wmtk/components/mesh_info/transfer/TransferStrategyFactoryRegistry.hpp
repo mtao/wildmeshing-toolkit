@@ -5,7 +5,7 @@
 #include <nlohmann/json_fwd.hpp>
 
 namespace wmtk::components::mesh_info::transfer {
-class TransferStrategyFactory;
+struct TransferStrategyFactory;
 
 // registry holding the
 class TransferStrategyFactoryRegistry

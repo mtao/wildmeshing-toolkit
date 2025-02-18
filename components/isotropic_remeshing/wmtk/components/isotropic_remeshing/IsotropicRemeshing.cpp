@@ -54,9 +54,9 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
                 parent,
                 child));
     }
-    //for (const auto& transfer : m_options.utility_attributes) {
-    //    m_operation_transfers.emplace_back(transfer->create(*m_options.mesh_collection));
-    //}
+    for (const auto& transfer : m_options.utility_attributes) {
+        m_operation_transfers.emplace_back(transfer->create(*m_options.mesh_collection));
+    }
 
     m_universal_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(
         m_options.position_attribute.mesh());

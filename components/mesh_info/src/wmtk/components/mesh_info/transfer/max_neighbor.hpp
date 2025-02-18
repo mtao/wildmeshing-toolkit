@@ -8,6 +8,7 @@ namespace wmtk::components::mesh_info::transfer {
 template <typename InT, int InDim, typename OutT, int OutDim>
 struct MaxNeighborFunctor
 {
+    MaxNeighborFunctor(const nlohmann::json& js) {}
     constexpr static bool validInDim() { return true; }
     constexpr static bool validOutDim()
     {
@@ -20,6 +21,10 @@ struct MaxNeighborFunctor
     {
         return M.rowwise().minCoeff().template cast<OutT>();
     };
+    auto operator()(Eigen::Ref<const ColVectors<InT, InDim>> M) const -> Vector<OutT, OutDim>
+    {
+        return execute(M);
+    }
 };
 
 using MaxNeighbor = SingleAttributeTransferStrategyFactory<MaxNeighborFunctor>;

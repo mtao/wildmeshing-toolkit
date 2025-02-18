@@ -1,5 +1,5 @@
 #pragma once
-#include <nlohmann/json_fwd.hpp>
+#include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "TransferStrategyFactory.hpp"
 
@@ -18,6 +18,8 @@ struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFacto
     ~SingleAttributeTransferStrategyFactoryBase();
     std::string base_attribute_path;
     int8_t simplex_dimension;
+
+    nlohmann::json parameters;
     void to_json(nlohmann::json& j) const final;
     void from_json(const nlohmann::json& j) final;
 
@@ -56,7 +58,8 @@ SingleAttributeTransferStrategyFactory<Functor>::create_T(
             wmtk::operations::SingleAttributeTransferStrategy<ToT, FromT, ToDim, FromDim>>(
             to,
             from,
-            [](auto&& a) { return F::execute(a); });
+            F(parameters));
+        //[](auto&& a) { return F::execute(a); });
     } else {
         assert(false);
         return {};
