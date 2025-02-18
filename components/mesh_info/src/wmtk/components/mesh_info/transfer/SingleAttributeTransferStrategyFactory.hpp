@@ -82,12 +82,12 @@ SingleAttributeTransferStrategyFactory<Functor>::create_transfer(
             auto run = [&](auto&& dim)
 
                 -> std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> {
+                constexpr static int d = std::decay_t<decltype(dim)>::value;
                 switch (from_attr.dimension()) {
-                case 1: return create_T<dim, 1, ToT, FromT>(to_attr, from_attr);
-                case 2: return create_T<dim, 2, ToT, FromT>(to_attr, from_attr);
-                case 3: return create_T<dim, 3, ToT, FromT>(to_attr, from_attr);
-                default:
-                    return create_T<Eigen::Dynamic, Eigen::Dynamic, ToT, FromT>(to_attr, from_attr);
+                case 1: return create_T<d, 1, ToT, FromT>(to_attr, from_attr);
+                case 2: return create_T<d, 2, ToT, FromT>(to_attr, from_attr);
+                case 3: return create_T<d, 3, ToT, FromT>(to_attr, from_attr);
+                default: return create_T<d, Eigen::Dynamic, ToT, FromT>(to_attr, from_attr);
                 }
             };
 

@@ -7,6 +7,12 @@
 
 
 namespace wmtk::components::output {
+    //bool OutputOptions::operator<=>(const OutputOptions& o) const = default;
+    //bool OutputOptions::operator<=>(const OutputOptions& o) const{
+
+
+        //return std::tie(path,type) <=> std::tie(o.path, o.type);
+    //}
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OutputOptions)
 {
