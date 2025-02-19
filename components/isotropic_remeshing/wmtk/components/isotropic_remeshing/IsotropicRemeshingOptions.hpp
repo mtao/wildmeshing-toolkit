@@ -2,7 +2,7 @@
 #include <nlohmann/json_fwd.hpp>
 #include <optional>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
-#include <wmtk/components/mesh_info/transfer/TransferStrategyFactory.hpp>
+#include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include "OperationOptions.hpp"
 
@@ -45,7 +45,7 @@ struct IsotropicRemeshingOptions
     EdgeCollapseOptions collapse;
     VertexSmoothOptions smooth;
     EdgeSwapOptions swap;
-    std::vector<std::shared_ptr<mesh_info::transfer::TransferStrategyFactory>> utility_attributes;
+    mesh_info::transfer::TransferStrategyFactoryCollection utility_attributes;
 
     std::vector<attribute::MeshAttributeHandle> improvement_attributes;
 

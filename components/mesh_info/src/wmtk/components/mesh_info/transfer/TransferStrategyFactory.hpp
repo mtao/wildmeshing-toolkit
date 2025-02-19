@@ -29,6 +29,9 @@ struct TransferStrategyFactory
         wmtk::components::multimesh::MeshCollection& mc,
         bool populate = true) const;
 
+    static const TransferStrategyFactoryRegistry& transfer_registry() {
+        return s_transfer_registry;
+    }
 protected:
     virtual std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_transfer(
         wmtk::components::multimesh::MeshCollection& mc) const = 0;

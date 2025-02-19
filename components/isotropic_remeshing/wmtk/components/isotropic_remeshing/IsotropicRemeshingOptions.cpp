@@ -11,6 +11,7 @@
 
 
 #include <wmtk/Mesh.hpp>
+#include "wmtk/components/mesh_info/transfer/TransferStrategyFactoryRegistry.hpp"
 
 #define DEFAULT_PARSABLE_ARGS                                                                    \
     iterations, lock_boundary, use_for_periodic, fix_uv_seam, intermediate_output_format, split, \
@@ -90,6 +91,8 @@ void to_json(nlohmann::json& nlohmann_json_j, const IsotropicRemeshingOptions& n
     if (!nlohmann_json_t.intermediate_output_format.empty()) {
         NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, intermediate_output_format));
     }
+
+    nlohmann_json_j["utility_attributes"] = nlohmann_json_t.utility_attributes;
 }
 void from_json(const nlohmann::json& nlohmann_json_j, IsotropicRemeshingOptions& nlohmann_json_t)
 {
@@ -107,6 +110,9 @@ void from_json(const nlohmann::json& nlohmann_json_j, IsotropicRemeshingOptions&
 
     if (nlohmann_json_j.contains("envelope_size")) {
         nlohmann_json_t.envelope_size = nlohmann_json_j["envelope_size"].get<double>();
+    }
+    if (nlohmann_json_j.contains("utility_attributes")) {
+        nlohmann_json_t.utility_attributes = nlohmann_json_j["utility_attributes"];
     }
 }
 void IsotropicRemeshingOptions::load_json(

@@ -7,6 +7,8 @@ TransferStrategy_macros.hpp
 TransferStrategyFactoryRegistry.cpp
 TransferStrategyFactoryRegistry.hpp
 
+TransferStrategyFactoryCollection.cpp
+TransferStrategyFactoryCollection.hpp
 
 SingleAttributeTransferStrategyFactory.cpp
 SingleAttributeTransferStrategyFactory.hpp

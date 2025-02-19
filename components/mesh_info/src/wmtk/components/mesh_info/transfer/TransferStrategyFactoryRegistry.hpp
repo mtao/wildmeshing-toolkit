@@ -17,6 +17,8 @@ public:
     std::shared_ptr<TransferStrategyFactory> create(
         const std::string_view& name,
         const nlohmann::json&) const;
+    std::shared_ptr<TransferStrategyFactory> create(
+        const nlohmann::json&) const;
 
 private:
     std::map<
