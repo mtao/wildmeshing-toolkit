@@ -1,0 +1,51 @@
+
+{
+    "input": 
+        {
+            "path": "100071_sf.msh",
+            "name_spec": "position"
+        }
+    ,
+    "utility_attributes": [
+      {
+        "attribute_path": "position/edge_length",
+        "base_attribute_path": "position/vertices",
+        "simplex_dimension": 1,
+        "parameters": {},
+        "type": "edge_length"
+      },
+      {
+        "attribute_path": "position/volume",
+        "base_attribute_path": "position/vertices",
+        "simplex_dimension": 2,
+        "parameters": {},
+        "type": "volume"
+      },
+      {
+        "attribute_path": "position/normal",
+        "base_attribute_path": "position/vertices",
+        "simplex_dimension": 2,
+        "parameters": {},
+        "type": "normal"
+      },
+      {
+        "attribute_path": "position/edge_angle",
+        "base_attribute_path": "position/normal",
+        "simplex_dimension": 1,
+        "parameters": {},
+        "type": "edge_angle"
+      }
+    ],
+    "output": {
+        "position": [{
+            "file": "100071_sf.hdf5",
+            "type": ".hdf5"
+        },
+        {
+            "file": "100071_sf",
+            "type": ".vtu",
+            "position_attribute": "vertices"
+        }
+        ]
+    }
+}
