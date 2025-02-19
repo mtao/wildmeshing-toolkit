@@ -25,6 +25,9 @@ normal.hpp
 edge_angle.hpp
 edge_angle.cpp
 
+volume.hpp
+volume.cpp
+
 mean_neighbor.hpp
 mean_neighbor.cpp
 min_neighbor.hpp

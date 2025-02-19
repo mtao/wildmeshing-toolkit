@@ -1,4 +1,5 @@
 #pragma once
+#include "TransferFunctorTraits.hpp"
 #include <nlohmann/json_fwd.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "SingleAttributeTransferStrategyFactory.hpp"
@@ -26,6 +27,13 @@ struct MaxNeighborFunctor
         return execute(M);
     }
 };
+
+template <>
+    struct TransferFunctorTraits<MaxNeighborFunctor> {
+        constexpr static int output_dimension(int D) {
+            return D;
+        }
+    };
 
 using MaxNeighbor = SingleAttributeTransferStrategyFactory<MaxNeighborFunctor>;
 

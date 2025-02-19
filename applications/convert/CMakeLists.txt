@@ -11,6 +11,7 @@ target_compile_features(convert_app PUBLIC cxx_std_20)
 target_link_libraries(convert_app PRIVATE
 wmtk::input
 wmtk::output
+wmtk::mesh_info
 wmtk::multimesh
 wmtk::application_utils
 )

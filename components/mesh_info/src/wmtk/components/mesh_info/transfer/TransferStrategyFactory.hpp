@@ -29,6 +29,8 @@ struct TransferStrategyFactory
         wmtk::components::multimesh::MeshCollection& mc,
         bool populate = true) const;
 
+    virtual int output_dimension(int input_dim) const = 0;
+
     static const TransferStrategyFactoryRegistry& transfer_registry() {
         return s_transfer_registry;
     }

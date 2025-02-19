@@ -1,4 +1,5 @@
 #pragma once
+#include <spdlog/spdlog.h>
 #include <functional>
 #include <map>
 #include <memory>
@@ -17,8 +18,7 @@ public:
     std::shared_ptr<TransferStrategyFactory> create(
         const std::string_view& name,
         const nlohmann::json&) const;
-    std::shared_ptr<TransferStrategyFactory> create(
-        const nlohmann::json&) const;
+    std::shared_ptr<TransferStrategyFactory> create(const nlohmann::json&) const;
 
 private:
     std::map<
@@ -30,7 +30,8 @@ private:
 template <typename Type>
 void TransferStrategyFactoryRegistry::register_transfer(const std::string_view& name)
 {
-    if (has(name)) {
+    if (!has(name)) {
+        spdlog::info("Adding {}", name);
         m_map.emplace(name, [](const nlohmann::json& js) {
             auto t = std::make_shared<Type>();
             t->from_json(js);

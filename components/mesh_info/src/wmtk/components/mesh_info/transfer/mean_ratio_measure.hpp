@@ -61,6 +61,13 @@ struct MeanRatioMeasureFunctor
     }
 };
 
+template <>
+    struct TransferFunctorTraits<MeanRatioMeasureFunctor> {
+        constexpr static int output_dimension(int D) {
+            return 1;
+        }
+    };
+
 using MeanRatioMeasure = SingleAttributeTransferStrategyFactory<MeanRatioMeasureFunctor>;
 
 } // namespace wmtk::components::mesh_info::transfer

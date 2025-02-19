@@ -3,9 +3,10 @@
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategyBase.hpp>
+#include "init.hpp"
 namespace wmtk::components::mesh_info::transfer {
 
-TransferStrategyFactoryRegistry TransferStrategyFactory::s_transfer_registry;
+TransferStrategyFactoryRegistry TransferStrategyFactory::s_transfer_registry = create_registry();
 TransferStrategyFactory::~TransferStrategyFactory() = default;
 TransferStrategyFactory::TransferStrategyFactory() = default;
 TransferStrategyFactory::TransferStrategyFactory(TransferStrategyFactory&& o) = default;
@@ -43,6 +44,7 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(TransferStrategyFactory)
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(TransferStrategyFactory)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute_path, type);
+    spdlog::info("Got {} {}", nlohmann_json_t.attribute_path, nlohmann_json_t.type);
     nlohmann_json_t.from_json(nlohmann_json_j);
 }
 } // namespace wmtk::components::mesh_info::transfer

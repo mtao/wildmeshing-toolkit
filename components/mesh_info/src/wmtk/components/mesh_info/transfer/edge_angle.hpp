@@ -3,6 +3,7 @@
 #include <nlohmann/json_fwd.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "SingleAttributeTransferStrategyFactory.hpp"
+#include "TransferFunctorTraits.hpp"
 
 namespace wmtk::components::mesh_info::transfer {
 
@@ -25,7 +26,10 @@ struct EdgeAngleFunctor
 
     static auto execute(Eigen::Ref<const ColVectors<InT, InDim>> M) -> Vector<OutT, OutDim>
     {
-        assert(M.cols() == M.rows());
+        if (M.cols() == 1) {
+            return Vector<OutT, 1>::Constant(OutT(0));
+        }
+        assert(M.cols() == 2);
 
         auto p0 = M.col(0);
         auto p1 = M.col(1);
@@ -57,6 +61,11 @@ struct EdgeAngleFunctor
     {
         return execute(M);
     }
+};
+template <>
+struct TransferFunctorTraits<EdgeAngleFunctor>
+{
+    constexpr static int output_dimension(int D) { return 1; }
 };
 
 using EdgeAngle = SingleAttributeTransferStrategyFactory<EdgeAngleFunctor>;

@@ -1,5 +1,6 @@
 #pragma once
 #include <nlohmann/json_fwd.hpp>
+#include "TransferFunctorTraits.hpp"
 #include <wmtk/components/utils/json_macros.hpp>
 #include "SingleAttributeTransferStrategyFactory.hpp"
 
@@ -26,6 +27,13 @@ struct MeanNeighborFunctor
         return execute(M);
     }
 };
+
+template <>
+    struct TransferFunctorTraits<MeanNeighborFunctor> {
+        constexpr static int output_dimension(int D) {
+            return D;
+        }
+    };
 
 using MeanNeighbor = SingleAttributeTransferStrategyFactory<MeanNeighborFunctor>;
 

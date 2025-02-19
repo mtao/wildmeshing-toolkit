@@ -1,4 +1,5 @@
 #pragma once
+#include "TransferFunctorTraits.hpp"
 #include <nlohmann/json_fwd.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "SingleAttributeTransferStrategyFactory.hpp"
@@ -27,6 +28,13 @@ struct MinNeighborFunctor
         return execute(M);
     }
 };
+
+template <>
+    struct TransferFunctorTraits<MinNeighborFunctor> {
+        constexpr static int output_dimension(int D) {
+            return D;
+        }
+    };
 
 using MinNeighbor = SingleAttributeTransferStrategyFactory<MinNeighborFunctor>;
 

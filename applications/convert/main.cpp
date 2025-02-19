@@ -6,6 +6,7 @@
 #include <nlohmann/json.hpp>
 #include <wmtk/applications/utils/element_count_report.hpp>
 #include <wmtk/applications/utils/get_integration_test_data_root.hpp>
+#include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
@@ -142,6 +143,14 @@ int run_js(
         output_mesh = meshes.add_mesh(wmtk::components::input::input(opts, path_resolver))
                           .root()
                           .shared_from_this();
+    }
+
+    if (j.contains("utility_attributes")) {
+        wmtk::components::mesh_info::transfer::TransferStrategyFactoryCollection transfers =
+            j["utility_attributes"];
+        for (const auto& transfer_ptr : transfers) {
+            transfer_ptr->create(meshes, true);
+        }
     }
 
     if (j.contains("tree")) {

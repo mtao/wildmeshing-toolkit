@@ -55,6 +55,12 @@ struct NormalFunctor
         return execute(M);
     }
 };
+template <>
+    struct TransferFunctorTraits<NormalFunctor> {
+        constexpr static int output_dimension(int D) {
+            return D;
+        }
+    };
 
 using Normal = SingleAttributeTransferStrategyFactory<NormalFunctor>;
 
