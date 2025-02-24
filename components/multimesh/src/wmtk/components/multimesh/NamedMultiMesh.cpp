@@ -257,8 +257,9 @@ auto NamedMultiMesh::get_id(const std::string_view& path) const -> std::vector<i
             cur_mesh = cur_mesh->m_children[index].get();
         } catch (const std::out_of_range& e) {
             wmtk::logger().warn(
-                "Failed to find mesh named {} in mesh list. Path was {}",
+                "Failed to find mesh named {} in mesh list, got error [{}]. Path was {}",
                 token,
+                e.what(),
                 path);
             throw e;
         }
@@ -279,6 +280,23 @@ void NamedMultiMesh::set_name(const std::string_view& root_name)
 {
     set_names(nlohmann::ordered_json(root_name));
 }
+void NamedMultiMesh::set_name(const Mesh& mesh, const std::string_view& name)
+{
+    // make sure the name struct is up to date in case a mesh was created before setting the name
+    populate_default_names();
+    std::vector<int64_t> mesh_id = get_id(mesh);
+    Node* cur_mesh = m_name_root.get();
+    Node* parent_mesh = nullptr;
+    for (const auto& index : mesh_id) {
+        parent_mesh = cur_mesh;
+        cur_mesh = cur_mesh->m_children[index].get();
+    }
+    cur_mesh->name = name;
+    if(parent_mesh != nullptr) {
+        parent_mesh->m_child_indexer.emplace(std::string(name), mesh_id.back());
+    }
+}
+
 void NamedMultiMesh::set_names(const nlohmann::ordered_json& js)
 {
     assert(js.is_object() || js.is_string() || js.is_null());
@@ -443,6 +461,7 @@ std::string NamedMultiMesh::get_path(const wmtk::attribute::MeshAttributeHandle&
 {
     return fmt::format("{}/{}", get_name(m.mesh()), m.name());
 }
+
 void NamedMultiMesh::append_child_mesh_names(const Mesh& parent, const NamedMultiMesh& o)
 {
     const std::vector<int64_t> parent_id = get_id(parent);

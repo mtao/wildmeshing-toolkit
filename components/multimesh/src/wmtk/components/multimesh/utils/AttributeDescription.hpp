@@ -11,7 +11,6 @@ WMTK_NLOHMANN_JSON_DECLARATION(AttributeType)
 } // namespace wmtk::attribute
 
 namespace wmtk::components::multimesh {
-class MeshColleciton;
 class NamedMultiMesh;
 } // namespace wmtk::components::multimesh
 
@@ -28,6 +27,8 @@ struct AttributeDescription
 
 
     bool fully_specified() const;
+    // no specification at all / not even has a name
+    bool empty() const;
 
     AttributeDescription() = default;
     AttributeDescription(const AttributeDescription&) = default;

@@ -50,6 +50,11 @@ set(SRC_FILES
     utils/detail/attribute_ambiguous_error.cpp
     utils/detail/attribute_missing_error.hpp
     utils/detail/attribute_missing_error.cpp
+
+    MultimeshOptions.hpp
+    MultimeshOptions.cpp
+    MultimeshRunnableOptions.hpp
+    MultimeshRunnableOptions.cpp
 )
 
 include(stb)

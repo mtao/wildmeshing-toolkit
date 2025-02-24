@@ -122,4 +122,9 @@ bool AttributeDescription::fully_specified() const
 {
     return simplex_dimension.has_value() && type.has_value() && dimension.has_value();
 }
+bool AttributeDescription::empty() const
+{
+    return path.empty() && !simplex_dimension.has_value() && !type.has_value() &&
+           !dimension.has_value();
+}
 } // namespace wmtk::components::multimesh::utils

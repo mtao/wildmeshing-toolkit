@@ -3,6 +3,7 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include "internal/split_path.hpp"
+#include "utils/decompose_attribute_path.hpp"
 
 
 namespace wmtk::components::multimesh {
@@ -50,10 +51,14 @@ bool MeshCollection::has_mesh(const std::string_view& path) const
     }
 }
 
-const NamedMultiMesh& MeshCollection::get_named_multimesh(const std::string_view& path) const
+const NamedMultiMesh& MeshCollection::get_named_multimesh(const std::string_view& attr_path) const
 {
     assert(!m_meshes.empty());
     using namespace std;
+    std::string_view path = attr_path;
+    if(attr_path.find('/') != std::string::npos) {
+        path = utils::get_mesh_path_from_attribute_path(attr_path);
+    }
 #if defined(WMTK_ENABLED_CPP20)
     std::ranges::view auto split = internal::split_path(path);
 #else
@@ -66,24 +71,22 @@ const NamedMultiMesh& MeshCollection::get_named_multimesh(const std::string_view
         return *m_meshes.begin()->second;
     }
     if (auto it = m_meshes.find(nmm_name); it == m_meshes.end()) {
-        std::vector<std::string_view> names;
-        std::transform(
-            m_meshes.begin(),
-            m_meshes.end(),
-            std::back_inserter(names),
-            [](const auto& pr) { return pr.first; });
         wmtk::logger().error(
             "Was unable to find root mesh name {} among {} names [{}] in MeshCollection",
             nmm_name,
             m_meshes.size(),
-            fmt::join(names, ","));
+            fmt::join(std::views::keys(m_meshes), ","));
     }
     return *m_meshes.at(nmm_name);
 }
-NamedMultiMesh& MeshCollection::get_named_multimesh(const std::string_view& path)
+NamedMultiMesh& MeshCollection::get_named_multimesh(const std::string_view& attr_path)
 {
     using namespace std;
     using namespace std;
+    std::string_view path = attr_path;
+    if(attr_path.find('/') != std::string::npos) {
+        path = utils::get_mesh_path_from_attribute_path(attr_path);
+    }
 #if defined(WMTK_ENABLED_CPP20)
     std::ranges::view auto split = internal::split_path(path);
 #else
@@ -98,7 +101,7 @@ NamedMultiMesh& MeshCollection::get_named_multimesh(const std::string_view& path
     try {
         return *m_meshes.at(nmm_name);
     } catch (const std::runtime_error& e) {
-        wmtk::logger().warn("Failed to find mesh named {} in mesh list. Path was ", nmm_name, path);
+        wmtk::logger().warn("Failed to find mesh named {} in mesh list. Got [{}]. Path was ", nmm_name, e.what(), path);
         throw e;
     }
 }

@@ -1,4 +1,5 @@
 #include "multimesh.hpp"
+#include "MultimeshOptions.hpp"
 
 #include <wmtk/components/utils/get_attributes.hpp>
 #include <wmtk/multimesh/same_simplex_dimension_bijection.hpp>
@@ -12,11 +13,11 @@
 
 
 namespace wmtk::components::multimesh {
-    std::pair<std::shared_ptr<Mesh>, std::shared_ptr<Mesh>> multimesh(
+std::pair<std::shared_ptr<Mesh>, std::shared_ptr<Mesh>> multimesh(
     const MultiMeshType& type,
     Mesh& parent,
     std::shared_ptr<Mesh> child,
-    const attribute::MeshAttributeHandle parent_position_handle,
+    const attribute::MeshAttributeHandle& parent_position_handle,
     const std::string& tag_name,
     const int64_t tag_value,
     const int64_t primitive)
@@ -70,12 +71,12 @@ namespace wmtk::components::multimesh {
         }
 
 #if defined(USE_NEW_IMPL_MM)
-            child = wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag(
-                parent,
-                tag,
-                value,
-                ptype);
-        }
+        child = wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag(
+            parent,
+            tag,
+            value,
+            ptype);
+    }
 
 #else
         auto child_mesh = wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag(
@@ -86,41 +87,46 @@ namespace wmtk::components::multimesh {
         child = child_mesh;
 #endif
 
-        if (!use_rational_position) {
-            auto child_position_handle = child->register_attribute<double>(
-                "vertices", // TODO fix me
-                PrimitiveType::Vertex,
-                parent_position_handle.dimension());
+    if (!use_rational_position) {
+        auto child_position_handle = child->register_attribute<double>(
+            "vertices", // TODO fix me
+            PrimitiveType::Vertex,
+            parent_position_handle.dimension());
 
-            auto propagate_to_child_position = [](const Eigen::MatrixXd& P) -> Eigen::VectorXd {
-                return P;
-            };
-            auto update_child_positon =
-                std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<double, double>>(
-                    child_position_handle,
-                    parent_position_handle,
-                    propagate_to_child_position);
-            update_child_positon->run_on_all();
-        } else {
-            auto child_position_handle = child->register_attribute<Rational>(
-                "vertices", // TODO fix me
-                PrimitiveType::Vertex,
-                parent_position_handle.dimension());
-
-            auto propagate_to_child_position =
-                [](const Eigen::MatrixX<Rational>& P) -> Eigen::VectorX<Rational> { return P; };
-            auto update_child_positon = std::make_shared<
-                wmtk::operations::SingleAttributeTransferStrategy<Rational, Rational>>(
+        auto propagate_to_child_position = [](const Eigen::MatrixXd& P) -> Eigen::VectorXd {
+            return P;
+        };
+        auto update_child_positon =
+            std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<double, double>>(
                 child_position_handle,
                 parent_position_handle,
                 propagate_to_child_position);
-            update_child_positon->run_on_all();
-        }
+        update_child_positon->run_on_all();
+    } else {
+        auto child_position_handle = child->register_attribute<Rational>(
+            "vertices", // TODO fix me
+            PrimitiveType::Vertex,
+            parent_position_handle.dimension());
 
-        return std::make_pair(parent.shared_from_this(), child);
+        auto propagate_to_child_position =
+            [](const Eigen::MatrixX<Rational>& P) -> Eigen::VectorX<Rational> { return P; };
+        auto update_child_positon =
+            std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<Rational, Rational>>(
+                child_position_handle,
+                parent_position_handle,
+                propagate_to_child_position);
+        update_child_positon->run_on_all();
     }
 
-    throw std::runtime_error("unsupported multimesh type");
+    return std::make_pair(parent.shared_from_this(), child);
 }
 
+throw std::runtime_error("unsupported multimesh type");
+}
+
+
+void multimesh(MeshCollection& mc, const MultimeshOptions& options)
+{
+    options.run(mc);
+}
 } // namespace wmtk::components::multimesh

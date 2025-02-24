@@ -10,7 +10,6 @@
 
 #include <tuple>
 #include <variant>
-#include <tuple>
 
 namespace wmtk {
 class Mesh;
@@ -39,8 +38,7 @@ public:
         TypedAttributeHandle<wmtk::Rational>>;
 
     // Convenience class for identifying attribute types
-    using ValueVariant = std::
-        variant<char, int64_t, double, wmtk::Rational, std::tuple<char, wmtk::Rational, double>>;
+    using ValueVariant = std::variant<char, int64_t, double, wmtk::Rational>;
 
     using HeldType = AttributeType;
 

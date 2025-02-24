@@ -4,6 +4,8 @@ add_component_test(wmtk::${COMPONENT_NAME}
     get_attributes.cpp
     utils.hpp
     utils.cpp
+
+    json.cpp
 )
 
 target_link_libraries(${WMTK_COMPONENT_TEST_TARGET} PRIVATE wmtk::input)

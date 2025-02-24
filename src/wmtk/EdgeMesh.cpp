@@ -19,6 +19,7 @@ bool EdgeMesh::is_boundary(PrimitiveType pt, const Tuple& tuple) const
     switch (pt) {
     case PrimitiveType::Vertex: return is_boundary_vertex(tuple);
     case PrimitiveType::Edge:
+        return is_boundary_vertex(tuple) || is_boundary_vertex(switch_vertex(tuple));
     case PrimitiveType::Triangle:
     case PrimitiveType::Tetrahedron:
     default: break;

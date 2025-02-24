@@ -53,4 +53,12 @@ inline auto decompose_attribute_path(const AttributeDescription& description)
 {
     return decompose_attribute_path(description.path);
 }
+inline auto get_mesh_path_from_attribute_path(auto&& attribute)
+{
+    return std::get<0>(decompose_attribute_path(attribute));
+}
+inline auto get_attribute_name_from_attribute_path(auto&& attribute)
+{
+    return std::get<1>(decompose_attribute_path(attribute));
+}
 }
