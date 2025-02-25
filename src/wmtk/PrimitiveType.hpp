@@ -20,37 +20,47 @@ constexpr inline int8_t get_primitive_type_id(PrimitiveType t)
     return static_cast<int8_t>(t);
 }
 
-constexpr inline PrimitiveType operator-(PrimitiveType pt, int8_t n) {
-    return static_cast<PrimitiveType>(static_cast<int8_t>(pt)-n);
+constexpr inline PrimitiveType operator-(PrimitiveType pt, int8_t n)
+{
+    return static_cast<PrimitiveType>(static_cast<int8_t>(pt) - n);
 }
-constexpr inline PrimitiveType operator+(PrimitiveType pt, int8_t n) {
-    return static_cast<PrimitiveType>(static_cast<int8_t>(pt)+n);
+constexpr inline PrimitiveType operator+(PrimitiveType pt, int8_t n)
+{
+    return static_cast<PrimitiveType>(static_cast<int8_t>(pt) + n);
 }
 
-constexpr inline bool operator==(PrimitiveType a, PrimitiveType b)
+#if defined(WMTK_ENABLED_CPP20)
+constexpr inline auto operator<=>(const PrimitiveType& a, const PrimitiveType& b)
+{
+    return get_primitive_type_id(a) <=> get_primitive_type_id(b);
+}
+#else
+
+constexpr inline bool operator==(const PrimitiveType& a, const PrimitiveType& b)
 {
     return get_primitive_type_id(a) == get_primitive_type_id(b);
 }
-constexpr inline bool operator!=(PrimitiveType a, PrimitiveType b)
+constexpr inline bool operator!=(const PrimitiveType& a, const PrimitiveType& b)
 {
     return get_primitive_type_id(a) != get_primitive_type_id(b);
 }
-constexpr inline bool operator<(PrimitiveType a, PrimitiveType b)
+constexpr inline bool operator<(const PrimitiveType& a, const PrimitiveType& b)
 {
     return get_primitive_type_id(a) < get_primitive_type_id(b);
 }
-constexpr inline bool operator>(PrimitiveType a, PrimitiveType b)
+constexpr inline bool operator>(const PrimitiveType& a, const PrimitiveType& b)
 {
     return get_primitive_type_id(a) > get_primitive_type_id(b);
 }
-constexpr inline bool operator<=(PrimitiveType a, PrimitiveType b)
+constexpr inline bool operator<=(const PrimitiveType& a, const PrimitiveType& b)
 {
     return get_primitive_type_id(a) <= get_primitive_type_id(b);
 }
-constexpr inline bool operator>=(PrimitiveType a, PrimitiveType b)
+constexpr inline bool operator>=(const PrimitiveType& a, const PrimitiveType& b)
 {
     return get_primitive_type_id(a) >= get_primitive_type_id(b);
 }
+#endif
 
 
 /**

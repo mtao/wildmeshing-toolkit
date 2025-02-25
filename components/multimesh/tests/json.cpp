@@ -84,26 +84,14 @@ TEST_CASE("multimesh_boundary_json", "[components][multimesh]")
     using JS = nlohmann::json;
     JS tag_js = {
         {"type", "boundary"},
-        {"output_mesh_name", "tagged_edges"},
-        {"tag_attribute",
-         {
-             {"path", "/tag"},
-             {"simplex_dimension", 1},
-             {"type", "char"},
-         }},
-        {"value", 1}};
+        {"output_mesh_name", "boundary"},
+        {"boundary_attribute_name", "is_boundary"},
+        {"boundary_attribute_value", 1}};
 
-    wmtk::components::multimesh::MultimeshTagOptions opt = tag_js;
+    wmtk::components::multimesh::MultimeshBoundaryOptions opt = tag_js;
     wmtk::components::multimesh::MeshCollection mc;
     auto mptr = wmtk::tests::disk(10);
     mc.emplace_mesh(*mptr, std::string("root"));
-    auto tag_attr = mptr->register_attribute_typed<char>("tag", wmtk::PrimitiveType::Edge, 1);
-    auto tag_acc = mptr->create_accessor(tag_attr);
-    for (const auto& t : mptr->get_all(wmtk::PrimitiveType::Edge)) {
-        if (mptr->is_boundary_edge(t)) {
-            tag_acc.scalar_attribute(t) = 1;
-        }
-    }
     opt.run(mc);
     const auto& nmm = mc.get_named_multimesh("root");
 

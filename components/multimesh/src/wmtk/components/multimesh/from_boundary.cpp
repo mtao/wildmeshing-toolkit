@@ -30,8 +30,8 @@ attribute::MeshAttributeHandle fill_boundary_attribute(
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshBoundaryOptions)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, boundary_dimension, output_mesh_name);
-    if (!nlohmann_json_t.boundary_attribute.empty()) {
-        WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(boundary_attribute, boundary_attribute_value);
+    if (!nlohmann_json_t.boundary_attribute_name.empty()) {
+        WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(boundary_attribute_name, boundary_attribute_value);
     }
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshBoundaryOptions)
@@ -43,7 +43,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshBoundaryOptions)
         output_mesh_name);
     if (!nlohmann_json_j.contains("boundary_attribute")) {
         WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(
-            boundary_attribute,
+            boundary_attribute_name,
             boundary_attribute_value);
     }
 }
@@ -70,27 +70,20 @@ std::shared_ptr<Mesh> from_boundary(
 void MultimeshBoundaryOptions::run(MeshCollection& mc) const
 {
     auto& mesh = mc.get_mesh(mesh_path);
-    std::string tag_name = "boundary_tag";
+    std::string tag_name = "_boundary_tag";
     const auto& input_nmm = mc.get_named_multimesh(mesh_path);
     const PrimitiveType pt = get_primitive_type_from_id(boundary_dimension);
 
-    if (boundary_attribute.simplex_dimension.has_value()) {
-        assert(boundary_attribute.simplex_dimension.value() == boundary_dimension);
-    }
 
-    if (boundary_attribute.empty()) {
-        auto [attr_mesh_path, attribute_name] =
-            utils::decompose_attribute_path(boundary_attribute.path);
-
-        assert(attr_mesh_path == mesh_path);
-        tag_name = attribute_name;
+    if (!boundary_attribute_name.empty()) {
+        tag_name = boundary_attribute_name;
     }
 
     MultimeshTagOptions tag_opts;
     auto attr = fill_boundary_attribute(mesh, pt, tag_name, boundary_attribute_value);
     tag_opts.output_mesh_name = output_mesh_name;
     tag_opts.tag_attribute = utils::AttributeDescription(input_nmm, attr);
-    tag_opts.delete_tag_attribute = boundary_attribute.empty();
+    tag_opts.delete_tag_attribute = boundary_attribute_name.empty();
 
     tag_opts.run(mc);
 }
