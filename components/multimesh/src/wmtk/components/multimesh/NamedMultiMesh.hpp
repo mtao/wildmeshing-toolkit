@@ -47,7 +47,8 @@ public:
     void set_names(const nlohmann::ordered_json& js);
     void populate_default_names();
     void set_root(Mesh& m, bool do_populate_unnamed = true);
-    void append_child_mesh_names(const Mesh& parent, const NamedMultiMesh& o);
+    // assuming the root of child_mesh is a child of parent, populates the name structure under parent with the child's data
+    void append_child_mesh_names(const Mesh& parent, const NamedMultiMesh& child_mesh);
     // set the name of a particular mesh (i.e "foo.bar" passed new name "baz" would have its name set to "foo.baz"
     void set_name(const Mesh& m, const std::string_view& name);
     // updates the entire path to a mesh according to names provided

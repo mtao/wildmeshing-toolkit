@@ -470,6 +470,8 @@ void NamedMultiMesh::append_child_mesh_names(const Mesh& parent, const NamedMult
         cur_mesh = cur_mesh->m_children[index].get();
     }
 
+    assert(&parent == &o.root().get_multi_mesh_parent_mesh());
+
     const auto child_relid = wmtk::multimesh::MultiMeshManager::relative_id(
         parent.absolute_multi_mesh_id(),
         o.root().absolute_multi_mesh_id());
@@ -480,6 +482,8 @@ void NamedMultiMesh::append_child_mesh_names(const Mesh& parent, const NamedMult
         cur_mesh->m_children.emplace_back(std::make_unique<Node>(*o.m_name_root));
     } else if (child_size < id) {
         *cur_mesh->m_children[id] = *o.m_name_root;
+    } else {
+        throw std::runtime_error(fmt::format("append_child_mesh_names was unable to add a child mesh. Make sure to populate name structure"));
     }
     cur_mesh->update_child_names();
 }

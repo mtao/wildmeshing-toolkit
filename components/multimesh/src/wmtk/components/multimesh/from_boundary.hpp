@@ -19,10 +19,11 @@ struct MultimeshBoundaryOptions : public MultimeshRunnableOptions
 {
     std::string mesh_path;
     int8_t boundary_dimension;
+    std::string output_mesh_name;
 
     // optional attribute to store the boundary data
     // if the attribute is empty then it'll be named boundary_tag and then deleted
-    utils::AttributeDescription boundary_attribute;
+    utils::AttributeDescription boundary_attribute; // probably should just make this a stirng
     char boundary_attribute_value = 1;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MultimeshBoundaryOptions)
     void run(MeshCollection&) const final;

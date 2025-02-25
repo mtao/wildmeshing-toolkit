@@ -37,6 +37,7 @@ struct MultimeshTagOptions : public MultimeshRunnableOptions
     utils::AttributeDescription tag_attribute;
     wmtk::attribute::MeshAttributeHandle::ValueVariant value;
     std::string output_mesh_name;
+    bool delete_tag_attribute = false;
     FromTagOptions toTagOptions(const MeshCollection& mc) const;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MultimeshTagOptions)
     void run(MeshCollection& mc) const final;

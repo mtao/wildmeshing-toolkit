@@ -83,7 +83,7 @@ TEST_CASE("multimesh_boundary_json", "[components][multimesh]")
 
     using JS = nlohmann::json;
     JS tag_js = {
-        {"type", "tag"},
+        {"type", "boundary"},
         {"output_mesh_name", "tagged_edges"},
         {"tag_attribute",
          {

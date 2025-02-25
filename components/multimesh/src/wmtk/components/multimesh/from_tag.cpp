@@ -73,13 +73,16 @@ void MultimeshTagOptions::run(MeshCollection& mc) const
     auto mptr = from_tag(tag_opts);
     auto& nmm = mc.get_named_multimesh(tag_attribute.path);
     nmm.set_name(*mptr, output_mesh_name);
+    if (delete_tag_attribute) {
+        tag_opts.mesh.handle.mesh().delete_attribute(tag_opts.mesh.handle);
+    }
 }
 bool MultimeshTagOptions::operator==(const MultimeshTagOptions&) const = default;
 
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshTagOptions)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(tag_attribute, output_mesh_name);
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(tag_attribute, output_mesh_name, delete_tag_attribute);
 
     std::visit(
         [&](const auto& v) {
@@ -93,6 +96,12 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshTagOptions)
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshTagOptions)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(tag_attribute, output_mesh_name);
+
+    if (nlohmann_json_j.contains("delete_tag_attribute")) {
+        nlohmann_json_t.delete_tag_attribute = nlohmann_json_j["delete_tag_attribute"];
+    } else {
+        nlohmann_json_t.delete_tag_attribute = false;
+    }
     const auto& type_opt = nlohmann_json_t.tag_attribute.type;
     attribute::AttributeType type;
     if (type_opt.has_value()) {
