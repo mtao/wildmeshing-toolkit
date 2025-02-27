@@ -1,6 +1,7 @@
 #pragma once
 #include <fmt/format.h>
 #include <wmtk/Mesh.hpp>
+#include <fmt/ranges.h>
 #include "AttributeTransferStrategyBase.hpp"
 
 
@@ -181,11 +182,12 @@ auto SingleAttributeTransferStrategy<MyType, ParentType, MyDim, ParentDim>::read
     auto simps =
         AttributeTransferStrategyBase::get_parent_simplices(handle(), parent_handle(), my_simplex);
 
-#if !defined(NDEBUG)
+//#if !defined(NDEBUG)
     if (simps.size() == 0) {
-        throw std::runtime_error("SingleAttributeTransferStrategy got no simplices");
+//        throw std::runtime_error(fmt::format("SingleAttributeTransferStrategy got no simplices {}/{} to {}/{}",fmt::join(parent_handle().mesh().absolute_multi_mesh_id(),","), parent_handle().name(),fmt::join(handle().mesh().absolute_multi_mesh_id(),","), handle().name() ));
+        return {};
     }
-#endif
+//#endif
 
     ParentMatType A(
         parent_handle().mesh().get_attribute_dimension(parent_handle().template as<ParentType>()),
