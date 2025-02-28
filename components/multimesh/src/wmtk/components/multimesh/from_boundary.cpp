@@ -29,22 +29,17 @@ attribute::MeshAttributeHandle fill_boundary_attribute(
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshBoundaryOptions)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, boundary_dimension, output_mesh_name);
-    if (!nlohmann_json_t.boundary_attribute_name.empty()) {
-        WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(boundary_attribute_name, boundary_attribute_value);
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, dimension, output_mesh_name);
+    if (!nlohmann_json_t.attribute_name.empty()) {
+        WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute_name, attribute_value);
     }
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshBoundaryOptions)
 {
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(MultimeshBoundaryOptions)
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(
-        mesh_path,
-        boundary_dimension,
-        output_mesh_name);
-    if (!nlohmann_json_j.contains("boundary_attribute")) {
-        WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(
-            boundary_attribute_name,
-            boundary_attribute_value);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(mesh_path, dimension, output_mesh_name);
+    if (nlohmann_json_j.contains("attribute_name")) {
+        WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(attribute_name, attribute_value);
     }
 }
 void MultimeshBoundaryOptions::to_json(nlohmann::json& j) const
@@ -71,19 +66,23 @@ void MultimeshBoundaryOptions::run(MeshCollection& mc) const
 {
     auto& mesh = mc.get_mesh(mesh_path);
     std::string tag_name = "_boundary_tag";
+    char tag_value = 1;
     const auto& input_nmm = mc.get_named_multimesh(mesh_path);
-    const PrimitiveType pt = get_primitive_type_from_id(boundary_dimension);
+    const PrimitiveType pt = get_primitive_type_from_id(dimension);
 
 
-    if (!boundary_attribute_name.empty()) {
-        tag_name = boundary_attribute_name;
+    if (!attribute_name.empty()) {
+        tag_name = attribute_name;
+        tag_value = attribute_value;
     }
 
     MultimeshTagOptions tag_opts;
-    auto attr = fill_boundary_attribute(mesh, pt, tag_name, boundary_attribute_value);
+    auto attr = fill_boundary_attribute(mesh, pt, tag_name, tag_value);
     tag_opts.output_mesh_name = output_mesh_name;
     tag_opts.tag_attribute = utils::AttributeDescription(input_nmm, attr);
-    tag_opts.delete_tag_attribute = boundary_attribute_name.empty();
+    tag_opts.delete_tag_attribute = attribute_name.empty();
+    tag_opts.value = tag_value;
+
 
     tag_opts.run(mc);
 }

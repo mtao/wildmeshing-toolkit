@@ -142,7 +142,7 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
 
     if (child_is_free) {
         switch (pt) {
-        case PrimitiveType::Vertex: throw("not implemented");
+            case PrimitiveType::Vertex: throw std::runtime_error("not implemented for vertex");
         case PrimitiveType::Edge: {
             std::shared_ptr<EdgeMesh> meshptr = std::make_shared<EdgeMesh>();
             meshptr->initialize_free(tagged_tuples.size());
@@ -161,12 +161,12 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
             child_mesh_ptr = meshptr;
             break;
         }
-        default: throw("invalid child mesh type");
+        default: throw std::runtime_error("invalid child mesh type");
         }
 
     } else {
         switch (pt) {
-        case PrimitiveType::Vertex: throw("not implemented");
+            case PrimitiveType::Vertex: throw std::runtime_error("not implemented for vertex");
         case PrimitiveType::Edge: {
             child_mesh_ptr = run_edge();
             break;
@@ -179,7 +179,7 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
             child_mesh_ptr = run_tet();
             break;
         }
-        default: throw("invalid child mesh type");
+        default: throw std::runtime_error("invalid child mesh type");
         }
     }
 

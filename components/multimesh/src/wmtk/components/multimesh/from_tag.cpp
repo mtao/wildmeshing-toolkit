@@ -1,5 +1,4 @@
 #include "from_tag.hpp"
-#include <spdlog/spdlog.h>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/multimesh/utils/extract_child_mesh_from_tag.hpp>
 #include <wmtk/multimesh/utils/transfer_attribute.hpp>
@@ -126,4 +125,5 @@ void MultimeshTagOptions::from_json(const nlohmann::json& j)
 {
     *this = j;
 }
+
 } // namespace wmtk::components::multimesh

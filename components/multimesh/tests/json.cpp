@@ -4,6 +4,7 @@
 #include <nlohmann/json.hpp>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/components/input/input.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include "tools/TriMesh_examples.hpp"
 #include "wmtk/components/multimesh/MeshCollection.hpp"
 #include "wmtk/components/multimesh/MultimeshOptions.hpp"
@@ -40,7 +41,10 @@ TEST_CASE("multimesh_tag_json", "[components][multimesh]")
          }},
         {"value", 1}};
 
-    wmtk::components::multimesh::MultimeshTagOptions opt = tag_js;
+    wmtk::components::multimesh::MultimeshOptions opt = tag_js;
+    REQUIRE(
+        std::dynamic_pointer_cast<wmtk::components::multimesh::MultimeshTagOptions>(opt.options) !=
+        nullptr);
     wmtk::components::multimesh::MeshCollection mc;
     auto mptr = wmtk::tests::disk(10);
     mc.emplace_mesh(*mptr, std::string("root"));
@@ -82,30 +86,126 @@ TEST_CASE("multimesh_boundary_json", "[components][multimesh]")
     using AD = wmtk::components::multimesh::utils::AttributeDescription;
 
     using JS = nlohmann::json;
-    JS tag_js = {
-        {"type", "boundary"},
-        {"output_mesh_name", "boundary"},
-        {"boundary_attribute_name", "is_boundary"},
-        {"boundary_attribute_value", 1}};
 
-    wmtk::components::multimesh::MultimeshBoundaryOptions opt = tag_js;
+    auto run = [](const auto& js) {
+        wmtk::components::multimesh::MultimeshOptions opt = js;
+
+        REQUIRE(
+            std::dynamic_pointer_cast<wmtk::components::multimesh::MultimeshBoundaryOptions>(
+                opt.options) != nullptr);
+        wmtk::components::multimesh::MeshCollection mc;
+        auto mptr = wmtk::tests::disk(10);
+        mc.emplace_mesh(*mptr, std::string("root"));
+        opt.run(mc);
+        const auto& nmm = mc.get_named_multimesh("root");
+
+        auto& ring = mc.get_mesh("root.boundary");
+        CHECK(ring.get_all(wmtk::PrimitiveType::Vertex).size() == 10);
+        CHECK(ring.get_all(wmtk::PrimitiveType::Edge).size() == 10);
+        REQUIRE(ring.absolute_multi_mesh_id() == std::vector<int64_t>{0});
+        REQUIRE(&ring.get_multi_mesh_root() == mptr.get());
+        for (const auto& t : ring.get_all(wmtk::PrimitiveType::Edge)) {
+            // every edge in this ring should be interior
+            CHECK(!ring.is_boundary(wmtk::PrimitiveType::Edge, t));
+            auto ps = ring.map_to_parent(wmtk::simplex::Simplex::edge(t));
+            REQUIRE(mptr->is_valid(ps));
+            CHECK(mptr->is_boundary(ps));
+        }
+        return mc;
+    };
+    {
+        JS tag_js = {
+            {"type", "boundary"},
+            {"output_mesh_name", "boundary"},
+            {"dimension", 1},
+            {"attribute_name", "is_boundary"},
+            {"attribute_value", 5}};
+        auto mc = run(tag_js);
+        auto mah = wmtk::components::multimesh::utils::get_attribute(
+            mc,
+            wmtk::components::multimesh::utils::AttributeDescription("root/is_boundary"));
+        REQUIRE(mah.is_valid());
+        CHECK(mah.dimension() == 1);
+        CHECK(mah.primitive_type() == wmtk::PrimitiveType::Edge);
+        CHECK(mah.held_type() == wmtk::attribute::AttributeType::Char);
+    }
+    {
+        JS tag_js = {{"type", "boundary"}, {"output_mesh_name", "boundary"}, {"dimension", 1}};
+        auto mc = run(tag_js);
+        CHECK_THROWS(wmtk::components::multimesh::utils::get_attribute(
+            mc,
+            wmtk::components::multimesh::utils::AttributeDescription("root/_boundary_tag")));
+    }
+}
+
+TEST_CASE("multimesh_bijection_json", "[components][multimesh]")
+{
+    using AT = wmtk::attribute::AttributeType;
+    using AD = wmtk::components::multimesh::utils::AttributeDescription;
+
+    using JS = nlohmann::json;
+
+    JS js = {{"type", "bijection"}, {"parent_path", "fused"}, {"child_path", "separated"}};
+    wmtk::components::multimesh::MultimeshOptions opt = js;
+
+    REQUIRE(
+        std::dynamic_pointer_cast<wmtk::components::multimesh::MultimeshBijectionOptions>(
+            opt.options) != nullptr);
     wmtk::components::multimesh::MeshCollection mc;
     auto mptr = wmtk::tests::disk(10);
+    auto cmptr = wmtk::tests::individual_triangles(10);
+    mc.emplace_mesh(*mptr, std::string("fused"));
+    mc.emplace_mesh(*cmptr, std::string("separated"));
+    opt.run(mc);
+
+    auto& nmm = mc.get_named_multimesh("fused");
+    spdlog::info("{}", nmm.get_names_json()->dump(2));
+    auto& child = mc.get_mesh("fused.separated");
+    REQUIRE(&child == cmptr.get());
+    for (const auto& t : child.get_all(wmtk::PrimitiveType::Edge)) {
+        auto t2s = child.map(*mptr, wmtk::simplex::Simplex::edge(t));
+        REQUIRE(t2s.size() == 1);
+        CHECK(t == t2s[0].tuple());
+    }
+}
+
+TEST_CASE("multimesh_fusion_json", "[components][multimesh]")
+{
+    using AT = wmtk::attribute::AttributeType;
+    using AD = wmtk::components::multimesh::utils::AttributeDescription;
+
+    using JS = nlohmann::json;
+
+    JS js = {
+        {"type", "axis_aligned_fusion"},
+        {"attribute_path", "/vertices"},
+        {"fused_mesh_name", "fused"},
+        {"epsilon", 1e-5},
+        {"axes_to_fuse", {true, true}}};
+    wmtk::components::multimesh::MultimeshOptions opt = js;
+
+    REQUIRE(
+        std::dynamic_pointer_cast<wmtk::components::multimesh::MultimeshAxisAlignedFusionOptions>(
+            opt.options) != nullptr);
+    wmtk::components::multimesh::MeshCollection mc;
+    auto mptr = wmtk::tests::grid(5, 10);
+
+    CHECK(mptr->get_all(wmtk::PrimitiveType::Vertex).size() == 50);
+    CHECK(mptr->get_all(wmtk::PrimitiveType::Triangle).size() == 72);
     mc.emplace_mesh(*mptr, std::string("root"));
     opt.run(mc);
-    const auto& nmm = mc.get_named_multimesh("root");
 
-    auto& ring = mc.get_mesh("root.tagged_edges");
-    CHECK(ring.get_all(wmtk::PrimitiveType::Vertex).size() == 10);
-    CHECK(ring.get_all(wmtk::PrimitiveType::Edge).size() == 10);
-    REQUIRE(ring.absolute_multi_mesh_id() == std::vector<int64_t>{0});
-    REQUIRE(&ring.get_multi_mesh_root() == mptr.get());
-    for (const auto& t : ring.get_all(wmtk::PrimitiveType::Edge)) {
-        // every edge in this ring should be interior
-        CHECK(!ring.is_boundary(wmtk::PrimitiveType::Edge, t));
-        auto ps = ring.map_to_parent(wmtk::simplex::Simplex::edge(t));
-        REQUIRE(mptr->is_valid(ps));
-        CHECK(mptr->is_boundary(ps));
+    auto& nmm = mc.get_named_multimesh("fused");
+    spdlog::info("{}", nmm.get_names_json()->dump(2));
+    auto& child = mc.get_mesh("fused.root");
+    auto& root = mc.get_mesh("fused");
+    CHECK(root.get_all(wmtk::PrimitiveType::Vertex).size() == 36);
+    CHECK(root.get_all(wmtk::PrimitiveType::Triangle).size() == 72);
+    REQUIRE(&child == mptr.get());
+    for (const auto& t : child.get_all(wmtk::PrimitiveType::Edge)) {
+        auto t2s = child.map(*mptr, wmtk::simplex::Simplex::edge(t));
+        REQUIRE(t2s.size() == 1);
+        CHECK(t == t2s[0].tuple());
     }
 }
 

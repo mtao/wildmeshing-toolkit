@@ -1,5 +1,6 @@
 #include "TriMesh_examples.hpp"
 #include <random>
+#include <wmtk/Types.hpp>
 #include <wmtk/multimesh/same_simplex_dimension_bijection.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
@@ -473,5 +474,58 @@ std::shared_ptr<TriMesh> disk_to_individual_multimesh(int number)
 
     d->register_child_mesh(i, map);
     return d;
+}
+
+std::shared_ptr<TriMesh> grid(int num_rows, int num_cols, double max_x, double max_y)
+{
+    Eigen::MatrixXd X(num_rows, num_cols);
+    Eigen::MatrixXd Y(num_rows, num_cols);
+
+    {
+        auto x = Eigen::VectorXd::LinSpaced(num_rows, 0, max_x);
+        auto y = Eigen::VectorXd::LinSpaced(num_cols, 0, max_y);
+        X.colwise() = x;
+        Y.rowwise() = y.transpose();
+    }
+    int vcount = X.size();
+
+    RowVectors<double, 2> P(vcount, 2);
+
+    P.col(0) = X.reshaped<Eigen::RowMajor>();
+    P.col(1) = Y.reshaped<Eigen::RowMajor>();
+
+    std::cout << P.transpose() << std::endl;
+
+    int rows = num_rows - 1;
+    int cols = num_cols - 1;
+    int quad_count = rows * cols;
+    RowVectors<int64_t, 3> T(2 * quad_count, 3);
+    for (int j = 0; j < rows; ++j) {
+        for (int k = 0; k < cols; ++k) {
+            int pr = 2 * (j * cols + k);
+
+            auto L = T.row(pr);
+            auto R = T.row(pr + 1);
+
+            int64_t a = (j + 0) * (cols + 1) + (k + 0);
+            int64_t b = (j + 0) * (cols + 1) + (k + 1);
+            int64_t c = (j + 1) * (cols + 1) + (k + 0);
+            int64_t d = (j + 1) * (cols + 1) + (k + 1);
+
+            // spdlog::info("{} {} {} {}", a, b, c, d);
+            // std::cout << P.row(a) << " || ";
+            // std::cout << P.row(b) << " || ";
+            // std::cout << P.row(c) << " || ";
+            // std::cout << P.row(d) << " || ";
+            // std::cout << std::endl;
+
+            L = Vector<int64_t, 3>(a, b, c);
+            R = Vector<int64_t, 3>(c, b, d);
+        }
+    }
+    auto mptr = std::make_shared<TriMesh>();
+    mptr->initialize(T);
+    mesh_utils::set_matrix_attribute(P, "vertices", PrimitiveType::Vertex, *mptr);
+    return mptr;
 }
 } // namespace wmtk::tests

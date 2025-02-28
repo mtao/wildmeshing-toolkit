@@ -81,9 +81,10 @@ AttributeDescription::AttributeDescription(
     : path(p)
     , simplex_dimension(get_primitive_type_id(mah.primitive_type()))
     , type(mah.held_type())
+    , dimension(mah.dimension())
 {}
 AttributeDescription::AttributeDescription(const wmtk::attribute::MeshAttributeHandle& mah)
-    : AttributeDescription(mah.name(), mah)
+    : AttributeDescription(fmt::format("/{}", mah.name()), mah)
 {}
 // AttributeDescription::AttributeDescription(const MeshCollection& mc, const
 // wmtk::attribute::MeshAttributeHandle&mah): AttributeDescription(mc.get_path(mah), mah) {}
@@ -97,20 +98,21 @@ AttributeDescription::operator std::string() const
 {
     auto get_tok = [](char c, const auto& opt) -> std::string {
         if (opt.has_value()) {
-            if constexpr (std::is_same_v<
-                              typename std::decay_t<decltype(opt)>::value_type,
-                              attribute::AttributeType>) {
+            using T = typename std::decay_t<decltype(opt)>::value_type;
+            if constexpr (std::is_same_v<T, attribute::AttributeType>) {
                 if (opt.has_value()) {
-                    return fmt::format(",{}={}", c, attribute::attribute_type_name(opt.value()));
+                    return fmt::format("{}={}", c, attribute::attribute_type_name(opt.value()));
                 }
+            } else if constexpr (std::is_same_v<T, char>) {
+                return fmt::format("{}={:d}", c, opt.value());
             } else {
-                return fmt::format(",{}={}", c, opt.value());
+                return fmt::format("{}={}", c, opt.value());
             }
         }
-        return "";
+        return fmt::format("{}=?", c);
     };
     return fmt::format(
-        "AttributeDescription({}t={},s={},d={})",
+        "AttributeDescription({},{},{},{})",
         path,
         get_tok('t', type),
         get_tok('s', simplex_dimension),

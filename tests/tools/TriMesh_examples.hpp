@@ -166,8 +166,8 @@ TriMesh three_triangles_with_two_components();
 //     /  |  \ .
 //    1---2---3
 //    |\ / \ /|
-//    | 4---5 |  
-//    |/ \ / \| 
+//    | 4---5 |
+//    |/ \ / \|
 //    6---7---8
 TriMesh nine_triangles_with_a_hole();
 
@@ -217,6 +217,7 @@ std::shared_ptr<TriMesh> individual_triangles(int number);
 // creates N triangles surrounding a single interior vertex 0
 std::shared_ptr<TriMesh> disk_to_individual_multimesh(int number);
 
-std::shared_ptr<TriMesh> grid(int num_rows, bool set_double_);
+std::shared_ptr<TriMesh>
+grid(int row_vertices, int col_vertices, double max_x = 1.0, double max_y = 1.0);
 
 } // namespace wmtk::tests

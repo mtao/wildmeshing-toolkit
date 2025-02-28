@@ -23,6 +23,7 @@ struct NamedMultiMesh::Node
     }
     Node& operator=(const Node& o)
     {
+        name = o.name;
         m_children.clear();
         std::ranges::transform(
             o.m_children,
@@ -464,6 +465,7 @@ std::string NamedMultiMesh::get_path(const wmtk::attribute::MeshAttributeHandle&
 
 void NamedMultiMesh::append_child_mesh_names(const Mesh& parent, const NamedMultiMesh& o)
 {
+    populate_default_names();
     const std::vector<int64_t> parent_id = get_id(parent);
     Node* cur_mesh = m_name_root.get();
     for (const auto& index : parent_id) {
@@ -480,9 +482,11 @@ void NamedMultiMesh::append_child_mesh_names(const Mesh& parent, const NamedMult
     const int64_t& id = child_relid[0];
     if (const size_t child_size = cur_mesh->m_children.size(); child_size == id) {
         cur_mesh->m_children.emplace_back(std::make_unique<Node>(*o.m_name_root));
-    } else if (child_size < id) {
+    } else if (id < child_size) {
         *cur_mesh->m_children[id] = *o.m_name_root;
     } else {
+        wmtk::logger().warn("parent {}", get_names_json()->dump(2));
+        wmtk::logger().warn("child {}", o.get_names_json()->dump(2));
         throw std::runtime_error(fmt::format("append_child_mesh_names was unable to add a child mesh. Make sure to populate name structure"));
     }
     cur_mesh->update_child_names();

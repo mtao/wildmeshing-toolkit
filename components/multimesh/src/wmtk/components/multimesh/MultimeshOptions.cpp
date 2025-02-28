@@ -15,6 +15,8 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshOptions)
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshOptions)
 {
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(type);
+
     if (nlohmann_json_t.type == "boundary") {
         nlohmann_json_t.options = std::make_shared<MultimeshBoundaryOptions>();
     } else if (nlohmann_json_t.type == "tag") {
@@ -25,6 +27,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshOptions)
         nlohmann_json_t.options = std::make_shared<MultimeshAxisAlignedFusionOptions>();
     }
 
+    assert(bool(nlohmann_json_t.options));
     nlohmann_json_t.options->from_json(nlohmann_json_j);
 }
 void MultimeshOptions::to_json(nlohmann::json& j) const

@@ -33,6 +33,14 @@ void MultimeshBijectionOptions::run(MeshCollection& mc) const
 {
     auto& parent = mc.get_mesh(parent_path);
     auto& child = mc.get_mesh(child_path);
+    assert(child.is_multi_mesh_root());
     from_facet_bijection(parent, child);
+    auto& parent_nmm = mc.get_named_multimesh(parent_path);
+    auto& child_nmm = mc.get_named_multimesh(child_path);
+    assert(!child.is_multi_mesh_root());
+    assert(child.is_from_same_multi_mesh_structure(parent));
+    assert(child.absolute_multi_mesh_id() == std::vector<int64_t>{0});
+    parent_nmm.append_child_mesh_names(parent, child_nmm);
+
 }
 } // namespace wmtk::components::multimesh
