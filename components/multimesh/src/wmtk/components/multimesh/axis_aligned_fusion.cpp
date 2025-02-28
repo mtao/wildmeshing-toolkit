@@ -87,7 +87,8 @@ std::shared_ptr<Mesh> axis_aligned_fusion(
 
         for (size_t j = 0; j < dim; ++j) {
             if (operating_axis[j]) {
-                if (abs(1 - d(j)) > eps) {
+                // d < 1, so can skip the abs
+                if (1 - d(j) > eps) {
                     return false;
                 }
             } else {
