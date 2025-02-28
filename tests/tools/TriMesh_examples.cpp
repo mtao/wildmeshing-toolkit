@@ -494,7 +494,7 @@ std::shared_ptr<TriMesh> grid(int num_rows, int num_cols, double max_x, double m
     P.col(0) = X.reshaped<Eigen::RowMajor>();
     P.col(1) = Y.reshaped<Eigen::RowMajor>();
 
-    std::cout << P.transpose() << std::endl;
+    // std::cout << P.transpose() << std::endl;
 
     int rows = num_rows - 1;
     int cols = num_cols - 1;

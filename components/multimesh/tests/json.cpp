@@ -1,5 +1,4 @@
 #include <fmt/ranges.h>
-#include <spdlog/spdlog.h>
 #include <catch2/catch_test_macros.hpp>
 #include <nlohmann/json.hpp>
 #include <wmtk/Mesh.hpp>
@@ -159,7 +158,6 @@ TEST_CASE("multimesh_bijection_json", "[components][multimesh]")
     opt.run(mc);
 
     auto& nmm = mc.get_named_multimesh("fused");
-    spdlog::info("{}", nmm.get_names_json()->dump(2));
     auto& child = mc.get_mesh("fused.separated");
     REQUIRE(&child == cmptr.get());
     for (const auto& t : child.get_all(wmtk::PrimitiveType::Edge)) {
@@ -176,36 +174,96 @@ TEST_CASE("multimesh_fusion_json", "[components][multimesh]")
 
     using JS = nlohmann::json;
 
-    JS js = {
-        {"type", "axis_aligned_fusion"},
-        {"attribute_path", "/vertices"},
-        {"fused_mesh_name", "fused"},
-        {"epsilon", 1e-5},
-        {"axes_to_fuse", {true, true}}};
-    wmtk::components::multimesh::MultimeshOptions opt = js;
+    {
+        JS js = {
+            {"type", "axis_aligned_fusion"},
+            {"attribute_path", "/vertices"},
+            {"fused_mesh_name", "fused"},
+            {"epsilon", 1e-5},
+            {"axes_to_fuse", {true, true}}};
+        wmtk::components::multimesh::MultimeshOptions opt = js;
 
-    REQUIRE(
-        std::dynamic_pointer_cast<wmtk::components::multimesh::MultimeshAxisAlignedFusionOptions>(
-            opt.options) != nullptr);
-    wmtk::components::multimesh::MeshCollection mc;
-    auto mptr = wmtk::tests::grid(5, 10);
+        REQUIRE(
+            std::dynamic_pointer_cast<
+                wmtk::components::multimesh::MultimeshAxisAlignedFusionOptions>(opt.options) !=
+            nullptr);
+        wmtk::components::multimesh::MeshCollection mc;
+        auto mptr = wmtk::tests::grid(5, 10);
 
-    CHECK(mptr->get_all(wmtk::PrimitiveType::Vertex).size() == 50);
-    CHECK(mptr->get_all(wmtk::PrimitiveType::Triangle).size() == 72);
-    mc.emplace_mesh(*mptr, std::string("root"));
-    opt.run(mc);
+        CHECK(mptr->get_all(wmtk::PrimitiveType::Vertex).size() == 50);
+        CHECK(mptr->get_all(wmtk::PrimitiveType::Triangle).size() == 72);
+        mc.emplace_mesh(*mptr, std::string("root"));
+        opt.run(mc);
 
-    auto& nmm = mc.get_named_multimesh("fused");
-    spdlog::info("{}", nmm.get_names_json()->dump(2));
-    auto& child = mc.get_mesh("fused.root");
-    auto& root = mc.get_mesh("fused");
-    CHECK(root.get_all(wmtk::PrimitiveType::Vertex).size() == 36);
-    CHECK(root.get_all(wmtk::PrimitiveType::Triangle).size() == 72);
-    REQUIRE(&child == mptr.get());
-    for (const auto& t : child.get_all(wmtk::PrimitiveType::Edge)) {
-        auto t2s = child.map(*mptr, wmtk::simplex::Simplex::edge(t));
-        REQUIRE(t2s.size() == 1);
-        CHECK(t == t2s[0].tuple());
+        auto& nmm = mc.get_named_multimesh("fused");
+        auto& child = mc.get_mesh("fused.root");
+        auto& root = mc.get_mesh("fused");
+        CHECK(root.get_all(wmtk::PrimitiveType::Vertex).size() == 36);
+        CHECK(root.get_all(wmtk::PrimitiveType::Triangle).size() == 72);
+        REQUIRE(&child == mptr.get());
+        for (const auto& t : child.get_all(wmtk::PrimitiveType::Edge)) {
+            auto s = wmtk::simplex::Simplex::edge(t);
+            {
+                // map to root is unique
+                auto t2s = child.map(root, s);
+                REQUIRE(t2s.size() == 1);
+            }
+
+            // check self mapping
+            auto t2s = child.map(*mptr, s);
+            if (child.is_boundary(s)) {
+                REQUIRE(t2s.size() == 2);
+            } else {
+                REQUIRE(t2s.size() == 1);
+                CHECK(t == t2s[0].tuple());
+            }
+        }
+    }
+    {
+        JS js = {
+            {"type", "axis_aligned_fusion"},
+            {"attribute_path", "/vertices"},
+            {"fused_mesh_name", "fused"},
+            {"epsilon", 1e-5},
+            {"axes_to_fuse", {true, false}}};
+        wmtk::components::multimesh::MultimeshOptions opt = js;
+
+        REQUIRE(
+            std::dynamic_pointer_cast<
+                wmtk::components::multimesh::MultimeshAxisAlignedFusionOptions>(opt.options) !=
+            nullptr);
+        wmtk::components::multimesh::MeshCollection mc;
+        auto mptr = wmtk::tests::grid(5, 10);
+        mc.emplace_mesh(*mptr, std::string("root"));
+        opt.run(mc);
+
+        auto& nmm = mc.get_named_multimesh("fused");
+        auto& root = mc.get_mesh("fused");
+        CHECK(root.get_all(wmtk::PrimitiveType::Vertex).size() == 40);
+        CHECK(root.get_all(wmtk::PrimitiveType::Triangle).size() == 72);
+    }
+    {
+        JS js = {
+            {"type", "axis_aligned_fusion"},
+            {"attribute_path", "/vertices"},
+            {"fused_mesh_name", "fused"},
+            {"epsilon", 1e-5},
+            {"axes_to_fuse", {false, true}}};
+        wmtk::components::multimesh::MultimeshOptions opt = js;
+
+        REQUIRE(
+            std::dynamic_pointer_cast<
+                wmtk::components::multimesh::MultimeshAxisAlignedFusionOptions>(opt.options) !=
+            nullptr);
+        wmtk::components::multimesh::MeshCollection mc;
+        auto mptr = wmtk::tests::grid(5, 10);
+        mc.emplace_mesh(*mptr, std::string("root"));
+        opt.run(mc);
+
+        auto& nmm = mc.get_named_multimesh("fused");
+        auto& root = mc.get_mesh("fused");
+        CHECK(root.get_all(wmtk::PrimitiveType::Vertex).size() == 45);
+        CHECK(root.get_all(wmtk::PrimitiveType::Triangle).size() == 72);
     }
 }
 

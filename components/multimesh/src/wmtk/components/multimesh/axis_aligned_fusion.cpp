@@ -34,7 +34,6 @@ std::shared_ptr<Mesh> axis_aligned_fusion(
     const std::vector<bool>& operating_axis,
     double eps)
 {
-    spdlog::warn("{}", fmt::join(operating_axis, ","));
     Mesh& mesh = const_cast<Mesh&>(position_handle.mesh());
     // get mesh dimension and checks
     int64_t mesh_dim = mesh.top_cell_dimension();
@@ -88,7 +87,7 @@ std::shared_ptr<Mesh> axis_aligned_fusion(
         for (size_t j = 0; j < dim; ++j) {
             if (operating_axis[j]) {
                 // d < 1, so can skip the abs
-                if (1 - d(j) > eps) {
+                if (d(j) > eps && d(j) < 1 - eps) {
                     return false;
                 }
             } else {
@@ -117,7 +116,8 @@ std::shared_ptr<Mesh> axis_aligned_fusion(
     for (int d = 0; d < dim; ++d) {
         for (const auto& m : fusable_min[d]) {
             for (const auto& M : fusable_max[d]) {
-                if (comp(m, M)) {
+                const bool res = comp(m, M);
+                if (res) {
                     ds.merge(m, M);
                 }
             }
@@ -129,6 +129,7 @@ std::shared_ptr<Mesh> axis_aligned_fusion(
     for (size_t j = 0; j < roots.size(); ++j) {
         root_indexer[roots[j]] = j;
     }
+
 
     auto get_index = [&ds, &root_indexer](int64_t i) { return root_indexer.at(ds.get_root(i)); };
 
@@ -146,7 +147,7 @@ std::shared_ptr<Mesh> axis_aligned_fusion(
         assert(FV.rows() == mesh.get_all(PrimitiveType::Triangle).size());
 
         // create periodic mesh
-        RowVectors3l FV_new = FV.NullaryExpr(get_index);
+        RowVectors3l FV_new = FV.unaryExpr(get_index);
 
         std::shared_ptr<TriMesh> parent = std::make_shared<TriMesh>();
         parent->initialize(FV_new);
@@ -161,7 +162,7 @@ std::shared_ptr<Mesh> axis_aligned_fusion(
         assert(TV.rows() == mesh.get_all(PrimitiveType::Tetrahedron).size());
 
         // // create periodic mesh
-        RowVectors4l TV_new = TV.NullaryExpr(get_index);
+        RowVectors4l TV_new = TV.unaryExpr(get_index);
         std::shared_ptr<TetMesh> parent = std::make_shared<TetMesh>();
         parent->initialize(TV_new);
         parent_ptr = parent;
@@ -203,13 +204,11 @@ void MultimeshAxisAlignedFusionOptions::run(MeshCollection& mc) const
     assert(attr.mesh().is_multi_mesh_root());
     auto [mesh_path, attr_name] = utils::decompose_attribute_path(attribute_path.path);
     const auto& child_nmm = mc.get_named_multimesh(mesh_path);
-    spdlog::info("{}", child_nmm.get_names_json()->dump(2));
     auto mesh = axis_aligned_fusion(attr, axes_to_fuse, epsilon);
     assert(!attr.mesh().is_multi_mesh_root());
     assert(mesh->is_multi_mesh_root());
     assert(mesh->is_from_same_multi_mesh_structure(attr.mesh()));
     auto& nmm = mc.emplace_mesh(*mesh, fused_mesh_name);
-    spdlog::info("{}", nmm.get_names_json()->dump(2));
     nmm.append_child_mesh_names(*mesh, child_nmm);
 }
 } // namespace wmtk::components::multimesh
