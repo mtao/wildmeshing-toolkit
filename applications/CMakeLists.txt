@@ -75,18 +75,32 @@ if(WMTK_ENABLE_INTEGRATION_TESTING)
 
     find_package(Python REQUIRED)
 
-    MESSAGE(STATUS "${WMTK_APPLICATION_TEST_NAMES}")
     foreach(APP_TEST ${WMTK_APPLICATION_TEST_NAMES})
-        MESSAGE(STATUS "${APP_TEST}")
+        SET(TEST_CONFIGS ${WMTK_APPLICATION_TEST_${APP_TEST}_CONFIGS})
 
-        add_test(
-            NAME "wmtk_integration_test_${APP_TEST}"
-            COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/integration_test.py
-            -c "${CMAKE_BINARY_DIR}/test_config.json"
-            -b "${CMAKE_BINARY_DIR}/applications"
-            -t "${APP_TEST}"
-            ${WMTK_APPLICATION_RUN_ALL_TESTS}
-        )
+        if(TEST_CONFIGS)
+            foreach(TEST_CONFIG ${TEST_CONFIGS})
+            add_test(
+                NAME "wmtk_integration_test_${APP_TEST}_${TEST_CONFIG}"
+                COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/integration_test.py
+                -c "${CMAKE_BINARY_DIR}/test_config.json"
+                -b "${CMAKE_BINARY_DIR}/applications"
+                -t "${APP_TEST}"
+                -s "${TEST_CONFIG}"
+                ${WMTK_APPLICATION_RUN_ALL_TESTS}
+            )
+            endforeach()
+        else()
+
+            add_test(
+                NAME "wmtk_integration_test_${APP_TEST}"
+                COMMAND ${Python_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/integration_test.py
+                -c "${CMAKE_BINARY_DIR}/test_config.json"
+                -b "${CMAKE_BINARY_DIR}/applications"
+                -t "${APP_TEST}"
+                ${WMTK_APPLICATION_RUN_ALL_TESTS}
+            )
+        endif()
 
     endforeach()
 endif()

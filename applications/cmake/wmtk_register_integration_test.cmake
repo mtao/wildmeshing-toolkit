@@ -8,6 +8,19 @@ macro(wmtk_register_integration_test )
 
 
     MESSAGE(STATUS "Registering integration test for ${_EXEC_NAME}")
+    file(READ ${_CONFIG_FILE} MY_JSON_STRING)
+    string(JSON TEST_JSONS GET "${MY_JSON_STRING}" "tests" )
+    string(JSON TEST_JSONS_LENGTH LENGTH "${TEST_JSONS}" )
+    set(APP_TESTS "")
+    if(${TEST_JSONS_LENGTH} GREATER 0)
+        math(EXPR TEST_JSONS_LENGTH "${TEST_JSONS_LENGTH} - 1")
+        foreach(INDEX RANGE 0 ${TEST_JSONS_LENGTH})
+            string(JSON TEST_NAME GET "${TEST_JSONS}" ${INDEX})
+            list(APPEND APP_TESTS ${TEST_NAME})
+        endforeach()
+    endif()
+
+
 
 
     include(wmtk_download_data)
@@ -32,4 +45,6 @@ macro(wmtk_register_integration_test )
 
     SET(WMTK_TEST_CONFIG ${WMTK_TEST_CONFIG} PARENT_SCOPE)
     SET(WMTK_APPLICATION_TEST_NAMES ${WMTK_APPLICATION_TEST_NAMES} PARENT_SCOPE)
+    SET(TEST_NAMES "WMTK_APPLICATION_TEST_${_EXEC_NAME}_CONFIGS")
+    SET(${TEST_NAMES} ${APP_TESTS} PARENT_SCOPE)
 endmacro()
