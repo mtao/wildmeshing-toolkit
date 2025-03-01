@@ -1,8 +1,8 @@
 #pragma once
-#include "TransferFunctorTraits.hpp"
 #include <nlohmann/json_fwd.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "SingleAttributeTransferStrategyFactory.hpp"
+#include "TransferFunctorTraits.hpp"
 
 namespace wmtk::components::mesh_info::transfer {
 
@@ -29,11 +29,17 @@ struct MaxNeighborFunctor
 };
 
 template <>
-    struct TransferFunctorTraits<MaxNeighborFunctor> {
-        constexpr static int output_dimension(int D) {
-            return D;
-        }
-    };
+struct TransferFunctorTraits<MaxNeighborFunctor>
+{
+    static int output_dimension(const attribute::MeshAttributeHandle& mah)
+    {
+        return mah.dimension();
+    }
+    static int simplex_dimension(const attribute::MeshAttributeHandle& mah , const nlohmann::json& js = {})
+    {
+        return get_primitive_type_id(mah.primitive_type());
+    }
+};
 
 using MaxNeighbor = SingleAttributeTransferStrategyFactory<MaxNeighborFunctor>;
 

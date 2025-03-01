@@ -29,11 +29,13 @@ struct TransferStrategyFactory
         wmtk::components::multimesh::MeshCollection& mc,
         bool populate = true) const;
 
-    virtual int output_dimension(int input_dim) const = 0;
+    // virtual int output_dimension(int input_dim) const = 0;
 
-    static const TransferStrategyFactoryRegistry& transfer_registry() {
+    static const TransferStrategyFactoryRegistry& transfer_registry()
+    {
         return s_transfer_registry;
     }
+
 protected:
     virtual std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_transfer(
         wmtk::components::multimesh::MeshCollection& mc) const = 0;

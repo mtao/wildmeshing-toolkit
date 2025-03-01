@@ -1,8 +1,8 @@
 #pragma once
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
-#include "TransferStrategyFactory.hpp"
 #include "TransferFunctorTraits.hpp"
+#include "TransferStrategyFactory.hpp"
 
 #include <wmtk/Types.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
@@ -18,7 +18,6 @@ struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFacto
     SingleAttributeTransferStrategyFactoryBase();
     ~SingleAttributeTransferStrategyFactoryBase();
     std::string base_attribute_path;
-    int8_t simplex_dimension;
 
     nlohmann::json parameters;
     void to_json(nlohmann::json& j) const final;
@@ -27,7 +26,8 @@ struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFacto
     // entry point to set the type and dim of the output
     attribute::AttributeType output_type(wmtk::components::multimesh::MeshCollection& mc) const;
     // entry point to set the type and dim of the output
-    int base_attribute_dimension(wmtk::components::multimesh::MeshCollection& mc) const;
+    // int base_attribute_dimension(wmtk::components::multimesh::MeshCollection& mc) const;
+    // int base_simplex_dimension(wmtk::components::multimesh::MeshCollection& mc) const;
 };
 
 template <template <typename, int, typename, int> typename Functor>
@@ -39,7 +39,9 @@ struct SingleAttributeTransferStrategyFactory : public SingleAttributeTransferSt
     std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_transfer(
         wmtk::components::multimesh::MeshCollection& mc) const final;
     // std::unique_ptr<TransferStrategyFactory> clone() const final;
-    int output_dimension(int input_dim) const final;
+    // pass in the dimension of hte input vector, gets output vector
+    // int output_dimension(int input_attribute_dimension) const final;
+    // int output_simplex_dimension(int input_dim) const;
 
     template <int ToDim, int FromDim, typename ToT, typename FromT>
     std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_T(
@@ -68,22 +70,29 @@ SingleAttributeTransferStrategyFactory<Functor>::create_T(
     }
 }
 
-template <template <typename, int, typename, int> typename Functor>
-    int SingleAttributeTransferStrategyFactory<Functor>::output_dimension(int input_dim) const {
-        return TransferFunctorTraits<Functor>::output_dimension(input_dim);
-    }
+// template <template <typename, int, typename, int> typename Functor>
+// int SingleAttributeTransferStrategyFactory<Functor>::output_dimension(int input_dim) const
+//{
+//     return TransferFunctorTraits<Functor>::output_dimension(input_dim);
+// }
+// template <template <typename, int, typename, int> typename Functor>
+// int SingleAttributeTransferStrategyFactory<Functor>::simplex_dimension(int input_dim) const
+//{
+//     return TransferFunctorTraits<Functor>::simplex_dimension(base_);
+// }
 template <template <typename, int, typename, int> typename Functor>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
 SingleAttributeTransferStrategyFactory<Functor>::create_transfer(
     wmtk::components::multimesh::MeshCollection& mc) const
 {
     auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, {base_attribute_path});
+    using Traits = TransferFunctorTraits<Functor>;
     auto to_attr = wmtk::components::multimesh::utils::create_attribute(
         mc,
         {attribute_path,
-         simplex_dimension,
+         Traits::simplex_dimension(from_attr, parameters),
          output_type(mc),
-         output_dimension(base_attribute_dimension(mc))});
+         Traits::output_dimension(from_attr)});
 
 
     return std::visit(

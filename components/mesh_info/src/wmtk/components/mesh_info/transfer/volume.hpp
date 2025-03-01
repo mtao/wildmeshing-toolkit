@@ -42,7 +42,20 @@ struct VolumeFunctor
 template <>
 struct TransferFunctorTraits<VolumeFunctor>
 {
-    constexpr static int output_dimension(int D) { return 1; }
+    static int output_dimension(const attribute::MeshAttributeHandle& mah)
+    {
+        return mah.dimension();
+    }
+    static int simplex_dimension(
+        const attribute::MeshAttributeHandle& mah,
+        const nlohmann::json& js = {})
+    {
+        if (js.contains("simplex_dimension")) {
+            return js["simplex_dimension"];
+        } else {
+            return get_primitive_type_id(mah.primitive_type());
+        }
+    }
 };
 using Volume = SingleAttributeTransferStrategyFactory<VolumeFunctor>;
 

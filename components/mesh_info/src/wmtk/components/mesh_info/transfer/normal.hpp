@@ -56,11 +56,17 @@ struct NormalFunctor
     }
 };
 template <>
-    struct TransferFunctorTraits<NormalFunctor> {
-        constexpr static int output_dimension(int D) {
-            return D;
-        }
-    };
+struct TransferFunctorTraits<NormalFunctor>
+{
+    static int output_dimension(const attribute::MeshAttributeHandle& mah)
+    {
+        return mah.dimension();
+    }
+    static int simplex_dimension(const attribute::MeshAttributeHandle& mah , const nlohmann::json& js = {})
+    {
+        return get_primitive_type_id(mah.primitive_type()) - 1;
+    }
+};
 
 using Normal = SingleAttributeTransferStrategyFactory<NormalFunctor>;
 

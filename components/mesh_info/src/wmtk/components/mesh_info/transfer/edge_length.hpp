@@ -30,7 +30,9 @@ struct EdgeLengthFunctor
 template <>
 struct TransferFunctorTraits<EdgeLengthFunctor>
 {
-    constexpr static int output_dimension(int D) { return 1; }
+    static int output_dimension(const attribute::MeshAttributeHandle& mah) { return 1; }
+    static int simplex_dimension(const attribute::MeshAttributeHandle& mah , const nlohmann::json& js = {})
+                { return 1; }
 };
 using EdgeLength = SingleAttributeTransferStrategyFactory<EdgeLengthFunctor>;
 

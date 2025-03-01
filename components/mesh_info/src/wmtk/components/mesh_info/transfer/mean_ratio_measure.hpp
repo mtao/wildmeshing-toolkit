@@ -62,11 +62,17 @@ struct MeanRatioMeasureFunctor
 };
 
 template <>
-    struct TransferFunctorTraits<MeanRatioMeasureFunctor> {
-        constexpr static int output_dimension(int D) {
-            return 1;
-        }
-    };
+struct TransferFunctorTraits<MeanRatioMeasureFunctor>
+{
+    static int output_dimension(const attribute::MeshAttributeHandle& mah)
+    {
+        return mah.dimension();
+    }
+    static int simplex_dimension(const attribute::MeshAttributeHandle& mah , const nlohmann::json& js = {})
+    {
+        return get_primitive_type_id(mah.primitive_type());
+    }
+};
 
 using MeanRatioMeasure = SingleAttributeTransferStrategyFactory<MeanRatioMeasureFunctor>;
 
