@@ -115,6 +115,7 @@ TEST_CASE("multimesh_boundary_json", "[components][multimesh]")
     {
         JS tag_js = {
             {"type", "boundary"},
+            {"mesh_path", "root"},
             {"output_mesh_name", "boundary"},
             {"dimension", 1},
             {"attribute_name", "is_boundary"},

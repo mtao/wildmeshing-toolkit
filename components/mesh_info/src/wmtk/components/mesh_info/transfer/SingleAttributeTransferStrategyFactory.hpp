@@ -65,7 +65,7 @@ SingleAttributeTransferStrategyFactory<Functor>::create_T(
             F(parameters));
         //[](auto&& a) { return F::execute(a); });
     } else {
-        assert(false);
+        assert(false); // was unable to construct mesh because validity was not met
         return {};
     }
 }

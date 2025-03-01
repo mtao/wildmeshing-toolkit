@@ -66,11 +66,12 @@ struct TransferFunctorTraits<MeanRatioMeasureFunctor>
 {
     static int output_dimension(const attribute::MeshAttributeHandle& mah)
     {
-        return mah.dimension();
+        return 1;//mah.dimension();
     }
     static int simplex_dimension(const attribute::MeshAttributeHandle& mah , const nlohmann::json& js = {})
     {
-        return get_primitive_type_id(mah.primitive_type());
+        int8_t dim = mah.mesh().top_cell_dimension();
+        return dim;
     }
 };
 
