@@ -88,22 +88,25 @@ void IsotropicRemeshing::configure_smooth()
             other_positions.front().mesh()));
     }
     if (m_options.mesh_collection != nullptr) {
-        if (!m_options.static_cell_complex.empty()) {
-            assert(m_options.static_cell_complex.size() == mesh.top_cell_dimension());
-
-            std::vector<std::shared_ptr<Mesh>> static_meshes;
-            for (const auto& mesh_name : m_options.static_cell_complex) {
+        if (!m_options.static_meshes.empty()) {
+            // std::vector<std::shared_ptr<Mesh>> static_meshes;
+            for (const auto& mesh_name : m_options.static_meshes) {
                 auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
-                static_meshes.emplace_back(mesh2.shared_from_this());
+                // static_meshes.emplace_back(mesh2.shared_from_this());
+                op_smooth->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+                    mesh,
+                    mesh2,
+                    wmtk::PrimitiveType::Vertex));
             }
-            op_smooth->add_invariant(
-                std::make_shared<invariants::CannotMapSimplexInvariant>(mesh, *static_meshes[0]));
+            // op_smooth->add_invariant(
+            //     std::make_shared<invariants::CannotMapSimplexInvariant>(mesh,
+            //     *static_meshes[0]));
 
-            // TODO: try to enable sliding along axis?
-            op_smooth->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
-                mesh,
-                *static_meshes[1],
-                wmtk::PrimitiveType::Vertex));
+            //// TODO: try to enable sliding along axis?
+            // op_smooth->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+            //     mesh,
+            //     *static_meshes[1],
+            //     wmtk::PrimitiveType::Vertex));
         }
     }
 

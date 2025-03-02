@@ -1,25 +1,52 @@
 {
     "input": {
-        "path": "unit_test/meshes/camel.msh",
-        "name_spec": "pos"
-    },
-        "position_attribute": "pos/vertices",
-        "iterations": 60,
-        "length_rel": 0.01,
-        "envelope_size": 1e-2,
-        "lock_boundary": true,
-        "edge_swap_mode": "valence",
-        "use_for_periodic": false,
-        "fix_uv_seam": true,
-        "output": {
-            "path": "camel.hdf5",
-            "type": ".hdf5"
-        },
-        "intermediate_output_format": {
-            "pos": {
-                "path": "camel_{:04}",
-                "type": ".vtu",
-                "position_attribute": "vertices"
-            }
+        "path": "multimesh/camel.hdf5",
+        "name_spec": {"pos": "uv"},
+        "multimesh": {
+            "type": "boundary",
+            "mesh_path": "pos.uv",
+            "dimension": 1,
+            "output_mesh_name": "boundary"
         }
+    },
+    "collapse": {
+      "enabled": true,
+      "priority": {
+        "attribute_path": "pos/edge_length",
+        "type": "attribute"
+      }
+    },
+    "iterations": 10,
+    "length_rel": 0.01,
+    "lock_boundary": false,
+    "output": {
+      "path": "100071_sf",
+      "position_attribute": "pos/vertices",
+      "type": ".vtu"
+    },
+    "position_attribute": "pos/vertices",
+    "other_position_attributes": [
+        "pos.uv/vertices"
+    ],
+    "smooth": {
+      "enabled": true
+    },
+    "split": {
+      "enabled": true
+    },
+    "swap": {
+      "enabled": true,
+      "mode": "valence"
+    },
+    "use_for_periodic": false,
+    "utility_attributes": [
+      {
+        "attribute_path": "pos/edge_length",
+        "base_attribute_path": "pos/vertices",
+        "type": "edge_length"
+      }
+    ],
+    "static_meshes": [
+        "pos.uv.boundary"
+    ]
 }

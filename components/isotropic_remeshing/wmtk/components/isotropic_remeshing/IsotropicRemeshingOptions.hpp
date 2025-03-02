@@ -31,7 +31,8 @@ struct IsotropicRemeshingOptions
     std::optional<wmtk::attribute::MeshAttributeHandle> visited_edge_flag;
     std::optional<wmtk::attribute::MeshAttributeHandle> target_edge_length;
 
-    std::vector<std::string> static_cell_complex;
+    // meshes that should not be geometrically changed
+    std::vector<std::string> static_meshes;
 
     std::vector<wmtk::attribute::MeshAttributeHandle> pass_through_attributes;
     int64_t iterations = 10;

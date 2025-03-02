@@ -117,16 +117,13 @@ void configure_collapse(
     }
 
     if (options.mesh_collection != nullptr) {
-        if (!options.static_cell_complex.empty()) {
-            assert(options.static_cell_complex.size() == m.top_cell_dimension());
-
+        if (!options.static_meshes.empty()) {
             std::vector<std::shared_ptr<Mesh>> static_meshes;
-            for (const auto& mesh_name : options.static_cell_complex) {
+            for (const auto& mesh_name : options.static_meshes) {
                 auto& mesh2 = options.mesh_collection->get_mesh(mesh_name);
                 static_meshes.emplace_back(mesh2.shared_from_this());
+                ec.add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(m, mesh2));
             }
-            ec.add_invariant(
-                std::make_shared<invariants::CannotMapSimplexInvariant>(m, *static_meshes[0]));
             auto strat_ptr_const = ec.get_new_attribute_strategy(options.position_attribute);
             auto strat_ptr =
                 std::const_pointer_cast<wmtk::operations::BaseCollapseNewAttributeStrategy>(

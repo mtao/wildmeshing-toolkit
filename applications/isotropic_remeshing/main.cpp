@@ -8,6 +8,9 @@
 #include <wmtk/applications/utils/parse_jse.hpp>
 #include <wmtk/components/input/InputOptions.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
+#include <wmtk/components/multimesh/MultimeshOptions.hpp>
+#include <wmtk/components/multimesh/multimesh.hpp>
+#include <wmtk/components/multimesh/MultimeshOptions.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
@@ -23,7 +26,6 @@
 #include <wmtk/components/output/output.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 
-#include "make_multimesh.hpp"
 #include "spec.hpp"
 
 using namespace wmtk::components;
@@ -79,11 +81,10 @@ int main(int argc, char* argv[])
 
     auto& named_mesh = mc.add_mesh(wmtk::components::input::input(input_opts, path_resolver));
 
-    auto mesh_ptr = named_mesh.root().shared_from_this();
     if (input_js.contains("multimesh")) {
-        mesh_ptr = make_multimesh(*mesh_ptr, input_js["multimesh"]);
+        spdlog::info("Configuring a multimesh");
+        wmtk::components::multimesh::multimesh(mc, input_js["multimesh"]);
 
-        spdlog::info("{} children", mesh_ptr->get_all_child_meshes().size());
     }
 
 

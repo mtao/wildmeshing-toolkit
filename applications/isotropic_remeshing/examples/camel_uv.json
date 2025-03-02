@@ -1,14 +1,5 @@
 {
-    "input": {
-        "path": "multimesh/camel.hdf5",
-        "name_spec": {"pos": "uv"},
-        "multimesh": {
-            "type": "boundary",
-            "mesh_path": "pos.uv",
-            "dimension": 1,
-            "output_mesh_name": "boundary"
-        }
-    },
+  "input": {
     "collapse": {
       "enabled": true,
       "priority": {
@@ -16,24 +7,39 @@
         "type": "attribute"
       }
     },
+    "input": {
+      "multimesh": {
+        "dimension": 1,
+        "mesh_path": "pos.uv",
+        "output_mesh_name": "boundary",
+        "type": "boundary"
+      },
+      "name_spec": {
+        "pos": "uv"
+      },
+      "path": "multimesh/camel.hdf5"
+    },
     "iterations": 10,
     "length_rel": 0.01,
     "lock_boundary": false,
+    "other_position_attributes": [
+      "pos/vertices"
+    ],
     "output": {
       "path": "100071_sf",
       "position_attribute": "pos.uv/vertices",
       "type": ".vtu"
     },
     "position_attribute": "pos.uv/vertices",
-    "other_position_attributes": [
-        "pos/vertices"
-    ],
     "smooth": {
       "enabled": true
     },
     "split": {
       "enabled": true
     },
+    "static_meshes": [
+      "pos.uv.boundary"
+    ],
     "swap": {
       "enabled": true,
       "mode": "valence"
@@ -45,8 +51,22 @@
         "base_attribute_path": "pos.uv/vertices",
         "type": "edge_length"
       }
-    ],
-    "static_meshes": [
-        "pos.uv.boundary"
     ]
+  },
+  "stats": {
+    "pos": {
+      "edges": 5109,
+      "faces": 3191,
+      "vertices": 1919
+    },
+    "pos.uv": {
+      "edges": 5109,
+      "faces": 3191,
+      "vertices": 1919
+    },
+    "pos.uv.boundary": {
+      "edges": 645,
+      "vertices": 645
+    }
+  }
 }

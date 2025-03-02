@@ -122,18 +122,26 @@ void IsotropicRemeshing::configure_swap()
                 child));
     }
     if (m_options.mesh_collection != nullptr) {
-        if (!m_options.static_cell_complex.empty()) {
-            assert(m_options.static_cell_complex.size() == mesh.top_cell_dimension());
+        if (!m_options.static_meshes.empty()) {
             std::vector<std::shared_ptr<Mesh>> static_meshes;
-            for (const auto& mesh_name : m_options.static_cell_complex) {
+            for (const auto& mesh_name : m_options.static_meshes) {
                 auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
                 static_meshes.emplace_back(mesh2.shared_from_this());
+                if (mesh2.top_cell_dimension() == 1) {
+                    m_swap->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+                        mesh,
+                        mesh2,
+                        wmtk::PrimitiveType::Edge,
+                        false));
+                }
             }
+            /*
             m_swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
                 mesh,
                 *static_meshes[1],
                 wmtk::PrimitiveType::Edge,
                 false));
+                */
             /*
             for (const auto& mptr : static_meshes) {
                 auto& mesh2 = *mptr;

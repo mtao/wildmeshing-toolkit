@@ -164,7 +164,12 @@ void IsotropicRemeshingOptions::load_json(
     }
     if (j.contains("static_cell_complex")) {
         for (const auto& other : j["static_cell_complex"]) {
-            static_cell_complex.emplace_back(other);
+            static_meshes.emplace_back(other);
+        }
+    }
+    if (j.contains("static_meshes")) {
+        for (const auto& other : j["static_meshes"]) {
+            static_meshes.emplace_back(other);
         }
     }
 
