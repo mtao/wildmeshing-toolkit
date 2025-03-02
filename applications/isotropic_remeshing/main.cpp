@@ -10,7 +10,6 @@
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/MultimeshOptions.hpp>
 #include <wmtk/components/multimesh/multimesh.hpp>
-#include <wmtk/components/multimesh/MultimeshOptions.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
@@ -58,9 +57,9 @@ int main(int argc, char* argv[])
 
     spdlog::warn("File is {}", json_input_file.string());
     std::ifstream ifs(json_input_file);
-    nlohmann::json j = nlohmann::json::parse(ifs);
+    nlohmann::ordered_json j = nlohmann::json::parse(ifs);
 
-    const auto input_js = j["input"];
+    const auto& input_js = j["input"];
     components::utils::PathResolver path_resolver;
 
     if (j.contains(root_attribute_name)) {
@@ -73,18 +72,29 @@ int main(int argc, char* argv[])
         path_resolver.add_path(path);
     }
 
-
-    auto input_opts = input_js.get<wmtk::components::input::InputOptions>();
-
-
     wmtk::components::multimesh::MeshCollection mc;
 
-    auto& named_mesh = mc.add_mesh(wmtk::components::input::input(input_opts, path_resolver));
+    auto add = [&](const auto& my_input_js) {
+        auto input_opts = my_input_js.template get<wmtk::components::input::InputOptions>();
+        auto& named_mesh = mc.add_mesh(wmtk::components::input::input(input_opts, path_resolver));
 
-    if (input_js.contains("multimesh")) {
-        spdlog::info("Configuring a multimesh");
-        wmtk::components::multimesh::multimesh(mc, input_js["multimesh"]);
-
+        if (my_input_js.contains("multimesh")) {
+            const nlohmann::ordered_json mm_js = my_input_js["multimesh"];
+            if (mm_js.is_array()) {
+                for (const auto& single_mm : mm_js) {
+                    wmtk::components::multimesh::multimesh(mc, single_mm);
+                }
+            } else {
+                wmtk::components::multimesh::multimesh(mc, mm_js);
+            }
+        }
+    };
+    if (input_js.is_array()) {
+        for (const auto& js : input_js) {
+            add(js);
+        }
+    } else {
+        add(input_js);
     }
 
 

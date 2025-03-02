@@ -19,10 +19,17 @@
     "iterations": 10,
     "length_rel": 0.01,
     "lock_boundary": false,
-    "output": {
-      "path": "100071_sf",
+    "output": {"pos": 
+        {
+      "path": "camel_pos",
       "position_attribute": "pos/vertices",
       "type": ".vtu"
+    },
+        "pos.uv": {
+      "path": "camel_uv",
+      "position_attribute": "pos.uv/vertices",
+      "type": ".vtu"
+    }
     },
     "position_attribute": "pos/vertices",
     "other_position_attributes": [

@@ -26,9 +26,16 @@
       "pos.uv/vertices"
     ],
     "output": {
-      "path": "100071_sf",
-      "position_attribute": "pos/vertices",
-      "type": ".vtu"
+      "pos": {
+        "path": "camel_pos",
+        "position_attribute": "pos/vertices",
+        "type": ".vtu"
+      },
+      "pos.uv": {
+        "path": "camel_uv",
+        "position_attribute": "pos.uv/vertices",
+        "type": ".vtu"
+      }
     },
     "position_attribute": "pos/vertices",
     "smooth": {
