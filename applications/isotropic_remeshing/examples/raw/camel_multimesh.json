@@ -1,0 +1,67 @@
+{
+    "input": [
+      {
+        "file": "unit_test/meshes/camel.msh",
+        "name_spec": "pos"
+      },
+      {
+        "file": "unit_test/meshes/cameluv.msh",
+        "name_spec": "uv",
+        "multimesh": [
+        {
+            "type": "boundary",
+            "mesh_path": "uv",
+            "dimension": 1,
+            "output_mesh_name": "boundary"
+        }
+        ,
+            {
+            "type": "bijection",
+            "parent_path": "pos",
+            "child_path": "uv"
+        }
+        ]
+      }
+    ],
+    "collapse": {
+      "enabled": true,
+      "priority": {
+        "attribute_path": "pos/edge_length",
+        "type": "attribute"
+      }
+    },
+    "iterations": 10,
+    "length_rel": 0.01,
+    "lock_boundary": false,
+    "output": {
+        "pos": {
+      "path": "camel",
+      "position_attribute": "pos/vertices",
+      "type": ".vtu"
+    }},
+    "position_attribute": "pos/vertices",
+    "other_position_attributes": [
+        "pos.uv/vertices"
+    ],
+    "smooth": {
+      "enabled": true
+    },
+    "split": {
+      "enabled": true
+    },
+    "swap": {
+      "enabled": true,
+      "mode": "valence"
+    },
+    "use_for_periodic": false,
+    "utility_attributes": [
+      {
+        "attribute_path": "pos/edge_length",
+        "base_attribute_path": "pos/vertices",
+        "type": "edge_length"
+      }
+    ],
+    "static_meshes": [
+        "pos.uv.boundary"
+    ]
+}

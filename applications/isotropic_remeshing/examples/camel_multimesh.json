@@ -1,0 +1,85 @@
+{
+  "input": {
+    "collapse": {
+      "enabled": true,
+      "priority": {
+        "attribute_path": "pos/edge_length",
+        "type": "attribute"
+      }
+    },
+    "input": [
+      {
+        "file": "unit_test/meshes/camel.msh",
+        "name_spec": "pos"
+      },
+      {
+        "file": "unit_test/meshes/cameluv.msh",
+        "multimesh": [
+          {
+            "dimension": 1,
+            "mesh_path": "uv",
+            "output_mesh_name": "boundary",
+            "type": "boundary"
+          },
+          {
+            "child_path": "uv",
+            "parent_path": "pos",
+            "type": "bijection"
+          }
+        ],
+        "name_spec": "uv"
+      }
+    ],
+    "iterations": 10,
+    "length_rel": 0.01,
+    "lock_boundary": false,
+    "other_position_attributes": [
+      "pos.uv/vertices"
+    ],
+    "output": {
+      "pos": {
+        "path": "camel",
+        "position_attribute": "pos/vertices",
+        "type": ".vtu"
+      }
+    },
+    "position_attribute": "pos/vertices",
+    "smooth": {
+      "enabled": true
+    },
+    "split": {
+      "enabled": true
+    },
+    "static_meshes": [
+      "pos.uv.boundary"
+    ],
+    "swap": {
+      "enabled": true,
+      "mode": "valence"
+    },
+    "use_for_periodic": false,
+    "utility_attributes": [
+      {
+        "attribute_path": "pos/edge_length",
+        "base_attribute_path": "pos/vertices",
+        "type": "edge_length"
+      }
+    ]
+  },
+  "stats": {
+    "pos": {
+      "edges": 14981,
+      "faces": 9652,
+      "vertices": 5330
+    },
+    "pos.uv": {
+      "edges": 14981,
+      "faces": 9652,
+      "vertices": 5330
+    },
+    "pos.uv.boundary": {
+      "edges": 1006,
+      "vertices": 1006
+    }
+  }
+}
