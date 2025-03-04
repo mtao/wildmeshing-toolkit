@@ -219,6 +219,8 @@ public:
         const PrimitiveType ptype) const; // block standard topology tools
 
     template <typename T>
+    [[nodiscard]] bool has_attribute(const TypedAttributeHandle<T>& h) const;
+    template <typename T>
     [[nodiscard]] attribute::MeshAttributeHandle get_attribute_handle(
         const std::string& name,
         const PrimitiveType ptype) const; // block standard topology tools
@@ -501,7 +503,7 @@ public:
      * @brief returns all meshes in multimesh
      */
     std::vector<std::shared_ptr<const Mesh>> get_all_meshes() const;
-    std::vector<std::shared_ptr<Mesh>> get_all_meshes() ;
+    std::vector<std::shared_ptr<Mesh>> get_all_meshes();
 
 
     /**
@@ -539,7 +541,7 @@ public:
      * mesh will be invalidated by deregistration.
      */
     void deregister_child_mesh(const std::shared_ptr<Mesh>& child_mesh_ptr);
-    void deregister_child_mesh(Mesh& );
+    void deregister_child_mesh(Mesh&);
 
 
 private:
@@ -970,6 +972,11 @@ template <typename T>
 inline bool Mesh::has_attribute(const std::string& name, const PrimitiveType ptype) const
 {
     return m_attribute_manager.get<T>(ptype).has_attribute(name);
+}
+template <typename T>
+inline bool Mesh::has_attribute(const wmtk::attribute::TypedAttributeHandle<T>& h) const
+{
+    return m_attribute_manager.has_attribute(h);
 }
 
 template <typename T>

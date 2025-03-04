@@ -24,7 +24,7 @@ struct OutputOptions
 
 
     // auto operator<=>(const OutputOptions& o) const = default;
-    bool operator<(const OutputOptions& o) const = default;
+    //bool operator<(const OutputOptions& o) const = default;
     bool operator==(const OutputOptions& o) const = default;
     bool operator!=(const OutputOptions& o) const = default;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(OutputOptions)

@@ -89,6 +89,8 @@ public:
 
     // returns if this handle was initialized
     bool is_valid() const;
+    // returns if this handle still exists
+    bool exists() const;
 
     PrimitiveType primitive_type() const;
     template <typename T>

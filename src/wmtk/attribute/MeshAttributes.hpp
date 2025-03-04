@@ -97,6 +97,7 @@ public:
     void set_name(const AttributeHandle& handle, const std::string& name);
 
     bool has_attribute(const std::string& name) const;
+    bool has_attribute(const AttributeHandle& h) const;
 
     // the number of active attributes held in this object
     // Note that the set of active attribute indices is not defined by the integers between 0,

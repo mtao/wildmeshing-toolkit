@@ -151,7 +151,12 @@ template <typename T>
 bool MeshAttributes<T>::has_attribute(const std::string& name) const
 {
     auto it = m_handles.find(name);
-    return it != m_handles.end() && bool(m_attributes[it->second.index]);
+    return it != m_handles.end() && has_attribute(it->second.index);
+}
+template <typename T>
+bool MeshAttributes<T>::has_attribute(const AttributeHandle& h) const
+{
+    return bool(m_attributes[h.index]);
 }
 
 template <typename T>

@@ -84,6 +84,9 @@ public:
     MeshAttributes<T>& get(const TypedAttributeHandle<T>& handle);
 
     template <typename T>
+    bool has_attribute(const TypedAttributeHandle<T>& h) const;
+
+    template <typename T>
     std::string get_name(const TypedAttributeHandle<T>& attr) const;
 
     std::string get_name(const attribute::MeshAttributeHandle::HandleVariant& attr) const;
@@ -124,8 +127,7 @@ public:
      */
     void clear_attributes(
         const std::vector<attribute::MeshAttributeHandle::HandleVariant>& custom_attributes);
-    void delete_attribute(
-        const attribute::MeshAttributeHandle::HandleVariant& to_delete);
+    void delete_attribute(const attribute::MeshAttributeHandle::HandleVariant& to_delete);
 };
 
 template <typename T>
@@ -143,6 +145,11 @@ inline const std::vector<MeshAttributes<T>>& AttributeManager::get() const
     if constexpr (std::is_same_v<T, Rational>) {
         return m_rational_attributes;
     }
+}
+template <typename T>
+bool AttributeManager::has_attribute(const TypedAttributeHandle<T>& h) const
+{
+    return get<T>(h.primitive_type()).has_attribute(h.base_handle());
 }
 template <typename T>
 inline std::vector<MeshAttributes<T>>& AttributeManager::get()

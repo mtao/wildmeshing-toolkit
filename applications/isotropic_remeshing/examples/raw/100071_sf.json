@@ -1,8 +1,45 @@
 {
     "input": {
         "path": "100071_sf.msh",
-        "name_spec":
-        "main"
+        "name_spec": "main",
+        "multimesh": [
+            {
+                "type": "tag",
+                "output_mesh_name": "creases",
+                "tag_attribute": {
+                    "path": "main/high_edge_angle",
+                    "simplex_dimension": 1,
+                    "type": "char"
+                },
+                "creation_attributes": 
+                [
+                    {
+                        "attribute_path": "main/normal",
+                        "base_attribute_path": "main/vertices",
+                        "type": "normal"
+                    },
+                    {
+                        "attribute_path": "main/edge_angle",
+                        "base_attribute_path": "main/normal",
+                        "type": "edge_angle"
+                    },
+                    {
+                        "attribute_path": "main/high_edge_angle",
+                        "base_attribute_path": "main/edge_angle",
+                        "parameters": {
+                            "over": 1.5
+                        },
+                        "type": "threshold"
+                    }
+                ]
+            }
+        ,
+            {
+            "type": "bijection",
+            "parent_path": "pos",
+            "child_path": "uv"
+        }
+        ]
     },
     "position_attribute": "main/vertices",
     "iterations": 10,

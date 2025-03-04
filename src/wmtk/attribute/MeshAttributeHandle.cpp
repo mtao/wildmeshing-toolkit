@@ -40,9 +40,15 @@ bool MeshAttributeHandle::is_valid() const
     return m_mesh != nullptr &&
            std::visit([](const auto& h) -> bool { return h.is_valid(); }, m_handle);
 }
+bool MeshAttributeHandle::exists() const
+{
+    return is_valid() &&
+           std::visit([&](auto&& h) -> int64_t { return mesh().has_attribute(h); }, m_handle);
+}
 
 int64_t MeshAttributeHandle::dimension() const
 {
+    assert(exists());
     return std::visit(
         [&](auto&& h) -> int64_t { return mesh().get_attribute_dimension(h); },
         m_handle);
@@ -50,6 +56,7 @@ int64_t MeshAttributeHandle::dimension() const
 
 std::string MeshAttributeHandle::name() const
 {
+    assert(exists());
     return std::visit([&](auto&& h) { return mesh().get_attribute_name(h); }, m_handle);
 }
 

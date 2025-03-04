@@ -10,7 +10,7 @@ class MeshAttributeHandle;
 } // namespace wmtk
 namespace wmtk::components::multimesh {
 class MeshCollection;
-class MultimeshOptions;
+struct MultimeshOptions;
 
 enum class MultiMeshType { UV, Boundary, Tag };
 

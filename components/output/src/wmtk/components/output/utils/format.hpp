@@ -6,7 +6,7 @@ template <typename... Args>
 auto format(const OutputOptions& input, Args&&... args) -> OutputOptions
 {
     OutputOptions opt = input;
-    using Var = std::decay_t<decltype(input.position_attribute)>;
+    //using Var = std::decay_t<decltype(input.position_attribute)>;
     opt.path = fmt::format(fmt::runtime(input.path.string()), std::forward<Args>(args)...);
 
     /*

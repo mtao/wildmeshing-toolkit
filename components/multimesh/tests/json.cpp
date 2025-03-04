@@ -4,12 +4,15 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/components/input/input.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
+#include <wmtk/io/read_mesh.hpp>
 #include "tools/TriMesh_examples.hpp"
 #include "wmtk/components/multimesh/MeshCollection.hpp"
 #include "wmtk/components/multimesh/MultimeshOptions.hpp"
 #include "wmtk/components/multimesh/from_tag.hpp"
 
 #include "utils.hpp"
+namespace fs = std::filesystem;
+const fs::path wmtk_data_dir = WMTK_DATA_DIR;
 
 using json = nlohmann::json;
 using AT = wmtk::attribute::AttributeType;
@@ -77,6 +80,42 @@ TEST_CASE("multimesh_tag_json", "[components][multimesh]")
         REQUIRE(bool(ptr));
         CHECK((*ptr) == opt);
     }
+}
+TEST_CASE("multimesh_tag_creation_json", "[components][multimesh]")
+{
+    using AT = wmtk::attribute::AttributeType;
+    using AD = wmtk::components::multimesh::utils::AttributeDescription;
+
+    using JS = nlohmann::json;
+    JS tag_js = {
+        {"type", "tag"},
+        {"output_mesh_name", "tagged_edges"},
+        {"creation_attributes",
+         {{{"attribute_path", "main/normal"},
+           {"base_attribute_path", "main/vertices"},
+           {"type", "normal"}},
+          {{"attribute_path", "main/edge_angle"},
+           {"base_attribute_path", "main/normal"},
+           {"type", "edge_angle"}},
+          {{"attribute_path", "main/high_edge_angle"},
+           {"base_attribute_path", "main/edge_angle"},
+           {"parameters", {{"over", 1.5}}},
+           {"type", "threshold"}}}},
+        {"tag_attribute",
+         {
+             {"path", "/high_edge_angle"},
+             {"simplex_dimension", 1},
+             {"type", "char"},
+         }},
+        {"value", 1}};
+
+    wmtk::components::multimesh::MultimeshOptions opt = tag_js;
+    REQUIRE(
+        std::dynamic_pointer_cast<wmtk::components::multimesh::MultimeshTagOptions>(opt.options) !=
+        nullptr);
+    wmtk::components::multimesh::MeshCollection mc;
+    std::shared_ptr<wmtk::Mesh> mptr = wmtk::io::read_mesh(WMTK_DATA_DIR "/100071_sf.msh");
+    mc.emplace_mesh(*mptr, std::string("root"));
 }
 
 TEST_CASE("multimesh_boundary_json", "[components][multimesh]")
