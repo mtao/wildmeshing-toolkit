@@ -48,6 +48,6 @@ const int8_t max_subdart_preservation_dimension_1[6][3] =
 const int8_t permutations[6][3] =
     {{0, 2, 1}, {0, 1, 2}, {1, 2, 0}, {1, 0, 2}, {2, 1, 0}, {2, 0, 1}};
 
-const int8_t canonical_subdart_orientation[1][6] = {{0, 1, 2, 1, 2, 0}};
+const int8_t canonical_subdart_orientation[2][6] = {{1, 1, 3, 3, 5, 5}, {0, 1, 2, 1, 2, 0}};
 
 } // namespace wmtk::autogen::tri_mesh

@@ -33,4 +33,7 @@ extern const int8_t auto_valid_switch_edge_mirror_indices[2];
 extern const int8_t permutations[2][2];
 
 
+extern const int8_t canonical_subdart_orientation[1][2];
+
+
 } // namespace wmtk::autogen::edge_mesh
