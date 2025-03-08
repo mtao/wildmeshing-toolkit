@@ -196,6 +196,9 @@ def canonical_subdart_orientation(sc, dimension):
         x =ssl[:dimension+1]
         x.sort() 
         ssl[:dimension+1] = x
+        x =ssl[dimension+1:]
+        x.sort() 
+        ssl[dimension+1:] = x
         ovt = sc.simplicial_set_as_valid_tuple_index(ssl)
         data.append(ovt)
     return data
