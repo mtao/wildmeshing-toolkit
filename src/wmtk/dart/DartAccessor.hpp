@@ -1,9 +1,10 @@
 #pragma once
+#include <spdlog/spdlog.h>
 
+#include <wmtk/attribute/Accessor.hpp>
 #include <wmtk/dart/Dart.hpp>
 #include <wmtk/dart/SimplexAdjacency.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
-#include <wmtk/attribute/Accessor.hpp>
 
 namespace wmtk {
 class PointMesh;
@@ -12,10 +13,11 @@ class TriMesh;
 class TetMesh;
 
 namespace operations::utils {
-    class UpdateEdgeOperationMultiMeshMapFunctor;
+class UpdateEdgeOperationMultiMeshMapFunctor;
 }
 } // namespace wmtk
 namespace wmtk::dart {
+// dim = dimension of a facet simplex. tri = 2
 template <int Dim, typename MeshType>
 class DartIndexAccessor
 {
@@ -51,8 +53,8 @@ public:
 
     const MeshType& mesh() const { return m_base_accessor.mesh(); }
 
-    size_t size() {
-        return m_base_accessor.reserved_size() / (Dim + 1);
+    size_t size() const { 
+        return m_base_accessor.reserved_size();
     }
 
 
@@ -80,26 +82,25 @@ public:
     static wmtk::attribute::TypedAttributeHandle<int64_t>
     register_attribute(MeshType& m, const std::string_view& name, PrimitiveType pt)
     {
+        spdlog::info("Creating attr on {} size {}",primitive_type_name(pt), Dim);
         // add one for the orientation pack
         auto handle =
             m.template register_attribute_typed<int64_t>(std::string(name), pt, Dim + 1, false, -1);
+        spdlog::info("Creating attr had size {}",m.get_attribute_dimension(handle));
         return handle;
     }
 
     template <typename IT, typename OT>
     dart::SimplexAdjacency<Dim>& operator[](const dart::_Dart<IT, OT>& t)
     {
-         return IndexBaseType::operator[](m_base_accessor.index(t));
+        return IndexBaseType::operator[](m_base_accessor.index(t));
     }
     template <typename IT, typename OT>
     const dart::SimplexAdjacency<Dim>& operator[](const dart::_Dart<IT, OT>& t) const
     {
         return IndexBaseType::operator[](m_base_accessor.index(t));
     }
-
-
 };
-
 
 
 template <int Dim, typename MeshType = Mesh>
@@ -108,4 +109,4 @@ auto register_dart_attribute(MeshType& mesh, const std::string_view& name, Primi
     return DartAccessor<Dim, Mesh>::register_attribute(mesh, name, pt);
 }
 
-} // namespace wmtk::attribute
+} // namespace wmtk::dart

@@ -40,23 +40,22 @@ struct VolumeFunctor
 };
 
 template <>
-struct TransferFunctorTraits<VolumeFunctor>
+inline int TransferFunctorTraits<VolumeFunctor>::output_dimension(
+    const attribute::MeshAttributeHandle& mah)
 {
-    static int output_dimension(const attribute::MeshAttributeHandle& mah)
-    {
-        return mah.dimension();
+    return 1;
+}
+template <>
+inline int TransferFunctorTraits<VolumeFunctor>::simplex_dimension(
+    const attribute::MeshAttributeHandle& mah,
+    const nlohmann::json& js)
+{
+    if (js.contains("simplex_dimension")) {
+        return js["simplex_dimension"];
+    } else {
+        return get_primitive_type_id(mah.primitive_type());
     }
-    static int simplex_dimension(
-        const attribute::MeshAttributeHandle& mah,
-        const nlohmann::json& js = {})
-    {
-        if (js.contains("simplex_dimension")) {
-            return js["simplex_dimension"];
-        } else {
-            return get_primitive_type_id(mah.primitive_type());
-        }
-    }
-};
+}
 using Volume = SingleAttributeTransferStrategyFactory<VolumeFunctor>;
 
 } // namespace wmtk::components::mesh_info::transfer

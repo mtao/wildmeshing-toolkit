@@ -28,12 +28,18 @@ struct EdgeLengthFunctor
 };
 
 template <>
-struct TransferFunctorTraits<EdgeLengthFunctor>
+inline int TransferFunctorTraits<EdgeLengthFunctor>::output_dimension(
+    const attribute::MeshAttributeHandle& mah)
 {
-    static int output_dimension(const attribute::MeshAttributeHandle& mah) { return 1; }
-    static int simplex_dimension(const attribute::MeshAttributeHandle& mah , const nlohmann::json& js = {})
-                { return 1; }
-};
+    return 1;
+}
+template <>
+inline int TransferFunctorTraits<EdgeLengthFunctor>::simplex_dimension(
+    const attribute::MeshAttributeHandle& mah,
+    const nlohmann::json& js)
+{
+    return 1;
+}
 using EdgeLength = SingleAttributeTransferStrategyFactory<EdgeLengthFunctor>;
 
 } // namespace wmtk::components::mesh_info::transfer

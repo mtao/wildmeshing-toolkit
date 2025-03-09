@@ -63,14 +63,18 @@ struct EdgeAngleFunctor
     }
 };
 template <>
-struct TransferFunctorTraits<EdgeAngleFunctor>
+inline int TransferFunctorTraits<EdgeAngleFunctor>::output_dimension(
+    const attribute::MeshAttributeHandle& mah)
 {
-    static int output_dimension(const attribute::MeshAttributeHandle& mah) { return 1; }
-    static int simplex_dimension(const attribute::MeshAttributeHandle& mah , const nlohmann::json& js = {})
-    {
-        return mah.mesh().top_cell_dimension() - 2;
-    }
-};
+    return 1;
+}
+template <>
+inline int TransferFunctorTraits<EdgeAngleFunctor>::simplex_dimension(
+    const attribute::MeshAttributeHandle& mah,
+    const nlohmann::json& js)
+{
+    return mah.mesh().top_cell_dimension() - 1;
+}
 
 using EdgeAngle = SingleAttributeTransferStrategyFactory<EdgeAngleFunctor>;
 

@@ -97,7 +97,7 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshTagOptions)
 
     nlohmann_json_j["creation_attributes"] = nlohmann_json_t.creation_attributes;
     std::visit(
-        [&](const auto& v) {
+        [&] (const auto& v) noexcept {
             if constexpr (std::is_same_v<std::decay_t<decltype(v)>, wmtk::Rational>) {
             } else {
                 nlohmann_json_j["value"] = v;

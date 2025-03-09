@@ -16,7 +16,7 @@ int8_t get_simplex_involution_downwards(
 
     if (pt > opt) {
         const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
-        int8_t abasis = get_canonical_simplex_orientation(sd, opt, sd.simplex_index(a, opt));
+        int8_t abasis = get_canonical_simplex_orientation(sd, opt, a);
         a = dart::find_local_dart_action(sd, abasis, a);
         a = sd.convert(a, osd);
     } else {

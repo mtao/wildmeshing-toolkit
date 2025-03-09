@@ -201,7 +201,7 @@ inline TypedAttributeHandle<T> AttributeManager::register_attribute(
     T default_value)
 {
     TypedAttributeHandle<T> r;
-    r.m_base_handle = get<T>(ptype).register_attribute(name, size, replace, default_value),
+    r.m_base_handle = get<T>(ptype).register_attribute(name, size, replace, default_value);
     r.m_primitive_type = ptype;
 
     return r;

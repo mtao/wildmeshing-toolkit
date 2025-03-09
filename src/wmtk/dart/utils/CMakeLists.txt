@@ -35,6 +35,9 @@ set(SRC_FILES
 
     get_local_vertex_permutation.hpp
     get_local_vertex_permutation.cpp
+
+    from_local_vertex_permutation.hpp
+    from_local_vertex_permutation.cpp
     )
 
 target_sources(wildmeshing_toolkit PRIVATE ${SRC_FILES})

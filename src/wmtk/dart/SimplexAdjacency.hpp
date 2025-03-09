@@ -1,6 +1,6 @@
 #pragma once
-#include <compare>
 #include <array>
+#include <compare>
 #include <cstdint>
 #include <tuple>
 #include "Dart.hpp"
@@ -47,51 +47,51 @@ public:
     }
 
     template <bool IsConst>
-    class Iterator {
+    class Iterator
+    {
         using SA = std::conditional_t<IsConst, const SimplexAdjacency, SimplexAdjacency>;
         using DW = std::conditional_t<IsConst, ConstDartWrap, DartWrap>;
         SA& m_adj;
         size_t m_index;
-        public:
-        Iterator(SA& a, size_t index): m_adj(a), m_index(index) {
-        }
-        DW operator*() const { 
-            return m_adj[m_index];
-        }
-        DartWrap operator*() 
+
+    public:
+        Iterator(SA& a, size_t index)
+            : m_adj(a)
+            , m_index(index)
+        {}
+        ConstDartWrap operator*() const { return m_adj[m_index]; }
+        DW operator*()
 #if defined(WMTK_ENABLED_CPP20)
-            requires (!IsConst)
+            requires(!IsConst)
 #endif
-            { 
+        {
             return m_adj[m_index];
         }
-        Iterator& operator++() {
+        Iterator& operator++()
+        {
             m_index++;
             return *this;
         }
-        Iterator operator++(int) {
+        Iterator operator++(int)
+        {
             Iterator n = *this;
             m_index++;
             return n;
         }
 #if defined(WMTK_ENABLED_CPP20)
-        auto operator<=>(const Iterator & o) const -> std::strong_ordering {
+        auto operator<=>(const Iterator& o) const -> std::strong_ordering
+        {
             return m_index <=> o.m_index;
         }
 #else
-        auto operator<=(const Iterator & o) const -> bool {
-            return m_index <= o.m_index;
-        }
+        auto operator<=(const Iterator& o) const -> bool { return m_index <= o.m_index; }
 #endif
-        auto operator!=(const Iterator & o) const -> bool {
-            return m_index != o.m_index;
-        }
-
+        auto operator!=(const Iterator& o) const -> bool { return m_index != o.m_index; }
     };
     using iterator_type = Iterator<false>;
     using const_iterator_type = Iterator<true>;
 
-    //using iterator_type = 
+    // using iterator_type =
     const_iterator_type begin() const { return const_iterator_type{*this, 0}; }
     const_iterator_type end() const { return const_iterator_type{*this, Dim}; }
     const_iterator_type cbegin() const { return const_iterator_type{*this, 0}; }
@@ -112,4 +112,4 @@ private:
     std::array<int64_t, Dim> m_global_ids;
     std::array<int8_t, Dim> m_permutations;
 };
-} // namespace wmtk::autogen
+} // namespace wmtk::dart

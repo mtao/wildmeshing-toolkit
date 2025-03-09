@@ -34,6 +34,14 @@
         "simplex_dimension": 1,
         "parameters": {},
         "type": "edge_angle"
+      },
+      {
+          "attribute_path": "position/high_edge_angle",
+          "base_attribute_path": "position/edge_angle",
+          "parameters": {
+              "over": 1.5
+          },
+          "type": "threshold"
       }
     ],
     "output": {

@@ -5,16 +5,21 @@
 #include "utils/get_simplex_involution.hpp"
 namespace wmtk::dart {
 
+// dim = number of vertices in a facet. tri = 3
 template <int Dim, typename MeshType>
-class DartTopologyAccessor : public DartAccessor<Dim, MeshType>
+class DartTopologyAccessor : public DartAccessor<Dim + 1, MeshType>
 {
 public:
-    using BaseType = DartAccessor<Dim, MeshType>;
+    using BaseType = DartAccessor<Dim + 1, MeshType>;
     using IndexBaseType = typename BaseType::IndexBaseType;
+
+    using BaseType::m_base_accessor;
 
 public:
     using BaseType::BaseType;
     using BaseType::size;
+    using IndexBaseType::operator[];
+    using BaseType::operator[];
 
     using IndexBaseType::mesh;
     static wmtk::attribute::TypedAttributeHandle<int64_t> register_boundary_topology_attribute(
@@ -22,7 +27,7 @@ public:
         const std::string_view& name,
         bool do_populate = false)
     {
-        auto handle = BaseType::register_attribute(m, name, m.top_simplex_type() - 1);
+        auto handle = BaseType::register_attribute(m, name, m.top_simplex_type());
         if (do_populate) {
             DartTopologyAccessor acc(m, handle);
             acc.populate();
@@ -102,10 +107,10 @@ public:
                 fuse(d, od);
             }
         }
-        for(int j = 0; j < size(); ++j) {
+        for (int j = 0; j < size(); ++j) {
             auto row = IndexBaseType::operator[](j);
             spdlog::info("Row {}", j);
-            for(const auto& r: row) {
+            for (const auto& r : row) {
                 spdlog::info("{} {}", r.global_id(), r.permutation());
             }
         }
@@ -119,24 +124,21 @@ private:
         const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(FT);
 
 
-        const auto anchor =
-            IndexBaseType::operator[](global_id)[sd.simplex_index(permutation, BT)];
+        const auto anchor = IndexBaseType::operator[](global_id)[sd.simplex_index(permutation, BT)];
 
 
-        return dart::Dart(
-            anchor.global_id(),
-            sd.product(anchor.permutation(), permutation));
+        return dart::Dart(anchor.global_id(), sd.product(anchor.permutation(), permutation));
     }
 };
 
 template <typename Handle>
-DartTopologyAccessor(const PointMesh& p, const Handle&) -> DartTopologyAccessor<2, PointMesh>;
+DartTopologyAccessor(const PointMesh& p, const Handle&) -> DartTopologyAccessor<0, PointMesh>;
 template <typename Handle>
-DartTopologyAccessor(const EdgeMesh&, const Handle&) -> DartTopologyAccessor<3, EdgeMesh>;
+DartTopologyAccessor(const EdgeMesh&, const Handle&) -> DartTopologyAccessor<1, EdgeMesh>;
 template <typename Handle>
-DartTopologyAccessor(const TriMesh&, const Handle&) -> DartTopologyAccessor<4, TriMesh>;
+DartTopologyAccessor(const TriMesh&, const Handle&) -> DartTopologyAccessor<2, TriMesh>;
 template <typename Handle>
-DartTopologyAccessor(const TetMesh&, const Handle&) -> DartTopologyAccessor<5, TetMesh>;
+DartTopologyAccessor(const TetMesh&, const Handle&) -> DartTopologyAccessor<3, TetMesh>;
 
 
 template <typename MeshType>

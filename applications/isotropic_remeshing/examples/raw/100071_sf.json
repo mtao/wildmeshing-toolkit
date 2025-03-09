@@ -11,6 +11,7 @@
                     "simplex_dimension": 1,
                     "type": "char"
                 },
+                "value": 1,
                 "creation_attributes": 
                 [
                     {
@@ -33,12 +34,6 @@
                     }
                 ]
             }
-        ,
-            {
-            "type": "bijection",
-            "parent_path": "pos",
-            "child_path": "uv"
-        }
         ]
     },
     "position_attribute": "main/vertices",
@@ -54,6 +49,14 @@
             "type": "edge_length",
             "attribute_path": "main/edge_length",
             "base_attribute_path": "main/vertices"
+        },
+        {
+            "type": "neighbor_count",
+            "base_attribute_path": "main.creases/m_ve",
+            "attribute_path": "main/mapped_child_vertices",
+            "parameters": {
+                "dimension": 0
+            }
         }
     ],
     "collapse": {
@@ -75,5 +78,13 @@
     "path": "100071_sf",
     "position_attribute": "main/vertices",
     "type": ".vtu"
+    },
+
+    "intermediate_output_format": {
+        "main": {
+            "path": "10071_sf_{:04}",
+            "type": ".vtu",
+            "position_attribute": "vertices"
+        }
     }
 }

@@ -1,46 +1,144 @@
 #include <numeric>
+#include <wmtk/Tuple.hpp>
 
 #include <spdlog/stopwatch.h>
 #include <catch2/catch_test_macros.hpp>
-#include <wmtk/dart/DartTopologyAccessor.hpp>
 #include <wmtk/attribute/TupleAccessor.hpp>
+#include <wmtk/dart/DartTopologyAccessor.hpp>
 #include <wmtk/io/read_mesh.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include "tools/TriMesh_examples.hpp"
+#include "tools/all_valid_local_tuples.hpp"
+TEST_CASE("dart_access_quad", "[dart_accessor]")
 
-TEST_CASE("dart_access", "[dart_accessor]")
+{
+    auto mesh = wmtk::tests::quad();
+
+    auto handle = wmtk::dart::register_dart_boundary_topology_attribute(mesh, "dart", true);
+
+
+    wmtk::dart::DartTopologyAccessor acc(mesh, handle);
+
+    for (size_t j = 0; j < acc.size(); ++j) {
+        const auto& sa = acc[j];
+        for (const auto& t : sa) {
+            fmt::print("{} ", std::string(t));
+        }
+        fmt::print("\n");
+    }
+
+    std::array<wmtk::Tuple, 6> at = {
+        wmtk::Tuple(0, 1, -1, 0), // 0
+        wmtk::Tuple(1, 2, -1, 0), // 1
+        wmtk::Tuple(2, 0, -1, 0), // 2
+        wmtk::Tuple(0, 2, -1, 0), // 3
+        wmtk::Tuple(1, 0, -1, 0), // 4
+        wmtk::Tuple(2, 1, -1, 0), // 5
+    };
+
+    std::array<wmtk::Tuple, 6> bt = {
+        wmtk::Tuple(0, 1, -1, 1), // 0
+        wmtk::Tuple(1, 2, -1, 1), // 1
+        wmtk::Tuple(2, 0, -1, 1), // 2
+        wmtk::Tuple(0, 2, -1, 1), // 3
+        wmtk::Tuple(1, 0, -1, 1), // 4
+        wmtk::Tuple(2, 1, -1, 1), // 5
+    };
+
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
+    std::array<wmtk::dart::Dart, 6> ad;
+
+    std::transform(at.begin(), at.end(), ad.begin(), [&](const auto& a) {
+        return sd.dart_from_tuple(a);
+    });
+
+    std::array<wmtk::dart::Dart, 6> bd;
+    std::transform(bt.begin(), bt.end(), bd.begin(), [&](const auto& a) {
+        return sd.dart_from_tuple(a);
+    });
+
+    auto do_tri_check = [&](int a, int b) {
+        wmtk::dart::Dart mad = ad[a];
+        wmtk::dart::Dart mbd = bd[b];
+        wmtk::Tuple mat = at[a];
+        wmtk::Tuple mbt = bt[b];
+        REQUIRE((mesh.switch_face(mat) == mbt));
+        REQUIRE((mesh.switch_face(mbt) == mat));
+        spdlog::info(
+            "{}=>{} dart {}=>{} switch got {} {}",
+            std::string(mat),
+            std::string(mbt),
+            std::string(mad),
+            std::string(mbd),
+            std::string(acc.switch_facet(mad)),
+            std::string(acc.switch_facet(mbd)));
+        CHECK((acc.switch_facet(mad) == mbd));
+        CHECK((acc.switch_facet(mbd) == mad));
+    };
+
+    do_tri_check(1, 4);
+    do_tri_check(3, 2);
+}
+
+TEST_CASE("dart_access_three_neighbors", "[dart_accessor]")
 
 {
     auto mesh = wmtk::tests::three_neighbors();
 
     auto handle = wmtk::dart::register_dart_boundary_topology_attribute(mesh, "dart", true);
-    
 
 
     wmtk::dart::DartTopologyAccessor acc(mesh, handle);
+    REQUIRE(mesh.get_all(wmtk::PrimitiveType::Triangle).size() == 4);
+    REQUIRE(acc.m_base_accessor.reserved_size() == 4);
+    REQUIRE(acc.m_base_accessor.dimension() == 4);
+    REQUIRE(acc.size() == 4);
 
-    const auto &sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
-
-
-    for (const wmtk::Tuple& t : mesh.get_all(wmtk::PrimitiveType::Edge)) {
-        wmtk::dart::Dart d = sd.dart_from_tuple(t);
-        for (wmtk::PrimitiveType pt : {wmtk::PrimitiveType::Vertex, wmtk::PrimitiveType::Edge}) {
-            wmtk::Tuple ot = mesh.switch_tuple(t, pt);
-            auto od = acc.switch_dart(d, pt);
-            wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
-            CHECK(od.global_id() == od2.global_id());
-            CHECK(od.permutation() == od2.permutation());
+    for (size_t j = 0; j < acc.size(); ++j) {
+        const auto& sa = acc[j];
+        for (const auto& t : sa) {
+            fmt::print("{} ", std::string(t));
         }
-        bool is_boundary_m = mesh.is_boundary(wmtk::PrimitiveType::Edge, t);
-        bool is_boundary_d = acc.is_boundary(d);
-        REQUIRE(is_boundary_m == is_boundary_d);
-        if (!is_boundary_m) {
-            wmtk::Tuple ot = mesh.switch_tuple(t, wmtk::PrimitiveType::Triangle);
-            auto od = acc.switch_dart(d, wmtk::PrimitiveType::Triangle);
-            wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
-            CHECK(od.global_id() == od2.global_id());
-            CHECK(od.permutation() == od2.permutation());
+        fmt::print("\n");
+    }
+
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
+
+
+    for (size_t j = 0; j < 4; ++j) {
+        for (const wmtk::Tuple& t :
+             wmtk::tests::all_valid_local_tuples(wmtk::PrimitiveType::Triangle, j)) {
+            // for (const wmtk::Tuple& t : mesh.get_all(wmtk::PrimitiveType::Edge)) {
+            wmtk::dart::Dart d = sd.dart_from_tuple(t);
+            for (wmtk::PrimitiveType pt :
+                 {wmtk::PrimitiveType::Vertex, wmtk::PrimitiveType::Edge}) {
+                wmtk::Tuple ot = mesh.switch_tuple(t, pt);
+                auto od = acc.switch_dart(d, pt);
+                wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
+                CHECK(od.global_id() == od2.global_id());
+                CHECK(od.permutation() == od2.permutation());
+            }
+            bool is_boundary_m = mesh.is_boundary(wmtk::PrimitiveType::Edge, t);
+            bool is_boundary_d = acc.is_boundary(d);
+            REQUIRE(is_boundary_m == is_boundary_d);
+            if (!is_boundary_m) {
+                wmtk::Tuple ot = mesh.switch_tuple(t, wmtk::PrimitiveType::Triangle);
+                auto od = acc.switch_dart(d, wmtk::PrimitiveType::Triangle);
+                wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
+                spdlog::warn(
+                    "{}/{} {}/{}",
+                    std::string(d),
+                    sd.simplex_index(d, wmtk::PrimitiveType::Edge),
+                    std::string(od),
+                    sd.simplex_index(od, wmtk::PrimitiveType::Edge));
+                CHECK(od.global_id() == od2.global_id());
+                CHECK(od.permutation() == od2.permutation());
+
+                auto od3 = acc.switch_dart(od, wmtk::PrimitiveType::Triangle);
+                CHECK(d.global_id() == od3.global_id());
+                CHECK(d.permutation() == od3.permutation());
+            }
         }
     }
 }
@@ -59,7 +157,7 @@ TEST_CASE("dart_performance", "[performance][.]")
     wmtk::TriMesh& mesh = *mesh_in;
     auto handle = wmtk::dart::register_dart_boundary_topology_attribute(mesh, "dart", true);
     std::vector<wmtk::Tuple> all_tuples = mesh.get_all(wmtk::PrimitiveType::Edge);
-    const auto &sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Triangle);
     std::vector<wmtk::dart::Dart> all_darts;
     for (const auto& t : all_tuples) {
         all_darts.emplace_back(sd.dart_from_tuple(t));

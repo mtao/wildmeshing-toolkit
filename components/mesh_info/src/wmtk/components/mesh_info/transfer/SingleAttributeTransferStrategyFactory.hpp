@@ -1,6 +1,7 @@
 #pragma once
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
+#include <wmtk/utils/Rational.hpp>
 #include "TransferFunctorTraits.hpp"
 #include "TransferStrategyFactory.hpp"
 
@@ -23,8 +24,6 @@ struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFacto
     void to_json(nlohmann::json& j) const final;
     void from_json(const nlohmann::json& j) final;
 
-    // entry point to set the type and dim of the output
-    attribute::AttributeType output_type(wmtk::components::multimesh::MeshCollection& mc) const;
     // entry point to set the type and dim of the output
     // int base_attribute_dimension(wmtk::components::multimesh::MeshCollection& mc) const;
     // int base_simplex_dimension(wmtk::components::multimesh::MeshCollection& mc) const;
@@ -91,7 +90,7 @@ SingleAttributeTransferStrategyFactory<Functor>::create_transfer(
         mc,
         {attribute_path,
          Traits::simplex_dimension(from_attr, parameters),
-         output_type(mc),
+         Traits::output_type(from_attr, parameters),
          Traits::output_dimension(from_attr)});
 
 

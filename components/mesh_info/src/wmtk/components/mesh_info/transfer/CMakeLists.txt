@@ -35,6 +35,11 @@ min_neighbor.cpp
 max_neighbor.hpp
 max_neighbor.cpp
 
+neighbor_count.hpp
+neighbor_count.cpp
+
+threshold.hpp
+threshold.cpp
 init.hpp
 init.cpp
 )

@@ -11,7 +11,7 @@ using namespace wmtk::dart;
 using namespace wmtk::autogen;
 using namespace wmtk::tests;
 
-TEST_CASE("tuple_dart_index_dart_vs_switch", "[tuple]")
+TEST_CASE("tuple_dart_index_dart_vs_switch", "[tuple][dart]")
 {
     // when other meshes are available add them here
     for (PrimitiveType mesh_type :
@@ -35,7 +35,7 @@ TEST_CASE("tuple_dart_index_dart_vs_switch", "[tuple]")
     }
 }
 
-TEST_CASE("tuple_dart_products_vs_switch", "[tuple]")
+TEST_CASE("tuple_dart_products_vs_switch", "[tuple][dart]")
 {
     // when other meshes are available add them here
     for (PrimitiveType mesh_type :
@@ -118,7 +118,7 @@ TEST_CASE("tuple_dart_products_vs_switch", "[tuple]")
     }
 }
 
-TEST_CASE("tuple_dart_index_dart_map_between_simplices", "[tuple]")
+TEST_CASE("tuple_dart_index_dart_map_between_simplices", "[tuple][dart]")
 {
     // Checks whether the mapping between simplices of different dimensions results in a
     // homomorphism
@@ -216,7 +216,7 @@ constexpr int8_t simplex_count(PrimitiveType mesh_type, PrimitiveType type)
 }
 } // namespace
 
-TEST_CASE("maximal_subdart_switches_checker_checker", "[tuple]")
+TEST_CASE("maximal_subdart_switches_checker_checker", "[tuple][dart]")
 {
     CHECK(
         equal_subdart_dimension(PrimitiveType::Vertex, Tuple(0, 0, 0, 0), Tuple(0, 0, 0, 0)) == 0);

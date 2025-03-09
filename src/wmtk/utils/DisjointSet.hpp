@@ -17,6 +17,8 @@ public:
     std::vector<size_t> roots() const;
 
 
+    size_t size() const { return _parents.size(); }
+
 private:
     void merge_sorted(size_t lower, size_t higher);
     // overwrites all roots to simplify the code

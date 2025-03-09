@@ -41,9 +41,9 @@ struct NormalFunctor
         } else if constexpr (InDim == Eigen::Dynamic) {
             // run as static sizes
             if (M.rows() == 2) {
-                return execute(M.template topRows<2>());
+                return NormalFunctor<InT, 2, OutT, OutDim>::execute(M);
             } else if (M.rows() == 3) {
-                return execute(M.template topRows<3>());
+                return NormalFunctor<InT, 3, OutT, OutDim>::execute(M);
             }
         }
         assert(false);
@@ -56,17 +56,12 @@ struct NormalFunctor
     }
 };
 template <>
-struct TransferFunctorTraits<NormalFunctor>
+inline int TransferFunctorTraits<NormalFunctor>::simplex_dimension(
+    const attribute::MeshAttributeHandle& mah,
+    const nlohmann::json& js)
 {
-    static int output_dimension(const attribute::MeshAttributeHandle& mah)
-    {
-        return mah.dimension();
-    }
-    static int simplex_dimension(const attribute::MeshAttributeHandle& mah , const nlohmann::json& js = {})
-    {
-        return get_primitive_type_id(mah.primitive_type()) - 1;
-    }
-};
+    return mah.mesh().top_cell_dimension();
+}
 
 using Normal = SingleAttributeTransferStrategyFactory<NormalFunctor>;
 
