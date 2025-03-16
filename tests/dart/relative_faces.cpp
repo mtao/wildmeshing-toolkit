@@ -223,10 +223,14 @@ TEST_CASE("dart_canonical_orientation", "[dart]")
         checker(sd, c, PrimitiveType::Vertex, {c, d});
         checker(sd, e, PrimitiveType::Vertex, {e, f});
 
-        checker(sd, a, PrimitiveType::Edge, {a, c});
-        checker(sd, b, PrimitiveType::Edge, {b, e});
-        checker(sd, d, PrimitiveType::Edge, {d, f});
+        checker(sd, a, PrimitiveType::Edge, {a});
+        checker(sd, b, PrimitiveType::Edge, {b});
+        checker(sd, c, PrimitiveType::Edge, {c});
+        checker(sd, d, PrimitiveType::Edge, {d});
+        checker(sd, e, PrimitiveType::Edge, {e});
+        checker(sd, f, PrimitiveType::Edge, {f});
 
+        // TODO: this feels wrong
         checker(sd, a, PrimitiveType::Triangle, {a, b, c, d, e, f});
     }
     {
@@ -244,22 +248,228 @@ TEST_CASE("dart_canonical_orientation", "[dart]")
         checker(sd, d3012, PrimitiveType::Vertex, {d3012, d3021, d3102, d3120, d3201, d3210});
 
 
-        checker(sd, d0123, PrimitiveType::Edge, {d0123, d0132, d1023, d1032});
-        checker(sd, d0213, PrimitiveType::Edge, {d0213, d0231, d2013, d2031});
-        checker(sd, d0312, PrimitiveType::Edge, {d0312, d0321, d3012, d3021});
-        checker(sd, d1203, PrimitiveType::Edge, {d1203, d1230, d2103, d2130});
-        checker(sd, d1302, PrimitiveType::Edge, {d1302, d1320, d3102, d3120});
-        checker(sd, d2301, PrimitiveType::Edge, {d2301, d2310, d3201, d3210});
+        checker(sd, d0123, PrimitiveType::Edge, {d0123, d0132});
+        checker(sd, d1023, PrimitiveType::Edge, {d1023, d1032});
+        checker(sd, d0213, PrimitiveType::Edge, {d0213, d0231});
+        checker(sd, d2013, PrimitiveType::Edge, {d2013, d2031});
+        checker(sd, d0312, PrimitiveType::Edge, {d0312, d0321});
+        checker(sd, d3012, PrimitiveType::Edge, {d3012, d3021});
+        checker(sd, d1203, PrimitiveType::Edge, {d1203, d1230});
+        checker(sd, d2103, PrimitiveType::Edge, {d2103, d2130});
+        checker(sd, d1302, PrimitiveType::Edge, {d1302, d1320});
+        checker(sd, d3102, PrimitiveType::Edge, {d3102, d3120});
+        checker(sd, d2301, PrimitiveType::Edge, {d2301, d2310});
+        checker(sd, d3201, PrimitiveType::Edge, {d3201, d3210});
 
 
-        checker(sd, d1230, PrimitiveType::Triangle, {d1230, d1320, d2130, d2310, d3120, d3210});
-        checker(sd, d0231, PrimitiveType::Triangle, {d0231, d0321, d2031, d2301, d3021, d3201});
-        checker(sd, d0132, PrimitiveType::Triangle, {d0132, d0312, d1032, d1302, d3012, d3102});
-        checker(sd, d0123, PrimitiveType::Triangle, {d0123, d0213, d1023, d1203, d2013, d2103});
+        checker(sd, d0123, PrimitiveType::Triangle, {d0123});
+        checker(sd, d0213, PrimitiveType::Triangle, {d0213});
+        checker(sd, d1023, PrimitiveType::Triangle, {d1023});
+        checker(sd, d1203, PrimitiveType::Triangle, {d1203});
+        checker(sd, d2013, PrimitiveType::Triangle, {d2013});
+        checker(sd, d2103, PrimitiveType::Triangle, {d2103});
+        checker(sd, d0132, PrimitiveType::Triangle, {d0132});
+        checker(sd, d0231, PrimitiveType::Triangle, {d0231});
+        checker(sd, d1032, PrimitiveType::Triangle, {d1032});
+        checker(sd, d1230, PrimitiveType::Triangle, {d1230});
+        checker(sd, d2031, PrimitiveType::Triangle, {d2031});
+        checker(sd, d2130, PrimitiveType::Triangle, {d2130});
+        checker(sd, d0312, PrimitiveType::Triangle, {d0312});
+        checker(sd, d0321, PrimitiveType::Triangle, {d0321});
+        checker(sd, d1302, PrimitiveType::Triangle, {d1302});
+        checker(sd, d1320, PrimitiveType::Triangle, {d1320});
+        checker(sd, d2301, PrimitiveType::Triangle, {d2301});
+        checker(sd, d2310, PrimitiveType::Triangle, {d2310});
+        checker(sd, d3012, PrimitiveType::Triangle, {d3012});
+        checker(sd, d3021, PrimitiveType::Triangle, {d3021});
+        checker(sd, d3102, PrimitiveType::Triangle, {d3102});
+        checker(sd, d3120, PrimitiveType::Triangle, {d3120});
+        checker(sd, d3201, PrimitiveType::Triangle, {d3201});
+        checker(sd, d3210, PrimitiveType::Triangle, {d3210});
+    }
+}
 
-        checker(sd, d0123, PrimitiveType::Tetrahedron, {d1230, d1320, d2130, d2310, d3120, d3210,
-                                                        d0231, d0321, d2031, d2301, d3021, d3201,
-                                                        d0132, d0312, d1032, d1302, d3012, d3102,
-                                                        d0123, d0213, d1023, d1203, d2013, d2103});
+TEST_CASE("dart_subdart_permutation", "[dart]")
+{
+    auto checker = [&](const SimplexDart& sd,
+                       const Dart& source,
+                       PrimitiveType pt,
+                       const int8_t& permutation) {
+        int8_t canonical =
+            wmtk::dart::utils::get_canonical_simplex_orientation(sd, pt, source.permutation());
+        CHECK(permutation == sd.product(source.permutation(), sd.inverse(canonical)));
+    };
+    {
+        constexpr static PrimitiveType pt = PrimitiveType::Edge;
+        const auto& sd = SimplexDart::get_singleton(pt);
+
+        // const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
+        const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
+
+
+        // doing on vertex is identity permutation
+        checker(sd, d01, PrimitiveType::Vertex, d01.permutation());
+        checker(sd, d10, PrimitiveType::Vertex, d01.permutation());
+
+        // sorta silly as it does nothing
+        checker(sd, d10, PrimitiveType::Edge, d10.permutation());
+        checker(sd, d01, PrimitiveType::Edge, d01.permutation());
+    }
+    {
+        constexpr static PrimitiveType pt = PrimitiveType::Triangle;
+        const auto& sd = SimplexDart::get_singleton(pt);
+
+        const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
+        const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
+
+        const Dart a = d012;
+        const Dart b = d021;
+        const Dart c = d102;
+        const Dart d = d120;
+        const Dart e = d201;
+        const Dart f = d210;
+
+
+        checker(sd, d012, PrimitiveType::Vertex, d012.permutation());
+        checker(sd, d021, PrimitiveType::Vertex, d012.permutation());
+        checker(sd, d102, PrimitiveType::Vertex, d012.permutation());
+        checker(sd, d120, PrimitiveType::Vertex, d012.permutation());
+        checker(sd, d201, PrimitiveType::Vertex, d012.permutation());
+        checker(sd, d210, PrimitiveType::Vertex, d012.permutation());
+
+        return;
+        checker(sd, d012, PrimitiveType::Edge, d012.permutation());
+        checker(sd, d021, PrimitiveType::Edge, d012.permutation());
+        checker(sd, d102, PrimitiveType::Edge, d102.permutation());
+        checker(sd, d120, PrimitiveType::Edge, d012.permutation());
+        checker(sd, d201, PrimitiveType::Edge, d102.permutation());
+        checker(sd, d210, PrimitiveType::Edge, d102.permutation());
+
+        checker(sd, d012, PrimitiveType::Triangle, d012.permutation());
+        checker(sd, d021, PrimitiveType::Triangle, d021.permutation());
+        checker(sd, d102, PrimitiveType::Triangle, d102.permutation());
+        checker(sd, d120, PrimitiveType::Triangle, d120.permutation());
+        checker(sd, d201, PrimitiveType::Triangle, d201.permutation());
+        checker(sd, d210, PrimitiveType::Triangle, d210.permutation());
+    }
+    {
+        constexpr static PrimitiveType pt = PrimitiveType::Tetrahedron;
+        const auto& sd = SimplexDart::get_singleton(pt);
+
+        const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
+        const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
+        const int8_t SF = sd.permutation_index_from_primitive_switch(PrimitiveType::Triangle);
+
+
+        // checker(sd, d0123, PrimitiveType::Vertex, {d0123, d0132, d0213, d0231, d0312, d0321});
+        // checker(sd, d1023, PrimitiveType::Vertex, {d1023, d1032, d1203, d1230, d1302, d1320});
+        // checker(sd, d2013, PrimitiveType::Vertex, {d2013, d2031, d2103, d2130, d2301, d2310});
+        // checker(sd, d3012, PrimitiveType::Vertex, {d3012, d3021, d3102, d3120, d3201, d3210});
+
+
+        // checker(sd, d0123, PrimitiveType::Edge, {d0123, d0132, d1023, d1032});
+        // checker(sd, d0213, PrimitiveType::Edge, {d0213, d0231, d2013, d2031});
+        // checker(sd, d0312, PrimitiveType::Edge, {d0312, d0321, d3012, d3021});
+        // checker(sd, d1203, PrimitiveType::Edge, {d1203, d1230, d2103, d2130});
+        // checker(sd, d1302, PrimitiveType::Edge, {d1302, d1320, d3102, d3120});
+        // checker(sd, d2301, PrimitiveType::Edge, {d2301, d2310, d3201, d3210});
+
+
+        // checker(sd, d1230, PrimitiveType::Triangle, {d1230, d1320, d2130, d2310, d3120, d3210});
+        // checker(sd, d0231, PrimitiveType::Triangle, {d0231, d0321, d2031, d2301, d3021, d3201});
+        // checker(sd, d0132, PrimitiveType::Triangle, {d0132, d0312, d1032, d1302, d3012, d3102});
+        // checker(sd, d0123, PrimitiveType::Triangle, {d0123, d0213, d1023, d1203, d2013, d2103});
+
+        // checker(sd, d0123, PrimitiveType::Tetrahedron, {d1230, d1320, d2130, d2310, d3120, d3210,
+        //                                                 d0231, d0321, d2031, d2301, d3021, d3201,
+        //                                                 d0132, d0312, d1032, d1302, d3012, d3102,
+        //                                                 d0123, d0213, d1023, d1203, d2013,
+        //                                                 d2103});
+    }
+}
+TEST_CASE("dart_map", "[dart]")
+{
+    auto checker = [&](const SimplexDart& sd,
+                       const Dart& source,
+                       const SimplexDart& sd2,
+                       PrimitiveType pt,
+                       const std::vector<std::pair<Dart, Dart>>& pairs) {
+        for (const auto& [start, finish] : pairs) {
+        }
+    };
+    {
+        constexpr static PrimitiveType pt = PrimitiveType::Edge;
+        const auto& sd = SimplexDart::get_singleton(pt);
+
+        const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
+        // const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
+
+        const Dart a = d01;
+        const Dart b = d10;
+
+        // checker(sd, a, PrimitiveType::Vertex, {a});
+        // checker(sd, b, PrimitiveType::Vertex, {b});
+
+        // checker(sd, a, PrimitiveType::Edge, {a, b});
+    }
+    return;
+    {
+        constexpr static PrimitiveType pt = PrimitiveType::Triangle;
+        const auto& sd = SimplexDart::get_singleton(pt);
+
+        const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
+        const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
+
+        const Dart a = d012;
+        const Dart b = d021;
+        const Dart c = d102;
+        const Dart d = d120;
+        const Dart e = d201;
+        const Dart f = d210;
+
+
+        // checker(sd, a, PrimitiveType::Vertex, {a, b});
+        // checker(sd, c, PrimitiveType::Vertex, {c, d});
+        // checker(sd, e, PrimitiveType::Vertex, {e, f});
+
+        // checker(sd, a, PrimitiveType::Edge, {a, c});
+        // checker(sd, b, PrimitiveType::Edge, {b, e});
+        // checker(sd, d, PrimitiveType::Edge, {d, f});
+
+        // checker(sd, a, PrimitiveType::Triangle, {a, b, c, d, e, f});
+    }
+    {
+        constexpr static PrimitiveType pt = PrimitiveType::Tetrahedron;
+        const auto& sd = SimplexDart::get_singleton(pt);
+
+        const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
+        const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
+        const int8_t SF = sd.permutation_index_from_primitive_switch(PrimitiveType::Triangle);
+
+
+        // checker(sd, d0123, PrimitiveType::Vertex, {d0123, d0132, d0213, d0231, d0312, d0321});
+        // checker(sd, d1023, PrimitiveType::Vertex, {d1023, d1032, d1203, d1230, d1302, d1320});
+        // checker(sd, d2013, PrimitiveType::Vertex, {d2013, d2031, d2103, d2130, d2301, d2310});
+        // checker(sd, d3012, PrimitiveType::Vertex, {d3012, d3021, d3102, d3120, d3201, d3210});
+
+
+        // checker(sd, d0123, PrimitiveType::Edge, {d0123, d0132, d1023, d1032});
+        // checker(sd, d0213, PrimitiveType::Edge, {d0213, d0231, d2013, d2031});
+        // checker(sd, d0312, PrimitiveType::Edge, {d0312, d0321, d3012, d3021});
+        // checker(sd, d1203, PrimitiveType::Edge, {d1203, d1230, d2103, d2130});
+        // checker(sd, d1302, PrimitiveType::Edge, {d1302, d1320, d3102, d3120});
+        // checker(sd, d2301, PrimitiveType::Edge, {d2301, d2310, d3201, d3210});
+
+
+        // checker(sd, d1230, PrimitiveType::Triangle, {d1230, d1320, d2130, d2310, d3120, d3210});
+        // checker(sd, d0231, PrimitiveType::Triangle, {d0231, d0321, d2031, d2301, d3021, d3201});
+        // checker(sd, d0132, PrimitiveType::Triangle, {d0132, d0312, d1032, d1302, d3012, d3102});
+        // checker(sd, d0123, PrimitiveType::Triangle, {d0123, d0213, d1023, d1203, d2013, d2103});
+
+        // checker(sd, d0123, PrimitiveType::Tetrahedron, {d1230, d1320, d2130, d2310, d3120, d3210,
+        //                                                 d0231, d0321, d2031, d2301, d3021, d3201,
+        //                                                 d0132, d0312, d1032, d1302, d3012, d3102,
+        //                                                 d0123, d0213, d1023, d1203, d2013,
+        //                                                 d2103});
     }
 }

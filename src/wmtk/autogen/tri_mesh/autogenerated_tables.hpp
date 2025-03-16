@@ -60,4 +60,7 @@ extern const int8_t permutations[6][3];
 extern const int8_t canonical_subdart_orientation[2][6];
 
 
+extern const int8_t canonical_simplex[2][6];
+
+
 } // namespace wmtk::autogen::tri_mesh

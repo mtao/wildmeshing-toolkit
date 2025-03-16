@@ -4,12 +4,18 @@ namespace wmtk::tests::dart::utils {
 
 extern const wmtk::dart::Dart d01;
 extern const wmtk::dart::Dart d10;
+
+extern const std::array<wmtk::dart::Dart,2> D1;
+
 extern const wmtk::dart::Dart d012;
 extern const wmtk::dart::Dart d021;
 extern const wmtk::dart::Dart d102;
 extern const wmtk::dart::Dart d120;
 extern const wmtk::dart::Dart d201;
 extern const wmtk::dart::Dart d210;
+
+extern const std::array<wmtk::dart::Dart,6> D2;
+
 extern const wmtk::dart::Dart d0123;
 extern const wmtk::dart::Dart d0213;
 extern const wmtk::dart::Dart d1023;
@@ -34,5 +40,7 @@ extern const wmtk::dart::Dart d3102;
 extern const wmtk::dart::Dart d3120;
 extern const wmtk::dart::Dart d3201;
 extern const wmtk::dart::Dart d3210;
+
+extern const std::array<wmtk::dart::Dart,24> D3;
 
 } // namespace wmtk::tests::dart::utils

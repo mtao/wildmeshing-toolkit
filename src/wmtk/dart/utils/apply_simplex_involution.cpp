@@ -40,4 +40,37 @@ wmtk::dart::Dart apply_simplex_involution(
             target_index,
             source.permutation()));
 }
+
+int8_t apply_simplex_involution_upward(
+    int8_t a,
+    PrimitiveType pt, // lower dimension
+    PrimitiveType opt, // higher  dimension
+    int8_t b)
+{
+    assert(pt <= opt);
+    const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(opt);
+    int8_t res = osd.product(a, b);
+
+    const PrimitiveType action_pt = pt < opt ? opt : pt;
+    const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(action_pt);
+    if (pt != opt) {
+        int8_t simplex_index = get_canonical_simplex_orientation(sd, opt, local_index);
+        int8_t abasis = get_canonical_simplex_orientation(sd, opt, local_index);
+        res = sd.product(res, abasis);
+    } else {
+        res = sd.product(b, a);
+    }
+    return res;
+}
+// maps (pt,a) to (opt,oa) then (opt,b)
+wmtk::dart::Dart apply_simplex_involution(
+    const dart::Dart& action,
+    PrimitiveType pt,
+    PrimitiveType opt,
+    const dart::Dart& source)
+{
+    return dart::Dart(
+        action.global_id() ^ source.global_id(),
+        apply_simplex_involution_upward(action.permutation(), pt, opt, source.permutation()));
+}
 } // namespace wmtk::dart::utils

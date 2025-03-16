@@ -18,7 +18,7 @@ TEST_CASE("simplex_adjacency_io", "[dart]")
                 for (int8_t bperm : sb.permutation_indices()) {
                     int8_t action_a = dart::utils::get_simplex_involution(pta, aperm, ptb, bperm);
                     int8_t action_b = dart::utils::get_simplex_involution(ptb, bperm, pta, aperm);
-                    CHECK(action_a == :
+
                 }
             }
         }

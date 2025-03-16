@@ -13,7 +13,6 @@
 namespace wmtk::components::mesh_info::transfer {
 TransferStrategyFactoryRegistry create_registry()
 {
-    spdlog::info("Registering!");
     TransferStrategyFactoryRegistry reg;
     reg.register_transfer<EdgeLength>("edge_length");
     reg.register_transfer<MeanNeighbor>("mean");

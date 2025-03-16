@@ -14,7 +14,7 @@ void SingleAttributeTransferStrategyFactoryBase::to_json(nlohmann::json& j) cons
 }
 void SingleAttributeTransferStrategyFactoryBase::from_json(const nlohmann::json& j)
 {
-    spdlog::warn("{}", j.dump(2));
+//    spdlog::warn("{}", j.dump(2));
     attribute_path = j["attribute_path"];
     type = j["type"];
     base_attribute_path = j["base_attribute_path"].get<std::string>();

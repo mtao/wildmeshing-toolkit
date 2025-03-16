@@ -23,4 +23,6 @@ const int8_t permutations[2][2] = {{0, 1}, {1, 0}};
 
 const int8_t canonical_subdart_orientation[1][2] = {{0, 1}};
 
+const int8_t canonical_simplex[1][2] = {{0, 1}};
+
 } // namespace wmtk::autogen::edge_mesh

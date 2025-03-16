@@ -75,4 +75,7 @@ extern const int8_t permutations[24][4];
 extern const int8_t canonical_subdart_orientation[3][24];
 
 
+extern const int8_t canonical_simplex[3][24];
+
+
 } // namespace wmtk::autogen::tet_mesh
