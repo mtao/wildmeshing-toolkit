@@ -183,8 +183,8 @@ def switch_normal_subgroup_table(sc, subgroup_sc):
     return tuple(group_to_subgroup),tuple(subgroup_to_group)
 
 
-# maps a dart to a unique dart that stores that simplex
-def canonical_subdart_orientation(sc, dimension):
+# maps a canonical subdart for a simplex
+def canonical_subdart(sc, dimension):
     num_valid = sc.valid_tuple_size()
     num_faces = len(sc[dimension])
 
@@ -201,8 +201,8 @@ def canonical_subdart_orientation(sc, dimension):
         data.append(ovt)
     return data
 
-# maps a dart to a unique dart that stores that simplex
-def canonical_subdart(sc, dimension):
+# maps a canonical dart whose supdart is preserved
+def canonical_supdart(sc, dimension):
     num_valid = sc.valid_tuple_size()
     num_faces = len(sc[dimension])
 

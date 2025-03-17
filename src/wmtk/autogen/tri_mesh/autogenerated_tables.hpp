@@ -57,7 +57,10 @@ extern const int8_t max_subdart_preservation_dimension_1[6][3];
 extern const int8_t permutations[6][3];
 
 
-extern const int8_t canonical_subdart_orientation[2][6];
+extern const int8_t canonical_subdart[2][6];
+
+
+extern const int8_t canonical_supdart[2][6];
 
 
 extern const int8_t canonical_simplex[2][6];

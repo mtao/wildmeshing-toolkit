@@ -4,6 +4,8 @@
 #include <wmtk/dart/SimplexAdjacency.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/utils/get_canonical_simplex_orientation.hpp>
+#include <wmtk/dart/utils/get_canonical_subdart.hpp>
+#include <wmtk/dart/utils/get_canonical_supdart.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "utils/canonical_darts.hpp"
 using namespace wmtk;
@@ -176,7 +178,7 @@ TEST_CASE("dart_from_vertex_permutation", "[dart]")
         CHECK((d3210 == sd.act(d3201, SF)));
     }
 }
-TEST_CASE("dart_canonical_orientation", "[dart]")
+TEST_CASE("dart_canonical_supdart", "[dart]")
 {
     auto checker = [&](const SimplexDart& sd,
                        const Dart& canonical,
@@ -185,7 +187,7 @@ TEST_CASE("dart_canonical_orientation", "[dart]")
         int8_t pid = canonical.permutation();
         for (const auto& l : list) {
             int8_t canonical_index =
-                wmtk::dart::utils::get_canonical_simplex_orientation(sd, pt, l.permutation());
+                wmtk::dart::utils::get_canonical_supdart(sd, pt, l.permutation());
             CHECK(int64_t(pid) == int64_t(canonical_index));
         }
     };
@@ -297,7 +299,7 @@ TEST_CASE("dart_subdart_permutation", "[dart]")
                        const int8_t& permutation) {
         int8_t canonical =
             wmtk::dart::utils::get_canonical_simplex_orientation(sd, pt, source.permutation());
-        CHECK(permutation == sd.product(source.permutation(), sd.inverse(canonical)));
+        CHECK(permutation == canonical);
     };
     {
         constexpr static PrimitiveType pt = PrimitiveType::Edge;
@@ -337,7 +339,6 @@ TEST_CASE("dart_subdart_permutation", "[dart]")
         checker(sd, d201, PrimitiveType::Vertex, d012.permutation());
         checker(sd, d210, PrimitiveType::Vertex, d012.permutation());
 
-        return;
         checker(sd, d012, PrimitiveType::Edge, d012.permutation());
         checker(sd, d021, PrimitiveType::Edge, d012.permutation());
         checker(sd, d102, PrimitiveType::Edge, d102.permutation());
@@ -351,6 +352,7 @@ TEST_CASE("dart_subdart_permutation", "[dart]")
         checker(sd, d120, PrimitiveType::Triangle, d120.permutation());
         checker(sd, d201, PrimitiveType::Triangle, d201.permutation());
         checker(sd, d210, PrimitiveType::Triangle, d210.permutation());
+        return;
     }
     {
         constexpr static PrimitiveType pt = PrimitiveType::Tetrahedron;
