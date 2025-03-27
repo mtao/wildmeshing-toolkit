@@ -27,6 +27,7 @@ get_canonical_supdart(const SimplexDart& sd, PrimitiveType pt, int8_t permutatio
                                                                    [permutation];
         }
     }
+    //return permutation;
     return sd.identity();
 }
 } // namespace wmtk::dart::utils

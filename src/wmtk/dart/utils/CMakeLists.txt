@@ -25,6 +25,9 @@ set(SRC_FILES
     get_simplex_involution.hpp
     get_simplex_involution.cpp
 
+    apply_simplex_involution.hpp
+    apply_simplex_involution.cpp
+
     tuple_from_permutation_index.hpp
     tuple_from_permutation_index.cpp
 

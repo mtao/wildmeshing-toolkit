@@ -215,6 +215,7 @@ def canonical_supdart(sc, dimension):
         x =ssl[:dimension+1]
         x.sort() 
         ssl[:dimension+1] = x
+        print(f"{len(sc)}-sc got {dimension}-simplex got {ss} to {ssl}")
         ovt = sc.simplicial_set_as_valid_tuple_index(ssl)
         data.append(ovt)
     return data

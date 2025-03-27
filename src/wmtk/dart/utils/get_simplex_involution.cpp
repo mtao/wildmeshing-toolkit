@@ -1,7 +1,8 @@
 #include "get_simplex_involution.hpp"
+#include <spdlog/spdlog.h>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/find_local_dart_action.hpp>
-#include "get_canonical_simplex_orientation.hpp"
+#include "get_canonical_supdart.hpp"
 namespace wmtk::dart::utils {
 
 // let a be a k-dart and b be a j-dart (k >= j)
@@ -19,13 +20,27 @@ int8_t get_simplex_involution_downwards(
     const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(opt);
 
     // if the dimension is not the same, first map to the caonical simplex
+    int8_t act;
     if (pt != opt) {
         const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
-        int8_t abasis = get_canonical_simplex_orientation(sd, opt, a);
-        a = dart::find_local_dart_action(sd, abasis, a);
-        a = sd.convert(a, osd);
+        // canonical dart on simplex of type opt (lower type)
+        const int8_t abasis = get_canonical_supdart(sd, opt, a);
+        //
+        act = dart::find_local_dart_action(sd, abasis, a);
+
+        assert(get_canonical_supdart(sd, opt, act) == sd.identity());
+
+        spdlog::info("Act is {} vs identity {}", act, sd.identity());
+
+        int8_t b_up = osd.convert(b, sd);
+        assert(get_canonical_supdart(sd, opt, b_up) == sd.identity());
+        act = sd.product(b_up, sd.inverse(act));
+        int8_t act2 = get_canonical_supdart(sd, opt, act);
+        assert(act2 == sd.identity());
+        act = sd.product(b_up, abasis);
+    } else {
+        act = dart::find_local_dart_action(osd, a, b);
     }
-    int8_t act = dart::find_local_dart_action(osd, a, b);
     return act;
 }
 int8_t get_simplex_involution(PrimitiveType pt, const int8_t& a, PrimitiveType opt, const int8_t& b)
