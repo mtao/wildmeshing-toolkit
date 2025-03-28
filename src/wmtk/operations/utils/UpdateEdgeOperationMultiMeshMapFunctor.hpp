@@ -15,9 +15,11 @@ namespace simplex {
 class Simplex;
 }
 namespace attribute {
-template <typename T, typename MeshType, int Dim>
+template <typename T>
+class CachingAttribute;
+template <typename T, typename MeshType, typename AttributeType, int Dim>
 class Accessor;
-}
+} // namespace attribute
 
 namespace operations {
 class EdgeOperationData;

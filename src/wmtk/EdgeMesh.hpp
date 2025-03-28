@@ -16,7 +16,7 @@ class EdgeMesh : public MeshCRTP<EdgeMesh>
 {
 public:
     friend class MeshCRTP<EdgeMesh>;
-    template <typename U, typename MeshType, int Dim>
+    template <typename U, typename MeshType, typename AT, int Dim>
     friend class attribute::Accessor;
     friend class operations::utils::MultiMeshEdgeSplitFunctor;
     friend class operations::utils::MultiMeshEdgeCollapseFunctor;
@@ -123,7 +123,7 @@ inline int64_t EdgeMesh::id(int64_t global_id, int8_t permutation_index, Primiti
     case PrimitiveType::Vertex: {
         const attribute::Accessor<int64_t, EdgeMesh> ev_accessor =
             create_const_accessor<int64_t>(m_ev_handle);
-        return ev_accessor.index_access().const_scalar_attribute(global_id,index);
+        return ev_accessor.index_access().const_vector_single_value(global_id,index);
     }
     case PrimitiveType::Edge: {
         return global_id;

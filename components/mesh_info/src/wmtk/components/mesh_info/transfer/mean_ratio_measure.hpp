@@ -1,6 +1,7 @@
 #pragma once
 #include <nlohmann/json_fwd.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
+#include <Eigen/Dense>
 #include "SingleAttributeTransferStrategyFactory.hpp"
 
 namespace wmtk::components::mesh_info::transfer {

@@ -35,8 +35,8 @@ public:
         // position mesh
         const TriMesh& pmesh = static_cast<const TriMesh&>(parent_handle().mesh());
 
-        auto ang_acc =
-            parent_handle().mesh().create_const_accessor(parent_handle().template as<ParentType>());
+        //auto ang_acc =
+        //    parent_handle().mesh().create_const_accessor(parent_handle().template as<ParentType>());
         auto acc = const_cast<Mesh&>(mesh()).create_accessor(handle().template as<MyType>());
 
         auto& angle = acc.scalar_attribute(s.tuple());

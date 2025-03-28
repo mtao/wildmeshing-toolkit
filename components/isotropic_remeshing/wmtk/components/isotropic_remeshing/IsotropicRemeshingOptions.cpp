@@ -1,6 +1,8 @@
 #include "IsotropicRemeshingOptions.hpp"
 #include <fmt/format.h>
 #include <algorithm>
+#include <Eigen/Dense>
+#include <Eigen/Geometry>
 #include <nlohmann/json.hpp>
 #include <wmtk/components/mesh_info/transfer/TransferStrategyFactory.hpp>
 #include <wmtk/components/mesh_info/transfer/init.hpp>

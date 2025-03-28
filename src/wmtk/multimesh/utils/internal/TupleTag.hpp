@@ -68,8 +68,8 @@ public:
 
     Mesh& m_mesh;
     std::set<int64_t> m_critical_boundaries;
-    wmtk::attribute::Accessor<int64_t, Mesh, 1> m_boundary_tag_acc;
-    wmtk::attribute::Accessor<int64_t, Mesh, 1> m_facet_tag_acc;
+    wmtk::attribute::Accessor<int64_t, Mesh, wmtk::attribute::CachingAttribute<int64_t>, 1> m_boundary_tag_acc;
+    wmtk::attribute::Accessor<int64_t, Mesh, wmtk::attribute::CachingAttribute<int64_t>, 1> m_facet_tag_acc;
 
     PrimitiveType facet_type() const;
     PrimitiveType boundary_type() const;

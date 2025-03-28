@@ -23,7 +23,7 @@ class DartIndexAccessor
 {
 public:
     static_assert(sizeof(int64_t) * (Dim + 1) >= sizeof(dart::SimplexAdjacency<Dim>));
-    using BaseAccessor = wmtk::attribute::Accessor<int64_t, MeshType, Dim + 1>;
+    using BaseAccessor = wmtk::attribute::Accessor<int64_t, MeshType, attribute::CachingAttribute<int64_t>, Dim + 1>;
 
     DartIndexAccessor(BaseAccessor acc)
         : m_base_accessor{std::move(acc)}

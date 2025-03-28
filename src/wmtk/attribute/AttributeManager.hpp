@@ -4,7 +4,7 @@
 #include <wmtk/attribute/utils/variant_comparison.hpp>
 #include <wmtk/utils/Rational.hpp>
 #include "AttributeScopeHandle.hpp"
-#include "MeshAttributes.hpp"
+#include "TypedAttributeManager.hpp"
 #include "TypedAttributeHandle.hpp"
 #include "internal/CheckpointScope.hpp"
 
@@ -30,10 +30,10 @@ public:
     //=========================================================
     // Storage of Mesh Attributes
     //=========================================================
-    std::vector<MeshAttributes<char>> m_char_attributes;
-    std::vector<MeshAttributes<int64_t>> m_long_attributes;
-    std::vector<MeshAttributes<double>> m_double_attributes;
-    std::vector<MeshAttributes<Rational>> m_rational_attributes;
+    std::vector<TypedAttributeManager<char>> m_char_attributes;
+    std::vector<TypedAttributeManager<int64_t>> m_long_attributes;
+    std::vector<TypedAttributeManager<double>> m_double_attributes;
+    std::vector<TypedAttributeManager<Rational>> m_rational_attributes;
 
 
     // max index used for each type of simplex
@@ -75,13 +75,13 @@ public:
 
 
     template <typename T>
-    std::vector<MeshAttributes<T>>& get();
+    std::vector<TypedAttributeManager<T>>& get();
 
     template <typename T>
-    MeshAttributes<T>& get(PrimitiveType ptype);
+    TypedAttributeManager<T>& get(PrimitiveType ptype);
 
     template <typename T>
-    MeshAttributes<T>& get(const TypedAttributeHandle<T>& handle);
+    TypedAttributeManager<T>& get(const TypedAttributeHandle<T>& handle);
 
     template <typename T>
     bool has_attribute(const TypedAttributeHandle<T>& h) const;
@@ -95,13 +95,13 @@ public:
     void set_name(const TypedAttributeHandle<T>& attr, const std::string& name);
 
     template <typename T>
-    const std::vector<MeshAttributes<T>>& get() const;
+    const std::vector<TypedAttributeManager<T>>& get() const;
 
     template <typename T>
-    const MeshAttributes<T>& get(PrimitiveType ptype) const;
+    const TypedAttributeManager<T>& get(PrimitiveType ptype) const;
 
     template <typename T>
-    const MeshAttributes<T>& get(const TypedAttributeHandle<T>& handle) const;
+    const TypedAttributeManager<T>& get(const TypedAttributeHandle<T>& handle) const;
 
     void push_scope();
     void pop_scope(bool apply_updates = true);
@@ -128,10 +128,18 @@ public:
     void clear_attributes(
         const std::vector<attribute::MeshAttributeHandle::HandleVariant>& custom_attributes);
     void delete_attribute(const attribute::MeshAttributeHandle::HandleVariant& to_delete);
+
+    /**
+     * @brief Validate that handles and attributes are in sync.
+     */
+    bool validate() const;
+
+    template <typename T>
+    bool validate_handle(const TypedAttributeHandle<T>& handle) const;
 };
 
 template <typename T>
-inline const std::vector<MeshAttributes<T>>& AttributeManager::get() const
+inline const std::vector<TypedAttributeManager<T>>& AttributeManager::get() const
 {
     if constexpr (std::is_same_v<T, char>) {
         return m_char_attributes;
@@ -152,7 +160,7 @@ bool AttributeManager::has_attribute(const TypedAttributeHandle<T>& h) const
     return get<T>(h.primitive_type()).has_attribute(h.base_handle());
 }
 template <typename T>
-inline std::vector<MeshAttributes<T>>& AttributeManager::get()
+inline std::vector<TypedAttributeManager<T>>& AttributeManager::get()
 {
     if constexpr (std::is_same_v<T, char>) {
         return m_char_attributes;
@@ -169,26 +177,26 @@ inline std::vector<MeshAttributes<T>>& AttributeManager::get()
 }
 
 template <typename T>
-inline const MeshAttributes<T>& AttributeManager::get(PrimitiveType ptype) const
+inline const TypedAttributeManager<T>& AttributeManager::get(PrimitiveType ptype) const
 {
     const int8_t index = get_primitive_type_id(ptype);
     return get<T>()[index];
 }
 
 template <typename T>
-inline MeshAttributes<T>& AttributeManager::get(PrimitiveType ptype)
+inline TypedAttributeManager<T>& AttributeManager::get(PrimitiveType ptype)
 {
     size_t index = get_primitive_type_id(ptype);
     return get<T>().at(index);
 }
 
 template <typename T>
-inline MeshAttributes<T>& AttributeManager::get(const TypedAttributeHandle<T>& handle)
+inline TypedAttributeManager<T>& AttributeManager::get(const TypedAttributeHandle<T>& handle)
 {
     return get<T>(handle.m_primitive_type);
 }
 template <typename T>
-inline const MeshAttributes<T>& AttributeManager::get(const TypedAttributeHandle<T>& handle) const
+inline const TypedAttributeManager<T>& AttributeManager::get(const TypedAttributeHandle<T>& handle) const
 {
     return get<T>(handle.m_primitive_type);
 }
@@ -230,6 +238,12 @@ inline const T& AttributeManager::get_attribute_default_value(
 {
     assert(handle.is_valid());
     return get(handle).default_value(handle.m_base_handle);
+}
+
+template <typename T>
+inline bool AttributeManager::validate_handle(const TypedAttributeHandle<T>& handle) const
+{
+    return get(handle).validate_handle(handle.m_base_handle);
 }
 
 template <typename T>

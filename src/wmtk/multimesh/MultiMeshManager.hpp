@@ -1,14 +1,9 @@
 #pragma once
 
 #include <tuple>
+#include <optional>
 #include <wmtk/Tuple.hpp>
 #include <wmtk/attribute/Accessor.hpp>
-#include <wmtk/attribute/AttributeScopeHandle.hpp>
-#include <wmtk/attribute/MeshAttributes.hpp>
-// included to make a friend as this requires IDs
-#include <wmtk/multimesh/same_simplex_dimension_surjection.hpp>
-// just for friending later on
-#include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/utils/MerkleTreeInteriorNode.hpp>
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
 #include <wmtk/dart/DartAccessor.hpp>
@@ -26,8 +21,6 @@ class UpdateEdgeOperationMultiMeshMapFunctor;
 }
 } // namespace operations
 namespace attribute {
-template <typename T, typename MeshType, int Dim>
-class Accessor;
 }
 namespace multimesh {
 template <int64_t cell_dimension, typename NodeFunctor>
@@ -64,11 +57,6 @@ public:
 #else
         wmtk::attribute::Accessor<int64_t>;
 #endif
-    // utility function for mapping the same set of simplices (or a subset of equivalent simplices)
-    friend std::vector<std::array<Tuple, 2>> multimesh::same_simplex_dimension_surjection(
-        const Mesh& parent,
-        const Mesh& child,
-        const std::vector<int64_t>& parent_simplices);
 
     // let the visitor object access the internal details
     template <int64_t cell_dimension, typename NodeFunctor>
@@ -575,7 +563,6 @@ public:
     static bool is_child(const std::vector<int64_t>& child, const std::vector<int64_t>& parent);
     bool is_child(const Mesh& my_mesh, const Mesh& parent_mesh) const;
 
-private:
     // this is defined internally but is preferablly invoked through the multimesh free function
     static std::vector<std::array<Tuple, 2>> same_simplex_dimension_surjection(
         const Mesh& parent,
