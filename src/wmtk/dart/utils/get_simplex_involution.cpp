@@ -9,7 +9,40 @@ namespace wmtk::dart::utils {
 // We want an operator such that for any $k$-dart that shares $j$-simplex with $a$ wehave a^{-1}
 // jkjk
 
-// maps (pt,a) to (opt,oa) then (opt,b)
+int8_t get_simplex_involution_upward(
+    PrimitiveType opt, // lower dimension
+    int8_t a,
+    PrimitiveType pt, // higher dimension
+    int8_t b)
+{
+    assert(pt >= opt);
+    const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(opt);
+
+    // if the dimension is not the same, first map to the caonical simplex
+    int8_t act;
+    if (pt != opt) {
+        const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
+        // canonical dart on simplex of type opt (lower type)
+        const int8_t bbasis = get_canonical_supdart(sd, opt, b);
+        // a = act abasis
+        act = dart::find_local_dart_action(sd, bbasis, b);
+        assert(act == sd.product(b,sd.inverse(bbasis)));
+        //act = sd.product(a,sd.inverse(abasis));
+
+        assert(get_canonical_supdart(sd, opt, act) == sd.identity());
+
+
+        int8_t a_up = osd.convert(a, sd);
+        assert(get_canonical_supdart(sd, opt, a_up) == sd.identity());
+        act = sd.product(act, sd.inverse(a_up));
+
+        act = sd.product(act, bbasis);
+    } else {
+        act = dart::find_local_dart_action(osd, a, b);
+    }
+    return act;
+}
+
 int8_t get_simplex_involution_downwards(
     PrimitiveType pt, // higher dimension
     int8_t a,
@@ -25,16 +58,20 @@ int8_t get_simplex_involution_downwards(
         const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
         // canonical dart on simplex of type opt (lower type)
         const int8_t abasis = get_canonical_supdart(sd, opt, a);
-        //
+        // a = act abasis
         act = dart::find_local_dart_action(sd, abasis, a);
+        assert(act == sd.product(a,sd.inverse(abasis)));
+        //act = sd.product(a,sd.inverse(abasis));
 
         assert(get_canonical_supdart(sd, opt, act) == sd.identity());
 
-        spdlog::info("Act is {} vs identity {}", act, sd.identity());
 
         int8_t b_up = osd.convert(b, sd);
         assert(get_canonical_supdart(sd, opt, b_up) == sd.identity());
         act = sd.product(b_up, sd.inverse(act));
+
+        // act_new = b_up act^{-1}
+
         int8_t act2 = get_canonical_supdart(sd, opt, act);
         assert(act2 == sd.identity());
         act = sd.product(b_up, abasis);

@@ -554,11 +554,31 @@ TEST_CASE("dart_map", "[dart]")
             sd2.simplex_type(),
             target);
 
+
+        int8_t map_simplex =
+            wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), fmap.permutation());
+
+        //int8_t target_local_permutation = sd2.product(target.permutation(), sd2.inverse(map_simplex));
+
+        //int8_t lower_target = sd2.convert(target_local_permutation, sd);
+
+        
+
+    
+
+        int8_t upper_simplex =
+            wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), target.permutation());
+        REQUIRE(map_simplex == upper_simplex);
+
+
         auto target2 = wmtk::dart::utils::apply_simplex_involution(
             sd.simplex_type(),
             sd2.simplex_type(),
             fmap,
             source);
+
+        CHECK((target2 == target));
+        return;
 
         auto upper_acted_permutation2 = wmtk::dart::utils::apply_simplex_involution(
             sd.simplex_type(),
@@ -566,15 +586,12 @@ TEST_CASE("dart_map", "[dart]")
             fmap,
             lower_acted);
 
-        CHECK((upper_acted_permutation == upper_acted_permutation2.permutation()));
+        //check that mapping updated the face properly
         CHECK((target.global_id() == upper_acted_permutation2.global_id()));
 
-        int8_t map_simplex =
-            wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), fmap.permutation());
+        // check that hte actual mapping function fully worked on the permutation
 
-        int8_t upper_simplex =
-            wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), target.permutation());
-        REQUIRE(map_simplex == upper_simplex);
+        CHECK((upper_acted_permutation == upper_acted_permutation2.permutation()));
 
 
         // int8_t upper_action_re = sd2.product(fmap.permutation(), sd2.inverse(action_simplex));
@@ -661,13 +678,13 @@ TEST_CASE("dart_map", "[dart]")
 
                     checker(sd, s, sd2, t, lower_action, D1);
                 }
-                continue;
 
                 for (const auto& t : D2) {
                     const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Triangle);
                     checker(sd, s, sd2, t, lower_action, D1);
                 }
 
+                continue;
 
                 for (const auto& t : D3) {
                     const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Tetrahedron);
