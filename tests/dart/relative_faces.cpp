@@ -532,115 +532,118 @@ TEST_CASE("dart_subdart_permutation", "[dart]")
         checker(sd, d3210, PrimitiveType::Triangle, d2103.permutation());
     }
 }
-TEST_CASE("dart_map", "[dart]")
+
+void dart_map_checker(
+    const SimplexDart& sd,
+    const Dart& source,
+    const SimplexDart& sd2,
+    const Dart& target,
+    int8_t lower_action,
+    const auto& all_lower_darts)
 {
-    auto checker = [&](const SimplexDart& sd,
-                       const Dart& source,
-                       const SimplexDart& sd2,
-                       const Dart& target,
-                       int8_t lower_action,
-                       const auto& all_lower_darts) {
-        REQUIRE(sd.simplex_type() <= sd2.simplex_type());
-        int8_t upper_action = sd.convert(lower_action, sd2);
+    REQUIRE(sd.simplex_type() <= sd2.simplex_type());
+    int8_t upper_action = sd.convert(lower_action, sd2);
 
-        auto lower_acted = sd.act(source, lower_action);
+    auto lower_acted = sd.act(source, lower_action);
 
-        // this is lift(act * source). we want to check lift(act) lift(source)
-        auto upper_acted_permutation = sd.convert(lower_acted.permutation(), sd2);
+    // this is lift(act * source). we want to check lift(act) lift(source)
+    auto upper_acted_permutation = sd.convert(lower_acted.permutation(), sd2);
 
-        auto fmap = wmtk::dart::utils::get_simplex_involution(
-            sd.simplex_type(),
-            source,
-            sd2.simplex_type(),
-            target);
+    auto fmap = wmtk::dart::utils::get_simplex_involution(
+        sd.simplex_type(),
+        source,
+        sd2.simplex_type(),
+        target);
 
 
-        int8_t map_simplex =
-            wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), fmap.permutation());
+    int8_t map_simplex =
+        wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), fmap.permutation());
 
-        //int8_t target_local_permutation = sd2.product(target.permutation(), sd2.inverse(map_simplex));
+    // int8_t target_local_permutation = sd2.product(target.permutation(),
+    // sd2.inverse(map_simplex));
 
-        //int8_t lower_target = sd2.convert(target_local_permutation, sd);
-
-        
-
-    
-
-        int8_t upper_simplex =
-            wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), target.permutation());
-        REQUIRE(map_simplex == upper_simplex);
+    // int8_t lower_target = sd2.convert(target_local_permutation, sd);
 
 
-        auto target2 = wmtk::dart::utils::apply_simplex_involution(
-            sd.simplex_type(),
-            sd2.simplex_type(),
-            fmap,
-            source);
-
-        CHECK((target2 == target));
-        return;
-
-        auto upper_acted_permutation2 = wmtk::dart::utils::apply_simplex_involution(
-            sd.simplex_type(),
-            sd2.simplex_type(),
-            fmap,
-            lower_acted);
-
-        //check that mapping updated the face properly
-        CHECK((target.global_id() == upper_acted_permutation2.global_id()));
-
-        // check that hte actual mapping function fully worked on the permutation
-
-        CHECK((upper_acted_permutation == upper_acted_permutation2.permutation()));
+    int8_t upper_simplex =
+        wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), target.permutation());
+    REQUIRE(map_simplex == upper_simplex);
 
 
-        // int8_t upper_action_re = sd2.product(fmap.permutation(), sd2.inverse(action_simplex));
+    auto target2 = wmtk::dart::utils::apply_simplex_involution(
+        sd.simplex_type(),
+        sd2.simplex_type(),
+        fmap,
+        source);
 
-        // int8_t lowered_action = sd2.convert(upper_action_re, sd);
-        // CHECK(lowered_action == lower_action);
-        // CHECK(upper_action == upper_action_re);
+    CHECK((target2 == target));
+    return;
+
+    auto upper_acted_permutation2 = wmtk::dart::utils::apply_simplex_involution(
+        sd.simplex_type(),
+        sd2.simplex_type(),
+        fmap,
+        lower_acted);
+
+    // check that mapping updated the face properly
+    CHECK((target.global_id() == upper_acted_permutation2.global_id()));
+
+    // check that hte actual mapping function fully worked on the permutation
+
+    CHECK((upper_acted_permutation == upper_acted_permutation2.permutation()));
 
 
-        // auto bmap = wmtk::dart::utils::get_simplex_involution(
-        //     sd2.simplex_type(),
-        //     target,
-        //     sd.simplex_type(),
-        //     source);
-        ////forward/backward map
-        // const auto [fmap2, bmap2] = wmtk::dart::utils::get_simplex_involution_pair(
-        //     sd.simplex_type(),
-        //     source,
-        //     sd2.simplex_type(),
-        //     target);
-        // CHECK((fmap == fmap2));
-        // CHECK((bmap == bmap2));
+    // int8_t upper_action_re = sd2.product(fmap.permutation(), sd2.inverse(action_simplex));
+
+    // int8_t lowered_action = sd2.convert(upper_action_re, sd);
+    // CHECK(lowered_action == lower_action);
+    // CHECK(upper_action == upper_action_re);
 
 
-        for (const auto& lower_dart : all_lower_darts) {
-            // this just checks standard commutativity of ocnvert
-            int8_t lower_permutation = lower_dart.permutation();
-            int8_t upper_permutation = sd.convert(lower_permutation, sd2);
-            int8_t lower_permutation2 = sd.product(lower_action, lower_permutation);
-            int8_t upper_permutation2 = sd2.product(upper_action, upper_permutation);
+    // auto bmap = wmtk::dart::utils::get_simplex_involution(
+    //     sd2.simplex_type(),
+    //     target,
+    //     sd.simplex_type(),
+    //     source);
+    ////forward/backward map
+    // const auto [fmap2, bmap2] = wmtk::dart::utils::get_simplex_involution_pair(
+    //     sd.simplex_type(),
+    //     source,
+    //     sd2.simplex_type(),
+    //     target);
+    // CHECK((fmap == fmap2));
+    // CHECK((bmap == bmap2));
 
-            CHECK(sd.convert(lower_permutation2, sd2) == upper_permutation2);
-            // CHECK(
-            //     sd2.product(fmap.permutation(), sd.convert(lower_permutation, sd2)) ==
-            //     upper_permutation2);
 
-            //     (target2 = wmtk::dart::utils::apply_simplex_involution(
-            //          sd.simplex_type(),
-            //          fmap,
-            //          sd2.simplex_type(),
-            //          source2)));
-            // CHECK(
-            //     (source2 = wmtk::dart::utils::apply_simplex_involution(
-            //          sd2.simplex_type(),
-            //          bmap,
-            //          sd.simplex_type(),
-            //          target2)));
-        }
-    };
+    for (const auto& lower_dart : all_lower_darts) {
+        // this just checks standard commutativity of ocnvert
+        int8_t lower_permutation = lower_dart.permutation();
+        int8_t upper_permutation = sd.convert(lower_permutation, sd2);
+        int8_t lower_permutation2 = sd.product(lower_action, lower_permutation);
+        int8_t upper_permutation2 = sd2.product(upper_action, upper_permutation);
+
+        CHECK(sd.convert(lower_permutation2, sd2) == upper_permutation2);
+        // CHECK(
+        //     sd2.product(fmap.permutation(), sd.convert(lower_permutation, sd2)) ==
+        //     upper_permutation2);
+
+        //     (target2 = wmtk::dart::utils::apply_simplex_involution(
+        //          sd.simplex_type(),
+        //          fmap,
+        //          sd2.simplex_type(),
+        //          source2)));
+        // CHECK(
+        //     (source2 = wmtk::dart::utils::apply_simplex_involution(
+        //          sd2.simplex_type(),
+        //          bmap,
+        //          sd.simplex_type(),
+        //          target2)));
+    }
+}
+
+
+TEST_CASE("dart_map_1d_same_dim_map", "[dart]")
+{
     {
         constexpr static PrimitiveType pt = PrimitiveType::Edge;
         const auto& sd = SimplexDart::get_singleton(pt);
@@ -669,88 +672,94 @@ TEST_CASE("dart_map", "[dart]")
                 //     );
             }
         }
+    }
+}
 
-        for (const auto& s : D1) {
-            for (const auto& a : D1) {
-                int8_t lower_action = a.permutation();
-                for (const auto& t : D1) {
-                    const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Edge);
+TEST_CASE("dart_map_1d", "[dart]")
+{
+    constexpr static PrimitiveType pt = PrimitiveType::Edge;
+    const auto& sd = SimplexDart::get_singleton(pt);
+    for (const auto& s : D1) {
+        for (const auto& a : D1) {
+            int8_t lower_action = a.permutation();
+            for (const auto& t : D1) {
+                const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Edge);
 
-                    checker(sd, s, sd2, t, lower_action, D1);
-                }
+                dart_map_checker(sd, s, sd2, t, lower_action, D1);
+            }
 
-                for (const auto& t : D2) {
-                    const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Triangle);
-                    checker(sd, s, sd2, t, lower_action, D1);
-                }
+            for (const auto& t : D2) {
+                const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Triangle);
+                dart_map_checker(sd, s, sd2, t, lower_action, D1);
+            }
 
-                continue;
+            continue;
 
-                for (const auto& t : D3) {
-                    const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Tetrahedron);
-                    checker(sd, s, sd2, t, lower_action, D1);
-                }
+            for (const auto& t : D3) {
+                const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Tetrahedron);
+                dart_map_checker(sd, s, sd2, t, lower_action, D1);
             }
         }
     }
-    return;
-    {
-        constexpr static PrimitiveType pt = PrimitiveType::Triangle;
-        const auto& sd = SimplexDart::get_singleton(pt);
+}
+TEST_CASE("dart_map_2d", "[dart]")
+{
+    constexpr static PrimitiveType pt = PrimitiveType::Triangle;
+    const auto& sd = SimplexDart::get_singleton(pt);
 
-        const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
-        const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
+    const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
+    const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
 
-        const Dart a = d012;
-        const Dart b = d021;
-        const Dart c = d102;
-        const Dart d = d120;
-        const Dart e = d201;
-        const Dart f = d210;
-
-
-        // checker(sd, a, PrimitiveType::Vertex, {a, b});
-        // checker(sd, c, PrimitiveType::Vertex, {c, d});
-        // checker(sd, e, PrimitiveType::Vertex, {e, f});
-
-        // checker(sd, a, PrimitiveType::Edge, {a, c});
-        // checker(sd, b, PrimitiveType::Edge, {b, e});
-        // checker(sd, d, PrimitiveType::Edge, {d, f});
-
-        // checker(sd, a, PrimitiveType::Triangle, {a, b, c, d, e, f});
-    }
-    {
-        constexpr static PrimitiveType pt = PrimitiveType::Tetrahedron;
-        const auto& sd = SimplexDart::get_singleton(pt);
-
-        const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
-        const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
-        const int8_t SF = sd.permutation_index_from_primitive_switch(PrimitiveType::Triangle);
+    const Dart a = d012;
+    const Dart b = d021;
+    const Dart c = d102;
+    const Dart d = d120;
+    const Dart e = d201;
+    const Dart f = d210;
 
 
-        // checker(sd, d0123, PrimitiveType::Vertex, {d0123, d0132, d0213, d0231, d0312, d0321});
-        // checker(sd, d1023, PrimitiveType::Vertex, {d1023, d1032, d1203, d1230, d1302, d1320});
-        // checker(sd, d2013, PrimitiveType::Vertex, {d2013, d2031, d2103, d2130, d2301, d2310});
-        // checker(sd, d3012, PrimitiveType::Vertex, {d3012, d3021, d3102, d3120, d3201, d3210});
+    // checker(sd, a, PrimitiveType::Vertex, {a, b});
+    // checker(sd, c, PrimitiveType::Vertex, {c, d});
+    // checker(sd, e, PrimitiveType::Vertex, {e, f});
+
+    // checker(sd, a, PrimitiveType::Edge, {a, c});
+    // checker(sd, b, PrimitiveType::Edge, {b, e});
+    // checker(sd, d, PrimitiveType::Edge, {d, f});
+
+    // checker(sd, a, PrimitiveType::Triangle, {a, b, c, d, e, f});
+}
+TEST_CASE("dart_map_3d", "[dart]")
+{
+    constexpr static PrimitiveType pt = PrimitiveType::Tetrahedron;
+    const auto& sd = SimplexDart::get_singleton(pt);
+
+    const int8_t SV = sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex);
+    const int8_t SE = sd.permutation_index_from_primitive_switch(PrimitiveType::Edge);
+    const int8_t SF = sd.permutation_index_from_primitive_switch(PrimitiveType::Triangle);
 
 
-        // checker(sd, d0123, PrimitiveType::Edge, {d0123, d0132, d1023, d1032});
-        // checker(sd, d0213, PrimitiveType::Edge, {d0213, d0231, d2013, d2031});
-        // checker(sd, d0312, PrimitiveType::Edge, {d0312, d0321, d3012, d3021});
-        // checker(sd, d1203, PrimitiveType::Edge, {d1203, d1230, d2103, d2130});
-        // checker(sd, d1302, PrimitiveType::Edge, {d1302, d1320, d3102, d3120});
-        // checker(sd, d2301, PrimitiveType::Edge, {d2301, d2310, d3201, d3210});
+    // checker(sd, d0123, PrimitiveType::Vertex, {d0123, d0132, d0213, d0231, d0312, d0321});
+    // checker(sd, d1023, PrimitiveType::Vertex, {d1023, d1032, d1203, d1230, d1302, d1320});
+    // checker(sd, d2013, PrimitiveType::Vertex, {d2013, d2031, d2103, d2130, d2301, d2310});
+    // checker(sd, d3012, PrimitiveType::Vertex, {d3012, d3021, d3102, d3120, d3201, d3210});
 
 
-        // checker(sd, d1230, PrimitiveType::Triangle, {d1230, d1320, d2130, d2310, d3120, d3210});
-        // checker(sd, d0231, PrimitiveType::Triangle, {d0231, d0321, d2031, d2301, d3021, d3201});
-        // checker(sd, d0132, PrimitiveType::Triangle, {d0132, d0312, d1032, d1302, d3012, d3102});
-        // checker(sd, d0123, PrimitiveType::Triangle, {d0123, d0213, d1023, d1203, d2013, d2103});
+    // checker(sd, d0123, PrimitiveType::Edge, {d0123, d0132, d1023, d1032});
+    // checker(sd, d0213, PrimitiveType::Edge, {d0213, d0231, d2013, d2031});
+    // checker(sd, d0312, PrimitiveType::Edge, {d0312, d0321, d3012, d3021});
+    // checker(sd, d1203, PrimitiveType::Edge, {d1203, d1230, d2103, d2130});
+    // checker(sd, d1302, PrimitiveType::Edge, {d1302, d1320, d3102, d3120});
+    // checker(sd, d2301, PrimitiveType::Edge, {d2301, d2310, d3201, d3210});
 
-        // checker(sd, d0123, PrimitiveType::Tetrahedron, {d1230, d1320, d2130, d2310, d3120, d3210,
-        //                                                 d0231, d0321, d2031, d2301, d3021, d3201,
-        //                                                 d0132, d0312, d1032, d1302, d3012, d3102,
-        //                                                 d0123, d0213, d1023, d1203, d2013,
-        //                                                 d2103});
-    }
+
+    // checker(sd, d1230, PrimitiveType::Triangle, {d1230, d1320, d2130, d2310, d3120, d3210});
+    // checker(sd, d0231, PrimitiveType::Triangle, {d0231, d0321, d2031, d2301, d3021, d3201});
+    // checker(sd, d0132, PrimitiveType::Triangle, {d0132, d0312, d1032, d1302, d3012, d3102});
+    // checker(sd, d0123, PrimitiveType::Triangle, {d0123, d0213, d1023, d1203, d2013, d2103});
+
+    // checker(sd, d0123, PrimitiveType::Tetrahedron, {d1230, d1320, d2130, d2310, d3120, d3210,
+    //                                                 d0231, d0321, d2031, d2301, d3021, d3201,
+    //                                                 d0132, d0312, d1032, d1302, d3012, d3102,
+    //                                                 d0123, d0213, d1023, d1203, d2013,
+    //                                                 d2103});
 }

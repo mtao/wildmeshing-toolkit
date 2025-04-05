@@ -32,7 +32,9 @@ bool MapValidator::check_child_map_attributes_valid() const
     bool ok = true;
     for (const auto& [cptr, attr] : m_mesh.m_multi_mesh_manager.m_children) {
         const auto& child = *cptr;
+#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
         auto map_accessor = m_mesh.create_const_accessor(attr);
+#endif
 
         for (int64_t j = 0; j < child.top_cell_dimension(); ++j) {
             wmtk::PrimitiveType prim_type = wmtk::PrimitiveType(j);
@@ -93,7 +95,6 @@ bool MapValidator::check_parent_map_attribute_valid() const
     }
     const auto& attr = m_mesh.m_multi_mesh_manager.map_to_parent_handle;
     const auto& parent = *parent_ptr;
-    auto map_accessor = m_mesh.create_const_accessor(attr);
 
     wmtk::PrimitiveType prim_type = m_mesh.top_simplex_type();
 
@@ -101,6 +102,8 @@ bool MapValidator::check_parent_map_attribute_valid() const
     auto [parent_to_me, me_to_parent] =
         parent.m_multi_mesh_manager.get_map_const_accessors(parent, m_mesh);
             const auto& sd = dart::SimplexDart::get_singleton(m_mesh.top_simplex_type());
+#else
+    auto map_accessor = m_mesh.create_const_accessor(attr);
 #endif
     for (const auto& source_tuple : m_mesh.get_all(prim_type)) {
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
