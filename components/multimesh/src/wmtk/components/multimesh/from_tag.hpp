@@ -1,5 +1,4 @@
 #pragma once
-#include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
 #include "MultimeshRunnableOptions.hpp"
 #include "utils/AttributeDescription.hpp"
 
@@ -37,7 +36,6 @@ struct MultimeshTagOptions : public MultimeshRunnableOptions
     ~MultimeshTagOptions() override;
     utils::AttributeDescription tag_attribute;
     wmtk::attribute::MeshAttributeHandle::ValueVariant value;
-    mesh_info::transfer::TransferStrategyFactoryCollection creation_attributes;
     std::string output_mesh_name;
     bool delete_tag_attribute = false;
     FromTagOptions toTagOptions(const MeshCollection& mc) const;

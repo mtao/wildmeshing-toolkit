@@ -15,6 +15,9 @@ set(SRC_FILES
     simplex/dihedral_angles.hpp
     simplex/dihedral_angles.cpp
     simplex/operators/DihedralAngleOperator.hpp
+
+    multimesh_from_attribute.hpp
+    multimesh_from_attribute.cpp
 )
 
 

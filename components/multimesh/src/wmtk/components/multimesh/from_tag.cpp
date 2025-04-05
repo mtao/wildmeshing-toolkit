@@ -69,19 +69,11 @@ FromTagOptions MultimeshTagOptions::toTagOptions(const MeshCollection& mc) const
 }
 void MultimeshTagOptions::run(MeshCollection& mc) const
 {
-    std::vector<wmtk::attribute::MeshAttributeHandle> attributes_to_delete;
-    for (const auto& transfer : creation_attributes) {
-        attributes_to_delete.emplace_back(transfer->create(mc)->handle());
-    }
-
     auto tag_opts = toTagOptions(mc);
     auto mptr = from_tag(tag_opts);
     auto& nmm = mc.get_named_multimesh(tag_attribute.path);
     nmm.set_name(*mptr, output_mesh_name);
 
-    for (auto& attr : attributes_to_delete) {
-        attr.mesh().delete_attribute(attr);
-    }
     if (delete_tag_attribute) {
         if (tag_opts.mesh.handle.exists()) {
             tag_opts.mesh.handle.mesh().delete_attribute(tag_opts.mesh.handle);
@@ -95,7 +87,7 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshTagOptions)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(tag_attribute, output_mesh_name, delete_tag_attribute);
 
-    nlohmann_json_j["creation_attributes"] = nlohmann_json_t.creation_attributes;
+    //nlohmann_json_j["creation_attributes"] = nlohmann_json_t.creation_attributes;
     std::visit(
         [&] (const auto& v) noexcept {
             if constexpr (std::is_same_v<std::decay_t<decltype(v)>, wmtk::Rational>) {
@@ -115,9 +107,9 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshTagOptions)
         nlohmann_json_t.delete_tag_attribute = false;
     }
     const auto& type_opt = nlohmann_json_t.tag_attribute.type;
-    if (nlohmann_json_j.contains("creation_attributes")) {
-        nlohmann_json_t.creation_attributes = nlohmann_json_j["creation_attributes"];
-    }
+    //if (nlohmann_json_j.contains("creation_attributes")) {
+    //    nlohmann_json_t.creation_attributes = nlohmann_json_j["creation_attributes"];
+    //}
     attribute::AttributeType type;
     if (type_opt.has_value()) {
         type = *type_opt;
