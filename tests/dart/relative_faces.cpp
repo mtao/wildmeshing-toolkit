@@ -585,7 +585,7 @@ void dart_map_checker(
     spdlog::info("Map obtained was {}",
             fmt::join(dart::utils::get_local_vertex_permutation(sd2.simplex_type(), fmap.permutation()),","));
 
-    REQUIRE(fmap == fmap2);
+    REQUIRE((fmap == fmap2));
 
 
     auto target2 = wmtk::dart::utils::apply_simplex_involution(
