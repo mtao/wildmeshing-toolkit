@@ -675,6 +675,50 @@ TEST_CASE("dart_map_1d_same_dim_map", "[dart]")
     }
 }
 
+TEST_CASE("dart_map_1d_1d", "[dart]")
+{
+    constexpr static PrimitiveType pt = PrimitiveType::Edge;
+    const auto& sd = SimplexDart::get_singleton(pt);
+    const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Edge);
+    for (const auto& s : D1) {
+        for (const auto& a : D1) {
+            int8_t lower_action = a.permutation();
+            for (const auto& t : D1) {
+                dart_map_checker(sd, s, sd2, t, lower_action, D1);
+            }
+        }
+    }
+}
+TEST_CASE("dart_map_1d_2d", "[dart]")
+{
+    constexpr static PrimitiveType pt = PrimitiveType::Edge;
+    const auto& sd = SimplexDart::get_singleton(pt);
+    const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Triangle);
+    for (const auto& s : D1) {
+        for (const auto& a : D1) {
+            int8_t lower_action = a.permutation();
+
+            for (const auto& t : D2) {
+                dart_map_checker(sd, s, sd2, t, lower_action, D1);
+            }
+        }
+    }
+}
+TEST_CASE("dart_map_1d_3d", "[dart]")
+{
+    constexpr static PrimitiveType pt = PrimitiveType::Edge;
+    const auto& sd = SimplexDart::get_singleton(pt);
+    const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Tetrahedron);
+    for (const auto& s : D1) {
+        for (const auto& a : D1) {
+            int8_t lower_action = a.permutation();
+
+            for (const auto& t : D3) {
+                dart_map_checker(sd, s, sd2, t, lower_action, D1);
+            }
+        }
+    }
+}
 TEST_CASE("dart_map_1d", "[dart]")
 {
     constexpr static PrimitiveType pt = PrimitiveType::Edge;
