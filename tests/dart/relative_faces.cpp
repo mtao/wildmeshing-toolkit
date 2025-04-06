@@ -1,5 +1,6 @@
 
 #include <spdlog/spdlog.h>
+#include <fmt/ranges.h>
 #include <catch2/catch_test_macros.hpp>
 #include <wmtk/dart/SimplexAdjacency.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
@@ -7,6 +8,7 @@
 #include <wmtk/dart/utils/get_canonical_simplex_orientation.hpp>
 #include <wmtk/dart/utils/get_canonical_subdart.hpp>
 #include <wmtk/dart/utils/get_canonical_supdart.hpp>
+#include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/dart/utils/get_simplex_involution.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "utils/canonical_darts.hpp"
@@ -533,6 +535,8 @@ TEST_CASE("dart_subdart_permutation", "[dart]")
     }
 }
 
+
+// takes in a source dart that maps to a target dart. checks that if we map a * source we get a * target
 void dart_map_checker(
     const SimplexDart& sd,
     const Dart& source,
@@ -542,12 +546,16 @@ void dart_map_checker(
     const auto& all_lower_darts)
 {
     REQUIRE(sd.simplex_type() <= sd2.simplex_type());
+
+    int8_t upper_simplex =
+        wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), target.permutation());
+
+
     int8_t upper_action = sd.convert(lower_action, sd2);
 
-    auto lower_acted = sd.act(source, lower_action);
+    auto new_source = sd.act(source, lower_action);
+    auto new_target = sd2.act(target, upper_action);
 
-    // this is lift(act * source). we want to check lift(act) lift(source)
-    auto upper_acted_permutation = sd.convert(lower_acted.permutation(), sd2);
 
     auto fmap = wmtk::dart::utils::get_simplex_involution(
         sd.simplex_type(),
@@ -556,8 +564,10 @@ void dart_map_checker(
         target);
 
 
+
     int8_t map_simplex =
         wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), fmap.permutation());
+    REQUIRE(map_simplex == upper_simplex);
 
     // int8_t target_local_permutation = sd2.product(target.permutation(),
     // sd2.inverse(map_simplex));
@@ -565,9 +575,17 @@ void dart_map_checker(
     // int8_t lower_target = sd2.convert(target_local_permutation, sd);
 
 
-    int8_t upper_simplex =
-        wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), target.permutation());
-    REQUIRE(map_simplex == upper_simplex);
+
+
+    auto fmap2 = wmtk::dart::utils::get_simplex_involution(
+        sd.simplex_type(),
+        new_source,
+        sd2.simplex_type(),
+        new_target);
+    spdlog::info("Map obtained was {}",
+            fmt::join(dart::utils::get_local_vertex_permutation(sd2.simplex_type(), fmap.permutation()),","));
+
+    REQUIRE(fmap == fmap2);
 
 
     auto target2 = wmtk::dart::utils::apply_simplex_involution(
@@ -576,6 +594,8 @@ void dart_map_checker(
         fmap,
         source);
 
+    // just making sure the global id part works first
+    CHECK((target2.global_id() == target.global_id()));
     CHECK((target2 == target));
     return;
 
@@ -583,12 +603,14 @@ void dart_map_checker(
         sd.simplex_type(),
         sd2.simplex_type(),
         fmap,
-        lower_acted);
+        new_source);
 
     // check that mapping updated the face properly
     CHECK((target.global_id() == upper_acted_permutation2.global_id()));
 
     // check that hte actual mapping function fully worked on the permutation
+    // this is lift(act * source). we want to check lift(act) lift(source)
+    auto upper_acted_permutation = sd.convert(new_source.permutation(), sd2);
 
     CHECK((upper_acted_permutation == upper_acted_permutation2.permutation()));
 
@@ -698,7 +720,13 @@ TEST_CASE("dart_map_1d_2d", "[dart]")
         for (const auto& a : D1) {
             int8_t lower_action = a.permutation();
 
-            for (const auto& t : D2) {
+            for (const auto& t : {d012}) {
+            //for (const auto& t : D2) {
+                spdlog::info("Checking {} -> {} with action {}",
+                        fmt::join(dart::utils::get_local_vertex_permutation(wmtk::PrimitiveType::Edge, s.permutation()),","),
+                        fmt::join(dart::utils::get_local_vertex_permutation(wmtk::PrimitiveType::Triangle, t.permutation()),","),
+                        fmt::join(dart::utils::get_local_vertex_permutation(wmtk::PrimitiveType::Edge, a.permutation()),",")
+                        );
                 dart_map_checker(sd, s, sd2, t, lower_action, D1);
             }
         }

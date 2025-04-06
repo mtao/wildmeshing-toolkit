@@ -55,7 +55,7 @@ const wmtk::dart::Dart d3120 = {0, v(3, 1, 2, 0)};
 const wmtk::dart::Dart d3201 = {0, v(3, 2, 0, 1)};
 const wmtk::dart::Dart d3210 = {0, v(3, 2, 1, 0)};
 
-extern const std::array<wmtk::dart::Dart, 2> D1 = {{d01, d01}};
+extern const std::array<wmtk::dart::Dart, 2> D1 = {{d01, d10}};
 
 extern const std::array<wmtk::dart::Dart, 6> D2 = {{d012, d021, d102, d120, d201, d210}};
 
