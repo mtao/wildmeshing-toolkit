@@ -5,7 +5,7 @@
 namespace wmtk::dart::utils {
 
 // pt >= opt
-int8_t get_simplex_involution_downwards(PrimitiveType pt, int8_t a, PrimitiveType opt, int8_t b);
+//int8_t get_simplex_involution_downwards(PrimitiveType pt, int8_t a, PrimitiveType opt, int8_t b);
 
 
 // encodes the map from (pt, a) to (opt,oa) as ( oa L_{pt->opt}(a^{-1}) * canonical_supdart(a))

@@ -7,7 +7,11 @@ namespace wmtk::dart::utils {
 
 // let a be a k-dart and b be a j-dart (k >= j)
 // We want an operator such that for any $k$-dart that shares $j$-simplex with $a$ wehave a^{-1}
-// jkjk
+// LEt C be teh canonical supdart of b. Then let
+// d = b C^{-1}  <- the left action from the canonical supdart to b
+// encode a^{-1}bC^{-1}
+//
+//
 
 int8_t get_simplex_involution_upward(
     PrimitiveType opt, // lower dimension
@@ -22,27 +26,21 @@ int8_t get_simplex_involution_upward(
     int8_t act;
     if (pt != opt) {
         const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
-        // canonical dart on simplex of type opt (lower type)
-        const int8_t bbasis = get_canonical_supdart(sd, opt, b);
-        // a = act abasis
-        act = dart::find_local_dart_action(sd, bbasis, b);
-        assert(act == sd.product(b,sd.inverse(bbasis)));
-        //act = sd.product(a,sd.inverse(abasis));
-
-        assert(get_canonical_supdart(sd, opt, act) == sd.identity());
-
-
         int8_t a_up = osd.convert(a, sd);
-        assert(get_canonical_supdart(sd, opt, a_up) == sd.identity());
-        act = sd.product(act, sd.inverse(a_up));
+        // assert(get_canonical_supdart(sd, opt, a_up) == sd.identity());
+        int8_t bbasis = get_canonical_supdart(sd, opt, b);
 
-        act = sd.product(act, bbasis);
+        int8_t b_local = sd.product(b, sd.inverse(bbasis));
+
+        act = sd.product(sd.inverse(a_up), b);
     } else {
         act = dart::find_local_dart_action(osd, a, b);
     }
     return act;
 }
 
+
+/*
 int8_t get_simplex_involution_downwards(
     PrimitiveType pt, // higher dimension
     int8_t a,
@@ -80,13 +78,24 @@ int8_t get_simplex_involution_downwards(
     }
     return act;
 }
+*/
 int8_t get_simplex_involution(PrimitiveType pt, const int8_t& a, PrimitiveType opt, const int8_t& b)
 {
+    /*
     int8_t ret;
     if (pt >= opt) {
         ret = get_simplex_involution_downwards(pt, a, opt, b);
     } else {
         ret = get_simplex_involution_downwards(opt, b, pt, a);
+    }
+    return ret;
+    */
+
+    int8_t ret;
+    if (pt <= opt) {
+        ret = get_simplex_involution_upward(pt, a, opt, b);
+    } else {
+        ret = get_simplex_involution_upward(opt, b, pt, a);
     }
     return ret;
 }
