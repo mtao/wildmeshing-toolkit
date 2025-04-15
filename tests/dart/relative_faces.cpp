@@ -547,7 +547,7 @@ void dart_map_checker(
     const auto& all_lower_darts)
 {
     REQUIRE(sd.simplex_type() <= sd2.simplex_type());
-    spdlog::info(
+    spdlog::error(
         "Mapping {} -> {} with action {}",
         fmt::join(
             dart::utils::get_local_vertex_permutation(sd.simplex_type(), source.permutation()),
@@ -567,6 +567,25 @@ void dart_map_checker(
 
     auto new_source = sd.act(source, lower_action);
     auto new_target = sd2.act(target, upper_action);
+
+    spdlog::info(
+        "Source products: {} x {} -> {} (got {})",
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd.simplex_type(), source.permutation()),
+            ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd.simplex_type(), lower_action),
+            ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd.simplex_type(), sd.product(lower_action,source.permutation())),
+            ","),
+
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd.simplex_type(), new_source.permutation()),
+            ",")
+
+    );
+
 
     spdlog::info(
         "With action we should have {} -> {}",

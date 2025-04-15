@@ -1,8 +1,12 @@
-#include "get_simplex_involution.hpp"
+// print debug, TODO: remove
 #include <spdlog/spdlog.h>
+#include <fmt/ranges.h>
+//
+#include "get_simplex_involution.hpp"
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/find_local_dart_action.hpp>
 #include "get_canonical_supdart.hpp"
+#include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 namespace wmtk::dart::utils {
 
 // let a be a k-dart and b be a j-dart (k >= j)
@@ -30,7 +34,13 @@ int8_t get_simplex_involution_upward(
         // assert(get_canonical_supdart(sd, opt, a_up) == sd.identity());
         int8_t bbasis = get_canonical_supdart(sd, opt, b);
 
+        spdlog::info("{}",
+                fmt::join(dart::utils::get_local_vertex_permutation(pt, bbasis),","));
         int8_t b_local = sd.product(b, sd.inverse(bbasis));
+
+
+        spdlog::info("local action is {}",
+                fmt::join(dart::utils::get_local_vertex_permutation(pt, b_local),","));
 
         act = sd.product(sd.inverse(a_up), b);
     } else {

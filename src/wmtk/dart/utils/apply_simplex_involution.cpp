@@ -1,3 +1,8 @@
+// print debug, TODO: remove
+#include <spdlog/spdlog.h>
+#include <fmt/ranges.h>
+#include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
+//
 
 #include "apply_simplex_involution.hpp"
 #include <wmtk/dart/SimplexDart.hpp>
@@ -22,6 +27,11 @@ int8_t apply_simplex_involution_directed(
 
     if (upward) {
         int8_t lifted_source = sd.convert(source, osd);
+
+        spdlog::info("source {} lifted to {}",
+                fmt::join(dart::utils::get_local_vertex_permutation(pt, source),","),
+                fmt::join(dart::utils::get_local_vertex_permutation(opt, lifted_source),",")
+                );
 
         local_action = osd.inverse(local_action);
         return osd.product(osd.product(local_action, lifted_source), canonical_orientation);
