@@ -38,16 +38,18 @@ int main(int argc, char* argv[])
 {
     h5pp::File file(argv[1], h5pp::FileAccess::READONLY);
 
-    std::filesystem::path p = "/meshes";
-    auto groups = file.findGroups("","/meshes",-1,0);
-    spdlog::info("{}", groups.size());
-    for(const auto& g: groups) {
-        spdlog::info("{}", g);
-        FusedOutput fo;
-        fo.load(file, p/g);
-    }
-
-
+    FusedOutput fo;
+    fo.load(file, "/");
+    /*
+std::filesystem::path p = "/meshes";
+auto groups = file.findGroups("","/meshes",-1,0);
+spdlog::info("{}", groups.size());
+for(const auto& g: groups) {
+    spdlog::info("{}", g);
+    FusedOutput fo;
+    fo.load(file, p/g);
+}
+*/
 }
 /*
 int main(int argc, char* argv[])
