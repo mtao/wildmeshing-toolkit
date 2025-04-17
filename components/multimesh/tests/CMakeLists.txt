@@ -6,6 +6,8 @@ add_component_test(wmtk::${COMPONENT_NAME}
     utils.cpp
 
     json.cpp
+
+    utils/concatenate.cpp
 )
 
 target_link_libraries(${WMTK_COMPONENT_TEST_TARGET} PRIVATE wmtk::input)

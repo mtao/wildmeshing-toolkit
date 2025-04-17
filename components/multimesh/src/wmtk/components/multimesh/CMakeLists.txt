@@ -51,6 +51,9 @@ set(SRC_FILES
     utils/detail/attribute_missing_error.hpp
     utils/detail/attribute_missing_error.cpp
 
+    utils/concatenate.hpp
+    utils/concatenate.cpp
+
     MultimeshOptions.hpp
     MultimeshOptions.cpp
     MultimeshRunnableOptions.hpp
