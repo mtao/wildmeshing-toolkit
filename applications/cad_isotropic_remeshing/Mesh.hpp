@@ -21,6 +21,8 @@ struct Topology {
 	std::map<int64_t, std::vector<int64_t>> feature_edge_to_vids_chain;
 	std::map<int64_t, int64_t> corner_to_vid;
     void load( h5pp::File& file, const std::filesystem::path& path);
+
+
 };
 
 struct FusedOutput {
