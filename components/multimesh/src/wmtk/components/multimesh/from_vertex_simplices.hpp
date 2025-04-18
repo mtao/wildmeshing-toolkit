@@ -11,12 +11,17 @@ namespace attribute {
 class MeshAttributeHandle;
 
 }
+namespace utils::internal {
+    class IndexSimplexMapper;
+}
 } // namespace wmtk
 namespace wmtk::components::multimesh {
+std::vector<std::array<Tuple, 2>>
+from_vertex_simplices_map(Mesh& parent, const wmtk::utils::internal::IndexSimplexMapper& indexer, const MatrixXl& l);
 
-std::vector<std::pair<Tuple, Tuple>>
-from_vertex_simplices_map(Mesh& parent, const MatrixXl& l, const std::string_view& name);
+std::vector<std::array<Tuple, 2>>
+from_vertex_simplices_map(Mesh& parent, const MatrixXl& l);
 std::shared_ptr<Mesh>
-from_vertex_simplices(Mesh& parent, const MatrixXl& l, const std::string_view& name);
+from_vertex_simplices(Mesh& parent, const MatrixXl& l);
 
 } // namespace wmtk::components::multimesh

@@ -14,66 +14,75 @@
 
 #include <wmtk/Types.hpp>
 #include "from_facet_bijection.hpp"
+#include "wmtk/utils/internal/IndexSimplexMapper.hpp"
 
 
 namespace wmtk::components::multimesh {
+/*
 std::shared_ptr<Mesh>
 from_vertex_simplices(EdgeMesh& parent, const MatrixXl& l, const std::string_view& name)
 {
-    wmtk::utils::EigenMatrixWriter writer;
-    parent.serialize(writer);
-    MatrixXl S = writer.get_simplex_vertex_matrix();
-    // auto h = parent.get_attribute_handle<int64_t>("m_ev_handle", wmtk::PrimitiveType::Edge);
-    // assert(h.is_valid());
-    return nullptr;
+wmtk::utils::EigenMatrixWriter writer;
+parent.serialize(writer);
+MatrixXl S = writer.get_simplex_vertex_matrix();
+// auto h = parent.get_attribute_handle<int64_t>("m_ev_handle", wmtk::PrimitiveType::Edge);
+// assert(h.is_valid());
+return nullptr;
 }
 std::shared_ptr<Mesh>
 from_vertex_simplices(TriMesh& parent, const MatrixXl& l, const std::string_view& name)
 {
-    wmtk::utils::EigenMatrixWriter writer;
-    parent.serialize(writer);
-    MatrixXl S = writer.get_simplex_vertex_matrix();
-    // auto h = parent.get_attribute_handle<int64_t>("m_fv_handle", wmtk::PrimitiveType::Triangle);
-    // assert(h.is_valid());
-    return nullptr;
+wmtk::utils::EigenMatrixWriter writer;
+parent.serialize(writer);
+MatrixXl S = writer.get_simplex_vertex_matrix();
+// auto h = parent.get_attribute_handle<int64_t>("m_fv_handle", wmtk::PrimitiveType::Triangle);
+// assert(h.is_valid());
+return nullptr;
 }
 std::shared_ptr<Mesh>
 from_vertex_simplices(TetMesh& parent, const MatrixXl& l, const std::string_view& name)
 {
-    wmtk::utils::EigenMatrixWriter writer;
-    parent.serialize(writer);
-    MatrixXl S = writer.get_simplex_vertex_matrix();
-    // auto h = parent.get_attribute_handle<int64_t>("m_tv_handle",
-    // wmtk::PrimitiveType::Tetrahedron); assert(h.is_valid());
-    return nullptr;
+wmtk::utils::EigenMatrixWriter writer;
+parent.serialize(writer);
+MatrixXl S = writer.get_simplex_vertex_matrix();
+// auto h = parent.get_attribute_handle<int64_t>("m_tv_handle",
+// wmtk::PrimitiveType::Tetrahedron); assert(h.is_valid());
+return nullptr;
 }
+*/
+std::vector<std::array<Tuple, 2>> from_vertex_simplices_map(
+    Mesh& parent,
+    const wmtk::utils::internal::IndexSimplexMapper& indexer,
+    const MatrixXl& l)
+{}
 
-std::vector<std::pair<Tuple, Tuple>>
-from_vertex_simplices_map(Mesh& parent, const MatrixXl& l, const std::string_view& name)
+std::vector<std::array<Tuple, 2>> from_vertex_simplices_map(Mesh& parent, const MatrixXl& l)
 {
-    return {};
+    return from_vertex_simplices_map(parent, wmtk::utils::internal::IndexSimplexMapper(parent), l);
 }
-std::shared_ptr<Mesh>
-from_vertex_simplices(Mesh& parent, const MatrixXl& l, const std::string_view& name)
+std::shared_ptr<Mesh> from_vertex_simplices(Mesh& parent, const MatrixXl& l)
 {
-    wmtk::utils::EigenMatrixWriter writer;
-    parent.serialize(writer);
-    MatrixXl S = writer.get_simplex_vertex_matrix();
+    auto child_map = from_vertex_simplices_map(parent, l);
 
-    /*
-    switch(parent.top_simplex_type()) {
-        default:
-    case PrimitiveType::Vertex: break;
-    case PrimitiveType::Edge:
-                                return from_vertex_simplices(static_cast<EdgeMesh&>(parent),l,name);
-    case PrimitiveType::Triangle:
-                                return from_vertex_simplices(static_cast<TriMesh&>(parent),l,name);
-    case PrimitiveType::Tetrahedron:
-                                return from_vertex_simplices(static_cast<TetMesh&>(parent),l,name);
+    MatrixXl l2;
+    std::map<int64_t, int64_t> indexer;
+    for (const auto& j : std::span(l.data(), l.data() + l.size())) {
+        indexer[j] = indexer.size();
     }
-    */
 
-    return nullptr;
+    std::shared_ptr<Mesh> child;
+    switch (parent.top_simplex_type()) {
+    default:
+    case PrimitiveType::Vertex: break;
+    case PrimitiveType::Edge: return std::make_shared<EdgeMesh>(l2);
+    case PrimitiveType::Triangle: return std::make_shared<TriMesh>(l2);
+    case PrimitiveType::Tetrahedron: return std::make_shared<TetMesh>(l2);
+    }
+
+    parent.register_child_mesh(child, child_map);
+
+
+    return child;
 }
 
 } // namespace wmtk::components::multimesh

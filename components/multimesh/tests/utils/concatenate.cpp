@@ -4,7 +4,7 @@
 
 using namespace wmtk;
 
-TEST_CASE("multimesh_concatenate", "[components][multimesh]")
+TEST_CASE("multimesh_concatenate_mat", "[components][multimesh]")
 {
     {
         MatrixXl A(2, 2);
@@ -24,7 +24,8 @@ TEST_CASE("multimesh_concatenate", "[components][multimesh]")
         C.row(4) << 4, 7;
         C.row(5) << 6, 8;
 
-        auto D = components::multimesh::utils::concatenate({A, B});
+        std::vector vec{A, B};
+        auto D = components::multimesh::utils::concatenate(vec);
 
         CHECK(C == D);
     }
@@ -47,7 +48,36 @@ TEST_CASE("multimesh_concatenate", "[components][multimesh]")
         C.row(4) << 4, 7, 5;
         C.row(5) << 6, 8, 5;
 
-        auto D = components::multimesh::utils::concatenate({A, B});
+        std::vector vec{A, B};
+        auto D = components::multimesh::utils::concatenate(vec);
+
+        CHECK(C == D);
+    }
+}
+
+TEST_CASE("multimesh_concatenate_tuple", "[components][multimesh]")
+{
+    {
+        std::vector<std::array<Tuple, 2>> A;
+        A.emplace_back(std::array<Tuple, 2>{{Tuple(0, 1, 2, 0), Tuple(0, 1, 2, 0)}});
+        A.emplace_back(std::array<Tuple, 2>{{Tuple(0, 1, 2, 1), Tuple(0, 1, 2, 0)}});
+
+        std::vector<std::array<Tuple, 2>> B;
+        B.emplace_back(std::array<Tuple, 2>{{Tuple(0, 2, 2, 0), Tuple(0, 1, 2, 0)}});
+        B.emplace_back(std::array<Tuple, 2>{{Tuple(0, 2, 2, 1), Tuple(0, 1, 2, 0)}});
+        B.emplace_back(std::array<Tuple, 2>{{Tuple(0, 2, 2, 2), Tuple(0, 1, 2, 0)}});
+        B.emplace_back(std::array<Tuple, 2>{{Tuple(0, 2, 2, 3), Tuple(0, 1, 2, 0)}});
+
+        std::vector<std::array<Tuple, 2>> C;
+        C.emplace_back(std::array<Tuple, 2>{{Tuple(0, 1, 2, 0), Tuple(0, 1, 2, 0)}});
+        C.emplace_back(std::array<Tuple, 2>{{Tuple(0, 1, 2, 1), Tuple(0, 1, 2, 0)}});
+        C.emplace_back(std::array<Tuple, 2>{{Tuple(0, 2, 2, 2), Tuple(0, 1, 2, 0)}});
+        C.emplace_back(std::array<Tuple, 2>{{Tuple(0, 2, 2, 3), Tuple(0, 1, 2, 0)}});
+        C.emplace_back(std::array<Tuple, 2>{{Tuple(0, 2, 2, 4), Tuple(0, 1, 2, 0)}});
+        C.emplace_back(std::array<Tuple, 2>{{Tuple(0, 2, 2, 5), Tuple(0, 1, 2, 0)}});
+
+        std::vector vec{A, B};
+        auto D = components::multimesh::utils::concatenate(vec);
 
         CHECK(C == D);
     }

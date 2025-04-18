@@ -1,6 +1,35 @@
 #include "concatenate.hpp"
 namespace wmtk::components::multimesh::utils {
-MatrixXl concatenate(const std::vector<MatrixXl>& container)
+// concatenates a dart orientation map
+std::vector<std::array<Tuple, 2>> concatenate(
+    std::span<const std::vector<std::array<Tuple, 2>>> container)
+{
+    size_t total_size = 0;
+    for (const auto& c : container) {
+        total_size += c.size();
+    }
+
+    std::vector<std::array<Tuple, 2>> total;
+    total.reserve(total_size);
+    int64_t offset = 0;
+    for (const auto& c : container) {
+        for (const auto& [a, b] : c) {
+            assert(a.global_cid() < c.size()); // The left values of the tuple should map from every
+                                               // simplex in the child mesh to every simplex. We aer
+                                               // assuming everything is compressed here
+            int8_t lvid = a.local_vid();
+            int8_t leid = a.local_eid();
+            int8_t lfid = a.local_fid();
+            int64_t gid = offset + a.global_cid();
+            Tuple ap(lvid, leid, lfid, gid);
+            total.emplace_back(std::array<Tuple, 2>{{ap, b}});
+        }
+        offset += c.size();
+    }
+    return total;
+}
+
+MatrixXl concatenate(std::span<const MatrixXl> container)
 {
     Eigen::Index rows = 0;
     Eigen::Index cols = -1;
