@@ -58,6 +58,9 @@ set(SRC_FILES
     MultimeshOptions.cpp
     MultimeshRunnableOptions.hpp
     MultimeshRunnableOptions.cpp
+
+    from_vertex_simplices.hpp
+    from_vertex_simplices.cpp
 )
 
 include(stb)

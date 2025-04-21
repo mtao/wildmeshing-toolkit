@@ -1,6 +1,11 @@
 #pragma once
 #include <map>
+#if defined(_cpp_lib_span)
+#include <span>
+#endif
+#include <wmtk/Tuple.hpp>
 #include <wmtk/Types.hpp>
+#include <wmtk/dart/Dart.hpp>
 
 namespace wmtk {
 class Mesh;
@@ -30,27 +35,35 @@ private:
     void initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S);
 
 
+#if defined(_cpp_lib_span)
     template <int Dim>
-    static int64_t get_index(
-        std::array<int64_t, Dim> s,
-        const std::map<std::array<int64_t, Dim>, int64_t>& mp);
+    static auto get_input_dart(
+        const std::span<int64_t, Dim>& s,
+        const std::map<std::array<int64_t, Dim>, wmtk::dart::Dart>& mp) -> const dart::Dart&;
+#endif
     template <int Dim>
-    static int64_t get_index(
+    static auto get_input_dart(
+        const std::array<int64_t, Dim>& s,
+        const std::map<std::array<int64_t, Dim>, wmtk::dart::Dart>& mp) -> const dart::Dart&;
+    template <int Dim>
+    static auto get_input_dart(
         Eigen::Ref<const RowVector<int64_t, Dim>> S,
-        const std::map<std::array<int64_t, Dim>, int64_t>& mp);
+        const std::map<std::array<int64_t, Dim>, wmtk::dart::Dart>& mp) -> const dart::Dart&;
+
 
     template <int Dim, int ChildDim>
-    static std::map<std::array<int64_t, ChildDim>, int64_t> make_child_map(
+    static std::map<std::array<int64_t, ChildDim>, wmtk::dart::Dart> make_child_map(
         std::vector<std::array<int64_t, Dim>> S);
     template <int Dim>
-    static std::map<std::array<int64_t, Dim>, int64_t> make_map(
+    static std::map<std::array<int64_t, Dim>, wmtk::dart::Dart> make_map(
         std::vector<std::array<int64_t, Dim>> S);
 
+    int8_t m_simplex_dimension;
 
-    std::map<std::array<int64_t, 1>, int64_t> m_V_map;
-    std::map<std::array<int64_t, 2>, int64_t> m_E_map;
-    std::map<std::array<int64_t, 3>, int64_t> m_F_map;
-    std::map<std::array<int64_t, 4>, int64_t> m_T_map;
+    std::map<std::array<int64_t, 1>, wmtk::dart::Dart> m_V_map;
+    std::map<std::array<int64_t, 2>, wmtk::dart::Dart> m_E_map;
+    std::map<std::array<int64_t, 3>, wmtk::dart::Dart> m_F_map;
+    std::map<std::array<int64_t, 4>, wmtk::dart::Dart> m_T_map;
 
 
     void update_simplices();
@@ -62,11 +75,42 @@ private:
 
 public:
     template <int D>
-    const std::map<std::array<int64_t, D + 1>, int64_t>& simplex_map() const;
+    const std::map<std::array<int64_t, D + 1>, wmtk::dart::Dart>& simplex_dart_map() const;
+    template <int D>
+    std::map<std::array<int64_t, D + 1>, int64_t> simplex_map() const;
     template <int D>
     const std::vector<std::array<int64_t, D + 1>>& simplices() const;
 
-    template <int Dim>
-    int64_t get_index(const std::array<int64_t, Dim + 1>& s) const;
+#if defined(_cpp_lib_span)
+    template <size_t Dim>
+    int64_t get_index(const std::span<int64_t, Dim>& s) const;
+
+    template <size_t Dim>
+    dart::Dart get_dart(const std::span<int64_t, Dim>& s) const;
+
+    template <size_t Dim>
+    wmtk::Tuple get_tuple(const std::span<int64_t, Dim>& s) const;
+#endif
+
+    template <size_t Dim>
+    int64_t get_index(const std::array<int64_t, Dim>& s) const;
+
+    template <size_t Dim>
+    dart::Dart get_dart(const std::array<int64_t, Dim>& s) const;
+
+    template <size_t Dim>
+    wmtk::Tuple get_tuple(const std::array<int64_t, Dim>& s) const;
 };
+
+template <int D>
+std::map<std::array<int64_t, D + 1>, int64_t> IndexSimplexMapper::simplex_map() const
+{
+    std::map<std::array<int64_t, D + 1>, int64_t> R;
+    const auto& sdm = simplex_dart_map<D>();
+    std::transform(sdm.begin(), sdm.end(), std::inserter(R, R.end()), [](const auto& pr) {
+        return std::make_pair(pr.first, pr.second.global_id());
+    });
+    return R;
+}
+
 } // namespace wmtk::utils::internal

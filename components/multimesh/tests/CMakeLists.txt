@@ -8,6 +8,8 @@ add_component_test(wmtk::${COMPONENT_NAME}
     json.cpp
 
     utils/concatenate.cpp
+
+    vertex_fusion.cpp
 )
 
 target_link_libraries(${WMTK_COMPONENT_TEST_TARGET} PRIVATE wmtk::input)

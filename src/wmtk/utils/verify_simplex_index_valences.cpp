@@ -69,7 +69,7 @@ bool verify_simplex_index_valences(const Mesh& m, const internal::IndexSimplexMa
         auto cof = simplex::cofaces_single_dimension(m, s, mesh_pt).simplex_vector();
 
         std::array<int64_t, D + 1> i = indices<D>(m, mapper, s);
-        const auto& cof2 = cofaces[mapper.get_index<D>(i)];
+        const auto& cof2 = cofaces[mapper.get_index<D+1>(i)];
         wmtk::logger().debug("Looking at {}-simplex {} on a {}-mesh", D, fmt::join(i, ","), meshD);
 
 

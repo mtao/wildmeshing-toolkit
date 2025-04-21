@@ -7,7 +7,7 @@ namespace wmtk {
 class Mesh;
 class Tuple;
 namespace utils::internal {
-    class IndexSimplexMapper;
+class IndexSimplexMapper;
 }
 } // namespace wmtk
 namespace wmtk::simplex {
@@ -33,7 +33,6 @@ public:
 
     int64_t index() const { return m_index; }
 
-protected:
     IdSimplex(PrimitiveType pt, int64_t index)
         : m_primitive_type(pt)
         , m_index(index)

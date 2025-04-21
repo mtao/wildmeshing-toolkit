@@ -4,7 +4,10 @@
 #include <wmtk/utils/trimesh_topology_initialization.h>
 #include <algorithm>
 #include <set>
+
 #include <wmtk/Mesh.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/utils/from_local_vertex_permutation.hpp>
 #include <wmtk/simplex/IdSimplex.hpp>
 #include <wmtk/utils/EigenMatrixWriter.hpp>
 
@@ -65,6 +68,7 @@ IndexSimplexMapper::IndexSimplexMapper(const Mesh& mesh)
 {}
 IndexSimplexMapper::IndexSimplexMapper(Eigen::Ref<const MatrixXl> S)
 {
+    m_simplex_dimension = S.cols() - 1;
     switch (S.cols()) {
     case 2: initialize_edge_mesh(S); break;
     case 3: initialize_tri_mesh(S); break;
@@ -103,22 +107,29 @@ void IndexSimplexMapper::initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S)
     update_simplices();
 }
 template <int Dim, int ChildDim>
-std::map<std::array<int64_t, ChildDim>, int64_t> IndexSimplexMapper::make_child_map(
+std::map<std::array<int64_t, ChildDim>, wmtk::dart::Dart> IndexSimplexMapper::make_child_map(
     std::vector<std::array<int64_t, Dim>> S)
 {
     auto C = get_simplices<Dim, ChildDim>(S);
-    return make_map<ChildDim>(C);
+    return make_map<ChildDim>(std::move(C));
 }
 template <int Dim>
-std::map<std::array<int64_t, Dim>, int64_t> IndexSimplexMapper::make_map(
+std::map<std::array<int64_t, Dim>, wmtk::dart::Dart> IndexSimplexMapper::make_map(
     std::vector<std::array<int64_t, Dim>> S)
 {
-    std::map<std::array<int64_t, Dim>, int64_t> mp;
-    for (auto a : S) {
-        std::sort(a.begin(), a.end());
+    std::map<std::array<int64_t, Dim>, wmtk::dart::Dart> mp;
+    wmtk::PrimitiveType pt = wmtk::get_primitive_type_from_id(Dim - 1);
+    using MapType = typename Eigen::Vector<int64_t, Dim>::ConstMapType;
+    // using MapXType = typename VectorX<int64_t>::ConstMapType;
+    for (const auto& a : S) {
+        auto b = a;
+        std::sort(b.begin(), b.end());
         size_t cur_size = mp.size();
         // std::map says if element already existed no element is added
-        mp.emplace(a, cur_size);
+        // TODO: make this actually work
+        // auto a_map = MapXType(a.data(), Dim).eval();
+        auto a_map = MapType(a.data()); //, Dim).eval();
+        mp.emplace(b, dart::Dart(cur_size, wmtk::dart::utils::from_vertex_permutation(pt, a_map)));
     }
     return mp;
 }
@@ -128,7 +139,7 @@ void IndexSimplexMapper::update_simplices()
         vec.resize(mp.size());
 
         for (const auto& [arr, ind] : mp) {
-            vec[ind] = arr;
+            vec[ind.global_id()] = arr;
         }
     };
 
@@ -138,28 +149,90 @@ void IndexSimplexMapper::update_simplices()
     update(m_T_map, m_T);
 }
 
+#if defined(_cpp_lib_span)
 template <int Dim>
-int64_t IndexSimplexMapper::get_index(
-    std::array<int64_t, Dim> s,
-    const std::map<std::array<int64_t, Dim>, int64_t>& mp)
+auto IndexSimplexMapper::get_input_dart(
+    const std::span<int64_t, Dim>& s,
+    const std::map<std::array<int64_t, Dim>, dart::Dart>& mp) -> const dart::Dart&
 {
-    std::sort(s.begin(), s.end());
-    return mp.at(s);
+    std::array<int64_t, Dim> ss;
+    std::copy(s.begin(), s.end(), ss.begin());
+    std::sort(ss.begin(), ss.end());
+    return mp.at(ss);
+}
+
+template <size_t Dim>
+int64_t IndexSimplexMapper::get_index(const std::span<int64_t, Dim>& s) const
+{
+    return get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>()).global_id();
+}
+
+template <size_t Dim>
+auto IndexSimplexMapper::get_dart(const std::span<int64_t, Dim>& s) const -> dart::Dart
+{
+    auto dart = get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>());
+
+    wmtk::PrimitiveType pt = wmtk::get_primitive_type_from_id(m_simplex_dimension);
+    using MapType = typename Eigen::Vector<int64_t, Dim>::ConstMapType;
+    int8_t p = wmtk::dart::utils::from_vertex_permutation(pt, MapType(s.data()));
+    const auto& sd = dart::SimplexDart::get_singleton(pt);
+    p = sd.product(p, sd.inverse(dart.permutation()));
+    return dart::Dart(dart.global_id(), p);
+}
+template <size_t Dim>
+Tuple IndexSimplexMapper::get_tuple(const std::span<int64_t, Dim>& s) const
+{
+    wmtk::PrimitiveType pt = wmtk::get_primitive_type_from_id(m_simplex_dimension);
+    const auto& sd = dart::SimplexDart::get_singleton(pt);
+    return sd.tuple_from_dart(get_dart(s));
+}
+#endif
+template <int Dim>
+auto IndexSimplexMapper::get_input_dart(
+    const std::array<int64_t, Dim>& s,
+    const std::map<std::array<int64_t, Dim>, dart::Dart>& mp) -> const dart::Dart&
+{
+    std::array<int64_t, Dim> ss;
+    std::copy(s.begin(), s.end(), ss.begin());
+    std::sort(ss.begin(), ss.end());
+    return mp.at(ss);
 }
 template <int Dim>
-int64_t get_index(
+auto get_input_index(
     Eigen::Ref<const RowVector<int64_t, Dim>> s,
-    const std::map<std::array<int64_t, Dim>, int64_t>& mp)
+    const std::map<std::array<int64_t, Dim>, dart::Dart>& mp) -> const dart::Dart&
 {
     std::array<int64_t, Dim> a;
     Eigen::Map<RowVector<int64_t, Dim>>(a.data()) = s;
     return get_index(a, mp);
 }
 
-template <int Dim>
-int64_t IndexSimplexMapper::get_index(const std::array<int64_t, Dim + 1>& s) const
+template <size_t Dim>
+int64_t IndexSimplexMapper::get_index(const std::array<int64_t, Dim>& s) const
 {
-    return get_index<Dim + 1>(s, simplex_map<Dim>());
+    return get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>()).global_id();
+}
+
+template <size_t Dim>
+auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
+{
+    auto dart = get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>());
+
+    // wmtk::PrimitiveType pt = wmtk::get_primitive_type_from_id(m_simplex_dimension);
+    wmtk::PrimitiveType cur_pt = wmtk::get_primitive_type_from_id(Dim - 1);
+    using MapType = typename Eigen::Vector<int64_t, Dim>::ConstMapType;
+    auto mp = MapType(s.data());
+    int8_t p = wmtk::dart::utils::from_vertex_permutation(mp);
+    const auto& sd = dart::SimplexDart::get_singleton(cur_pt);
+    p = sd.product(p, sd.inverse(dart.permutation()));
+    return dart::Dart(dart.global_id(), p);
+}
+template <size_t Dim>
+Tuple IndexSimplexMapper::get_tuple(const std::array<int64_t, Dim>& s) const
+{
+    wmtk::PrimitiveType pt = wmtk::get_primitive_type_from_id(m_simplex_dimension);
+    const auto& sd = dart::SimplexDart::get_singleton(pt);
+    return sd.tuple_from_dart(get_dart(s));
 }
 
 template <int Dim, int ChildDim>
@@ -206,7 +279,8 @@ std::vector<int64_t> IndexSimplexMapper::faces(size_t index, int8_t dim, int8_t 
 }
 
 template <int D>
-const std::map<std::array<int64_t, D + 1>, int64_t>& IndexSimplexMapper::simplex_map() const
+const std::map<std::array<int64_t, D + 1>, wmtk::dart::Dart>& IndexSimplexMapper::simplex_dart_map()
+    const
 {
     if constexpr (D == 0) {
         return m_V_map;
@@ -232,22 +306,42 @@ const std::vector<std::array<int64_t, D + 1>>& IndexSimplexMapper::simplices() c
     }
 }
 
-template int64_t IndexSimplexMapper::get_index<0>(const std::array<int64_t, 1>& s) const;
-template int64_t IndexSimplexMapper::get_index<1>(const std::array<int64_t, 2>& s) const;
-template int64_t IndexSimplexMapper::get_index<2>(const std::array<int64_t, 3>& s) const;
-template int64_t IndexSimplexMapper::get_index<3>(const std::array<int64_t, 4>& s) const;
+#if defined(_cpp_lib_span)
+template int64_t IndexSimplexMapper::get_index<1>(const std::span<int64_t, 1>& s) const;
+template int64_t IndexSimplexMapper::get_index<2>(const std::span<int64_t, 2>& s) const;
+template int64_t IndexSimplexMapper::get_index<3>(const std::span<int64_t, 3>& s) const;
+template int64_t IndexSimplexMapper::get_index<4>(const std::span<int64_t, 4>& s) const;
+template dart::Dart IndexSimplexMapper::get_dart<1>(const std::span<int64_t, 1>& s) const;
+template dart::Dart IndexSimplexMapper::get_dart<2>(const std::span<int64_t, 2>& s) const;
+template dart::Dart IndexSimplexMapper::get_dart<3>(const std::span<int64_t, 3>& s) const;
+template dart::Dart IndexSimplexMapper::get_dart<4>(const std::span<int64_t, 4>& s) const;
+#endif
+template int64_t IndexSimplexMapper::get_index<1>(const std::array<int64_t, 1>& s) const;
+template int64_t IndexSimplexMapper::get_index<2>(const std::array<int64_t, 2>& s) const;
+template int64_t IndexSimplexMapper::get_index<3>(const std::array<int64_t, 3>& s) const;
+template int64_t IndexSimplexMapper::get_index<4>(const std::array<int64_t, 4>& s) const;
+template dart::Dart IndexSimplexMapper::get_dart<1>(const std::array<int64_t, 1>& s) const;
+template dart::Dart IndexSimplexMapper::get_dart<2>(const std::array<int64_t, 2>& s) const;
+template dart::Dart IndexSimplexMapper::get_dart<3>(const std::array<int64_t, 3>& s) const;
+template dart::Dart IndexSimplexMapper::get_dart<4>(const std::array<int64_t, 4>& s) const;
 
-template const std::map<std::array<int64_t, 0 + 1>, int64_t>& IndexSimplexMapper::simplex_map<0>()
-    const;
+template Tuple IndexSimplexMapper::get_tuple<1>(const std::array<int64_t, 1>& s) const;
+template Tuple IndexSimplexMapper::get_tuple<2>(const std::array<int64_t, 2>& s) const;
+template Tuple IndexSimplexMapper::get_tuple<3>(const std::array<int64_t, 3>& s) const;
+template Tuple IndexSimplexMapper::get_tuple<4>(const std::array<int64_t, 4>& s) const;
+
+
+template const std::map<std::array<int64_t, 0 + 1>, dart::Dart>&
+IndexSimplexMapper::simplex_dart_map<0>() const;
 template const std::vector<std::array<int64_t, 0 + 1>>& IndexSimplexMapper::simplices<0>() const;
 
-template const std::map<std::array<int64_t, 1 + 1>, int64_t>& IndexSimplexMapper::simplex_map<1>()
-    const;
+template const std::map<std::array<int64_t, 1 + 1>, dart::Dart>&
+IndexSimplexMapper::simplex_dart_map<1>() const;
 template const std::vector<std::array<int64_t, 1 + 1>>& IndexSimplexMapper::simplices<1>() const;
-template const std::map<std::array<int64_t, 2 + 1>, int64_t>& IndexSimplexMapper::simplex_map<2>()
-    const;
+template const std::map<std::array<int64_t, 2 + 1>, dart::Dart>&
+IndexSimplexMapper::simplex_dart_map<2>() const;
 template const std::vector<std::array<int64_t, 2 + 1>>& IndexSimplexMapper::simplices<2>() const;
-template const std::map<std::array<int64_t, 3 + 1>, int64_t>& IndexSimplexMapper::simplex_map<3>()
-    const;
+template const std::map<std::array<int64_t, 3 + 1>, dart::Dart>&
+IndexSimplexMapper::simplex_dart_map<3>() const;
 template const std::vector<std::array<int64_t, 3 + 1>>& IndexSimplexMapper::simplices<3>() const;
 } // namespace wmtk::utils::internal
