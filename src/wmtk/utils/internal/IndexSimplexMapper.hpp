@@ -9,6 +9,9 @@
 
 namespace wmtk {
 class Mesh;
+class EdgeMesh;
+class TriMesh;
+class TetMesh;
 namespace simplex {
 class IdSimplex;
 }
@@ -33,6 +36,10 @@ private:
     void initialize_edge_mesh(Eigen::Ref<const RowVectors2l> S);
     void initialize_tri_mesh(Eigen::Ref<const RowVectors3l> S);
     void initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S);
+
+    void initialize_edge_mesh(const EdgeMesh& m, Eigen::Ref<const RowVectors2l> S);
+    void initialize_tri_mesh(const TriMesh& m, Eigen::Ref<const RowVectors3l> S);
+    void initialize_tet_mesh(const TetMesh& m, Eigen::Ref<const RowVectors4l> S);
 
 
 #if defined(_cpp_lib_span)

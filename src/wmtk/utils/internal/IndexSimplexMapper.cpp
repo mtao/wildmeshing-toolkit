@@ -5,9 +5,13 @@
 #include <algorithm>
 #include <set>
 
+#include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Mesh.hpp>
+#include <wmtk/TetMesh.hpp>
+#include <wmtk/TriMesh.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/utils/from_local_vertex_permutation.hpp>
+#include <wmtk/dart/utils/get_canonical_simplex.hpp>
 #include <wmtk/simplex/IdSimplex.hpp>
 #include <wmtk/utils/EigenMatrixWriter.hpp>
 
@@ -31,6 +35,36 @@ std::vector<std::array<int64_t, E>> get_simplices(std::array<int64_t, D> s)
     } while (std::next_permutation(s.begin(), s.end()));
     return std::vector<std::array<int64_t, E>>{F.begin(), F.end()};
 }
+
+template <typename MeshType, size_t E>
+std::vector<std::array<int64_t, E>> get_simplices(const MeshType& m)
+{
+    PrimitiveType pt = get_primitive_type_from_id(E - 1);
+    auto tups = m.get_all(pt);
+    std::vector<std::array<int64_t, E>> R(tups.size());
+    const auto& sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
+    for (size_t j = 0; j < tups.size(); ++j) {
+        auto d = sd.tuple_from_dart(tups[j]);
+
+        R[j] = dart::Dart(j, dart::utils::get_canonical_simplex(sd, pt, d.permutation()));
+    }
+    return R;
+}
+template <typename MeshType, size_t E>
+std::map<std::array<int64_t, E>, dart::Dart> get_simplex_map(const MeshType& m)
+{
+    PrimitiveType pt = get_primitive_type_from_id(E - 1);
+    auto tups = m.get_all(pt);
+    std::vector<std::array<int64_t, E>> R(tups.size());
+    const auto& sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
+    for (size_t j = 0; j < tups.size(); ++j) {
+        auto d = sd.tuple_from_dart(tups[j]);
+
+        R[j] = dart::Dart(j, dart::utils::get_canonical_simplex(sd, pt, d.permutation()));
+    }
+    return R;
+}
+
 template <int D, int E>
 std::vector<std::array<int64_t, E>> get_simplices(const std::vector<std::array<int64_t, D>>& S)
 {
@@ -64,8 +98,16 @@ auto get_simplices(const Mesh& m)
 } // namespace
 
 IndexSimplexMapper::IndexSimplexMapper(const Mesh& mesh)
-    : IndexSimplexMapper(get_simplices(mesh))
-{}
+{
+    auto S = get_simplices(mesh);
+    m_simplex_dimension = S.cols() - 1;
+    switch (S.cols()) {
+    case 2: initialize_edge_mesh(static_cast<const EdgeMesh&>(mesh), S); break;
+    case 3: initialize_tri_mesh(static_cast<const TriMesh&>(mesh), S); break;
+    case 4: initialize_tet_mesh(static_cast<const TetMesh&>(mesh), S); break;
+    default: assert(false); break;
+    }
+}
 IndexSimplexMapper::IndexSimplexMapper(Eigen::Ref<const MatrixXl> S)
 {
     m_simplex_dimension = S.cols() - 1;
@@ -106,6 +148,27 @@ void IndexSimplexMapper::initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S)
 
     update_simplices();
 }
+void IndexSimplexMapper::initialize_edge_mesh(const EdgeMesh& m, Eigen::Ref<const RowVectors2l> S)
+{
+    initialize_edge_mesh(S);
+    for (const auto& t : m.get_all(wmtk::PrimitiveType::Triangle)) {
+        auto
+        // m_F_map
+    }
+    update_simplices();
+}
+void IndexSimplexMapper::initialize_tri_mesh(const TriMesh& m, Eigen::Ref<const RowVectors3l> S)
+{
+    initialize_tri_mesh(S);
+    update_simplices();
+}
+void IndexSimplexMapper::initialize_tet_mesh(const TetMesh& m, Eigen::Ref<const RowVectors4l> S)
+{
+    initialize_tet_mesh(S);
+
+    update_simplices();
+}
+
 template <int Dim, int ChildDim>
 std::map<std::array<int64_t, ChildDim>, wmtk::dart::Dart> IndexSimplexMapper::make_child_map(
     std::vector<std::array<int64_t, Dim>> S)
