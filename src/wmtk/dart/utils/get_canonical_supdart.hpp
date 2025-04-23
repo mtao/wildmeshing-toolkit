@@ -8,6 +8,7 @@
 
 namespace wmtk::dart::utils {
 
+    // all simplices above the specified primitive type are preserved (and the ones below are sorted)`. Represents the orthogonal subspace to the subdart operator
 inline int8_t
 get_canonical_supdart(const SimplexDart& sd, PrimitiveType pt, int8_t permutation)
 {

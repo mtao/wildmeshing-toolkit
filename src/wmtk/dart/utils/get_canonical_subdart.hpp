@@ -7,6 +7,8 @@
 
 namespace wmtk::dart::utils {
 
+    // all simplices below the specified primitive type are preserved (and the ones above are sorted)
+    // Produces a unique representation of a dart contained in a e of the input simplex
 inline int8_t
 get_canonical_subdart(const SimplexDart& sd, PrimitiveType pt, int8_t simplex_index)
 {

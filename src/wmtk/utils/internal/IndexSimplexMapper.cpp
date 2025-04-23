@@ -11,13 +11,15 @@
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/utils/from_local_vertex_permutation.hpp>
+#include <wmtk/dart/utils/get_canonical_subdart.hpp>
 #include <wmtk/dart/utils/get_canonical_simplex.hpp>
+#include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/simplex/IdSimplex.hpp>
 #include <wmtk/utils/EigenMatrixWriter.hpp>
 
 namespace wmtk::utils::internal {
 namespace {
-template <int D, int E>
+template <size_t D, size_t E>
 std::vector<std::array<int64_t, E>> get_simplices(std::array<int64_t, D> s)
 {
     static_assert(E <= D);
@@ -36,33 +38,91 @@ std::vector<std::array<int64_t, E>> get_simplices(std::array<int64_t, D> s)
     return std::vector<std::array<int64_t, E>>{F.begin(), F.end()};
 }
 
-template <typename MeshType, size_t E>
-std::vector<std::array<int64_t, E>> get_simplices(const MeshType& m)
+template <size_t D, size_t E>
+std::array<int64_t, D> get_simplex(const std::array<int64_t, E>& s, int8_t permutation)
+{
+    PrimitiveType pt = get_primitive_type_from_id(D - 1);
+        const auto mp = wmtk::dart::utils::get_local_vertex_permutation(pt, permutation)
+                            .template head<D>()
+                            .eval();
+
+        std::array<int64_t,D> v;
+        std::transform(mp.begin(), mp.end(), v.begin(), [&](int8_t idx) { return s[idx]; });
+        return v;
+}
+
+template <size_t D>
+    int8_t get_permutation(const std::array<int64_t, D>& S) {
+    PrimitiveType pt = get_primitive_type_from_id(D - 1);
+    const auto& sd = dart::SimplexDart::get_singleton(pt);
+    using MapType = typename Eigen::Vector<int64_t, D>::ConstMapType;
+    MapType p(S.data());
+    return wmtk::dart::utils::from_vertex_permutation(p);
+
+        //const auto& s = S[d.global_id()];
+        ////const int8_t p = dart::utils::get_canonical_simplex(sd, pt, d.permutation());
+        //const int8_t p = dart::utils::get_canonical_subdart(sd, pt, d.permutation());
+        //const auto mp = wmtk::dart::utils::get_local_vertex_permutation(p)
+        //                    .template head<E>()
+        //                    .eval();
+
+        //auto& v = R[j];
+        //std::transform(mp.begin(), mp.end(), v.begin(), [&](int8_t idx) { return s[idx]; });
+        //std::sort(v.begin(), v.end());
+        // std::transform
+    }
+
+template <size_t D, size_t E, typename MeshType>
+std::vector<std::array<int64_t, E>> get_simplices(
+    const MeshType& m,
+    const std::vector<std::array<int64_t, D>>& S)
 {
     PrimitiveType pt = get_primitive_type_from_id(E - 1);
     auto tups = m.get_all(pt);
     std::vector<std::array<int64_t, E>> R(tups.size());
     const auto& sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
     for (size_t j = 0; j < tups.size(); ++j) {
-        auto d = sd.tuple_from_dart(tups[j]);
+        auto d = sd.dart_from_tuple(tups[j]);
+        const auto& s = S[d.global_id()];
+        const int8_t p = dart::utils::get_canonical_subdart(sd, pt, d.permutation());
+        auto v = get_simplex<E>(s,p);
+        R[j] = v;
 
-        R[j] = dart::Dart(j, dart::utils::get_canonical_simplex(sd, pt, d.permutation()));
+        //std::sort(v.begin(), v.end());
+        // std::transform
     }
     return R;
 }
 template <typename MeshType, size_t E>
 std::map<std::array<int64_t, E>, dart::Dart> get_simplex_map(const MeshType& m)
 {
+
+    auto S = from_eigen<E>(get_simplices(m));
+    std::map<std::array<int64_t, E>, dart::Dart> R;
+
+    for (size_t j = 0; j < S.size(); ++j) {
+        R[S[j]] = j;
+
+
+
+    }
+    return R;
+    /*
     PrimitiveType pt = get_primitive_type_from_id(E - 1);
+    auto S = get_simplices(m);
     auto tups = m.get_all(pt);
     std::vector<std::array<int64_t, E>> R(tups.size());
     const auto& sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
     for (size_t j = 0; j < tups.size(); ++j) {
         auto d = sd.tuple_from_dart(tups[j]);
+        std::array<int64_t,E> s = get_simplex<E>(
 
-        R[j] = dart::Dart(j, dart::utils::get_canonical_simplex(sd, pt, d.permutation()));
+        R[j] = dart::Dart(j, dart::utils::get_canonical_subdart(sd, pt, d.permutation()));
+        //R[j] = dart::Dart(j, get_permutation();
+        //R[j] = dart::Dart(j, dart::utils::get_canonical_simplex(sd, pt, d.permutation()));
     }
     return R;
+    */
 }
 
 template <int D, int E>
@@ -98,13 +158,14 @@ auto get_simplices(const Mesh& m)
 } // namespace
 
 IndexSimplexMapper::IndexSimplexMapper(const Mesh& mesh)
+    : m_mesh(&mesh)
 {
     auto S = get_simplices(mesh);
     m_simplex_dimension = S.cols() - 1;
     switch (S.cols()) {
-    case 2: initialize_edge_mesh(static_cast<const EdgeMesh&>(mesh), S); break;
-    case 3: initialize_tri_mesh(static_cast<const TriMesh&>(mesh), S); break;
-    case 4: initialize_tet_mesh(static_cast<const TetMesh&>(mesh), S); break;
+    case 2: initialize_edge_mesh(S); break;
+    case 3: initialize_tri_mesh(S); break;
+    case 4: initialize_tet_mesh(S); break;
     default: assert(false); break;
     }
 }
@@ -148,33 +209,18 @@ void IndexSimplexMapper::initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S)
 
     update_simplices();
 }
-void IndexSimplexMapper::initialize_edge_mesh(const EdgeMesh& m, Eigen::Ref<const RowVectors2l> S)
-{
-    initialize_edge_mesh(S);
-    for (const auto& t : m.get_all(wmtk::PrimitiveType::Triangle)) {
-        auto
-        // m_F_map
-    }
-    update_simplices();
-}
-void IndexSimplexMapper::initialize_tri_mesh(const TriMesh& m, Eigen::Ref<const RowVectors3l> S)
-{
-    initialize_tri_mesh(S);
-    update_simplices();
-}
-void IndexSimplexMapper::initialize_tet_mesh(const TetMesh& m, Eigen::Ref<const RowVectors4l> S)
-{
-    initialize_tet_mesh(S);
-
-    update_simplices();
-}
 
 template <int Dim, int ChildDim>
 std::map<std::array<int64_t, ChildDim>, wmtk::dart::Dart> IndexSimplexMapper::make_child_map(
-    std::vector<std::array<int64_t, Dim>> S)
+    std::vector<std::array<int64_t, Dim>> S) const
 {
-    auto C = get_simplices<Dim, ChildDim>(S);
-    return make_map<ChildDim>(std::move(C));
+    if (m_mesh == nullptr) {
+        auto C = get_simplices<Dim, ChildDim>(S);
+        return make_map<ChildDim>(std::move(C));
+    } else {
+        auto C = get_simplices<Dim, ChildDim>(*m_mesh, S);
+        return make_map<ChildDim>(std::move(C));
+    }
 }
 template <int Dim>
 std::map<std::array<int64_t, Dim>, wmtk::dart::Dart> IndexSimplexMapper::make_map(
@@ -277,7 +323,7 @@ int64_t IndexSimplexMapper::get_index(const std::array<int64_t, Dim>& s) const
 }
 
 template <size_t Dim>
-auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
+auto IndexSimplexMapper::get_internal_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
 {
     auto dart = get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>());
 
@@ -289,6 +335,29 @@ auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> da
     const auto& sd = dart::SimplexDart::get_singleton(cur_pt);
     p = sd.product(p, sd.inverse(dart.permutation()));
     return dart::Dart(dart.global_id(), p);
+}
+
+template <size_t Dim>
+auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
+{
+    assert(m_mesh);
+    auto dart = get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>());
+    wmtk::PrimitiveType simplex_pt = wmtk::get_primitive_type_from_id(Dim - 1);
+    PrimitiveType pt = m_mesh->top_simplex_type();
+    const auto& sd = dart::SimplexDart::get_singleton(pt);
+    // if this is a facet we just get facets
+    if(pt == simplex_pt) {
+        int8_t p;
+        return dart::Dart(dart.global_id(), sd.product(p, sd.inverse(dart.permutation())));
+    } else {
+    const auto& simplex_sd = dart::SimplexDart::get_singleton(simplex_pt);
+    using MapType = typename Eigen::Vector<int64_t, Dim>::ConstMapType;
+    auto mp = MapType(s.data());
+    int8_t p = wmtk::dart::utils::from_vertex_permutation(mp);
+    auto default_tup = m_mesh->get_tuple_from_id_simplex(simplex::IdSimplex(simplex_pt, dart.global_id()));
+    auto newd = sd.product(simplex_sd.convert(p,sd), sd.dart_from_tuple(default_tup).permutation());;
+    return dart::Dart(default_tup.global_cid(), newd);
+    }
 }
 template <size_t Dim>
 Tuple IndexSimplexMapper::get_tuple(const std::array<int64_t, Dim>& s) const

@@ -37,10 +37,6 @@ private:
     void initialize_tri_mesh(Eigen::Ref<const RowVectors3l> S);
     void initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S);
 
-    void initialize_edge_mesh(const EdgeMesh& m, Eigen::Ref<const RowVectors2l> S);
-    void initialize_tri_mesh(const TriMesh& m, Eigen::Ref<const RowVectors3l> S);
-    void initialize_tet_mesh(const TetMesh& m, Eigen::Ref<const RowVectors4l> S);
-
 
 #if defined(_cpp_lib_span)
     template <int Dim>
@@ -59,8 +55,8 @@ private:
 
 
     template <int Dim, int ChildDim>
-    static std::map<std::array<int64_t, ChildDim>, wmtk::dart::Dart> make_child_map(
-        std::vector<std::array<int64_t, Dim>> S);
+    std::map<std::array<int64_t, ChildDim>, wmtk::dart::Dart> make_child_map(
+        std::vector<std::array<int64_t, Dim>> S) const;
     template <int Dim>
     static std::map<std::array<int64_t, Dim>, wmtk::dart::Dart> make_map(
         std::vector<std::array<int64_t, Dim>> S);
@@ -79,6 +75,7 @@ private:
     std::vector<std::array<int64_t, 3>> m_F;
     std::vector<std::array<int64_t, 4>> m_T;
 
+    Mesh const* m_mesh = nullptr;
 
 public:
     template <int D>
@@ -101,6 +98,9 @@ public:
 
     template <size_t Dim>
     int64_t get_index(const std::array<int64_t, Dim>& s) const;
+
+    template <size_t Dim>
+    dart::Dart get_internal_dart(const std::array<int64_t, Dim>& s) const;
 
     template <size_t Dim>
     dart::Dart get_dart(const std::array<int64_t, Dim>& s) const;
