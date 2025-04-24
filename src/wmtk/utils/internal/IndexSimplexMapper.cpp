@@ -347,7 +347,7 @@ auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> da
     const auto& sd = dart::SimplexDart::get_singleton(pt);
     // if this is a facet we just get facets
     if(pt == simplex_pt) {
-        int8_t p;
+        int8_t p = sd.identity();
         return dart::Dart(dart.global_id(), sd.product(p, sd.inverse(dart.permutation())));
     } else {
     const auto& simplex_sd = dart::SimplexDart::get_singleton(simplex_pt);
