@@ -19,6 +19,15 @@
 
 namespace wmtk::utils::internal {
 namespace {
+template <int D>
+std::vector<std::array<int64_t, D>> from_eigen(Eigen::Ref<const RowVectors<int64_t, D>>& S)
+{
+    std::vector<std::array<int64_t, D>> r(S.rows());
+    for (int j = 0; j < S.rows(); ++j) {
+        Eigen::Map<Eigen::RowVector<int64_t, D>>(r[j].data()) = S.row(j);
+    }
+    return r;
+}
 template <size_t D, size_t E>
 std::vector<std::array<int64_t, E>> get_simplices(std::array<int64_t, D> s)
 {
@@ -139,15 +148,6 @@ std::vector<std::array<int64_t, E>> get_simplices(const std::vector<std::array<i
     return std::vector<std::array<int64_t, E>>{F.begin(), F.end()};
 }
 
-template <int D>
-std::vector<std::array<int64_t, D>> from_eigen(Eigen::Ref<const RowVectors<int64_t, D>>& S)
-{
-    std::vector<std::array<int64_t, D>> r(S.rows());
-    for (int j = 0; j < S.rows(); ++j) {
-        Eigen::Map<Eigen::RowVector<int64_t, D>>(r[j].data()) = S.row(j);
-    }
-    return r;
-}
 auto get_simplices(const Mesh& m)
 {
     EigenMatrixWriter writer;
@@ -456,6 +456,11 @@ template dart::Dart IndexSimplexMapper::get_dart<1>(const std::array<int64_t, 1>
 template dart::Dart IndexSimplexMapper::get_dart<2>(const std::array<int64_t, 2>& s) const;
 template dart::Dart IndexSimplexMapper::get_dart<3>(const std::array<int64_t, 3>& s) const;
 template dart::Dart IndexSimplexMapper::get_dart<4>(const std::array<int64_t, 4>& s) const;
+
+template dart::Dart IndexSimplexMapper::get_internal_dart<1>(const std::array<int64_t, 1>& s) const;
+template dart::Dart IndexSimplexMapper::get_internal_dart<2>(const std::array<int64_t, 2>& s) const;
+template dart::Dart IndexSimplexMapper::get_internal_dart<3>(const std::array<int64_t, 3>& s) const;
+template dart::Dart IndexSimplexMapper::get_internal_dart<4>(const std::array<int64_t, 4>& s) const;
 
 template Tuple IndexSimplexMapper::get_tuple<1>(const std::array<int64_t, 1>& s) const;
 template Tuple IndexSimplexMapper::get_tuple<2>(const std::array<int64_t, 2>& s) const;

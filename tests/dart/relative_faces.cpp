@@ -538,13 +538,14 @@ TEST_CASE("dart_subdart_permutation", "[dart]")
 
 // takes in a source dart that maps to a target dart. checks that if we map a * source we get a *
 // target
+template <typename T>
 void dart_map_checker(
     const SimplexDart& sd,
     const Dart& source,
     const SimplexDart& sd2,
     const Dart& target,
     int8_t lower_action,
-    const auto& all_lower_darts)
+    const T& all_lower_darts)
 {
     REQUIRE(sd.simplex_type() <= sd2.simplex_type());
     spdlog::error(
