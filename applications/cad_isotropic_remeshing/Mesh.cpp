@@ -5,6 +5,8 @@
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/internal/IndexSimplexMapper.hpp>
+#include <wmtk/utils/mesh_utils.hpp>
+#include "EigenMeshes.hpp"
 
 
 #include <h5pp/h5pp.h>
@@ -40,7 +42,6 @@ void Topology::load(h5pp::File& file, const std::filesystem::path& path)
         auto dsets = file.findDatasets("", (patches_path).string(), -1, 0);
         for (const auto& v : dsets) {
             int64_t cid = std::stoi(v);
-            spdlog::info("{} {}", patches_path.string(), v);
             auto vids = file.readDataset<std::vector<int64_t>>((patches_path / v).string());
             std::set<int64_t> vids2(vids.begin(), vids.end());
             patch_to_fids[cid] = vids2;
@@ -88,6 +89,16 @@ bool Topology::validate_features_end_in_corners() const
     }
     return !failed;
 }
+std::shared_ptr<wmtk::TriMesh> Mesh::create() const
+{
+    auto m = std::make_shared<wmtk::TriMesh>();
+    m->initialize(F);
+
+    wmtk::mesh_utils::set_matrix_attribute(V, "vertices", wmtk::PrimitiveType::Vertex, *m);
+
+
+    return m;
+}
 
 std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) const
 {
@@ -108,5 +119,24 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) 
 }
 std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_mesh) const
 {
-    return nullptr;
+    EigenMeshesBuilder emb(tri_mesh, "vertices");
+
+
+    for (const auto& [key, chain] : feature_edge_to_vids_chain) {
+        std::vector<std::array<int64_t, 2>> E;
+        E.reserve(chain.size());
+        for (size_t j = 0; j < chain.size() - 1; ++j) {
+            E.emplace_back(std::array<int64_t, 2>{{chain[j], chain[j + 1]}});
+            auto [a, b] = E.back();
+            if (a == b) {
+                spdlog::warn("Chain {} had duplicate vertex at {} (skipping it)", key, j);
+                E.pop_back();
+            }
+        }
+        emb.load(E);
+    }
+
+    auto em = emb.create_edge_mesh();
+
+    return em;
 }

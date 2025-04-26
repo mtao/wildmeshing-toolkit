@@ -3,6 +3,9 @@
 #include <CLI/CLI.hpp>
 #include <filesystem>
 #include <nlohmann/json.hpp>
+#include <wmtk/EdgeMesh.hpp>
+#include <wmtk/Mesh.hpp>
+#include <wmtk/TriMesh.hpp>
 #include <wmtk/applications/utils/element_count_report.hpp>
 #include <wmtk/applications/utils/get_integration_test_data_root.hpp>
 #include <wmtk/applications/utils/parse_jse.hpp>
@@ -13,6 +16,7 @@
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include "wmtk/components/utils/PathResolver.hpp"
 
 #include <wmtk/Mesh.hpp>
@@ -26,6 +30,7 @@
 #include <wmtk/components/utils/resolve_path.hpp>
 
 #include <h5pp/h5pp.h>
+#include "EigenMeshes.hpp"
 #include "Mesh.hpp"
 
 using namespace wmtk::components;
@@ -40,6 +45,14 @@ int main(int argc, char* argv[])
 
     FusedOutput fo;
     fo.load(file, "/");
+    auto trimesh = fo.mesh.create();
+
+    auto em = fo.topology.feature_edge_mesh(*trimesh);
+    // wmtk::multimesh::utils::check_maps_valid(*em);
+    // wmtk::multimesh::utils::check_maps_valid(*trimesh);
+
+
+    // for(const auto&
     /*
 std::filesystem::path p = "/meshes";
 auto groups = file.findGroups("","/meshes",-1,0);

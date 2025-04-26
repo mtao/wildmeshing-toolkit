@@ -11,7 +11,7 @@
 #include <wmtk/utils/Logger.hpp>
 #include "tools/TriMesh_examples.hpp"
 
-TEST_CASE("dart_topology_initialization", "[dart_accessor]")
+TEST_CASE("dart_topology_initialization", "[dart_accessor][.]")
 
 {
     auto mesh = wmtk::tests::three_neighbors();

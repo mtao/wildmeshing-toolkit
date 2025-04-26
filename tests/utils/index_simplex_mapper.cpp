@@ -24,12 +24,12 @@ TEST_CASE("index_simplex_mapper", "[simplex][indexing][dart]")
         std::array<int64_t, 2> d{{3, 2}};
         std::array<int64_t, 2> e{{1, 2}};
         std::array<int64_t, 2> f{{2, 1}};
-        auto ad = ism.get_dart(a);
-        auto bd = ism.get_dart(b);
-        auto cd = ism.get_dart(c);
-        auto dd = ism.get_dart(d);
-        auto ed = ism.get_dart(e);
-        auto fd = ism.get_dart(f);
+        auto ad = ism.get_internal_dart(a);
+        auto bd = ism.get_internal_dart(b);
+        auto cd = ism.get_internal_dart(c);
+        auto dd = ism.get_internal_dart(d);
+        auto ed = ism.get_internal_dart(e);
+        auto fd = ism.get_internal_dart(f);
 
         CHECK((ad == wmtk::dart::Dart(0, wmtk::tests::dart::utils::d01.permutation())));
         CHECK((bd == wmtk::dart::Dart(0, wmtk::tests::dart::utils::d10.permutation())));
@@ -55,12 +55,12 @@ TEST_CASE("index_simplex_mapper", "[simplex][indexing][dart]")
             std::array<int64_t, 3> d{{1, 2, 0}};
             std::array<int64_t, 3> e{{2, 0, 1}};
             std::array<int64_t, 3> f{{2, 1, 0}};
-            auto ad = ism.get_dart(a);
-            auto bd = ism.get_dart(b);
-            auto cd = ism.get_dart(c);
-            auto dd = ism.get_dart(d);
-            auto ed = ism.get_dart(e);
-            auto fd = ism.get_dart(f);
+            auto ad = ism.get_internal_dart(a);
+            auto bd = ism.get_internal_dart(b);
+            auto cd = ism.get_internal_dart(c);
+            auto dd = ism.get_internal_dart(d);
+            auto ed = ism.get_internal_dart(e);
+            auto fd = ism.get_internal_dart(f);
 
             CHECK((ad == wmtk::dart::Dart(0, wmtk::tests::dart::utils::d012.permutation())));
             CHECK((bd == wmtk::dart::Dart(0, wmtk::tests::dart::utils::d021.permutation())));
@@ -77,12 +77,12 @@ TEST_CASE("index_simplex_mapper", "[simplex][indexing][dart]")
             std::array<int64_t, 3> d{{2, 1, 3}};
             std::array<int64_t, 3> e{{1, 3, 2}};
             std::array<int64_t, 3> f{{1, 2, 3}};
-            auto ad = ism.get_dart(a);
-            auto bd = ism.get_dart(b);
-            auto cd = ism.get_dart(c);
-            auto dd = ism.get_dart(d);
-            auto ed = ism.get_dart(e);
-            auto fd = ism.get_dart(f);
+            auto ad = ism.get_internal_dart(a);
+            auto bd = ism.get_internal_dart(b);
+            auto cd = ism.get_internal_dart(c);
+            auto dd = ism.get_internal_dart(d);
+            auto ed = ism.get_internal_dart(e);
+            auto fd = ism.get_internal_dart(f);
 
             CHECK((ad == wmtk::dart::Dart(1, wmtk::tests::dart::utils::d012.permutation())));
             CHECK((bd == wmtk::dart::Dart(1, wmtk::tests::dart::utils::d021.permutation())));
@@ -94,7 +94,7 @@ TEST_CASE("index_simplex_mapper", "[simplex][indexing][dart]")
     }
 }
 
-TEST_CASE("index_simplex_mesh_mapper", "[simplex][indexing][dart]")
+TEST_CASE("index_simplex_mesh_mapper", "[simplex][indexing][dart][.]")
 {
     {
         wmtk::MatrixXl S(3, 2);

@@ -1,13 +1,16 @@
 #pragma once
 #include <Eigen/Core>
+#include <memory>
 #include <set>
 #include <wmtk/Tuple.hpp>
+#include <wmtk/Types.hpp>
 
 #include <map>
 
 namespace wmtk {
 class Mesh;
-}
+class EdgeMesh;
+} // namespace wmtk
 template <typename T>
 struct EigenMesh
 {
@@ -31,7 +34,7 @@ struct EigenMeshes
 
     std::vector<std::set<int64_t>> VF;
 
-    void compute_vf();
+    void compute_dual();
 
     bool in_v_range(int64_t index) const { return index >= V.start() && index < V.end(); }
     bool in_f_range(int64_t index) const
@@ -43,14 +46,19 @@ struct EigenMeshes
 
 struct EigenMeshesBuilder
 {
-    EigenMeshesBuilder(const wmtk::Mesh& m, const std::string_view& pos_name);
+    EigenMeshesBuilder(wmtk::Mesh& m, const std::string_view& pos_name);
     const EigenMeshes& load(const std::vector<std::array<int64_t, 2>>& indices);
 
+    std::shared_ptr<wmtk::EdgeMesh> create_edge_mesh();
 
     int64_t total_V = 0;
     int64_t total_F = 0;
-    const wmtk::Mesh& mesh;
+    wmtk::Mesh& mesh;
     const std::string position_attribute_name;
+    EigenMeshes base_mesh;
+    std::map<std::array<int64_t, 2>, wmtk::Tuple> edge_to_facet;
+
     std::vector<EigenMeshes> meshes;
+    std::vector<std::vector<wmtk::Tuple>> tuples;
     EigenMeshes merge_meshes() const;
 };

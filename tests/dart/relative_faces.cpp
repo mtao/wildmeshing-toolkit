@@ -796,7 +796,7 @@ TEST_CASE("dart_map_2d_2d", "[dart]")
         }
     }
 }
-TEST_CASE("dart_map_2d_3d", "[dart]")
+TEST_CASE("dart_map_2d_3d", "[dart][.]")
 {
     constexpr static PrimitiveType pt = PrimitiveType::Triangle;
     const auto& sd = SimplexDart::get_singleton(pt);

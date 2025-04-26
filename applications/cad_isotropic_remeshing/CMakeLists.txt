@@ -7,6 +7,8 @@ wmtk_add_application(cad_isotropic_remeshing_app
     main.cpp
     Mesh.hpp
     Mesh.cpp
+    EigenMeshes.hpp
+    EigenMeshes.cpp
     )
 
 

@@ -28,6 +28,7 @@ add_application(marching ON)
 add_application(procedural ON)
 add_application(multimesh OFF)
 add_application(isotropic_remeshing ON)
+
 add_application(cad_isotropic_remeshing ON)
 add_application(tetwild_msh_converter ON)
 add_application(tetwild_simplification ON)
