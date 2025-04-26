@@ -39,8 +39,8 @@ EigenMeshesBuilder::EigenMeshesBuilder(wmtk::Mesh& m, const std::string_view& po
     case wmtk::PrimitiveType::Tetrahedron: writer.get_TV_matrix(base_mesh.F.M);
     }
 
-    if (false) {
-        std::ofstream ofs("F.txt");
+    if (true) {
+        std::ofstream ofs("F2.txt");
         ofs << base_mesh.F.M << std::endl;
     }
 

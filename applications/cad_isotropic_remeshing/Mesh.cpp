@@ -1,6 +1,7 @@
 #include "Mesh.hpp"
 #include <spdlog/spdlog.h>
 #include <wmtk/EdgeMesh.hpp>
+#include <fstream>
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/components/multimesh/from_tag.hpp>
@@ -17,6 +18,9 @@ void Mesh::load(h5pp::File& file, const std::filesystem::path& path)
 {
     V = file.readDataset<Eigen::MatrixXd>((path / "V").string());
     F = file.readDataset<wmtk::MatrixXl>((path / "F").string());
+
+    std::ofstream ofs("F.txt");
+    ofs << F << std::endl;
 }
 void Topology::load(h5pp::File& file, const std::filesystem::path& path)
 {
