@@ -49,7 +49,7 @@ bool MapValidator::check_child_map_attributes_valid() const
                     const auto [source_mesh_base_tuple, target_mesh_base_tuple] =
                         multimesh::utils::read_tuple_map_attribute(map_accessor, source_tuple);
                     if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
-                        if (source_mesh_base_tuple.is_null() && target_mesh_base_tuple.is_null()) {
+                        if (!(source_mesh_base_tuple.is_null() && target_mesh_base_tuple.is_null())) {
                             ok = false;
                             wmtk::logger().error(
                                 "Map from parent {} to child {} on tuple {} (dim {}) fails on  {} "
@@ -188,19 +188,26 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
     for (PrimitiveType pt : wmtk::utils::primitive_below(child.top_simplex_type())) {
         auto tups = child.get_all(pt);
         for (const wmtk::Tuple& t : tups) {
-            wmtk::simplex::Simplex s(child, pt, t);
+            assert(!t.is_null());
+            wmtk::simplex::Simplex s(pt, t);
 
             wmtk::Tuple parent_tuple = child.map_to_parent_tuple(s);
+            assert(!parent_tuple.is_null());
+
+            // spt is the primitive type we will switch
             for (PrimitiveType spt : wmtk::utils::primitive_below(child.top_simplex_type())) {
+                if(pt == PrimitiveType::Vertex) {
+                    continue;
+                }
                 // skip switches over boundaries
                 if (spt == pt &&
                     child.is_boundary(wmtk::PrimitiveType(child.top_cell_dimension() - 1), t)) {
                     continue;
                 }
 
-                wmtk::simplex::Simplex switched_simplex(child, pt, m_mesh.switch_tuple(t, pt));
+                wmtk::simplex::Simplex switched_simplex(child, pt, child.switch_tuple(t, spt));
                 wmtk::Tuple switch_map = child.map_to_parent_tuple(switched_simplex);
-                wmtk::Tuple map_switch = m_mesh.switch_tuple(parent_tuple, pt);
+                wmtk::Tuple map_switch = m_mesh.switch_tuple(parent_tuple, spt);
                 for (PrimitiveType my_pt : wmtk::utils::primitive_below(child.top_simplex_type())) {
                     bool worked = wmtk::simplex::utils::SimplexComparisons::equal(
                         m_mesh,

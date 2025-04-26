@@ -1,5 +1,6 @@
 #pragma once
 #include <nlohmann/json_fwd.hpp>
+#include <Eigen/Dense>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "SingleAttributeTransferStrategyFactory.hpp"
 

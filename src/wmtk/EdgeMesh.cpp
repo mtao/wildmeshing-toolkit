@@ -68,6 +68,7 @@ Tuple EdgeMesh::switch_tuple(const Tuple& tuple, PrimitiveType type) const
         const attribute::Accessor<int64_t> ev_accessor =
             create_const_accessor<int64_t>(m_ev_handle);
         auto ev = ev_accessor.index_access().const_vector_attribute<2>(gcid_new);
+        spdlog::warn("{} {} needs to contain {}",ev(0), ev(1), gvid);
 
         for (int64_t i = 0; i < 2; ++i) {
             if (ev(i) == gvid) {

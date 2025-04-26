@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Mesh.hpp>
+#include <wmtk/PointMesh.hpp>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/applications/utils/element_count_report.hpp>
 #include <wmtk/applications/utils/get_integration_test_data_root.hpp>
@@ -30,6 +31,7 @@
 #include <wmtk/components/utils/resolve_path.hpp>
 
 #include <h5pp/h5pp.h>
+#include <wmtk/components/output/output.hpp>
 #include "EigenMeshes.hpp"
 #include "Mesh.hpp"
 
@@ -47,9 +49,30 @@ int main(int argc, char* argv[])
     fo.load(file, "/");
     auto trimesh = fo.mesh.create();
 
-    auto em = fo.topology.feature_edge_mesh(*trimesh);
-    // wmtk::multimesh::utils::check_maps_valid(*em);
-    // wmtk::multimesh::utils::check_maps_valid(*trimesh);
+    if (true) {
+        auto em = fo.topology.feature_edge_mesh(*trimesh);
+        // wmtk::multimesh::utils::check_maps_valid(*em);
+        // wmtk::multimesh::utils::check_maps_valid(*trimesh);
+        // return 0;
+    }
+    if (true) {
+        auto pm = fo.topology.corner_mesh(*trimesh);
+        // wmtk::multimesh::utils::check_maps_valid(*pm);
+        // wmtk::multimesh::utils::check_maps_valid(*trimesh);
+    }
+
+
+    wmtk::components::output::OutputOptions opts;
+    opts.path = argv[2];
+    opts.type = ".hdf5";
+    // opts.position_attribute =
+    // trimesh->get_attribute_handle<double>("vertices",wmtk::PrimitiveType::Vertex);
+    spdlog::info("end making intermediate opts");
+    wmtk::components::output::output(*trimesh, opts);
+
+    // auto out_opts = j["output"].get<wmtk::components::output::OutputOptions>();
+    // out_opts.position_attribute = options.position_attribute;
+    // wmtk::components::output::output(*mesh_ptr, out_opts);
 
 
     // for(const auto&

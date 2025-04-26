@@ -50,7 +50,8 @@ EigenMeshesBuilder::EigenMeshesBuilder(wmtk::Mesh& m, const std::string_view& po
         wmtk::Tuple t2 = mesh.switch_tuple(t, wmtk::PrimitiveType::Vertex);
         int64_t b = mesh.id(t2, wmtk::PrimitiveType::Vertex);
 
-        // if (a <= b)
+        // spdlog::warn("Mapping trimesh {},{} to tuple {}", a, b, std::string(t));
+        //  if (a <= b)
         {
             std::array<int64_t, 2> x{{a, b}};
             edge_to_facet.emplace(x, t);
@@ -81,6 +82,7 @@ const EigenMeshes& EigenMeshesBuilder::load(const std::vector<std::array<int64_t
         if (x[0] != a[0]) {
             t = mesh.switch_tuple(t, wmtk::PrimitiveType::Vertex);
         }
+        spdlog::info("{}", std::string(t));
         my_tuples.emplace_back(t);
 
         for (const int64_t b : a) {
@@ -154,6 +156,8 @@ std::shared_ptr<wmtk::EdgeMesh> EigenMeshesBuilder::create_edge_mesh()
     for (const auto& tt : tuples) {
         for (const auto& t : tt) {
             tups.emplace_back(std::array<wmtk::Tuple, 2>{{domain_tups[index++], t}});
+            const auto& [a, b] = tups.back();
+            spdlog::info("{} => {}", std::string(a), std::string(b));
         }
     }
 

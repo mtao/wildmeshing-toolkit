@@ -3,6 +3,7 @@
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/TriMesh.hpp>
+#include <wmtk/components/multimesh/from_tag.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/internal/IndexSimplexMapper.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
@@ -102,15 +103,22 @@ std::shared_ptr<wmtk::TriMesh> Mesh::create() const
 
 std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) const
 {
-    wmtk::utils::internal::IndexSimplexMapper ism(tri_mesh);
     std::vector<std::array<wmtk::Tuple, 2>> map;
+
+    auto tups = tri_mesh.get_all(wmtk::PrimitiveType::Vertex);
     int64_t index = 0;
+    for (const auto& [c, vid] : corner_to_vid) {
+        map.emplace_back(std::array<wmtk::Tuple, 2>{{wmtk::Tuple(-1, -1, -1, index++), tups[vid]}});
+    }
+    /*
+    wmtk::utils::internal::IndexSimplexMapper ism(tri_mesh);
     for (const auto& [c, vid] : corner_to_vid) {
         map.emplace_back(std::array<wmtk::Tuple, 2>{
             {wmtk::Tuple(-1, -1, -1, index++),
              tri_mesh.get_tuple_from_id_simplex(
                  wmtk::simplex::IdSimplex(wmtk::PrimitiveType::Vertex, vid))}});
     }
+    */
     auto ret = std::make_shared<wmtk::PointMesh>(map.size());
 
     tri_mesh.register_child_mesh(ret, map);
@@ -121,6 +129,8 @@ std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_m
 {
     EigenMeshesBuilder emb(tri_mesh, "vertices");
 
+    auto attr = tri_mesh.register_attribute<char>("edge_tag", wmtk::PrimitiveType::Edge, 1);
+    auto acc = attr.create_accessor<char, 1>();
 
     for (const auto& [key, chain] : feature_edge_to_vids_chain) {
         std::vector<std::array<int64_t, 2>> E;
@@ -129,14 +139,27 @@ std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_m
             E.emplace_back(std::array<int64_t, 2>{{chain[j], chain[j + 1]}});
             auto [a, b] = E.back();
             if (a == b) {
-                spdlog::warn("Chain {} had duplicate vertex at {} (skipping it)", key, j);
+                // spdlog::warn("Chain {} had duplicate vertex at {} (skipping it)", key, j);
                 E.pop_back();
             }
         }
-        emb.load(E);
+        for (const auto& e : E) {
+            acc.scalar_attribute(emb.edge_to_facet.at(e)) = 1;
+        }
+
+
+        // emb.load(E);
     }
 
-    auto em = emb.create_edge_mesh();
 
-    return em;
+    auto h = tri_mesh.get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
+    auto p = std::dynamic_pointer_cast<wmtk::EdgeMesh>(
+        wmtk::components::multimesh::from_tag(attr, 1, {h}));
+    //p->delete_attribute(p->get_attribute_handle<char>("edge_tag", wmtk::PrimitiveType::Edge));
+    tri_mesh.delete_attribute(tri_mesh.get_attribute_handle<char>("edge_tag", wmtk::PrimitiveType::Edge));
+    return p;
+
+    // auto em = emb.create_edge_mesh();
+
+    // return em;
 }

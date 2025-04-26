@@ -2,6 +2,7 @@
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/simplex/SimplexCollection.hpp>
 #include <wmtk/simplex/closed_star.hpp>
+#include <Eigen/Dense>
 
 namespace wmtk::mesh_utils {
 Eigen::Vector3d compute_face_normal_area_weighted(
