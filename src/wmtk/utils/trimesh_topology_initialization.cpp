@@ -58,6 +58,7 @@ std::tuple<RowVectors3l, RowVectors3l, VectorXl, VectorXl> trimesh_topology_init
         // Compute FE, FF, EF
         FE.resize(F.rows(), 3);
         FF.resize(F.rows(), 3);
+        FF.setConstant(-1);
         std::vector<int64_t> EF_temp;
 
         // iterate over TTT to find faces

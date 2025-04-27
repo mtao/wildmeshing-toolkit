@@ -3,13 +3,13 @@
 #include <numeric>
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Mesh.hpp>
-#include <wmtk/multimesh/MultiMeshManager.hpp>
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/Primitive.hpp>
 #include <wmtk/TetMesh.hpp>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/attribute/TypedAttributeHandle.hpp>
+#include <wmtk/multimesh/MultiMeshManager.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include "internal/TupleTag.hpp"
 
@@ -141,7 +141,7 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
 
     if (child_is_free) {
         switch (pt) {
-            case PrimitiveType::Vertex: throw std::runtime_error("not implemented for vertex");
+        case PrimitiveType::Vertex: throw std::runtime_error("not implemented for vertex");
         case PrimitiveType::Edge: {
             std::shared_ptr<EdgeMesh> meshptr = std::make_shared<EdgeMesh>();
             meshptr->initialize_free(tagged_tuples.size());
@@ -165,7 +165,7 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
 
     } else {
         switch (pt) {
-            case PrimitiveType::Vertex: throw std::runtime_error("not implemented for vertex");
+        case PrimitiveType::Vertex: throw std::runtime_error("not implemented for vertex");
         case PrimitiveType::Edge: {
             child_mesh_ptr = run_edge();
             break;

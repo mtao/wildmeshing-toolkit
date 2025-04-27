@@ -34,6 +34,10 @@ int TransferFunctorTraits<Functor>::simplex_dimension(
     const attribute::MeshAttributeHandle& mah,
     const nlohmann::json& js)
 {
-    return get_primitive_type_id(mah.primitive_type());
+    if (js.contains("simplex_dimension")) {
+        return js["simplex_dimension"].get<int>();
+    } else {
+        return get_primitive_type_id(mah.primitive_type());
+    }
 }
 } // namespace wmtk::components::mesh_info::transfer

@@ -17,7 +17,7 @@
 
 #define DEFAULT_PARSABLE_ARGS                                                                    \
     iterations, lock_boundary, use_for_periodic, fix_uv_seam, intermediate_output_format, split, \
-        swap, collapse, smooth //, utility_attributes
+        swap, collapse, smooth, start_with_collapse //, utility_attributes
 
 namespace wmtk::components::isotropic_remeshing {
 

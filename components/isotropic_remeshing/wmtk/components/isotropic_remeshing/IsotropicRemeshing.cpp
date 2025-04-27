@@ -2,6 +2,7 @@
 #include "IsotropicRemeshing.hpp"
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
+#include <wmtk/simplex/utils/tuple_vector_to_homogeneous_simplex_vector.hpp>
 #include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 #include "invariants/ImprovementInvariant.hpp"
 
@@ -204,6 +205,72 @@ void IsotropicRemeshing::run()
 
     //////////////////////////////////////////
     Scheduler scheduler;
+
+    scheduler.set_update_frequency(100);
+    if(m_options.start_with_collapse && bool(m_collapse)) {
+
+        (*m_collapse)(simplex::Simplex::edge(Tuple(1,0,-1,3091)));
+        return;
+
+        {
+        logger().info("Starting initial swap pass");
+        auto tuples = m_collapse->mesh().get_all(wmtk::PrimitiveType::Edge);
+
+        auto simplices =
+            wmtk::simplex::utils::tuple_vector_to_homogeneous_simplex_vector(m_collapse->mesh(), tuples, wmtk::PrimitiveType::Edge);
+        size_t size = simplices.size() / 10000;
+        std::vector<std::vector<simplex::Simplex>> s(size);
+        for(size_t j = 0; j < simplices.size(); ++j) {
+            s[j % size].emplace_back(simplices[j]);
+        }
+
+
+        for(auto ss: s) {
+            spdlog::info("{}", ss.size());
+            const auto stats = scheduler.run_operation_on_all(*m_swap, std::move(ss));
+            logger().info(
+                "Executed {} {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
+                stats.number_of_performed_operations(),
+                "initial swap",
+                stats.number_of_successful_operations(),
+                stats.number_of_failed_operations(),
+                stats.collecting_time,
+                stats.sorting_time,
+                stats.executing_time);
+        wmtk::multimesh::consolidate(mesh);
+        }
+        }
+        {
+        logger().info("Starting initial swap pass");
+        auto tuples = m_swap->mesh().get_all(wmtk::PrimitiveType::Edge);
+
+        auto simplices =
+            wmtk::simplex::utils::tuple_vector_to_homogeneous_simplex_vector(m_swap->mesh(), tuples, wmtk::PrimitiveType::Edge);
+        size_t size = simplices.size() / 100;
+        std::vector<std::vector<simplex::Simplex>> s(size);
+        for(size_t j = 0; j < simplices.size(); ++j) {
+            s[j % size].emplace_back(simplices[j]);
+        }
+
+
+        for(auto ss: s) {
+            spdlog::info("{}", ss.size());
+            const auto stats = scheduler.run_operation_on_all(*m_collapse, std::move(ss));
+            logger().info(
+                "Executed {} {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
+                stats.number_of_performed_operations(),
+                "initial collapse",
+                stats.number_of_successful_operations(),
+                stats.number_of_failed_operations(),
+                stats.collecting_time,
+                stats.sorting_time,
+                stats.executing_time);
+        wmtk::multimesh::consolidate(mesh);
+        }
+        }
+    }
+
+
     for (long i = 1; i <= m_options.iterations; ++i) {
         wmtk::logger().info("Iteration {}", i);
 

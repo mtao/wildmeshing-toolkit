@@ -42,6 +42,8 @@ struct IsotropicRemeshingOptions
     bool use_for_periodic = false;
     bool fix_uv_seam = false;
 
+    bool start_with_collapse = false;
+
     EdgeSplitOptions split;
     EdgeCollapseOptions collapse;
     VertexSmoothOptions smooth;

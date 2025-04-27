@@ -26,17 +26,12 @@ std::tuple<RowVectors2l, VectorXl> edgemesh_topology_initialization(
     }
 
     EE.resize(E.rows(), 2);
+    EE.setConstant(-1);
     //  compute EE & connectivity check
     for (int64_t i = 0; i < complete_VE.size(); ++i) {
         assert(complete_VE[i].size() > 0 || complete_VE[i].size() < 3);
-        if (complete_VE[i].size() == 1) {
-            // boundary vertex
-            if (E(complete_VE[i][0], 0) == i) {
-                EE(complete_VE[i][0], 0) = -1;
-            } else {
-                EE(complete_VE[i][0], 1) = -1;
-            }
-        } else {
+
+        if (complete_VE[i].size() == 2) {
             // non-boundary vertex
             for (int64_t k = 0; k < 2; ++k) {
                 if (E(complete_VE[i][k], 0) == i) {
@@ -45,6 +40,13 @@ std::tuple<RowVectors2l, VectorXl> edgemesh_topology_initialization(
                 if (E(complete_VE[i][k], 1) == i) {
                     EE(complete_VE[i][k], 1) = complete_VE[i][1 - k];
                 }
+            }
+        } else if (complete_VE[i].size() == 1) {
+            // boundary vertex
+            if (E(complete_VE[i][0], 0) == i) {
+                EE(complete_VE[i][0], 0) = -1;
+            } else {
+                EE(complete_VE[i][0], 1) = -1;
             }
         }
     }

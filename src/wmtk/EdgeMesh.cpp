@@ -68,7 +68,6 @@ Tuple EdgeMesh::switch_tuple(const Tuple& tuple, PrimitiveType type) const
         const attribute::Accessor<int64_t> ev_accessor =
             create_const_accessor<int64_t>(m_ev_handle);
         auto ev = ev_accessor.index_access().const_vector_attribute<2>(gcid_new);
-        spdlog::warn("{} {} needs to contain {}",ev(0), ev(1), gvid);
 
         for (int64_t i = 0; i < 2; ++i) {
             if (ev(i) == gvid) {
@@ -239,7 +238,7 @@ bool EdgeMesh::is_connectivity_valid() const
 {
     // get accessors for topology
     const attribute::Accessor<int64_t> ev_accessor = create_const_accessor<int64_t>(m_ev_handle);
-    // const attribute::Accessor<int64_t> ee_accessor = create_const_accessor<int64_t>(m_ee_handle);
+    const attribute::Accessor<int64_t> ee_accessor = create_const_accessor<int64_t>(m_ee_handle);
     const attribute::Accessor<int64_t> ve_accessor = create_const_accessor<int64_t>(m_ve_handle);
     const attribute::FlagAccessor<EdgeMesh> v_flag_accessor =
         get_flag_accessor(PrimitiveType::Vertex);
@@ -275,8 +274,57 @@ bool EdgeMesh::is_connectivity_valid() const
         if (!e_flag_accessor.index_access().is_active(i)) {
             continue;
         }
+        auto ev = ev_accessor.index_access().const_vector_attribute<2>(i);
+        auto ee = ee_accessor.index_access().const_vector_attribute<2>(i);
+        if (ev(0) == ev(1)) {
+            wmtk::logger().error("EV[{},:] = {}, not currently supported", i, fmt::join(ev, ","));
+            return false;
+        }
+
+        for (int64_t j = 0; j < 2; ++j) {
+            int64_t nbre = ee(j);
+            // if boundary nvm
+            if (nbre == -1) {
+                continue;
+            }
+            auto nbree = ee_accessor.index_access().const_vector_attribute<2>(nbre);
+            auto nbrev = ev_accessor.index_access().const_vector_attribute<2>(nbre);
+            bool found = false;
+            for (int64_t k = 0; k < 2; ++k) {
+                if (nbree(k) == i) {
+                    found = true;
+
+                    if (nbrev(k) != ev(j)) {
+                        wmtk::logger().error(
+                            "EV[{}] = {}, got EV[EE[{},{}]] = {}, which does not include {} but "
+                            "needed to at position {}",
+                            i,
+                            fmt::join(ev, ","),
+                            i,
+                            j,
+                            fmt::join(nbrev, ","),
+                            ev(j),
+                            k);
+                        return false;
+                    }
+                }
+            }
+
+            if (!found) {
+                wmtk::logger().error(
+                    "EE[{}] = {}, got EE[EE[{},{}]] = {}, which does not include {} but needed to",
+                    i,
+                    fmt::join(ee, ","),
+                    i,
+                    j,
+                    fmt::join(nbree, ","),
+                    i);
+                return false;
+            }
+        }
         // TODO: need to handle cornor case (self-loop)
     }
+
 
     return true;
 }
