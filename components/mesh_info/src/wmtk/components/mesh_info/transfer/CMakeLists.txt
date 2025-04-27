@@ -38,6 +38,9 @@ max_neighbor.cpp
 neighbor_count.hpp
 neighbor_count.cpp
 
+filtered_neighbor_count.hpp
+filtered_neighbor_count.cpp
+
 threshold.hpp
 threshold.cpp
 init.hpp

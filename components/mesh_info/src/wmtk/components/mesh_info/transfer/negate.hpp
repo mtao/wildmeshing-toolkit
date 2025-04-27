@@ -8,18 +8,9 @@
 namespace wmtk::components::mesh_info::transfer {
 
 template <typename InT, int InDim, typename OutT, int OutDim>
-struct ThresholdFunctor
+struct NegateFunctor
 {
-    ThresholdFunctor(const std::optional<InT>& over, const std::optional<InT>& under)
-        : m_over(over)
-        , m_under(under)
-    {
-        assert(m_under.has_value() || m_over.has_value());
-    }
-    ThresholdFunctor(const nlohmann::json& js)
-        : ThresholdFunctor(
-              js.contains("over") ? js["over"].get<InT>() : std::optional<InT>{},
-              js.contains("under") ? js["under"].get<InT>() : std::optional<InT>{})
+    NegateFunctor(const nlohmann::json& js)
     {}
     constexpr static bool validInDim() { return true; }
     constexpr static bool validOutDim() { return OutDim == Eigen::Dynamic || OutDim == InDim; }
@@ -32,19 +23,7 @@ struct ThresholdFunctor
     auto operator()(Eigen::Ref<const ColVectors<InT, InDim>> M) const -> Vector<OutT, OutDim>
     {
         assert(M.cols() == 1);
-        const auto& A = M.array();
-        if (m_over.has_value() && m_under.has_value()) {
-            const auto& lower = m_over.value();
-            const auto& upper = m_under.value();
-            return (lower <= A && A <= upper).template cast<char>();
-        } else if (m_over.has_value()) {
-            const auto& lower = m_over.value();
-            return (lower <= A).template cast<char>();
-        } else {
-            const auto& upper = m_under.value();
-            return (A <= upper).template cast<char>();
-        }
-        return Vector<OutT, OutDim>::Constant(M.rows(), 0);
+        return !M.array();
     }
 
 private:
@@ -52,20 +31,20 @@ private:
     const std::optional<InT> m_under;
 };
 template <>
-inline int TransferFunctorTraits<ThresholdFunctor>::output_dimension(
+inline int TransferFunctorTraits<NegateFunctor>::output_dimension(
     const attribute::MeshAttributeHandle& mah)
 {
     return mah.dimension();
 }
 template <>
-inline auto TransferFunctorTraits<ThresholdFunctor>::output_type(
+inline auto TransferFunctorTraits<NegateFunctor>::output_type(
     const attribute::MeshAttributeHandle& mah,
     const nlohmann::json& js) -> attribute::AttributeType
 {
     return attribute::AttributeType::Char;
 }
 template <>
-inline int TransferFunctorTraits<ThresholdFunctor>::simplex_dimension(
+inline int TransferFunctorTraits<NegateFunctor>::simplex_dimension(
     const attribute::MeshAttributeHandle& mah,
     const nlohmann::json& js)
 {
@@ -73,6 +52,6 @@ inline int TransferFunctorTraits<ThresholdFunctor>::simplex_dimension(
 }
 
 
-using Threshold = SingleAttributeTransferStrategyFactory<ThresholdFunctor>;
+using Negate = SingleAttributeTransferStrategyFactory<NegateFunctor>;
 
 } // namespace wmtk::components::mesh_info::transfer

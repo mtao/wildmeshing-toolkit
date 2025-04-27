@@ -96,7 +96,6 @@ SchedulerStats Scheduler::run_operation_on_all(operations::Operation& op, std::v
         } else {
             for (const auto& o : order) {
                 log(res, total_simplices);
-                spdlog::info("{}: {}", o.first, std::string(simplices[o.first].tuple()));
                 //if(!op.mesh().is_connectivity_valid()) {
                 //    spdlog::warn("Broke mesh1");
                 //}

@@ -11,5 +11,6 @@ set(TEST_SOURCES
     disjoint_set.cpp
     valence_checker.cpp
     index_simplex_mapper.cpp
+    manifold_decomposition.cpp
 )
 target_sources(wmtk_tests PRIVATE ${TEST_SOURCES})

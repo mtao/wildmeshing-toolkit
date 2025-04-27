@@ -21,7 +21,7 @@ std::tuple<RowVectors3l, RowVectors3l, VectorXl, VectorXl> trimesh_topology_init
     char it = 2;
     char ii = 3;
 
-    std::vector<std::vector<int64_t>> TTT;
+    std::vector<std::array<int64_t,4>> TTT;
 
     int64_t vertex_count = F.maxCoeff() + 1;
 
@@ -37,7 +37,7 @@ std::tuple<RowVectors3l, RowVectors3l, VectorXl, VectorXl> trimesh_topology_init
                 int64_t y = F(t, f1);
                 if (x > y) std::swap(x, y);
 
-                std::vector<int64_t> r(4);
+                std::array<int64_t,4> r;
                 r[iv0] = x;
                 r[iv1] = y;
                 r[it] = t;

@@ -4,6 +4,7 @@
 #include <map>
 #include <set>
 #include <wmtk/Types.hpp>
+#include <wmtk/attribute/MeshAttributeHandle.hpp>
 
 namespace h5pp {
 class File;
@@ -32,7 +33,14 @@ struct Topology
     void load(h5pp::File& file, const std::filesystem::path& path);
 
     std::shared_ptr<wmtk::PointMesh> corner_mesh(wmtk::TriMesh& tri_mesh) const;
+    static std::shared_ptr<wmtk::PointMesh> corner_mesh(
+        const wmtk::attribute::MeshAttributeHandle& mah,
+        wmtk::PrimitiveType pt,
+        std::string_view name = "filter_tag");
     std::shared_ptr<wmtk::EdgeMesh> feature_edge_mesh(wmtk::TriMesh& tri_mesh) const;
+    wmtk::attribute::MeshAttributeHandle add_feature_edge_mesh_tag(
+        wmtk::TriMesh& tri_mesh,
+        std::string_view name) const;
 
     bool validate_features_end_in_corners() const;
 };

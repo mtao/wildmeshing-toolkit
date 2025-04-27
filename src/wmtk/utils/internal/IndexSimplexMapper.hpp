@@ -36,6 +36,8 @@ private:
     void initialize_edge_mesh(Eigen::Ref<const RowVectors2l> S);
     void initialize_tri_mesh(Eigen::Ref<const RowVectors3l> S);
     void initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S);
+    template <int Dim>
+    void initialize(Eigen::Ref<const RowVectors<int64_t, Dim>> S);
 
 
 #if defined(_cpp_lib_span)

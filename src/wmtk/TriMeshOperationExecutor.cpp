@@ -112,7 +112,9 @@ TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor(
     , m_mesh(m)
 
 {
+#if defined(MTAO_CONSTANTLY_VERIFY_MESH)
     assert(m.is_connectivity_valid());
+#endif
     m_operating_tuple = operating_tuple;
     // store ids of edge and incident vertices
     m_operating_edge_id = m_mesh.id_edge(m_operating_tuple);

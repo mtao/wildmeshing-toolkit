@@ -27,7 +27,9 @@ EigenMeshesBuilder::EigenMeshesBuilder(wmtk::Mesh& m, const std::string_view& po
 {
     assert(mesh.is_connectivity_valid());
     wmtk::utils::EigenMatrixWriter writer;
-    writer.set_position_attribute_name(position_attribute_name);
+    if (!position_attribute_name.empty()) {
+        writer.set_position_attribute_name(position_attribute_name);
+    }
     mesh.serialize(writer);
 
     writer.get_position_matrix(base_mesh.V.M);

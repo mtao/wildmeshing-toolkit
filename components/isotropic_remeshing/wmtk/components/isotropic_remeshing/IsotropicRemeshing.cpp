@@ -206,13 +206,37 @@ void IsotropicRemeshing::run()
     //////////////////////////////////////////
     Scheduler scheduler;
 
-    scheduler.set_update_frequency(100);
-    if(m_options.start_with_collapse && bool(m_collapse)) {
-
-        (*m_collapse)(simplex::Simplex::edge(Tuple(1,0,-1,3091)));
-        return;
-
-        {
+    scheduler.set_update_frequency(1000);
+    if(m_options.start_with_collapse) {
+        if(bool(m_swap)) {
+            spdlog::info("Doing an initial pass of swaps");
+            const auto stats = scheduler.run_operation_on_all(*m_swap);
+            logger().info(
+                "Executed {} {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
+                stats.number_of_performed_operations(),
+                "initial swap",
+                stats.number_of_successful_operations(),
+                stats.number_of_failed_operations(),
+                stats.collecting_time,
+                stats.sorting_time,
+                stats.executing_time);
+        wmtk::multimesh::consolidate(mesh);
+        }
+        if(bool(m_collapse)) {
+            spdlog::info("Doing an initial pass of collapses");
+            const auto stats = scheduler.run_operation_on_all(*m_collapse);
+            logger().info(
+                "Executed {} {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
+                stats.number_of_performed_operations(),
+                "initial swap",
+                stats.number_of_successful_operations(),
+                stats.number_of_failed_operations(),
+                stats.collecting_time,
+                stats.sorting_time,
+                stats.executing_time);
+        wmtk::multimesh::consolidate(mesh);
+        }
+            /*
         logger().info("Starting initial swap pass");
         auto tuples = m_collapse->mesh().get_all(wmtk::PrimitiveType::Edge);
 
@@ -268,6 +292,7 @@ void IsotropicRemeshing::run()
         wmtk::multimesh::consolidate(mesh);
         }
         }
+        */
     }
 
 

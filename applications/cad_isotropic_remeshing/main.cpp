@@ -17,7 +17,10 @@
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
+#include <wmtk/multimesh/same_simplex_dimension_bijection.hpp>
 #include <wmtk/multimesh/utils/check_map_valid.hpp>
+#include <wmtk/utils/cast_attribute.hpp>
+#include <wmtk/utils/internal/manifold_decomposition.hpp>
 #include "wmtk/components/utils/PathResolver.hpp"
 
 #include <wmtk/Mesh.hpp>
@@ -49,6 +52,32 @@ int main(int argc, char* argv[])
     fo.load(file, "/");
     auto trimesh = fo.mesh.create();
 
+
+    auto& F = fo.mesh.F;
+    F = wmtk::utils::internal::boundary_manifold_decomposition<3>(F);
+    auto manifold = fo.mesh.create();
+    auto map = wmtk::multimesh::same_simplex_dimension_bijection(*trimesh, *manifold);
+
+    trimesh->register_child_mesh(manifold, map);
+
+    auto mah = fo.topology.add_feature_edge_mesh_tag(*trimesh, "edge_tag");
+
+    auto pos = trimesh->get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
+    auto edge_tag = wmtk::utils::cast_attribute<char>(mah, *manifold, "edge_tag");
+    pos = wmtk::utils::cast_attribute<char>(pos, *manifold, "vertices");
+    {
+        auto p = std::dynamic_pointer_cast<wmtk::EdgeMesh>(
+            wmtk::components::multimesh::from_tag(edge_tag, 1, {pos}));
+        // p->delete_attribute(p->get_attribute_handle<char>("edge_tag",
+        // wmtk::PrimitiveType::Edge));
+        manifold->delete_attribute(edge_tag);
+
+        trimesh->deregister_child_mesh(manifold);
+        trimesh = manifold;
+    }
+
+
+    /*
     if (true) {
         auto em = fo.topology.feature_edge_mesh(*trimesh);
         // wmtk::multimesh::utils::check_maps_valid(*em);
@@ -60,6 +89,7 @@ int main(int argc, char* argv[])
         // wmtk::multimesh::utils::check_maps_valid(*pm);
         // wmtk::multimesh::utils::check_maps_valid(*trimesh);
     }
+    */
 
 
     wmtk::components::output::OutputOptions opts;

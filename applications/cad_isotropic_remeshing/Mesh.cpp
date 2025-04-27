@@ -5,7 +5,9 @@
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/TriMesh.hpp>
+#include <wmtk/components/mesh_info/transfer/filtered_neighbor_count.hpp>
 #include <wmtk/components/multimesh/from_tag.hpp>
+#include <wmtk/utils/EigenMatrixWriter.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/internal/IndexSimplexMapper.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
@@ -106,13 +108,94 @@ std::shared_ptr<wmtk::TriMesh> Mesh::create() const
 
     return m;
 }
+std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(
+    const wmtk::attribute::MeshAttributeHandle& mah,
+    wmtk::PrimitiveType pt,
+    std::string_view tag_name)
+{
+    std::string tag_name2 = std::string(tag_name) + "_intermediate";
+    assert(mah.held_type() == wmtk::attribute::AttributeType::Char);
+    wmtk::attribute::MeshAttributeHandle mah2 = mah;
+
+    // check for tags with more than N attributes with the value
+    {
+        wmtk::components::mesh_info::transfer::FilteredNeighborCount factory;
+        factory.parameters = {{"simplex_dimension", 0}, {"under", 1}, {"over", 1}};
+        auto attr = mah2.mesh().register_attribute<int64_t>(std::string(tag_name2), pt, 1);
+        auto acc = attr.create_accessor<char, 1>();
+
+        auto transfer = factory.create_T<1, 1, char, int64_t>(mah, attr);
+
+        transfer->run_on_all();
+    }
+
+    {
+        wmtk::components::mesh_info::transfer::Threshold factory;
+        factory.parameters = {{"simplex_dimension", 0}, {"over", 2}};
+        auto attr = mah2.mesh().register_attribute<int64_t>(std::string(tag_name), pt, 1);
+        auto acc = attr.create_accessor<char, 1>();
+
+        auto transfer = factory.create_T<1, 1, char, int64_t>(mah, attr);
+
+        transfer->run_on_all();
+        mah2 = attr;
+    }
+    auto h = mah.mesh().get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
+    auto p = std::dynamic_pointer_cast<wmtk::PointMesh>(
+        wmtk::components::multimesh::from_tag(mah2, 1, {h}));
+    return p;
+
+    /*
+    wmtk::utils::EigenMatrixWriter em;
+    edge_mesh.serialize(em);
+    em.get_EV_matrix();
+    std::vector<std::array<wmtk::Tuple, 2>> map;
+        std::map<int64_t, std::set<int64_t>> edges;
+
+        auto tups = edge_mesh.get_all(wmtk::PrimitiveType::Vertex);
+        for (const auto& [key, chain] : feature_edge_to_vids_chain) {
+            for (size_t j = 0; j < chain.size() - 1; ++j) {
+                int64_t a = chain[j];
+                int64_t b = chain[j + 1];
+                if (a == b) {
+                } else {
+                    edges[a].emplace(b);
+                    edges[b].emplace(a);
+                }
+            }
+
+
+            // emb.load(E);
+        }
+        for (const auto& [key, values] : edges) {
+            if (values.size() > 2) {
+                bool identified_nonmanifold = false;
+                for (const auto& [c, vid] : corner_to_vid) {
+                    if (vid == key) {
+                        identified_nonmanifold = true;
+                    }
+                }
+                spdlog::warn("There was more nonmanifold than we expected");
+            }
+            map.emplace_back(
+                std::array<wmtk::Tuple, 2>{{wmtk::Tuple(-1, -1, -1, map.size()), tups[key]}});
+        }
+
+
+    }
+
+    auto ret = std::make_shared<wmtk::PointMesh>(map.size());
+
+    tri_mesh.register_child_mesh(ret, map);
+
+    return ret;
+    */
+}
 
 std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) const
 {
+    std::vector<std::array<wmtk::Tuple, 2>> map;
     if (true) {
-        auto attr = tri_mesh.register_attribute<char>("vertex_tag", wmtk::PrimitiveType::Vertex, 1);
-        auto acc = attr.create_accessor<char, 1>();
-
         std::map<int64_t, std::set<int64_t>> edges;
 
         auto tups = tri_mesh.get_all(wmtk::PrimitiveType::Vertex);
@@ -139,29 +222,19 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) 
                     }
                 }
                 spdlog::warn("There was more nonmanifold than we expected");
-                acc.scalar_attribute(tups[key]) = 1;
             }
+            map.emplace_back(
+                std::array<wmtk::Tuple, 2>{{wmtk::Tuple(-1, -1, -1, map.size()), tups[key]}});
         }
 
 
-        auto h = tri_mesh.get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
-        auto p = std::dynamic_pointer_cast<wmtk::PointMesh>(
-            wmtk::components::multimesh::from_tag(attr, 1, {h}));
-        // p->delete_attribute(p->get_attribute_handle<char>("edge_tag",
-        // wmtk::PrimitiveType::Edge));
-        tri_mesh.delete_attribute(
-            tri_mesh.get_attribute_handle<char>("vertex_tag", wmtk::PrimitiveType::Edge));
-        return p;
     }
 
     else {
-        std::vector<std::array<wmtk::Tuple, 2>> map;
-
         auto tups = tri_mesh.get_all(wmtk::PrimitiveType::Vertex);
-        int64_t index = 0;
         for (const auto& [c, vid] : corner_to_vid) {
             map.emplace_back(
-                std::array<wmtk::Tuple, 2>{{wmtk::Tuple(-1, -1, -1, index++), tups[vid]}});
+                std::array<wmtk::Tuple, 2>{{wmtk::Tuple(-1, -1, -1, map.size()), tups[vid]}});
         }
         /*
         wmtk::utils::internal::IndexSimplexMapper ism(tri_mesh);
@@ -172,22 +245,40 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) 
                      wmtk::simplex::IdSimplex(wmtk::PrimitiveType::Vertex, vid))}});
         }
         */
-        auto ret = std::make_shared<wmtk::PointMesh>(map.size());
-
-        tri_mesh.register_child_mesh(ret, map);
-
-        return ret;
     }
+    auto ret = std::make_shared<wmtk::PointMesh>(map.size());
+
+    tri_mesh.register_child_mesh(ret, map);
+
+    return ret;
 }
+
 std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_mesh) const
+{
+    add_feature_edge_mesh_tag(tri_mesh, "edge_tag");
+    auto attr = tri_mesh.register_attribute<char>("edge_tag", wmtk::PrimitiveType::Edge, 1);
+    auto h = tri_mesh.get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
+    auto p = std::dynamic_pointer_cast<wmtk::EdgeMesh>(
+        wmtk::components::multimesh::from_tag(attr, 1, {h}));
+    // p->delete_attribute(p->get_attribute_handle<char>("edge_tag",
+    // wmtk::PrimitiveType::Edge));
+    tri_mesh.delete_attribute(
+        tri_mesh.get_attribute_handle<char>("edge_tag", wmtk::PrimitiveType::Edge));
+    assert(p->is_connectivity_valid());
+    return p;
+}
+wmtk::attribute::MeshAttributeHandle Topology::add_feature_edge_mesh_tag(
+    wmtk::TriMesh& tri_mesh,
+    std::string_view edge_name) const
 {
     EigenMeshesBuilder emb(tri_mesh, "vertices");
 
-    auto attr = tri_mesh.register_attribute<char>("edge_tag", wmtk::PrimitiveType::Edge, 1);
+    auto attr =
+        tri_mesh.register_attribute<char>(std::string(edge_name), wmtk::PrimitiveType::Edge, 1);
     auto acc = attr.create_accessor<char, 1>();
 
     for (const auto& [key, chain] : feature_edge_to_vids_chain) {
-        spdlog::info("chain {}: {}", key, fmt::join(chain, ","));
+        // spdlog::info("chain {}: {}", key, fmt::join(chain, ","));
         std::vector<std::array<int64_t, 2>> E;
         E.reserve(chain.size());
         for (size_t j = 0; j < chain.size() - 1; ++j) {
@@ -205,17 +296,8 @@ std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_m
 
         // emb.load(E);
     }
+    return attr;
 
-
-    auto h = tri_mesh.get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
-    auto p = std::dynamic_pointer_cast<wmtk::EdgeMesh>(
-        wmtk::components::multimesh::from_tag(attr, 1, {h}));
-    // p->delete_attribute(p->get_attribute_handle<char>("edge_tag",
-    // wmtk::PrimitiveType::Edge));
-    tri_mesh.delete_attribute(
-        tri_mesh.get_attribute_handle<char>("edge_tag", wmtk::PrimitiveType::Edge));
-    assert(p->is_connectivity_valid());
-    return p;
 
     // auto em = emb.create_edge_mesh();
 

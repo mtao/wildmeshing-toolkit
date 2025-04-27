@@ -184,14 +184,20 @@ int64_t IndexSimplexMapper::id(const simplex::IdSimplex& id)
 {
     return id.index();
 }
-void IndexSimplexMapper::initialize_edge_mesh(Eigen::Ref<const RowVectors2l> S)
+    template <>
+void IndexSimplexMapper::initialize<2>(Eigen::Ref<const RowVectors2l> S)
 {
     m_E = from_eigen<2>(S);
     m_E_map = make_map<2>(m_E);
     m_V_map = make_child_map<2, 1>(m_E);
     update_simplices();
 }
-void IndexSimplexMapper::initialize_tri_mesh(Eigen::Ref<const RowVectors3l> S)
+void IndexSimplexMapper::initialize_edge_mesh(Eigen::Ref<const RowVectors2l> S)
+{
+    initialize<2>(S);
+}
+template <>
+void IndexSimplexMapper::initialize<3>(Eigen::Ref<const RowVectors3l> S)
 {
     m_F = from_eigen<3>(S);
     m_F_map = make_map<3>(m_F);
@@ -199,7 +205,12 @@ void IndexSimplexMapper::initialize_tri_mesh(Eigen::Ref<const RowVectors3l> S)
     m_V_map = make_child_map<3, 1>(m_F);
     update_simplices();
 }
-void IndexSimplexMapper::initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S)
+void IndexSimplexMapper::initialize_tri_mesh(Eigen::Ref<const RowVectors3l> S)
+{
+    initialize<3>(S);
+}
+template <>
+void IndexSimplexMapper::initialize<4>(Eigen::Ref<const RowVectors4l> S)
 {
     m_T = from_eigen<4>(S);
     m_T_map = make_map<4>(m_T);
@@ -208,6 +219,10 @@ void IndexSimplexMapper::initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S)
     m_V_map = make_child_map<4, 1>(m_T);
 
     update_simplices();
+}
+void IndexSimplexMapper::initialize_tet_mesh(Eigen::Ref<const RowVectors4l> S)
+{
+    initialize<4>(S);
 }
 
 template <int Dim, int ChildDim>

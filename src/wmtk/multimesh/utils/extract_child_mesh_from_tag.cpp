@@ -34,6 +34,10 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
         }
     }
 
+    auto run_vertex = [&]() {
+        auto cm = std::make_shared<wmtk::PointMesh>(tagged_tuples.size());
+        return cm;
+    };
     auto run_edge = [&]() {
         std::map<int64_t, int64_t> parent_to_child_vertex_map;
         // int64_t child_vertex_count = 0;
@@ -165,7 +169,7 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
 
     } else {
         switch (pt) {
-        case PrimitiveType::Vertex: throw std::runtime_error("not implemented for vertex");
+        case PrimitiveType::Vertex: child_mesh_ptr = run_vertex(); break;
         case PrimitiveType::Edge: {
             child_mesh_ptr = run_edge();
             break;

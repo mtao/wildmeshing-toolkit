@@ -46,7 +46,7 @@ struct EigenMeshes
 
 struct EigenMeshesBuilder
 {
-    EigenMeshesBuilder(wmtk::Mesh& m, const std::string_view& pos_name);
+    EigenMeshesBuilder(wmtk::Mesh& m, const std::string_view& pos_name = {});
     const EigenMeshes& load(const std::vector<std::array<int64_t, 2>>& indices);
 
     std::shared_ptr<wmtk::EdgeMesh> create_edge_mesh();
