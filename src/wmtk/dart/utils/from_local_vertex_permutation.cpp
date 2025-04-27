@@ -114,7 +114,7 @@ int8_t from_vertex_permutation(Eigen::Ref<const VectorX<int64_t>> indices)
     VectorX<int8_t> perm(map.size());
 
     for (int8_t j = 0; j < indices.size(); ++j) {
-        perm[j] = map[I[j]];
+        perm[j] = map.at(I[j]);
     }
     spdlog::info("Map {} to {}", fmt::join(map,","), fmt::join(I,","));
     spdlog::info("Local perm: {} from {}", fmt::join(perm,","), fmt::join(indices,","));
