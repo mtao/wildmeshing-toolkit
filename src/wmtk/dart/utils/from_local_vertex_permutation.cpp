@@ -1,6 +1,4 @@
 #include "from_local_vertex_permutation.hpp"
-#include <spdlog/spdlog.h>
-#include <fmt/ranges.h>
 #include <algorithm>
 #include <iterator>
 #include <map>
@@ -101,14 +99,12 @@ int8_t from_vertex_permutation(Eigen::Ref<const VectorX<int64_t>> indices)
 {
     PrimitiveType pt = get_primitive_type_from_id(indices.size() - 1);
     std::map<int64_t, int8_t> map;
-    std::vector<int8_t> I(indices.size());
-    spdlog::info("Idnices {} had {} entries {}", fmt::join(indices,","), indices.size(), map.size());
+    //std::vector<int64_t> I(indices.size());
     for (int8_t j = 0; j < indices.size(); ++j) {
-        spdlog::info("{}/{} {} {}", j, indices.size(), indices(j), fmt::join(map,","));
         map[indices(j)] = j;
-        I[j] = indices(j);
     }
-    //std::vector<int8_t> I(indices.begin(), indices.end());
+    std::vector<int64_t> I(indices.begin(),indices.end());
+    //std::copy(indices.begin(), indices.end(),std::back_inserter(I));
     std::sort(I.begin(), I.end());
 
     VectorX<int8_t> perm(map.size());
@@ -116,8 +112,6 @@ int8_t from_vertex_permutation(Eigen::Ref<const VectorX<int64_t>> indices)
     for (int8_t j = 0; j < indices.size(); ++j) {
         perm[j] = map.at(I[j]);
     }
-    spdlog::info("Map {} to {}", fmt::join(map,","), fmt::join(I,","));
-    spdlog::info("Local perm: {} from {}", fmt::join(perm,","), fmt::join(indices,","));
 
     const auto& sd = wmtk::dart::SimplexDart::get_singleton(pt);
     int8_t inv = from_local_vertex_permutation(perm);

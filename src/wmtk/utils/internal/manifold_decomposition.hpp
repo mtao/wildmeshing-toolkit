@@ -64,11 +64,6 @@ RowVectors<int64_t, Dim> boundary_manifold_decomposition(
 
     wmtk::utils::DisjointSet ds(R.size());
     for (const auto& [face, simplices] : coboundary) {
-        spdlog::info(
-            "Face {} ({}) got Facets {}",
-            face,
-            fmt::join(ism.simplices<Dim - 2>()[face], ","),
-            fmt::join(simplices, ","));
         if (simplices.size() == 2) {
             std::array<int64_t, 2>& r = B.emplace_back();
             std::copy(simplices.begin(), simplices.end(), r.begin());
@@ -85,6 +80,15 @@ RowVectors<int64_t, Dim> boundary_manifold_decomposition(
                         ds.merge(a(j), b(k));
                     }
                 }
+            }
+        } else if (simplices.size() > 2) {
+            spdlog::info(
+                "Face {} ({}) got Facets {}",
+                face,
+                fmt::join(ism.simplices<Dim - 2>()[face], ","),
+                fmt::join(simplices, ","));
+            for (const auto& j : simplices) {
+                std::cout << j << ": " << S.row(j) << std::endl;
             }
         }
     }

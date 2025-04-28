@@ -22,11 +22,14 @@ void Mesh::load(h5pp::File& file, const std::filesystem::path& path)
     V = file.readDataset<Eigen::MatrixXd>((path / "V").string());
     F = file.readDataset<wmtk::MatrixXl>((path / "F").string());
 
+    assert(F.maxCoeff() < V.rows());
+    assert(F.minCoeff() >= 0);
     std::ofstream ofs("F.txt");
     ofs << F << std::endl;
 }
 void Topology::load(h5pp::File& file, const std::filesystem::path& path)
 {
+    std::set<int64_t> special({55404, 55656, 55655, 57939});
     {
         auto corners_path = (path / "corners");
         auto attr_names = file.getAttributeNames((corners_path).string());
@@ -34,6 +37,9 @@ void Topology::load(h5pp::File& file, const std::filesystem::path& path)
             int64_t cid = std::stoi(v);
             int64_t vid = file.readAttribute<int64_t>((corners_path).string(), v);
             corner_to_vid[cid] = vid;
+            if (special.find(vid) != special.end()) {
+                spdlog::info("Corner {} with vid {} found", cid, vid);
+            }
         }
     }
     {
@@ -43,6 +49,12 @@ void Topology::load(h5pp::File& file, const std::filesystem::path& path)
             int64_t cid = std::stoi(v);
             auto vids = file.readDataset<std::vector<int64_t>>((feature_edges_path / v).string());
             feature_edge_to_vids_chain[cid] = vids;
+            for (const auto& vid : vids) {
+                if (special.find(vid) != special.end()) {
+                    spdlog::info("feature edge {} with vids {} found", cid, vids);
+                    break;
+                }
+            }
         }
     }
     {
