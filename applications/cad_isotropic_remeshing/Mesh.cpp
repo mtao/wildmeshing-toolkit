@@ -25,11 +25,11 @@ void Mesh::load(h5pp::File& file, const std::filesystem::path& path)
     assert(F.maxCoeff() < V.rows());
     assert(F.minCoeff() >= 0);
     std::ofstream ofs("F.txt");
-    ofs << F << std::endl;
+    // ofs << F << std::endl;
 }
 void Topology::load(h5pp::File& file, const std::filesystem::path& path)
 {
-    std::set<int64_t> special({55404, 55656, 55655, 57939});
+    // std::set<int64_t> special{55404, 55656, 55655, 57939};
     {
         auto corners_path = (path / "corners");
         auto attr_names = file.getAttributeNames((corners_path).string());
@@ -37,9 +37,9 @@ void Topology::load(h5pp::File& file, const std::filesystem::path& path)
             int64_t cid = std::stoi(v);
             int64_t vid = file.readAttribute<int64_t>((corners_path).string(), v);
             corner_to_vid[cid] = vid;
-            if (special.find(vid) != special.end()) {
-                spdlog::info("Corner {} with vid {} found", cid, vid);
-            }
+            // if (special.find(vid) != special.end()) {
+            //     spdlog::info("Corner {} with vid {} found", cid, vid);
+            // }
         }
     }
     {
@@ -49,22 +49,38 @@ void Topology::load(h5pp::File& file, const std::filesystem::path& path)
             int64_t cid = std::stoi(v);
             auto vids = file.readDataset<std::vector<int64_t>>((feature_edges_path / v).string());
             feature_edge_to_vids_chain[cid] = vids;
-            for (const auto& vid : vids) {
-                if (special.find(vid) != special.end()) {
-                    spdlog::info("feature edge {} with vids {} found", cid, vids);
-                    break;
-                }
-            }
+            // for (const auto& vid : vids) {
+            //     if (special.find(vid) != special.end()) {
+            //         spdlog::info("feature edge {} with vids {} found", cid, vids);
+            //         break;
+            //     }
+            // }
         }
     }
     {
+        // std::set<int64_t>
+        //     special_fids{102586, 106480, 112201, 112202, 105359, 105360, 110070, 113347};
         auto patches_path = (path / "patches");
         auto dsets = file.findDatasets("", (patches_path).string(), -1, 0);
         for (const auto& v : dsets) {
             int64_t cid = std::stoi(v);
-            auto vids = file.readDataset<std::vector<int64_t>>((patches_path / v).string());
-            std::set<int64_t> vids2(vids.begin(), vids.end());
-            patch_to_fids[cid] = vids2;
+            auto fids = file.readDataset<std::vector<int64_t>>((patches_path / v).string());
+            std::set<int64_t> fids2(fids.begin(), fids.end());
+            patch_to_fids[cid] = fids2;
+            // std::set<int64_t> isect;
+            // std::set_intersection(
+            //     special_fids.begin(),
+            //     special_fids.end(),
+            //     fids2.begin(),
+            //     fids2.end(),
+            //     std::inserter(isect, isect.end()));
+            // if (isect.size() > 0) {
+            //     spdlog::info(
+            //         "patch {} had {}, which overlaps {} baddies",
+            //         cid,
+            //         fmt::join(fids2, ","),
+            //         fmt::join(isect, ","));
+            // }
         }
     }
     assert(validate_features_end_in_corners());
