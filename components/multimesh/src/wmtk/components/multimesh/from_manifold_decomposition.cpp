@@ -13,6 +13,7 @@ namespace {
 template <size_t Dim>
 auto tag_and_emplace_mesh(Mesh& m, Eigen::Ref<const RowVectors<int64_t, Dim>> S)
 {
+    static_assert(Dim > 0);
     PrimitiveType pt = get_primitive_type_from_id(Dim - 1);
 
     auto tups = m.get_all(pt);
@@ -65,18 +66,19 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(
     wmtk::Mesh& m,
     Eigen::Ref<const RowVectors<int64_t, Dim>> S)
 {
-    auto [S2, B] = wmtk::utils::internal::boundary_manifold_decomposition<2>(S);
+    if constexpr (Dim > 1) {
+        auto [S2, B] = wmtk::utils::internal::boundary_manifold_decomposition<Dim>(S);
 
-    if (B.size() > 0) {
-        auto c = tag_and_emplace_mesh<Dim>(m, B);
-        auto F = from_manifold_decomposition<1>(*c, B);
-        F.emplace_back(m.shared_from_this());
+        if (B.size() > 0) {
+            auto c = tag_and_emplace_mesh<Dim - 1>(m, B);
+            auto F = from_manifold_decomposition<Dim - 1>(*c, B);
+            F.emplace_back(m.shared_from_this());
 
-        return F;
-    } else {
-        return std::vector<std::shared_ptr<Mesh>>({m.shared_from_this()});
+            return F;
+        } else {
+            return std::vector<std::shared_ptr<Mesh>>({m.shared_from_this()});
+        }
     }
-
 
     return {};
 }
@@ -89,6 +91,7 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(wmtk::Mesh& m)
     m.serialize(writer);
     MatrixXl S = writer.get_simplex_vertex_matrix();
 
+    static_assert(MatrixXl::ColsAtCompileTime == Eigen::Dynamic);
     switch (S.cols()) {
     case 4: return from_manifold_decomposition<4>(m, S);
     case 3: return from_manifold_decomposition<3>(m, S);

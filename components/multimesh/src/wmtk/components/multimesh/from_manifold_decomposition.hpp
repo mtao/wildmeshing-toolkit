@@ -14,6 +14,6 @@ namespace attribute {
 namespace wmtk::components::multimesh {
 
 // returns the new root mesh (the input mesh becomes a child mesh)
-    std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(const wmtk::Mesh& m);
+    std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(wmtk::Mesh& m);
 
 } // namespace wmtk::components::multimesh

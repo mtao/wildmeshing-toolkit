@@ -32,6 +32,7 @@
 #include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/output/output.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
+#include <wmtk/components/multimesh/from_manifold_decomposition.hpp>
 
 #include <h5pp/h5pp.h>
 #include <wmtk/components/output/output.hpp>
@@ -53,9 +54,14 @@ int main(int argc, char* argv[])
     auto trimesh = fo.mesh.create();
 
 
+    std::vector<std::shared_ptr<wmtk::Mesh>> manifold_decomposition = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
+    //kstd::vector<std::array<std::shared_ptr<wmtk::Mesh>,2>> manifold_decomposition = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
+
+    /*
     auto& F = fo.mesh.F;
-    F = wmtk::utils::internal::boundary_manifold_decomposition<3>(F);
-    auto manifold = fo.mesh.create();
+    F = std::get<0>(wmtk::utils::internal::boundary_manifold_decomposition<3>(F));
+    auto manifold = std::make_shared<wmtk::TriMesh>();
+    manifold->initialize(F);
     auto map = wmtk::multimesh::same_simplex_dimension_bijection(*trimesh, *manifold);
 
     trimesh->register_child_mesh(manifold, map);
@@ -75,6 +81,7 @@ int main(int argc, char* argv[])
         trimesh->deregister_child_mesh(manifold);
         trimesh = manifold;
     }
+    */
 
 
     /*
