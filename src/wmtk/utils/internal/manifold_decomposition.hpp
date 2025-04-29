@@ -9,6 +9,8 @@
 #include <wmtk/Tuple.hpp>
 #include <wmtk/Types.hpp>
 #include <wmtk/dart/Dart.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/utils/DisjointSet.hpp>
 
 
@@ -18,40 +20,54 @@
 namespace wmtk::utils::internal {
 
 
+template <size_t Dim>
+struct ManifoldDecomposition
+{
+    std::map<std::array<int64_t, Dim - 1>, Tuple> face_map;
+    wmtk::RowVectors<int64_t, Dim> manifold_decomposition;
+};
 // uses indices to find a manifold decomposition of an input mesh
 
 // returns the indices of non-manifold regions in the original input's index sset
 template <int Dim>
-std::tuple<RowVectors<int64_t, Dim>, RowVectors<int64_t, Dim - 1>> boundary_manifold_decomposition(
+ManifoldDecomposition<Dim> boundary_manifold_decomposition(
     Eigen::Ref<const RowVectors<int64_t, Dim>> S)
 {
+    ManifoldDecomposition<Dim> MD;
+    RowVectors<int64_t, Dim>& R = MD.manifold_decomposition; // returned simplices
+    if (Dim == 1) {
+        R = S;
+        return MD;
+    }
     IndexSimplexMapper ism(S);
 
+    const PrimitiveType pt = get_primitive_type_from_id(Dim - 1);
+    const PrimitiveType face_pt = get_primitive_type_from_id(Dim - 2);
 
     std::map<int64_t, std::set<int64_t>> coboundary;
     for (int j = 0; j < S.rows(); ++j) {
-        std::array<int64_t, Dim - 1> R;
+        std::array<int64_t, Dim - 1> r;
         using MT = typename Vector<int64_t, Dim - 1>::MapType;
-        MT(R.data()) = S.row(j).transpose().template head<Dim - 1>();
+        MT(r.data()) = S.row(j).transpose().template head<Dim - 1>();
         int64_t last = S(j, Dim - 1);
 
         auto s = S.row(j);
         std::array<int64_t, Dim> ss;
         std::copy(s.begin(), s.end(), ss.begin());
 
-        coboundary[ism.get_index(R)].emplace(j);
+        wmtk::dart::Dart d = ism.get_dart(r);
+        coboundary[d.global_id()].emplace(j);
 
         for (int k = 0; k < Dim - 1; ++k) {
-            int64_t old = R[k];
-            R[k] = last;
-            coboundary[ism.get_index(R)].emplace(j);
-            R[k] = old;
+            int64_t old = r[k];
+            r[k] = last;
+            coboundary[ism.get_index(r)].emplace(j);
+            r[k] = old;
         }
     }
 
     std::vector<std::array<int64_t, 2>> B;
 
-    RowVectors<int64_t, Dim> R; // returned simplices
     RowVectors<int64_t, Dim - 1> NMF; // nonmanifold faces
     R.resizeLike(S);
     {
