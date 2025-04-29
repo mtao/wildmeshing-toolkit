@@ -25,6 +25,11 @@ struct ManifoldDecomposition
 {
     std::map<std::array<int64_t, Dim - 1>, Tuple> face_map;
     wmtk::RowVectors<int64_t, Dim> manifold_decomposition;
+
+    // face matrix and mm_map should have a consistent ordering because iteration through std::map
+    // is stable
+    wmtk::RowVectors<int64_t, Dim - 1> face_matrix() const;
+    std::vector<std::array<Tuple, 2>> mm_map() const;
 };
 // uses indices to find a manifold decomposition of an input mesh
 
@@ -129,7 +134,7 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
             std::copy(s.begin(), s.end(), r.begin());
         }
     }
-    return std::make_tuple(R, NMF);
+    return MD;
 }
 
 
@@ -138,5 +143,35 @@ RowVectors<int64_t, Dim> manifold_decomposition(Eigen::Ref<const RowVectors<int6
 {
     // currently only supports face fusing
     return std::get<0>(boundary_manifold_decomposition<Dim>(S));
+}
+
+
+template <size_t Dim>
+wmtk::RowVectors<int64_t, Dim - 1> ManifoldDecomposition<Dim>::face_matrix() const
+{
+    wmtk::RowVectors<int64_t, Dim - 1> R(face_map.size(), Dim - 1);
+    Eigen::Index i = 0;
+    for (const auto& [key, value] : face_map) {
+        using MT = typename wmtk::Vector<int64_t, Dim - 1>::ConstMapType;
+
+
+        R.row(i++) = MT(key.data()).transpose();
+    }
+    return R;
+}
+
+template <size_t Dim>
+std::vector<std::array<Tuple, 2>> ManifoldDecomposition<Dim>::mm_map() const
+{
+    std::vector<std::array<Tuple, 2>> tups;
+    tups.reserve(face_map.size());
+    Eigen::Index i = 0;
+    const auto& sd = dart::SimplexDart::get_singleton(get_primitive_type_from_id(Dim - 2));
+    int8_t id = sd.identity();
+    for (const auto& [key, value] : face_map) {
+        Tuple t = sd.tuple_from_dart(wmtk::dart::Dart(i++, id));
+        tups.emplace_back(std::array<Tuple, 2>{{t, value}});
+    }
+    return tups;
 }
 } // namespace wmtk::utils::internal

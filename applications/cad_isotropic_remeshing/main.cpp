@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     auto trimesh = fo.mesh.create();
 
 
-    std::vector<std::shared_ptr<wmtk::Mesh>> manifold_decomposition = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
+       auto edge_MD = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
     //kstd::vector<std::array<std::shared_ptr<wmtk::Mesh>,2>> manifold_decomposition = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
 
     /*

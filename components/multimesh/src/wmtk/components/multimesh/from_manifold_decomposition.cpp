@@ -11,38 +11,18 @@ namespace wmtk::components::multimesh {
 namespace {
 
 template <size_t Dim>
-auto tag_and_emplace_mesh(Mesh& m, Eigen::Ref<const RowVectors<int64_t, Dim>> S)
+auto tag_and_emplace_mesh(Mesh& m, const utils::internal::ManifoldDecomposition<Dim + 1>& mfd)
 {
     static_assert(Dim > 0);
     PrimitiveType pt = get_primitive_type_from_id(Dim - 1);
 
     auto tups = m.get_all(pt);
-    std::map<std::array<int64_t, Dim>, Tuple> face_map;
+    const std::map<std::array<int64_t, Dim>, Tuple>& face_map = mfd.face_map;
     auto attr = m.template register_attribute<char>("temp", pt, 1);
     auto acc = attr.create_accessor<char, 1>();
 
     if constexpr (Dim == 1) {
-        for (size_t j = 0; j < tups.size(); ++j) {
-            face_map.emplace(j, tups[j]);
-        }
-
     } else if constexpr (Dim == 2) {
-        for (size_t j = 0; j < tups.size(); ++j) {
-            auto t = tups[j];
-            int64_t a = m.id(t, wmtk::PrimitiveType::Vertex);
-            wmtk::Tuple t2 = m.switch_tuple(t, wmtk::PrimitiveType::Vertex);
-            int64_t b = m.id(t2, wmtk::PrimitiveType::Vertex);
-            face_map.emplace(j, tups[j]);
-
-            {
-                std::array<int64_t, 2> x{{a, b}};
-                face_map.emplace(x, t);
-            }
-            {
-                std::array<int64_t, 2> x{{b, a}};
-                face_map.emplace(x, t2);
-            }
-        }
     } else if constexpr (Dim == 3) {
         assert(false); // not implemented yet
     }
@@ -67,11 +47,13 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(
     Eigen::Ref<const RowVectors<int64_t, Dim>> S)
 {
     if constexpr (Dim > 1) {
-        auto [S2, B] = wmtk::utils::internal::boundary_manifold_decomposition<Dim>(S);
+        auto MFD = wmtk::utils::internal::boundary_manifold_decomposition<Dim>(S);
 
-        if (B.size() > 0) {
-            auto c = tag_and_emplace_mesh<Dim - 1>(m, B);
-            auto F = from_manifold_decomposition<Dim - 1>(*c, B);
+        if (MFD.face_map.size() > 0) {
+            auto B = MFD.face_matrix();
+            auto c = tag_and_emplace_mesh<Dim - 1>(m, MFD);
+            Eigen::RowVectors<Dim - 1> F =
+                from_manifold_decomposition<Dim - 1>(*c, MFD.face_matrix());
             F.emplace_back(m.shared_from_this());
 
             return F;
