@@ -16,6 +16,9 @@ set(SRC_FILES
     vertex_fusion.hpp
     vertex_fusion.cpp
 
+    from_manifold_decomposition.hpp
+    from_manifold_decomposition.cpp
+
 
     from_boundary.hpp
     from_boundary.cpp
