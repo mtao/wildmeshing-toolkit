@@ -3,6 +3,7 @@
 
 // #include "wmtk/multimesh/utils/find_local_dart_action.hpp"
 namespace wmtk::dart {
+    // returns the left action A such that A source = target
 inline int8_t find_local_dart_action(const SimplexDart& sd, int8_t source, int8_t target)
 {
     int8_t src_inv = sd.inverse(source);

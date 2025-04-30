@@ -19,7 +19,7 @@ class IdSimplex;
 namespace wmtk::utils::internal {
 
 
-    // Provides indices of different simplices
+// Provides indices of different simplices
 
 class IndexSimplexMapper
 {
@@ -111,6 +111,7 @@ public:
     template <size_t Dim>
     dart::Dart get_dart(const std::array<int64_t, Dim>& s) const;
 
+    // returns a Mesh-dart whose Dim-subdart is s. This dart is the one that tuple converts from
     template <size_t Dim>
     dart::Dart get_mesh_dart(const std::array<int64_t, Dim>& s) const;
 
