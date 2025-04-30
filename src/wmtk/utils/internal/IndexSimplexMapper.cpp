@@ -16,7 +16,6 @@
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/simplex/IdSimplex.hpp>
 #include <wmtk/utils/EigenMatrixWriter.hpp>
-
 namespace wmtk::utils::internal {
 namespace {
 template <int D>
@@ -355,21 +354,24 @@ auto IndexSimplexMapper::get_internal_dart(const std::array<int64_t, Dim>& s) co
 template <size_t Dim>
 auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
 {
-    assert(m_mesh);
     auto dart = get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>());
     wmtk::PrimitiveType simplex_pt = wmtk::get_primitive_type_from_id(Dim - 1);
-    PrimitiveType pt = m_mesh->top_simplex_type();
+    //PrimitiveType pt = m_mesh->top_simplex_type();
+    PrimitiveType pt = wmtk::get_primitive_type_from_id(m_simplex_dimension);
     const auto& sd = dart::SimplexDart::get_singleton(pt);
-    // if this is a facet we just get facets
-    if(pt == simplex_pt) {
         int8_t p = sd.identity();
         return dart::Dart(dart.global_id(), sd.product(p, sd.inverse(dart.permutation())));
-    } else {
-    const auto& simplex_sd = dart::SimplexDart::get_singleton(simplex_pt);
-    using MapType = typename Eigen::Vector<int64_t, Dim>::ConstMapType;
-    auto mp = MapType(s.data());
-    int8_t p = wmtk::dart::utils::from_vertex_permutation(mp);
+}
+
+template <size_t Dim>
+auto IndexSimplexMapper::get_mesh_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
+{
+    auto dart = get_dart(s);
+    wmtk::PrimitiveType simplex_pt = wmtk::get_primitive_type_from_id(Dim - 1);
+    PrimitiveType pt = m_mesh->top_simplex_type();
     auto default_tup = m_mesh->get_tuple_from_id_simplex(simplex::IdSimplex(simplex_pt, dart.global_id()));
+    const auto& sd = dart::SimplexDart::get_singleton(pt);
+    const auto& simplex_sd = dart::SimplexDart::get_singleton(simplex_pt);
     auto newd = sd.product(simplex_sd.convert(p,sd), sd.dart_from_tuple(default_tup).permutation());;
     return dart::Dart(default_tup.global_cid(), newd);
     }

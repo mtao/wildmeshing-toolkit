@@ -13,10 +13,10 @@ TEST_CASE("manifold_decomposition", "[simplex][indexing][dart]")
     S.row(1) << 1,2;
     S.row(2) << 2,3;
     S.row(3) << 2,4;
-    auto [S2,B] = wmtk::utils::internal::boundary_manifold_decomposition<2>(S);
+       auto MD = wmtk::utils::internal::boundary_manifold_decomposition<2>(S);
 
-    std::cout << S2 << std::endl;
-    std::cout << B << std::endl;
+    std::cout << MD.manifold_decomposition << std::endl;
+    std::cout << MD.face_matrix() << std::endl;
 
     }
 
@@ -27,10 +27,10 @@ TEST_CASE("manifold_decomposition", "[simplex][indexing][dart]")
     S.row(2) << 4,2,3;
     S.row(3) << 4,2,5;
     S.row(4) << 4,2,6;
-    auto [S2,B] = wmtk::utils::internal::boundary_manifold_decomposition<3>(S);
+    auto MD = wmtk::utils::internal::boundary_manifold_decomposition<3>(S);
 
-    std::cout << S2 << std::endl;
-    std::cout << B << std::endl;
+    std::cout << MD.manifold_decomposition << std::endl;
+    std::cout << MD.face_matrix() << std::endl;
     }
 
 

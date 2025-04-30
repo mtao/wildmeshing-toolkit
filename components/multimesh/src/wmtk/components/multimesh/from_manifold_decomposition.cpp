@@ -11,7 +11,7 @@ namespace wmtk::components::multimesh {
 namespace {
 
 template <size_t Dim>
-auto tag_and_emplace_mesh(Mesh& m, const utils::internal::ManifoldDecomposition<Dim + 1>& mfd)
+auto tag_and_emplace_mesh(Mesh& m, const wmtk::utils::internal::ManifoldDecomposition<Dim + 1>& mfd)
 {
     static_assert(Dim > 0);
     PrimitiveType pt = get_primitive_type_from_id(Dim - 1);
@@ -28,11 +28,8 @@ auto tag_and_emplace_mesh(Mesh& m, const utils::internal::ManifoldDecomposition<
     }
 
 
-    for (int j = 0; j < S.rows(); ++j) {
-        auto s = S.row(j);
-        std::array<int64_t, Dim> key;
-        std::copy(s.begin(), s.end(), key.begin());
-        acc.scalar_attribute(face_map.at(key)) = 1;
+    for (const auto& [k, v] : mfd.face_map) {
+        acc.scalar_attribute(v) = 1;
     }
 
     auto r = wmtk::components::multimesh::from_tag(attr, 1, {});
@@ -52,9 +49,8 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(
         if (MFD.face_map.size() > 0) {
             auto B = MFD.face_matrix();
             auto c = tag_and_emplace_mesh<Dim - 1>(m, MFD);
-            Eigen::RowVectors<Dim - 1> F =
-                from_manifold_decomposition<Dim - 1>(*c, MFD.face_matrix());
-            F.emplace_back(m.shared_from_this());
+            auto F = from_manifold_decomposition<Dim - 1>(*c, MFD.face_matrix());
+            F.emplace_back(c);
 
             return F;
         } else {
