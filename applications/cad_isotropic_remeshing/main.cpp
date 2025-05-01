@@ -54,7 +54,7 @@ int main(int argc, char* argv[])
     auto trimesh = fo.mesh.create();
 
 
-       auto edge_MD = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
+       //auto edge_MD = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
     //kstd::vector<std::array<std::shared_ptr<wmtk::Mesh>,2>> manifold_decomposition = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
 
     /*
@@ -84,7 +84,6 @@ int main(int argc, char* argv[])
     */
 
 
-    /*
     if (true) {
         auto em = fo.topology.feature_edge_mesh(*trimesh);
         // wmtk::multimesh::utils::check_maps_valid(*em);
@@ -96,7 +95,6 @@ int main(int argc, char* argv[])
         // wmtk::multimesh::utils::check_maps_valid(*pm);
         // wmtk::multimesh::utils::check_maps_valid(*trimesh);
     }
-    */
 
 
     wmtk::components::output::OutputOptions opts;

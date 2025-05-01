@@ -76,4 +76,14 @@ struct VertexSmoothOptions : public OperationOptions
 {
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(VertexSmoothOptions)
 };
+
+struct Pass {
+    std::string mesh_path;
+    int64_t iterations = 10;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Pass)
+};
+
+
+
+
 } // namespace wmtk::components::isotropic_remeshing

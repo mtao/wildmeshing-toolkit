@@ -152,7 +152,12 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(
         auto attr = mah2.mesh().register_attribute<int64_t>(std::string(tag_name2), pt, 1);
         auto acc = attr.create_accessor<char, 1>();
 
-        auto transfer = factory.create_T<1, 1, char, int64_t>(mah, attr);
+        // using FT =
+        // wmtk::components::mesh_info::transfer::FilteredNeighborCount::FunctorType<1,1,int64_t,int64_t>;
+        // static_assert(FT::validInDim());
+        // static_assert(FT::validOutDim());
+        // static_assert(FT::validType());
+        auto transfer = factory.create_T<1, 1, int64_t, char>(mah, attr);
 
         transfer->run_on_all();
     }
@@ -283,8 +288,7 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) 
 
 std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_mesh) const
 {
-    add_feature_edge_mesh_tag(tri_mesh, "edge_tag");
-    auto attr = tri_mesh.register_attribute<char>("edge_tag", wmtk::PrimitiveType::Edge, 1);
+    auto attr = add_feature_edge_mesh_tag(tri_mesh, "edge_tag");
     auto h = tri_mesh.get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
     auto p = std::dynamic_pointer_cast<wmtk::EdgeMesh>(
         wmtk::components::multimesh::from_tag(attr, 1, {h}));

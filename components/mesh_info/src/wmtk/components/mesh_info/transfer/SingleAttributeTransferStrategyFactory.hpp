@@ -46,6 +46,9 @@ struct SingleAttributeTransferStrategyFactory : public SingleAttributeTransferSt
     std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_T(
         const attribute::MeshAttributeHandle& to,
         const attribute::MeshAttributeHandle& from) const;
+
+    template <int ToDim, int FromDim, typename ToT, typename FromT>
+    using FunctorType = Functor<FromT, FromDim, ToT, ToDim>;
 };
 
 template <template <typename, int, typename, int> typename Functor>
@@ -56,6 +59,7 @@ SingleAttributeTransferStrategyFactory<Functor>::create_T(
     const attribute::MeshAttributeHandle& from) const
 {
     using F = Functor<FromT, FromDim, ToT, ToDim>;
+
     if constexpr (F::valid()) {
         return std::make_shared<
             wmtk::operations::SingleAttributeTransferStrategy<ToT, FromT, ToDim, FromDim>>(
