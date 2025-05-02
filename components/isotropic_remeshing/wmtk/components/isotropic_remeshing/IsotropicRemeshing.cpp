@@ -119,6 +119,10 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
     } else {
         wmtk::logger().info("Running Isotropic Remeshing without a smooth configured");
     }
+
+    if(m_options.passes.empty()) {
+
+    }
 }
 
 std::vector<wmtk::attribute::MeshAttributeHandle> IsotropicRemeshing::all_envelope_positions() const

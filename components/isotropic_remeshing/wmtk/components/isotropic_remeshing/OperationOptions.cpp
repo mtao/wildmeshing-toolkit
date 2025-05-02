@@ -157,4 +157,13 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(VertexSmoothOptions)
 }
 
 
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(Pass)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path,iterations)
+}
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(Pass)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(mesh_path, iterations)
+}
+
 } // namespace wmtk::components::isotropic_remeshing

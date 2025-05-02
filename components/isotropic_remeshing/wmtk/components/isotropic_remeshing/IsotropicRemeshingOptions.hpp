@@ -50,6 +50,8 @@ struct IsotropicRemeshingOptions
     EdgeSwapOptions swap;
     mesh_info::transfer::TransferStrategyFactoryCollection utility_attributes;
 
+    std::vector<Pass> passes;
+
     std::vector<attribute::MeshAttributeHandle> improvement_attributes;
 
     // this should be true for periodic

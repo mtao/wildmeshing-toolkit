@@ -48,6 +48,7 @@ struct MeanRatioMeasureFunctor
                 assert(false);
             }
         } else {
+            area = 0;
             assert(false);
         }
 

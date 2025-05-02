@@ -35,6 +35,8 @@ public:
     std::map<std::string, const Mesh&> all_meshes() const;
     std::map<std::string, const Mesh&> all_roots(bool only_true_roots = false) const;
 
+    std::string get_mesh_path(const Mesh& m) const;
+
     // checks whether the meshes / nodes are synchronized. Passes thrown errors if desired
     bool is_valid(bool pass_exceptions = false) const;
 

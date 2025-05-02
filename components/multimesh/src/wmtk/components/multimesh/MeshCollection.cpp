@@ -157,4 +157,13 @@ bool MeshCollection::is_valid(bool pass_exceptions) const
 //        if(m.is_string
 //    }
 //}
+    std::string MeshCollection::get_mesh_path(const Mesh& m) const {
+        for(const auto& [key, mesh]: all_meshes()) {
+            if(&mesh == &m) {
+                return key;
+            }
+        }
+        throw std::runtime_error("Could not find a name for passed mesh");
+        return "";
+    }
 } // namespace wmtk::components::multimesh
