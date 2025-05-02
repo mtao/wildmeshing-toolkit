@@ -120,8 +120,11 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
         wmtk::logger().info("Running Isotropic Remeshing without a smooth configured");
     }
 
-    if(m_options.passes.empty()) {
+    if(m_options.passes.empty() && m_options.mesh_collection != nullptr) {
+        m_options.passes.emplace_back(Pass{
+                m_options.mesh_collection->get_name(position_attribute.mesh())
 
+                });
     }
 }
 
