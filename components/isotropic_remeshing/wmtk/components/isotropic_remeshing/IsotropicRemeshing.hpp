@@ -1,6 +1,6 @@
 #pragma once
-#include "IsotropicRemeshingOptions.hpp"
 #include <wmtk/invariants/Invariant.hpp>
+#include "IsotropicRemeshingOptions.hpp"
 
 
 namespace wmtk {
@@ -29,6 +29,7 @@ public:
 
 
     void run();
+    void run(const Pass& pass, size_t pass_index);
 
 private:
     std::vector<wmtk::attribute::MeshAttributeHandle> all_envelope_positions() const;
@@ -39,8 +40,6 @@ private:
 
 private:
     IsotropicRemeshingOptions m_options;
-
-
 
 
     std::shared_ptr<operations::EdgeSplit> m_split;

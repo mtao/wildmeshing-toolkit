@@ -246,6 +246,7 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) 
 
             // emb.load(E);
         }
+        bool overall_found_nonmanifold = false;
         for (const auto& [key, values] : edges) {
             if (values.size() > 2) {
                 bool identified_nonmanifold = false;
@@ -254,7 +255,10 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) 
                         identified_nonmanifold = true;
                     }
                 }
-                spdlog::warn("There was more nonmanifold than we expected");
+                if(!identified_nonmanifold) {
+                    spdlog::warn("Vertex {} looks nonmanifold because it is attached to these vertices: {}",key ,fmt::join(values,","));
+                    overall_found_nonmanifold = true;
+                }
             }
             map.emplace_back(
                 std::array<wmtk::Tuple, 2>{{wmtk::Tuple(-1, -1, -1, map.size()), tups[key]}});
