@@ -103,5 +103,10 @@ bool CannotMapSimplexInvariant::before_default(const simplex::Simplex& s) const
     }
     return true;
 }
+
+std::string CannotMapSimplexInvariant::name() const
+{
+    return "CannotMapSimplexInvariant";
+}
 } // namespace wmtk::invariants
 

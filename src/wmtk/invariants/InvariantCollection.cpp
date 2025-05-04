@@ -1,8 +1,9 @@
 #include "InvariantCollection.hpp"
-#include <spdlog/spdlog.h>
+#include <fmt/ranges.h>
 #include <type_traits>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/simplex/Simplex.hpp>
+#include <wmtk/utils/Logger.hpp>
 
 namespace wmtk::invariants {
 
@@ -36,11 +37,23 @@ bool InvariantCollection::before(const simplex::Simplex& t) const
             for (const Tuple& ct : mesh().map_tuples(invariant->mesh(), t)) {
                 if (!invariant->before(
                         simplex::Simplex(invariant->mesh(), t.primitive_type(), ct))) {
+#if defined(WMTK_ENABLED_DEV_MODE)
+                    wmtk::logger().debug(
+                        "{}::before false because {} was false",
+                        name(),
+                        invariant->name());
+#endif
                     return false;
                 }
             }
         } else {
             if (!invariant->before(t)) {
+#if defined(WMTK_ENABLED_DEV_MODE)
+                wmtk::logger().debug(
+                    "{}::before false because {} was false",
+                    name(),
+                    invariant->name());
+#endif
                 return false;
             }
         }
@@ -67,10 +80,22 @@ bool InvariantCollection::after(
                 invariant_uses_old_state ? mesh().parent_scope(map, top_dimension_tuples_before)
                                          : std::vector<Tuple>{};
             if (!invariant->after(mapped_tuples_before, mapped_tuples_after)) {
+#if defined(WMTK_ENABLED_DEV_MODE)
+                wmtk::logger().debug(
+                    "{}::after false because {} was false",
+                    name(),
+                    invariant->name());
+#endif
                 return false;
             }
         } else {
             if (!invariant->after(top_dimension_tuples_before, top_dimension_tuples_after)) {
+#if defined(WMTK_ENABLED_DEV_MODE)
+                wmtk::logger().debug(
+                    "{}::after false because {} was false",
+                    name(),
+                    invariant->name());
+#endif
                 return false;
             }
         }
@@ -163,6 +188,19 @@ InvariantCollection::get_map_mesh_to_invariants()
         }
     }
     //
+}
+
+std::string InvariantCollection::name() const
+{
+    if (m_name.empty()) {
+        std::vector<std::string> names;
+        for (const auto& i : m_invariants) {
+            names.emplace_back(i->name());
+        }
+        return fmt::format("InvariantCollection[{}]", fmt::join(names, ","));
+    } else {
+        return m_name;
+    }
 }
 
 } // namespace wmtk::invariants

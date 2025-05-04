@@ -38,20 +38,20 @@ void PriorityOptions::assign_to(
             auto priority_attribute = wmtk::components::multimesh::utils::get_attribute(
                 mc,
                 wmtk::components::multimesh::utils::AttributeDescription{ap});
-            if(minimize) {
-            auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
-                auto acc =
-                    priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
-                return acc.const_scalar_attribute(s);
-            };
-            op.set_priority(priority_func);
+            if (minimize) {
+                auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
+                    auto acc =
+                        priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
+                    return acc.const_scalar_attribute(s);
+                };
+                op.set_priority(priority_func);
             } else {
-            auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
-                auto acc =
-                    priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
-                return -acc.const_scalar_attribute(s);
-            };
-            op.set_priority(priority_func);
+                auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
+                    auto acc =
+                        priority_attribute.mesh().create_const_accessor<double>(priority_attribute);
+                    return -acc.const_scalar_attribute(s);
+                };
+                op.set_priority(priority_func);
             }
         }
     } else {
@@ -157,13 +157,16 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(VertexSmoothOptions)
 }
 
 
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(Pass)
-{
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path,iterations)
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(Pass){
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, iterations, operations)
+
 }
+
+
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(Pass)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(mesh_path, iterations)
+    WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(Pass);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(mesh_path, iterations, operations)
 }
 
 } // namespace wmtk::components::isotropic_remeshing

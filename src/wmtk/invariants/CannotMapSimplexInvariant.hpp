@@ -22,6 +22,7 @@ public:
     bool before_same_dimension_vertex(const simplex::Simplex& s) const;
     bool before_same_dimension_edge(const simplex::Simplex& s) const;
 
+    std::string name() const override;
 private:
     const Mesh& m_child_mesh;
     bool inverse = false;

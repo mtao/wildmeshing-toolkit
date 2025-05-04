@@ -21,4 +21,9 @@ bool MinEdgeLengthInvariant::before(const simplex::Simplex& t) const
     const double l_squared = (p1 - p0).squaredNorm();
     return l_squared > m_threshold_squared;
 }
+
+std::string MinEdgeLengthInvariant::name() const
+{
+    return "MinEdgeLengthInvariant";
+}
 } // namespace wmtk::invariants

@@ -50,7 +50,7 @@ private:
     std::vector<std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>>
         m_operation_transfers;
 
-    std::vector<std::pair<std::string, std::shared_ptr<operations::Operation>>> m_operations;
+    std::map<std::string, std::shared_ptr<operations::Operation>> m_operations;
     // std::vector<std::shared_ptr<wmtk::invariants::EnvelopeInvariant>> m_envelope_invariants;
     std::shared_ptr<wmtk::invariants::InvariantCollection> m_envelope_invariants;
 

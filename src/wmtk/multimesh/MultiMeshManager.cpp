@@ -70,9 +70,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     }
 
 
-    dart::Dart target_dart = {
-        act.global_id(),
-        osd.product(act.permutation(), osource_orient)};
+    dart::Dart target_dart = {act.global_id(), osd.product(act.permutation(), osource_orient)};
     return sd.tuple_from_dart(target_dart);
 }
 #else
@@ -93,10 +91,11 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
         multimesh::utils::read_tuple_map_attribute(map_accessor, source_tuple);
 
     if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
-        logger().debug(
-            "[{} -> {}] got source or target null",
-            std::string(source_mesh_base_tuple),
-            std::string(target_mesh_base_tuple));
+        assert(source_mesh_base_tuple.is_null() && target_mesh_base_tuple.is_null());
+        // logger().debug(
+        //     "[{} -> {}] got source or target null",
+        //     std::string(source_mesh_base_tuple),
+        //     std::string(target_mesh_base_tuple));
         return Tuple(); // return null tuple
     }
 
@@ -929,7 +928,7 @@ void MultiMeshManager::check_child_map_valid(const Mesh& my_mesh, const ChildDat
     assert(child_mesh.has_attribute<int64_t>(c_to_p_name, map_type));
     auto child_to_parent_handle =
         child_mesh.get_attribute_handle<int64_t>(c_to_p_name, map_type).as<int64_t>();
-    //auto child_cell_flag_accessor = child_mesh.get_flag_accessor(map_type);
+    // auto child_cell_flag_accessor = child_mesh.get_flag_accessor(map_type);
 
     auto all_child_tuples = child_mesh.get_all(map_type);
 

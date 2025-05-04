@@ -20,4 +20,8 @@ bool MaxEdgeLengthInvariant::before(const simplex::Simplex& t) const
     const double l_squared = (p1 - p0).squaredNorm();
     return l_squared < m_threshold_squared;
 }
+std::string MaxEdgeLengthInvariant::name() const
+{
+    return "MaxEdgeLengthInvariant";
+}
 } // namespace wmtk

@@ -42,7 +42,12 @@ public:
     [[noreturn]] std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>>
     get_map_mesh_to_invariants();
 
+    void setName(std::string name) { m_name = std::move(name); }
+
+    std::string name() const override;
+
 private:
+    std::string m_name;
     std::vector<std::shared_ptr<Invariant>> m_invariants;
 };
 

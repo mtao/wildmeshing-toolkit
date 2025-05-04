@@ -41,6 +41,7 @@ void Topology::load(h5pp::File& file, const std::filesystem::path& path)
             //     spdlog::info("Corner {} with vid {} found", cid, vid);
             // }
         }
+        spdlog::info("Obtained {} critical points", corner_to_vid.size());
     }
     {
         auto feature_edges_path = (path / "feature_edges");
@@ -56,6 +57,7 @@ void Topology::load(h5pp::File& file, const std::filesystem::path& path)
             //     }
             // }
         }
+        spdlog::info("Obtained {} feature edges", feature_edge_to_vids_chain.size());
     }
     {
         // std::set<int64_t>
@@ -228,7 +230,7 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(
 std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) const
 {
     std::vector<std::array<wmtk::Tuple, 2>> map;
-    if (true) {
+    if (false) {
         std::map<int64_t, std::set<int64_t>> edges;
 
         auto tups = tri_mesh.get_all(wmtk::PrimitiveType::Vertex);

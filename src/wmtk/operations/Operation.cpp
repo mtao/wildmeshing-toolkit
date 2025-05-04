@@ -120,8 +120,9 @@ bool Operation::before(const simplex::Simplex& simplex) const
     //     return false;
     // }
 
-    // we assume the current MeshType's is_valid calls Mesh::is_valid first, which checks if the simplex is removed or not 
-    if(!mesh().is_valid(simplex)) {
+    // we assume the current MeshType's is_valid calls Mesh::is_valid first, which checks if the
+    // simplex is removed or not
+    if (!mesh().is_valid(simplex)) {
         return false;
     }
 
@@ -132,6 +133,11 @@ bool Operation::before(const simplex::Simplex& simplex) const
 
     if (&invariant_mesh == &mesh()) {
         if (!m_invariants.before(simplex_resurrect)) {
+#if defined(WMTK_ENABLED_DEV_MODE)
+            wmtk::logger().debug(
+                "Operation::before false because {} was false",
+                m_invariants.name());
+#endif
             return false;
         }
     } else {
@@ -141,6 +147,11 @@ bool Operation::before(const simplex::Simplex& simplex) const
 
         for (const simplex::Simplex& s : invariant_simplices) {
             if (!m_invariants.before(s)) {
+#if defined(WMTK_ENABLED_DEV_MODE)
+                wmtk::logger().debug(
+                    "Operation::before false because {} was false",
+                    m_invariants.name());
+#endif
                 return false;
             }
         }
@@ -153,7 +164,14 @@ bool Operation::after(
     const std::vector<simplex::Simplex>& unmods,
     const std::vector<simplex::Simplex>& mods) const
 {
-    return m_invariants.directly_modified_after(unmods, mods);
+    if (m_invariants.directly_modified_after(unmods, mods)) {
+        return true;
+    } else {
+#if defined(WMTK_ENABLED_DEV_MODE)
+        wmtk::logger().debug("Operation::after false because {} was false", m_invariants.name());
+#endif
+        return false;
+    }
 }
 
 void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& direct_mods)

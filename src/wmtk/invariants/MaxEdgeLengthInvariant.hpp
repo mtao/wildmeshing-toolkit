@@ -13,6 +13,7 @@ public:
         const TypedAttributeHandle<double>& coordinate,
         double threshold_squared);
     bool before(const simplex::Simplex& t) const override;
+    std::string name() const override;
 
 private:
     const TypedAttributeHandle<double> m_coordinate_handle;

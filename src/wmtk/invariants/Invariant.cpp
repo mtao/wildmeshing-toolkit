@@ -10,6 +10,20 @@ namespace wmtk::invariants {
 Invariant::Invariant(const Mesh& mesh)
     : Invariant(mesh, true, true, true)
 {}
+
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn"
+#endif
+std::string Invariant::name() const
+{
+    // this throw helps check where invariants dont have hteir name implemented
+    //throw std::runtime_error("Dup!");
+    return "Invariant";
+}
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 Invariant::Invariant(
     const Mesh& mesh,
     bool use_before,
@@ -92,3 +106,8 @@ const std::vector<Tuple> Invariant::get_top_dimension_cofaces(
     return all_tuples;
 }
 } // namespace wmtk::invariants
+  // something to copy-paste to speed up giving attributes names
+//std::string ABCD::name() const
+//{
+//    return "ABCD";
+//}

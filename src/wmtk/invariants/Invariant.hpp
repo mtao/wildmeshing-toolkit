@@ -41,6 +41,8 @@ public:
     bool use_old_state_in_after() const;
     bool use_new_state_in_after() const;
 
+    virtual std::string name() const;
+
 private:
     const Mesh& m_mesh;
     const bool m_use_before = true;

@@ -43,7 +43,12 @@ SchedulerStats Scheduler::run_operation_on_all(operations::Operation& op, const 
     {
         POLYSOLVE_SCOPED_STOPWATCH("Collecting primitives", res.collecting_time, logger());
 
-        const auto tups = op.mesh().get_all(type);
+        auto& run_mesh = op.mesh();
+        auto tups = m.get_all(type);
+        if (&run_mesh != &m) {
+            spdlog::info("Converting {} tuples", tups.size());
+            tups = m.map_tuples(run_mesh, op.primitive_type(), tups);
+        }
         simplices =
             wmtk::simplex::utils::tuple_vector_to_homogeneous_simplex_vector(op.mesh(), tups, type);
     }

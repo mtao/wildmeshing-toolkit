@@ -57,7 +57,7 @@ int main(int argc, char* argv[])
 
     spdlog::warn("File is {}", json_input_file.string());
     std::ifstream ifs(json_input_file);
-    nlohmann::ordered_json j = nlohmann::json::parse(ifs);
+    nlohmann::ordered_json j = nlohmann::ordered_json::parse(ifs);
 
     const auto& input_js = j["input"];
     components::utils::PathResolver path_resolver;

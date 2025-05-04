@@ -125,8 +125,12 @@ source_group(TREE "${CMAKE_CURRENT_SOURCE_DIR}/src/wmtk" PREFIX "wmtk" FILES ${W
 target_compile_definitions(wildmeshing_toolkit PUBLIC _USE_MATH_DEFINES)
 target_compile_definitions(wildmeshing_toolkit PUBLIC NOMINMAX)
 
+if(WMTK_USE_DEV_MODE)
+    target_compile_definitions(wildmeshing_toolkit PUBLIC -DWMTK_ENABLED_DEV_MODE)
+    set(BUILD_SHARED_LIBS ON) # we globally want to disable this option due to use of TBB
+endif()
 # C++ standard
-option(WMTK_USE_CXX20 "Sets WMTK to use C++20, defaults to C++17" OFF)
+option(WMTK_USE_CXX20 "Sets WMTK to use C++20, defaults to C++17" ${WMTK_USE_DEV_MODE})
 if(WMTK_USE_CXX20)
 target_compile_features(wildmeshing_toolkit PUBLIC cxx_std_20)
 target_compile_definitions(wildmeshing_toolkit PUBLIC -DWMTK_ENABLED_CPP20)
@@ -141,10 +145,6 @@ endif()
 option(WMTK_MTAO_CONSTANTLY_VERIFY_MESH "verify mesh" OFF)
 if(WMTK_MTAO_CONSTANTLY_VERIFY_MESH)
     target_compile_options(wildmeshing_toolkit PUBLIC  -DMTAO_CONSTANTLY_VERIFY_MESH)
-endif()
-if(WMTK_USE_DEV_MODE)
-    target_compile_definitions(wildmeshing_toolkit PUBLIC -DWMTK_ENABLED_DEV_MODE)
-    set(BUILD_SHARED_LIBS ON) # we globally want to disable this option due to use of TBB
 endif()
 
 #target_compile_options(wildmeshing_toolkit PUBLIC  -fconcepts)

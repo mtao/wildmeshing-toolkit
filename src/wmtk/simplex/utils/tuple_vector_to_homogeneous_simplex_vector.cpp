@@ -8,7 +8,6 @@
 
 namespace wmtk::simplex::utils {
 std::vector<Simplex> tuple_vector_to_homogeneous_simplex_vector(
-    const Mesh& m,
     const std::vector<Tuple>& tups,
     PrimitiveType primitive)
 {
@@ -18,7 +17,13 @@ std::vector<Simplex> tuple_vector_to_homogeneous_simplex_vector(
         tups.begin(),
         tups.end(),
         std::back_inserter(r),
-        [&m, primitive](const Tuple& t) { return Simplex(m, primitive, t); });
+        [primitive](const Tuple& t) { return Simplex(primitive, t); });
     return r;
+}
+std::vector<Simplex> tuple_vector_to_homogeneous_simplex_vector(
+    const Mesh& m,
+    const std::vector<Tuple>& tups,
+    PrimitiveType primitive) {
+    return tuple_vector_to_homogeneous_simplex_vector(tups,primitive);
 }
 } // namespace wmtk::simplex::utils

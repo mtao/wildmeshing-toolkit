@@ -21,7 +21,20 @@ bool both_map_to_child(
     const simplex::Simplex& left,
     const simplex::Simplex& right)
 {
-    return parent.can_map(child, left) && parent.can_map(child, right);
+    // spdlog::info("{} {}", parent.can_map(child, left), parent.can_map(child, right));
+
+    const bool r = parent.can_map(child, left) && parent.can_map(child, right);
+
+    // if (r) {
+    //     for (const auto& t : parent.map_tuples(child, left)) {
+    //         spdlog::info("Left {}", std::string(t));
+    //     }
+    //     for (const auto& t : parent.map_tuples(child, right)) {
+    //         spdlog::info("right {}", std::string(t));
+    //     }
+    // }
+
+    return r;
 }
 
 
@@ -51,10 +64,16 @@ bool both_map_to_child(const Mesh& parent, const Mesh& child, const Tuple& input
         }
         return t;
     };
+    // spdlog::info("{}", primitive_type_name(child_type));
     const simplex::Simplex left(child_type, opposite(input));
     const simplex::Simplex right(
         child_type,
         opposite(parent.switch_tuple(input, PrimitiveType::Vertex)));
+    // spdlog::info(
+    //     "Input tuple {}, left right are {} {}",
+    //     std::string(input),
+    //     std::string(left.tuple()),
+    //     std::string(right.tuple()));
     return both_map_to_child(parent, child, left, right);
 }
 
@@ -67,9 +86,14 @@ bool any_pairs_both_map_to_child(
     const Mesh& child,
     const simplex::Simplex& edge)
 {
+    if (parent.can_map(child, edge)) {
+        return false;
+    }
     assert(edge.primitive_type() == PrimitiveType::Edge);
     const PrimitiveType parent_type = parent.top_simplex_type();
     const PrimitiveType child_type = child.top_simplex_type();
+    assert(parent_type > child_type);
+    // spdlog::info("{} {}", primitive_type_name(parent_type), primitive_type_name(child_type));
     if (parent_type == child_type) {
         // if the meshes are the same dimension then there isn't a pair, so this function returns
         // false
@@ -77,12 +101,14 @@ bool any_pairs_both_map_to_child(
     } else if (parent_type == child_type + 1) {
         return both_map_to_child(parent, child, edge.tuple());
     } else {
-        assert(parent_type > child_type);
-    }
-    for (const Tuple& tuple :
-         simplex::cofaces_single_dimension_iterable(parent, edge, child.top_simplex_type() + 1)) {
-        if (both_map_to_child(parent, child, tuple)) {
-            return true;
+        for (const Tuple& tuple : simplex::cofaces_single_dimension_iterable(
+                 parent,
+                 edge,
+                 child.top_simplex_type() + 1)) {
+            if (both_map_to_child(parent, child, tuple)) {
+                // spdlog::info("Could map!");
+                return true;
+            }
         }
     }
     return false;
@@ -128,5 +154,9 @@ bool MultiMeshMapValidInvariant::before(const simplex::Simplex& t) const
         }
     }
     return true;
+}
+std::string MultiMeshMapValidInvariant::name() const
+{
+    return "MultiMeshMapValidInvariant";
 }
 } // namespace wmtk

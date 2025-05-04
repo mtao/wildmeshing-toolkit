@@ -44,4 +44,8 @@ bool MultiMeshEdgeTopologyInvariant::before(const simplex::Simplex& t) const
 
     return true;
 }
+std::string MultiMeshEdgeTopologyInvariant::name() const
+{
+    return "MultiMeshEdgeTopologyInvariant";
+}
 } // namespace wmtk

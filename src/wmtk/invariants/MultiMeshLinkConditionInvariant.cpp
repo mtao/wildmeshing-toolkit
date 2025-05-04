@@ -16,8 +16,9 @@ namespace {
 struct MultiMeshLinkConditionFunctor
 {
     template <typename T>
-    bool operator()(const T& m, const simplex::Simplex& s, int64_t) {
-        return this->operator()(m,s);
+    bool operator()(const T& m, const simplex::Simplex& s, int64_t)
+    {
+        return this->operator()(m, s);
     }
     template <typename MeshType>
     bool operator()(const MeshType& m, const simplex::Simplex& s) const
@@ -37,7 +38,7 @@ bool MultiMeshLinkConditionInvariant::before(const simplex::Simplex& t) const
         std::integral_constant<int64_t, 1>{}, // specify that this runs on edges
         MultiMeshLinkConditionFunctor{});
     // TODO: fix visitor to work for const data
-    visitor.execute_from_root(const_cast<Mesh&>(mesh()), simplex::NavigatableSimplex(mesh(),t));
+    visitor.execute_from_root(const_cast<Mesh&>(mesh()), simplex::NavigatableSimplex(mesh(), t));
     const auto& data = visitor.cache();
 
     for (const auto& [key, value_var] : data) {
@@ -48,5 +49,10 @@ bool MultiMeshLinkConditionInvariant::before(const simplex::Simplex& t) const
     }
 
     return true;
+}
+
+std::string MultiMeshLinkConditionInvariant::name() const
+{
+    return "MultiMeshLinkConditionInvariant";
 }
 } // namespace wmtk::invariants
