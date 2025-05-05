@@ -28,5 +28,8 @@ set(SRC_FILES
 
     MapValidator.hpp
     MapValidator.cpp
+
+    get_points.cpp
+    get_points.hpp
     )
 target_sources(wildmeshing_toolkit PRIVATE ${SRC_FILES})

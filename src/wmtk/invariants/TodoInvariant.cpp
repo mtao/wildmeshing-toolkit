@@ -90,4 +90,16 @@ bool TodoSmallerInvariant::before(const simplex::Simplex& t) const
         return split_todo_accessor.const_scalar_attribute(t) < m_val;
     }
 }
+std::string TodoLargerInvariant::name() const
+{
+    return "TodoLargerInvariant";
+}
+std::string TodoSmallerInvariant::name() const
+{
+    return "TodoSmallerInvariant";
+}
+std::string TodoInvariant::name() const
+{
+    return "TodoInvariant";
+}
 } // namespace wmtk

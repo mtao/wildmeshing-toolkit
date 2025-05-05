@@ -18,7 +18,7 @@ Invariant::Invariant(const Mesh& mesh)
 std::string Invariant::name() const
 {
     // this throw helps check where invariants dont have hteir name implemented
-    //throw std::runtime_error("Dup!");
+    throw std::runtime_error("Dup!");
     return "Invariant";
 }
 #if defined(__GNUG__) && !defined(__clang__)

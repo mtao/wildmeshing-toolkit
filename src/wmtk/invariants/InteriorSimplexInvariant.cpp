@@ -22,4 +22,8 @@ void InteriorSimplexInvariant::add_boundary(const Mesh& boundary_mesh)
 {
     m_boundary_checker.add_mesh(boundary_mesh);
 }
+std::string InteriorSimplexInvariant::name() const
+{
+    return fmt::format("InteriorSimplexInvariant({})",primitive_type_name(m_primitive_type));
+}
 } // namespace wmtk::invariants

@@ -18,6 +18,7 @@ public:
         const int64_t val = 1);
     bool before(const simplex::Simplex& t) const override;
 
+    std::string name() const override;
 private:
     const TypedAttributeHandle<int64_t> m_todo_handle;
     const int64_t m_val;
@@ -43,6 +44,7 @@ public:
 
     bool before(const simplex::Simplex& t) const override;
 
+    std::string name() const override;
 private:
     const TypedAttributeHandle<double> m_todo_handle;
     const std::optional<TypedAttributeHandle<double>> m_comparison_handle;
@@ -69,6 +71,7 @@ public:
 
     bool before(const simplex::Simplex& t) const override;
 
+    std::string name() const override;
 private:
     const TypedAttributeHandle<double> m_todo_handle;
     const std::optional<TypedAttributeHandle<double>> m_comparison_handle;

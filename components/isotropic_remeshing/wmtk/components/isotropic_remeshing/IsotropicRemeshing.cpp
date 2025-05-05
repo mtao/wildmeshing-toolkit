@@ -11,17 +11,15 @@
 #include <wmtk/multimesh/consolidate.hpp>
 
 
-//
+
+// utils for setting invariants
 #include <wmtk/invariants/EnvelopeInvariant.hpp>
 #include <wmtk/invariants/InteriorSimplexInvariant.hpp>
 #include <wmtk/invariants/InvariantCollection.hpp>
-
-// utils for setting invariants
-#include <wmtk/invariants/MultiMeshLinkConditionInvariant.hpp>
-#include <wmtk/invariants/MultiMeshMapValidInvariant.hpp>
 #include <wmtk/invariants/SimplexInversionInvariant.hpp>
-#include <wmtk/multimesh/MultiMeshVisitor.hpp>
+
 // meshvisitor requires knowing all the mesh types
+#include <wmtk/multimesh/MultiMeshVisitor.hpp>
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/TetMesh.hpp>
@@ -36,9 +34,6 @@
 
 
 // op types
-#include <wmtk/operations/AttributesUpdate.hpp>
-#include <wmtk/operations/EdgeCollapse.hpp>
-#include <wmtk/operations/EdgeSplit.hpp>
 #include <wmtk/operations/composite/EdgeSwap.hpp>
 //
 #include <Eigen/Geometry>

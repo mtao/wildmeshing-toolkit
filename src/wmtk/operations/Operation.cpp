@@ -212,9 +212,17 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
             auto at_mesh_simplices = m_mesh.map(at_mesh, direct_mods);
 
             simplex::IdSimplexCollection at_mesh_all(at_mesh);
+            // try {
             for (const simplex::Simplex& s : at_mesh_simplices) {
                 for (const simplex::IdSimplex& ss : simplex::closed_star_iterable(at_mesh, s)) {
-                    at_mesh_all.add(ss);
+                    if (!at_mesh.is_valid(s)) {
+                        spdlog::warn(
+                            "Error: {}",
+                            fmt::format("Invalid simplex {}", std::string(s.tuple())));
+                        assert(at_mesh.is_connectivity_valid());
+                    } else {
+                        at_mesh_all.add(ss);
+                    }
                 }
             }
 

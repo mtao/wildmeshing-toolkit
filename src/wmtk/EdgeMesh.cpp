@@ -278,7 +278,8 @@ bool EdgeMesh::is_connectivity_valid() const
         auto ee = ee_accessor.index_access().const_vector_attribute<2>(i);
         if (ev(0) == ev(1)) {
             wmtk::logger().error("EV[{},:] = {}, not currently supported", i, fmt::join(ev, ","));
-            return false;
+            continue;
+            // return false;
         }
 
         for (int64_t j = 0; j < 2; ++j) {
@@ -291,10 +292,10 @@ bool EdgeMesh::is_connectivity_valid() const
             auto nbrev = ev_accessor.index_access().const_vector_attribute<2>(nbre);
             bool found = false;
             for (int64_t k = 0; k < 2; ++k) {
-                if (nbree(k) == i) {
+                if (nbrev(k) == ev(j)) {
                     found = true;
 
-                    if (nbrev(k) != ev(j)) {
+                    if (nbree(k) != i) {
                         wmtk::logger().error(
                             "EV[{}] = {}, got EV[EE[{},{}]] = {}, which does not include {} but "
                             "needed to at position {}",

@@ -12,6 +12,7 @@
 #include "TriMesh.hpp"
 
 #include "Primitive.hpp"
+#include "wmtk/simplex/IdSimplex.hpp"
 
 namespace wmtk {
 
@@ -127,6 +128,11 @@ bool Mesh::is_valid(const Tuple& tuple) const
     }
 #endif
     return !bad;
+}
+
+bool Mesh::is_removed(const simplex::IdSimplex& s) const
+{
+    return is_removed(s.index(), s.primitive_type());
 }
 
 bool Mesh::is_removed(const Tuple& tuple) const

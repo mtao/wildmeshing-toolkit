@@ -25,14 +25,16 @@ bool both_map_to_child(
 
     const bool r = parent.can_map(child, left) && parent.can_map(child, right);
 
-    // if (r) {
-    //     for (const auto& t : parent.map_tuples(child, left)) {
-    //         spdlog::info("Left {}", std::string(t));
-    //     }
-    //     for (const auto& t : parent.map_tuples(child, right)) {
-    //         spdlog::info("right {}", std::string(t));
-    //     }
-    // }
+    if (r) {
+        for (const auto& t : parent.map_tuples(child, left)) {
+            assert(child.is_valid(t));
+            spdlog::info("Left {}", std::string(t));
+        }
+        for (const auto& t : parent.map_tuples(child, right)) {
+            assert(child.is_valid(t));
+            spdlog::info("right {}", std::string(t));
+        }
+    }
 
     return r;
 }

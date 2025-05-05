@@ -5,6 +5,7 @@
 #include <wmtk/multimesh/same_simplex_dimension_surjection.hpp>
 #include <wmtk/multimesh/utils/MapValidator.hpp>
 #include <wmtk/multimesh/utils/check_map_valid.hpp>
+#include <wmtk/multimesh/utils/get_points.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
 #include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/EdgeSplit.hpp>
@@ -191,7 +192,7 @@ TEST_CASE("test_register_child_mesh", "[multimesh][2D]")
                 std::tuple<Tuple, Tuple>{child1.tuple_from_id(PF, 1), parent.tuple_from_id(PF, 1)}};
 
 
-#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
+#if !defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
             for (int64_t parent_index = 0; parent_index < 3; ++parent_index) {
                 auto ptuple = parent.tuple_from_id(PF, parent_index);
                 auto p_to_c0_tuple_tuple =
@@ -486,7 +487,7 @@ TEST_CASE("multi_mesh_register_2D_and_1D_single_triangle", "[multimesh][1D][2D]"
                 std::tuple<Tuple, Tuple>{child1.tuple_from_id(PE, 1), parent.tuple_from_id(PE, 2)}};
 
 
-#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
+#if !defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
             for (int64_t parent_index = 0; parent_index < 3; ++parent_index) {
                 auto ptuple = parent.tuple_from_id(PE, parent_index);
                 auto p_to_c0_tuple_tuple =
@@ -689,7 +690,7 @@ TEST_CASE("multi_mesh_register_between_2D_and_1D_one_ear", "[multimesh][1D][2D]"
                 std::tuple<Tuple, Tuple>{child1.tuple_from_id(PE, 1), parent.tuple_from_id(PE, 3)}};
 
 
-#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
+#if !defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
             for (int64_t parent_index = 0; parent_index < 3; ++parent_index) {
                 auto ptuple = parent.tuple_from_id(PE, parent_index);
                 auto p_to_c0_tuple_tuple =
@@ -1362,4 +1363,40 @@ TEST_CASE("test_deregister_child_mesh", "[multimesh]")
         CHECK(c1_mul_manager.is_root());
         CHECK_FALSE(c0_mul_manager.is_root());
     }
+}
+
+TEST_CASE("test_point_mesh", "[multimesh][2D][0D]")
+{
+    TriMesh parent = two_neighbors();
+
+    auto tups = parent.get_all(wmtk::PrimitiveType::Vertex);
+
+
+    auto all_points = wmtk::multimesh::utils::get_points(parent, tups);
+
+    std::shared_ptr<PointMesh> one_point;
+    {
+        std::vector<Tuple> t1;
+        t1.emplace_back(tups[1]);
+        one_point = wmtk::multimesh::utils::get_points(parent, t1);
+    }
+    auto check_child = [&](const auto& mesh, const Tuple& input, int64_t index) {
+        auto tups = parent.map_tuples(mesh, simplex::Simplex::vertex(input));
+        if (index == -1) {
+            REQUIRE(tups.size() == 0);
+            return;
+        } else {
+            REQUIRE(tups.size() == 1);
+        }
+
+        CHECK(tups[0] == Tuple(-1, -1, -1, index));
+    };
+
+    check_child(*all_points, tups[0], 0);
+    check_child(*all_points, tups[1], 1);
+    check_child(*all_points, tups[2], 2);
+
+    check_child(*one_point, tups[0], -1);
+    check_child(*one_point, tups[1], 0);
+    check_child(*one_point, tups[2], -1);
 }

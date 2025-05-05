@@ -442,6 +442,7 @@ public:
     bool is_removed(const Tuple& tuple) const;
     // whether the tuple refers to a removed / invalid simplex in the mesh
     bool is_removed(const Tuple& tuple, PrimitiveType pt) const;
+    bool is_removed(const simplex::IdSimplex& s) const;
 
 protected:
     // whether the tuple refers to a removed / invalid facet

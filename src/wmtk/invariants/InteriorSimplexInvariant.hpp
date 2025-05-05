@@ -14,6 +14,7 @@ public:
 
     void add_boundary(const Mesh& boundary_mesh);
 
+    virtual std::string name() const override;
 private:
     PrimitiveType m_primitive_type;
     multimesh::BoundaryChecker m_boundary_checker;

@@ -1,12 +1,6 @@
 #include "get_points.hpp"
 #include <wmtk/PointMesh.hpp>
 namespace wmtk::multimesh::utils {
-/**
- * @brief Extracts a child mesh from a sequence of vertex tuples
- *
- * @param mesh
- * @param point_tuples
- */
 std::shared_ptr<PointMesh> get_points(Mesh& m, const std::vector<Tuple>& point_tuples)
 {
     std::vector<std::array<wmtk::Tuple, 2>> map;

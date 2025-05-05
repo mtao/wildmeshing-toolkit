@@ -8,6 +8,7 @@ class InteriorVertexInvariant : public InteriorSimplexInvariant
 {
 public:
     InteriorVertexInvariant(const Mesh& m);
+    virtual std::string name() const override;
 };
 } // namespace invariants
 using InteriorVertexInvariant = invariants::InteriorVertexInvariant;

@@ -8,6 +8,7 @@ class InteriorEdgeInvariant : public InteriorSimplexInvariant
 {
 public:
     InteriorEdgeInvariant(const Mesh& m);
+    virtual std::string name() const override;
 };
 } // namespace invariants
 using InteriorEdgeInvariant = invariants::InteriorEdgeInvariant;

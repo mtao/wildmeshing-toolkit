@@ -10,7 +10,7 @@ namespace wmtk {
 }
 namespace wmtk::multimesh::utils {
 /**
- * @brief Extracts a child mesh from a sequence of vertex tuples
+ * @brief Extracts a child PointMesh from a sequence of vertex tuples
  *
  * @param mesh
  * @param point_tuples

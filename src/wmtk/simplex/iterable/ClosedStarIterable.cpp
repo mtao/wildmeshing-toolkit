@@ -80,12 +80,16 @@ bool ClosedStarIterable::Iterator::operator!=(const Iterator& other) const
 
 IdSimplex ClosedStarIterable::Iterator::operator*()
 {
-    return m_container.m_mesh.get_id_simplex(m_t, get_primitive_type_from_id(m_pt));
+    auto s = m_container.m_mesh.get_id_simplex(m_t, get_primitive_type_from_id(m_pt));
+    assert(!m_container.m_mesh.is_removed(s));
+    return s;
 }
 
 const IdSimplex ClosedStarIterable::Iterator::operator*() const
 {
-    return m_container.m_mesh.get_id_simplex(m_t, get_primitive_type_from_id(m_pt));
+    auto s = m_container.m_mesh.get_id_simplex(m_t, get_primitive_type_from_id(m_pt));
+    assert(!m_container.m_mesh.is_removed(s));
+    return s;
 }
 
 int64_t ClosedStarIterable::Iterator::depth()

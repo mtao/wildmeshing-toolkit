@@ -66,4 +66,9 @@ bool ValenceImprovementInvariant::before(const simplex::Simplex& simplex) const
     return true;
 }
 
+
+std::string ValenceImprovementInvariant::name() const
+{
+    return "ValenceImprovementInvariant";
+}
 } // namespace wmtk::invariants
