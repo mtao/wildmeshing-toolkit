@@ -1,6 +1,5 @@
 #include "IndexSimplexMapper.hpp"
 #include <fmt/ranges.h>
-#include <spdlog/spdlog.h>
 #include <wmtk/utils/edgemesh_topology_initialization.h>
 #include <wmtk/utils/tetmesh_topology_initialization.h>
 #include <wmtk/utils/trimesh_topology_initialization.h>
@@ -52,10 +51,10 @@ std::vector<std::array<int64_t, E>> get_simplices(std::array<int64_t, D> s)
 template <size_t D, size_t E>
 std::array<int64_t, D> get_simplex(const std::array<int64_t, E>& s, int8_t permutation)
 {
-    PrimitiveType pt = get_primitive_type_from_id(D - 1);
-    spdlog::info("Primitive type {}", primitive_type_name(pt));
-    const auto mp =
-        wmtk::dart::utils::get_local_vertex_permutation(pt, permutation).template head<D>().eval();
+    PrimitiveType pt = get_primitive_type_from_id(E - 1);
+
+    const auto perm = wmtk::dart::utils::get_local_vertex_permutation(pt, permutation);
+    const auto mp = perm.template head<D>().eval();
 
     std::array<int64_t, D> v;
     std::transform(mp.begin(), mp.end(), v.begin(), [&](int8_t idx) { return s[idx]; });
@@ -65,7 +64,7 @@ std::array<int64_t, D> get_simplex(const std::array<int64_t, E>& s, int8_t permu
 template <size_t D>
 int8_t get_permutation(const std::array<int64_t, D>& S)
 {
-    PrimitiveType pt = get_primitive_type_from_id(D );
+    PrimitiveType pt = get_primitive_type_from_id(D);
     const auto& sd = dart::SimplexDart::get_singleton(pt);
     using MapType = typename Eigen::Vector<int64_t, D>::ConstMapType;
     MapType p(S.data());
@@ -98,7 +97,6 @@ std::vector<std::array<int64_t, E>> get_simplices(
         const auto& s = S[d.global_id()];
         const int8_t p = dart::utils::get_canonical_subdart(sd, pt, d.permutation());
         auto v = get_simplex<E>(s, p);
-        spdlog::info("Mapping {}-simplex index {}: {} to {}", D, j, fmt::join(s,","), fmt::join(v,","));
         R[j] = v;
 
         // std::sort(v.begin(), v.end());

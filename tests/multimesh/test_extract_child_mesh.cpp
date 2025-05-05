@@ -32,11 +32,14 @@ TEST_CASE("test_extract_child_point_mesh", "[multimesh][extract_childmesh]")
             tag_accessor.scalar_attribute(t) = 1;
         }
 
-        REQUIRE_THROWS(wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag(
+        auto child = (wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag(
             parent,
             "is_child",
             1,
             PV));
+
+        REQUIRE(child->top_cell_dimension() == 0);
+        CHECK(child->get_all(PV).size() == parent.get_all(PV).size());
     }
 }
 

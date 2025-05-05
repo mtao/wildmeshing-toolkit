@@ -21,4 +21,8 @@ bool ConstantInvariant::after(
     return m_after;
 }
 
+std::string ConstantInvariant::name() const
+{
+    return "ConstantInvariant";
+}
 } // namespace wmtk::invariants::internal

@@ -16,6 +16,7 @@ public:
         const std::vector<Tuple>& top_dimension_tuples_before,
         const std::vector<Tuple>& top_dimension_tuples_after) const override;
 
+    std::string name() const override;
 private:
     bool m_before;
     bool m_after;
