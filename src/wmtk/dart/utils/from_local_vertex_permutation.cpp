@@ -44,6 +44,18 @@ std::array<std::pair<std::array<int8_t, Cols>, int8_t>, Rows> local_indexer(
 template <size_t Rows, size_t Cols>
 int8_t get_index(
     const std::array<std::pair<std::array<int8_t, Cols>, int8_t>, Rows>& LI,
+    std::array<int8_t, Cols> permutation)
+{
+    auto it = std::lower_bound(LI.begin(), LI.end(), permutation, [](const auto& a, const auto& b) {
+        return std::lexicographical_compare(a.first.begin(), a.first.end(), b.begin(), b.end());
+    });
+    assert(std::equal(it->first.begin(), it->first.end(), permutation.begin(), permutation.end()));
+    return it->second;
+}
+
+template <size_t Rows, size_t Cols>
+int8_t get_index(
+    const std::array<std::pair<std::array<int8_t, Cols>, int8_t>, Rows>& LI,
     Eigen::Ref<const Vector<int8_t, Cols>> permutation)
 {
     auto it = std::lower_bound(LI.begin(), LI.end(), permutation, [](const auto& a, const auto& b) {
@@ -53,25 +65,37 @@ int8_t get_index(
     return it->second;
 }
 
+consteval int8_t factorial(int8_t N)
+{
+    if (N <= 1) {
+        return 1;
+    } else {
+        return N * factorial(N - 1);
+    }
+}
+
 template <size_t Rows>
 int8_t from_local_vertex_permutation(Eigen::Ref<const Vector<int8_t, Rows>> permutation);
 template <>
 int8_t from_local_vertex_permutation<2>(Eigen::Ref<const Vector<int8_t, 2>> permutation)
 {
-    const static auto LI = local_indexer<2>(autogen::edge_mesh::permutations);
-    return get_index<2, 2>(LI, permutation);
+    constexpr static int8_t F = factorial(3);
+    const static auto LI = local_indexer<F>(autogen::edge_mesh::permutations);
+    return get_index<F, 2>(LI, permutation);
 }
 template <>
 int8_t from_local_vertex_permutation<3>(Eigen::Ref<const Vector<int8_t, 3>> permutation)
 {
-    const static auto LI = local_indexer<6>(autogen::tri_mesh::permutations);
-    return get_index<6, 3>(LI, permutation);
+    constexpr static int8_t F = factorial(3);
+    const static auto LI = local_indexer<F>(autogen::tri_mesh::permutations);
+    return get_index<F, 3>(LI, permutation);
 }
 template <>
 int8_t from_local_vertex_permutation<4>(Eigen::Ref<const Vector<int8_t, 4>> permutation)
 {
-    const static auto LI = local_indexer<24>(autogen::tet_mesh::permutations);
-    return get_index<24, 4>(LI, permutation);
+    constexpr static int8_t F = factorial(4);
+    const static auto LI = local_indexer<F>(autogen::tet_mesh::permutations);
+    return get_index<F, 4>(LI, permutation);
 }
 } // namespace
 
@@ -99,12 +123,12 @@ int8_t from_vertex_permutation(Eigen::Ref<const VectorX<int64_t>> indices)
 {
     PrimitiveType pt = get_primitive_type_from_id(indices.size() - 1);
     std::map<int64_t, int8_t> map;
-    //std::vector<int64_t> I(indices.size());
+    // std::vector<int64_t> I(indices.size());
     for (int8_t j = 0; j < indices.size(); ++j) {
         map[indices(j)] = j;
     }
-    std::vector<int64_t> I(indices.begin(),indices.end());
-    //std::copy(indices.begin(), indices.end(),std::back_inserter(I));
+    std::vector<int64_t> I(indices.begin(), indices.end());
+    // std::copy(indices.begin(), indices.end(),std::back_inserter(I));
     std::sort(I.begin(), I.end());
 
     VectorX<int8_t> perm(map.size());
@@ -122,4 +146,15 @@ int8_t from_vertex_permutation(PrimitiveType pt, Eigen::Ref<const VectorX<int64_
     assert(pt == get_primitive_type_from_id(permutation.size() - 1));
     return from_vertex_permutation(permutation);
 }
+
+template <size_t N>
+int8_t from_local_vertex_permutation(const std::array<int8_t, N>& indices)
+{
+    const static auto LI = local_indexer<N>(autogen::edge_mesh::permutations);
+    return get_index<factorial(N), N>(LI, indices);
+}
+
+template <size_t N>
+int8_t from_vertex_permutation(const std::array<int64_t, N>& indices)
+{}
 } // namespace wmtk::dart::utils

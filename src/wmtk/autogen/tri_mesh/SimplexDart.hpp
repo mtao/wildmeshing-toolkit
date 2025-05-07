@@ -15,7 +15,7 @@ constexpr int8_t simplex_dimension = get_primitive_type_id(primitive_type);
 
 inline int8_t product(int8_t a, int8_t b)
 {
-    return auto_valid_switch_product_table[b][a];
+    return auto_valid_switch_product_table[a][b];
 }
 inline int8_t inverse(int8_t a)
 {

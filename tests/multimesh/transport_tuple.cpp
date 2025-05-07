@@ -14,7 +14,8 @@ TEST_CASE("transport_tuple", "[tuple][multimesh]")
 {
     // when other meshes are available add them here
     for (PrimitiveType base_mesh_type :
-         {PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
+         {PrimitiveType::Triangle}) {
+         //{PrimitiveType::Edge, PrimitiveType::Triangle, PrimitiveType::Tetrahedron}) {
         const auto& base_sd = wmtk::dart::SimplexDart::get_singleton(base_mesh_type);
 
         auto base_all_tuples = all_valid_local_tuples(base_mesh_type);

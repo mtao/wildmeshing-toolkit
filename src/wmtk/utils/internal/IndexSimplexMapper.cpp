@@ -353,6 +353,10 @@ auto IndexSimplexMapper::get_internal_dart(const std::array<int64_t, Dim>& s) co
 template <size_t Dim>
 auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
 {
+    assert(m_mesh == nullptr);
+    return get_internal_dart(s);
+    /*
+     * // TODO: what what was the point of this again?
     auto dart = get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>());
     wmtk::PrimitiveType simplex_pt = wmtk::get_primitive_type_from_id(Dim - 1);
     // PrimitiveType pt = m_mesh->top_simplex_type();
@@ -360,14 +364,17 @@ auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> da
     const auto& sd = dart::SimplexDart::get_singleton(pt);
     int8_t p = sd.identity();
     return dart::Dart(dart.global_id(), sd.product(p, sd.inverse(dart.permutation())));
+    */
 }
 
 template <size_t Dim>
 auto IndexSimplexMapper::get_mesh_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
 {
     assert(m_mesh != nullptr);
-    auto dart = get_dart(s);
+    // gets a mesh-dart for the mseh
+    auto dart = get_input_dart<Dim>(s, simplex_dart_map<Dim - 1>());
     wmtk::PrimitiveType simplex_pt = wmtk::get_primitive_type_from_id(Dim - 1);
+
     PrimitiveType pt = m_mesh->top_simplex_type();
     auto default_tup =
         m_mesh->get_tuple_from_id_simplex(simplex::IdSimplex(simplex_pt, dart.global_id()));

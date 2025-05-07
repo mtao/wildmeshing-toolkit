@@ -36,10 +36,7 @@ wmtk::Tuple SimplexDart::tuple_from_permutation_index(int64_t gid, int8_t index)
 }
 wmtk::Tuple SimplexDart::update_tuple_from_permutation_index(const Tuple& t, int8_t index) const
 {
-    return utils::tuple_from_permutation_index(
-        simplex_type(),
-        t.global_cid(),
-        index);
+    return utils::tuple_from_permutation_index(simplex_type(), t.global_cid(), index);
 }
 int8_t SimplexDart::permutation_index_from_tuple(const wmtk::Tuple& t) const
 {
@@ -64,9 +61,7 @@ wmtk::Tuple SimplexDart::tuple_from_dart(const Dart& dart) const
 }
 Dart SimplexDart::dart_from_tuple(const wmtk::Tuple& t) const
 {
-    return Dart{
-        t.global_cid(),
-        wmtk::dart::utils::permutation_index_from_tuple(simplex_type(), t)};
+    return Dart{t.global_cid(), wmtk::dart::utils::permutation_index_from_tuple(simplex_type(), t)};
 }
 
 int8_t SimplexDart::simplex_index(const Dart& dart, PrimitiveType simplex_type) const
@@ -80,9 +75,13 @@ int8_t SimplexDart::simplex_index(const int8_t permutation_index, PrimitiveType 
         permutation_index,
         simplex_type);
 }
+int8_t SimplexDart::act(int8_t permutation, int8_t action) const
+{
+    return product(permutation, action);
+}
 Dart SimplexDart::act(const Dart& d, int8_t action) const
 {
-    return Dart(d.global_id(), product(action, d.permutation()));
+    return Dart(d.global_id(), act(d.permutation(), action));
 }
 
 } // namespace wmtk::dart

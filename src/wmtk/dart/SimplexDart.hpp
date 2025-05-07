@@ -26,6 +26,7 @@ public:
 
 
     Dart act(const Dart& d, int8_t action) const;
+    int8_t act(int8_t permutation, int8_t action) const;
     wmtk::Tuple as_tuple(int64_t gid, int8_t permutation_index) const;
     wmtk::Tuple update_tuple_from_permutation(const Tuple& t, int8_t permutation_index) const;
 

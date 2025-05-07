@@ -108,6 +108,7 @@ public:
     template <size_t Dim>
     dart::Dart get_internal_dart(const std::array<int64_t, Dim>& s) const;
 
+    // returns a Dim-1-dart encoding the relative orientation of the dart to the lexicographcail internal dart
     template <size_t Dim>
     dart::Dart get_dart(const std::array<int64_t, Dim>& s) const;
 

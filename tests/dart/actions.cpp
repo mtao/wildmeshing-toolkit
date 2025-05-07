@@ -60,13 +60,13 @@ TEST_CASE("tuple_dart_products_vs_switch", "[tuple][dart]")
                 for (const auto& s : sequence) {
                     manual_switch = local_switch_tuple(mesh_type, manual_switch, s);
                     seq_tups.emplace_back(sd.primitive_as_index(s));
-                    op = sd.product(sd.primitive_as_index(s), op);
-                    index = sd.product(sd.primitive_as_index(s), index);
+                    op = sd.product(op, sd.primitive_as_index(s));
+                    index = sd.product(index, sd.primitive_as_index(s));
                 }
 
                 Tuple product_switch = sd.update_tuple_from_permutation_index(t, index);
                 Tuple product_switch2 =
-                    sd.update_tuple_from_permutation_index(t, sd.product(op, initial_index));
+                    sd.update_tuple_from_permutation_index(t, sd.product(initial_index, op));
 
                 const dart::Dart output = sd.act(initial_dart, op);
 

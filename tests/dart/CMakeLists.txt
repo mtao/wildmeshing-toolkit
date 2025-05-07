@@ -2,11 +2,14 @@
 # Sources
 set(TEST_SOURCES
     dart.cpp
+    group_structure.cpp
     actions.cpp
     simplex_adjacency.cpp
     dart_accessor.cpp
     topology_initialization.cpp
     relative_faces.cpp
+
+    relative_permutation.cpp
 
     utils/canonical_darts.hpp
     utils/canonical_darts.cpp
