@@ -13,12 +13,9 @@ namespace wmtk::dart::utils {
 {
     PrimitiveType pt = get_primitive_type_from_id(N - 1);
 
-    using MapType = typename Eigen::Vector<int64_t, N>::ConstMapType;
-    MapType A(from.data());
-    MapType B(to.data());
     const auto& sd = SimplexDart::get_singleton(pt);
-    int8_t ap = from_vertex_permutation(pt, A);
-    int8_t bp = from_vertex_permutation(pt, B);
+    int8_t ap = from_vertex_permutation( from);
+    int8_t bp = from_vertex_permutation( to);
     return find_local_dart_action(sd,ap,bp);
 }
 } // namespace wmtk::dart::utils
