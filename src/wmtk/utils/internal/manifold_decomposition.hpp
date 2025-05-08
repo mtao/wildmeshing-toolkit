@@ -1,6 +1,6 @@
 #pragma once
-//#include <fmt/ranges.h>
-//#include <spdlog/spdlog.h>
+#include <fmt/ranges.h>
+#include <spdlog/spdlog.h>
 #include <map>
 #include <set>
 #if defined(_cpp_lib_span)
@@ -27,7 +27,7 @@ struct ManifoldDecomposition
     wmtk::RowVectors<int64_t, Dim> manifold_decomposition;
 
     // face matrix and mm_map should have a consistent ordering because iteration through std::map
-    // is stable
+    // is stable. Indexing is based on the input's indexing scheme
     wmtk::RowVectors<int64_t, Dim - 1> face_matrix() const;
     std::vector<std::array<Tuple, 2>> mm_map() const;
 };
@@ -40,6 +40,7 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
 {
     ManifoldDecomposition<Dim> MD;
     RowVectors<int64_t, Dim>& R = MD.manifold_decomposition; // returned simplices
+    auto& face_map = MD.face_map; // returned simplices
     if (Dim == 1) {
         R = S;
         return MD;
@@ -68,6 +69,25 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
             r[k] = last;
             coboundary[ism.get_index(r)].emplace(j);
             r[k] = old;
+        }
+    }
+    if constexpr (Dim > 1) {
+        const auto& S = ism.simplices<Dim - 1>();
+        auto F = ism.simplices<Dim - 2>();
+        spdlog::warn("{} {} {}", Dim, S.size(), F.size());
+        // static_assert(std::decay_t<decltype(F)>::value_type::size() == Dim - 2);
+        for (const auto& [k, v] : coboundary) {
+            std::vector<std::array<int64_t, Dim>> faces;
+            for (const auto& a : v) {
+                faces.emplace_back(S[a]);
+            }
+            spdlog::warn(
+                "{}/{}: {}  => {}",
+                k,
+                F.size(),
+                fmt::join(F[k], ","),
+                fmt::join(faces, ","));
+            // spdlog::warn("{}  {} {}=> {}", k, fmt::join(S, ","), S.size(), v);
         }
     }
 
@@ -106,6 +126,7 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
                 }
             }
         } else if (simplices.size() > 2) {
+            spdlog::info("Found a nonmanifold face");
             nonmanifold_faces.emplace(face);
             // spdlog::info(
             //     "Face {} ({}) got Facets {}",

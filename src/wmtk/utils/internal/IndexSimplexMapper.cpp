@@ -1,5 +1,6 @@
 #include "IndexSimplexMapper.hpp"
 #include <fmt/ranges.h>
+#include <spdlog/spdlog.h>
 #include <wmtk/utils/edgemesh_topology_initialization.h>
 #include <wmtk/utils/tetmesh_topology_initialization.h>
 #include <wmtk/utils/trimesh_topology_initialization.h>
@@ -188,7 +189,9 @@ void IndexSimplexMapper::initialize<2>(Eigen::Ref<const RowVectors2l> S)
     m_E = from_eigen<2>(S);
     m_E_map = make_map<2>(m_E);
     m_V_map = make_child_map<2, 1>(m_E);
+    spdlog::info("{} vertices", m_V_map.size());
     update_simplices();
+    spdlog::info("{} vertices", m_V.size());
 }
 void IndexSimplexMapper::initialize_edge_mesh(Eigen::Ref<const RowVectors2l> S)
 {
