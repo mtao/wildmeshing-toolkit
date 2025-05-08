@@ -27,7 +27,7 @@ int8_t from_local_vertex_permutation_slow(
 }
 
 //defined(__GNUG__) && !
-#if defined(__clang__)
+#if defined(__clang__) || !defined(WMTK_ENABLED_CXX20)
 constexpr
 #else
 consteval
