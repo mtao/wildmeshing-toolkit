@@ -7,6 +7,8 @@
 #include <wmtk/dart/utils/get_canonical_simplex_orientation.hpp>
 #include <wmtk/dart/utils/get_canonical_subdart.hpp>
 #include <wmtk/dart/utils/get_canonical_supdart.hpp>
+#include <wmtk/dart/utils/get_permutation.hpp>
+#include <wmtk/dart/utils/permute.hpp>
 #include "utils/canonical_darts.hpp"
 
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
@@ -418,7 +420,7 @@ TEST_CASE("dart_subdart_permutation", "[dart]")
         // int8_t forward = sd.product(source.permutation(), permutation);
         int8_t canonical_supdart =
             wmtk::dart::utils::get_canonical_supdart(sd, pt, source.permutation());
-        int8_t forward = sd.act(permutation, canonical_supdart);
+        int8_t forward = sd.act(canonical_supdart, permutation);
         std::cout << "Source: "
                   << wmtk::dart::utils::get_local_vertex_permutation(
                          sd.simplex_type(),
@@ -575,4 +577,47 @@ TEST_CASE("dart_subdart_permutation", "[dart]")
         checker(sd, d3120, PrimitiveType::Triangle, d2013.permutation());
         checker(sd, d3210, PrimitiveType::Triangle, d2103.permutation());
     }
+}
+
+
+TEST_CASE("permute_operator", "[permutation]")
+{
+    auto run = []<size_t N>(const std::array<int64_t, N>& p) {
+        const PrimitiveType pt = get_primitive_type_from_id(int8_t(N - 1));
+        const auto& sd = dart::SimplexDart::get_singleton(pt);
+        for (int8_t perm_index = 0; perm_index < sd.size(); ++perm_index) {
+            auto perm = dart::utils::get_local_vertex_permutation(pt, perm_index);
+
+            std::array<int64_t, N> o;
+            for (size_t j = 0; j < N; ++j) {
+                o[j] = p[perm[j]];
+            }
+            CHECK(dart::utils::permute(p, perm_index) == o);
+
+            spdlog::warn("Applied perm: {}", fmt::join(perm, ","));
+            CHECK(dart::utils::get_permutation(p, o) == perm_index);
+
+            for (int8_t perm_index2 = 0; perm_index2 < sd.size(); ++perm_index2) {
+                auto o2 = dart::utils::permute(o, perm_index2);
+
+                int8_t act = sd.act(perm_index, perm_index2);
+
+                auto perm2 = dart::utils::get_local_vertex_permutation(pt, perm_index2);
+                spdlog::warn("Applied perm2: {}", fmt::join(perm2, ","));
+                CHECK(dart::utils::get_permutation(o, o2) == perm_index2);
+
+
+                CHECK(act == sd.product(perm_index, perm_index2));
+
+
+                auto op = dart::utils::permute(p, act);
+
+
+                CHECK(op == o2);
+            }
+        }
+    };
+    run(std::array<int64_t, 3>{{5, 6, 7}});
+    // run(std::array<int64_t, 3>{{5, 7, 6}});
+    // run(std::array<int64_t, 4>{{5, 2, 7, 6}});
 }

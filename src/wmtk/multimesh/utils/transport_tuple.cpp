@@ -21,6 +21,25 @@ Tuple transport_tuple_sequence(
 
     return local_switch_tuples(primitive_type, source, operations);
 }
+Tuple transport_tuple(
+    const wmtk::dart::SimplexDart& base_sd,
+    const wmtk::dart::SimplexDart& sd,
+    const Tuple& base_source,
+    const Tuple& base_target,
+    const Tuple& source)
+{
+    const int8_t base_action = find_local_dart_action(base_sd, base_source, base_target);
+    const int8_t action = base_sd.convert(base_action, sd);
+
+
+    int8_t src_dart = sd.permutation_index_from_tuple(source);
+    const int8_t tgt_dart = sd.act(src_dart, action);
+    //spdlog::warn("base action{} final action{} src_dart{} tgt_dart{}", base_action, action, src_dart, tgt_dart);
+    const auto r = sd.update_tuple_from_permutation_index(source, tgt_dart);
+    //spdlog::info("{}", std::string(r));
+    return r;
+}
+
 Tuple transport_tuple_dart(
     const Tuple& base_source,
     const Tuple& base_target,
@@ -65,22 +84,4 @@ Tuple transport_tuple(
     return dart;
 }
 
-Tuple transport_tuple(
-    const wmtk::dart::SimplexDart& base_sd,
-    const wmtk::dart::SimplexDart& sd,
-    const Tuple& base_source,
-    const Tuple& base_target,
-    const Tuple& source)
-{
-    const int8_t base_action = find_local_dart_action(base_sd, base_source, base_target);
-    const int8_t action = base_sd.convert(base_action, sd);
-
-
-    int8_t src_dart = sd.permutation_index_from_tuple(source);
-    const int8_t tgt_dart = sd.act(action, src_dart);
-    //spdlog::warn("base action{} final action{} src_dart{} tgt_dart{}", base_action, action, src_dart, tgt_dart);
-    const auto r = sd.update_tuple_from_permutation_index(source, tgt_dart);
-    //spdlog::info("{}", std::string(r));
-    return r;
-}
 } // namespace wmtk::multimesh::utils

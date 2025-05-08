@@ -308,7 +308,7 @@ TEST_CASE("maximal_subdart_switches", "[tuple]")
                     REQUIRE(size == s);
 
 
-                    int8_t mapped_index = sd.product(act, index);
+                    int8_t mapped_index = sd.act(index, act);
                     CHECK(equal_subdart_dimension(mesh_type, index, mapped_index) == size);
                     CHECK(sd.simplex_index(mapped_index, simplex_type) == simplex_index);
                 }

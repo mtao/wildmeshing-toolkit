@@ -25,21 +25,10 @@ int8_t get_permutation(const std::array<int64_t, N>& from, const std::array<int6
 
     spdlog::warn("From perm: {} to perm: {}", fmt::join(a, ","), fmt::join(b, ","));
 
-    int8_t ret = find_local_dart_action(sd, ap, bp);
+    int8_t ret = sd.product(sd.inverse(ap), bp);
 
-    assert(bp == sd.act(ret, ap));
+    assert(bp == sd.act(ap, ret));
 
-    int8_t ri2 = find_local_dart_action(sd, ap, bp);
-    int8_t ri = sd.inverse(ret);
-    const auto rperm = wmtk::dart::utils::get_local_vertex_permutation(pt, ret);
-    const auto riperm = wmtk::dart::utils::get_local_vertex_permutation(pt, ri);
-    const auto ri2perm = wmtk::dart::utils::get_local_vertex_permutation(pt, ri2);
-    spdlog::warn(
-        "Resulting perm: {} inv {} (or {})",
-        fmt::join(rperm, ","),
-        fmt::join(riperm, ","),
-        fmt::join(ri2perm, ","));
     return ret;
-    return ri;
 }
 } // namespace wmtk::dart::utils
