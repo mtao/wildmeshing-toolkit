@@ -46,10 +46,11 @@ bool verify_simplex_index_valences(const Mesh& m, const internal::IndexSimplexMa
             cofaces[face_index].emplace(j);
         }
     }
-        for (size_t j = 0; j < cofaces.size(); ++j) {
-            const auto& cof = cofaces[j];
-            spdlog::info("{}[{}] cofaces {}[{}]", primitive_type_name(pt),j,primitive_type_name(mesh_pt),fmt::join(cof,","));
-        }
+    for (size_t j = 0; j < cofaces.size(); ++j) {
+        const auto& cof = cofaces[j];
+        // spdlog::info("{}[{}] cofaces {}[{}]",
+        // primitive_type_name(pt),j,primitive_type_name(mesh_pt),fmt::join(cof,","));
+    }
 
     if (mesh_pt == pt + 1) {
         for (size_t j = 0; j < cofaces.size(); ++j) {
@@ -73,7 +74,7 @@ bool verify_simplex_index_valences(const Mesh& m, const internal::IndexSimplexMa
         auto cof = simplex::cofaces_single_dimension(m, s, mesh_pt).simplex_vector();
 
         std::array<int64_t, D + 1> i = indices<D>(m, mapper, s);
-        const auto& cof2 = cofaces[mapper.get_index<D+1>(i)];
+        const auto& cof2 = cofaces[mapper.get_index<D + 1>(i)];
         wmtk::logger().debug("Looking at {}-simplex {} on a {}-mesh", D, fmt::join(i, ","), meshD);
 
 

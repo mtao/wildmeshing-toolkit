@@ -10,6 +10,8 @@
 #include <wmtk/Types.hpp>
 #include <wmtk/dart/Dart.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/utils/from_local_vertex_permutation.hpp>
+#include <wmtk/dart/utils/get_canonical_subdart_permutation.hpp>
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/utils/DisjointSet.hpp>
 
@@ -23,7 +25,7 @@ namespace wmtk::utils::internal {
 template <size_t Dim>
 struct ManifoldDecomposition
 {
-    std::map<std::array<int64_t, Dim - 1>, Tuple> face_map;
+    std::map<std::array<int64_t, Dim - 1>, std::set<dart::Dart>> face_map;
     wmtk::RowVectors<int64_t, Dim> manifold_decomposition;
 
     // face matrix and mm_map should have a consistent ordering because iteration through std::map
@@ -40,7 +42,7 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
 {
     ManifoldDecomposition<Dim> MD;
     RowVectors<int64_t, Dim>& R = MD.manifold_decomposition; // returned simplices
-    auto& face_map = MD.face_map; // returned simplices
+    auto& face_map = MD.face_map;
     if (Dim == 1) {
         R = S;
         return MD;
@@ -50,7 +52,10 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
     const PrimitiveType pt = get_primitive_type_from_id(Dim - 1);
     const PrimitiveType face_pt = get_primitive_type_from_id(Dim - 2);
 
-    std::map<int64_t, std::set<int64_t>> coboundary;
+    const auto& face_sd = dart::SimplexDart::get_singleton(face_pt);
+    const auto& sd = dart::SimplexDart::get_singleton(pt);
+
+    std::map<int64_t, std::set<dart::Dart>> coboundary;
     for (int j = 0; j < S.rows(); ++j) {
         std::array<int64_t, Dim - 1> r;
         using MT = typename Vector<int64_t, Dim - 1>::MapType;
@@ -59,34 +64,45 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
 
         auto s = S.row(j);
         std::array<int64_t, Dim> ss;
+        std::array<int8_t, Dim> local_permutation;
+        std::iota(local_permutation.begin(), local_permutation.end(), 0);
         std::copy(s.begin(), s.end(), ss.begin());
 
-        wmtk::dart::Dart d = ism.get_dart(r);
-        coboundary[d.global_id()].emplace(j);
+        auto add = [&]() {
+            int64_t index = ism.get_index(r);
+
+            std::array<int64_t, Dim - 1> sorted = r;
+            std::sort(sorted.begin(), sorted.end());
+            int8_t p = wmtk::dart::utils::get_canonical_subdart_permutation(ss, sorted);
+            auto myd = wmtk::dart::Dart(j, p);
+            coboundary[index].emplace(myd);
+        };
+
+        add();
 
         for (int k = 0; k < Dim - 1; ++k) {
             int64_t old = r[k];
             r[k] = last;
-            coboundary[ism.get_index(r)].emplace(j);
+            add();
             r[k] = old;
         }
     }
     if constexpr (Dim > 1) {
         const auto& S = ism.simplices<Dim - 1>();
         auto F = ism.simplices<Dim - 2>();
-        spdlog::warn("{} {} {}", Dim, S.size(), F.size());
-        // static_assert(std::decay_t<decltype(F)>::value_type::size() == Dim - 2);
+        // spdlog::warn("{} {} {}", Dim, S.size(), F.size());
+        //  static_assert(std::decay_t<decltype(F)>::value_type::size() == Dim - 2);
         for (const auto& [k, v] : coboundary) {
             std::vector<std::array<int64_t, Dim>> faces;
             for (const auto& a : v) {
-                faces.emplace_back(S[a]);
+                faces.emplace_back(S[a.global_id()]);
             }
-            spdlog::warn(
-                "{}/{}: {}  => {}",
-                k,
-                F.size(),
-                fmt::join(F[k], ","),
-                fmt::join(faces, ","));
+            // spdlog::warn(
+            //    "{}/{}: {}  => {}",
+            //    k,
+            //    F.size(),
+            //    fmt::join(F[k], ","),
+            //    fmt::join(faces, ","));
             // spdlog::warn("{}  {} {}=> {}", k, fmt::join(S, ","), S.size(), v);
         }
     }
@@ -107,10 +123,15 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
 
     std::set<int64_t> nonmanifold_faces;
     wmtk::utils::DisjointSet ds(R.size());
+    auto F = ism.simplices<Dim - 2>();
     for (const auto& [face, simplices] : coboundary) {
         if (simplices.size() == 2) {
             std::array<int64_t, 2>& r = B.emplace_back();
-            std::copy(simplices.begin(), simplices.end(), r.begin());
+            std::transform(
+                simplices.begin(),
+                simplices.end(),
+                r.begin(),
+                [](const dart::Dart& d) -> int64_t { return d.global_id(); });
 
             auto oa = S.row(r[0]);
             auto a = R.row(r[0]);
@@ -126,16 +147,17 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
                 }
             }
         } else if (simplices.size() > 2) {
-            spdlog::info("Found a nonmanifold face");
-            nonmanifold_faces.emplace(face);
-            // spdlog::info(
-            //     "Face {} ({}) got Facets {}",
-            //     face,
-            //     fmt::join(ism.simplices<Dim - 2>()[face], ","),
-            //     fmt::join(simplices, ","));
-            // for (const auto& j : simplices) {
-            //     std::cout << j << ": " << S.row(j) << std::endl;
-            // }
+            face_map.emplace(F.at(face), simplices);
+            // spdlog::info("Found a nonmanifold face");
+            // nonmanifold_faces.emplace(face);
+            //  spdlog::info(
+            //      "Face {} ({}) got Facets {}",
+            //      face,
+            //      fmt::join(ism.simplices<Dim - 2>()[face], ","),
+            //      fmt::join(simplices, ","));
+            //  for (const auto& j : simplices) {
+            //      std::cout << j << ": " << S.row(j) << std::endl;
+            //  }
         }
     }
     std::map<size_t, size_t> unindexer;
@@ -144,6 +166,7 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
         unindexer[roots[j]] = j;
     }
     R.noalias() = R.unaryExpr([&](int64_t i) -> int64_t { return unindexer.at(ds.get_root(i)); });
+    /*
     NMF.resize(nonmanifold_faces.size(), Dim - 1);
     {
         int index = 0;
@@ -153,8 +176,11 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
             const auto& s = F[i];
             assert(s.size() == r.size());
             std::copy(s.begin(), s.end(), r.begin());
+
+            face_map.emplace(s, coboundary.at(i));
         }
     }
+    */
     return MD;
 }
 

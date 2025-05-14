@@ -16,6 +16,7 @@
 #include <wmtk/dart/utils/from_local_vertex_permutation.hpp>
 #include <wmtk/dart/utils/get_canonical_simplex.hpp>
 #include <wmtk/dart/utils/get_canonical_subdart.hpp>
+#include <wmtk/dart/utils/get_canonical_subdart_permutation.hpp>
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/simplex/IdSimplex.hpp>
 #include <wmtk/utils/EigenMatrixWriter.hpp>
@@ -444,6 +445,7 @@ auto IndexSimplexMapper::get_dart(const std::array<int64_t, Dim>& s) const -> da
     assert(m_mesh == nullptr);
     return get_internal_dart(s);
 }
+
 
 template <size_t Dim>
 auto IndexSimplexMapper::get_mesh_dart(const std::array<int64_t, Dim>& s) const -> dart::Dart
