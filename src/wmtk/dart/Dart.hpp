@@ -37,7 +37,9 @@ public:
         tuple_type::operator=(o.as_tuple());
         return *this;
     }
+
 };
+
 
 template <int64_t Dim>
 class SimplexAdjacency;
@@ -83,4 +85,11 @@ public:
     using _DartType::permutation;
     using _DartType::operator=;
 };
+
+template <typename IndexType, typename OrientType, typename IndexType2, typename OrientType2>
+auto operator==(
+        const _Dart<IndexType,OrientType>& a,
+        const _Dart<IndexType2,OrientType2>& b) -> bool {
+    return a.global_id() == b.global_id() && a.permutation() == b.permutation();
+}
 } // namespace wmtk::autogen

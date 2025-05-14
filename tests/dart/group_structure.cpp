@@ -6,6 +6,7 @@
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/utils/get_canonical_simplex_orientation.hpp>
 #include <wmtk/dart/utils/get_canonical_subdart.hpp>
+#include <wmtk/dart/utils/get_canonical_subdart_permutation.hpp>
 #include <wmtk/dart/utils/get_canonical_supdart.hpp>
 #include <wmtk/dart/utils/get_permutation.hpp>
 #include <wmtk/dart/utils/permute.hpp>
@@ -185,17 +186,37 @@ TEST_CASE("dart_from_vertex_permutation", "[dart]")
 
 TEST_CASE("dart_canonical_subdart", "[dart]")
 {
-    auto checker = [&](const SimplexDart& sd,
+    auto checker = [&]<PrimitiveType PT, PrimitiveType PT2>(
+                       std::integral_constant<PrimitiveType, PT> base_pt,
                        const Dart& canonical,
-                       PrimitiveType pt,
+                       std::integral_constant<PrimitiveType, PT2> pt,
                        const std::vector<Dart>& list) {
+        const SimplexDart& sd = SimplexDart::get_singleton(base_pt);
         int8_t pid = canonical.permutation();
         for (const auto& l : list) {
             int8_t canonical_index =
                 wmtk::dart::utils::get_canonical_subdart(sd, pt, l.permutation());
             CHECK(int64_t(pid) == int64_t(canonical_index));
+
+            constexpr int8_t base_size = get_primitive_type_id(base_pt) + 1;
+            constexpr int8_t size = get_primitive_type_id(pt) + 1;
+
+            // std::array<int8_t, base_size> base =
+            dart::utils::get_local_vertex_permutation<get_primitive_type_id(base_pt)>(
+                canonical.permutation());
+            // std::array<int8_t, size> s =
+            dart::utils::get_local_vertex_permutation<get_primitive_type_id(pt)>(l.permutation());
+
+
+            // int8_t subdart = dart::utils::get_canonical_subdart_permutation(base, s);
+            // std::array<int8_t, base_size> subdart_indices =
+            //     dart::utils::get_canonical_subdart_permutation_indices(base, s);
         }
     };
+    using VT = std::integral_constant<PrimitiveType, PrimitiveType::Vertex>;
+    using ET = std::integral_constant<PrimitiveType, PrimitiveType::Edge>;
+    using FT = std::integral_constant<PrimitiveType, PrimitiveType::Triangle>;
+    using TT = std::integral_constant<PrimitiveType, PrimitiveType::Tetrahedron>;
     {
         constexpr static PrimitiveType pt = PrimitiveType::Edge;
         const auto& sd = SimplexDart::get_singleton(pt);
@@ -206,10 +227,10 @@ TEST_CASE("dart_canonical_subdart", "[dart]")
         const Dart a = d01;
         const Dart b = d10;
 
-        checker(sd, a, PrimitiveType::Vertex, {a});
-        checker(sd, b, PrimitiveType::Vertex, {b});
+        checker(ET{}, a, VT{}, {a});
+        checker(ET{}, b, VT{}, {b});
 
-        checker(sd, a, PrimitiveType::Edge, {a, b});
+        checker(ET{}, a, ET{}, {a, b});
     }
     {
         constexpr static PrimitiveType pt = PrimitiveType::Triangle;
@@ -226,19 +247,19 @@ TEST_CASE("dart_canonical_subdart", "[dart]")
         const Dart f = d210;
 
 
-        checker(sd, a, PrimitiveType::Vertex, {a, b});
-        checker(sd, c, PrimitiveType::Vertex, {c, d});
-        checker(sd, e, PrimitiveType::Vertex, {e, f});
+        checker(FT{}, a, VT{}, {a, b});
+        checker(FT{}, c, VT{}, {c, d});
+        checker(FT{}, e, VT{}, {e, f});
 
-        checker(sd, a, PrimitiveType::Edge, {a});
-        checker(sd, b, PrimitiveType::Edge, {b});
-        checker(sd, c, PrimitiveType::Edge, {c});
-        checker(sd, d, PrimitiveType::Edge, {d});
-        checker(sd, e, PrimitiveType::Edge, {e});
-        checker(sd, f, PrimitiveType::Edge, {f});
+        checker(FT{}, a, ET{}, {a});
+        checker(FT{}, b, ET{}, {b});
+        checker(FT{}, c, ET{}, {c});
+        checker(FT{}, d, ET{}, {d});
+        checker(FT{}, e, ET{}, {e});
+        checker(FT{}, f, ET{}, {f});
 
         // TODO: this feels wrong
-        checker(sd, a, PrimitiveType::Triangle, {a, b, c, d, e, f});
+        checker(FT{}, a, FT{}, {a, b, c, d, e, f});
     }
     {
         constexpr static PrimitiveType pt = PrimitiveType::Tetrahedron;
@@ -249,50 +270,50 @@ TEST_CASE("dart_canonical_subdart", "[dart]")
         const int8_t SF = sd.permutation_index_from_primitive_switch(PrimitiveType::Triangle);
 
 
-        checker(sd, d0123, PrimitiveType::Vertex, {d0123, d0132, d0213, d0231, d0312, d0321});
-        checker(sd, d1023, PrimitiveType::Vertex, {d1023, d1032, d1203, d1230, d1302, d1320});
-        checker(sd, d2013, PrimitiveType::Vertex, {d2013, d2031, d2103, d2130, d2301, d2310});
-        checker(sd, d3012, PrimitiveType::Vertex, {d3012, d3021, d3102, d3120, d3201, d3210});
+        checker(TT{}, d0123, VT{}, {d0123, d0132, d0213, d0231, d0312, d0321});
+        checker(TT{}, d1023, VT{}, {d1023, d1032, d1203, d1230, d1302, d1320});
+        checker(TT{}, d2013, VT{}, {d2013, d2031, d2103, d2130, d2301, d2310});
+        checker(TT{}, d3012, VT{}, {d3012, d3021, d3102, d3120, d3201, d3210});
 
 
-        checker(sd, d0123, PrimitiveType::Edge, {d0123, d0132});
-        checker(sd, d1023, PrimitiveType::Edge, {d1023, d1032});
-        checker(sd, d0213, PrimitiveType::Edge, {d0213, d0231});
-        checker(sd, d2013, PrimitiveType::Edge, {d2013, d2031});
-        checker(sd, d0312, PrimitiveType::Edge, {d0312, d0321});
-        checker(sd, d3012, PrimitiveType::Edge, {d3012, d3021});
-        checker(sd, d1203, PrimitiveType::Edge, {d1203, d1230});
-        checker(sd, d2103, PrimitiveType::Edge, {d2103, d2130});
-        checker(sd, d1302, PrimitiveType::Edge, {d1302, d1320});
-        checker(sd, d3102, PrimitiveType::Edge, {d3102, d3120});
-        checker(sd, d2301, PrimitiveType::Edge, {d2301, d2310});
-        checker(sd, d3201, PrimitiveType::Edge, {d3201, d3210});
+        checker(TT{}, d0123, ET{}, {d0123, d0132});
+        checker(TT{}, d1023, ET{}, {d1023, d1032});
+        checker(TT{}, d0213, ET{}, {d0213, d0231});
+        checker(TT{}, d2013, ET{}, {d2013, d2031});
+        checker(TT{}, d0312, ET{}, {d0312, d0321});
+        checker(TT{}, d3012, ET{}, {d3012, d3021});
+        checker(TT{}, d1203, ET{}, {d1203, d1230});
+        checker(TT{}, d2103, ET{}, {d2103, d2130});
+        checker(TT{}, d1302, ET{}, {d1302, d1320});
+        checker(TT{}, d3102, ET{}, {d3102, d3120});
+        checker(TT{}, d2301, ET{}, {d2301, d2310});
+        checker(TT{}, d3201, ET{}, {d3201, d3210});
 
 
-        checker(sd, d0123, PrimitiveType::Triangle, {d0123});
-        checker(sd, d0213, PrimitiveType::Triangle, {d0213});
-        checker(sd, d1023, PrimitiveType::Triangle, {d1023});
-        checker(sd, d1203, PrimitiveType::Triangle, {d1203});
-        checker(sd, d2013, PrimitiveType::Triangle, {d2013});
-        checker(sd, d2103, PrimitiveType::Triangle, {d2103});
-        checker(sd, d0132, PrimitiveType::Triangle, {d0132});
-        checker(sd, d0231, PrimitiveType::Triangle, {d0231});
-        checker(sd, d1032, PrimitiveType::Triangle, {d1032});
-        checker(sd, d1230, PrimitiveType::Triangle, {d1230});
-        checker(sd, d2031, PrimitiveType::Triangle, {d2031});
-        checker(sd, d2130, PrimitiveType::Triangle, {d2130});
-        checker(sd, d0312, PrimitiveType::Triangle, {d0312});
-        checker(sd, d0321, PrimitiveType::Triangle, {d0321});
-        checker(sd, d1302, PrimitiveType::Triangle, {d1302});
-        checker(sd, d1320, PrimitiveType::Triangle, {d1320});
-        checker(sd, d2301, PrimitiveType::Triangle, {d2301});
-        checker(sd, d2310, PrimitiveType::Triangle, {d2310});
-        checker(sd, d3012, PrimitiveType::Triangle, {d3012});
-        checker(sd, d3021, PrimitiveType::Triangle, {d3021});
-        checker(sd, d3102, PrimitiveType::Triangle, {d3102});
-        checker(sd, d3120, PrimitiveType::Triangle, {d3120});
-        checker(sd, d3201, PrimitiveType::Triangle, {d3201});
-        checker(sd, d3210, PrimitiveType::Triangle, {d3210});
+        checker(TT{}, d0123, FT{}, {d0123});
+        checker(TT{}, d0213, FT{}, {d0213});
+        checker(TT{}, d1023, FT{}, {d1023});
+        checker(TT{}, d1203, FT{}, {d1203});
+        checker(TT{}, d2013, FT{}, {d2013});
+        checker(TT{}, d2103, FT{}, {d2103});
+        checker(TT{}, d0132, FT{}, {d0132});
+        checker(TT{}, d0231, FT{}, {d0231});
+        checker(TT{}, d1032, FT{}, {d1032});
+        checker(TT{}, d1230, FT{}, {d1230});
+        checker(TT{}, d2031, FT{}, {d2031});
+        checker(TT{}, d2130, FT{}, {d2130});
+        checker(TT{}, d0312, FT{}, {d0312});
+        checker(TT{}, d0321, FT{}, {d0321});
+        checker(TT{}, d1302, FT{}, {d1302});
+        checker(TT{}, d1320, FT{}, {d1320});
+        checker(TT{}, d2301, FT{}, {d2301});
+        checker(TT{}, d2310, FT{}, {d2310});
+        checker(TT{}, d3012, FT{}, {d3012});
+        checker(TT{}, d3021, FT{}, {d3021});
+        checker(TT{}, d3102, FT{}, {d3102});
+        checker(TT{}, d3120, FT{}, {d3120});
+        checker(TT{}, d3201, FT{}, {d3201});
+        checker(TT{}, d3210, FT{}, {d3210});
     }
 }
 

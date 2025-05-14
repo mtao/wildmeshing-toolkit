@@ -19,4 +19,19 @@ VectorX<int8_t>::ConstMapType get_local_vertex_permutation(
     case PrimitiveType::Vertex: return CMT(&x, 1);
     }
 }
+
+template <size_t D>
+std::array<int8_t, D + 1> get_local_vertex_permutation(int8_t permutation_index)
+{
+    std::array<int8_t, D + 1> arr;
+    typename Vector<int8_t, D + 1>::MapType mp(arr.data());
+    const PrimitiveType pt = get_primitive_type_from_id(D);
+    mp = get_local_vertex_permutation(pt, permutation_index);
+    return arr;
+}
+
+template std::array<int8_t, 1> get_local_vertex_permutation<0>(int8_t permutation_index);
+template std::array<int8_t, 2> get_local_vertex_permutation<1>(int8_t permutation_index);
+template std::array<int8_t, 3> get_local_vertex_permutation<2>(int8_t permutation_index);
+template std::array<int8_t, 4> get_local_vertex_permutation<3>(int8_t permutation_index);
 } // namespace wmtk::dart::utils

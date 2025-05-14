@@ -46,6 +46,10 @@ bool verify_simplex_index_valences(const Mesh& m, const internal::IndexSimplexMa
             cofaces[face_index].emplace(j);
         }
     }
+        for (size_t j = 0; j < cofaces.size(); ++j) {
+            const auto& cof = cofaces[j];
+            spdlog::info("{}[{}] cofaces {}[{}]", primitive_type_name(pt),j,primitive_type_name(mesh_pt),fmt::join(cof,","));
+        }
 
     if (mesh_pt == pt + 1) {
         for (size_t j = 0; j < cofaces.size(); ++j) {

@@ -39,6 +39,7 @@ public:
     {}
 
     static int64_t id(const Mesh& m, PrimitiveType pt, const Tuple& t);
+    operator std::string() const;
 
 private:
     PrimitiveType m_primitive_type = PrimitiveType::Vertex;

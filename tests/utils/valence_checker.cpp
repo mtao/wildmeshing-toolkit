@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <wmtk/Types.hpp>
 #include <wmtk/utils/verify_simplex_index_valences.hpp>
+#include <spdlog/spdlog.h>
 
 #include <wmtk/TetMesh.hpp>
 #include <wmtk/TriMesh.hpp>
@@ -8,7 +9,7 @@ using namespace wmtk;
 
 TEST_CASE("simplex_valences", "[simplex_valences]")
 {
-    {
+    if(true){
         // single tri
         wmtk::TriMesh t;
         RowVectors3l tris;
