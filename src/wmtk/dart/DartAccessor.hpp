@@ -43,12 +43,12 @@ public:
     dart::SimplexAdjacency<Dim>& operator[](int64_t index)
     {
         return *reinterpret_cast<dart::SimplexAdjacency<Dim>*>(
-            m_base_accessor.index_access().vector_attribute(index).data());
+            m_base_accessor.attribute().vector_attribute(index).data());
     }
     const dart::SimplexAdjacency<Dim>& operator[](int64_t index) const
     {
         return *reinterpret_cast<const dart::SimplexAdjacency<Dim>*>(
-            m_base_accessor.index_access().const_vector_attribute(index).data());
+            m_base_accessor.attribute().const_vector_attribute(index).data());
     }
 
     const MeshType& mesh() const { return m_base_accessor.mesh(); }

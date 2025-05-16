@@ -75,15 +75,15 @@ void MultiMeshFromTag::compute_substructure_ids()
         }
 
         auto local_id = [pt](const Tuple& t) -> int64_t {
-            int64_t local_id = -1;
+            int64_t local_id_ = -1;
             switch (pt) {
-            case PrimitiveType::Vertex: local_id = t.local_vid(); break;
-            case PrimitiveType::Edge: local_id = t.local_eid(); break;
-            case PrimitiveType::Triangle: local_id = t.local_fid(); break;
+            case PrimitiveType::Vertex: local_id_ = t.local_vid(); break;
+            case PrimitiveType::Edge: local_id_ = t.local_eid(); break;
+            case PrimitiveType::Triangle: local_id_ = t.local_fid(); break;
             case PrimitiveType::Tetrahedron:
             default: assert(false); break;
             }
-            return local_id;
+            return local_id_;
         };
 
         auto get_id =

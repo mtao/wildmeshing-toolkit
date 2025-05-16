@@ -160,13 +160,13 @@ inline int64_t TetMesh::id(int64_t global_id, int8_t permutation_index, Primitiv
     int8_t index = autogen::tet_mesh::simplex_index_from_permutation_index(permutation_index, pt);
     switch (pt) {
     case PrimitiveType::Vertex: {
-        return m_tv_accessor->index_access().const_vector_single_value(global_id,index);
+        return m_tv_accessor->attribute().const_vector_single_value(global_id,index);
     }
     case PrimitiveType::Edge: {
-        return m_te_accessor->index_access().const_vector_single_value(global_id,index);
+        return m_te_accessor->attribute().const_vector_single_value(global_id,index);
     }
     case PrimitiveType::Triangle: {
-        return m_tf_accessor->index_access().const_vector_single_value(global_id,index);
+        return m_tf_accessor->attribute().const_vector_single_value(global_id,index);
     }
     case PrimitiveType::Tetrahedron: {
         return global_id;

@@ -154,10 +154,10 @@ inline int64_t TriMesh::id(int64_t global_id, int8_t permutation_index, Primitiv
     int8_t index = autogen::tri_mesh::simplex_index_from_permutation_index(permutation_index, pt);
     switch (pt) {
     case PrimitiveType::Vertex: {
-        return m_fv_accessor->index_access().const_vector_single_value(global_id,index);
+        return m_fv_accessor->attribute().const_vector_single_value(global_id,index);
     }
     case PrimitiveType::Edge: {
-        return m_fe_accessor->index_access().const_vector_single_value(global_id,index);
+        return m_fe_accessor->attribute().const_vector_single_value(global_id,index);
     }
     case PrimitiveType::Triangle: {
         return global_id;

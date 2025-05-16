@@ -463,8 +463,6 @@ public:
      */
     bool is_valid(const simplex::Simplex& s) const;
 
-    bool validate_attributes() const;
-
     template <typename T>
     bool validate_handle(const TypedAttributeHandle<T>& handle) const;
 
@@ -867,12 +865,12 @@ protected:
     template <typename T, typename MeshType>
     static auto& get_index_access(attribute::Accessor<T, MeshType>& attr)
     {
-        return attr.index_access();
+        return attr.attribute();
     }
     template <typename T, typename MeshType>
     static auto& get_index_access(const attribute::Accessor<T, MeshType>& attr)
     {
-        return attr.index_access();
+        return attr.attribute();
     }
 
 

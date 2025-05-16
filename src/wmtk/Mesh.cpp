@@ -166,12 +166,6 @@ bool Mesh::is_valid(const simplex::Simplex& s) const
     return is_valid(s.tuple()) && !is_removed(s.tuple(), s.primitive_type());
 }
 
-bool Mesh::validate_attributes() const
-{
-    return m_attribute_manager.validate();
-}
-
-
 const attribute::FlagAccessor<Mesh> Mesh::get_flag_accessor(PrimitiveType type) const
 {
     return get_const_flag_accessor(type);
