@@ -17,22 +17,29 @@ class MeshAttributeHandle;
 }
 } // namespace wmtk
 namespace wmtk::components::multimesh {
-    struct NonManifoldCascade {
+struct NonManifoldCascade
+{
+    NonManifoldCascade(NonManifoldCascade& parent);
+    NonManifoldCascade(Eigen::Ref<const MatrixXl> parent_S, NonManifoldCascade* parent = nullptr);
+    template <int64_t D>
+    void init(Eigen::Ref<RowVectors<int64_t, D>> parent_S);
 
+    // simplices with respect to the parent mesh's vertex indices
+    MatrixXl S;
 
-        // simplices with respect to the parent mesh's vertex indices
-        MatrixXl S;
+    std::vector<dart::Dart> parent_map;
 
-        std::vector<dart::Dart> parent_map;
+    bool empty() const { return parent_map.empty(); }
 
-
-        NonManifoldCascade* m_parent = nullptr;
-        std::unique_ptr<NonManifoldCascade> m_child = nullptr;
-    };
+    NonManifoldCascade* m_parent = nullptr;
+    std::unique_ptr<NonManifoldCascade> m_child = nullptr;
+};
 
 // returns the new root mesh (the input mesh becomes a child mesh)
-    NonManifoldCascade cascade_from_manifold_decomposition(wmtk::Mesh& m);
+NonManifoldCascade cascade_from_manifold_decomposition(wmtk::Mesh& m);
 
-    std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(wmtk::Mesh& m);
+std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(
+    wmtk::Mesh& m,
+    bool flat_structure = false);
 
 } // namespace wmtk::components::multimesh

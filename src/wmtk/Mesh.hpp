@@ -136,6 +136,11 @@ public:
     std::map<std::string, const wmtk::utils::Hashable*> child_hashables() const override;
     std::map<std::string, std::size_t> child_hashes() const override;
 
+
+    // constructs a mesh of the appropriate type according to the vertex indices of simplices passed
+    // in internally the indices are compressed
+    static std::shared_ptr<Mesh> from_vertex_indices(Eigen::Ref<const MatrixXl> S);
+
     // dimension is the dimension of the top level simplex in this mesh
     // That is, a TriMesh is a 2, a TetMesh is a 3
     Mesh(const int64_t& dimension);
@@ -230,21 +235,23 @@ public:
 
 
     template <typename T, int D = Eigen::Dynamic>
-    [[nodiscard]] attribute::Accessor<T, Mesh, attribute::CachingAttribute<T>, D> create_accessor(const attribute::MeshAttributeHandle& handle);
+    [[nodiscard]] attribute::Accessor<T, Mesh, attribute::CachingAttribute<T>, D> create_accessor(
+        const attribute::MeshAttributeHandle& handle);
 
 
     template <typename T, int D = Eigen::Dynamic>
-    [[nodiscard]] const attribute::Accessor<T, Mesh, attribute::CachingAttribute<T>, D> create_const_accessor(
-        const attribute::MeshAttributeHandle& handle) const;
+    [[nodiscard]] const attribute::Accessor<T, Mesh, attribute::CachingAttribute<T>, D>
+    create_const_accessor(const attribute::MeshAttributeHandle& handle) const;
 
 
     template <typename T, int D = Eigen::Dynamic>
-    [[nodiscard]] attribute::Accessor<T, Mesh, attribute::CachingAttribute<T>, D> create_accessor(const TypedAttributeHandle<T>& handle);
+    [[nodiscard]] attribute::Accessor<T, Mesh, attribute::CachingAttribute<T>, D> create_accessor(
+        const TypedAttributeHandle<T>& handle);
 
 
     template <typename T, int D = Eigen::Dynamic>
-    [[nodiscard]] const attribute::Accessor<T, Mesh, attribute::CachingAttribute<T>, D> create_const_accessor(
-        const TypedAttributeHandle<T>& handle) const;
+    [[nodiscard]] const attribute::Accessor<T, Mesh, attribute::CachingAttribute<T>, D>
+    create_const_accessor(const TypedAttributeHandle<T>& handle) const;
 
     template <typename T>
     [[nodiscard]] int64_t get_attribute_dimension(const TypedAttributeHandle<T>& handle) const;
