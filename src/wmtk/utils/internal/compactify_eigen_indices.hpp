@@ -5,7 +5,7 @@
 namespace wmtk::utils::internal {
 
 template <typename Derived>
-auto compactify_eigen_indices(Eigen::MatrixBase<Derived>& M)
+auto compactify_eigen_indices(const Eigen::MatrixBase<Derived>& M)
 {
     using Scalar = typename Derived::Scalar;
     std::vector<Scalar> unindexer;

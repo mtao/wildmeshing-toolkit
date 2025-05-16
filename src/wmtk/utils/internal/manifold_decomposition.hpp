@@ -31,7 +31,7 @@ struct ManifoldDecomposition
 
     // face matrix and mm_map should have a consistent ordering because iteration through std::map
     // is stable. Indexing is based on the input's indexing scheme
-    wmtk::RowVectors<int64_t, Dim - 1> face_matrix(bool compactify=false) const;
+    wmtk::RowVectors<int64_t, Dim - 1> face_matrix(bool compactify = false) const;
     std::vector<std::array<Tuple, 2>> mm_map() const;
 };
 // uses indices to find a manifold decomposition of an input mesh
@@ -94,14 +94,14 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
         }
     }
     if constexpr (Dim > 1) {
-        const auto& S = ism.simplices<Dim - 1>();
+        const auto& SS = ism.simplices<Dim - 1>();
         auto F = ism.simplices<Dim - 2>();
         // spdlog::warn("{} {} {}", Dim, S.size(), F.size());
         //  static_assert(std::decay_t<decltype(F)>::value_type::size() == Dim - 2);
         for (const auto& [k, v] : coboundary) {
             std::vector<std::array<int64_t, Dim>> faces;
             for (const auto& a : v) {
-                faces.emplace_back(S[a.global_id()]);
+                faces.emplace_back(SS[a.global_id()]);
             }
             // spdlog::warn(
             //    "{}/{}: {}  => {}",
@@ -211,7 +211,7 @@ wmtk::RowVectors<int64_t, Dim - 1> ManifoldDecomposition<Dim>::face_matrix(bool 
 
         R.row(i++) = MT(key.data()).transpose();
     }
-    if(compactify) {
+    if (compactify) {
         R = compactify_eigen_indices(R);
     }
     return R;
@@ -223,11 +223,15 @@ std::vector<std::array<Tuple, 2>> ManifoldDecomposition<Dim>::mm_map() const
     std::vector<std::array<Tuple, 2>> tups;
     tups.reserve(face_map.size());
     Eigen::Index i = 0;
+    const auto& parent_sd = dart::SimplexDart::get_singleton(get_primitive_type_from_id(Dim - 1));
     const auto& sd = dart::SimplexDart::get_singleton(get_primitive_type_from_id(Dim - 2));
     int8_t id = sd.identity();
-    for (const auto& [key, value] : face_map) {
-        Tuple t = sd.tuple_from_dart(wmtk::dart::Dart(i++, id));
-        tups.emplace_back(std::array<Tuple, 2>{{t, value}});
+    for (const auto& [key, values] : face_map) {
+        for (const auto& value : values) {
+            Tuple t = sd.tuple_from_dart(wmtk::dart::Dart(i++, id));
+            Tuple parent_t = parent_sd.tuple_from_dart(value);
+            tups.emplace_back(std::array<Tuple, 2>{{parent_t, t}});
+        }
     }
     return tups;
 }

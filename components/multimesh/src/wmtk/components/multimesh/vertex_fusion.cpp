@@ -83,30 +83,8 @@ std::shared_ptr<Mesh> vertex_fusion(const attribute::MeshAttributeHandle& attr, 
     wmtk::MatrixXl S_new = S.unaryExpr([&](int64_t index) { return vertex_map[index]; });
 
 
-    std::shared_ptr<Mesh> root_mesh;
-    switch (mesh_dim) {
-    case 1: {
-        auto fusion_mesh = std::make_shared<EdgeMesh>();
-        fusion_mesh->initialize(S_new);
-        root_mesh = fusion_mesh;
-        break;
-    }
-    case 2: {
-        auto fusion_mesh = std::make_shared<TriMesh>();
-        fusion_mesh->initialize(S_new);
-        root_mesh = fusion_mesh;
-        break;
-    }
-    case 3: {
-        auto fusion_mesh = std::make_shared<TetMesh>();
-        fusion_mesh->initialize(S_new);
-        root_mesh = fusion_mesh;
-        break;
-    }
-    default: {
-        throw std::runtime_error("mesh dimension not supported");
-    }
-    }
+
+    std::shared_ptr<Mesh> root_mesh = Mesh::from_vertex_indices(S_new);
     Mesh& child = mesh;
     Mesh& parent = *root_mesh;
 

@@ -8,7 +8,7 @@
 #include <wmtk/TetMesh.hpp>
 #include <wmtk/TriMesh.hpp>
 
-TEST_CASE("from_vertex_simplices", "[components][multimesh][.]")
+TEST_CASE("from_vertex_simplices", "[components][multimesh]")
 {
     wmtk::MatrixXl S(2, 3);
     S.row(0) << 0, 1, 2;

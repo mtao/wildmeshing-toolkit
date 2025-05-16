@@ -65,32 +65,45 @@ return {};
 } // namespace
 */
 
-NonManifoldCascade::NonManifoldCascade(NonManifoldCascade& parent)
-    : NonManifoldCascade(parent.S, &parent)
-{}
-NonManifoldCascade::NonManifoldCascade(Eigen::Ref<const MatrixXl> S, NonManifoldCascade* parent)
-    : m_parent(parent)
+NonManifoldCascade::NonManifoldCascade(Eigen::Ref<const MatrixXl> SS)
 {
-    switch (S.cols()) {
-    case 4: init<4>(S);
-    case 3: init<3>(S);
-    case 2: init<2>(S);
-    case 1: init<1>(S);
+    switch (SS.cols()) {
+    case 4: init<4>(SS); break;
+    case 3: init<3>(SS); break;
+    case 2: init<2>(SS); break;
+    case 1: // init<1>(SS); break;
     default: break;
     }
 }
-template <int64_t D>
-void NonManifoldCascade::init(Eigen::Ref<RowVectors<int64_t, D>> parent_S)
+// template <size_t D>
+// NonManifoldCascade(Eigen::Ref<RowVectors<int64_t, D>> parent_S)
+//{}
+template <size_t D>
+void NonManifoldCascade::init(const wmtk::utils::internal::ManifoldDecomposition<D>& parent_md)
 {
-    wmtk::utils::internal::ManifoldDecomposition<D> md =
-        wmtk::utils::internal::boundary_manifold_decomposition<D>(parent_S);
+    assert(!parent_md.face_map.empty());
+
+    parent_map = parent_md.mm_map();
+    S = parent_md.face_matrix(true);
+
+
+    auto md = wmtk::utils::internal::boundary_manifold_decomposition<D - 1>(S);
+    try_make_child(md);
+}
+template <int D>
+void NonManifoldCascade::init(Eigen::Ref<const RowVectors<int64_t, D>> parent_S)
+{
+    auto md = wmtk::utils::internal::boundary_manifold_decomposition<D>(parent_S);
 
     S = md.manifold_decomposition;
-    parent_map = md.mm_map();
-
+    try_make_child(md);
+}
+template <size_t D>
+void NonManifoldCascade::try_make_child(const wmtk::utils::internal::ManifoldDecomposition<D>& md)
+{
     if (!md.face_map.empty()) {
-        MatrixXl child = md.face_matrix(true);
-        m_child = std::make_unique<NonManifoldCascade>(child, this);
+        m_child = std::make_unique<NonManifoldCascade>(md);
+        m_child->m_parent = this;
     }
 }
 NonManifoldCascade cascade_from_manifold_decomposition(wmtk::Mesh& m)
@@ -98,6 +111,7 @@ NonManifoldCascade cascade_from_manifold_decomposition(wmtk::Mesh& m)
     wmtk::utils::EigenMatrixWriter writer;
     m.serialize(writer);
     MatrixXl S = writer.get_simplex_vertex_matrix();
+
     return NonManifoldCascade(S);
     /*
 wmtk::utils::EigenMatrixWriter writer;
@@ -128,29 +142,29 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(wmtk::Mesh& m, bo
     //
 
     for (NonManifoldCascade const* cur_ptr = &nmc; cur_ptr != nullptr && !cur_ptr->empty();
-         cur_ptr = cur_ptr.m_child.get()) {
+         cur_ptr = cur_ptr->m_child.get()) {
         const NonManifoldCascade& cur = *cur_ptr;
 
         const PrimitiveType cur_pt = get_primitive_type_from_id(cur_ptr->S.cols() - 1);
 
 
-        auto cS = wmtk::utils::internal::compactify_eigen_indices(cur->S);
+        auto cS = wmtk::utils::internal::compactify_eigen_indices(cur.S);
         auto& mptr = ret.emplace_back(Mesh::from_vertex_indices(cS));
 
         // holds the current mesh being mapped to - if flat this is always &m
         Mesh& parent_mesh = *cur_parent_mesh_ptr;
-        std::vector<std::array<Tuple, 2>> tups(cur.parent_map.size());
 
-        const auto& parent_sd = dart::SimplexDart::get_singleton(parent_mesh.top_simplex_type());
-        const auto& sd = dart::SimplexDart::get_singleton(cur_pt);
-        const int8_t id = sd.identity();
-        for (size_t j = 0; j < cur.parent_map.size(); ++j) {
-            auto& pr = tups[j];
-            pr[0] = parent_sd.tuple_from_dart(cur.parent_map[j]);
-            pr[1] = sd.tuple_from_dart(dart::Dart(j, id));
-        }
         if (flat_structure) {
-            parent_mesh.register_child_mesh(mptr, tups);
+            std::vector<std::array<Tuple, 2>> tups = cur.parent_map;
+            assert(&m == &parent_mesh.get_multi_mesh_root());
+            for (auto& t : tups) {
+                auto& a = t[0];
+                a = parent_mesh.map_to_root(simplex::Simplex(cur_pt, a)).tuple();
+            }
+
+            m.register_child_mesh(mptr, tups);
+        } else {
+            parent_mesh.register_child_mesh(mptr, cur.parent_map);
         }
 
         // update which mesh we are looking at because we always want to link to the parent mesh

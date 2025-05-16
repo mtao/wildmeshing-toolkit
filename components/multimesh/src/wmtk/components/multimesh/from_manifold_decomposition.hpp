@@ -11,6 +11,10 @@
 
 namespace wmtk {
 class Mesh;
+namespace utils::internal {
+template <size_t Dim>
+struct ManifoldDecomposition;
+}
 namespace attribute {
 class MeshAttributeHandle;
 
@@ -19,15 +23,23 @@ class MeshAttributeHandle;
 namespace wmtk::components::multimesh {
 struct NonManifoldCascade
 {
-    NonManifoldCascade(NonManifoldCascade& parent);
-    NonManifoldCascade(Eigen::Ref<const MatrixXl> parent_S, NonManifoldCascade* parent = nullptr);
-    template <int64_t D>
-    void init(Eigen::Ref<RowVectors<int64_t, D>> parent_S);
+    // NonManifoldCascade(NonManifoldCascade& parent);
+    NonManifoldCascade(Eigen::Ref<const MatrixXl> parent_S);
+    template <size_t D>
+    NonManifoldCascade(const wmtk::utils::internal::ManifoldDecomposition<D>& parent_md);
+    // template <size_t D>
+    // NonManifoldCascade(const wmtk::utils::internal::ManifoldDecomposition<D>& md);
+    template <int D>
+    void init(Eigen::Ref<const RowVectors<int64_t, D>> parent_S);
+    template <size_t D>
+    void init(const wmtk::utils::internal::ManifoldDecomposition<D>& md);
+    template <size_t D>
+    void try_make_child(const wmtk::utils::internal::ManifoldDecomposition<D>& md);
 
     // simplices with respect to the parent mesh's vertex indices
     MatrixXl S;
 
-    std::vector<dart::Dart> parent_map;
+    std::vector<std::array<Tuple, 2>> parent_map;
 
     bool empty() const { return parent_map.empty(); }
 
