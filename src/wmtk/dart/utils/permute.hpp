@@ -28,4 +28,23 @@ std::array<int64_t, N> permute(const std::array<int64_t, N>& from, int8_t permut
 
     return r;
 }
+
+template <typename Derived>
+VectorXl permute(const Eigen::MatrixBase<Derived>& from, int8_t permutation)
+{
+    static_assert(Derived::IsVectorAtCompileTime);
+    PrimitiveType pt = get_primitive_type_from_id(from.size() - 1);
+
+    const auto& sd = SimplexDart::get_singleton(pt);
+    int8_t ap = from_vertex_permutation(from);
+
+    const auto a = wmtk::dart::utils::get_local_vertex_permutation(pt, permutation);
+
+    VectorXl r(from.size());
+    for(size_t j = 0; j < r.size(); ++j) {
+        r[j] = from[a[j]];
+    }
+
+    return r;
+}
 } // namespace wmtk::dart::utils

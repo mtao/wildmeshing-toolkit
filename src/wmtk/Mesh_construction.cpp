@@ -69,7 +69,7 @@ std::shared_ptr<Mesh> Mesh::from_vertex_indices(Eigen::Ref<const MatrixXl> S)
         return p;
     }
     case 3: {
-        auto p = std::make_shared<EdgeMesh>();
+        auto p = std::make_shared<TriMesh>();
         p->initialize(S);
         return p;
     }

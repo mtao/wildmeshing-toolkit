@@ -13,6 +13,7 @@
 #include <wmtk/dart/utils/from_local_vertex_permutation.hpp>
 #include <wmtk/dart/utils/get_canonical_subdart_permutation.hpp>
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
+#include <wmtk/dart/utils/permute.hpp>
 #include <wmtk/utils/DisjointSet.hpp>
 #include "compactify_eigen_indices.hpp"
 
@@ -31,8 +32,10 @@ struct ManifoldDecomposition
 
     // face matrix and mm_map should have a consistent ordering because iteration through std::map
     // is stable. Indexing is based on the input's indexing scheme
-    wmtk::RowVectors<int64_t, Dim - 1> face_matrix(bool compactify = false) const;
-    std::vector<std::array<Tuple, 2>> mm_map() const;
+    wmtk::RowVectors<int64_t, Dim - 1> face_matrix(
+        bool manifold_topology = false,
+        bool compactify = false) const;
+    std::vector<std::array<Tuple, 2>> mm_map(bool manifold_topology = false) const;
 };
 // uses indices to find a manifold decomposition of an input mesh
 
@@ -201,15 +204,33 @@ RowVectors<int64_t, Dim> manifold_decomposition(Eigen::Ref<const RowVectors<int6
 
 
 template <size_t Dim>
-wmtk::RowVectors<int64_t, Dim - 1> ManifoldDecomposition<Dim>::face_matrix(bool compactify) const
+wmtk::RowVectors<int64_t, Dim - 1> ManifoldDecomposition<Dim>::face_matrix(
+    bool manifold_topology,
+    bool compactify) const
 {
-    wmtk::RowVectors<int64_t, Dim - 1> R(face_map.size(), Dim - 1);
+    size_t total_size = 0;
+    if (manifold_topology) {
+        for (const auto& [k, v] : face_map) {
+            total_size += v.size();
+        }
+    } else {
+        total_size = face_map.size();
+    }
+    wmtk::RowVectors<int64_t, Dim - 1> R(total_size, Dim - 1);
     Eigen::Index i = 0;
-    for (const auto& [key, value] : face_map) {
+    const PrimitiveType pt = get_primitive_type_from_id(Dim - 1);
+    for (const auto& [key, values] : face_map) {
         using MT = typename wmtk::Vector<int64_t, Dim - 1>::ConstMapType;
 
-
-        R.row(i++) = MT(key.data()).transpose();
+        if (manifold_topology) {
+            for (const dart::Dart& v : values) {
+                auto s = manifold_decomposition.row(v.global_id());
+                auto row = dart::utils::permute(s, v.permutation());
+                R.row(i++) = row.head(Dim - 1).transpose();
+            }
+        } else {
+            R.row(i++) = MT(key.data()).transpose();
+        }
     }
     if (compactify) {
         R = compactify_eigen_indices(R);
@@ -218,10 +239,18 @@ wmtk::RowVectors<int64_t, Dim - 1> ManifoldDecomposition<Dim>::face_matrix(bool 
 }
 
 template <size_t Dim>
-std::vector<std::array<Tuple, 2>> ManifoldDecomposition<Dim>::mm_map() const
+std::vector<std::array<Tuple, 2>> ManifoldDecomposition<Dim>::mm_map(bool manifold_topology) const
 {
+    size_t total_size = 0;
+    if (manifold_topology) {
+        for (const auto& [k, v] : face_map) {
+            total_size += v.size();
+        }
+    } else {
+        total_size = face_map.size();
+    }
     std::vector<std::array<Tuple, 2>> tups;
-    tups.reserve(face_map.size());
+    tups.reserve(total_size);
     Eigen::Index i = 0;
     const auto& parent_sd = dart::SimplexDart::get_singleton(get_primitive_type_from_id(Dim - 1));
     const auto& sd = dart::SimplexDart::get_singleton(get_primitive_type_from_id(Dim - 2));
@@ -230,7 +259,11 @@ std::vector<std::array<Tuple, 2>> ManifoldDecomposition<Dim>::mm_map() const
         for (const auto& value : values) {
             Tuple t = sd.tuple_from_dart(wmtk::dart::Dart(i++, id));
             Tuple parent_t = parent_sd.tuple_from_dart(value);
-            tups.emplace_back(std::array<Tuple, 2>{{parent_t, t}});
+            // tups.emplace_back(std::array<Tuple, 2>{{parent_t, t}});
+            tups.emplace_back(std::array<Tuple, 2>{{t, parent_t}});
+            if (!manifold_topology) { // in manifold topology i only need 1
+                break;
+            }
         }
     }
     return tups;

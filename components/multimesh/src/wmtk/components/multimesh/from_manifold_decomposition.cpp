@@ -79,16 +79,25 @@ NonManifoldCascade::NonManifoldCascade(Eigen::Ref<const MatrixXl> SS)
 // NonManifoldCascade(Eigen::Ref<RowVectors<int64_t, D>> parent_S)
 //{}
 template <size_t D>
+NonManifoldCascade::NonManifoldCascade(
+    const wmtk::utils::internal::ManifoldDecomposition<D>& parent_md)
+{
+    init<D>(parent_md);
+}
+template <size_t D>
 void NonManifoldCascade::init(const wmtk::utils::internal::ManifoldDecomposition<D>& parent_md)
 {
     assert(!parent_md.face_map.empty());
 
-    parent_map = parent_md.mm_map();
+    parent_map = parent_md.mm_map(true);
     S = parent_md.face_matrix(true);
 
 
-    auto md = wmtk::utils::internal::boundary_manifold_decomposition<D - 1>(S);
-    try_make_child(md);
+    if constexpr (D > 2) {
+        auto md = wmtk::utils::internal::boundary_manifold_decomposition<D - 1>(
+            parent_md.face_matrix(false));
+        try_make_child(md);
+    }
 }
 template <int D>
 void NonManifoldCascade::init(Eigen::Ref<const RowVectors<int64_t, D>> parent_S)
@@ -106,44 +115,29 @@ void NonManifoldCascade::try_make_child(const wmtk::utils::internal::ManifoldDec
         m_child->m_parent = this;
     }
 }
-NonManifoldCascade cascade_from_manifold_decomposition(wmtk::Mesh& m)
+NonManifoldCascade cascade_from_manifold_decomposition(Eigen::Ref<const MatrixXl> S)
 {
-    wmtk::utils::EigenMatrixWriter writer;
-    m.serialize(writer);
-    MatrixXl S = writer.get_simplex_vertex_matrix();
-
     return NonManifoldCascade(S);
-    /*
-wmtk::utils::EigenMatrixWriter writer;
-m.serialize(writer);
-MatrixXl S = writer.get_simplex_vertex_matrix();
-
-static_assert(MatrixXl::ColsAtCompileTime == Eigen::Dynamic);
-switch (S.cols()) {
-case 4: return from_manifold_decomposition<4>(m, S);
-case 3: return from_manifold_decomposition<3>(m, S);
-case 2: return from_manifold_decomposition<2>(m, S);
-case 1: return from_manifold_decomposition<1>(m, S);
-default: break;
 }
-
-    return {};
-*/
-}
-// returns the new root mesh (the input mesh becomes a child mesh)
-std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(wmtk::Mesh& m, bool flat_structure)
+std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(
+    Eigen::Ref<const MatrixXl> S,
+    bool flat_structure)
 {
-    Mesh* cur_parent_mesh_ptr = &m;
+    // TODO the current mapping scheme only actually works on the flat structure
+    assert(flat_structure);
+    Mesh* cur_parent_mesh_ptr = nullptr;
+    Mesh* root_mesh_ptr = nullptr;
     std::vector<std::shared_ptr<Mesh>> ret;
-    const NonManifoldCascade nmc = cascade_from_manifold_decomposition(m);
-    const auto& mesh_sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
+    const NonManifoldCascade nmc = cascade_from_manifold_decomposition(S);
+    const auto& mesh_sd =
+        dart::SimplexDart::get_singleton(get_primitive_type_from_id(nmc.S.cols() - 1));
 
-
-    //
 
     for (NonManifoldCascade const* cur_ptr = &nmc; cur_ptr != nullptr && !cur_ptr->empty();
          cur_ptr = cur_ptr->m_child.get()) {
         const NonManifoldCascade& cur = *cur_ptr;
+        spdlog::info("Going through cascade!");
+        std::cout << cur.S << std::endl;
 
         const PrimitiveType cur_pt = get_primitive_type_from_id(cur_ptr->S.cols() - 1);
 
@@ -151,23 +145,31 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(wmtk::Mesh& m, bo
         auto cS = wmtk::utils::internal::compactify_eigen_indices(cur.S);
         auto& mptr = ret.emplace_back(Mesh::from_vertex_indices(cS));
 
-        // holds the current mesh being mapped to - if flat this is always &m
-        Mesh& parent_mesh = *cur_parent_mesh_ptr;
+        if (cur_parent_mesh_ptr == nullptr) {
+            root_mesh_ptr = mptr.get();
+            spdlog::info("Setting root");
+        } else {
+            // holds the current mesh being mapped to - if flat this is always &m
+            Mesh& parent_mesh = *cur_parent_mesh_ptr;
 
-        if (flat_structure) {
-            std::vector<std::array<Tuple, 2>> tups = cur.parent_map;
-            assert(&m == &parent_mesh.get_multi_mesh_root());
-            for (auto& t : tups) {
-                auto& a = t[0];
-                a = parent_mesh.map_to_root(simplex::Simplex(cur_pt, a)).tuple();
+            if (flat_structure) {
+                std::vector<std::array<Tuple, 2>> tups = cur.parent_map;
+                // assert(&m == &parent_mesh.get_multi_mesh_root());
+                for (auto& t : tups) {
+                    auto& a = t[1];
+                    auto& b = t[0];
+                    spdlog::info("{} {}", std::string(a), std::string(b));
+                    a = parent_mesh.map_up_to(*root_mesh_ptr, simplex::Simplex(cur_pt, a)).tuple();
+                    spdlog::info("Now is {} {}", std::string(a), std::string(b));
+                }
+
+                root_mesh_ptr->register_child_mesh(mptr, tups);
+            } else {
+                parent_mesh.register_child_mesh(mptr, cur.parent_map);
             }
 
-            m.register_child_mesh(mptr, tups);
-        } else {
-            parent_mesh.register_child_mesh(mptr, cur.parent_map);
+            // update which mesh we are looking at because we always want to link to the parent mesh
         }
-
-        // update which mesh we are looking at because we always want to link to the parent mesh
         cur_parent_mesh_ptr = mptr.get();
     }
     return ret;
