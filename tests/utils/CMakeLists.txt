@@ -12,5 +12,7 @@ set(TEST_SOURCES
     valence_checker.cpp
     index_simplex_mapper.cpp
     manifold_decomposition.cpp
+
+    identity_tuple.cpp
 )
 target_sources(wmtk_tests PRIVATE ${TEST_SOURCES})

@@ -77,6 +77,9 @@ set(SRC_FILES
     internal/IndexSimplexMapper.hpp
     internal/IndexSimplexMapper.cpp
 
+    internal/identity_tuple.hpp
+    internal/identity_tuple.cpp
+
     verify_simplex_index_valences.hpp
     verify_simplex_index_valences.cpp
 )

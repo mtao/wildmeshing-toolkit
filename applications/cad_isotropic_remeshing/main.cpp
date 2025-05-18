@@ -23,21 +23,27 @@
 #include <wmtk/utils/internal/manifold_decomposition.hpp>
 #include "wmtk/components/utils/PathResolver.hpp"
 
+
+#include <wmtk/components/mesh_info/transfer/edge_length.hpp>
+#include <wmtk/components/mesh_info/transfer/mean_ratio_measure.hpp>
+#include <wmtk/components/mesh_info/transfer/min_neighbor.hpp>
+
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
 
 #include <wmtk/components/input/input.hpp>
 #include <wmtk/components/isotropic_remeshing/IsotropicRemeshingOptions.hpp>
 #include <wmtk/components/isotropic_remeshing/isotropic_remeshing.hpp>
+#include <wmtk/components/multimesh/from_manifold_decomposition.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/output/output.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
-#include <wmtk/components/multimesh/from_manifold_decomposition.hpp>
 
 #include <h5pp/h5pp.h>
 #include <wmtk/components/output/output.hpp>
 #include "EigenMeshes.hpp"
 #include "Mesh.hpp"
+#include "wmtk/invariants/Swap2dEdgeLengthInvariant.hpp"
 
 using namespace wmtk::components;
 using namespace wmtk;
@@ -54,8 +60,9 @@ int main(int argc, char* argv[])
     auto trimesh = fo.mesh.create();
 
 
-       //auto edge_MD = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
-    //kstd::vector<std::array<std::shared_ptr<wmtk::Mesh>,2>> manifold_decomposition = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
+    // auto edge_MD = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
+    // kstd::vector<std::array<std::shared_ptr<wmtk::Mesh>,2>> manifold_decomposition =
+    // wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
 
     /*
     auto& F = fo.mesh.F;
@@ -84,165 +91,83 @@ int main(int argc, char* argv[])
     */
 
 
-    if (true) {
-        auto em = fo.topology.feature_edge_mesh(*trimesh);
-        // wmtk::multimesh::utils::check_maps_valid(*em);
-        // wmtk::multimesh::utils::check_maps_valid(*trimesh);
-        // return 0;
-    }
-    if (true) {
-        auto pm = fo.topology.corner_mesh(*trimesh);
-        // wmtk::multimesh::utils::check_maps_valid(*pm);
-        // wmtk::multimesh::utils::check_maps_valid(*trimesh);
-    }
-
-
-    wmtk::components::output::OutputOptions opts;
-    opts.path = argv[2];
-    opts.type = ".hdf5";
-    // opts.position_attribute =
-    // trimesh->get_attribute_handle<double>("vertices",wmtk::PrimitiveType::Vertex);
-    spdlog::info("end making intermediate opts");
-    wmtk::components::output::output(*trimesh, opts);
-
-    // auto out_opts = j["output"].get<wmtk::components::output::OutputOptions>();
-    // out_opts.position_attribute = options.position_attribute;
-    // wmtk::components::output::output(*mesh_ptr, out_opts);
-
-
-    // for(const auto&
-    /*
-std::filesystem::path p = "/meshes";
-auto groups = file.findGroups("","/meshes",-1,0);
-spdlog::info("{}", groups.size());
-for(const auto& g: groups) {
-    spdlog::info("{}", g);
-    FusedOutput fo;
-    fo.load(file, p/g);
-}
-*/
-}
-/*
-int main(int argc, char* argv[])
-{
-    CLI::App app{argv[0]};
-
-    app.ignore_case();
-
-    fs::path json_input_file;
-    fs::path json_integration_config_file;
-    app.add_option("-j, --json", json_input_file, "json specification file")
-        ->required(true)
-        ->check(CLI::ExistingFile);
-    app.add_option(
-           "-i, --integration-test-config",
-           json_integration_config_file,
-           "Test config file for integration test")
-        ->check(CLI::ExistingFile);
-    CLI11_PARSE(app, argc, argv);
-
-    // nlohmann::json j = wmtk::applications::utils::parse_jse(
-    //     wmtk::applications::isotropic_remeshing::spec,
-    //     json_input_file);
-
-    spdlog::warn("File is {}", json_input_file.string());
-    std::ifstream ifs(json_input_file);
-    nlohmann::ordered_json j = nlohmann::json::parse(ifs);
-
-    const auto& input_js = j["input"];
-    components::utils::PathResolver path_resolver;
-
-    if (j.contains(root_attribute_name)) {
-        path_resolver = j[root_attribute_name];
-    }
-    if (!json_integration_config_file.empty()) {
-        auto path = wmtk::applications::utils::get_integration_test_data_root(
-            json_integration_config_file,
-            argv[0]);
-        path_resolver.add_path(path);
-    }
+    wmtk::attribute::MeshAttributeHandle position_attr =
+        trimesh->get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
 
     wmtk::components::multimesh::MeshCollection mc;
+    auto& nmm = mc.emplace_mesh(*trimesh, std::string("fused"));
+    auto subcomplexes = fo.topology.feature_subcomplexes(*trimesh);
 
-    auto add = [&](const auto& my_input_js) {
-        auto input_opts = my_input_js.template get<wmtk::components::input::InputOptions>();
-        auto& named_mesh = mc.add_mesh(wmtk::components::input::input(input_opts, path_resolver));
+    // assert(wmtk::multimesh::utils::check_maps_valid(*trimesh));
+    // for (const auto& m : subcomplexes) {
+    //     assert(wmtk::multimesh::utils::check_maps_valid(*m));
+    // }
+    // return 0;
 
-        if (my_input_js.contains("multimesh")) {
-            const nlohmann::ordered_json mm_js = my_input_js["multimesh"];
-            if (mm_js.is_array()) {
-                for (const auto& single_mm : mm_js) {
-                    wmtk::components::multimesh::multimesh(mc, single_mm);
-                }
-            } else {
-                wmtk::components::multimesh::multimesh(mc, mm_js);
+    {
+        wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions opts;
+        opts.position_attribute = position_attr;
+
+
+        int64_t iterations = 10;
+        double length_relative = 1e-2;
+
+        if (subcomplexes.size() >= 1) {
+            nmm.set_name(*subcomplexes[0], "feature_edges");
+            auto epos_attr =
+                wmtk::utils::cast_attribute<double>(position_attr, *subcomplexes[0], "vertices");
+            opts.copied_attributes.emplace_back(epos_attr, position_attr);
+            opts.other_position_attributes.emplace_back(epos_attr);
+
+            if (subcomplexes.size() >= 2) {
+                nmm.set_name(*subcomplexes[1], "critical_points");
+                // auto vpos_attr = wmtk::utils::cast_attribute<double>(
+                //     position_attr,
+                //     *subcomplexes[1],
+                //     "vertices");
+                // opts.copied_attributes.emplace_back(vpos_attr, position_attr);
+                // opts.other_position_attributes.emplace_back(vpos_attr);
+                opts.static_meshes.emplace_back("fused.feature_edges.critical_points");
             }
         }
-    };
-    if (input_js.is_array()) {
-        for (const auto& js : input_js) {
-            add(js);
+
+        opts.iterations = iterations;
+        opts.length_rel = length_relative;
+
+        opts.swap.mode = components::isotropic_remeshing::EdgeSwapMode::Valence;
+
+
+        {
+            auto el = std::make_shared<wmtk::components::mesh_info::transfer::EdgeLength>();
+            el->type = "edge_length";
+            el->attribute_path = "fused/edge_length";
+            el->base_attribute_path = "fused/vertices";
+
+            auto mrm = std::make_shared<wmtk::components::mesh_info::transfer::MeanRatioMeasure>();
+            mrm->type = "mean_ratio_transfer";
+            mrm->attribute_path = "fused/mean_area_measure";
+            mrm->base_attribute_path = "fused/vertices";
+            auto min_mrm = std::make_shared<wmtk::components::mesh_info::transfer::MinNeighbor>();
+            min_mrm->type = "min";
+            min_mrm->attribute_path = "fused/mean_area_measure";
+            min_mrm->parameters["simplex_dimension"] = 1;
+            min_mrm->base_attribute_path = "fused/mean_area_measure";
+            opts.utility_attributes.emplace_back(el);
+            opts.utility_attributes.emplace_back(mrm);
+            opts.utility_attributes.emplace_back(min_mrm);
         }
-    } else {
-        add(input_js);
+        opts.mesh_collection = &mc;
+
+        wmtk::components::isotropic_remeshing::isotropic_remeshing(opts);
     }
 
 
-    if (!mc.is_valid()) {
-        wmtk::logger().error("Input mesh did not match the name specification, going to throw an "
-                             "exception to help debugging");
-        mc.is_valid(true);
-    }
-    spdlog::info("Parsing isotropic params");
-
-    wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions options;
-
-    options.load_json(j, mc);
-    spdlog::info("filling in mesh attributes");
-    if (input_js.contains("improvement_attributes")) {
-        for (const auto& attribute : input_js["improvement_attributes"]) {
-            options.improvement_attributes.emplace_back(
-                wmtk::components::multimesh::utils::get_attribute(mc, attribute));
-        }
-    }
-
-
-    wmtk::components::isotropic_remeshing::isotropic_remeshing(options);
-
-    // input uv mesh
-
-    // multimesh the input meshes if not already multimeshed
-    // OR - should this be a diff app?
-
-    // call isotropic_remeshing
-
-
-    spdlog::info("making opts");
-    auto output_opts = j["output"].get<wmtk::components::output::OutputOptionsCollection>();
-    spdlog::info("end making intermediate opts");
-    wmtk::components::output::output(mc, output_opts);
-
-    // auto out_opts = j["output"].get<wmtk::components::output::OutputOptions>();
-    // out_opts.position_attribute = options.position_attribute;
-    // wmtk::components::output::output(*mesh_ptr, out_opts);
-
-    if (j.contains("report")) {
-        const std::string report = j["report"];
-        mc.make_canonical();
-        if (!report.empty()) {
-            nlohmann::json out_json;
-            auto& stats = out_json["stats"];
-            stats = wmtk::applications::utils::element_count_report_named(mc);
-            j.erase("report");
-            if (j.contains(root_attribute_name)) {
-                j.erase(root_attribute_name);
-            }
-            out_json["input"] = j;
-
-
-            std::ofstream ofs(report);
-            ofs << std::setw(2) << out_json;
-        }
+    {
+        wmtk::components::output::OutputOptions opts;
+        opts.path = argv[2];
+        opts.type = ".hdf5";
+        spdlog::info("end making intermediate opts");
+        opts.position_attribute = position_attr;
+        wmtk::components::output::output(*trimesh, opts);
     }
 }
-*/

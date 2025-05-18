@@ -22,6 +22,9 @@ set(SRC_FILES
     extract_child_mesh_from_tag.hpp
     extract_child_mesh_from_tag.cpp
 
+    extract_child_simplices_and_map_from_tag.hpp
+    extract_child_simplices_and_map_from_tag.cpp
+
 
     check_map_valid.cpp
     check_map_valid.hpp

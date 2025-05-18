@@ -110,6 +110,7 @@ Tuple TriMesh::switch_tuple(const Tuple& tuple, PrimitiveType type) const
         auto ff = m_ff_accessor->const_vector_attribute<3>(tuple);
 
         int64_t gcid_new = ff(tuple.local_eid());
+        assert(gcid_new >= 0);// check if you're on teh boundary
         int64_t lvid_new = -1, leid_new = -1;
 
         auto fv = m_fv_accessor->const_vector_attribute<3>(gcid_new);

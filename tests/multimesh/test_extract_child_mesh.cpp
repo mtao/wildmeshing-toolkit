@@ -8,6 +8,7 @@
 #include "../tools/DEBUG_TriMesh.hpp"
 #include "../tools/TetMesh_examples.hpp"
 #include "../tools/TriMesh_examples.hpp"
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 
 using namespace wmtk;
 using namespace wmtk::tests;
@@ -139,6 +140,12 @@ TEST_CASE("test_extract_child_edge_mesh", "[multimesh][extract_childmesh]")
         REQUIRE(p_mul_manager.children()[3].mesh == free_child);
         CHECK(free_child->get_all(PE).size() == 3);
         CHECK(free_child->get_all(PV).size() == 6);
+
+
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child0));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child1));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child2));
     }
 }
 
@@ -170,6 +177,9 @@ TEST_CASE("test_extract_child_face_mesh", "[multimesh][extract_childmesh]")
         CHECK(child.get_all(PF).size() == 1);
         CHECK(child.get_all(PE).size() == 3);
         CHECK(child.get_all(PV).size() == 3);
+
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child));
     }
     SECTION("two_neighbors")
     {
@@ -212,6 +222,9 @@ TEST_CASE("test_extract_child_face_mesh", "[multimesh][extract_childmesh]")
         CHECK(child1.get_all(PF).size() == 1);
         CHECK(child1.get_all(PE).size() == 3);
         CHECK(child1.get_all(PV).size() == 3);
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child0));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child1));
     }
 }
 
@@ -258,6 +271,9 @@ TEST_CASE("test_extract_child_face_mesh_3d", "[multimesh][extract_childmesh]")
         CHECK(child1.get_all(PF).size() == 2);
         CHECK(child1.get_all(PE).size() == 5);
         CHECK(child1.get_all(PV).size() == 4);
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child0));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child1));
     }
 
     SECTION("six_cycle_tets")
@@ -302,6 +318,8 @@ TEST_CASE("test_extract_child_face_mesh_3d", "[multimesh][extract_childmesh]")
         CHECK(free_child->get_all(PF).size() == 12);
         CHECK(free_child->get_all(PE).size() == 36);
         CHECK(free_child->get_all(PV).size() == 36);
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child0));
     }
 }
 
@@ -358,6 +376,9 @@ TEST_CASE("test_extract_child_edge_mesh_3d", "[multimesh][extract_childmesh]")
         CHECK(child1.get_all(PV).size() == 4);
         CHECK(free_ptr->get_all(PE).size() == 3);
         CHECK(free_ptr->get_all(PV).size() == 6);
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child0));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child1));
     }
 
     SECTION("six_cycle_tet")
@@ -402,6 +423,10 @@ TEST_CASE("test_extract_child_edge_mesh_3d", "[multimesh][extract_childmesh]")
         CHECK(child0.get_all(PV).size() == 6);
         CHECK(child1.get_all(PE).size() == 3);
         CHECK(child1.get_all(PV).size() == 4);
+
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child0));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child1));
     }
 }
 
@@ -448,5 +473,9 @@ TEST_CASE("test_extract_child_tet_mesh_3d", "[multimesh][extract_childmesh]")
         CHECK(child1.get_all(PF).size() == 13);
         CHECK(child1.get_all(PE).size() == 15);
         CHECK(child1.get_all(PV).size() == 7);
+
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child0));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child1));
     }
 }

@@ -3,6 +3,7 @@
 #include <memory>
 #include <vector>
 #include <wmtk/Tuple.hpp>
+#include <wmtk/Types.hpp>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 
 
@@ -67,5 +68,7 @@ std::shared_ptr<Mesh> extract_and_register_child_mesh_from_tag(
     wmtk::attribute::MeshAttributeHandle& tag_handle,
     const wmtk::attribute::MeshAttributeHandle::ValueVariant& tag_value,
     bool child_is_free = false);
+
+
 
 } // namespace wmtk::multimesh::utils

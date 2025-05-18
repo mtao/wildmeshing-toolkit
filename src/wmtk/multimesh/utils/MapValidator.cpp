@@ -200,8 +200,11 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
                     continue;
                 }
                 // skip switches over boundaries
-                if (spt == pt &&
-                    child.is_boundary(wmtk::PrimitiveType(child.top_cell_dimension() - 1), t)) {
+                if (spt == child.top_simplex_type()) {
+                    continue;
+                }
+                if (spt == child.top_simplex_type() &&
+                    child.is_boundary(child.top_simplex_type() - 1, t)) {
                     continue;
                 }
 

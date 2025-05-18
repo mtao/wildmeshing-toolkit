@@ -10,6 +10,9 @@
 #include <wmtk/simplex/cofaces_single_dimension_iterable.hpp>
 #include <wmtk/simplex/open_star.hpp>
 #include <wmtk/utils/Logger.hpp>
+#if defined(WMTK_UNIFY_DART_AND_TUPLES)
+#include <wmtk/utils/internal/identity_tuple.hpp>
+#endif
 
 namespace wmtk {
 
@@ -211,6 +214,9 @@ Tuple TetMesh::face_tuple_from_id(int64_t id) const
 
 Tuple TetMesh::tet_tuple_from_id(int64_t id) const
 {
+#if defined(WMTK_UNIFY_DART_AND_TUPLES)
+    return utils::internal::identity_tuple(top_simplex_type(), id);
+#else
     const int64_t lvid = 0;
     const auto [nlvid, leid, lfid] = autogen::tet_mesh::auto_3d_table_complete_vertex[lvid];
     assert(lvid == nlvid);
@@ -219,6 +225,7 @@ Tuple TetMesh::tet_tuple_from_id(int64_t id) const
     assert(is_ccw(t_tuple));
     assert(is_valid(t_tuple));
     return t_tuple;
+#endif
 }
 
 Tuple TetMesh::tuple_from_id(const PrimitiveType type, const int64_t gid) const

@@ -6,12 +6,16 @@
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/components/mesh_info/transfer/filtered_neighbor_count.hpp>
+#include <wmtk/components/multimesh/from_manifold_decomposition.hpp>
 #include <wmtk/components/multimesh/from_tag.hpp>
+#include <wmtk/multimesh/utils/extract_child_mesh_from_tag.hpp>
+#include <wmtk/multimesh/utils/extract_child_simplices_and_map_from_tag.hpp>
 #include <wmtk/utils/EigenMatrixWriter.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/internal/IndexSimplexMapper.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
 #include "EigenMeshes.hpp"
+#include "wmtk/multimesh/from_facet_orientations.hpp"
 
 
 #include <h5pp/h5pp.h>
@@ -257,8 +261,11 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) 
                         identified_nonmanifold = true;
                     }
                 }
-                if(!identified_nonmanifold) {
-                    spdlog::warn("Vertex {} looks nonmanifold because it is attached to these vertices: {}",key ,fmt::join(values,","));
+                if (!identified_nonmanifold) {
+                    spdlog::warn(
+                        "Vertex {} looks nonmanifold because it is attached to these vertices: {}",
+                        key,
+                        fmt::join(values, ","));
                     overall_found_nonmanifold = true;
                 }
             }
@@ -292,18 +299,46 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(wmtk::TriMesh& tri_mesh) 
     return ret;
 }
 
-std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_mesh) const
+std::vector<std::shared_ptr<wmtk::Mesh>> Topology::feature_subcomplexes(
+    wmtk::TriMesh& tri_mesh) const
 {
     auto attr = add_feature_edge_mesh_tag(tri_mesh, "edge_tag");
     auto h = tri_mesh.get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
-    auto p = std::dynamic_pointer_cast<wmtk::EdgeMesh>(
-        wmtk::components::multimesh::from_tag(attr, 1, {h}));
-    // p->delete_attribute(p->get_attribute_handle<char>("edge_tag",
-    // wmtk::PrimitiveType::Edge));
-    tri_mesh.delete_attribute(
-        tri_mesh.get_attribute_handle<char>("edge_tag", wmtk::PrimitiveType::Edge));
-    assert(p->is_connectivity_valid());
-    return p;
+
+
+    /*
+    auto m = wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag(attr, 1);
+    tri_mesh.delete_attribute(attr);
+    */
+    auto [S, tups] = wmtk::multimesh::utils::extract_child_simplices_and_map_from_tag(attr, 1);
+
+    tri_mesh.delete_attribute(attr);
+
+    auto em = std::make_shared<wmtk::EdgeMesh>();
+    em->initialize(S);
+    auto map_pairs = wmtk::multimesh::from_facet_orientations(tri_mesh, *em, tups);
+    tri_mesh.register_child_mesh(em, map_pairs);
+    return {em};
+
+    /*
+    auto nmc = wmtk::components::multimesh::from_manifold_decomposition(S, true);
+
+
+    assert(nmc.size() > 1);
+    auto map_pairs = wmtk::multimesh::from_facet_orientations(tri_mesh, *nmc.front(), tups);
+    tri_mesh.register_child_mesh(nmc.front(), map_pairs);
+    return nmc;
+    */
+}
+
+std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_mesh) const
+{
+    auto nmc = feature_subcomplexes(tri_mesh);
+
+    assert(nmc.front()->is_connectivity_valid());
+    auto em = std::dynamic_pointer_cast<wmtk::EdgeMesh>((nmc.front()));
+    assert(em != nullptr);
+    return em;
 }
 wmtk::attribute::MeshAttributeHandle Topology::add_feature_edge_mesh_tag(
     wmtk::TriMesh& tri_mesh,

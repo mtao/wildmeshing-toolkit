@@ -42,6 +42,8 @@ struct Topology
         wmtk::TriMesh& tri_mesh,
         std::string_view name) const;
 
+    std::vector<std::shared_ptr<wmtk::Mesh>> feature_subcomplexes(wmtk::TriMesh& tri_mesh) const;
+
     bool validate_features_end_in_corners() const;
 };
 
