@@ -134,6 +134,17 @@ int main(int argc, char* argv[])
         opts.iterations = iterations;
         opts.length_rel = length_relative;
 
+
+        auto& pass = opts.passes.emplace_back();
+        pass.mesh_path = "fused";
+        pass.iterations = 1;
+        pass.operations = {"split", "collapse", "swap"};
+
+        // opts.swap.enabled = false;
+        //// opts.split.enabled = false;
+        ////  opts.collapse.enabled = false;
+        // opts.smooth.enabled = false;
+
         opts.swap.mode = components::isotropic_remeshing::EdgeSwapMode::Valence;
 
 
@@ -158,15 +169,23 @@ int main(int argc, char* argv[])
         }
         opts.mesh_collection = &mc;
 
+        {
+            wmtk::components::output::OutputOptions iopts;
+            iopts.path = "fused_{:04}";
+            iopts.type = ".vtu";
+            iopts.position_attribute = position_attr;
+            opts.intermediate_output_format.emplace_back("fused", iopts);
+        }
+
         wmtk::components::isotropic_remeshing::isotropic_remeshing(opts);
     }
 
+    return 0;
 
     {
         wmtk::components::output::OutputOptions opts;
         opts.path = argv[2];
         opts.type = ".hdf5";
-        spdlog::info("end making intermediate opts");
         opts.position_attribute = position_attr;
         wmtk::components::output::output(*trimesh, opts);
     }

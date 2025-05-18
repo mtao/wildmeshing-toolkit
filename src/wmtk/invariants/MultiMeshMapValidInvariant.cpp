@@ -25,6 +25,7 @@ bool both_map_to_child(
 
     const bool r = parent.can_map(child, left) && parent.can_map(child, right);
 
+#if !defined(NDEBUG)
     if (r) {
         for (const auto& t : parent.map_tuples(child, left)) {
             assert(child.is_valid(t));
@@ -35,6 +36,7 @@ bool both_map_to_child(
             spdlog::info("right {}", std::string(t));
         }
     }
+#endif
 
     return r;
 }
