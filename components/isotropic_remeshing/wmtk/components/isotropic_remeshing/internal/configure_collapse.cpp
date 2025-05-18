@@ -123,7 +123,8 @@ void configure_collapse(
                 auto& mesh2 = options.mesh_collection->get_mesh(mesh_name);
                 static_meshes.emplace_back(mesh2.shared_from_this());
                 // disallow operations that collapse a mapped simplex
-                //ec.add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(m, mesh2));
+                // ec.add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(m,
+                // mesh2));
             }
             auto strat_ptr_const = ec.get_new_attribute_strategy(options.position_attribute);
             auto strat_ptr =
@@ -141,6 +142,31 @@ void configure_collapse(
                     return false;
                     return {};
                 });
+        }
+    }
+    for (const auto& mptr : m.get_all_child_meshes()) {
+        auto& mesh2 = *mptr;
+        switch (mesh2.top_simplex_type()) {
+        case wmtk::PrimitiveType::Edge:
+            /*
+            spdlog::warn("Making the swap always go false");
+            swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+                mesh,
+                mesh2,
+                wmtk::PrimitiveType::Edge,
+                false));
+            swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+                mesh,
+                mesh2,
+                wmtk::PrimitiveType::Edge,
+                true));
+            */
+            ec.add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(m, mesh2));
+            break;
+        case wmtk::PrimitiveType::Triangle: break;
+        case wmtk::PrimitiveType::Vertex: break;
+        case wmtk::PrimitiveType::Tetrahedron:
+        default: assert(false);
         }
     }
 

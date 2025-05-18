@@ -53,7 +53,16 @@ constexpr static std::string root_attribute_name = "root";
 
 int main(int argc, char* argv[])
 {
-    h5pp::File file(argv[1], h5pp::FileAccess::READONLY);
+    std::ifstream ifs(argv[1]);
+    nlohmann::ordered_json j = nlohmann::ordered_json::parse(ifs);
+
+
+    int64_t iterations = j["iterations"];
+    double length_relative = j["length_rel"];
+    double envelope_size = j["envelope_size"];
+
+
+    h5pp::File file(argv[2], h5pp::FileAccess::READONLY);
 
     FusedOutput fo;
     fo.load(file, "/");
@@ -109,9 +118,6 @@ int main(int argc, char* argv[])
         opts.position_attribute = position_attr;
 
 
-        int64_t iterations = 10;
-        double length_relative = 1e-2;
-
         if (subcomplexes.size() >= 1) {
             nmm.set_name(*subcomplexes[0], "feature_edges");
             auto epos_attr =
@@ -133,12 +139,14 @@ int main(int argc, char* argv[])
 
         opts.iterations = iterations;
         opts.length_rel = length_relative;
+        opts.envelope_size = envelope_size;
 
 
         auto& pass = opts.passes.emplace_back();
         pass.mesh_path = "fused";
         pass.iterations = 1;
         pass.operations = {"split", "collapse", "swap"};
+        opts.passes = j["passes"];
 
         // opts.swap.enabled = false;
         //// opts.split.enabled = false;
@@ -184,7 +192,7 @@ int main(int argc, char* argv[])
 
     {
         wmtk::components::output::OutputOptions opts;
-        opts.path = argv[2];
+        opts.path = argv[3];
         opts.type = ".hdf5";
         opts.position_attribute = position_attr;
         wmtk::components::output::output(*trimesh, opts);

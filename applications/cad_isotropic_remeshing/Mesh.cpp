@@ -314,13 +314,12 @@ std::vector<std::shared_ptr<wmtk::Mesh>> Topology::feature_subcomplexes(
 
     tri_mesh.delete_attribute(attr);
 
-    auto em = std::make_shared<wmtk::EdgeMesh>();
-    em->initialize(S);
-    auto map_pairs = wmtk::multimesh::from_facet_orientations(tri_mesh, *em, tups);
-    tri_mesh.register_child_mesh(em, map_pairs);
-    return {em};
+    // auto em = std::make_shared<wmtk::EdgeMesh>();
+    // em->initialize(S);
+    // auto map_pairs = wmtk::multimesh::from_facet_orientations(tri_mesh, *em, tups);
+    // tri_mesh.register_child_mesh(em, map_pairs);
+    // return {em};
 
-    /*
     auto nmc = wmtk::components::multimesh::from_manifold_decomposition(S, true);
 
 
@@ -328,7 +327,6 @@ std::vector<std::shared_ptr<wmtk::Mesh>> Topology::feature_subcomplexes(
     auto map_pairs = wmtk::multimesh::from_facet_orientations(tri_mesh, *nmc.front(), tups);
     tri_mesh.register_child_mesh(nmc.front(), map_pairs);
     return nmc;
-    */
 }
 
 std::shared_ptr<wmtk::EdgeMesh> Topology::feature_edge_mesh(wmtk::TriMesh& tri_mesh) const

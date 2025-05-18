@@ -31,6 +31,7 @@ std::vector<Tuple> AttributeTransferStrategyBase::get_parent_simplices(
     const attribute::MeshAttributeHandle& parent,
     const simplex::Simplex& s)
 {
+    assert(me.mesh().is_valid(s));
     return get_parent_simplices(me.mesh(), parent.mesh(), s, parent.primitive_type());
 }
 

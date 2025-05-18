@@ -570,6 +570,11 @@ template dart::Dart IndexSimplexMapper::get_internal_dart<2>(const std::array<in
 template dart::Dart IndexSimplexMapper::get_internal_dart<3>(const std::array<int64_t, 3>& s) const;
 template dart::Dart IndexSimplexMapper::get_internal_dart<4>(const std::array<int64_t, 4>& s) const;
 
+template dart::Dart IndexSimplexMapper::get_mesh_dart<1>(const std::array<int64_t, 1>& s) const;
+template dart::Dart IndexSimplexMapper::get_mesh_dart<2>(const std::array<int64_t, 2>& s) const;
+template dart::Dart IndexSimplexMapper::get_mesh_dart<3>(const std::array<int64_t, 3>& s) const;
+template dart::Dart IndexSimplexMapper::get_mesh_dart<4>(const std::array<int64_t, 4>& s) const;
+
 template Tuple IndexSimplexMapper::get_tuple<1>(const std::array<int64_t, 1>& s) const;
 template Tuple IndexSimplexMapper::get_tuple<2>(const std::array<int64_t, 2>& s) const;
 template Tuple IndexSimplexMapper::get_tuple<3>(const std::array<int64_t, 3>& s) const;

@@ -100,6 +100,34 @@ std::shared_ptr<wmtk::operations::composite::EdgeSwap> tri_swap(
             }
         }
     }
+    for (const auto& mptr : mesh.get_all_child_meshes()) {
+        auto& mesh2 = *mptr;
+        swap->collapse().add_invariant(
+            std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(mesh, mesh2));
+        switch (mesh2.top_simplex_type()) {
+        case wmtk::PrimitiveType::Triangle:
+            swap->add_invariant(std::make_shared<wmtk::invariants::InteriorSimplexInvariant>(
+                mesh2,
+                wmtk::PrimitiveType::Edge));
+            break;
+        case wmtk::PrimitiveType::Edge:
+            spdlog::warn("Making the swap always go false");
+            swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+                mesh,
+                mesh2,
+                wmtk::PrimitiveType::Edge,
+                false));
+            swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+                mesh,
+                mesh2,
+                wmtk::PrimitiveType::Edge,
+                true));
+            break;
+        case wmtk::PrimitiveType::Vertex: break;
+        case wmtk::PrimitiveType::Tetrahedron:
+        default: assert(false);
+        }
+    }
     // for (const auto& p : options.tag_attributes) {
     //     swap->split().set_new_attribute_strategy(
     //         p,

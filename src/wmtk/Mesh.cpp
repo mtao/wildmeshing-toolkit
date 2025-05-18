@@ -39,8 +39,11 @@ simplex::IdSimplex Mesh::get_id_simplex(const simplex::Simplex& s) const
 
 simplex::Simplex Mesh::get_simplex(const simplex::IdSimplex& s) const
 {
+    assert(!is_removed(s));
     const Tuple& t = tuple_from_id(s.primitive_type(), s.index());
-    return simplex::Simplex(s.primitive_type(), t);
+    auto r = simplex::Simplex(s.primitive_type(), t);
+    assert(is_valid(r));
+    return r;
 }
 
 Tuple Mesh::get_tuple_from_id_simplex(const simplex::IdSimplex& s) const
