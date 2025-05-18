@@ -1,0 +1,57 @@
+{
+    "static_cell_complex": [
+        "combo.critical_points",
+        "combo.trims"
+    ],
+    "utility_attributes": [
+        { 
+            "type": "edge_length",
+            "attribute_path": "combo/edge_length",
+            "base_attribute_path": "combo/vertex_position"
+        },
+        { 
+            "type": "mean_ratio_measure",
+            "attribute_path": "combo/mean_area_measure",
+            "base_attribute_path": "combo/vertex_position"
+        },
+        { 
+            "type": "min",
+            "attribute_path": "combo/min_mean_area_measure",
+            "simplex_dimension": 1,
+            "base_attribute_path": "combo/mean_area_measure"
+        }
+    ],
+    "iterations": 10,
+    "length_rel": 0.01,
+    "use_for_periodic": false,
+    "swap": {
+        "enabled": true,
+        "mode": "valence",
+        "priority": {
+            "type": "attribute",
+            "attribute_path": "combo/min_mean_area_measure"
+        }
+    },
+    "collapse": {
+        "enabled": true,
+        "priority": {
+            "type": "attribute",
+            "attribute_path": "combo/min_mean_area_measure"
+        }
+    },
+    "split": {
+        "enabled" :true
+    },
+    "smooth": {
+        "enabled" :true
+    },
+    "envelope_size": 1e-3,
+    "passes":
+    [
+        {
+            "mesh_path": "fused",
+            "iterations": 1,
+            "operations": ["split","collapse","smooth"]
+        }
+    ]
+}
