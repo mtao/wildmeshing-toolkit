@@ -20,7 +20,7 @@ template <typename T>
 wmtk::attribute::MeshAttributeHandle
 create_attribute(Mesh& mesh, const std::string_view& name, PrimitiveType pt, int64_t dimension)
 {
-    return mesh.register_attribute<T>(std::string(name), pt, dimension);
+    return mesh.register_attribute<T>(std::string(name), pt, dimension, true);
 }
 
 wmtk::attribute::MeshAttributeHandle create_attribute(
