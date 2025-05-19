@@ -264,7 +264,7 @@ bool EnvelopeInvariant::after(
                     pts.reserve(pts.size() + N);
 
                     for (int64_t n = 0; n <= N; n++) {
-                        auto tmp = p0 * (double(n) / N) + p1 * (N - double(n)) / N;
+                        auto tmp = (p0 * (double(n) / N) + p1 * (N - double(n)) / N).eval();
                         pts.push_back(tmp);
                     }
                 }
@@ -389,7 +389,7 @@ bool EnvelopeInvariant::after(
                     pts.reserve(pts.size() + N);
 
                     for (int64_t n = 0; n <= N; n++) {
-                        auto tmp = p0 * (double(n) / N) + p1 * (N - double(n)) / N;
+                        auto tmp = (p0 * (double(n) / N) + p1 * (N - double(n)) / N).eval();
                         pts.push_back(tmp);
                     }
                 }

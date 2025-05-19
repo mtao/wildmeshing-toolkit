@@ -1,6 +1,9 @@
 
 #include "EdgeMeshOperationExecutor.hpp"
 #include <wmtk/operations/internal/SplitAlternateFacetData.hpp>
+#include <wmtk/simplex/faces.hpp>
+#include <wmtk/simplex/top_dimension_cofaces.hpp>
+#include <wmtk/simplex/top_dimension_cofaces_iterable.hpp>
 
 namespace wmtk {
 // constructor
@@ -31,6 +34,26 @@ EdgeMesh::EdgeMeshOperationExecutor::EdgeMeshOperationExecutor(
 
     if (m_neighbor_eids[0] == m_neighbor_eids[1] && m_neighbor_eids[0] == m_operating_edge_id) {
         m_is_self_loop = true;
+    }
+
+    global_ids_to_potential_tuples.resize(2);
+    if (m.has_child_mesh_in_dimension(0)) {
+        auto add = [&](const Tuple& t) {
+            simplex::Simplex s(PrimitiveType::Vertex, t);
+            global_ids_to_potential_tuples.at(0).emplace_back(
+                m_mesh.id(s),
+                wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s));
+        };
+        add(m_operating_tuple);
+        add(m_mesh.switch_vertex(m_operating_tuple));
+    }
+
+    if (m.has_child_mesh_in_dimension(1)) {
+        global_ids_to_potential_tuples.at(1).emplace_back(
+            m_mesh.id(simplex::Simplex::edge(m_operating_tuple)),
+            wmtk::simplex::top_dimension_cofaces_tuples(
+                m_mesh,
+                simplex::Simplex::edge(m_operating_tuple)));
     }
 }
 

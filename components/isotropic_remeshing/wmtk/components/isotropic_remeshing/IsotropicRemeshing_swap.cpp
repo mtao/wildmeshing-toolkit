@@ -101,7 +101,9 @@ void IsotropicRemeshing::configure_swap()
 
 
     if (m_envelope_invariants) {
-        m_swap->add_invariant(m_envelope_invariants);
+        // m_swap->add_invariant(m_envelope_invariants);
+        m_swap->split().add_invariant(m_envelope_invariants);
+        m_swap->collapse().add_invariant(m_envelope_invariants);
     }
 
 
@@ -124,14 +126,27 @@ void IsotropicRemeshing::configure_swap()
     if (m_options.mesh_collection != nullptr) {
         if (!m_options.static_meshes.empty()) {
             std::vector<std::shared_ptr<Mesh>> static_meshes;
-            for (const auto& mesh_name : m_options.static_meshes) {
-                auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
-                static_meshes.emplace_back(mesh2.shared_from_this());
+            for (const auto& mptr : m_options.position_attribute.mesh().get_all_child_meshes()) {
+                // for (const auto& mesh_name : m_options.static_meshes) {
+                // auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
+                auto& mesh2 = *mptr;
+                // static_meshes.emplace_back(mesh2.shared_from_this());
                 if (mesh2.top_cell_dimension() == 1) {
                     m_swap->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
                         mesh,
                         mesh2,
                         wmtk::PrimitiveType::Edge,
+                        false));
+                    m_swap->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+                        mesh,
+                        mesh2,
+                        wmtk::PrimitiveType::Vertex,
+                        false));
+                } else if (mesh2.top_cell_dimension() == 0) {
+                    m_swap->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+                        mesh,
+                        mesh2,
+                        wmtk::PrimitiveType::Vertex,
                         false));
                 }
             }

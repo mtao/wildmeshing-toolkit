@@ -21,7 +21,7 @@
             "base_attribute_path": "combo/mean_area_measure"
         }
     ],
-    "iterations": 10,
+    "iterations": 50,
     "length_rel": 0.01,
     "use_for_periodic": false,
     "swap": {
@@ -51,7 +51,12 @@
         {
             "mesh_path": "fused",
             "iterations": 1,
-            "operations": ["split","collapse","smooth"]
+            "operations": ["split","collapse", "swap","smooth"]
+        },
+        {
+            "mesh_path": "fused.feature_edges",
+            "iterations": 1,
+            "operations": ["split","collapse", "smooth"]
         }
     ]
 }

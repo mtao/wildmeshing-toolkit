@@ -46,8 +46,10 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
     auto [parent_to_child_accessor, child_to_parent_accessor] =
         get_map_const_accessors(my_mesh, child_mesh);
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-    const dart::SimplexDart& parent_sd = dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
-    const dart::SimplexDart& child_sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
+    const dart::SimplexDart& parent_sd =
+        dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
+    const dart::SimplexDart& child_sd =
+        dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
     wmtk::dart::Dart parent_to_child_dart =
         parent_to_child_accessor.IndexBaseType::operator[](index);
     // the child to parent is always the global id
@@ -100,10 +102,10 @@ void MultiMeshManager::update_maps_from_edge_operation(
     if (children().empty()) {
         return;
     }
-    //auto parent_flag_accessor = my_mesh.get_const_flag_accessor(primitive_type);
-    // auto& update_tuple = [&](const auto& flag_accessor, Tuple& t) -> bool {
-    //     if(acc.index_access().
-    // };
+    // auto parent_flag_accessor = my_mesh.get_const_flag_accessor(primitive_type);
+    //  auto& update_tuple = [&](const auto& flag_accessor, Tuple& t) -> bool {
+    //      if(acc.index_access().
+    //  };
 
     std::vector<int64_t> gids; // get facet gids(primitive_type);
 
@@ -122,7 +124,7 @@ void MultiMeshManager::update_maps_from_edge_operation(
         auto maps = get_map_accessors(my_mesh, child_data);
         auto& [parent_to_child_accessor, child_to_parent_accessor] = maps;
 
-        //auto child_flag_accessor = child_mesh.get_const_flag_accessor(primitive_type);
+        // auto child_flag_accessor = child_mesh.get_const_flag_accessor(primitive_type);
 
 
         for (const auto& gid : gids) {
@@ -175,26 +177,45 @@ void MultiMeshManager::update_map_tuple_hashes(
     const std::vector<std::tuple<int64_t, std::vector<Tuple>>>& simplices_to_update,
     const std::vector<std::tuple<int64_t, std::array<int64_t, 2>>>& split_cell_maps)
 {
-    // logger().trace(
-    //     "Update map on [{}] for {} (have {})",
-    //     fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
-    //     primitive_type_name(primitive_type),
-    //     simplices_to_update.size());
-    //  for (const auto& [gid, tups] : simplices_to_update) {
-    //      logger().trace(
-    //          "[{}] Trying to update {}",
-    //          fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
-    //          gid);
-    //  }
-    //   parent cells might have been destroyed
+    // bool debug = false;
+    // for (const auto& cell_map : split_cell_maps) {
+    //     const auto& [old, news] = cell_map;
+    //     if (old == 6872) {
+    //         debug = true;
+    //         spdlog::info(
+    //             "{} {} has {} split cell maps on {}",
+    //             old,
+    //             fmt::join(news, ","),
+    //             split_cell_maps.size(),
+    //             primitive_type_name(primitive_type));
+    //         for (const auto& [gid, tups] : simplices_to_update) {
+    //             logger().info(
+    //                 "[{}] Trying to update {}",
+    //                 fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
+    //                 gid);
+    //         }
+    //     }
+    // }
+    //  logger().trace(
+    //      "Update map on [{}] for {} (have {})",
+    //      fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
+    //      primitive_type_name(primitive_type),
+    //      simplices_to_update.size());
+    //   for (const auto& [gid, tups] : simplices_to_update) {
+    //       logger().trace(
+    //           "[{}] Trying to update {}",
+    //           fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
+    //           gid);
+    //   }
+    //    parent cells might have been destroyed
     //
 
     const PrimitiveType parent_primitive_type = my_mesh.top_simplex_type();
 
-    //auto parent_flag_accessor = my_mesh.get_const_flag_accessor(primitive_type);
-    // auto& update_tuple = [&](const auto& flag_accessor, Tuple& t) -> bool {
-    //     if(acc.index_access().
-    // };
+    // auto parent_flag_accessor = my_mesh.get_const_flag_accessor(primitive_type);
+    //  auto& update_tuple = [&](const auto& flag_accessor, Tuple& t) -> bool {
+    //      if(acc.index_access().
+    //  };
 
 
     // go over every child mesh and try to update their hashes
@@ -212,7 +233,7 @@ void MultiMeshManager::update_map_tuple_hashes(
         auto maps = get_map_accessors(my_mesh, child_data);
         auto& [parent_to_child_accessor, child_to_parent_accessor] = maps;
 
-        //auto child_flag_accessor = child_mesh.get_const_flag_accessor(primitive_type);
+        // auto child_flag_accessor = child_mesh.get_const_flag_accessor(primitive_type);
 
 
         for (const auto& [original_parent_gid, equivalent_parent_tuples] : simplices_to_update) {
@@ -224,6 +245,9 @@ void MultiMeshManager::update_map_tuple_hashes(
             //  read off the original map's data
             auto [parent_tuple, child_tuple] =
                 mapped_tuples(my_mesh, *child_data.mesh, original_parent_gid);
+            // if (debug) {
+            //     spdlog::info("{} {}", std::string(parent_tuple), std::string(child_tuple));
+            // }
 
             // If the parent tuple is valid, it means this parent-child pair has already been
             // handled, so we can skip it
@@ -320,8 +344,8 @@ std::optional<Tuple> MultiMeshManager::find_valid_tuple_from_alternatives(
     PrimitiveType primitive_type,
     const std::vector<Tuple>& tuple_alternatives) const
 {
-    //auto parent_flag_accessor = my_mesh.get_const_flag_accessor(primitive_type);
-    // find a new sharer by finding a tuple that exists
+    // auto parent_flag_accessor = my_mesh.get_const_flag_accessor(primitive_type);
+    //  find a new sharer by finding a tuple that exists
     auto it = std::find_if(
         tuple_alternatives.begin(),
         tuple_alternatives.end(),

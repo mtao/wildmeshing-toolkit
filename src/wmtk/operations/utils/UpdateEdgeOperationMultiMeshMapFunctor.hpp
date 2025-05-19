@@ -121,6 +121,8 @@ private:
         const std::vector<std::vector<std::tuple<int64_t, std::vector<Tuple>>>>&
             simplices_to_update,
         const std::vector<std::tuple<int64_t, std::array<int64_t, 2>>>& split_cell_maps = {}) const;
+    void update_ear_replacement(EdgeMesh& m, const edge_mesh::EdgeOperationData& emoe) const;
+
     void update_ear_replacement(TriMesh& m, const tri_mesh::EdgeOperationData& fmoe) const;
 
 

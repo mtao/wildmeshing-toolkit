@@ -666,9 +666,9 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
                 visited[0].visited_array().size() + visited[1].visited_array().size() +
                 visited[2].visited_array().size());
             for (size_t j = 0; j < visited.size(); ++j) {
-                if (!m_mesh.has_child_mesh_in_dimension(j)) {
-                    continue;
-                }
+                //if (!m_mesh.has_child_mesh_in_dimension(j)) {
+                //    continue;
+                //}
                 const auto& arr = visited[j];
                 for (size_t i = 0; i < arr.visited_array().size(); ++i) {
                     faces.add(arr.visited_array()[i]);
@@ -678,6 +678,9 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
 
         for (const simplex::IdSimplex& s : faces) {
             const int64_t index = static_cast<int64_t>(s.primitive_type());
+            if (!m_mesh.has_child_mesh_in_dimension(index)) {
+                continue;
+            }
 
             global_ids_to_potential_tuples.at(index).emplace_back(
                 m_mesh.id(s),

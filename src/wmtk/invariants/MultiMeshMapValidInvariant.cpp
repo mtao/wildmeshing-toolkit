@@ -29,11 +29,11 @@ bool both_map_to_child(
     if (r) {
         for (const auto& t : parent.map_tuples(child, left)) {
             assert(child.is_valid(t));
-            spdlog::info("Left {}", std::string(t));
+            //spdlog::info("Left {}", std::string(t));
         }
         for (const auto& t : parent.map_tuples(child, right)) {
             assert(child.is_valid(t));
-            spdlog::info("right {}", std::string(t));
+            //spdlog::info("right {}", std::string(t));
         }
     }
 #endif

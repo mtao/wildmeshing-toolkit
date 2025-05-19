@@ -147,11 +147,19 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
         faces.reserve(hash_update_region.simplex_vector().size() * 15);
 
         for (const simplex::IdSimplex& t : hash_update_region.simplex_vector()) {
-            faces.add(t);
+            // if (const int64_t index = static_cast<int64_t>(t.primitive_type());
+            //     m.has_child_mesh_in_dimension(index))
+            {
+                faces.add(t);
+            }
             const simplex::Simplex s = m.get_simplex(t);
             // faces.add(wmtk::simplex::faces(m, s, false));
             for (const simplex::Simplex& f : simplex::faces(m, s, false)) {
-                faces.add(m.get_id_simplex(f));
+                // if (const int64_t index = static_cast<int64_t>(s.primitive_type());
+                //     m.has_child_mesh_in_dimension(index))
+                {
+                    faces.add(m.get_id_simplex(f));
+                }
             }
         }
 
@@ -173,11 +181,13 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
                 wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, m_mesh.get_simplex(s)));
         }
 
-        global_ids_to_potential_tuples.at(3).emplace_back(
-            m_mesh.id(simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)),
-            wmtk::simplex::top_dimension_cofaces_tuples(
-                m_mesh,
-                simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
+        if (m.has_child_mesh_in_dimension(3)) {
+            global_ids_to_potential_tuples.at(3).emplace_back(
+                m_mesh.id(simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)),
+                wmtk::simplex::top_dimension_cofaces_tuples(
+                    m_mesh,
+                    simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
+        }
     }
 }
 

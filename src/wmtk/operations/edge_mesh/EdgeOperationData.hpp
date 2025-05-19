@@ -20,7 +20,7 @@ public:
 
 
     std::array<int64_t, 2> m_split_e = std::array<int64_t, 2>{{-1, -1}};
-    int64_t m_split_v;
+    int64_t m_split_v = -1;
 
     std::array<int64_t, 2> m_free_split_v;
 

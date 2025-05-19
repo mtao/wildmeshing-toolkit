@@ -9,7 +9,7 @@
 // main execution tools
 #include <wmtk/Scheduler.hpp>
 #include <wmtk/multimesh/consolidate.hpp>
-
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 
 
 // utils for setting invariants
@@ -19,11 +19,11 @@
 #include <wmtk/invariants/SimplexInversionInvariant.hpp>
 
 // meshvisitor requires knowing all the mesh types
-#include <wmtk/multimesh/MultiMeshVisitor.hpp>
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/TetMesh.hpp>
 #include <wmtk/TriMesh.hpp>
+#include <wmtk/multimesh/MultiMeshVisitor.hpp>
 
 #include <wmtk/utils/Logger.hpp>
 
@@ -217,8 +217,14 @@ void IsotropicRemeshing::run()
     for (size_t k = 1; k <= m_options.iterations; ++k) {
         for (size_t j = 0; j < m_options.passes.size(); ++j) {
             Pass& p = m_options.passes[j];
-            wmtk::logger()
-                .info("Running pass {} ({} iterations on {})", j, p.iterations, p.mesh_path);
+            wmtk::logger().info(
+                "Running pass {}/{} of iteration {}/{}. Has {} sub-iterations on {})",
+                j,
+                m_options.passes.size(),
+                k,
+                m_options.iterations,
+                p.iterations,
+                p.mesh_path);
             run(p, j);
         }
         log_mesh(k);
@@ -295,6 +301,14 @@ void IsotropicRemeshing::run(const Pass& pass, size_t pass_index)
             }
             const auto stats = run_opo(*opptr, name);
             pass_stats += stats;
+
+            /*
+            for (const auto& m : m_options.position_attribute.mesh().get_all_meshes()) {
+                if (!wmtk::multimesh::utils::check_maps_valid(*m)) {
+                    throw std::runtime_error("map was corrupted!");
+                }
+            }
+            */
         }
 
         wmtk::multimesh::consolidate(mesh);
@@ -331,6 +345,9 @@ void IsotropicRemeshing::make_envelopes()
         envelope_positions.end(),
         std::back_inserter(envelope_invariants),
         [&](const wmtk::attribute::MeshAttributeHandle& mah) {
+            spdlog::warn(
+                "Envelope made for {}",
+                primitive_type_name(mah.mesh().top_simplex_type()));
             return std::make_shared<wmtk::invariants::EnvelopeInvariant>(
                 mah,
                 std::sqrt(2) * m_options.envelope_size.value(),

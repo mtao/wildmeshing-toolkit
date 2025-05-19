@@ -27,6 +27,9 @@ void IsotropicRemeshing::configure_split()
         op->add_invariant(m_interior_position_invariants);
     }
 
+    if (m_envelope_invariants) {
+        op->add_invariant(m_envelope_invariants);
+    }
     for (const auto& [child, parent] : m_options.copied_attributes) {
         op->set_new_attribute_strategy(
             child,

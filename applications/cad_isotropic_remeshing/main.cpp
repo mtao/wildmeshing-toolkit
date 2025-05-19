@@ -140,12 +140,13 @@ int main(int argc, char* argv[])
         opts.iterations = iterations;
         opts.length_rel = length_relative;
         opts.envelope_size = envelope_size;
+        opts.start_with_collapse = true;
 
 
-        auto& pass = opts.passes.emplace_back();
-        pass.mesh_path = "fused";
-        pass.iterations = 1;
-        pass.operations = {"split", "collapse", "swap"};
+        // auto& pass = opts.passes.emplace_back();
+        // pass.mesh_path = "fused";
+        // pass.iterations = 1;
+        // pass.operations = {"split", "collapse", "swap"};
         opts.passes = j["passes"];
 
         // opts.swap.enabled = false;
@@ -154,6 +155,18 @@ int main(int argc, char* argv[])
         // opts.smooth.enabled = false;
 
         opts.swap.mode = components::isotropic_remeshing::EdgeSwapMode::Valence;
+
+        auto mean_error =
+            std::make_shared<wmtk::components::isotropic_remeshing::PriorityOptions>();
+        mean_error->type = "attribute";
+        mean_error->attribute_path = "fused/min_mean_area_measure";
+
+        auto edge_length =
+            std::make_shared<wmtk::components::isotropic_remeshing::PriorityOptions>();
+        edge_length->type = "attribute";
+        edge_length->attribute_path = "fused/edge_length";
+        opts.collapse.priority = edge_length;
+        opts.swap.priority = mean_error;
 
 
         {
@@ -168,7 +181,7 @@ int main(int argc, char* argv[])
             mrm->base_attribute_path = "fused/vertices";
             auto min_mrm = std::make_shared<wmtk::components::mesh_info::transfer::MinNeighbor>();
             min_mrm->type = "min";
-            min_mrm->attribute_path = "fused/mean_area_measure";
+            min_mrm->attribute_path = "fused/min_mean_area_measure";
             min_mrm->parameters["simplex_dimension"] = 1;
             min_mrm->base_attribute_path = "fused/mean_area_measure";
             opts.utility_attributes.emplace_back(el);
@@ -179,10 +192,17 @@ int main(int argc, char* argv[])
 
         {
             wmtk::components::output::OutputOptions iopts;
-            iopts.path = "fused_{:04}";
+            iopts.path = std::string(argv[3]) + "_{:04}";
             iopts.type = ".vtu";
             iopts.position_attribute = position_attr;
             opts.intermediate_output_format.emplace_back("fused", iopts);
+        }
+        {
+            wmtk::components::output::OutputOptions iopts;
+            iopts.path = std::string(argv[3]) + "_seams_{:04}";
+            iopts.type = ".vtu";
+            iopts.position_attribute = "vertices";
+            opts.intermediate_output_format.emplace_back("fused.feature_edges", iopts);
         }
 
         wmtk::components::isotropic_remeshing::isotropic_remeshing(opts);

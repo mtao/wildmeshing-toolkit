@@ -123,8 +123,7 @@ void configure_collapse(
                 auto& mesh2 = options.mesh_collection->get_mesh(mesh_name);
                 static_meshes.emplace_back(mesh2.shared_from_this());
                 // disallow operations that collapse a mapped simplex
-                // ec.add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(m,
-                // mesh2));
+                ec.add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(m, mesh2));
             }
             auto strat_ptr_const = ec.get_new_attribute_strategy(options.position_attribute);
             auto strat_ptr =
@@ -161,7 +160,11 @@ void configure_collapse(
                 wmtk::PrimitiveType::Edge,
                 true));
             */
-            ec.add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(m, mesh2));
+            // ec.add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+            //     m,
+            //     mesh2,
+            //     wmtk::PrimitiveType::Edge,
+            //     false));
             break;
         case wmtk::PrimitiveType::Triangle: break;
         case wmtk::PrimitiveType::Vertex: break;
