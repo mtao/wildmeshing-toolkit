@@ -45,18 +45,18 @@
     "smooth": {
         "enabled" :true
     },
-    "envelope_size": 1e-3,
+    "envelope_size": 1e-2,
     "passes":
     [
+        {
+            "mesh_path": "fused.feature_edges",
+            "iterations": 2,
+            "operations": ["collapse", "split","smooth"]
+        },
         {
             "mesh_path": "fused",
             "iterations": 1,
             "operations": ["split","collapse", "swap","smooth"]
-        },
-        {
-            "mesh_path": "fused.feature_edges",
-            "iterations": 1,
-            "operations": ["split","collapse", "smooth"]
         }
     ]
 }

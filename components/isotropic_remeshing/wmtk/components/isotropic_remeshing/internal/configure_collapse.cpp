@@ -6,6 +6,7 @@
 #include <wmtk/invariants/CannotMapSimplexInvariant.hpp>
 #include <wmtk/invariants/InvariantCollection.hpp>
 #include <wmtk/invariants/MaxEdgeLengthInvariant.hpp>
+#include <wmtk/invariants/InteriorSimplexInvariant.hpp>
 #include <wmtk/invariants/MultiMeshLinkConditionInvariant.hpp>
 #include <wmtk/invariants/MultiMeshMapValidInvariant.hpp>
 #include <wmtk/invariants/SeparateSubstructuresInvariant.hpp>
@@ -147,6 +148,11 @@ void configure_collapse(
         auto& mesh2 = *mptr;
         switch (mesh2.top_simplex_type()) {
         case wmtk::PrimitiveType::Edge:
+            /*
+            ec.add_invariant(std::make_shared<wmtk::invariants::InteriorSimplexInvariant>(
+                mesh2,
+                wmtk::PrimitiveType::Edge));
+        */
             /*
             spdlog::warn("Making the swap always go false");
             swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(

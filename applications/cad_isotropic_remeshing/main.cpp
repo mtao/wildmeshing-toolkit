@@ -140,14 +140,8 @@ int main(int argc, char* argv[])
         opts.iterations = iterations;
         opts.length_rel = length_relative;
         opts.envelope_size = envelope_size;
-        opts.start_with_collapse = true;
+        // opts.start_with_collapse = true;
 
-
-        // auto& pass = opts.passes.emplace_back();
-        // pass.mesh_path = "fused";
-        // pass.iterations = 1;
-        // pass.operations = {"split", "collapse", "swap"};
-        opts.passes = j["passes"];
 
         // opts.swap.enabled = false;
         //// opts.split.enabled = false;
@@ -191,6 +185,25 @@ int main(int argc, char* argv[])
         opts.mesh_collection = &mc;
 
         {
+            {
+                auto& pass = opts.passes.emplace_back();
+                pass.mesh_path = "fused.feature_edges";
+                pass.iterations = 2;
+                pass.operations = {"collapse", "smooth"};
+            }
+            {
+                auto& pass = opts.passes.emplace_back();
+                pass.mesh_path = "fused";
+                pass.iterations = 1;
+                pass.operations = {"swap", "collapse"};
+            }
+            opts.iterations = 2;
+            wmtk::components::isotropic_remeshing::isotropic_remeshing(opts);
+        }
+
+        opts.passes = j["passes"];
+        opts.iterations = iterations;
+        {
             wmtk::components::output::OutputOptions iopts;
             iopts.path = std::string(argv[3]) + "_{:04}";
             iopts.type = ".vtu";
@@ -208,7 +221,6 @@ int main(int argc, char* argv[])
         wmtk::components::isotropic_remeshing::isotropic_remeshing(opts);
     }
 
-    return 0;
 
     {
         wmtk::components::output::OutputOptions opts;
