@@ -139,7 +139,11 @@ int main(int argc, char* argv[])
 
         opts.iterations = iterations;
         opts.length_rel = length_relative;
+        if(envelope_size < 0) {
+            opts.envelope_size = {};
+        } else {
         opts.envelope_size = envelope_size;
+        }
         // opts.start_with_collapse = true;
 
 
