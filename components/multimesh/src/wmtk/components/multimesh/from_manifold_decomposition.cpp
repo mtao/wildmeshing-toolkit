@@ -136,8 +136,8 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(
     for (NonManifoldCascade const* cur_ptr = &nmc; cur_ptr != nullptr && !cur_ptr->empty();
          cur_ptr = cur_ptr->m_child.get()) {
         const NonManifoldCascade& cur = *cur_ptr;
-        spdlog::info("Going through cascade!");
-        std::cout << cur.S << std::endl;
+        //spdlog::info("Going through cascade!");
+        //std::cout << cur.S << std::endl;
 
         const PrimitiveType cur_pt = get_primitive_type_from_id(cur_ptr->S.cols() - 1);
 
@@ -147,7 +147,7 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(
 
         if (cur_parent_mesh_ptr == nullptr) {
             root_mesh_ptr = mptr.get();
-            spdlog::info("Setting root");
+            //spdlog::info("Setting root");
         } else {
             // holds the current mesh being mapped to - if flat this is always &m
             Mesh& parent_mesh = *cur_parent_mesh_ptr;
@@ -158,9 +158,9 @@ std::vector<std::shared_ptr<Mesh>> from_manifold_decomposition(
                 for (auto& t : tups) {
                     auto& a = t[1];
                     auto& b = t[0];
-                    spdlog::info("{} {}", std::string(a), std::string(b));
+                    //spdlog::info("{} {}", std::string(a), std::string(b));
                     a = parent_mesh.map_up_to(*root_mesh_ptr, simplex::Simplex(cur_pt, a)).tuple();
-                    spdlog::info("Now is {} {}", std::string(a), std::string(b));
+                    //spdlog::info("Now is {} {}", std::string(a), std::string(b));
                 }
 
                 root_mesh_ptr->register_child_mesh(mptr, tups);

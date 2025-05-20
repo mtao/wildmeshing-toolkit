@@ -28,7 +28,7 @@ void Mesh::load(h5pp::File& file, const std::filesystem::path& path)
 
     assert(F.maxCoeff() < V.rows());
     assert(F.minCoeff() >= 0);
-    std::ofstream ofs("F.txt");
+    //std::ofstream ofs("F.txt");
     // ofs << F << std::endl;
 }
 void Topology::load(h5pp::File& file, const std::filesystem::path& path)

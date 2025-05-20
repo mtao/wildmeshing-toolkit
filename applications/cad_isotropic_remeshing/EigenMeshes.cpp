@@ -41,10 +41,10 @@ EigenMeshesBuilder::EigenMeshesBuilder(wmtk::Mesh& m, const std::string_view& po
     case wmtk::PrimitiveType::Tetrahedron: writer.get_TV_matrix(base_mesh.F.M);
     }
 
-    if (true) {
-        std::ofstream ofs("F2.txt");
-        ofs << base_mesh.F.M << std::endl;
-    }
+    //if (true) {
+    //    std::ofstream ofs("F2.txt");
+    //    ofs << base_mesh.F.M << std::endl;
+    //}
 
     auto domain_tups = mesh.get_all(wmtk::PrimitiveType::Edge);
     for (const auto& t : domain_tups) {
@@ -84,7 +84,7 @@ const EigenMeshes& EigenMeshesBuilder::load(const std::vector<std::array<int64_t
         if (x[0] != a[0]) {
             t = mesh.switch_tuple(t, wmtk::PrimitiveType::Vertex);
         }
-        spdlog::info("{}", std::string(t));
+        //spdlog::info("{}", std::string(t));
         my_tuples.emplace_back(t);
 
         for (const int64_t b : a) {
@@ -159,7 +159,7 @@ std::shared_ptr<wmtk::EdgeMesh> EigenMeshesBuilder::create_edge_mesh()
         for (const auto& t : tt) {
             tups.emplace_back(std::array<wmtk::Tuple, 2>{{domain_tups[index++], t}});
             const auto& [a, b] = tups.back();
-            spdlog::info("{} => {}", std::string(a), std::string(b));
+            //spdlog::info("{} => {}", std::string(a), std::string(b));
         }
     }
 
