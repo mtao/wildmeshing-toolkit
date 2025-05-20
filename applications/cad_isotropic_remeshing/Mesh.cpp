@@ -53,7 +53,9 @@ void Topology::load(h5pp::File& file, const std::filesystem::path& path)
         for (const auto& v : dsets) {
             int64_t cid = std::stoi(v);
             auto vids = file.readDataset<std::vector<int64_t>>((feature_edges_path / v).string());
+            if(!vids.empty()) {
             feature_edge_to_vids_chain[cid] = vids;
+            }
             // for (const auto& vid : vids) {
             //     if (special.find(vid) != special.end()) {
             //         spdlog::info("feature edge {} with vids {} found", cid, vids);
