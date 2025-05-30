@@ -9,7 +9,6 @@
 
 #include <wmtk/utils/Rational.hpp>
 
-#include "internal/WindingNumberOptions.hpp"
 #include "internal/winding_number.hpp"
 
 namespace wmtk::components {
