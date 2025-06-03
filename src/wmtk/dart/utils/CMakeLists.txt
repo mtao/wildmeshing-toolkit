@@ -3,6 +3,9 @@ set(SRC_FILES
     relative_face_index.cpp
     relative_face_index.hpp
 
+    local_simplex_decomposition.hpp
+    local_simplex_decomposition.cpp
+
     simplex_index_from_permutation_index.cpp
     simplex_index_from_permutation_index.hpp
 

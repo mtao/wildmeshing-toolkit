@@ -82,6 +82,5 @@ TEST_CASE("from_manifold_decomposition", "[components][multimesh][dart]")
 
         // the 3 edges met at a single vertex, resulting in 3 copies
         CHECK(vm.get_all(wmtk::PrimitiveType::Vertex).size() == 3);
-        CHECK(false);
     }
 }

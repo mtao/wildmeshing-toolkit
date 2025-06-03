@@ -10,6 +10,7 @@
 #include <wmtk/dart/utils/get_canonical_supdart.hpp>
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/dart/utils/get_simplex_involution.hpp>
+#include <wmtk/dart/utils/local_simplex_decomposition.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "utils/canonical_darts.hpp"
 using namespace wmtk;
@@ -41,11 +42,43 @@ void dart_map_checker(
 
     );
 
-    int8_t upper_simplex =
-        wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), target.permutation());
+    auto [target_permutation, upper_simplex] = wmtk::dart::utils::local_simplex_decomposition(
+        sd2,
+        sd.simplex_type(),
+        target.permutation());
+    spdlog::error(
+        "Target was decomposed to {} from supdart {} with action {} (global was {}). manual "
+        "reconstruction is {}",
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), target.permutation()),
+            ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), upper_simplex),
+            ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd.simplex_type(), target_permutation),
+            ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(
+                sd2.simplex_type(),
+                sd.convert(target_permutation, sd2)),
+            ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(
+                sd2.simplex_type(),
+                sd2.product(upper_simplex, sd.convert(target_permutation, sd2))),
+            ",")
+
+    );
+
+    REQUIRE(
+        sd2.product(upper_simplex, sd.convert(target_permutation, sd2)) == target.permutation());
+    // int8_t upper_simplex =
+    //     wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), target.permutation());
 
 
     int8_t upper_action = sd.convert(lower_action, sd2);
+    // REQUIRE(sd2.product(upper_simplex, upper_action) == target.permutation());
 
     auto new_source = sd.act(source, lower_action);
     auto new_target = sd2.act(target, upper_action);
@@ -59,11 +92,28 @@ void dart_map_checker(
         fmt::join(
             dart::utils::get_local_vertex_permutation(
                 sd.simplex_type(),
-                sd.act(lower_action, source.permutation())),
+                sd.act(source.permutation(), lower_action)),
             ","),
 
         fmt::join(
             dart::utils::get_local_vertex_permutation(sd.simplex_type(), new_source.permutation()),
+            ",")
+
+    );
+    spdlog::info(
+        "target products: {} x {} -> {} (got {})",
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), target.permutation()),
+            ","),
+        fmt::join(dart::utils::get_local_vertex_permutation(sd2.simplex_type(), upper_action), ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(
+                sd2.simplex_type(),
+                sd2.act(target.permutation(), upper_action)),
+            ","),
+
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), new_target.permutation()),
             ",")
 
     );
@@ -88,9 +138,32 @@ void dart_map_checker(
         target);
 
 
-    int8_t map_simplex =
-        wmtk::dart::utils::get_canonical_supdart(sd2, sd2.simplex_type(), fmap.permutation());
-    REQUIRE(map_simplex == upper_simplex);
+    auto [fmap_permutation, fmap_simplex] =
+        wmtk::dart::utils::local_simplex_decomposition(sd2, sd.simplex_type(), fmap.permutation());
+
+    spdlog::error(
+        "fmap was decomposed to {} from supdart {} with action {} (global was {}). manual "
+        "reconstruction is {}",
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), fmap.permutation()),
+            ","),
+        fmt::join(dart::utils::get_local_vertex_permutation(sd2.simplex_type(), fmap_simplex), ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(sd.simplex_type(), fmap_permutation),
+            ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(
+                sd2.simplex_type(),
+                sd.convert(fmap_permutation, sd2)),
+            ","),
+        fmt::join(
+            dart::utils::get_local_vertex_permutation(
+                sd2.simplex_type(),
+                sd2.product(upper_simplex, sd.convert(fmap_permutation, sd2))),
+            ",")
+
+    );
+    REQUIRE(fmap_simplex == upper_simplex);
 
     // int8_t target_local_permutation = sd2.product(target.permutation(),
     // sd2.inverse(map_simplex));
@@ -134,7 +207,6 @@ void dart_map_checker(
     // just making sure the global id part works first
     CHECK((mapped_target.global_id() == target.global_id()));
     CHECK((mapped_target == target));
-    return;
 
     if (sd.simplex_type() != sd2.simplex_type()) {
         auto fmap_reversed = wmtk::dart::utils::get_simplex_involution(
@@ -265,28 +337,35 @@ TEST_CASE("dart_map_2d_2d", "[dart]")
 {
     constexpr static PrimitiveType pt = PrimitiveType::Triangle;
     const auto& sd = SimplexDart::get_singleton(pt);
-    const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Triangle);
     for (const auto& s : D2) {
         for (const auto& a : D2) {
             int8_t lower_action = a.permutation();
 
+            // for (const auto& t : {d021}) {
             for (const auto& t : D2) {
-                dart_map_checker(sd, s, sd2, t, lower_action, D2);
+                dart_map_checker(sd, s, sd, t, lower_action, D2);
                 std::cout << std::endl;
             }
         }
     }
 }
-TEST_CASE("dart_map_2d_3d", "[dart][.]")
+TEST_CASE("dart_map_2d_3d", "[dart]")
 {
     constexpr static PrimitiveType pt = PrimitiveType::Triangle;
     const auto& sd = SimplexDart::get_singleton(pt);
     const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Tetrahedron);
-    for (const auto& s : D2) {
-        for (const auto& a : D2) {
-            int8_t lower_action = a.permutation();
+    auto s = d210;
+    auto a = d210;
+    auto t = d2013;
 
-            for (const auto& t : D3) {
+    {
+        {
+            {
+                // for (const auto& s : D2) {
+                // for (const auto& a : D2) {
+                int8_t lower_action = a.permutation();
+
+                // for (const auto& t : D3) {
                 dart_map_checker(sd, s, sd2, t, lower_action, D2);
             }
         }
@@ -326,7 +405,6 @@ TEST_CASE("dart_map_1d", "[dart]")
                 dart_map_checker(sd, s, sd2, t, lower_action, D1);
             }
 
-            continue;
 
             for (const auto& t : D3) {
                 const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Tetrahedron);
