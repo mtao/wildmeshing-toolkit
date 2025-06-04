@@ -9,6 +9,7 @@
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include "tools/TriMesh_examples.hpp"
+#include "tools/TetMesh_examples.hpp"
 #include "tools/all_valid_local_tuples.hpp"
 TEST_CASE("dart_access_quad", "[dart_accessor]")
 
@@ -82,7 +83,6 @@ TEST_CASE("dart_access_quad", "[dart_accessor]")
 }
 
 TEST_CASE("dart_access_three_neighbors", "[dart_accessor]")
-
 {
     auto mesh = wmtk::tests::three_neighbors();
 
@@ -136,6 +136,67 @@ TEST_CASE("dart_access_three_neighbors", "[dart_accessor]")
                 CHECK(od.permutation() == od2.permutation());
 
                 auto od3 = acc.switch_dart(od, wmtk::PrimitiveType::Triangle);
+                CHECK(d.global_id() == od3.global_id());
+                CHECK(d.permutation() == od3.permutation());
+            }
+        }
+    }
+}
+
+TEST_CASE("dart_access_two_by_three_grids_tests", "[dart_accessor]")
+{
+    auto mesh = wmtk::tests_3d::two_by_three_grids_tets();
+
+    auto handle = wmtk::dart::register_dart_boundary_topology_attribute(mesh, "dart", true);
+
+
+    wmtk::dart::DartTopologyAccessor acc(mesh, handle);
+    REQUIRE(mesh.get_all(wmtk::PrimitiveType::Tetrahedron).size() == 30);
+    REQUIRE(acc.m_base_accessor.reserved_size() == 30);
+    REQUIRE(acc.m_base_accessor.dimension() == 5);
+    REQUIRE(acc.size() == 30);
+
+    for (size_t j = 0; j < acc.size(); ++j) {
+        const auto& sa = acc[j];
+        for (const auto& t : sa) {
+            fmt::print("{} ", std::string(t));
+        }
+        fmt::print("\n");
+    }
+
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(wmtk::PrimitiveType::Tetrahedron);
+
+
+    for (size_t j = 0; j < 4; ++j) {
+        for (const wmtk::Tuple& t :
+             wmtk::tests::all_valid_local_tuples(wmtk::PrimitiveType::Tetrahedron, j)) {
+            // for (const wmtk::Tuple& t : mesh.get_all(wmtk::PrimitiveType::Edge)) {
+            wmtk::dart::Dart d = sd.dart_from_tuple(t);
+            for (wmtk::PrimitiveType pt :
+                 {wmtk::PrimitiveType::Vertex, wmtk::PrimitiveType::Edge, wmtk::PrimitiveType::Triangle}) {
+                wmtk::Tuple ot = mesh.switch_tuple(t, pt);
+                auto od = acc.switch_dart(d, pt);
+                wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
+                CHECK(od.global_id() == od2.global_id());
+                CHECK(od.permutation() == od2.permutation());
+            }
+            bool is_boundary_m = mesh.is_boundary(wmtk::PrimitiveType::Triangle, t);
+            bool is_boundary_d = acc.is_boundary(d);
+            REQUIRE(is_boundary_m == is_boundary_d);
+            if (!is_boundary_m) {
+                wmtk::Tuple ot = mesh.switch_tuple(t, wmtk::PrimitiveType::Tetrahedron);
+                auto od = acc.switch_dart(d, wmtk::PrimitiveType::Tetrahedron);
+                wmtk::dart::Dart od2 = sd.dart_from_tuple(ot);
+                spdlog::warn(
+                    "{}/{} {}/{}",
+                    std::string(d),
+                    sd.simplex_index(d, wmtk::PrimitiveType::Triangle),
+                    std::string(od),
+                    sd.simplex_index(od, wmtk::PrimitiveType::Triangle));
+                CHECK(od.global_id() == od2.global_id());
+                CHECK(od.permutation() == od2.permutation());
+
+                auto od3 = acc.switch_dart(od, wmtk::PrimitiveType::Tetrahedron);
                 CHECK(d.global_id() == od3.global_id());
                 CHECK(d.permutation() == od3.permutation());
             }
