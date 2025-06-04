@@ -45,20 +45,21 @@ int8_t get_simplex_involution_upward(
         //     "local action is {}",
         //     fmt::join(dart::utils::get_local_vertex_permutation(opt, opt_action), ","));
 
-        const int8_t local_lower_act = find_local_dart_action(osd, a, opt_action);
+        const int8_t local_lower_act = find_local_dart_left_action(osd, a, opt_action);
         const int8_t local_upper_act = osd.convert(local_lower_act, sd);
         act = sd.product(bsimplex, local_upper_act);
 
 
     } else {
-        act = dart::find_local_dart_action(osd, a, b);
-        spdlog::info(
-            "global action is {} x {} = {}",
-            fmt::join(dart::utils::get_local_vertex_permutation(opt, a), ",")
-            ,fmt::join(dart::utils::get_local_vertex_permutation(opt, act), ",")
-            ,fmt::join(dart::utils::get_local_vertex_permutation(opt, b), ",")
-            );
-        assert(osd.product(a, act) == b);
+        act = dart::find_local_dart_left_action(osd, a, b);
+        //spdlog::info(
+        //    "global action is {} x {} = {}",
+        //    fmt::join(dart::utils::get_local_vertex_permutation(opt, a), ",")
+        //    ,fmt::join(dart::utils::get_local_vertex_permutation(opt, act), ",")
+        //    ,fmt::join(dart::utils::get_local_vertex_permutation(opt, b), ",")
+        //    );
+        assert(osd.product(act,a) == b);
+        //assert(osd.product(a, act) == b);
     }
     return act;
 }
@@ -128,9 +129,10 @@ get_simplex_involution_pair(PrimitiveType pt, const int8_t& a, PrimitiveType opt
 {
     // opt is greater, so the dart is encoded in terms of opt
     auto d = get_simplex_involution(pt, a, opt, b);
+    auto od = get_simplex_involution(opt, b, pt, a);
 
-    const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(std::max(pt, opt));
-    int8_t od = osd.inverse(d);
+    //const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(std::max(pt, opt));
+    //int8_t od = osd.inverse(d);
     return {d, od};
 }
 
@@ -152,8 +154,11 @@ std::pair<wmtk::dart::Dart, wmtk::dart::Dart> get_simplex_involution_pair(
     PrimitiveType opt,
     const dart::Dart& b)
 {
-    auto [ap, bp] = get_simplex_involution_pair(pt, a.permutation(), opt, b.permutation());
+    //auto [ap, bp] = get_simplex_involution_pair(pt, a.permutation(), opt, b.permutation());
+    //return std::make_pair(Dart(b.global_id(), ap), Dart(a.global_id(), bp));
 
-    return std::make_pair(Dart(b.global_id(), ap), Dart(a.global_id(), bp));
+    auto d = get_simplex_involution(pt, a, opt, b);
+    auto od = get_simplex_involution(opt, b, pt, a);
+    return {d,od};
 }
 } // namespace wmtk::dart::utils

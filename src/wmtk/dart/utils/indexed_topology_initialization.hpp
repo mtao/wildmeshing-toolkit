@@ -83,7 +83,7 @@ RowVectors<int64_t, internal::nCr(Dim + 1, SimplexDim + 1)> indexed_topology_ini
             }
         }
     }
-    return {};
+    //return {};
 
     auto get_dart = [&](const size_t index) {
         const auto global_id = int64_t(index / sd.size());

@@ -10,7 +10,7 @@
 #include <wmtk/utils/Logger.hpp>
 #include "tools/TriMesh_examples.hpp"
 #include "tools/all_valid_local_tuples.hpp"
-TEST_CASE("dart_access_quad", "[dart_accessor][.]")
+TEST_CASE("dart_access_quad", "[dart_accessor]")
 
 {
     auto mesh = wmtk::tests::quad();
@@ -81,7 +81,7 @@ TEST_CASE("dart_access_quad", "[dart_accessor][.]")
     do_tri_check(3, 2);
 }
 
-TEST_CASE("dart_access_three_neighbors", "[dart_accessor][.]")
+TEST_CASE("dart_access_three_neighbors", "[dart_accessor]")
 
 {
     auto mesh = wmtk::tests::three_neighbors();
@@ -144,7 +144,7 @@ TEST_CASE("dart_access_three_neighbors", "[dart_accessor][.]")
 }
 
 const std::filesystem::path data_dir = WMTK_DATA_DIR;
-TEST_CASE("dart_performance", "[performance][.]")
+TEST_CASE("dart_performance", "[performance]")
 {
     const std::filesystem::path meshfile = data_dir / "armadillo.msh";
 #if defined(NDEBUG)

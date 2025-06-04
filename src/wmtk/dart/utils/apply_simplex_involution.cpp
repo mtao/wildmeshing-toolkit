@@ -26,39 +26,22 @@ int8_t apply_simplex_involution_directed(
 
 
     if (upward) {
-        int8_t target_orientation = sd.product(source, local_action);
+        int8_t target_orientation = sd.product(local_action, source);
+        //int8_t target_orientation = sd.product(source, local_action);
         int8_t lifted_source = sd.convert(target_orientation, osd);
 
-        spdlog::info(
-            "source {} results in wanting to {} x {}",
-            fmt::join(dart::utils::get_local_vertex_permutation(pt, source), ","),
-            fmt::join(dart::utils::get_local_vertex_permutation(opt, target_simplex), ","),
-            fmt::join(dart::utils::get_local_vertex_permutation(opt, lifted_source), ","));
-
-
-        spdlog::info(
-            "options: {} or  {}",
-            fmt::join(
-                dart::utils::get_local_vertex_permutation(
-                    opt,
-                    osd.product(target_simplex, lifted_source)),
-                ","),
-            fmt::join(
-                dart::utils::get_local_vertex_permutation(
-                    opt,
-                    osd.product(lifted_source, target_simplex)),
-                ","));
         return osd.product(target_simplex, lifted_source);
     } else {
         auto [local_perm, _] = local_simplex_decomposition(osd, pt, source);
 
-        spdlog::info(
-            "global action  in apply is {} x {} = {}",
-            fmt::join(dart::utils::get_local_vertex_permutation(pt, local_perm), ",")
-            ,fmt::join(dart::utils::get_local_vertex_permutation(pt, local_action), ",")
-            ,fmt::join(dart::utils::get_local_vertex_permutation(pt, sd.product(local_perm, local_action)), ",")
-            );
-        return sd.product(local_perm, local_action);
+        //spdlog::info(
+        //    "global action  in apply is {} x {} = {}",
+        //    fmt::join(dart::utils::get_local_vertex_permutation(pt, local_perm), ",")
+        //    ,fmt::join(dart::utils::get_local_vertex_permutation(pt, local_action), ",")
+        //    ,fmt::join(dart::utils::get_local_vertex_permutation(pt, sd.product( local_action, local_perm)), ",")
+        //    );
+        return sd.product(sd.inverse(local_action), local_perm);
+        //return sd.product(local_perm, local_action);
     }
 }
 
@@ -75,7 +58,8 @@ int8_t apply_simplex_involution(
     const bool upward_action = pt < opt;
     if (pt == opt) {
         const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
-        res = sd.product(source, action);
+        res = sd.product( action, source);
+        //res = sd.product(source, action);
     } else if (pt < opt) {
         return apply_simplex_involution_directed(pt, opt, action, source, true);
     } else { // downward action

@@ -9,4 +9,9 @@ inline int8_t find_local_dart_action(const SimplexDart& sd, int8_t source, int8_
     int8_t src_inv = sd.inverse(source);
     return sd.act(src_inv, target);
 }
+inline int8_t find_local_dart_left_action(const SimplexDart& sd, int8_t source, int8_t target)
+{
+    int8_t src_inv = sd.inverse(source);
+    return sd.product(target, src_inv);
+}
 } // namespace wmtk::dart

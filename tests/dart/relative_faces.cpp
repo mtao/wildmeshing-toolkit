@@ -354,18 +354,18 @@ TEST_CASE("dart_map_2d_3d", "[dart]")
     constexpr static PrimitiveType pt = PrimitiveType::Triangle;
     const auto& sd = SimplexDart::get_singleton(pt);
     const auto& sd2 = SimplexDart::get_singleton(PrimitiveType::Tetrahedron);
-    auto s = d210;
-    auto a = d210;
-    auto t = d2013;
+    // auto s = d210;
+    // auto a = d210;
+    // auto t = d2013;
 
-    {
-        {
-            {
-                // for (const auto& s : D2) {
-                // for (const auto& a : D2) {
-                int8_t lower_action = a.permutation();
+    //{
+    //    {
+    //        {
+    for (const auto& s : D2) {
+        for (const auto& a : D2) {
+            int8_t lower_action = a.permutation();
 
-                // for (const auto& t : D3) {
+            for (const auto& t : D3) {
                 dart_map_checker(sd, s, sd2, t, lower_action, D2);
             }
         }
@@ -449,10 +449,11 @@ TEST_CASE("dart_map_3d", "[dart]")
     const int8_t SF = sd.permutation_index_from_primitive_switch(PrimitiveType::Triangle);
 
 
-    // checker(sd, d0123, PrimitiveType::Vertex, {d0123, d0132, d0213, d0231, d0312, d0321});
-    // checker(sd, d1023, PrimitiveType::Vertex, {d1023, d1032, d1203, d1230, d1302, d1320});
-    // checker(sd, d2013, PrimitiveType::Vertex, {d2013, d2031, d2103, d2130, d2301, d2310});
-    // checker(sd, d3012, PrimitiveType::Vertex, {d3012, d3021, d3102, d3120, d3201, d3210});
+    // checker(sd, d0123, PrimitiveType::Vertex, {d0123, d0132, d0213, d0231, d0312,
+    // d0321}); checker(sd, d1023, PrimitiveType::Vertex, {d1023, d1032, d1203, d1230,
+    // d1302, d1320}); checker(sd, d2013, PrimitiveType::Vertex, {d2013, d2031, d2103,
+    // d2130, d2301, d2310}); checker(sd, d3012, PrimitiveType::Vertex, {d3012, d3021,
+    // d3102, d3120, d3201, d3210});
 
 
     // checker(sd, d0123, PrimitiveType::Edge, {d0123, d0132, d1023, d1032});
@@ -463,14 +464,17 @@ TEST_CASE("dart_map_3d", "[dart]")
     // checker(sd, d2301, PrimitiveType::Edge, {d2301, d2310, d3201, d3210});
 
 
-    // checker(sd, d1230, PrimitiveType::Triangle, {d1230, d1320, d2130, d2310, d3120, d3210});
-    // checker(sd, d0231, PrimitiveType::Triangle, {d0231, d0321, d2031, d2301, d3021, d3201});
-    // checker(sd, d0132, PrimitiveType::Triangle, {d0132, d0312, d1032, d1302, d3012, d3102});
-    // checker(sd, d0123, PrimitiveType::Triangle, {d0123, d0213, d1023, d1203, d2013, d2103});
+    // checker(sd, d1230, PrimitiveType::Triangle, {d1230, d1320, d2130, d2310, d3120,
+    // d3210}); checker(sd, d0231, PrimitiveType::Triangle, {d0231, d0321, d2031, d2301,
+    // d3021, d3201}); checker(sd, d0132, PrimitiveType::Triangle, {d0132, d0312, d1032,
+    // d1302, d3012, d3102}); checker(sd, d0123, PrimitiveType::Triangle, {d0123, d0213,
+    // d1023, d1203, d2013, d2103});
 
-    // checker(sd, d0123, PrimitiveType::Tetrahedron, {d1230, d1320, d2130, d2310, d3120, d3210,
-    //                                                 d0231, d0321, d2031, d2301, d3021, d3201,
-    //                                                 d0132, d0312, d1032, d1302, d3012, d3102,
-    //                                                 d0123, d0213, d1023, d1203, d2013,
-    //                                                 d2103});
+    // checker(sd, d0123, PrimitiveType::Tetrahedron, {d1230, d1320, d2130, d2310,
+    // d3120, d3210,
+    //                                                 d0231, d0321, d2031, d2301,
+    //                                                 d3021, d3201, d0132, d0312,
+    //                                                 d1032, d1302, d3012, d3102,
+    //                                                 d0123, d0213, d1023, d1203,
+    //                                                 d2013, d2103});
 }

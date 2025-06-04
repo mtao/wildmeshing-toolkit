@@ -3,6 +3,7 @@
 #include <wmtk/dart/find_local_dart_action.hpp>
 #include "DartAccessor.hpp"
 #include "utils/get_simplex_involution.hpp"
+#include "utils/apply_simplex_involution.hpp"
 namespace wmtk::dart {
 
 // dim = number of vertices in a facet. tri = 3
@@ -125,9 +126,10 @@ private:
 
 
         const auto anchor = IndexBaseType::operator[](global_id)[sd.simplex_index(permutation, BT)];
+        return utils::apply_simplex_involution(FT,FT,anchor,DartWrap(global_id,permutation));
 
 
-        return dart::Dart(anchor.global_id(), sd.product(anchor.permutation(), permutation));
+        //return dart::Dart(anchor.global_id(), sd.product(anchor.permutation(), permutation));
     }
 };
 
