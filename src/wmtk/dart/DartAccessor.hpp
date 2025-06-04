@@ -74,6 +74,7 @@ protected:
 public:
     using IndexBaseType::IndexBaseType;
     using IndexBaseType::size;
+    using IndexBaseType::operator[];
 
     using IndexBaseType::mesh;
     friend class wmtk::operations::utils::UpdateEdgeOperationMultiMeshMapFunctor;

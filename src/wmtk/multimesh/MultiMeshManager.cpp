@@ -19,7 +19,10 @@
 #include "utils/tuple_map_attribute_io.hpp"
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
 #include <wmtk/dart/DartAccessor.hpp>
+#include <wmtk/dart/utils/get_simplex_involution.hpp>
+#include <wmtk/dart/utils/apply_simplex_involution.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
+
 #endif
 
 namespace wmtk::multimesh {
@@ -43,35 +46,44 @@ void MultiMeshManager::detach_children()
 
 Tuple MultiMeshManager::map_tuple_between_meshes(
     const AccessorType& source_to_target_map_accessor,
-    PrimitiveType target_pt,
-    const Tuple& source_tuple)
+    const AccessorType& target_to_source_map_accessor,
+    const Tuple& source_tuple_)
 {
+    Tuple source_tuple = source_tuple_;
+    const PrimitiveType pt = source_to_target_map_accessor.mesh().top_simplex_type();
+    const PrimitiveType target_pt = target_to_source_map_accessor.mesh().top_simplex_type();
     const dart::SimplexDart& sd =
-        dart::SimplexDart::get_singleton(source_to_target_map_accessor.mesh().top_simplex_type());
-    const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(target_pt);
-    wmtk::dart::Dart source_dart = sd.dart_from_tuple(source_tuple);
+        dart::SimplexDart::get_singleton(pt);
 
-    int8_t osource_orient = sd.convert(source_dart.permutation(), osd);
-    dart::Dart act = source_to_target_map_accessor[source_dart];
+    const auto involution = source_to_target_map_accessor[source_tuple.global_cid()][0];
+    const int64_t target_global_id = involution.global_id();
 
-    if (act.global_id() != source_dart.global_id()) {
+    const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
+    const int64_t desired_source_gid = inverse_involution.global_id();
+
+
+    if (desired_source_gid != source_tuple.global_cid()) {
         const auto& source_mesh = source_to_target_map_accessor.mesh();
         assert(source_mesh.top_simplex_type() > target_pt);
         const std::vector<Tuple> equivalent_tuples = simplex::top_dimension_cofaces_tuples(
             source_mesh,
             simplex::Simplex(target_pt, source_tuple));
         for (const auto& t : equivalent_tuples) {
-            if (t.global_cid() == source_dart.global_id()) {
-                // TODO: fix
+
+            if (t.global_cid() == source_tuple.global_cid()) {
+                source_tuple = t;
 
                 break;
             }
         }
     }
+    wmtk::dart::Dart source_dart = sd.dart_from_tuple(source_tuple);
+    wmtk::dart::Dart target_dart = wmtk::dart::utils::apply_simplex_involution(pt,target_pt,involution,source_dart);
 
+    const dart::SimplexDart& osd =
+        dart::SimplexDart::get_singleton(target_pt);
 
-    dart::Dart target_dart = {act.global_id(), osd.product(act.permutation(), osource_orient)};
-    return sd.tuple_from_dart(target_dart);
+    return osd.tuple_from_dart(target_dart);
 }
 #else
 Tuple MultiMeshManager::map_tuple_between_meshes(
@@ -709,8 +721,10 @@ Tuple MultiMeshManager::map_tuple_to_parent_tuple(const Mesh& my_mesh, const Tup
     // assert(!map_handle.is_null());
 
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-    auto map_accessor = AccessorType(my_mesh, map_handle);
-    auto cur_tup = map_tuple_between_meshes(map_accessor, parent_mesh.top_simplex_type(), my_tuple);
+    const auto map_to_child_handle = parent_mesh.m_multi_mesh_manager.children()[m_child_id].map_handle;
+    auto parent_map_accessor = AccessorType(my_mesh, map_handle);
+    auto child_map_accessor = AccessorType(parent_mesh, map_to_child_handle);
+    auto cur_tup = map_tuple_between_meshes(parent_map_accessor,child_map_accessor, my_tuple);
     assert(!cur_tup.is_null());
     return cur_tup;
 
@@ -749,13 +763,15 @@ std::vector<Tuple> MultiMeshManager::map_to_child_tuples(
 
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
     auto map_accessor = AccessorType(my_mesh, map_handle);
-    const PrimitiveType child_pt = child_mesh.top_simplex_type();
+    const auto child_map_to_parent_handle = child_mesh.m_multi_mesh_manager.map_to_parent_handle;
+    auto child_map_accessor = AccessorType(child_mesh, child_map_to_parent_handle);
 #else
     auto map_accessor = my_mesh.create_const_accessor(map_handle);
 #endif
     for (Tuple& tuple : tuples) {
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-        tuple = map_tuple_between_meshes(map_accessor, child_pt, tuple);
+    //auto parent_map_accessor = AccessorType(my_mesh, map_handle);
+        tuple = map_tuple_between_meshes(map_accessor, child_map_accessor, tuple);
 #else
         tuple = map_tuple_between_meshes(my_mesh, child_mesh, map_accessor, tuple);
 #endif

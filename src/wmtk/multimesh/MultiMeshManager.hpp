@@ -415,7 +415,7 @@ protected: // protected to enable unit testing
 
     static Tuple map_tuple_between_meshes(
         const AccessorType& source_to_target_map_accessor,
-        PrimitiveType target_pt,
+        const AccessorType& target_to_source_map_accessor,
         const Tuple& source_tuple);
 #else
     static Tuple map_tuple_between_meshes(

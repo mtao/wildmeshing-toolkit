@@ -145,7 +145,8 @@ wmtk::dart::Dart get_simplex_involution(
 {
     auto ap = get_simplex_involution(pt, a.permutation(), opt, b.permutation());
 
-    return Dart{a.global_id() ^ b.global_id(), ap};
+    return Dart{b.global_id(), ap};
+    //return Dart{a.global_id() ^ b.global_id(), ap};
 }
 
 std::pair<wmtk::dart::Dart, wmtk::dart::Dart> get_simplex_involution_pair(

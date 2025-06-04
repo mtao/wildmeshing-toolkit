@@ -75,7 +75,8 @@ wmtk::dart::Dart apply_simplex_involution(
     const dart::Dart& source)
 {
     return dart::Dart(
-        action.global_id() ^ source.global_id(),
+        action.global_id() ,
+        //action.global_id() ^ source.global_id(),
         apply_simplex_involution(pt, opt, action.permutation(), source.permutation()));
 }
 } // namespace wmtk::dart::utils
