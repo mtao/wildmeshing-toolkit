@@ -2,7 +2,10 @@
 
 
 #include "local_simplex_decomposition.hpp"
+#include <fmt/ranges.h>
+#include <spdlog/spdlog.h>
 #include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include "../find_local_dart_action.hpp"
 #include "get_canonical_subdart.hpp"
 #include "get_canonical_supdart.hpp"
@@ -22,7 +25,16 @@ local_simplex_decomposition(const SimplexDart& sd, PrimitiveType pt, int8_t perm
 
         const int8_t upper_perm = find_local_dart_action(sd, o, permutation);
 
-        return std::make_pair(sd.convert(upper_perm, subsd), o);
+        const int8_t lower_perm = sd.convert(upper_perm, subsd);
+
+        spdlog::info(
+            "global action is {}:{} is {}:{}",
+            upper_perm,
+            fmt::join(dart::utils::get_local_vertex_permutation(source_pt, upper_perm), ","),
+            lower_perm,
+            fmt::join(dart::utils::get_local_vertex_permutation(pt, lower_perm), ","));
+
+        return std::make_pair(lower_perm, o);
     } else {
         return std::make_pair(permutation, sd.identity());
     }

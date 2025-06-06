@@ -1,7 +1,7 @@
 #pragma once
 
-#include <tuple>
 #include <optional>
+#include <tuple>
 #include <wmtk/Tuple.hpp>
 #include <wmtk/attribute/Accessor.hpp>
 #include <wmtk/utils/MerkleTreeInteriorNode.hpp>
@@ -20,8 +20,7 @@ namespace utils {
 class UpdateEdgeOperationMultiMeshMapFunctor;
 }
 } // namespace operations
-namespace attribute {
-}
+namespace attribute {}
 namespace multimesh {
 template <int64_t cell_dimension, typename NodeFunctor>
 class MultiMeshSimplexVisitor;
@@ -515,8 +514,8 @@ protected: // protected to enable unit testing
     // helper for updating multimap used in the update multimesh edge functor
     static int64_t parent_local_fid(const AccessorType& child_to_parent, int64_t child_gid);
 
-    std::tuple<Tuple, Tuple>
-    mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, const Tuple& t) const;
+    // std::tuple<Tuple, Tuple>
+    // mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, const Tuple& t) const;
 
     std::tuple<Tuple, Tuple>
     mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const;

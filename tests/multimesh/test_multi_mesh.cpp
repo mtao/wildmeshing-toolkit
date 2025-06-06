@@ -815,6 +815,59 @@ TEST_CASE("multi_mesh_register_between_2D_and_1D_one_ear", "[multimesh][1D][2D]"
     p_mul_manager.check_map_valid(parent);
 }
 
+TEST_CASE("test_split_multi_mesh_1D_1D", "[multimesh][1D]")
+{
+    std::shared_ptr<DEBUG_EdgeMesh> edgemesh0_ptr = std::make_shared<DEBUG_EdgeMesh>(single_line());
+    std::shared_ptr<DEBUG_EdgeMesh> edgemesh1_ptr = std::make_shared<DEBUG_EdgeMesh>(two_segments());
+
+    auto& edgemesh0 = *edgemesh0_ptr;
+    auto& edgemesh1 = *edgemesh1_ptr;
+
+    std::vector<std::array<Tuple, 2>> edgemesh0_map(1);
+
+    edgemesh0_map[0] = {edgemesh0.tuple_from_edge_id(0), edgemesh1.tuple_from_edge_id(0)};
+
+    edgemesh0.register_child_mesh(edgemesh1_ptr, edgemesh0_map);
+
+    const auto& edgemesh0_mul_manager = edgemesh0.multi_mesh_manager();
+    // const auto& c0_mul_manager = edgemesh0.multi_mesh_manager();
+    // const auto& c1_mul_manager = edgemesh1.multi_mesh_manager();
+
+    {
+        Tuple edge = edgemesh0.edge_tuple_from_vids(0, 1);
+        operations::EdgeSplit op(edgemesh0);
+        REQUIRE(!op(Simplex::edge(edge)).empty());
+    }
+
+    REQUIRE(edgemesh0.is_connectivity_valid());
+    REQUIRE(edgemesh1.is_connectivity_valid());
+    CHECK(wmtk::multimesh::utils::check_maps_valid(edgemesh0));
+    CHECK(wmtk::multimesh::utils::check_maps_valid(edgemesh1));
+
+    /*
+    // Do another edge_split
+    {
+        Tuple edge = edgemesh0.edge_tuple_with_vs_and_t(1, 2);
+#if defined(WMTK_ENABLE_HASH_UPDATE)
+        REQUIRE(parent.is_valid_with_hash(edge));
+#else
+        REQUIRE(parent.is_valid(edge));
+#endif
+        operations::EdgeSplit op(parent);
+        REQUIRE(!op(Simplex::edge(parent, edge)).empty());
+    }
+    logger().debug("parent.capacity(PF) = {}", parent.capacity(PF));
+    logger().debug("edgemesh0.capacity(PE) = {}", edgemesh0.capacity(PE));
+    logger().debug("edgemesh1.capacity(PE) = {}", edgemesh1.capacity(PE));
+    REQUIRE(parent.is_connectivity_valid());
+    REQUIRE(edgemesh0.is_connectivity_valid());
+    REQUIRE(edgemesh1.is_connectivity_valid());
+    p_mul_manager.check_map_valid(parent);
+
+    print_tuple_map(parent, p_mul_manager);
+    */
+}
+
 TEST_CASE("test_split_multi_mesh_1D_2D", "[multimesh][1D][2D]")
 {
     DEBUG_TriMesh parent = one_ear();
@@ -853,6 +906,9 @@ TEST_CASE("test_split_multi_mesh_1D_2D", "[multimesh][1D][2D]")
     p_mul_manager.check_map_valid(parent);
 
     print_tuple_map(parent, p_mul_manager);
+    CHECK(wmtk::multimesh::utils::check_maps_valid(parent));
+    CHECK(wmtk::multimesh::utils::check_maps_valid(child0));
+    CHECK(wmtk::multimesh::utils::check_maps_valid(child1));
 
     // Do another edge_split
     {
@@ -1475,6 +1531,7 @@ TEST_CASE("test_point_mesh", "[multimesh][2D][0D]")
         one_point = wmtk::multimesh::utils::get_points(parent, t1);
     }
     auto check_child = [&](const auto& mesh, const Tuple& input, int64_t index) {
+        spdlog::info("{} {}", std::string(input), index);
         auto tups = parent.map_tuples(mesh, simplex::Simplex::vertex(input));
         if (index == -1) {
             REQUIRE(tups.size() == 0);
@@ -1486,11 +1543,17 @@ TEST_CASE("test_point_mesh", "[multimesh][2D][0D]")
         CHECK(tups[0] == Tuple(-1, -1, -1, index));
     };
 
+    spdlog::warn("All points");
     check_child(*all_points, tups[0], 0);
+    spdlog::warn("All points");
     check_child(*all_points, tups[1], 1);
+    spdlog::warn("All points");
     check_child(*all_points, tups[2], 2);
 
+    spdlog::warn("One points");
     check_child(*one_point, tups[0], -1);
+    spdlog::warn("One points");
     check_child(*one_point, tups[1], 0);
+    spdlog::warn("One points");
     check_child(*one_point, tups[2], -1);
 }

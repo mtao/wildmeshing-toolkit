@@ -35,11 +35,6 @@ Tuple find_valid_tuple(
 } // namespace
 
 std::tuple<Tuple, Tuple>
-MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, const Tuple& t) const
-{
-    return {};
-}
-std::tuple<Tuple, Tuple>
 MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const
 {
     assert(&my_mesh.m_multi_mesh_manager == this);
@@ -52,9 +47,16 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
         dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
     wmtk::dart::Dart parent_to_child_dart =
         parent_to_child_accessor.IndexBaseType::operator[](index);
+    if (parent_to_child_dart.is_null()) {
+        return {};
+    }
     // the child to parent is always the global id
     auto child_to_parent_dart =
         child_to_parent_accessor.IndexBaseType::operator[](parent_to_child_dart.global_id());
+    spdlog::info(
+        "mapped tuples {} {}",
+        std::string(parent_to_child_dart),
+        std::string(child_to_parent_dart[0]));
     Tuple parent_tuple = parent_sd.tuple_from_dart(parent_to_child_dart);
     Tuple child_tuple = child_sd.tuple_from_dart(child_to_parent_dart);
     return {parent_tuple, child_tuple};

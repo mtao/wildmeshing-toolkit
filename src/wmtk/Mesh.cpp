@@ -161,6 +161,7 @@ bool Mesh::is_removed(int64_t index) const
 bool Mesh::is_removed(int64_t index, PrimitiveType pt) const
 {
     const auto& flag_accessor = get_const_flag_accessor(pt);
+    assert(index < flag_accessor.index_access().base_accessor().reserved_size());
     return !flag_accessor.index_access().is_active(index);
 }
 

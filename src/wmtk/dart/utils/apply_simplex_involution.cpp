@@ -26,46 +26,53 @@ int8_t apply_simplex_involution_directed(
 
 
     if (upward) {
+        if (pt == PrimitiveType::Vertex) {
+            return action;
+        }
         int8_t target_orientation = sd.product(local_action, source);
-        //int8_t target_orientation = sd.product(source, local_action);
+        // int8_t target_orientation = sd.product(source, local_action);
         int8_t lifted_source = sd.convert(target_orientation, osd);
 
         return osd.product(target_simplex, lifted_source);
     } else {
+        if (pt == PrimitiveType::Vertex) {
+            return sd.identity();
+        }
         auto [local_perm, _] = local_simplex_decomposition(osd, pt, source);
 
-        //spdlog::info(
-        //    "global action  in apply is {} x {} = {}",
-        //    fmt::join(dart::utils::get_local_vertex_permutation(pt, local_perm), ",")
-        //    ,fmt::join(dart::utils::get_local_vertex_permutation(pt, local_action), ",")
-        //    ,fmt::join(dart::utils::get_local_vertex_permutation(pt, sd.product( local_action, local_perm)), ",")
-        //    );
+        // spdlog::info(
+        //     "global action  in apply is {} x {} = {}",
+        //     fmt::join(dart::utils::get_local_vertex_permutation(pt, local_perm), ",")
+        //     ,fmt::join(dart::utils::get_local_vertex_permutation(pt, local_action), ",")
+        //     ,fmt::join(dart::utils::get_local_vertex_permutation(pt, sd.product( local_action,
+        //     local_perm)), ",")
+        //     );
         return sd.product(sd.inverse(local_action), local_perm);
-        //return sd.product(local_perm, local_action);
+        // return sd.product(local_perm, local_action);
     }
 }
 
 
 int8_t apply_simplex_involution(
-    PrimitiveType pt, // lower dimension
-    PrimitiveType opt, // higher  dimension
-    int8_t action, // action, encoded in opt
+    PrimitiveType pt,
+    PrimitiveType opt,
+    int8_t action, // action, encoded in max(pt,opt)
     int8_t source)
 {
     const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(opt);
-    int8_t res = osd.product(action, source);
 
-    const bool upward_action = pt < opt;
+    // const bool upward_action = pt < opt;
     if (pt == opt) {
+        int8_t res = osd.product(action, source);
         const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
-        res = sd.product( action, source);
-        //res = sd.product(source, action);
+        res = sd.product(action, source);
+        // res = sd.product(source, action);
+        return res;
     } else if (pt < opt) {
         return apply_simplex_involution_directed(pt, opt, action, source, true);
     } else { // downward action
         return apply_simplex_involution_directed(opt, pt, action, source, false);
     }
-    return res;
 }
 // maps (pt,a) to (opt,oa) then (opt,b)
 wmtk::dart::Dart apply_simplex_involution(
@@ -75,8 +82,8 @@ wmtk::dart::Dart apply_simplex_involution(
     const dart::Dart& source)
 {
     return dart::Dart(
-        action.global_id() ,
-        //action.global_id() ^ source.global_id(),
+        action.global_id(),
+        // action.global_id() ^ source.global_id(),
         apply_simplex_involution(pt, opt, action.permutation(), source.permutation()));
 }
 } // namespace wmtk::dart::utils

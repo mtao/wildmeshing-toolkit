@@ -171,6 +171,7 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                     // not child_tuple on this parent edge
                     continue;
                 }
+                spdlog::info("{} {}", std::string(child_tuple), child_tuple.is_null());
 
 
                 //  check also the flag accessor of child mesh

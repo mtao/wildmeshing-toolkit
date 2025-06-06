@@ -57,11 +57,21 @@ int8_t SimplexDart::convert(int8_t permutation_index, const SimplexDart& target)
 
 wmtk::Tuple SimplexDart::tuple_from_dart(const Dart& dart) const
 {
-    return tuple_from_permutation_index(dart.global_id(), dart.permutation());
+    if (dart.is_null()) {
+        return {};
+    } else {
+        return tuple_from_permutation_index(dart.global_id(), dart.permutation());
+    }
 }
 Dart SimplexDart::dart_from_tuple(const wmtk::Tuple& t) const
 {
-    return Dart{t.global_cid(), wmtk::dart::utils::permutation_index_from_tuple(simplex_type(), t)};
+    if (t.is_null()) {
+        return {};
+    } else {
+        return Dart{
+            t.global_cid(),
+            wmtk::dart::utils::permutation_index_from_tuple(simplex_type(), t)};
+    }
 }
 
 int8_t SimplexDart::simplex_index(const Dart& dart, PrimitiveType simplex_type) const
