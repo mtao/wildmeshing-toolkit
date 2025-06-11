@@ -194,8 +194,12 @@ TEST_CASE("test_split_multi_mesh_1D_3D", "[multimesh][1D][3D]")
     const auto& parent_mmmanager = parent.multi_mesh_manager();
 
     auto child_0_handle = parent.get_attribute_handle<int64_t>("is_child_0", PE);
+    parent_mmmanager.print(parent);
+    parent_mmmanager.check_map_valid(parent);
 
     operations::EdgeSplit split(parent);
+    parent_mmmanager.print(parent);
+    parent_mmmanager.check_map_valid(parent);
     split.set_new_attribute_strategy(child_0_handle);
 
     DEBUG_EdgeMesh& child0 = static_cast<DEBUG_EdgeMesh&>(*child_ptr_0);
@@ -247,7 +251,11 @@ TEST_CASE("test_split_multi_mesh_1D_3D", "[multimesh][1D][3D]")
 #else
         REQUIRE(parent.is_valid(edge));
 #endif
+        parent_mmmanager.print(parent);
+        parent_mmmanager.check_map_valid(parent);
         REQUIRE(!split(Simplex::edge(parent, edge)).empty());
+        parent_mmmanager.print(parent);
+        parent_mmmanager.check_map_valid(parent);
 
         CHECK(parent.get_all(PT).size() == 7);
         CHECK(child0.get_all(PE).size() == 7);

@@ -48,13 +48,13 @@ EdgeMesh::EdgeMeshOperationExecutor::EdgeMeshOperationExecutor(
         add(m_mesh.switch_vertex(m_operating_tuple));
     }
 
-    if (m.has_child_mesh_in_dimension(1)) {
-        global_ids_to_potential_tuples.at(1).emplace_back(
-            m_mesh.id(simplex::Simplex::edge(m_operating_tuple)),
-            wmtk::simplex::top_dimension_cofaces_tuples(
-                m_mesh,
-                simplex::Simplex::edge(m_operating_tuple)));
-    }
+    // if (m.has_child_mesh_in_dimension(1)) {
+    //     global_ids_to_potential_tuples.at(1).emplace_back(
+    //         m_mesh.id(simplex::Simplex::edge(m_operating_tuple)),
+    //         wmtk::simplex::top_dimension_cofaces_tuples(
+    //             m_mesh,
+    //             simplex::Simplex::edge(m_operating_tuple)));
+    // }
 }
 
 void EdgeMesh::EdgeMeshOperationExecutor::delete_simplices()

@@ -31,7 +31,9 @@ namespace {} // namespace
 
 void print_tuple_map(const DEBUG_TriMesh& parent, const DEBUG_MultiMeshManager& p_mul_manager)
 {
-#if !defined(WMTK_ENABLED_MULTIMESH_DART)
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    p_mul_manager.print(parent);
+#else
     int64_t child_id = 0;
 
     for (auto& child_data : p_mul_manager.children()) {
@@ -817,8 +819,9 @@ TEST_CASE("multi_mesh_register_between_2D_and_1D_one_ear", "[multimesh][1D][2D]"
 
 TEST_CASE("test_split_multi_mesh_1D_1D", "[multimesh][1D]")
 {
-    std::shared_ptr<DEBUG_EdgeMesh> edgemesh0_ptr = std::make_shared<DEBUG_EdgeMesh>(single_line());
-    std::shared_ptr<DEBUG_EdgeMesh> edgemesh1_ptr = std::make_shared<DEBUG_EdgeMesh>(two_segments());
+    std::shared_ptr<DEBUG_EdgeMesh> edgemesh0_ptr =
+        std::make_shared<DEBUG_EdgeMesh>(two_segments());
+    std::shared_ptr<DEBUG_EdgeMesh> edgemesh1_ptr = std::make_shared<DEBUG_EdgeMesh>(single_line());
 
     auto& edgemesh0 = *edgemesh0_ptr;
     auto& edgemesh1 = *edgemesh1_ptr;
@@ -828,6 +831,10 @@ TEST_CASE("test_split_multi_mesh_1D_1D", "[multimesh][1D]")
     edgemesh0_map[0] = {edgemesh0.tuple_from_edge_id(0), edgemesh1.tuple_from_edge_id(0)};
 
     edgemesh0.register_child_mesh(edgemesh1_ptr, edgemesh0_map);
+    REQUIRE(edgemesh0.is_connectivity_valid());
+    REQUIRE(edgemesh1.is_connectivity_valid());
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(edgemesh0));
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(edgemesh1));
 
     const auto& edgemesh0_mul_manager = edgemesh0.multi_mesh_manager();
     // const auto& c0_mul_manager = edgemesh0.multi_mesh_manager();
@@ -867,6 +874,59 @@ TEST_CASE("test_split_multi_mesh_1D_1D", "[multimesh][1D]")
     print_tuple_map(parent, p_mul_manager);
     */
 }
+TEST_CASE("test_split_multi_mesh_1D_2D_a", "[multimesh][1D][2D]")
+{
+    DEBUG_TriMesh parent = one_ear();
+    std::shared_ptr<DEBUG_EdgeMesh> child0_ptr = std::make_shared<DEBUG_EdgeMesh>(single_line());
+
+    auto& child0 = *child0_ptr;
+
+    std::vector<std::array<Tuple, 2>> child0_map(1);
+
+    child0_map[0] = {child0.tuple_from_edge_id(0), parent.tuple_from_id(PE, 3)};
+
+    parent.register_child_mesh(child0_ptr, child0_map);
+
+    const auto& p_mul_manager = parent.multi_mesh_manager();
+    spdlog::error("Map state before operation");
+    print_tuple_map(parent, p_mul_manager);
+
+    {
+        Tuple edge = parent.edge_tuple_with_vs_and_t(0, 1, 0);
+        operations::EdgeSplit op(parent);
+        REQUIRE(!op(Simplex::edge(parent, edge)).empty());
+    }
+
+    spdlog::error("Map state after operation");
+    logger().debug("parent.capacity(PF) = {}", parent.capacity(PF));
+    logger().debug("child0.capacity(PE) = {}", child0.capacity(PE));
+    REQUIRE(parent.is_connectivity_valid());
+    REQUIRE(child0.is_connectivity_valid());
+    p_mul_manager.check_map_valid(parent);
+
+    print_tuple_map(parent, p_mul_manager);
+    CHECK(wmtk::multimesh::utils::check_maps_valid(parent));
+    CHECK(wmtk::multimesh::utils::check_maps_valid(child0));
+
+    // Do another edge_split
+    {
+        Tuple edge = parent.edge_tuple_with_vs_and_t(1, 2, 3);
+#if defined(WMTK_ENABLE_HASH_UPDATE)
+        REQUIRE(parent.is_valid_with_hash(edge));
+#else
+        REQUIRE(parent.is_valid(edge));
+#endif
+        operations::EdgeSplit op(parent);
+        REQUIRE(!op(Simplex::edge(parent, edge)).empty());
+    }
+    logger().debug("parent.capacity(PF) = {}", parent.capacity(PF));
+    logger().debug("child0.capacity(PE) = {}", child0.capacity(PE));
+    REQUIRE(parent.is_connectivity_valid());
+    REQUIRE(child0.is_connectivity_valid());
+    p_mul_manager.check_map_valid(parent);
+
+    print_tuple_map(parent, p_mul_manager);
+}
 
 TEST_CASE("test_split_multi_mesh_1D_2D", "[multimesh][1D][2D]")
 {
@@ -884,10 +944,31 @@ TEST_CASE("test_split_multi_mesh_1D_2D", "[multimesh][1D][2D]")
     child1_map[0] = {child1.tuple_from_edge_id(0), parent.tuple_from_id(PE, 0)};
     child1_map[1] = {child1.tuple_from_edge_id(1), parent.tuple_from_id(PE, 3)};
 
+    {
+        auto ear = parent.tuple_from_id(PE, 1);
+        int64_t vid = parent.id(ear, PrimitiveType::Vertex);
+        int64_t vid2 = parent.id(parent.switch_vertex(ear), PrimitiveType::Vertex);
+        spdlog::warn("ear edge 0 mapped to {} {}", vid, vid2);
+    }
+    {
+        auto ear = parent.tuple_from_id(PE, 3);
+        int64_t vid = parent.id(ear, PrimitiveType::Vertex);
+        int64_t vid2 = parent.id(parent.switch_vertex(ear), PrimitiveType::Vertex);
+        spdlog::warn("ear edge 1 mapped to {} {}", vid, vid2);
+    }
+    //  3-- --- 0
+    //   |     / \\.
+    //     f1 /2  \\ .
+    //   |  0/ f0  \\.
+    //   |  /       \\.
+    //  1  ==========2
+
     parent.register_child_mesh(child0_ptr, child0_map);
     parent.register_child_mesh(child1_ptr, child1_map);
 
     const auto& p_mul_manager = parent.multi_mesh_manager();
+    spdlog::error("Map state before operation");
+    print_tuple_map(parent, p_mul_manager);
     // const auto& c0_mul_manager = child0.multi_mesh_manager();
     // const auto& c1_mul_manager = child1.multi_mesh_manager();
 
@@ -897,6 +978,7 @@ TEST_CASE("test_split_multi_mesh_1D_2D", "[multimesh][1D][2D]")
         REQUIRE(!op(Simplex::edge(parent, edge)).empty());
     }
 
+    spdlog::error("Map state after operation");
     logger().debug("parent.capacity(PF) = {}", parent.capacity(PF));
     logger().debug("child0.capacity(PE) = {}", child0.capacity(PE));
     logger().debug("child1.capacity(PE) = {}", child1.capacity(PE));

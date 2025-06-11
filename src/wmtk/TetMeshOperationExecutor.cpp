@@ -112,7 +112,30 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
     m_operating_face_id = m_mesh.id_face(m_operating_tuple);
     m_operating_tet_id = m_mesh.id_tet(m_operating_tuple);
 
+    auto [incident_tets, incident_faces] = get_incident_tets_and_faces(m_operating_tuple);
+
+    m_incident_tet_datas.reserve(incident_tets.size());
+    for (const Tuple& tet : incident_tets) {
+        IncidentTetData tcd;
+        tcd.local_operating_tuple = tet;
+        tcd.tid = m_mesh.id_tet(tet);
+        m_incident_tet_datas.emplace_back(tcd);
+    }
+
+    //m_incident_face_datas.clear();
+    m_incident_face_datas.reserve(incident_faces.size());
+    // incident face data for multimesh and attribute update
+    for (int64_t i = 0; i < incident_faces.size(); ++i) {
+        auto& data = m_incident_face_datas.emplace_back();
+        data.local_operating_tuple = incident_faces[i];
+        data.fid = m_mesh.id_face(data.local_operating_tuple);
+    }
+
     if (m_mesh.has_child_mesh()) {
+        spdlog::error("planning data for child");
+        spdlog::error("planning data for child");
+        spdlog::error("planning data for child");
+        spdlog::error("planning data for child");
         // get the closed star of the edge
         simplex::SimplexCollection edge_closed_star_vertices(m_mesh);
         const simplex::Simplex edge_operating(m_mesh, PrimitiveType::Edge, operating_tuple);
@@ -176,18 +199,41 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
             if (!m.has_child_mesh_in_dimension(index)) {
                 continue;
             }
+            int64_t id = m_mesh.id(s);
+            if (index == 1) {
+                if (id == m_operating_edge_id) {
+                    // found = true;
+                    continue;
+                }
+            } else if (index == 2) {
+                bool found = false;
+                for (const auto& ifd : incident_face_datas()) {
+
+                        if (id == ifd.fid)
+                    {
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    continue;
+                }
+            } else if(index == 3) {
+                continue;
+            }
+            spdlog::warn("Checking out for later updating {} {}", index, s.index());
             global_ids_to_potential_tuples.at(index).emplace_back(
-                m_mesh.id(s),
+                id,
                 wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, m_mesh.get_simplex(s)));
         }
 
-        if (m.has_child_mesh_in_dimension(3)) {
-            global_ids_to_potential_tuples.at(3).emplace_back(
-                m_mesh.id(simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)),
-                wmtk::simplex::top_dimension_cofaces_tuples(
-                    m_mesh,
-                    simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
-        }
+        //if (m.has_child_mesh_in_dimension(3)) {
+        //    global_ids_to_potential_tuples.at(3).emplace_back(
+        //        m_mesh.id(simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)),
+        //        wmtk::simplex::top_dimension_cofaces_tuples(
+        //            m_mesh,
+        //            simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
+        //}
     }
 }
 
@@ -270,25 +316,25 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     // const auto& incident_tets = incident_tets_and_faces[0];
     // const auto& incident_faces = incident_tets_and_faces[1];
 
-    const auto [incident_tets, incident_faces] = get_incident_tets_and_faces(m_operating_tuple);
-    const bool loop_flag = (incident_tets.size() == incident_faces.size());
+    //const auto [incident_tets, incident_faces] = get_incident_tets_and_faces(m_operating_tuple);
+    const bool loop_flag = (m_incident_tet_datas.size() == m_incident_face_datas.size());
 
-    const size_t facet_size = incident_tets.size();
+    const size_t facet_size = m_incident_tet_datas.size();
     std::vector<int64_t> new_facet_ids =
         this->request_simplex_indices(PrimitiveType::Tetrahedron, 2 * facet_size);
     assert(new_facet_ids.size() == 2 * facet_size);
-    const size_t face_size = incident_faces.size();
+    const size_t face_size = m_incident_face_datas.size();
     std::vector<int64_t> new_face_ids =
         this->request_simplex_indices(PrimitiveType::Triangle, 2 * face_size);
     assert(new_face_ids.size() == 2 * face_size);
 
     // create new faces and edges
     std::vector<FaceSplitData> new_incident_face_data;
-    for (int64_t i = 0; i < incident_faces.size(); ++i) {
+    for (int64_t i = 0; i < m_incident_face_datas.size(); ++i) {
         std::vector<int64_t> splitting_eids = this->request_simplex_indices(PrimitiveType::Edge, 1);
 
         FaceSplitData fsd;
-        fsd.fid_old = m_mesh.id_face(incident_faces[i]);
+        fsd.fid_old = m_mesh.id_face(m_incident_face_datas[i].local_operating_tuple);
         std::copy(
             new_face_ids.begin() + 2 * i,
             new_face_ids.begin() + 2 * (i + 1),
@@ -297,7 +343,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         fsd.eid_spine_new[0] = new_eids[0]; // redundant
         fsd.eid_spine_new[1] = new_eids[1]; // redundant
         fsd.eid_rib = splitting_eids[0]; // redundant
-        fsd.local_operating_tuple = incident_faces[i];
+        fsd.local_operating_tuple = m_incident_face_datas[i].local_operating_tuple;
         new_incident_face_data.emplace_back(fsd);
     }
 
@@ -305,13 +351,12 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     int64_t incident_face_cnt = new_incident_face_data.size();
 
     // create new tets
-    m_incident_tet_datas.clear();
-    for (int64_t i = 0; i < incident_tets.size(); ++i) {
+    for (int64_t i = 0; i < m_incident_tet_datas.size(); ++i) {
+    //for(auto& tsd: m_incident_tet_datas) {
+    auto& tsd = m_incident_tet_datas[i];
         std::vector<int64_t> split_fids = this->request_simplex_indices(PrimitiveType::Triangle, 1);
+        const auto& tet_tup = tsd.local_operating_tuple;
 
-        IncidentTetData tsd;
-        tsd.local_operating_tuple = incident_tets[i];
-        tsd.tid = m_mesh.id_tet(incident_tets[i]);
         std::copy(
             new_facet_ids.begin() + 2 * i,
             new_facet_ids.begin() + 2 * (i + 1),
@@ -322,7 +367,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         split_facet_data().add_facet(m_mesh, m_operating_tuple, tsd.split_t);
 
         // get ears here
-        Tuple ear1 = m_mesh.switch_face(m_mesh.switch_edge(incident_tets[i]));
+        Tuple ear1 = m_mesh.switch_face(m_mesh.switch_edge(tet_tup));
         if (!m_mesh.is_boundary_face(ear1)) {
             ear1 = m_mesh.switch_tuple(ear1, PrimitiveType::Tetrahedron);
             tsd.ears[0] = EarTet{m_mesh.id_tet(ear1), m_mesh.id_face(ear1)};
@@ -330,7 +375,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
             tsd.ears[0] = EarTet{-1, m_mesh.id_face(ear1)};
         }
 
-        Tuple ear2 = m_mesh.switch_face(m_mesh.switch_edge(m_mesh.switch_vertex(incident_tets[i])));
+        Tuple ear2 = m_mesh.switch_face(m_mesh.switch_edge(m_mesh.switch_vertex(tet_tup)));
         if (!m_mesh.is_boundary_face(ear2)) {
             ear2 = m_mesh.switch_tuple(ear2, PrimitiveType::Tetrahedron);
             tsd.ears[1] = EarTet{m_mesh.id_tet(ear2), m_mesh.id_face(ear2)};
@@ -348,31 +393,30 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         tsd.incident_face_data_idx[0] = (i + incident_face_cnt - 1) % incident_face_cnt;
         tsd.incident_face_data_idx[1] = i;
 
-        tsd.v0 = m_mesh.id_vertex(incident_tets[i]); // redundant
-        tsd.v1 = m_mesh.id_vertex(m_mesh.switch_vertex(incident_tets[i])); // redundant
+        tsd.v0 = m_mesh.id_vertex(tet_tup); // redundant
+        tsd.v1 = m_mesh.id_vertex(m_mesh.switch_vertex(tet_tup)); // redundant
         tsd.v2 = m_mesh.id_vertex(m_mesh.switch_vertex(
-            m_mesh.switch_edge(m_mesh.switch_face(incident_tets[i])))); // put in face
+            m_mesh.switch_edge(m_mesh.switch_face(tet_tup)))); // put in face
         tsd.v3 = m_mesh.id_vertex(
-            m_mesh.switch_vertex(m_mesh.switch_edge(incident_tets[i]))); // put in face rename
+            m_mesh.switch_vertex(m_mesh.switch_edge(tet_tup))); // put in face rename
 
-        tsd.e01 = m_mesh.id_edge(incident_tets[i]); // redundant
-        tsd.e03 = m_mesh.id_edge(m_mesh.switch_edge(incident_tets[i])); // face 1 ear 1 edge
+        tsd.e01 = m_mesh.id_edge(tet_tup); // redundant
+        tsd.e03 = m_mesh.id_edge(m_mesh.switch_edge(tet_tup)); // face 1 ear 1 edge
         tsd.e13 = m_mesh.id_edge(
-            m_mesh.switch_edge(m_mesh.switch_vertex(incident_tets[i]))); // face 2 ear 2 edge
+            m_mesh.switch_edge(m_mesh.switch_vertex(tet_tup))); // face 2 ear 2 edge
         tsd.e02 = m_mesh.id_edge(
-            m_mesh.switch_edge(m_mesh.switch_face(incident_tets[i]))); // face 1 ear 1 edge
+            m_mesh.switch_edge(m_mesh.switch_face(tet_tup))); // face 1 ear 1 edge
         tsd.e12 = m_mesh.id_edge(m_mesh.switch_edge(
-            m_mesh.switch_face(m_mesh.switch_vertex(incident_tets[i])))); // face 2 ear 1 edge
+            m_mesh.switch_face(m_mesh.switch_vertex(tet_tup)))); // face 2 ear 1 edge
         tsd.e23 = m_mesh.id_edge(m_mesh.switch_edge(m_mesh.switch_vertex(
-            m_mesh.switch_face(m_mesh.switch_edge(incident_tets[i]))))); // opposite edge
+            m_mesh.switch_face(m_mesh.switch_edge(tet_tup))))); // opposite edge
 
-        m_incident_tet_datas.emplace_back(tsd);
     }
 
     // incident face data for multimesh and attribute update
-    m_incident_face_datas.clear();
+    //m_incident_face_datas.clear();
     for (int64_t i = 0; i < m_incident_tet_datas.size(); ++i) {
-        auto& data = m_incident_face_datas.emplace_back();
+        auto& data = m_incident_face_datas[i];
         data.fid = m_incident_tet_datas[i].new_face_data[1].fid_old;
         data.ear_eids[0] = m_incident_tet_datas[i].e03;
         data.ear_eids[1] = m_incident_tet_datas[i].e13;
@@ -383,7 +427,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     }
 
     if (!loop_flag) {
-        auto& data = m_incident_face_datas.emplace_back();
+        auto& data = m_incident_face_datas.back();
         data.fid = m_incident_tet_datas[0].new_face_data[0].fid_old;
         data.ear_eids[0] = m_incident_tet_datas[0].e02;
         data.ear_eids[1] = m_incident_tet_datas[0].e12;
@@ -415,6 +459,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     int64_t return_split_fid = -1;
 #endif
 
+    spdlog::error("Split sees {} tetes", m_incident_tet_datas.size());
     // update connectivity
     for (int64_t i = 0; i < m_incident_tet_datas.size(); ++i) {
         // prepare all indices
@@ -452,65 +497,6 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         int64_t t_f2; // prev t2
         int64_t t_f3; // next t1
         int64_t t_f4; // next t2
-
-        // /////////////////////////////////////////////////
-        // // debug code , to delete
-        // if (e_spine_1 == 2223) {
-        //     wmtk::logger().info(
-        //         "edge 2223 is created in tet {} face {} edge {} as spine edge 1, belongs to new "
-        //         "tet {}, face {} and face {}, loop flag {}, left ear {}, right ear{}, right "
-        //         "neighbor{}, left ear face {}, right ear face {}",
-        //         t_old,
-        //         f_old_1,
-        //         e01,
-        //         t1,
-        //         f1,
-        //         f3,
-        //         loop_flag,
-        //         t_ear_1,
-        //         t_ear_2,
-        //         t2,
-        //         f_ear_1,
-        //         f_ear_2);
-        // }
-        // if (e_spine_2 == 2223) {
-        //     wmtk::logger().info(
-        //         "edge 2223 is created in tet {} face {} edge {} as spine edge 2, belongs to new "
-        //         "tet {}, face {} and face {}, loop flag {}",
-        //         t_old,
-        //         f_old_2,
-        //         e01,
-        //         t2,
-        //         f2,
-        //         f4,
-        //         loop_flag);
-        // }
-        // if (e_rib_1 == 2223) {
-        //     wmtk::logger().info(
-        //         "edge 2223 is created in tet {} face {} as rib edge 1, belongs to new "
-        //         "tet {} and {}, face {} and face {}, loop flag {}",
-        //         t_old,
-        //         f_old_1,
-        //         t1,
-        //         t2,
-        //         f1,
-        //         f3,
-        //         loop_flag);
-        // }
-        // if (e_rib_2 == 2223) {
-        //     wmtk::logger().info(
-        //         "edge 2223 is created in tet {} face {} as rib edge 2, belongs to new "
-        //         "tet {} and {}, face {} and face {}, loop flag {}",
-        //         t_old,
-        //         f_old_2,
-        //         t1,
-        //         t2,
-        //         f2,
-        //         f4,
-        //         loop_flag);
-        // }
-
-        // /////////////////////////////////////////////////
 
         // for return tuple
         // return_flag == true means this is the tet for the tuple to return
@@ -800,14 +786,11 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
     // auto incident_tets_and_faces = get_incident_tets_and_faces(m_operating_tuple);
     // const auto& incident_tets = incident_tets_and_faces[0];
 
-    auto [incident_tets, incident_faces] = get_incident_tets_and_faces(m_operating_tuple);
 
 
-    for (const Tuple& tet : incident_tets) {
-        IncidentTetData tcd;
-        tcd.local_operating_tuple = tet;
-        tcd.tid = m_mesh.id_tet(tet);
+    for (auto& tcd: m_incident_tet_datas) {
 
+        const auto& tet = tcd.local_operating_tuple;
         // get ears
         Tuple ear1 = m_mesh.switch_face(m_mesh.switch_edge(tet));
         if (!m_mesh.is_boundary_face(ear1)) {
@@ -839,26 +822,22 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
         tcd.e23 = m_mesh.id_edge(
             m_mesh.switch_edge(m_mesh.switch_vertex(m_mesh.switch_face(m_mesh.switch_edge(tet)))));
 
-        m_incident_tet_datas.emplace_back(tcd);
     }
 
-    // incident face data for multimesh and attribute update
-    m_incident_face_datas.clear();
     for (int64_t i = 0; i < m_incident_tet_datas.size(); ++i) {
-        auto& data = m_incident_face_datas.emplace_back();
+        auto& data = m_incident_face_datas[i];
         data.ear_eids[0] = m_incident_tet_datas[i].e03;
         data.ear_eids[1] = m_incident_tet_datas[i].e13;
         data.new_edge_id = data.ear_eids[1];
     }
 
-    if (incident_tets.size() != incident_faces.size()) {
-        auto& data = m_incident_face_datas.emplace_back();
+    if (m_incident_face_datas.size() != m_incident_tet_datas.size()) {
+        auto& data = m_incident_face_datas.back();
         data.ear_eids[0] = m_incident_tet_datas[0].e02;
         data.ear_eids[1] = m_incident_tet_datas[0].e12;
         data.new_edge_id = data.ear_eids[1];
     }
 
-    assert(m_incident_face_datas.size() == incident_faces.size());
 
 
     // local ids for return tuple
@@ -1054,7 +1033,8 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
     const int64_t v1 = m_spine_vids[1];
 
     for (const simplex::IdSimplex& t : v0_star) {
-        // for (const simplex::Simplex& t : v0_star.simplex_vector(PrimitiveType::Tetrahedron)) {
+        // for (const simplex::Simplex& t : v0_star.simplex_vector(PrimitiveType::Tetrahedron))
+        // {
         const int64_t tid = m_mesh.id(t);
         auto tv = tv_accessor.vector_attribute(tid);
         auto te = te_accessor.vector_attribute(tid);

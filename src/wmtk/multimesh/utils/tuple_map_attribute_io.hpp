@@ -1,3 +1,4 @@
+#pragma once
 #include <wmtk/Types.hpp>
 #include <wmtk/attribute/Accessor.hpp>
 #include <wmtk/multimesh/MultiMeshManager.hpp>
@@ -25,7 +26,10 @@ void symmetric_write_tuple_map_attributes(
     const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(bpt);
     auto a = sd.dart_from_tuple(a_tuple);
     auto b = osd.dart_from_tuple(b_tuple);
+    assert(sd.is_valid(a));
+    assert(osd.is_valid(b));
     std::tie(a_to_b[a], b_to_a[b]) = wmtk::dart::utils::get_simplex_involution_pair(apt, a, bpt, b);
+    spdlog::info("Wrote {} {}", std::string(a_to_b[a][0]), std::string(b_to_a[b][0]));
 }
 #else
 

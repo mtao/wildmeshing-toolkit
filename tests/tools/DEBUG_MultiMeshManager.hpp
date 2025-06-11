@@ -12,6 +12,7 @@ public:
     using multimesh::MultiMeshManager::parent_to_child_map_attribute_name;
 
     static void run_checks(const Mesh& m);
+    void print(const Mesh& m) const;
 
     // these run catch2 tests
     void check_map_valid(const Mesh& my_mesh) const;

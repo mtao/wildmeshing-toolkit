@@ -521,9 +521,47 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
     for (const auto& s : faces) {
         const int64_t index = static_cast<int64_t>(s.primitive_type());
         if (!m_mesh.has_child_mesh_in_dimension(index)) continue;
-        global_ids_to_potential_tuples.at(index).emplace_back(
+
+        int64_t id = m_mesh.id(s);
+        bool found = false;
+        if (index == 1) {
+            /*
+            for (const auto& eid : split_spine_eids) {
+                if (eid == id) {
+                    found = true;
+                    break;
+                }
+            }
+            if (found) {
+                continue;
+            }
+            if (id == spine_eid) {
+                found = true;
+                continue;
+            }
+            */
+            if (id == m_operating_edge_id) {
+                // found = true;
+                continue;
+            }
+        } else if (index == 0) {
+            if (id == split_new_vid) {
+                continue;
+            }
+        } else if(index == 2) {
+            continue;
+        }
+        spdlog::info(
+            "Want to check {}-simplex {} index {}",
+            index,
             m_mesh.id(s),
-            wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s));
+            primitive_type_name(s.primitive_type()));
+            auto cofaces = wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s);
+
+        global_ids_to_potential_tuples.at(index).emplace_back(
+            id,
+            std::move(cofaces)
+            );
     }
 
     create_spine_simplices();
@@ -666,9 +704,9 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
                 visited[0].visited_array().size() + visited[1].visited_array().size() +
                 visited[2].visited_array().size());
             for (size_t j = 0; j < visited.size(); ++j) {
-                //if (!m_mesh.has_child_mesh_in_dimension(j)) {
-                //    continue;
-                //}
+                // if (!m_mesh.has_child_mesh_in_dimension(j)) {
+                //     continue;
+                // }
                 const auto& arr = visited[j];
                 for (size_t i = 0; i < arr.visited_array().size(); ++i) {
                     faces.add(arr.visited_array()[i]);

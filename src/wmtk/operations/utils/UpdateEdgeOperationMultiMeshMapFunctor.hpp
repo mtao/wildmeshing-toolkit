@@ -40,7 +40,7 @@ class UpdateEdgeOperationMultiMeshMapFunctor
 {
 public:
     // edge -> edge
-    [[noreturn]] void operator()(
+    void operator()(
         EdgeMesh&,
         const simplex::Simplex&,
         const edge_mesh::EdgeOperationData& parent_tmoe,

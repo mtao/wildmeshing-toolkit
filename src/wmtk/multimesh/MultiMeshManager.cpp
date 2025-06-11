@@ -54,10 +54,17 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     const PrimitiveType target_pt = target_to_source_map_accessor.mesh().top_simplex_type();
     const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
 
+    spdlog::warn(
+        "[{}] [{}]",
+        fmt::join(source_to_target_map_accessor.mesh().absolute_multi_mesh_id(), ","),
+        fmt::join(target_to_source_map_accessor.mesh().absolute_multi_mesh_id(), ","));
     wmtk::dart::Dart source_dart = sd.dart_from_tuple(source_tuple);
+    assert(sd.is_valid(source_dart));
     const auto involution = source_to_target_map_accessor[source_dart][0];
-    spdlog::info("source {} got {}", std::string(source_tuple), std::string(involution));
+    // spdlog::info("map tuple between meshes source tuple {} got involution {}",
+    // std::string(source_tuple), std::string(involution));
     if (involution.is_null()) {
+        // spdlog::warn("Ivnolution null");
         return {};
     }
     const int64_t target_global_id = involution.global_id();
@@ -91,6 +98,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
         wmtk::dart::utils::apply_simplex_involution(pt, target_pt, involution, source_dart);
 
     const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(target_pt);
+    assert(osd.is_valid(target_dart));
 
     return osd.tuple_from_dart(target_dart);
 }

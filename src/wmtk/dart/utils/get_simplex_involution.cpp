@@ -45,27 +45,27 @@ int8_t get_simplex_involution_upward(
         // spdlog::info("{}", fmt::join(dart::utils::get_local_vertex_permutation(pt, bsimplex),
         // ","));
 
-        spdlog::info(
-            "a is {}: {}",
-            a,
-            fmt::join(dart::utils::get_local_vertex_permutation(opt, a), ","));
-        spdlog::info(
-            "canonical_upper_action is {}: {}",
-            opt_action,
-            fmt::join(dart::utils::get_local_vertex_permutation(opt, opt_action), ","));
+        //spdlog::info(
+        //    "a is {}: {}",
+        //    a,
+        //    fmt::join(dart::utils::get_local_vertex_permutation(opt, a), ","));
+        //spdlog::info(
+        //    "canonical_upper_action is {}: {}",
+        //    opt_action,
+        //    fmt::join(dart::utils::get_local_vertex_permutation(opt, opt_action), ","));
 
         const int8_t local_lower_act = find_local_dart_left_action(osd, a, opt_action);
-        spdlog::info(
-            "local lower action is {}: {}",
-            local_lower_act,
-            fmt::join(dart::utils::get_local_vertex_permutation(opt, local_lower_act), ","));
-        spdlog::info("{} {} {}", int8_t(opt) - 1, int8_t(pt) - 1, local_lower_act);
+        //spdlog::info(
+        //    "local lower action is {}: {}",
+        //    local_lower_act,
+        //    fmt::join(dart::utils::get_local_vertex_permutation(opt, local_lower_act), ","));
+        //spdlog::info("{} {} {}", int8_t(opt) - 1, int8_t(pt) - 1, local_lower_act);
         assert(wmtk::autogen::subgroup::can_convert(opt, pt, local_lower_act));
         const int8_t local_upper_act = osd.convert(local_lower_act, sd);
-        spdlog::info(
-            "local upper action is {}: {}",
-            local_lower_act,
-            fmt::join(dart::utils::get_local_vertex_permutation(pt, local_lower_act), ","));
+        //spdlog::info(
+        //    "local upper action is {}: {}",
+        //    local_lower_act,
+        //    fmt::join(dart::utils::get_local_vertex_permutation(pt, local_lower_act), ","));
         act = sd.product(bsimplex, local_upper_act);
 
 
@@ -179,7 +179,7 @@ std::pair<wmtk::dart::Dart, wmtk::dart::Dart> get_simplex_involution_pair(
 
     auto d = get_simplex_involution(pt, a, opt, b);
     auto od = get_simplex_involution(opt, b, pt, a);
-    spdlog::warn("{} {}", std::string(d), std::string(od));
+    //spdlog::warn("{} {}", std::string(d), std::string(od));
     return {d, od};
 }
 } // namespace wmtk::dart::utils

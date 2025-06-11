@@ -1,6 +1,7 @@
 
 #include "MapValidator.hpp"
 #include <wmtk/Mesh.hpp>
+#include <wmtk/multimesh/utils/internal/print_all_mapped_tuples.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
 #include <wmtk/simplex/utils/SimplexComparisons.hpp>
@@ -26,13 +27,22 @@ bool MapValidator::check_all() const
 
 bool MapValidator::check_child_map_attributes_valid() const
 {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
-    return true;
+    spdlog::info("Child attributes valid with {} children");
+#if defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
+    // return true;
 #endif
     bool ok = true;
     for (const auto& [cptr, attr] : m_mesh.m_multi_mesh_manager.m_children) {
         const auto& child = *cptr;
-#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
+
+        spdlog::warn(
+            "Testing [{}] to [{}]",
+            fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
+            fmt::join(child.absolute_multi_mesh_id(), ","));
+        // auto [me_to_child, child_to_me] =
+        // m_mesh.m_multi_mesh_manager.get_map_const_accessors(m_mesh, child);
+        // wmtk::multimesh::utils::internal::print_all_mapped_tuples(me_to_child, child_to_me);
+#if !defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
         auto map_accessor = m_mesh.create_const_accessor(attr);
 #endif
 
@@ -45,11 +55,12 @@ bool MapValidator::check_child_map_attributes_valid() const
                 auto tups = simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
                 for (const auto& source_tuple : tups) {
-#if !defined(WMTK_ENABLED_MULTIMESH_DART)// tuple idempotence is optimized out in new impl
+#if !defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
                     const auto [source_mesh_base_tuple, target_mesh_base_tuple] =
                         multimesh::utils::read_tuple_map_attribute(map_accessor, source_tuple);
                     if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
-                        if (!(source_mesh_base_tuple.is_null() && target_mesh_base_tuple.is_null())) {
+                        if (!(source_mesh_base_tuple.is_null() &&
+                              target_mesh_base_tuple.is_null())) {
                             ok = false;
                             wmtk::logger().error(
                                 "Map from parent {} to child {} on tuple {} (dim {}) fails on  {} "
@@ -88,6 +99,7 @@ bool MapValidator::check_child_map_attributes_valid() const
 
 bool MapValidator::check_parent_map_attribute_valid() const
 {
+    spdlog::info("parent attributes valid");
     bool ok = true;
     const auto& parent_ptr = m_mesh.m_multi_mesh_manager.m_parent;
     if (parent_ptr == nullptr) {
@@ -101,7 +113,13 @@ bool MapValidator::check_parent_map_attribute_valid() const
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
     auto [parent_to_me, me_to_parent] =
         parent.m_multi_mesh_manager.get_map_const_accessors(parent, m_mesh);
-            const auto& sd = dart::SimplexDart::get_singleton(m_mesh.top_simplex_type());
+
+    spdlog::warn(
+        "Testing [{}] to [{}]",
+        fmt::join(parent.absolute_multi_mesh_id(), ","),
+        fmt::join(m_mesh.absolute_multi_mesh_id(), ","));
+    // wmtk::multimesh::utils::internal::print_all_mapped_tuples(parent_to_me, me_to_parent);
+    const auto& sd = dart::SimplexDart::get_singleton(m_mesh.top_simplex_type());
 #else
     auto map_accessor = m_mesh.create_const_accessor(attr);
 #endif
@@ -109,7 +127,7 @@ bool MapValidator::check_parent_map_attribute_valid() const
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
 
         dart::Dart d = me_to_parent[sd.dart_from_tuple(source_tuple)];
-        if(d.is_null()) {
+        if (d.is_null()) {
             ok = false;
             wmtk::logger().error(
                 "Map from child {} to parent {} on tuple {} (dim {}) has null entry {},{}",
@@ -117,14 +135,12 @@ bool MapValidator::check_parent_map_attribute_valid() const
                 fmt::join(parent.absolute_multi_mesh_id(), ","),
                 m_mesh.top_cell_dimension(),
                 std::string(source_tuple),
-                d.global_id()
-                ,
-                d.permutation()
-            );
+                d.global_id(),
+                d.permutation());
         }
         dart::ConstDartWrap dw = parent_to_me[d];
 
-        if(dw.is_null()) {
+        if (dw.is_null()) {
             ok = false;
             wmtk::logger().error(
                 "Map from child {} to parent {} on tuple {} (dim {}) has null entry {},{}",
@@ -132,10 +148,8 @@ bool MapValidator::check_parent_map_attribute_valid() const
                 fmt::join(parent.absolute_multi_mesh_id(), ","),
                 m_mesh.top_cell_dimension(),
                 std::string(source_tuple),
-                d.global_id()
-                ,
-                d.permutation()
-            );
+                d.global_id(),
+                d.permutation());
         }
 #else
         const auto [source_mesh_base_tuple, target_mesh_base_tuple] =
@@ -187,16 +201,22 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
     bool ok = true;
     for (PrimitiveType pt : wmtk::utils::primitive_below(child.top_simplex_type())) {
         auto tups = child.get_all(pt);
+        spdlog::info("Testing out {} tuples", tups.size());
         for (const wmtk::Tuple& t : tups) {
             assert(!t.is_null());
             wmtk::simplex::Simplex s(pt, t);
+            spdlog::info(
+                "Child {} simplex {}",
+                fmt::join(child.absolute_multi_mesh_id(), ","),
+                std::string(t));
 
             wmtk::Tuple parent_tuple = child.map_to_parent_tuple(s);
             assert(!parent_tuple.is_null());
+            assert(m_mesh.is_valid(parent_tuple));
 
             // spt is the primitive type we will switch
             for (PrimitiveType spt : wmtk::utils::primitive_below(child.top_simplex_type())) {
-                if(pt == PrimitiveType::Vertex) {
+                if (pt == PrimitiveType::Vertex) {
                     continue;
                 }
                 // skip switches over boundaries

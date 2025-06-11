@@ -127,7 +127,7 @@ bool Mesh::is_valid(const Tuple& tuple) const
     const bool bad = nullity || removed;
 #if !defined(NDEBUG)
     if (bad) {
-        logger().debug("Mesh::is_valid failed, got nullity:{} removedness:{}", nullity, removed);
+        logger().debug("Mesh::is_valid({}) failed, got nullity:{} removedness:{}", std::string(tuple), nullity, removed);
     }
 #endif
     return !bad;

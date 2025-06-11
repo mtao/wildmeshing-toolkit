@@ -17,6 +17,11 @@ set(SRC_FILES
    
     internal/TupleTag.hpp
     internal/TupleTag.cpp
+
+    internal/print_all_mapped_tuples.hpp
+    internal/print_all_mapped_tuples.cpp
+
+
     create_tag.hpp
     create_tag.cpp
     extract_child_mesh_from_tag.hpp

@@ -94,4 +94,13 @@ Dart SimplexDart::act(const Dart& d, int8_t action) const
     return Dart(d.global_id(), act(d.permutation(), action));
 }
 
+
+bool SimplexDart::is_valid(int8_t index) const
+{
+    return index >= 0 && index < size();
+}
+bool SimplexDart::is_valid(const Dart& d) const
+{
+    return is_valid(d.permutation());
+}
 } // namespace wmtk::dart

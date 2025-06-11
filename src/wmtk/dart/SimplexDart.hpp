@@ -24,6 +24,8 @@ public:
     // returns the action equivalent to switching by a particular primitive
     virtual int8_t permutation_index_from_primitive_switch(wmtk::PrimitiveType pt) const = 0;
 
+    bool is_valid(int8_t index) const;
+    bool is_valid(const Dart& d) const;
 
     Dart act(const Dart& d, int8_t action) const;
     int8_t act(int8_t permutation, int8_t action) const;

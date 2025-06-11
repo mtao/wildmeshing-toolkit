@@ -27,12 +27,12 @@ local_simplex_decomposition(const SimplexDart& sd, PrimitiveType pt, int8_t perm
 
         const int8_t lower_perm = sd.convert(upper_perm, subsd);
 
-        spdlog::info(
-            "global action is {}:{} is {}:{}",
-            upper_perm,
-            fmt::join(dart::utils::get_local_vertex_permutation(source_pt, upper_perm), ","),
-            lower_perm,
-            fmt::join(dart::utils::get_local_vertex_permutation(pt, lower_perm), ","));
+        //spdlog::info(
+        //    "global action is {}:{} is {}:{}",
+        //    upper_perm,
+        //    fmt::join(dart::utils::get_local_vertex_permutation(source_pt, upper_perm), ","),
+        //    lower_perm,
+        //    fmt::join(dart::utils::get_local_vertex_permutation(pt, lower_perm), ","));
 
         return std::make_pair(lower_perm, o);
     } else {

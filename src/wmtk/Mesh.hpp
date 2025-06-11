@@ -451,7 +451,7 @@ public:
     bool is_removed(const Tuple& tuple, PrimitiveType pt) const;
     bool is_removed(const simplex::IdSimplex& s) const;
 
-protected:
+public:
     // whether the tuple refers to a removed / invalid facet
     bool is_removed(int64_t index) const;
     // whether the tuple refers to a removed / invalid simplex
