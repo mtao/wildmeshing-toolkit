@@ -26,9 +26,10 @@ void print_all_mapped_tuples(
             dart::Dart a_d = b[b_d];
             //spdlog::info("{} was mapped downward to {}", std::string(a_d), std::string(b_d));
             spdlog::info(
-                "{}[{}] was mapped downward to {} (removed={})",
+                "{}[{},{}] was mapped downward to {} (removed={})",
                 std::string(a_d),
                 a_mesh.id(a_d_input, bpt),
+                std::string(asd.tuple_from_dart(a_d)),
                 std::string(b_d),
                 b_mesh.is_removed(b_d.global_id()));
         }
@@ -44,8 +45,9 @@ void print_all_mapped_tuples(
         } else {
             dart::Dart b_d = a[a_d];
             spdlog::info(
-                "{} was mapped upward to {} (removed={})",
+                "{}[{}] was mapped upward to {} (removed={})",
                 std::string(b_d),
+                std::string(bsd.tuple_from_dart(b_d)),
                 std::string(a_d),
                 a_mesh.is_removed(a_d.global_id()));
         }

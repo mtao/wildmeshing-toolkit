@@ -49,10 +49,10 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
     if (parent_to_child_dart.is_null()) {
         return {};
     }
-    /*
     // the child to parent is always the global id
     wmtk::dart::Dart child_to_parent_dart =
         child_to_parent_accessor.IndexBaseType::operator[](parent_to_child_dart.global_id());
+    /*
     spdlog::info(
         "mapped tuples child{} parent{}",
         std::string(parent_to_child_dart),
@@ -68,7 +68,7 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
         std::swap(child_permutation, parent_permutation);
     }
 
-    dart::Dart parent_dart = dart::Dart(index, parent_permutation);
+    dart::Dart parent_dart = dart::Dart(child_to_parent_dart.global_id(), parent_permutation);
     dart::Dart child_dart = dart::Dart(parent_to_child_dart.global_id(), child_permutation);
 
 #if !defined(NDEBUG)
@@ -275,15 +275,16 @@ void MultiMeshManager::update_map_tuple_hashes(
             fmt::join(split_cell_maps, ","));
         for (const auto& [original_parent_gid, equivalent_parent_tuples] : simplices_to_update) {
             logger().trace(
-                "[{}->{}] Trying to update {}",
+                "[{}->{}] Trying to update {}-simplex with global id {}",
                 fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
                 fmt::join(child_mesh.absolute_multi_mesh_id(), ","),
+                primitive_type_name(primitive_type),
                 original_parent_gid);
             //  read off the original map's data
             auto [parent_tuple, child_tuple] =
                 mapped_tuples(my_mesh, *child_data.mesh, original_parent_gid);
             // if (debug) {
-            spdlog::info("{} {}", std::string(parent_tuple), std::string(child_tuple));
+            // spdlog::info("{} {}", std::string(parent_tuple), std::string(child_tuple));
             // }
 
             // If the parent tuple is valid, it means this parent-child pair has already been
@@ -307,6 +308,10 @@ void MultiMeshManager::update_map_tuple_hashes(
 
             // Find a valid representation of this simplex representation of the original tupl
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
+            spdlog::info(
+                "Mapped darts got {} {}",
+                std::string(parent_tuple),
+                std::string(child_tuple));
 
             dart::Dart child_dart = parent_to_child_accessor[parent_tuple.global_cid()];
             // dart::Dart parent_dart = child_to_parent_accessor[child_dart.global_id()];
