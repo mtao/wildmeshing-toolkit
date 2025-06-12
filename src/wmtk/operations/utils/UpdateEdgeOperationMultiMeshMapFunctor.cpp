@@ -638,6 +638,9 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const edge_mesh::EdgeOperationData& child_emoe) const
 {
+    spdlog::warn("TRI EDGE");
+    spdlog::warn("TRI EDGE");
+    spdlog::warn("TRI EDGE");
     const auto& parent_incident_tet_datas = parent_tmoe.incident_tet_datas();
     const auto& parent_incident_face_datas = parent_tmoe.incident_face_datas();
 
@@ -650,7 +653,9 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
         parent_global_cid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
     int64_t target_parent_local_fid =
         parent_local_fid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
+    spdlog::info("Managing a parent to child relationship {}", target_parent_tid);
     for (const auto& parent_data : parent_incident_tet_datas) {
+        spdlog::info("parent data tid: {}", parent_data.tid);
         if (parent_data.tid != target_parent_tid) continue;
 
         spdlog::info("At parent tid {}, incident faces were {}", target_parent_tid, fmt::join(parent_data.incident_face_local_fid,","));

@@ -5,6 +5,7 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/dart/Dart.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/utils/apply_simplex_involution.hpp>
 #include <wmtk/operations/EdgeOperationData.hpp>
 #include <wmtk/operations/internal/CollapseAlternateFacetData.hpp>
 #include <wmtk/operations/internal/SplitAlternateFacetData.hpp>
@@ -41,15 +42,14 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
     auto [parent_to_child_accessor, child_to_parent_accessor] =
         get_map_const_accessors(my_mesh, child_mesh);
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
-    const dart::SimplexDart& parent_sd =
-        dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
-    const dart::SimplexDart& child_sd =
-        dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
+    const PrimitiveType parent_pt = my_mesh.top_simplex_type();
+    const PrimitiveType child_pt = child_mesh.top_simplex_type();
     wmtk::dart::Dart parent_to_child_dart =
         parent_to_child_accessor.IndexBaseType::operator[](index);
     if (parent_to_child_dart.is_null()) {
         return {};
     }
+    /*
     // the child to parent is always the global id
     wmtk::dart::Dart child_to_parent_dart =
         child_to_parent_accessor.IndexBaseType::operator[](parent_to_child_dart.global_id());
@@ -57,8 +57,35 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
         "mapped tuples child{} parent{}",
         std::string(parent_to_child_dart),
         std::string(child_to_parent_dart));
-    Tuple parent_tuple = parent_sd.tuple_from_dart(child_to_parent_dart);
-    Tuple child_tuple = child_sd.tuple_from_dart(parent_to_child_dart);
+        */
+    // Tuple parent_tuple = parent_sd.tuple_from_dart(child_to_parent_dart);
+    // Tuple child_tuple = child_sd.tuple_from_dart(parent_to_child_dart);
+
+    const dart::SimplexDart& child_sd = dart::SimplexDart::get_singleton(child_pt);
+    int8_t child_permutation = child_sd.identity();
+    int8_t parent_permutation = parent_to_child_dart.permutation();
+    if (parent_pt == child_pt) {
+        std::swap(child_permutation, parent_permutation);
+    }
+
+    dart::Dart parent_dart = dart::Dart(index, parent_permutation);
+    dart::Dart child_dart = dart::Dart(parent_to_child_dart.global_id(), child_permutation);
+
+#if !defined(NDEBUG)
+    const dart::SimplexDart& parent_sd = dart::SimplexDart::get_singleton(parent_pt);
+    assert(
+        wmtk::dart::utils::apply_simplex_involution(
+            parent_pt,
+            child_pt,
+            parent_to_child_dart,
+            parent_dart) == child_dart);
+
+#endif
+
+    Tuple parent_tuple = parent_sd.tuple_from_dart(parent_dart);
+    Tuple child_tuple = child_sd.tuple_from_dart(child_dart);
+    // spdlog::info("{} {}", std::string(parent_tuple), std::string(child_tuple));
+
     return {parent_tuple, child_tuple};
 
 #else
@@ -267,6 +294,7 @@ void MultiMeshManager::update_map_tuple_hashes(
                 continue;
             }
 
+            assert(child_mesh.is_valid(child_tuple));
 
             // TODO: this covers the case of updating the spine simplices, but we should have caught
             // that alraedy check if the map is handled in the ear case if the child simplex is
@@ -320,6 +348,10 @@ void MultiMeshManager::update_map_tuple_hashes(
                 parent_tuple.global_cid(),
                 std::string(child_dart));
             Tuple new_parent_tuple_shared = new_parent_shared_opt.value();
+
+            assert(my_mesh.is_valid(new_parent_tuple_shared));
+            assert(child_mesh.is_valid(child_tuple));
+
             spdlog::warn("New parent {}", std::string(new_parent_tuple_shared));
             wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
                 parent_to_child_accessor,

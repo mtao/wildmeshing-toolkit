@@ -9,6 +9,8 @@ set(TEST_SOURCES
     topology_initialization.cpp
     relative_faces.cpp
 
+    simplex_involution.cpp
+
     relative_permutation.cpp
 
     utils/canonical_darts.hpp

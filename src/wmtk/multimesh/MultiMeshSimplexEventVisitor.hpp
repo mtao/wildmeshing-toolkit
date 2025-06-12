@@ -61,9 +61,9 @@ void MultiMeshSimplexEventVisitor<cell_dimension, Functor>::run_on_edges(EdgeFun
                 //     fmt::join(parent_mesh.absolute_multi_mesh_id(), ","),
                 //     fmt::join(child_mesh.absolute_multi_mesh_id(), ","));
 
-                constexpr static int64_t ParentDim =
+                constexpr static int8_t ParentDim =
                     wmtk::utils::metaprogramming::cell_dimension_v<ParentType>;
-                constexpr static int64_t ChildDim =
+                constexpr static int8_t ChildDim =
                     wmtk::utils::metaprogramming::cell_dimension_v<ChildType>;
 
                 using ParentReturnType = GetReturnType_t<ParentType>;
@@ -77,6 +77,7 @@ void MultiMeshSimplexEventVisitor<cell_dimension, Functor>::run_on_edges(EdgeFun
                         get_cached_return(parent_mesh, std::get<1>(keyA));
                     const ChildReturnType& child_return =
                         get_cached_return(child_mesh, std::get<1>(keyB));
+                    spdlog::error("Calling edge on {} {}", ParentDim, ChildDim);
                     edge_functor(
                         parent_mesh,
                         std::get<1>(keyA),

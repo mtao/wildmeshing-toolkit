@@ -1,6 +1,12 @@
+#pragma once
 
 #include <wmtk/dart/Dart.hpp>
+#include <span>
+#include <array>
 namespace wmtk::tests::dart::utils {
+
+extern const wmtk::dart::Dart d0;
+extern const std::array<wmtk::dart::Dart,1> D0;
 
 extern const wmtk::dart::Dart d01;
 extern const wmtk::dart::Dart d10;
@@ -42,5 +48,7 @@ extern const wmtk::dart::Dart d3201;
 extern const wmtk::dart::Dart d3210;
 
 extern const std::array<wmtk::dart::Dart,24> D3;
+
+std::span<const wmtk::dart::Dart> darts(int8_t dimension);
 
 } // namespace wmtk::tests::dart::utils

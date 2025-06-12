@@ -1,6 +1,8 @@
 
 
 #include "canonical_darts.hpp"
+#include <array>
+#include <span>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/utils/from_local_vertex_permutation.hpp>
 namespace wmtk::tests::dart::utils {
@@ -16,6 +18,8 @@ int8_t v(Args&&... args)
         VectorX<int8_t>::ConstMapType(a.data(), a.size()));
 }
 } // namespace
+  //
+const wmtk::dart::Dart d0 = {0, v(0)};
 
 const wmtk::dart::Dart d01 = {0, v(0, 1)};
 const wmtk::dart::Dart d10 = {0, v(1, 0)};
@@ -55,12 +59,25 @@ const wmtk::dart::Dart d3120 = {0, v(3, 1, 2, 0)};
 const wmtk::dart::Dart d3201 = {0, v(3, 2, 0, 1)};
 const wmtk::dart::Dart d3210 = {0, v(3, 2, 1, 0)};
 
-extern const std::array<wmtk::dart::Dart, 2> D1 = {{d01, d10}};
+const std::array<wmtk::dart::Dart, 1> D0 = {{d0}};
 
-extern const std::array<wmtk::dart::Dart, 6> D2 = {{d012, d021, d102, d120, d201, d210}};
+const std::array<wmtk::dart::Dart, 2> D1 = {{d01, d10}};
 
-extern const std::array<wmtk::dart::Dart, 24> D3 = {
+const std::array<wmtk::dart::Dart, 6> D2 = {{d012, d021, d102, d120, d201, d210}};
+
+const std::array<wmtk::dart::Dart, 24> D3 = {
     {d1230, d1320, d2130, d2310, d3120, d3210, d0231, d0321, d2031, d2301, d3021, d3201,
      d0132, d0312, d1032, d1302, d3012, d3102, d0123, d0213, d1023, d1203, d2013, d2103}};
+
+std::span<const wmtk::dart::Dart> darts(int8_t dimension)
+{
+    switch (dimension) {
+    case 0: return D0;
+    case 1: return D1;
+    case 2: return D2;
+    case 3: return D3;
+    default: assert(false); return {};
+    }
+}
 
 } // namespace wmtk::tests::dart::utils
