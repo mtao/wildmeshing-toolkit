@@ -133,7 +133,7 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
     const auto& parent_incident_vids = fmoe.incident_vids();
 
 
-    spdlog::error("Updating ear replacement");
+    //spdlog::error("Updating ear replacement");
     for (const auto& parent_data : parent_incident_datas) {
         // std::cout << parent_data.fid << " has been processed" << std::endl;
 
@@ -484,12 +484,12 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex& cs,
     const edge_mesh::EdgeOperationData& child_emoe) const
 {
-    spdlog::warn(
-        "Updating map from trimesh [{}] {} to edge [{}] {}",
-        fmt::join(parent_mesh.absolute_multi_mesh_id(), ","),
-        std::string(ps.tuple()),
-        fmt::join(child_mesh.absolute_multi_mesh_id(), ","),
-        std::string(cs.tuple()));
+    //spdlog::warn(
+    //    "Updating map from trimesh [{}] {} to edge [{}] {}",
+    //    fmt::join(parent_mesh.absolute_multi_mesh_id(), ","),
+    //    std::string(ps.tuple()),
+    //    fmt::join(child_mesh.absolute_multi_mesh_id(), ","),
+    //    std::string(cs.tuple()));
     const auto& parent_incident_datas = parent_tmoe.incident_face_datas();
     const auto& parent_spine_v = parent_tmoe.incident_vids();
 
@@ -507,7 +507,7 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
         const int64_t e_parent = parent_tmoe.split_spine_eids[index];
 
         if (f_parent == -1 || e_child == -1 || e_parent == -1) {
-            spdlog::info("index {}: {} {} {}", index, f_parent, e_child, e_parent);
+            //spdlog::info("index {}: {} {} {}", index, f_parent, e_child, e_parent);
             continue;
         }
 
@@ -519,7 +519,7 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
 
         assert(parent_mesh.is_valid(parent_tuple));
         assert(child_mesh.is_valid(child_tuple));
-        spdlog::info("Writing for {}", index);
+        //spdlog::info("Writing for {}", index);
 
         wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
             parent_to_child_accessor,
@@ -638,9 +638,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const edge_mesh::EdgeOperationData& child_emoe) const
 {
-    spdlog::warn("TRI EDGE");
-    spdlog::warn("TRI EDGE");
-    spdlog::warn("TRI EDGE");
     const auto& parent_incident_tet_datas = parent_tmoe.incident_tet_datas();
     const auto& parent_incident_face_datas = parent_tmoe.incident_face_datas();
 
@@ -653,12 +650,12 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
         parent_global_cid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
     int64_t target_parent_local_fid =
         parent_local_fid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
-    spdlog::info("Managing a parent to child relationship {}", target_parent_tid);
+    //spdlog::info("Managing a parent to child relationship {}", target_parent_tid);
     for (const auto& parent_data : parent_incident_tet_datas) {
-        spdlog::info("parent data tid: {}", parent_data.tid);
+        //spdlog::info("parent data tid: {}", parent_data.tid);
         if (parent_data.tid != target_parent_tid) continue;
 
-        spdlog::info("At parent tid {}, incident faces were {}", target_parent_tid, fmt::join(parent_data.incident_face_local_fid,","));
+        //spdlog::info("At parent tid {}, incident faces were {}", target_parent_tid, fmt::join(parent_data.incident_face_local_fid,","));
         int64_t face_index = -1; // shoule be 0 or 1 after if
         for (int i = 0; i < 2; ++i) {
             if (parent_data.incident_face_local_fid[i] == target_parent_local_fid) {
@@ -882,14 +879,14 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const tri_mesh::EdgeOperationData& parent_fmoe)
 {
-    spdlog::error("Trimesh node update");
+    //spdlog::error("Trimesh node update");
     std::vector<std::tuple<int64_t, std::array<int64_t, 2>>> parent_split_cell_maps;
     const auto& parent_incident_datas = parent_fmoe.incident_face_datas();
     for (const auto& parent_data : parent_incident_datas) {
         if (parent_data.split_f[0] == -1) break;
         parent_split_cell_maps.emplace_back(parent_data.fid, parent_data.split_f);
     }
-    spdlog::info("Parent split cells: ", parent_split_cell_maps.size());
+    //spdlog::info("Parent split cells: ", parent_split_cell_maps.size());
     // TODO: update the ear edges here?
 
     if (parent_fmoe.is_collapse) {

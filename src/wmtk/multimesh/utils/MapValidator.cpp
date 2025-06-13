@@ -27,7 +27,7 @@ bool MapValidator::check_all() const
 
 bool MapValidator::check_child_map_attributes_valid() const
 {
-    spdlog::info("Child attributes valid with {} children");
+    logger().info("Child attributes valid with {} children");
 #if defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
     // return true;
 #endif
@@ -35,7 +35,7 @@ bool MapValidator::check_child_map_attributes_valid() const
     for (const auto& [cptr, attr] : m_mesh.m_multi_mesh_manager.m_children) {
         const auto& child = *cptr;
 
-        spdlog::warn(
+        logger().warn(
             "Testing [{}] to [{}]",
             fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
             fmt::join(child.absolute_multi_mesh_id(), ","));
@@ -99,7 +99,7 @@ bool MapValidator::check_child_map_attributes_valid() const
 
 bool MapValidator::check_parent_map_attribute_valid() const
 {
-    spdlog::info("parent attributes valid");
+    logger().info("parent attributes valid");
     bool ok = true;
     const auto& parent_ptr = m_mesh.m_multi_mesh_manager.m_parent;
     if (parent_ptr == nullptr) {
@@ -114,7 +114,7 @@ bool MapValidator::check_parent_map_attribute_valid() const
     auto [parent_to_me, me_to_parent] =
         parent.m_multi_mesh_manager.get_map_const_accessors(parent, m_mesh);
 
-    spdlog::warn(
+    logger().warn(
         "Testing [{}] to [{}]",
         fmt::join(parent.absolute_multi_mesh_id(), ","),
         fmt::join(m_mesh.absolute_multi_mesh_id(), ","));
@@ -201,11 +201,11 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
     bool ok = true;
     for (PrimitiveType pt : wmtk::utils::primitive_below(child.top_simplex_type())) {
         auto tups = child.get_all(pt);
-        spdlog::info("Testing out {} tuples", tups.size());
+        logger().info("Testing out {} tuples", tups.size());
         for (const wmtk::Tuple& t : tups) {
             assert(!t.is_null());
             wmtk::simplex::Simplex s(pt, t);
-            spdlog::info(
+            logger().info(
                 "Child {} simplex {}",
                 fmt::join(child.absolute_multi_mesh_id(), ","),
                 std::string(t));

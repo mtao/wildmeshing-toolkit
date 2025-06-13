@@ -77,7 +77,6 @@ void MultiMeshSimplexEventVisitor<cell_dimension, Functor>::run_on_edges(EdgeFun
                         get_cached_return(parent_mesh, std::get<1>(keyA));
                     const ChildReturnType& child_return =
                         get_cached_return(child_mesh, std::get<1>(keyB));
-                    spdlog::error("Calling edge on {} {}", ParentDim, ChildDim);
                     edge_functor(
                         parent_mesh,
                         std::get<1>(keyA),

@@ -310,14 +310,14 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
 
         for (const auto& child_data : m_multi_mesh_manager.m_children) {
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
+            auto& child_mesh = *child_data.mesh;
             auto [me_to_child, child_to_me] =
-                m_multi_mesh_manager.get_map_accessors(*this, *child_data.mesh);
+                m_multi_mesh_manager.get_map_accessors(*this, child_mesh);
 
-            const auto& sd = dart::SimplexDart::get_singleton(top_simplex_type());
-            for (const auto& t : get_all(top_simplex_type())) {
-                dart::Dart d = me_to_child[sd.dart_from_tuple(t)];
-                dart::DartWrap dw = child_to_me[d];
-                dw = dart::Dart{top_map[dw.global_id()], dw.permutation()};
+            const auto& sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
+            for (const auto& t : child_mesh.get_all(child_mesh.top_simplex_type())) {
+                dart::DartWrap d = child_to_me[sd.dart_from_tuple(t)];
+                d = dart::Dart{top_map[d.global_id()], d.permutation()};
             }
 #else
             {

@@ -66,6 +66,9 @@ set(SRC_FILES
     EigenMatrixWriter.hpp
     EigenMatrixWriter.cpp
 
+    as_eigen_matrices.cpp
+    as_eigen_matrices.hpp
+
     edge_insertion.hpp
     edge_insertion.cpp
     Stopwatch.hpp

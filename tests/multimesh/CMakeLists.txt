@@ -11,6 +11,7 @@ set(TEST_SOURCES
     test_ids.cpp
     transport_tuple.cpp
 
+    swap.cpp
     point.cpp
 )
 target_sources(wmtk_tests PRIVATE ${TEST_SOURCES})

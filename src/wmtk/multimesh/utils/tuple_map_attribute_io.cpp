@@ -114,8 +114,6 @@ void write_tuple_map_attribute(
     const Tuple& source_tuple,
     const Tuple& target_tuple)
 {
-    // spdlog::warn("Writing map for {} to {}", std::string(source_tuple),
-    // std::string(target_tuple));
     assert(map_accessor.dimension() == 4);
     wmtk::attribute::TupleAccessor<MeshType> acc(map_accessor);
     assert(acc.dimension() == 2);

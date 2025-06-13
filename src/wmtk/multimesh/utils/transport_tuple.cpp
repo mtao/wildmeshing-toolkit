@@ -1,5 +1,4 @@
 #include "transport_tuple.hpp"
-//#include <spdlog/spdlog.h>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
 #include "find_local_dart_action.hpp"
@@ -34,9 +33,7 @@ Tuple transport_tuple(
 
     int8_t src_dart = sd.permutation_index_from_tuple(source);
     const int8_t tgt_dart = sd.act(src_dart, action);
-    //spdlog::warn("base action{} final action{} src_dart{} tgt_dart{}", base_action, action, src_dart, tgt_dart);
     const auto r = sd.update_tuple_from_permutation_index(source, tgt_dart);
-    //spdlog::info("{}", std::string(r));
     return r;
 }
 

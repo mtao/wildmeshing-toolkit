@@ -54,17 +54,10 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     const PrimitiveType target_pt = target_to_source_map_accessor.mesh().top_simplex_type();
     const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
 
-    spdlog::warn(
-        "[{}] [{}]",
-        fmt::join(source_to_target_map_accessor.mesh().absolute_multi_mesh_id(), ","),
-        fmt::join(target_to_source_map_accessor.mesh().absolute_multi_mesh_id(), ","));
     wmtk::dart::Dart source_dart = sd.dart_from_tuple(source_tuple);
     assert(sd.is_valid(source_dart));
     const auto involution = source_to_target_map_accessor[source_dart][0];
-    // spdlog::info("map tuple between meshes source tuple {} got involution {}",
-    // std::string(source_tuple), std::string(involution));
     if (involution.is_null()) {
-        // spdlog::warn("Ivnolution null");
         return {};
     }
     const int64_t target_global_id = involution.global_id();
@@ -73,11 +66,6 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
         const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
         const int64_t desired_source_gid = inverse_involution.global_id();
 
-        // spdlog::info(
-        //     "input {} involution {} inv {} target",
-        //     source_tuple.global_cid(),
-        //     std::string(involution),
-        //     std::string(inverse_involution));
 
         if (desired_source_gid != source_tuple.global_cid()) {
             const auto& source_mesh = source_to_target_map_accessor.mesh();
@@ -302,12 +290,12 @@ void MultiMeshManager::register_child_mesh(
     if (child_mesh_ptr->has_attribute<int64_t>(
             child_to_parent_map_attribute_name(),
             child_primitive_type)) {
-        spdlog::warn("Child mesh already had a parent attribute. is it root? {}", is_root());
+        logger().warn("Child mesh already had a parent attribute. is it root? {}", is_root());
     }
     if (my_mesh.has_attribute<int64_t>(
             parent_to_child_map_attribute_name(new_child_id),
             child_primitive_type)) {
-        spdlog::warn(
+        logger().warn(
             "Mesh already had a child attribute named in slot {}",
             fmt::join(absolute_id(), ","),
             new_child_id);
