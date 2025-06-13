@@ -520,6 +520,11 @@ protected: // protected to enable unit testing
     std::tuple<Tuple, Tuple>
     mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const;
 
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    std::tuple<dart::Dart, dart::Dart>
+    mapped_darts(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const;
+#endif
+
 
     // ===============================================================================
     // ===============================================================================

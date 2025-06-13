@@ -35,13 +35,13 @@ Tuple find_valid_tuple(
 
 } // namespace
 
-std::tuple<Tuple, Tuple>
-MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+std::tuple<dart::Dart, dart::Dart>
+MultiMeshManager::mapped_darts(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const
 {
     assert(&my_mesh.m_multi_mesh_manager == this);
     auto [parent_to_child_accessor, child_to_parent_accessor] =
         get_map_const_accessors(my_mesh, child_mesh);
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
     const PrimitiveType parent_pt = my_mesh.top_simplex_type();
     const PrimitiveType child_pt = child_mesh.top_simplex_type();
     wmtk::dart::Dart parent_to_child_dart =
@@ -62,6 +62,7 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
 
     dart::Dart parent_dart = dart::Dart(child_to_parent_dart.global_id(), parent_permutation);
     dart::Dart child_dart = dart::Dart(parent_to_child_dart.global_id(), child_permutation);
+    return {parent_dart, child_dart};
 
 #if !defined(NDEBUG)
     const dart::SimplexDart& parent_sd = dart::SimplexDart::get_singleton(parent_pt);
@@ -73,13 +74,28 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
             parent_dart) == child_dart);
 
 #endif
+}
+#endif
 
+std::tuple<Tuple, Tuple>
+MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const
+{
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+    auto [parent_dart, child_dart] = mapped_darts(my_mesh, child_mesh, index);
+
+    const PrimitiveType parent_pt = my_mesh.top_simplex_type();
+    const PrimitiveType child_pt = child_mesh.top_simplex_type();
+    const dart::SimplexDart& parent_sd = dart::SimplexDart::get_singleton(parent_pt);
+    const dart::SimplexDart& child_sd = dart::SimplexDart::get_singleton(child_pt);
     Tuple parent_tuple = parent_sd.tuple_from_dart(parent_dart);
     Tuple child_tuple = child_sd.tuple_from_dart(child_dart);
 
     return {parent_tuple, child_tuple};
 
 #else
+    assert(&my_mesh.m_multi_mesh_manager == this);
+    auto [parent_to_child_accessor, child_to_parent_accessor] =
+        get_map_const_accessors(my_mesh, child_mesh);
     auto parent_to_child_data =
         Mesh::get_index_access(parent_to_child_accessor).const_vector_attribute(index);
 
@@ -197,12 +213,10 @@ void MultiMeshManager::update_map_tuple_hashes(
     const std::vector<std::tuple<int64_t, std::vector<Tuple>>>& simplices_to_update,
     const std::vector<std::tuple<int64_t, std::array<int64_t, 2>>>& split_cell_maps)
 {
-
     const PrimitiveType parent_primitive_type = my_mesh.top_simplex_type();
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
     const auto& parent_sd = dart::SimplexDart::get_singleton(parent_primitive_type);
 #endif
-
 
 
     // go over every child mesh and try to update their hashes
@@ -236,14 +250,14 @@ void MultiMeshManager::update_map_tuple_hashes(
             // that alraedy check if the map is handled in the ear case if the child simplex is
             // deleted then we can skip it
             if (child_mesh.is_removed(child_tuple)) {
-                  continue;
+                continue;
             }
             // assert(!child_mesh.is_removed(child_tuple));
 
             // Find a valid representation of this simplex representation of the original tupl
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
 
-            //dart::Dart child_dart = parent_to_child_accessor[parent_tuple.global_cid()];
+            // dart::Dart child_dart = parent_to_child_accessor[parent_tuple.global_cid()];
 
             Tuple old_tuple;
             // find a tuple using hte original gid
@@ -265,8 +279,10 @@ void MultiMeshManager::update_map_tuple_hashes(
                 original_parent_gid,
                 equivalent_parent_tuples,
                 split_cell_maps);
+            if (!new_parent_shared_opt.has_value()) {
+                continue;
+            }
 
-            assert(new_parent_shared_opt.has_value());
 
             Tuple new_parent_tuple_shared = new_parent_shared_opt.value();
 
@@ -336,20 +352,20 @@ std::optional<Tuple> MultiMeshManager::find_valid_tuple(
     // if old gid was one of the originals then do tuple
     // otherwise just find some random tuple that still exists
 
-    std::optional<Tuple> split_attempt = find_valid_tuple_from_split(
-        my_mesh,
-        old_simplex,
-        old_gid,
-        equivalent_parent_tuples,
-        split_cell_maps);
-    if (!split_attempt.has_value()) {
-        split_attempt = find_valid_tuple_from_alternatives(
+    // when we're splitting we don't need to look at alternatives / will only update if the map used the right simplex
+    if (split_cell_maps.empty()) {
+        return find_valid_tuple_from_alternatives(
             my_mesh,
             my_mesh.top_simplex_type(),
             equivalent_parent_tuples);
+    } else {
+        return find_valid_tuple_from_split(
+            my_mesh,
+            old_simplex,
+            old_gid,
+            equivalent_parent_tuples,
+            split_cell_maps);
     }
-
-    return split_attempt;
 }
 
 
