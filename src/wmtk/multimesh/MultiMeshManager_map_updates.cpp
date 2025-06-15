@@ -234,6 +234,108 @@ void MultiMeshManager::update_map_tuple_hashes(
 
 
         for (const auto& [original_parent_gid, equivalent_parent_tuples] : simplices_to_update) {
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
+
+            const dart::SimplexDart& child_sd = dart::SimplexDart::get_singleton(primitive_type);
+            //  read off the original map's data
+            // auto [parent_tuple, child_tuple] =
+            //    mapped_tuples(my_mesh, *child_data.mesh, original_parent_gid);
+            dart::Dart child_map_dart = parent_to_child_accessor[original_parent_gid];
+            dart::Dart parent_map_dart = child_to_parent_accessor[child_map_dart.global_id()];
+
+            // If the parent tuple is valid, it means this parent-child pair has already been
+            // handled, so we can skip it
+            // If the parent tuple is invalid then there was no map so we can try the next cell
+            if (parent_map_dart.is_null()) {
+                continue;
+            }
+
+
+            // TODO: this covers the case of updating the spine simplices, but we should have caught
+            // that alraedy check if the map is handled in the ear case if the child simplex is
+            // deleted then we can skip it
+            if (child_mesh.is_removed(child_map_dart.global_id())) {
+                continue;
+            }
+
+
+            Tuple old_tuple;
+            // find a tuple using hte original gid
+            std::optional<Tuple> old_tuple_opt = find_tuple_from_gid(
+                my_mesh,
+                my_mesh.top_simplex_type(),
+                equivalent_parent_tuples,
+                parent_map_dart.global_id());
+            // assert(old_tuple_opt.has_value());
+            if (!old_tuple_opt.has_value()) {
+                continue;
+            }
+            old_tuple = old_tuple_opt.value();
+
+            simplex::Simplex old_simplex(primitive_type, old_tuple_opt.value());
+            std::optional<Tuple> new_parent_shared_opt;
+            if (split_cell_maps.empty()) {
+                new_parent_shared_opt = find_valid_tuple_from_alternatives(
+                    my_mesh,
+                    my_mesh.top_simplex_type(),
+                    equivalent_parent_tuples);
+                int8_t old_facet_permutation =
+                    parent_sd.dart_from_tuple(old_simplex.tuple()).permutation();
+                // old_simplex,
+                Tuple new_parent_tuple_shared = new_parent_shared_opt.value();
+                assert(my_mesh.is_valid(new_parent_tuple_shared));
+                // assert(child_mesh.is_valid(child_tuple));
+
+                int8_t new_facet_permutation =
+                    parent_sd.dart_from_tuple(new_parent_tuple_shared).permutation();
+
+                int8_t new_map_permutation = parent_sd.product(
+                    parent_sd.product(
+                        old_facet_permutation,
+                        parent_sd.inverse(old_facet_permutation)),
+                    parent_map_dart.permutation());
+
+                dart::Dart new_parent_dart(
+                    new_parent_tuple_shared.global_cid(),
+                    new_map_permutation);
+                dart::Dart new_child_dart(child_map_dart.global_id(), child_sd.identity());
+
+                Tuple parent_tuple = parent_sd.tuple_from_dart(new_parent_dart);
+
+                assert(my_mesh.is_valid(parent_tuple));
+                Tuple child_tuple = child_sd.tuple_from_dart(new_child_dart);
+                assert(child_mesh.is_valid(child_tuple));
+
+
+                child_to_parent_accessor[child_map_dart.global_id()] = parent_map_dart;
+                wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
+                    parent_to_child_accessor,
+                    child_to_parent_accessor,
+                    parent_tuple,
+                    child_tuple);
+
+
+            } else {
+                new_parent_shared_opt = find_valid_tuple_from_split(
+                    my_mesh,
+                    old_simplex,
+                    original_parent_gid,
+                    equivalent_parent_tuples,
+                    split_cell_maps);
+                if (!new_parent_shared_opt.has_value()) {
+                    continue;
+                }
+                int64_t new_parent_gid = new_parent_shared_opt.value().global_cid();
+
+                parent_map_dart = dart::Dart(new_parent_gid, parent_map_dart.permutation());
+                // spdlog::info("Updating {} to {}", std::string(parent_dart),
+                // std::string(child_dart));
+                parent_to_child_accessor[original_parent_gid] = child_map_dart;
+                child_to_parent_accessor[child_map_dart.global_id()] = parent_map_dart;
+            }
+
+
+#else
             //  read off the original map's data
             auto [parent_tuple, child_tuple] =
                 mapped_tuples(my_mesh, *child_data.mesh, original_parent_gid);
@@ -255,46 +357,6 @@ void MultiMeshManager::update_map_tuple_hashes(
             // assert(!child_mesh.is_removed(child_tuple));
 
             // Find a valid representation of this simplex representation of the original tupl
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
-
-            // dart::Dart child_dart = parent_to_child_accessor[parent_tuple.global_cid()];
-
-            Tuple old_tuple;
-            // find a tuple using hte original gid
-            std::optional<Tuple> old_tuple_opt = find_tuple_from_gid(
-                my_mesh,
-                my_mesh.top_simplex_type(),
-                equivalent_parent_tuples,
-                parent_tuple.global_cid());
-            // assert(old_tuple_opt.has_value());
-            if (!old_tuple_opt.has_value()) {
-                continue;
-            }
-            old_tuple = old_tuple_opt.value();
-
-            simplex::Simplex old_simplex(primitive_type, old_tuple_opt.value());
-            std::optional<Tuple> new_parent_shared_opt = find_valid_tuple(
-                my_mesh,
-                old_simplex,
-                original_parent_gid,
-                equivalent_parent_tuples,
-                split_cell_maps);
-            if (!new_parent_shared_opt.has_value()) {
-                continue;
-            }
-
-
-            Tuple new_parent_tuple_shared = new_parent_shared_opt.value();
-
-            assert(my_mesh.is_valid(new_parent_tuple_shared));
-            assert(child_mesh.is_valid(child_tuple));
-
-            wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
-                parent_to_child_accessor,
-                child_to_parent_accessor,
-                new_parent_tuple_shared,
-                child_tuple);
-#else
             Tuple old_tuple;
             std::optional<Tuple> old_tuple_opt = find_tuple_from_gid(
                 my_mesh,

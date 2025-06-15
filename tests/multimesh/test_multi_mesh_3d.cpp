@@ -75,7 +75,11 @@ TEST_CASE("test_split_multi_mesh_2D_3D", "[multimesh][2D][3D]")
 #else
         REQUIRE(parent.is_valid(edge));
 #endif
+        spdlog::warn("before");
+        parent_mmmanager.print(parent);
         REQUIRE(!split(Simplex::edge(parent, edge)).empty());
+        spdlog::warn("after");
+        parent_mmmanager.print(parent);
 
         CHECK(parent.get_all(PT).size() == 12);
 

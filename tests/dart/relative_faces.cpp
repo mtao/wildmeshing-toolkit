@@ -30,46 +30,46 @@ void dart_map_checker(
     const T& all_lower_darts)
 {
     REQUIRE(sd.simplex_type() <= sd2.simplex_type());
-    spdlog::error(
-        "Mapping {} -> {} with action {}",
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd.simplex_type(), source.permutation()),
-            ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), target.permutation()),
-            ","),
-        fmt::join(dart::utils::get_local_vertex_permutation(sd.simplex_type(), lower_action), ",")
+    //spdlog::error(
+    //    "Mapping {} -> {} with action {}",
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd.simplex_type(), source.permutation()),
+    //        ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd2.simplex_type(), target.permutation()),
+    //        ","),
+    //    fmt::join(dart::utils::get_local_vertex_permutation(sd.simplex_type(), lower_action), ",")
 
-    );
+    //);
 
     auto [target_permutation, upper_simplex] = wmtk::dart::utils::local_simplex_decomposition(
         sd2,
         sd.simplex_type(),
         target.permutation());
-    spdlog::error(
-        "Target was decomposed to {} from supdart {} with action {} (global was {}). manual "
-        "reconstruction is {}",
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), target.permutation()),
-            ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), upper_simplex),
-            ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd.simplex_type(), target_permutation),
-            ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(
-                sd2.simplex_type(),
-                sd.convert(target_permutation, sd2)),
-            ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(
-                sd2.simplex_type(),
-                sd2.product(upper_simplex, sd.convert(target_permutation, sd2))),
-            ",")
+    //spdlog::error(
+    //    "Target was decomposed to {} from supdart {} with action {} (global was {}). manual "
+    //    "reconstruction is {}",
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd2.simplex_type(), target.permutation()),
+    //        ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd2.simplex_type(), upper_simplex),
+    //        ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd.simplex_type(), target_permutation),
+    //        ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(
+    //            sd2.simplex_type(),
+    //            sd.convert(target_permutation, sd2)),
+    //        ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(
+    //            sd2.simplex_type(),
+    //            sd2.product(upper_simplex, sd.convert(target_permutation, sd2))),
+    //        ",")
 
-    );
+    //);
 
     REQUIRE(
         sd2.product(upper_simplex, sd.convert(target_permutation, sd2)) == target.permutation());
@@ -83,52 +83,52 @@ void dart_map_checker(
     auto new_source = sd.act(source, lower_action);
     auto new_target = sd2.act(target, upper_action);
 
-    spdlog::info(
-        "Source products: {} x {} -> {} (got {})",
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd.simplex_type(), source.permutation()),
-            ","),
-        fmt::join(dart::utils::get_local_vertex_permutation(sd.simplex_type(), lower_action), ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(
-                sd.simplex_type(),
-                sd.act(source.permutation(), lower_action)),
-            ","),
+    //spdlog::info(
+    //    "Source products: {} x {} -> {} (got {})",
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd.simplex_type(), source.permutation()),
+    //        ","),
+    //    fmt::join(dart::utils::get_local_vertex_permutation(sd.simplex_type(), lower_action), ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(
+    //            sd.simplex_type(),
+    //            sd.act(source.permutation(), lower_action)),
+    //        ","),
 
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd.simplex_type(), new_source.permutation()),
-            ",")
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd.simplex_type(), new_source.permutation()),
+    //        ",")
 
-    );
-    spdlog::info(
-        "target products: {} x {} -> {} (got {})",
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), target.permutation()),
-            ","),
-        fmt::join(dart::utils::get_local_vertex_permutation(sd2.simplex_type(), upper_action), ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(
-                sd2.simplex_type(),
-                sd2.act(target.permutation(), upper_action)),
-            ","),
+    //);
+    //spdlog::info(
+    //    "target products: {} x {} -> {} (got {})",
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd2.simplex_type(), target.permutation()),
+    //        ","),
+    //    fmt::join(dart::utils::get_local_vertex_permutation(sd2.simplex_type(), upper_action), ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(
+    //            sd2.simplex_type(),
+    //            sd2.act(target.permutation(), upper_action)),
+    //        ","),
 
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), new_target.permutation()),
-            ",")
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd2.simplex_type(), new_target.permutation()),
+    //        ",")
 
-    );
+    //);
 
 
-    spdlog::info(
-        "With action we should have {} -> {}",
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd.simplex_type(), new_source.permutation()),
-            ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), new_target.permutation()),
-            ",")
+    //spdlog::info(
+    //    "With action we should have {} -> {}",
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd.simplex_type(), new_source.permutation()),
+    //        ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd2.simplex_type(), new_target.permutation()),
+    //        ",")
 
-    );
+    //);
 
 
     auto fmap = wmtk::dart::utils::get_simplex_involution(
@@ -141,28 +141,28 @@ void dart_map_checker(
     auto [fmap_permutation, fmap_simplex] =
         wmtk::dart::utils::local_simplex_decomposition(sd2, sd.simplex_type(), fmap.permutation());
 
-    spdlog::error(
-        "fmap was decomposed to {} from supdart {} with action {} (global was {}). manual "
-        "reconstruction is {}",
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd2.simplex_type(), fmap.permutation()),
-            ","),
-        fmt::join(dart::utils::get_local_vertex_permutation(sd2.simplex_type(), fmap_simplex), ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(sd.simplex_type(), fmap_permutation),
-            ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(
-                sd2.simplex_type(),
-                sd.convert(fmap_permutation, sd2)),
-            ","),
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(
-                sd2.simplex_type(),
-                sd2.product(upper_simplex, sd.convert(fmap_permutation, sd2))),
-            ",")
+    //spdlog::error(
+    //    "fmap was decomposed to {} from supdart {} with action {} (global was {}). manual "
+    //    "reconstruction is {}",
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd2.simplex_type(), fmap.permutation()),
+    //        ","),
+    //    fmt::join(dart::utils::get_local_vertex_permutation(sd2.simplex_type(), fmap_simplex), ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(sd.simplex_type(), fmap_permutation),
+    //        ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(
+    //            sd2.simplex_type(),
+    //            sd.convert(fmap_permutation, sd2)),
+    //        ","),
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(
+    //            sd2.simplex_type(),
+    //            sd2.product(upper_simplex, sd.convert(fmap_permutation, sd2))),
+    //        ",")
 
-    );
+    //);
     REQUIRE(fmap_simplex == upper_simplex);
 
     // int8_t target_local_permutation = sd2.product(target.permutation(),
@@ -196,13 +196,13 @@ void dart_map_checker(
         fmap,
         source);
 
-    spdlog::info(
-        "Mapping made the target {}",
-        fmt::join(
-            dart::utils::get_local_vertex_permutation(
-                sd2.simplex_type(),
-                mapped_target.permutation()),
-            ","));
+    //spdlog::info(
+    //    "Mapping made the target {}",
+    //    fmt::join(
+    //        dart::utils::get_local_vertex_permutation(
+    //            sd2.simplex_type(),
+    //            mapped_target.permutation()),
+    //        ","));
 
     // just making sure the global id part works first
     CHECK((mapped_target.global_id() == target.global_id()));
@@ -344,7 +344,6 @@ TEST_CASE("dart_map_2d_2d", "[dart]")
             // for (const auto& t : {d021}) {
             for (const auto& t : D2) {
                 dart_map_checker(sd, s, sd, t, lower_action, D2);
-                std::cout << std::endl;
             }
         }
     }

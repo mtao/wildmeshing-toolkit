@@ -132,10 +132,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
     }
 
     if (m_mesh.has_child_mesh()) {
-        spdlog::error("planning data for child");
-        spdlog::error("planning data for child");
-        spdlog::error("planning data for child");
-        spdlog::error("planning data for child");
         // get the closed star of the edge
         simplex::SimplexCollection edge_closed_star_vertices(m_mesh);
         const simplex::Simplex edge_operating(m_mesh, PrimitiveType::Edge, operating_tuple);
@@ -221,7 +217,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
             } else if(index == 3) {
                 continue;
             }
-            spdlog::warn("Checking out for later updating {} {}", index, s.index());
             global_ids_to_potential_tuples.at(index).emplace_back(
                 id,
                 wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, m_mesh.get_simplex(s)));
@@ -459,7 +454,6 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     int64_t return_split_fid = -1;
 #endif
 
-    spdlog::error("Split sees {} tetes", m_incident_tet_datas.size());
     // update connectivity
     for (int64_t i = 0; i < m_incident_tet_datas.size(); ++i) {
         // prepare all indices

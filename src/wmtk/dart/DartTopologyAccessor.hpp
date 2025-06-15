@@ -108,13 +108,6 @@ public:
                 fuse(d, od);
             }
         }
-        for (int j = 0; j < size(); ++j) {
-            auto row = IndexBaseType::operator[](j);
-            spdlog::info("Row {}", j);
-            for (const auto& r : row) {
-                spdlog::info("{} {}", r.global_id(), r.permutation());
-            }
-        }
     }
 
 private:

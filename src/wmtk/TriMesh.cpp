@@ -463,7 +463,7 @@ bool TriMesh::is_connectivity_valid() const
             continue;
         }
         auto fe = fe_accessor.const_vector_attribute<3>(i);
-        auto ff = ff_accessor.const_vector_attribute<3>(i);
+        auto ff = ff_accessor.const_vector_attribute(i);
 
         for (int64_t j = 0; j < 3; ++j) {
             int neighbor_fid = ff(j);
