@@ -51,7 +51,7 @@ struct MultimeshTagOptions : public MultimeshRunnableOptions
 std::shared_ptr<Mesh> from_tag(
     const wmtk::attribute::MeshAttributeHandle& handle,
     const wmtk::attribute::MeshAttributeHandle::ValueVariant& tag_value,
-    const std::vector<wmtk::attribute::MeshAttributeHandle>& passed_attributes);
+    const std::vector<wmtk::attribute::MeshAttributeHandle>& passed_attributes = {});
 
 std::shared_ptr<Mesh> from_tag(const FromTagOptions& options);
 } // namespace wmtk::components::multimesh

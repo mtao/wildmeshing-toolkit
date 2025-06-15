@@ -1,4 +1,5 @@
 #include "../tuple_map_attribute_io.hpp"
+#include <wmtk/dart/DartAccessor.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include "wmtk/Mesh.hpp"
 namespace wmtk::multimesh::utils::internal {

@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <wmtk/dart/utils/apply_simplex_involution.hpp>
 #include <wmtk/dart/utils/get_simplex_dart.hpp>
+#include <spdlog/spdlog.h>
 #include <wmtk/dart/utils/get_simplex_involution.hpp>
 #include "utils/canonical_darts.hpp"
 using namespace wmtk;

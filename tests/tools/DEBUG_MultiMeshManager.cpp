@@ -46,7 +46,9 @@ void DEBUG_MultiMeshManager::print(const Mesh& m) const
             fmt::join(m.absolute_multi_mesh_id(), ","),
             fmt::join(c.mesh->absolute_multi_mesh_id(), ","));
 
+#if defined(WMTK_ENABLED_MULTIMESH_DART)
         wmtk::multimesh::utils::internal::print_all_mapped_tuples(a, b);
+#endif
     }
 }
 

@@ -19,7 +19,8 @@
 
 
 // this should change! make a util?
-#include <wmtk/components/multimesh_from_tag/internal/MultiMeshFromTag.hpp>
+//#include <wmtk/components/multimesh_from_tag/internal/MultiMeshFromTag.hpp>
+#include <wmtk/components/multimesh/from_tag.hpp>
 
 
 namespace wmtk::components::triangle_insertion {
@@ -60,12 +61,14 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
     constexpr static PrimitiveType PF = PrimitiveType::Triangle;
     constexpr static PrimitiveType PT = PrimitiveType::Tetrahedron;
 
+    spdlog::info("Generating raw triangle mesh");
     auto [tetmesh, tet_face_on_input_surface] =
         utils::generate_raw_tetmesh_from_input_surface(V, F, Vbg, Fbg);
 
     /* -------------rounding------------ */
 
     if (round) {
+        spdlog::info("Entering roundering");
         auto rounding_pt_attribute =
             tetmesh->get_attribute_handle_typed<Rational>(in_position, PrimitiveType::Vertex);
 
@@ -138,12 +141,15 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
 
         } else {
             logger().info("Making child surface mesh");
+            child_meshes.surface_mesh = wmtk::components::multimesh::from_tag(surface_handle, 1);
+            /*
             internal::MultiMeshFromTag SurfaceMeshFromTag(*tetmesh, surface_handle, 1);
             SurfaceMeshFromTag.compute_substructure_mesh();
 
             child_meshes.surface_mesh = tetmesh->get_child_meshes().back();
 
             SurfaceMeshFromTag.remove_soup();
+            */
         }
 
         /* -----------open boundary and nonmanifold edges in input surface--------- */
@@ -203,21 +209,28 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
 
             } else {
                 logger().error("Creating open boundary child mesh");
+            child_meshes.open_boundary_mesh = wmtk::components::multimesh::from_tag(open_boundary_handle, 1);
+                /*
                 internal::MultiMeshFromTag OpenBoundaryFromTag(*tetmesh, open_boundary_handle, 1);
                 OpenBoundaryFromTag.compute_substructure_mesh();
 
                 child_meshes.open_boundary_mesh = tetmesh->get_child_meshes().back();
                 OpenBoundaryFromTag.remove_soup();
+                */
             }
         }
 
         if (process_nonmanifold_edges) {
             logger().info("Creating nonmanifold edge mesh");
+            /*
             internal::MultiMeshFromTag NonmanifoldEdgeFromTag(*tetmesh, nonmanifold_edge_handle, 1);
             NonmanifoldEdgeFromTag.compute_substructure_mesh();
 
             child_meshes.nonmanifold_edge_mesh = tetmesh->get_child_meshes().back();
             NonmanifoldEdgeFromTag.remove_soup();
+            */
+
+            child_meshes.nonmanifold_edge_mesh = wmtk::components::multimesh::from_tag(nonmanifold_edge_handle, 1);
         }
 
         /* ---------------------bounding box-------------------------*/
@@ -232,11 +245,15 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
                 tetmesh->is_boundary(PrimitiveType::Triangle, f) ? 1 : 0;
         }
 
+
+            child_meshes.bbox_mesh= wmtk::components::multimesh::from_tag(bbox_handle, 1);
+            /*
         internal::MultiMeshFromTag NonmanifoldEdgeFromTag(*tetmesh, bbox_handle, 1);
         NonmanifoldEdgeFromTag.compute_substructure_mesh();
 
         child_meshes.bbox_mesh = tetmesh->get_child_meshes().back();
         NonmanifoldEdgeFromTag.remove_soup();
+        */
 
 
         /* -----------nonmanifold vertices in input surface--------- */
