@@ -3,7 +3,7 @@
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/TriMesh.hpp>
-#include <wmtk/components/multimesh_from_tag/internal/MultiMeshFromTag.hpp>
+#include <wmtk/components/multimesh/from_tag.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/Rational.hpp>
@@ -106,12 +106,8 @@ EdgeInsertionMeshes edge_insertion(EdgeMesh& input_mesh, TriMesh& bg_mesh)
 
     std::shared_ptr<Mesh> inserted_input_mesh;
 
-    internal::MultiMeshFromTag mmft(*m, input_handle, 1);
-    mmft.compute_substructure_mesh();
 
-    inserted_input_mesh = m->get_child_meshes().back();
-
-    mmft.remove_soup();
+    inserted_input_mesh = wmtk::components::multimesh::from_tag(input_handle, 1);
 
     // bbox child mesh
     auto bbox_handle = m->register_attribute<int64_t>("bbox", PrimitiveType::Edge, 1);
@@ -125,12 +121,7 @@ EdgeInsertionMeshes edge_insertion(EdgeMesh& input_mesh, TriMesh& bg_mesh)
 
     std::shared_ptr<Mesh> bbox_mesh;
 
-    internal::MultiMeshFromTag mmft2(*m, bbox_handle, 1);
-    mmft2.compute_substructure_mesh();
-
-    bbox_mesh = m->get_child_meshes().back();
-
-    mmft2.remove_soup();
+    bbox_mesh = wmtk::components::multimesh::from_tag(bbox_handle, 1);
 
     auto pt_attribute = m->get_attribute_handle<Rational>("vertices", PrimitiveType::Vertex);
 

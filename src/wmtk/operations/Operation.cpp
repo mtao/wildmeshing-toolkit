@@ -209,6 +209,7 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
             }
         } else {
             auto& at_mesh = at_ptr->mesh();
+            assert(at_mesh.is_connectivity_valid());
             auto at_mesh_simplices = m_mesh.map(at_mesh, direct_mods);
 
             simplex::IdSimplexCollection at_mesh_all(at_mesh);
@@ -218,8 +219,11 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
                     if (!at_mesh.is_valid(s)) {
                         spdlog::warn(
                             "Error: {}",
-                            fmt::format("Invalid simplex {}", std::string(s.tuple())));
-                        assert(at_mesh.is_connectivity_valid());
+                            fmt::format(
+                                "Operation::apply_attribute_transfer: Invalid simplex {} on "
+                                "{}-mesh",
+                                std::string(s.tuple()),
+                                primitive_type_name(at_mesh.top_simplex_type())));
                     } else {
                         at_mesh_all.add(ss);
                     }

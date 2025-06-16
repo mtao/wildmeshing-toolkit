@@ -16,6 +16,7 @@
 #include <wmtk/dart/utils/permute.hpp>
 #include <wmtk/utils/DisjointSet.hpp>
 #include "compactify_eigen_indices.hpp"
+#include "cofacets.hpp"
 
 
 #include "IndexSimplexMapper.hpp"
@@ -65,37 +66,40 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
     const auto& sd = dart::SimplexDart::get_singleton(pt);
 
     std::map<int64_t, std::set<dart::Dart>> coboundary;
-    for (int j = 0; j < S.rows(); ++j) {
-        std::array<int64_t, Dim - 1> r;
-        using MT = typename Vector<int64_t, Dim - 1>::MapType;
-        MT(r.data()) = S.row(j).transpose().template head<Dim - 1>();
-        int64_t last = S(j, Dim - 1);
+    coboundary = internal::coboundary<Dim - 1>(ism);
+    /*
+   for (int j = 0; j < S.rows(); ++j) {
+       std::array<int64_t, Dim - 1> r;
+       using MT = typename Vector<int64_t, Dim - 1>::MapType;
+       MT(r.data()) = S.row(j).transpose().template head<Dim - 1>();
+       int64_t last = S(j, Dim - 1);
 
-        auto s = S.row(j);
-        std::array<int64_t, Dim> ss;
-        std::array<int8_t, Dim> local_permutation;
-        std::iota(local_permutation.begin(), local_permutation.end(), 0);
-        std::copy(s.begin(), s.end(), ss.begin());
+       auto s = S.row(j);
+       std::array<int64_t, Dim> ss;
+       std::array<int8_t, Dim> local_permutation;
+       std::iota(local_permutation.begin(), local_permutation.end(), 0);
+       std::copy(s.begin(), s.end(), ss.begin());
 
-        auto add = [&]() {
-            int64_t index = ism.get_index(r);
+       auto add = [&]() {
+           int64_t index = ism.get_index(r);
 
-            std::array<int64_t, Dim - 1> sorted = r;
-            std::sort(sorted.begin(), sorted.end());
-            int8_t p = wmtk::dart::utils::get_canonical_subdart_permutation(ss, sorted);
-            auto myd = wmtk::dart::Dart(j, p);
-            coboundary[index].emplace(myd);
-        };
+           std::array<int64_t, Dim - 1> sorted = r;
+           std::sort(sorted.begin(), sorted.end());
+           int8_t p = wmtk::dart::utils::get_canonical_subdart_permutation(ss, sorted);
+           auto myd = wmtk::dart::Dart(j, p);
+           coboundary[index].emplace(myd);
+       };
 
-        add();
+       add();
 
-        for (int k = 0; k < Dim - 1; ++k) {
-            int64_t old = r[k];
-            r[k] = last;
-            add();
-            r[k] = old;
-        }
-    }
+       for (int k = 0; k < Dim - 1; ++k) {
+           int64_t old = r[k];
+           r[k] = last;
+           add();
+           r[k] = old;
+       }
+   }
+   */
     if constexpr (Dim > 1) {
         const auto& SS = ism.simplices<Dim - 1>();
         auto F = ism.simplices<Dim - 2>();
@@ -106,13 +110,6 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
             for (const auto& a : v) {
                 faces.emplace_back(SS[a.global_id()]);
             }
-            // spdlog::warn(
-            //    "{}/{}: {}  => {}",
-            //    k,
-            //    F.size(),
-            //    fmt::join(F[k], ","),
-            //    fmt::join(faces, ","));
-            // spdlog::warn("{}  {} {}=> {}", k, fmt::join(S, ","), S.size(), v);
         }
     }
 

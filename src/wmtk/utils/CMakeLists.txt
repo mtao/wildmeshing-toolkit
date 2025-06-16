@@ -80,6 +80,9 @@ set(SRC_FILES
     internal/IndexSimplexMapper.hpp
     internal/IndexSimplexMapper.cpp
 
+    internal/faces_single_dimension.hpp
+    internal/faces_single_dimension.cpp
+
     internal/identity_tuple.hpp
     internal/identity_tuple.cpp
 

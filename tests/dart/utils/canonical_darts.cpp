@@ -68,7 +68,7 @@ const std::array<wmtk::dart::Dart, 24> D3 = {
     {d1230, d1320, d2130, d2310, d3120, d3210, d0231, d0321, d2031, d2301, d3021, d3201,
      d0132, d0312, d1032, d1302, d3012, d3102, d0123, d0213, d1023, d1203, d2013, d2103}};
 
-#if defined(__cpp_lib_span)
+#if defined(WMTK_ENABLED_CPP20)
 std::span<const wmtk::dart::Dart>
 darts(int8_t dimension)
 {
