@@ -7,6 +7,7 @@
 #include <wmtk/utils/Logger.hpp>
 #include "extract_child_simplices_and_map_from_tag.hpp"
 #include "internal/TupleTag.hpp"
+#include "wmtk/utils/internal/is_manifold.hpp"
 
 namespace wmtk::multimesh::utils {
 
@@ -62,6 +63,13 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
 
     assert(bool(child_mesh_ptr));
     auto& child = *child_mesh_ptr;
+    try {
+        if (!wmtk::utils::internal::is_manifold(child)) {
+            spdlog::warn("Mesh created by extract_child_mesh_from_tag is not manifold");
+        }
+    } catch (const std::exception& e) {
+        spdlog::warn("Mesh created by extract_child_mesh_from_tag is not manifold");
+    }
 
     std::vector<std::array<Tuple, 2>> child_to_parent_map =
         wmtk::multimesh::from_facet_orientations(m, child, tagged_tuples);

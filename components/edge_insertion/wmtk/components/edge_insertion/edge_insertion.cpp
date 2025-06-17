@@ -107,7 +107,7 @@ EdgeInsertionMeshes edge_insertion(EdgeMesh& input_mesh, TriMesh& bg_mesh)
     std::shared_ptr<Mesh> inserted_input_mesh;
 
 
-    inserted_input_mesh = wmtk::components::multimesh::from_tag(input_handle, 1);
+    inserted_input_mesh = wmtk::components::multimesh::from_tag(input_handle, 1, {}, true);
 
     // bbox child mesh
     auto bbox_handle = m->register_attribute<int64_t>("bbox", PrimitiveType::Edge, 1);

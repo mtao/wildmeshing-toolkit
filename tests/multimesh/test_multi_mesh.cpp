@@ -59,6 +59,10 @@ TEST_CASE("test_register_child_mesh_bijection", "[multimesh][2D]")
     std::shared_ptr<DEBUG_TriMesh> child0_ptr = std::make_shared<DEBUG_TriMesh>(two_neighbors());
     std::shared_ptr<DEBUG_TriMesh> child1_ptr = std::make_shared<DEBUG_TriMesh>(two_neighbors());
 
+    REQUIRE(parent.is_connectivity_valid());
+    REQUIRE(child0_ptr->is_connectivity_valid());
+    REQUIRE(child1_ptr->is_connectivity_valid());
+
 
     auto& child0 = *child0_ptr;
     auto& child1 = *child1_ptr;

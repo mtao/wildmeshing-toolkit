@@ -35,6 +35,7 @@ TEST_CASE("multimesh_tag_json", "[components][multimesh]")
     JS tag_js = {
         {"type", "tag"},
         {"output_mesh_name", "tagged_edges"},
+        {"manifold_decomposition", false},
         {"tag_attribute",
          {
              {"path", "/tag"},
@@ -90,6 +91,7 @@ TEST_CASE("multimesh_tag_creation_json", "[components][multimesh]")
     JS tag_js = {
         {"type", "tag"},
         {"output_mesh_name", "tagged_edges"},
+        {"manifold_decomposition", false},
         {"creation_attributes",
          {{{"attribute_path", "main/normal"},
            {"base_attribute_path", "main/vertices"},

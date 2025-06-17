@@ -183,7 +183,15 @@ auto get_simplices(const Mesh& m)
 {
     EigenMatrixWriter writer;
     m.serialize(writer);
-    return writer.get_simplex_vertex_matrix();
+    auto S = writer.get_simplex_vertex_matrix();
+    // const auto& fa = m.get_const_flag_accessor(m.top_simplex_type());
+    // std::vector<int64_t> indices;
+    // for(j = 0; j < fa.base_accessor().reserved_size(); ++j) {
+    //     if(fa.index_access().is_active(j)) {
+    //         indices.emplace_back(j);
+    //     }
+    // }
+    return S;
 }
 
 } // namespace
@@ -192,6 +200,8 @@ IndexSimplexMapper::IndexSimplexMapper(const Mesh& mesh)
     : m_mesh(&mesh)
 {
     auto S = get_simplices(mesh);
+    std::cout << "S dimensions" << S.rows() << " " << S.cols() << std::endl;
+    std::cout << S << std::endl;
     m_simplex_dimension = S.cols() - 1;
     switch (S.cols()) {
     case 2: initialize_edge_mesh(S); break;

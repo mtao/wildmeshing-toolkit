@@ -61,6 +61,8 @@ TEST_CASE("test_split_multi_mesh_2D_3D", "[multimesh][2D][3D]")
     DEBUG_TriMesh& child0 = static_cast<DEBUG_TriMesh&>(*child_ptr_0);
     // DEBUG_TriMesh& child1 = static_cast<DEBUG_TriMesh&>(*child_ptr_1);
 
+    REQUIRE(parent.is_connectivity_valid());
+    REQUIRE(child0.is_connectivity_valid());
 
     SECTION("split_middle_edge")
     {
@@ -100,6 +102,8 @@ TEST_CASE("test_split_multi_mesh_2D_3D", "[multimesh][2D][3D]")
         }
     }
 
+    REQUIRE(parent.is_connectivity_valid());
+    REQUIRE(child0.is_connectivity_valid());
     SECTION("split_out_most_edge")
     {
         std::map<int64_t, int64_t> child_to_parent;
@@ -136,6 +140,8 @@ TEST_CASE("test_split_multi_mesh_2D_3D", "[multimesh][2D][3D]")
         }
     }
 
+    REQUIRE(parent.is_connectivity_valid());
+    REQUIRE(child0.is_connectivity_valid());
     SECTION("split_fan_edge")
     {
         std::map<int64_t, int64_t> child_to_parent;

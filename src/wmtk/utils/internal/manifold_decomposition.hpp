@@ -15,8 +15,8 @@
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/dart/utils/permute.hpp>
 #include <wmtk/utils/DisjointSet.hpp>
-#include "compactify_eigen_indices.hpp"
 #include "cofacets.hpp"
+#include "compactify_eigen_indices.hpp"
 
 
 #include "IndexSimplexMapper.hpp"
@@ -196,7 +196,7 @@ template <int Dim>
 RowVectors<int64_t, Dim> manifold_decomposition(Eigen::Ref<const RowVectors<int64_t, Dim>> S)
 {
     // currently only supports face fusing
-    return std::get<0>(boundary_manifold_decomposition<Dim>(S));
+    return boundary_manifold_decomposition<Dim>(S).manifold_decomposition;
 }
 
 

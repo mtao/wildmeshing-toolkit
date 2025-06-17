@@ -31,10 +31,12 @@ template <typename T>
 std::pair<MatrixXl, std::vector<Tuple>> extract_child_simplices_and_map_from_tag(
     const Mesh& m,
     const wmtk::attribute::TypedAttributeHandle<T>& tag_handle,
-    const T& tag_value);
+    const T& tag_value,
+    bool decompose_nonmanifold = false);
 
 std::pair<MatrixXl, std::vector<Tuple>> extract_child_simplices_and_map_from_tag(
     const wmtk::attribute::MeshAttributeHandle& tag_handle,
-    const wmtk::attribute::MeshAttributeHandle::ValueVariant& tag_value);
+    const wmtk::attribute::MeshAttributeHandle::ValueVariant& tag_value,
+    bool decompose_nonmanifold = false);
 
 } // namespace wmtk::multimesh::utils

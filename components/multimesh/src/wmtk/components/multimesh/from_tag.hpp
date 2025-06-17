@@ -28,6 +28,7 @@ struct FromTagOptions
     TaggedRegion mesh;
     std::optional<TaggedRegion> boundary;
     std::vector<wmtk::attribute::MeshAttributeHandle> passed_attributes;
+    bool manifold_decomposition;
 };
 
 // json serializable version
@@ -38,6 +39,7 @@ struct MultimeshTagOptions : public MultimeshRunnableOptions
     wmtk::attribute::MeshAttributeHandle::ValueVariant value;
     std::string output_mesh_name;
     bool delete_tag_attribute = false;
+    bool manifold_decomposition = false;
     FromTagOptions toTagOptions(const MeshCollection& mc) const;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MultimeshTagOptions)
     void run(MeshCollection& mc) const final;
@@ -51,7 +53,8 @@ struct MultimeshTagOptions : public MultimeshRunnableOptions
 std::shared_ptr<Mesh> from_tag(
     const wmtk::attribute::MeshAttributeHandle& handle,
     const wmtk::attribute::MeshAttributeHandle::ValueVariant& tag_value,
-    const std::vector<wmtk::attribute::MeshAttributeHandle>& passed_attributes = {});
+    const std::vector<wmtk::attribute::MeshAttributeHandle>& passed_attributes = {},
+    bool manifold_decomposition = false);
 
 std::shared_ptr<Mesh> from_tag(const FromTagOptions& options);
 } // namespace wmtk::components::multimesh
