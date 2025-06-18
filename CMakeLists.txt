@@ -143,7 +143,7 @@ else()
 target_compile_features(wildmeshing_toolkit PUBLIC cxx_std_17)
 endif()
 
-option(WMTK_USE_MULTIMESH_DART "Sets WMTK to use dart instead of tuple for multimesh")
+option(WMTK_USE_MULTIMESH_DART "Sets WMTK to use dart instead of tuple for multimesh" ON)
 if(WMTK_USE_MULTIMESH_DART)
     target_compile_definitions(wildmeshing_toolkit PUBLIC -DWMTK_ENABLED_MULTIMESH_DART)
 endif()
