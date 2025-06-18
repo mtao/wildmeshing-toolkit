@@ -18,6 +18,7 @@
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 
+#include <wmtk/operations/composite/CollapseAndUpdateVertex.hpp>
 #include <wmtk/operations/AMIPSOptimizationSmoothing.hpp>
 #include <wmtk/operations/AndOperationSequence.hpp>
 #include <wmtk/operations/EdgeCollapse.hpp>
@@ -711,9 +712,15 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
     collapse->add_operation(collapse2);
     collapse->add_invariant(todo_smaller);
 
-    auto collapse_then_round = std::make_shared<AndOperationSequence>(*mesh);
-    collapse_then_round->add_operation(collapse);
-    collapse_then_round->add_operation(rounding);
+    auto collapse_then_round1 = std::make_shared<composite::CollapseAndUpdateVertex>(*mesh, collapse1);
+    collapse_then_round1->set_vertex_update(rounding);
+    auto collapse_then_round2 = std::make_shared<composite::CollapseAndUpdateVertex>(*mesh, collapse2);
+    collapse_then_round2->set_vertex_update(rounding);
+
+    auto collapse_then_round = std::make_shared<OrOperationSequence>(*mesh);
+    collapse_then_round->add_operation(collapse_then_round1);
+    collapse_then_round->add_operation(collapse_then_round2);
+    collapse_then_round->add_invariant(todo_smaller);
 
     collapse_then_round->set_priority(short_edges_first);
     // collapse_then_round->add_invariant(

@@ -21,5 +21,8 @@ set(SRC_FILES
 
     ProjectOperation.cpp
     ProjectOperation.hpp
+
+    CollapseAndUpdateVertex.hpp
+    CollapseAndUpdateVertex.cpp
 )
 target_sources(wildmeshing_toolkit PRIVATE ${SRC_FILES})

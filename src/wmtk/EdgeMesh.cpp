@@ -236,6 +236,9 @@ bool EdgeMesh::is_valid(const Tuple& tuple) const
 
 bool EdgeMesh::is_connectivity_valid() const
 {
+    // 
+    // leave in print to make sure that this slow function is visible when called
+    logger().info("Checking if EdgeMesh connectivity is valid");
     // get accessors for topology
     const attribute::Accessor<int64_t> ev_accessor = create_const_accessor<int64_t>(m_ev_handle);
     const attribute::Accessor<int64_t> ee_accessor = create_const_accessor<int64_t>(m_ee_handle);

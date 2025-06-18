@@ -110,7 +110,7 @@ Tuple TriMesh::switch_tuple(const Tuple& tuple, PrimitiveType type) const
         auto ff = m_ff_accessor->const_vector_attribute<3>(tuple);
 
         int64_t gcid_new = ff(tuple.local_eid());
-        assert(gcid_new >= 0);// check if you're on teh boundary
+        assert(gcid_new >= 0); // check if you're on teh boundary
         int64_t lvid_new = -1, leid_new = -1;
 
         auto fv = m_fv_accessor->const_vector_attribute<3>(gcid_new);
@@ -356,9 +356,16 @@ bool TriMesh::is_valid(const Tuple& tuple) const
     return true;
 }
 
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn"
+#endif
 bool TriMesh::is_connectivity_valid() const
 {
-    // get Accessors for topology
+    // leave in print to make sure that this slow function is visible when called
+    logger().info("Checking if TriMesh connectivity is valid");
+    // assert(false);
+    //  get Accessors for topology
     const attribute::Accessor<int64_t> fv_accessor = create_const_accessor<int64_t>(m_fv_handle);
     const attribute::Accessor<int64_t> fe_accessor = create_const_accessor<int64_t>(m_fe_handle);
     const attribute::Accessor<int64_t> ff_accessor = create_const_accessor<int64_t>(m_ff_handle);
@@ -534,6 +541,9 @@ bool TriMesh::is_connectivity_valid() const
 
     return true;
 }
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 Tuple TriMesh::with_different_cid(const Tuple& t, int64_t cid)
 {

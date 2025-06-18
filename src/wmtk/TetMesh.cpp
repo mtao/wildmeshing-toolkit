@@ -406,6 +406,8 @@ bool TetMesh::is_boundary_vertex(const Tuple& vertex) const
 
 bool TetMesh::is_connectivity_valid() const
 {
+    // leave in print to make sure that this slow function is visible when called
+    logger().info("Checking if TetMesh connectivity is valid");
     // get Accessors for topology
     const attribute::Accessor<int64_t> tv_accessor = create_const_accessor<int64_t>(m_tv_handle);
     const attribute::Accessor<int64_t> te_accessor = create_const_accessor<int64_t>(m_te_handle);

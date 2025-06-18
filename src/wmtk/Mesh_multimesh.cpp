@@ -48,6 +48,7 @@ bool Mesh::can_map_up_to(const Mesh& other) const
 
 bool Mesh::can_map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) const
 {
+    assert(is_valid(my_simplex));
     if (!is_from_same_multi_mesh_structure(other_mesh)) {
         throw std::runtime_error(
             "Attempted to map between two simplices in different multi-mesh structures");
@@ -58,6 +59,7 @@ bool Mesh::can_map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) c
 std::vector<simplex::Simplex> Mesh::map(const Mesh& other_mesh, const simplex::Simplex& my_simplex)
     const
 {
+    assert(is_valid(my_simplex));
     if (!is_from_same_multi_mesh_structure(other_mesh)) {
         throw std::runtime_error(
             "Attempted to map between two simplices in different multi-mesh structures");

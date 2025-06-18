@@ -209,7 +209,12 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
             }
         } else {
             auto& at_mesh = at_ptr->mesh();
+#if defined(MTAO_CONSTANTLY_VERIFY_MESH)
             assert(at_mesh.is_connectivity_valid());
+#endif
+            for(const auto& s: direct_mods) {
+                assert(at_mesh.is_valid(s));
+            }
             auto at_mesh_simplices = m_mesh.map(at_mesh, direct_mods);
 
             simplex::IdSimplexCollection at_mesh_all(at_mesh);
@@ -224,6 +229,7 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
                                 "{}-mesh",
                                 std::string(s.tuple()),
                                 primitive_type_name(at_mesh.top_simplex_type())));
+                        assert(false);
                     } else {
                         at_mesh_all.add(ss);
                     }

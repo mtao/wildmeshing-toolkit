@@ -113,7 +113,6 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
         }
     }
 
-    std::vector<std::array<int64_t, 2>> B;
 
     RowVectors<int64_t, Dim - 1> NMF; // nonmanifold faces
     R.resizeLike(S);
@@ -128,12 +127,13 @@ ManifoldDecomposition<Dim> boundary_manifold_decomposition(
 
 
     // if a face was manifold then fuse pairs of vertices on those two faces
+    // todo: fuse the appropriate faces using a dart topology rather than by indices
     std::set<int64_t> nonmanifold_faces;
     wmtk::utils::DisjointSet ds(R.size());
     auto F = ism.simplices<Dim - 2>();
     for (const auto& [face, simplices] : coboundary) {
         if (simplices.size() == 2) {
-            std::array<int64_t, 2>& r = B.emplace_back();
+            std::array<int64_t, 2> r;
             std::transform(
                 simplices.begin(),
                 simplices.end(),

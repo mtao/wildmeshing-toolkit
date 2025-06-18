@@ -200,8 +200,6 @@ IndexSimplexMapper::IndexSimplexMapper(const Mesh& mesh)
     : m_mesh(&mesh)
 {
     auto S = get_simplices(mesh);
-    std::cout << "S dimensions" << S.rows() << " " << S.cols() << std::endl;
-    std::cout << S << std::endl;
     m_simplex_dimension = S.cols() - 1;
     switch (S.cols()) {
     case 2: initialize_edge_mesh(S); break;

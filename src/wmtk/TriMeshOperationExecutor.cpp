@@ -548,20 +548,17 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
             if (id == split_new_vid) {
                 continue;
             }
-        } else if(index == 2) {
+        } else if (index == 2) {
             continue;
         }
-        spdlog::info(
-            "Want to check {}-simplex {} index {}",
-            index,
-            m_mesh.id(s),
-            primitive_type_name(s.primitive_type()));
-            auto cofaces = wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s);
+        // spdlog::info(
+        //     "Want to check {}-simplex {} index {}",
+        //     index,
+        //     m_mesh.id(s),
+        //     primitive_type_name(s.primitive_type()));
+        auto cofaces = wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
-        global_ids_to_potential_tuples.at(index).emplace_back(
-            id,
-            std::move(cofaces)
-            );
+        global_ids_to_potential_tuples.at(index).emplace_back(id, std::move(cofaces));
     }
 
     create_spine_simplices();

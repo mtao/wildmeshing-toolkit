@@ -21,12 +21,12 @@ std::vector<simplex::Simplex> AndOperationSequence::execute_operations(
     queue.push_back(simplex);
     for (int64_t i = 0; i < m_operations.size(); ++i) {
         auto& o = m_operations[i];
-        // assert(queue.size() == 1);
+        assert(queue.size() == 1);
 
         auto tuple_resurrected = queue.front().tuple();
 
-        const auto new_queue =
-            (*o)(simplex::Simplex(mesh(), o->primitive_type(), tuple_resurrected));
+        const auto run_simplex = simplex::Simplex(o->primitive_type(), tuple_resurrected);
+        const auto new_queue = (*o)(run_simplex);
         if (new_queue.empty()) return i == 0 ? std::vector<simplex::Simplex>() : queue;
 
         queue = new_queue;
