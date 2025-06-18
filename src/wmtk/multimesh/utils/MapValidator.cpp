@@ -7,6 +7,7 @@
 #include <wmtk/simplex/utils/SimplexComparisons.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/primitive_range.hpp>
+#include "internal/print_all_mapped_tuples.hpp"
 namespace wmtk::multimesh::utils {
 
 MapValidator::MapValidator(const Mesh& m)
@@ -99,7 +100,7 @@ bool MapValidator::check_child_map_attributes_valid() const
 
 bool MapValidator::check_parent_map_attribute_valid() const
 {
-    logger().info("parent attributes valid");
+    logger().debug("Checking parent map attribute validity for {}", fmt::join(m_mesh.absolute_multi_mesh_id(), ","));
     bool ok = true;
     const auto& parent_ptr = m_mesh.m_multi_mesh_manager.m_parent;
     if (parent_ptr == nullptr) {
@@ -201,14 +202,9 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
     bool ok = true;
     for (PrimitiveType pt : wmtk::utils::primitive_below(child.top_simplex_type())) {
         auto tups = child.get_all(pt);
-        logger().info("Testing out {} tuples", tups.size());
         for (const wmtk::Tuple& t : tups) {
             assert(!t.is_null());
             wmtk::simplex::Simplex s(pt, t);
-            logger().info(
-                "Child {} simplex {}",
-                fmt::join(child.absolute_multi_mesh_id(), ","),
-                std::string(t));
 
             wmtk::Tuple parent_tuple = child.map_to_parent_tuple(s);
             assert(!parent_tuple.is_null());
@@ -262,5 +258,16 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
     return ok;
 }
 
+
+void MapValidator::print()
+{
+    for (const auto& [cptr, attr] : m_mesh.m_multi_mesh_manager.m_children) {
+        const auto& child = *cptr;
+        auto [me_to_child, child_to_me] =
+            m_mesh.m_multi_mesh_manager.get_map_const_accessors(m_mesh, child);
+
+        internal::print_all_mapped_tuples(me_to_child, child_to_me);
+    }
+}
 
 } // namespace wmtk::multimesh::utils

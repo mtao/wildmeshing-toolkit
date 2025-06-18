@@ -2,6 +2,8 @@
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/multimesh/MultiMeshVisitor.hpp>
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
+#include <wmtk/multimesh/utils/internal/print_all_mapped_tuples.hpp>
 #include <wmtk/simplex/IdSimplexCollection.hpp>
 #include <wmtk/simplex/closed_star_iterable.hpp>
 
@@ -212,16 +214,29 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
 #if defined(MTAO_CONSTANTLY_VERIFY_MESH)
             assert(at_mesh.is_connectivity_valid());
 #endif
-            for(const auto& s: direct_mods) {
-                assert(at_mesh.is_valid(s));
+            for (const auto& s : direct_mods) {
+                assert(m_mesh.is_valid(s));
             }
             auto at_mesh_simplices = m_mesh.map(at_mesh, direct_mods);
+            assert(wmtk::multimesh::utils::check_maps_valid(at_mesh));
+
+            // wmtk::multimesh::utils::internal::print_all_mapped_tuples(m_mesh);
 
             simplex::IdSimplexCollection at_mesh_all(at_mesh);
             // try {
             for (const simplex::Simplex& s : at_mesh_simplices) {
+                if (!at_mesh.is_valid(s)) {
+                    spdlog::warn(
+                        "Error: {}",
+                        fmt::format(
+                            "Operation::apply_attribute_transfer: Invalid simplex {} on "
+                            "{}-mesh",
+                            std::string(s.tuple()),
+                            primitive_type_name(at_mesh.top_simplex_type())));
+                    assert(false);
+                }
                 for (const simplex::IdSimplex& ss : simplex::closed_star_iterable(at_mesh, s)) {
-                    if (!at_mesh.is_valid(s)) {
+                    if (at_mesh.is_removed(ss)) {
                         spdlog::warn(
                             "Error: {}",
                             fmt::format(

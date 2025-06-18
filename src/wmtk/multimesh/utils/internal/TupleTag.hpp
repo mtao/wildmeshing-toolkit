@@ -82,6 +82,6 @@ public:
         Mesh& m,
         const wmtk::attribute::TypedAttributeHandle<T>& tag_handle,
         const T& tag_value,
-        bool child_is_free);
+        bool child_is_free, bool decompose_nonmanifold);
 };
 } // namespace wmtk::multimesh::utils::internal

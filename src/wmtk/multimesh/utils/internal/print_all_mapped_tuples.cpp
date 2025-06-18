@@ -1,8 +1,14 @@
-#include "../tuple_map_attribute_io.hpp"
 #include <wmtk/dart/DartAccessor.hpp>
 #include <wmtk/utils/Logger.hpp>
+#include "../MapValidator.hpp"
+#include "../tuple_map_attribute_io.hpp"
 #include "wmtk/Mesh.hpp"
 namespace wmtk::multimesh::utils::internal {
+
+void print_all_mapped_tuples(const Mesh& m)
+{
+    return MapValidator(m).print();
+}
 
 void print_all_mapped_tuples(
     const dart::DartAccessor<1, Mesh>& a,
@@ -26,7 +32,7 @@ void print_all_mapped_tuples(
             continue;
         } else {
             dart::Dart a_d = b[b_d];
-            //logger().info("{} was mapped downward to {}", std::string(a_d), std::string(b_d));
+            // logger().info("{} was mapped downward to {}", std::string(a_d), std::string(b_d));
             logger().info(
                 "{}[{},{}] was mapped downward to {} (removed={})",
                 std::string(a_d),

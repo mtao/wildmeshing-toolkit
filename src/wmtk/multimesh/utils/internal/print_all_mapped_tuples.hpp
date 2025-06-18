@@ -14,4 +14,5 @@ namespace wmtk::multimesh::utils::internal {
 void print_all_mapped_tuples(
     const dart::DartAccessor<1, Mesh>& a,
     const dart::DartAccessor<1, Mesh>& b);
+void print_all_mapped_tuples(const Mesh& m);
 } // namespace wmtk::multimesh::utils::internal

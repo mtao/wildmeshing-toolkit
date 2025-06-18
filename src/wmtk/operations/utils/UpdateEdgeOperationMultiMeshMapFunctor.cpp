@@ -168,14 +168,20 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
 #endif
                     parent_mmmanager.mapped_tuples(m, *child_ptr, parent_ear_eid_old);
 
+                if (parent_tuple.is_null()) {
+                    continue;
+                }
                 if (child_tuple.is_null()) {
                     // not child_tuple on this parent edge
+                    continue;
+                }
+                if(child_ptr->is_removed(child_tuple, PrimitiveType::Edge)) {
                     continue;
                 }
 
 
                 //  check also the flag accessor of child mesh
-                const bool child_tuple_exists = child_cell_flag_accessor.is_active(child_tuple);
+                const bool child_tuple_exists = child_cell_flag_accessor.index_access().is_active(child_tuple.global_cid());
                 if (!child_tuple_exists) {
                     continue;
                 }

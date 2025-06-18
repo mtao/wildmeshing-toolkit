@@ -234,6 +234,10 @@ void TriMesh::initialize(Eigen::Ref<const RowVectors3l> F, bool is_free)
     }
     initialize(F, FE, FF, VF, EF);
 }
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn"
+#endif
 void TriMesh::initialize_free(int64_t count)
 {
     // 0 1 2
@@ -242,6 +246,9 @@ void TriMesh::initialize_free(int64_t count)
     std::iota(S.data(), S.data() + S.size(), int64_t(0));
     initialize(S, true);
 }
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 Tuple TriMesh::tuple_from_global_ids(int64_t fid, int64_t eid, int64_t vid) const
 {

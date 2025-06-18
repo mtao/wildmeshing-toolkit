@@ -2,6 +2,7 @@
 #include <CLI/CLI.hpp>
 #include <filesystem>
 #include <nlohmann/json.hpp>
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Mesh.hpp>
@@ -126,6 +127,10 @@ int main(int argc, char* argv[])
     auto edgemesh = eim.inserted_edge_mesh;
     auto bboxmesh = eim.bbox_mesh;
 
+    for (const auto& m : {trimesh, edgemesh, bboxmesh}) {
+        assert(m->is_connectivity_valid());
+        assert(wmtk::multimesh::utils::check_maps_valid(*m));
+    }
     std::string output_file = j["output"];
 
     wmtk::components::output::output(*trimesh, output_file + "_after_insertion", "vertices");
@@ -186,7 +191,15 @@ int main(int argc, char* argv[])
     wmo.skip_swap = j["skip_swap"];
     wmo.skip_smooth = j["skip_smooth"];
 
+    spdlog::info(
+        "Skippers: {} {} {} {}",
+        wmo.skip_split,
+        wmo.skip_collapse,
+        wmo.skip_swap,
+        wmo.skip_smooth);
+
     auto meshes_after_tetwild = wildmeshing(wmo);
+    return 0;
     auto main_mesh = meshes_after_tetwild[0].first;
 
     wmtk::components::output::output(*main_mesh, output_file, "vertices");

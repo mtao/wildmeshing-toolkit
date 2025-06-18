@@ -18,7 +18,6 @@
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 
-#include <wmtk/operations/composite/CollapseAndUpdateVertex.hpp>
 #include <wmtk/operations/AMIPSOptimizationSmoothing.hpp>
 #include <wmtk/operations/AndOperationSequence.hpp>
 #include <wmtk/operations/EdgeCollapse.hpp>
@@ -28,6 +27,7 @@
 #include <wmtk/operations/OrOperationSequence.hpp>
 #include <wmtk/operations/Rounding.hpp>
 #include <wmtk/operations/TetWildTangentialLaplacianSmoothing.hpp>
+#include <wmtk/operations/composite/CollapseAndUpdateVertex.hpp>
 #include <wmtk/operations/composite/ProjectOperation.hpp>
 #include <wmtk/operations/composite/TetEdgeSwap.hpp>
 #include <wmtk/operations/composite/TetFaceSwap.hpp>
@@ -87,7 +87,7 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
     const WildMeshingOptions& options)
 {
     auto mesh = std::dynamic_pointer_cast<TriMesh>(options.input_mesh);
-    if(!bool(mesh)) {
+    if (!bool(mesh)) {
         throw std::runtime_error("input mesh of wildmeshing3d must be a trimesh");
     }
 
@@ -712,9 +712,11 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
     collapse->add_operation(collapse2);
     collapse->add_invariant(todo_smaller);
 
-    auto collapse_then_round1 = std::make_shared<composite::CollapseAndUpdateVertex>(*mesh, collapse1);
+    auto collapse_then_round1 =
+        std::make_shared<composite::CollapseAndUpdateVertex>(*mesh, collapse1);
     collapse_then_round1->set_vertex_update(rounding);
-    auto collapse_then_round2 = std::make_shared<composite::CollapseAndUpdateVertex>(*mesh, collapse2);
+    auto collapse_then_round2 =
+        std::make_shared<composite::CollapseAndUpdateVertex>(*mesh, collapse2);
     collapse_then_round2->set_vertex_update(rounding);
 
     auto collapse_then_round = std::make_shared<OrOperationSequence>(*mesh);
@@ -1040,6 +1042,7 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
     // }
 
 
+    return {};
     double old_max_energy = max_energy;
     double old_avg_energy = avg_energy;
     int iii = 0;

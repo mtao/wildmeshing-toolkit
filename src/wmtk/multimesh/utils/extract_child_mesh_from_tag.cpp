@@ -18,7 +18,7 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
     Mesh& m,
     const wmtk::attribute::TypedAttributeHandle<T>& tag_handle,
     const T& tag_value,
-    bool child_is_free)
+    bool child_is_free, bool decompose_manifold)
 {
     std::vector<Tuple> tagged_tuples = utils::tagged_tuples<T>(m, tag_handle, tag_value);
 
@@ -57,7 +57,7 @@ std::shared_ptr<Mesh> internal::TupleTag::extract_and_register_child_mesh_from_t
     } else {
         MatrixXl S;
         std::tie(S, tagged_tuples) =
-            extract_child_simplices_and_map_from_tag<T>(m, tag_handle, tag_value);
+            extract_child_simplices_and_map_from_tag<T>(m, tag_handle, tag_value, decompose_manifold);
         child_mesh_ptr = Mesh::from_vertex_indices(S);
     }
 
@@ -84,30 +84,30 @@ std::shared_ptr<Mesh> extract_and_register_child_mesh_from_tag(
     const std::string& tag,
     const int64_t tag_value,
     const PrimitiveType pt,
-    bool child_is_free)
+    bool child_is_free, bool decompose_manifold)
 {
     assert(m.top_simplex_type() >= pt);
     auto tag_handle = m.get_attribute_handle<int64_t>(tag, pt).as<int64_t>();
-    return extract_and_register_child_mesh_from_tag_handle(m, tag_handle, tag_value, child_is_free);
+    return extract_and_register_child_mesh_from_tag_handle(m, tag_handle, tag_value, child_is_free, decompose_manifold);
 }
 
 std::shared_ptr<Mesh> extract_and_register_child_mesh_from_tag_handle(
     Mesh& m,
     const wmtk::attribute::TypedAttributeHandle<int64_t>& tag_handle,
     const int64_t tag_value,
-    bool child_is_free)
+    bool child_is_free, bool decompose_manifold)
 {
     return internal::TupleTag::extract_and_register_child_mesh_from_tag_handle(
         m,
         tag_handle,
         tag_value,
-        child_is_free);
+        child_is_free, decompose_manifold);
 }
 
 std::shared_ptr<Mesh> extract_and_register_child_mesh_from_tag(
     wmtk::attribute::MeshAttributeHandle& tag_handle,
     const wmtk::attribute::MeshAttributeHandle::ValueVariant& tag_value,
-    bool child_is_free)
+    bool child_is_free, bool decompose_manifold)
 {
     return std::visit(
         [&](auto&& handle) noexcept -> std::shared_ptr<Mesh> {
@@ -123,7 +123,7 @@ std::shared_ptr<Mesh> extract_and_register_child_mesh_from_tag(
                                     tag_handle.mesh(),
                                     handle,
                                     T(value),
-                                    child_is_free);
+                                    child_is_free, decompose_manifold);
                         } else {
                             log_and_throw_error(
                                 "Tried to use a tag value that was not convertible to "

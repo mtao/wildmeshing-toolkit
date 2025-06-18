@@ -18,6 +18,7 @@ namespace wmtk::multimesh::utils {
             bool check_switch_homomorphism() const;
             bool check_child_switch_homomorphism(const Mesh& child) const;
 
+            void print();
         private:
             const Mesh& m_mesh;
     };

@@ -139,12 +139,19 @@ void EdgeMesh::initialize(Eigen::Ref<const RowVectors2l> E, bool is_free)
     }
     initialize(E, EE, VE);
 }
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsuggest-attribute=noreturn"
+#endif
 void EdgeMesh::initialize_free(int64_t count)
 {
     RowVectors2l S(count, 2);
     std::iota(S.data(), S.data() + S.size(), int64_t(0));
     initialize(S, true);
 }
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 Tuple EdgeMesh::tuple_from_id(const PrimitiveType type, const int64_t gid) const
 {
@@ -238,7 +245,7 @@ bool EdgeMesh::is_connectivity_valid() const
 {
     // 
     // leave in print to make sure that this slow function is visible when called
-    logger().info("Checking if EdgeMesh connectivity is valid");
+    logger().debug("Checking if EdgeMesh connectivity is valid");
     // get accessors for topology
     const attribute::Accessor<int64_t> ev_accessor = create_const_accessor<int64_t>(m_ev_handle);
     const attribute::Accessor<int64_t> ee_accessor = create_const_accessor<int64_t>(m_ee_handle);

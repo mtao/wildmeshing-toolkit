@@ -22,6 +22,7 @@ std::shared_ptr<Mesh> from_tag(
     auto child_mesh = wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag(
         handle,
         tag_value,
+        false,
         manifold_decomposition);
 
     for (const auto& attr : passed_attributes) {

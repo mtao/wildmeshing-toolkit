@@ -1,5 +1,6 @@
 #pragma once
 #include <fmt/ranges.h>
+#include <wmtk/utils/Logger.hpp>
 #include <spdlog/spdlog.h>
 #include <map>
 #include <set>
@@ -196,7 +197,9 @@ template <int Dim>
 RowVectors<int64_t, Dim> manifold_decomposition(Eigen::Ref<const RowVectors<int64_t, Dim>> S)
 {
     // currently only supports face fusing
-    return boundary_manifold_decomposition<Dim>(S).manifold_decomposition;
+    auto md = boundary_manifold_decomposition<Dim>(S);
+    logger().debug("manifold_decomposition found {} manifold boundaries of {} simplices", md.face_map.size(), md.manifold_decomposition.rows());
+    return md.manifold_decomposition;
 }
 
 
