@@ -34,7 +34,7 @@ var classwmtk_1_1attribute_1_1_attribute =
     [ "reserved_size", "classwmtk_1_1attribute_1_1_attribute.html#a7a09104f1077da862f732e28da092903", null ],
     [ "scalar_attribute", "classwmtk_1_1attribute_1_1_attribute.html#ab99b5838389e72fa72d143f931884e60", null ],
     [ "scalar_attribute", "classwmtk_1_1attribute_1_1_attribute.html#a8caa15b10262b1c5760c4aa6dbda2cd3", null ],
-    [ "serialize", "classwmtk_1_1attribute_1_1_attribute.html#a866829bfa210a3e735951e64a04ec68d", null ],
+    [ "serialize", "classwmtk_1_1attribute_1_1_attribute.html#a7e3802addb0116a688fa2aa62e1d9a5f", null ],
     [ "set", "classwmtk_1_1attribute_1_1_attribute.html#adeb903fc24fc63c044f2fca7f9634710", null ],
     [ "set_name", "classwmtk_1_1attribute_1_1_attribute.html#a3e22dc5eb7b2719e20826da389a3333c", null ],
     [ "vector_attribute", "classwmtk_1_1attribute_1_1_attribute.html#ac9cc0791f047326ac7f02be7234004ea", null ],

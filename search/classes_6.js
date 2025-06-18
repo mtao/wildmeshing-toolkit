@@ -1,14 +1,15 @@
 var searchData=
 [
-  ['get_5funique_5fremove_5fvoid_5ftypes_5ffrom_5ftuple_0',['get_unique_remove_void_types_from_tuple',['../structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__remove__void__types__from__tuple.html',1,'wmtk::utils::metaprogramming::tuple::detail']]],
-  ['get_5funique_5fremove_5fvoid_5ftypes_5ffrom_5ftuple_3c_20std_3a_3atuple_3c_20ts_2e_2e_2e_20_3e_20_3e_1',['get_unique_remove_void_types_from_tuple&lt; std::tuple&lt; Ts... &gt; &gt;',['../structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__remove__void__types__fb3a31f06bf017ae8d612e85ef9fd8019.html',1,'wmtk::utils::metaprogramming::tuple::detail']]],
-  ['get_5funique_5ftypes_2',['get_unique_types',['../structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__types.html',1,'wmtk::utils::metaprogramming::tuple::detail']]],
-  ['get_5funique_5ftypes_3c_20t_20_3e_3',['get_unique_types&lt; T &gt;',['../structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__types_3_01_t_01_4.html',1,'wmtk::utils::metaprogramming::tuple::detail']]],
-  ['get_5funique_5ftypes_3c_20t_2c_20ts_2e_2e_2e_20_3e_4',['get_unique_types&lt; T, Ts... &gt;',['../structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__types_3_01_t_00_01_ts_8_8_8_01_4.html',1,'wmtk::utils::metaprogramming::tuple::detail']]],
-  ['get_5funique_5ftypes_5ftuple_5',['get_unique_types_tuple',['../structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__types__tuple.html',1,'wmtk::utils::metaprogramming::tuple::detail']]],
-  ['get_5funique_5ftypes_5ftuple_3c_20t_2c_20std_3a_3atuple_3c_20ts_2e_2e_2e_20_3e_20_3e_6',['get_unique_types_tuple&lt; T, std::tuple&lt; Ts... &gt; &gt;',['../structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1get__unique__types__tuple_3_01_t_00f3e1a7192a11c9414a9ffa12a7f4b214.html',1,'wmtk::utils::metaprogramming::tuple::detail']]],
-  ['getallmeshesoptions_7',['GetAllMeshesOptions',['../structwmtk_1_1components_1_1internal_1_1_get_all_meshes_options.html',1,'wmtk::components::internal']]],
-  ['grid2options_8',['Grid2Options',['../classwmtk_1_1components_1_1procedural_1_1_grid2_options.html',1,'wmtk::components::procedural']]],
-  ['grid3options_9',['Grid3Options',['../classwmtk_1_1components_1_1procedural_1_1_grid3_options.html',1,'wmtk::components::procedural']]],
-  ['gridoptions_10',['GridOptions',['../classwmtk_1_1components_1_1procedural_1_1_grid_options.html',1,'wmtk::components::procedural']]]
+  ['facecollapsedata_0',['FaceCollapseData',['../structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_face_collapse_data.html',1,'wmtk::operations::tet_mesh::EdgeOperationData']]],
+  ['facesiterable_1',['FacesIterable',['../classwmtk_1_1simplex_1_1_faces_iterable.html',1,'wmtk::simplex']]],
+  ['facesplitdata_2',['FaceSplitData',['../structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_face_split_data.html',1,'wmtk::operations::tet_mesh::EdgeOperationData']]],
+  ['filteredneighborcountfunctor_3',['FilteredNeighborCountFunctor',['../structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html',1,'wmtk::components::mesh_info::transfer']]],
+  ['flagaccessor_4',['FlagAccessor',['../classwmtk_1_1attribute_1_1_flag_accessor.html',1,'wmtk::attribute']]],
+  ['fromtagoptions_5',['FromTagOptions',['../structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html',1,'wmtk::components::multimesh']]],
+  ['frozenoppvertexinvariant_6',['FrozenOppVertexInvariant',['../classwmtk_1_1invariants_1_1_frozen_opp_vertex_invariant.html',1,'wmtk::invariants']]],
+  ['frozenvertexinvariant_7',['FrozenVertexInvariant',['../classwmtk_1_1invariants_1_1_frozen_vertex_invariant.html',1,'wmtk::invariants']]],
+  ['function_8',['Function',['../classwmtk_1_1function_1_1_function.html',1,'wmtk::function']]],
+  ['functioninvariant_9',['FunctionInvariant',['../classwmtk_1_1invariants_1_1_function_invariant.html',1,'wmtk::invariants']]],
+  ['fusionedgeinvariant_10',['FusionEdgeInvariant',['../classwmtk_1_1invariants_1_1_fusion_edge_invariant.html',1,'wmtk::invariants']]],
+  ['fusionoptions_11',['FusionOptions',['../structwmtk_1_1components_1_1_fusion_options.html',1,'wmtk::components']]]
 ];

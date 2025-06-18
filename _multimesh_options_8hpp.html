@@ -121,27 +121,33 @@ $(document).ready(function(){initNavTree('_multimesh_options_8hpp.html',''); ini
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a>  </div>
+<a href="#namespaces">Namespaces</a>  </div>
   <div class="headertitle"><div class="title">MultimeshOptions.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<div class="textblock"><code>#include &lt;memory&gt;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="json__macros_8hpp_source.html">wmtk/components/utils/json_macros.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="axis__aligned__fusion_8hpp_source.html">axis_aligned_fusion.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="from__boundary_8hpp_source.html">from_boundary.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="from__facet__bijection_8hpp_source.html">from_facet_bijection.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="from__tag_8hpp_source.html">from_tag.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for MultimeshOptions.hpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="_multimesh_options_8hpp__incl.svg" width="258" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="_multimesh_options_8hpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="_multimesh_options_8hpp__dep__incl.svg" width="100%" height="426"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="_multimesh_options_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1_multimesh_u_v_options.html">wmtk::components::MultimeshUVOptions</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1_multimesh_b_options.html">wmtk::components::MultimeshBOptions</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1_multimesh_t_options.html">wmtk::components::MultimeshTOptions</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1multimesh_1_1_multimesh_options.html">wmtk::components::multimesh::MultimeshOptions</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -150,15 +156,8 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacewmtk_1_1components" id="r_namespacewmtk_1_1components"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components.html">wmtk::components</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a44a35faddbe06e2dc40bd704f1faa497" id="r_a44a35faddbe06e2dc40bd704f1faa497"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components.html#a44a35faddbe06e2dc40bd704f1faa497">wmtk::components::NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE</a> (<a class="el" href="structwmtk_1_1components_1_1_multimesh_u_v_options.html">MultimeshUVOptions</a>, type, parent, child, name)</td></tr>
-<tr class="separator:a44a35faddbe06e2dc40bd704f1faa497"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab31103833d0cc0263f1bb735a9355870" id="r_ab31103833d0cc0263f1bb735a9355870"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components.html#ab31103833d0cc0263f1bb735a9355870">wmtk::components::NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE</a> (<a class="el" href="structwmtk_1_1components_1_1_multimesh_b_options.html">MultimeshBOptions</a>, type, name, mesh, position, tag_name)</td></tr>
-<tr class="separator:ab31103833d0cc0263f1bb735a9355870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6a6a57e381b277eb9c46fd5b05e1b214" id="r_a6a6a57e381b277eb9c46fd5b05e1b214"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components.html#a6a6a57e381b277eb9c46fd5b05e1b214">wmtk::components::NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE</a> (<a class="el" href="structwmtk_1_1components_1_1_multimesh_t_options.html">MultimeshTOptions</a>, type, name, mesh, position, tag, tag_value, primitive)</td></tr>
-<tr class="separator:a6a6a57e381b277eb9c46fd5b05e1b214"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacewmtk_1_1components_1_1multimesh" id="r_namespacewmtk_1_1components_1_1multimesh"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html">wmtk::components::multimesh</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

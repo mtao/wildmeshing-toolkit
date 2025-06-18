@@ -1,0 +1,5 @@
+var namespacewmtk_1_1components_1_1isotropic__remeshing_1_1invariants =
+[
+    [ "ImprovementInvariant", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_improvement_invariant.html", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_improvement_invariant" ],
+    [ "PreserveTaggedSubstructureInvariant", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_preserve_tagged_substructure_invariant.html", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_preserve_tagged_substructure_invariant" ]
+];

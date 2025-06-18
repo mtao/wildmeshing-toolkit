@@ -31,6 +31,7 @@ var namespacewmtk_1_1operations =
     [ "OrOperationSequence", "classwmtk_1_1operations_1_1_or_operation_sequence.html", "classwmtk_1_1operations_1_1_or_operation_sequence" ],
     [ "Rounding", "classwmtk_1_1operations_1_1_rounding.html", "classwmtk_1_1operations_1_1_rounding" ],
     [ "SingleAttributeTransferStrategy", "classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html", "classwmtk_1_1operations_1_1_single_attribute_transfer_strategy" ],
+    [ "SingleAttributeTransferStrategyBase", "classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html", "classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base" ],
     [ "SplitNewAttributeStrategy", "classwmtk_1_1operations_1_1_split_new_attribute_strategy.html", "classwmtk_1_1operations_1_1_split_new_attribute_strategy" ],
     [ "SplitNewAttributeTopoInfo", "classwmtk_1_1operations_1_1_split_new_attribute_topo_info.html", "classwmtk_1_1operations_1_1_split_new_attribute_topo_info" ],
     [ "TetWildTangentialLaplacianSmoothing", "classwmtk_1_1operations_1_1_tet_wild_tangential_laplacian_smoothing.html", "classwmtk_1_1operations_1_1_tet_wild_tangential_laplacian_smoothing" ],
@@ -61,6 +62,7 @@ var namespacewmtk_1_1operations =
       [ "CopyTuple", "namespacewmtk_1_1operations.html#a66f2eeff5a03569f85abf655b0f64d48af32779b89f6792c677a8209d9afc4724", null ],
       [ "CopyOther", "namespacewmtk_1_1operations.html#a66f2eeff5a03569f85abf655b0f64d48a68e55eab4f30286567022eafb9fa79f6", null ],
       [ "Mean", "namespacewmtk_1_1operations.html#a66f2eeff5a03569f85abf655b0f64d48a3d6c9ac08ada31c184094bbc67afe00d", null ],
+      [ "Min", "namespacewmtk_1_1operations.html#a66f2eeff5a03569f85abf655b0f64d48a78d811e98514cd165dda532286610fd2", null ],
       [ "Throw", "namespacewmtk_1_1operations.html#a66f2eeff5a03569f85abf655b0f64d48a8ce61dd2505effd96f937fa743b6491f", null ],
       [ "None", "namespacewmtk_1_1operations.html#a66f2eeff5a03569f85abf655b0f64d48a6adf97f83acf6453d4a6a4b1070f3754", null ]
     ] ]

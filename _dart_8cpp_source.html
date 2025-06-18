@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: src/wmtk/autogen/Dart.cpp Source File</title>
+<title>Wildmeshing Toolkit: src/wmtk/dart/Dart.cpp Source File</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -130,33 +130,27 @@ $(document).ready(function(){initNavTree('_dart_8cpp_source.html',''); initResiz
 <a href="_dart_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_dart_8hpp.html">Dart.hpp</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;fmt/format.h&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;ostream&gt;</span></div>
-<div class="foldopen" id="foldopen00004" data-start="{" data-end="}">
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="namespacewmtk_1_1autogen.html">    4</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1autogen.html">wmtk::autogen</a> {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart.html">wmtk::dart</a> {</div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="classwmtk_1_1autogen_1_1_dart.html#ac7c570c2ec117c1c5a49107c5b7c9255">    6</a></span>    Dart::operator std::string()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>        <span class="keywordflow">return</span> fmt::format(<span class="stringliteral">&quot;Dart[{}:{}]&quot;</span>, global_id(),local_orientation());</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    }</div>
-</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>}</div>
-</div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="_dart_8cpp.html#ace4d2dc422d8842631f41c8f83ecf31e">   10</a></span>std::ostream&amp; <a class="code hl_function" href="_dart_8cpp.html#ace4d2dc422d8842631f41c8f83ecf31e">operator&lt;&lt;</a>(std::ostream&amp; out, <a class="code hl_class" href="classwmtk_1_1autogen_1_1_dart.html">wmtk::autogen::Dart</a> <span class="keyword">const</span>&amp; dart) {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    out &lt;&lt; std::string(dart);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">return</span> out;</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
-</div>
-<div class="ttc" id="a_dart_8cpp_html_ace4d2dc422d8842631f41c8f83ecf31e"><div class="ttname"><a href="_dart_8cpp.html#ace4d2dc422d8842631f41c8f83ecf31e">operator&lt;&lt;</a></div><div class="ttdeci">std::ostream &amp; operator&lt;&lt;(std::ostream &amp;out, wmtk::autogen::Dart const &amp;dart)</div><div class="ttdef"><b>Definition</b> <a href="_dart_8cpp_source.html#l00010">Dart.cpp:10</a></div></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="comment">// template &lt;typename IndexType, typename OrientType&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="comment">//_Dart&lt;IndexType, OrientType&gt;::operator std::string() const</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="comment">//{</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="comment">//     return fmt::format(&quot;Dart[{}:{}]&quot;, global_id(), permutation());</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">// }</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>} <span class="comment">// namespace wmtk::autogen</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="comment">// std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, wmtk::dart::Dart const&amp; dart) {</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="comment">//     out &lt;&lt; std::string(dart);</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="comment">//     return out;</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">// }</span></div>
 <div class="ttc" id="a_dart_8hpp_html"><div class="ttname"><a href="_dart_8hpp.html">Dart.hpp</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1autogen_1_1_dart_html"><div class="ttname"><a href="classwmtk_1_1autogen_1_1_dart.html">wmtk::autogen::Dart</a></div><div class="ttdef"><b>Definition</b> <a href="_dart_8hpp_source.html#l00007">Dart.hpp:8</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1autogen_html"><div class="ttname"><a href="namespacewmtk_1_1autogen.html">wmtk::autogen</a></div><div class="ttdef"><b>Definition</b> <a href="_dart_8cpp_source.html#l00004">Dart.cpp:4</a></div></div>
+<div class="ttc" id="anamespacewmtk_1_1dart_html"><div class="ttname"><a href="namespacewmtk_1_1dart.html">wmtk::dart</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00016">Accessor.hpp:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f7a95b7257057fa18adfa4b3aabbe846.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_228c2c271cc4cd9f4cc4d2c9e4cc379f.html">autogen</a></li><li class="navelem"><a class="el" href="_dart_8cpp.html">Dart.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f7a95b7257057fa18adfa4b3aabbe846.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_22f5d99172a5abbb27ead3628330a87f.html">dart</a></li><li class="navelem"><a class="el" href="_dart_8cpp.html">Dart.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

@@ -121,6 +121,7 @@ $(document).ready(function(){initNavTree('classwmtk_1_1invariants_1_1_envelope_i
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classwmtk_1_1invariants_1_1_envelope_invariant-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">wmtk::invariants::EnvelopeInvariant Class Reference</div></div>
@@ -145,6 +146,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9922df313c474f3e9f896940aa1c1656"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d834a753526ea4996f7a9aa5b078f45" id="r_a4d834a753526ea4996f7a9aa5b078f45"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_envelope_invariant.html#a4d834a753526ea4996f7a9aa5b078f45">after</a> (const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;top_dimension_tuples_before, const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;top_dimension_tuples_after) const override</td></tr>
 <tr class="separator:a4d834a753526ea4996f7a9aa5b078f45"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a30663cdd4febe85f16d81c7522004680" id="r_a30663cdd4febe85f16d81c7522004680"><td class="memItemLeft" align="right" valign="top">const std::shared_ptr&lt; SimpleBVH::BVH &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_envelope_invariant.html#a30663cdd4febe85f16d81c7522004680">bvh</a> () const</td></tr>
+<tr class="separator:a30663cdd4febe85f16d81c7522004680"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac677761d3e4c6c9143740c58fcdf2685" id="r_ac677761d3e4c6c9143740c58fcdf2685"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_envelope_invariant.html#ac677761d3e4c6c9143740c58fcdf2685">coordinate_handle</a> () const</td></tr>
+<tr class="separator:ac677761d3e4c6c9143740c58fcdf2685"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmtk_1_1invariants_1_1_invariant"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmtk_1_1invariants_1_1_invariant')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a></td></tr>
 <tr class="memitem:ae43f95bda332585aa73a8fd0624a39d3 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant" id="r_ae43f95bda332585aa73a8fd0624a39d3"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#ae43f95bda332585aa73a8fd0624a39d3">before</a> (const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;t) const</td></tr>
 <tr class="separator:ae43f95bda332585aa73a8fd0624a39d3 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -166,6 +171,13 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a364df47f8d70f0e89149d56db8963461 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a497379c6c71970345a2d3e28ec90c8db inherit pub_methods_classwmtk_1_1invariants_1_1_invariant" id="r_a497379c6c71970345a2d3e28ec90c8db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db">use_new_state_in_after</a> () const</td></tr>
 <tr class="separator:a497379c6c71970345a2d3e28ec90c8db inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71d5d449aff6bcc9e4c274b3edc003d2 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant" id="r_a71d5d449aff6bcc9e4c274b3edc003d2"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a71d5d449aff6bcc9e4c274b3edc003d2">name</a> () const</td></tr>
+<tr class="separator:a71d5d449aff6bcc9e4c274b3edc003d2 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a52022e805bada638a45c46d0983f0701" id="r_a52022e805bada638a45c46d0983f0701"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_envelope_invariant.html#a52022e805bada638a45c46d0983f0701">has_envelope</a> () const</td></tr>
+<tr class="separator:a52022e805bada638a45c46d0983f0701"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -216,7 +228,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_envelope_invariant_8cpp_source.html#l00029">29</a> of file <a class="el" href="_envelope_invariant_8cpp_source.html">EnvelopeInvariant.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_mesh_attribute_handle_8hpp_source.html#l00148">wmtk::attribute::MeshAttributeHandle::as()</a>, <a class="el" href="classwmtk_1_1attribute_1_1_accessor.html#abecebb154568864219abda80a1beb803">wmtk::attribute::Accessor&lt; T, MeshType, AttributeType_, Dim &gt;::const_vector_attribute()</a>, <a class="el" href="_accessor_8hxx_source.html#l00147">wmtk::attribute::Accessor&lt; T, MeshType, AttributeType_, Dim &gt;::dimension()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_mesh_attribute_handle_8hpp_source.html#l00156">wmtk::attribute::MeshAttributeHandle::holds()</a>, <a class="el" href="_logger_8cpp_source.html#l00058">wmtk::logger()</a>, <a class="el" href="_envelope_invariant_8hpp_source.html#l00033">m_bvh</a>, <a class="el" href="_envelope_invariant_8hpp_source.html#l00032">m_envelope</a>, <a class="el" href="_mesh_attribute_handle_8cpp_source.html#l00018">wmtk::attribute::MeshAttributeHandle::mesh()</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00025">wmtk::PE</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00024">wmtk::PV</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>.</p>
+<p class="reference">References <a class="el" href="_mesh_attribute_handle_8hpp_source.html#l00154">wmtk::attribute::MeshAttributeHandle::as()</a>, <a class="el" href="classwmtk_1_1attribute_1_1_accessor.html#abecebb154568864219abda80a1beb803">wmtk::attribute::Accessor&lt; T, MeshType, AttributeType_, Dim &gt;::const_vector_attribute()</a>, <a class="el" href="_accessor_8hxx_source.html#l00154">wmtk::attribute::Accessor&lt; T, MeshType, AttributeType_, Dim &gt;::dimension()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_mesh_attribute_handle_8hpp_source.html#l00162">wmtk::attribute::MeshAttributeHandle::holds()</a>, <a class="el" href="_logger_8cpp_source.html#l00058">wmtk::logger()</a>, <a class="el" href="_envelope_invariant_8hpp_source.html#l00038">m_bvh</a>, <a class="el" href="_envelope_invariant_8hpp_source.html#l00037">m_envelope</a>, <a class="el" href="_mesh_attribute_handle_8cpp_source.html#l00018">wmtk::attribute::MeshAttributeHandle::mesh()</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00025">wmtk::PE</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00024">wmtk::PV</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -262,14 +274,99 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#aeb4f932816cd79ab4591db6808f6446a">wmtk::invariants::Invariant</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8cpp_source.html#l00169">169</a> of file <a class="el" href="_envelope_invariant_8cpp_source.html">EnvelopeInvariant.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8cpp_source.html#l00174">174</a> of file <a class="el" href="_envelope_invariant_8cpp_source.html">EnvelopeInvariant.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classwmtk_1_1attribute_1_1_accessor.html#abecebb154568864219abda80a1beb803">wmtk::attribute::Accessor&lt; T, MeshType, AttributeType_, Dim &gt;::const_vector_attribute()</a>, <a class="el" href="_accessor_8hxx_source.html#l00147">wmtk::attribute::Accessor&lt; T, MeshType, AttributeType_, Dim &gt;::dimension()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_logger_8cpp_source.html#l00058">wmtk::logger()</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00024">wmtk::PV</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="classwmtk_1_1attribute_1_1_accessor.html#abecebb154568864219abda80a1beb803">wmtk::attribute::Accessor&lt; T, MeshType, AttributeType_, Dim &gt;::const_vector_attribute()</a>, <a class="el" href="_accessor_8hxx_source.html#l00154">wmtk::attribute::Accessor&lt; T, MeshType, AttributeType_, Dim &gt;::dimension()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_logger_8cpp_source.html#l00058">wmtk::logger()</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00024">wmtk::PV</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1invariants_1_1_envelope_invariant_a4d834a753526ea4996f7a9aa5b078f45_cgraph.svg" width="631" height="166"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="a30663cdd4febe85f16d81c7522004680" name="a30663cdd4febe85f16d81c7522004680"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a30663cdd4febe85f16d81c7522004680">&#9670;&#160;</a></span>bvh()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::shared_ptr&lt; SimpleBVH::BVH &gt; &amp; wmtk::invariants::EnvelopeInvariant::bvh </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00031">31</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_envelope_invariant_8hpp_source.html#l00038">m_bvh</a>.</p>
+
+</div>
+</div>
+<a id="ac677761d3e4c6c9143740c58fcdf2685" name="ac677761d3e4c6c9143740c58fcdf2685"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac677761d3e4c6c9143740c58fcdf2685">&#9670;&#160;</a></span>coordinate_handle()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp; wmtk::invariants::EnvelopeInvariant::coordinate_handle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00032">32</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_envelope_invariant_8hpp_source.html#l00039">m_coordinate_handle</a>.</p>
+
+</div>
+</div>
+<a id="a52022e805bada638a45c46d0983f0701" name="a52022e805bada638a45c46d0983f0701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52022e805bada638a45c46d0983f0701">&#9670;&#160;</a></span>has_envelope()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmtk::invariants::EnvelopeInvariant::has_envelope </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8cpp_source.html#l00169">169</a> of file <a class="el" href="_envelope_invariant_8cpp_source.html">EnvelopeInvariant.cpp</a>.</p>
 
 </div>
 </div>
@@ -294,9 +391,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00033">33</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00038">38</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_envelope_invariant_8cpp_source.html#l00029">EnvelopeInvariant()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_envelope_invariant_8hpp_source.html#l00031">bvh()</a>, and <a class="el" href="_envelope_invariant_8cpp_source.html#l00029">EnvelopeInvariant()</a>.</p>
 
 </div>
 </div>
@@ -320,7 +417,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00034">34</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00039">39</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_envelope_invariant_8hpp_source.html#l00032">coordinate_handle()</a>.</p>
 
 </div>
 </div>
@@ -344,7 +443,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00032">32</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00037">37</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_envelope_invariant_8cpp_source.html#l00029">EnvelopeInvariant()</a>.</p>
 
@@ -370,7 +469,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00036">36</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_envelope_invariant_8hpp_source.html#l00041">41</a> of file <a class="el" href="_envelope_invariant_8hpp_source.html">EnvelopeInvariant.hpp</a>.</p>
 
 </div>
 </div>

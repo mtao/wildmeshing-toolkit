@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: components/utils/wmtk/components/utils/json_serialize_enum.hpp Source File</title>
+<title>Wildmeshing Toolkit: components/utils/src/wmtk/components/utils/json_serialize_enum.hpp Source File</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -152,7 +152,29 @@ $(document).ready(function(){initNavTree('json__serialize__enum_8hpp_source.html
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">            return ej_pair.second == j;                                                         \</span></div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="preprocessor">        });                                                                                     \</span></div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">        e = ((it != std::end(m)) ? it : std::begin(m))-&gt;first;                                  \</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">    }</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span><span class="preprocessor">    }\</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span><span class="preprocessor">    void to_json(nlohmann::ordered_json&amp; j, const ENUM_TYPE&amp; e)                                   \</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">    {                                                                                           \</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">        static_assert(std::is_enum&lt;ENUM_TYPE&gt;::value, #ENUM_TYPE &quot; must be an enum!&quot;);          \</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="preprocessor">        static const std::pair&lt;ENUM_TYPE, nlohmann::json&gt; m[] = __VA_ARGS__;                     \</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="preprocessor">        auto it = std::find_if(std::begin(m), std::end(m),                                      \</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">                               [e](const std::pair&lt;ENUM_TYPE, nlohmann::json&gt;&amp; ej_pair) -&gt; bool  \</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span><span class="preprocessor">        {                                                                                       \</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span><span class="preprocessor">            return ej_pair.first == e;                                                          \</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">        });                                                                                     \</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">        j = ((it != std::end(m)) ? it : std::begin(m))-&gt;second;                                 \</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span><span class="preprocessor">    }                                                                                           \</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span><span class="preprocessor">    void from_json(const nlohmann::ordered_json&amp; j, ENUM_TYPE&amp; e)                                 \</span></div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span><span class="preprocessor">    {                                                                                           \</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span><span class="preprocessor">        static_assert(std::is_enum&lt;ENUM_TYPE&gt;::value, #ENUM_TYPE &quot; must be an enum!&quot;);          \</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="preprocessor">        static const std::pair&lt;ENUM_TYPE, nlohmann::json&gt; m[] = __VA_ARGS__;                     \</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">        auto it = std::find_if(std::begin(m), std::end(m),                                      \</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">                               [&amp;j](const std::pair&lt;ENUM_TYPE, nlohmann::json&gt;&amp; ej_pair) -&gt; bool \</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="preprocessor">        {                                                                                       \</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">            return ej_pair.second == j;                                                         \</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span><span class="preprocessor">        });                                                                                     \</span></div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="preprocessor">        e = ((it != std::end(m)) ? it : std::begin(m))-&gt;first;                                  \</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">    }</span></div>
 </div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -160,7 +182,7 @@ $(document).ready(function(){initNavTree('json__serialize__enum_8hpp_source.html
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_141255b66ec4604466b3430e281cf831.html">utils</a></li><li class="navelem"><a class="el" href="dir_3673f076e68f259a60362c4d9e0fd016.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_8b41c41b9efe06ae2e37b7f1c0c216d5.html">components</a></li><li class="navelem"><a class="el" href="dir_f17e2153a65e7166cfb2037e675d5562.html">utils</a></li><li class="navelem"><a class="el" href="json__serialize__enum_8hpp.html">json_serialize_enum.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_141255b66ec4604466b3430e281cf831.html">utils</a></li><li class="navelem"><a class="el" href="dir_79506aa31a75d3c527c1a77ad8a760b5.html">src</a></li><li class="navelem"><a class="el" href="dir_729c522b412f8d61eb505a0a97244173.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_327618763872b6ab1f5675bbe2e61c78.html">components</a></li><li class="navelem"><a class="el" href="dir_34ddfa85d6926e8d588125991768d72f.html">utils</a></li><li class="navelem"><a class="el" href="json__serialize__enum_8hpp.html">json_serialize_enum.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

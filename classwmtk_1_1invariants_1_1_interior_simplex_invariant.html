@@ -147,6 +147,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab6862bc219a21874c537f89f8ba93c7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8eb7e6280bb5912d6523d32bf8c7a753" id="r_a8eb7e6280bb5912d6523d32bf8c7a753"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_interior_simplex_invariant.html#a8eb7e6280bb5912d6523d32bf8c7a753">add_boundary</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;boundary_mesh)</td></tr>
 <tr class="separator:a8eb7e6280bb5912d6523d32bf8c7a753"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40561daf46c15e991183908fd41e8a90" id="r_a40561daf46c15e991183908fd41e8a90"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_interior_simplex_invariant.html#a40561daf46c15e991183908fd41e8a90">name</a> () const override</td></tr>
+<tr class="separator:a40561daf46c15e991183908fd41e8a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4f0c7c0b863decf5f5dded67ae8919c" id="r_ab4f0c7c0b863decf5f5dded67ae8919c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_interior_simplex_invariant.html#ab4f0c7c0b863decf5f5dded67ae8919c">Invariant</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m)</td></tr>
 <tr class="separator:ab4f0c7c0b863decf5f5dded67ae8919c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc0f76008a189003956a2d9ab20deb4f" id="r_acc0f76008a189003956a2d9ab20deb4f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_interior_simplex_invariant.html#acc0f76008a189003956a2d9ab20deb4f">Invariant</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, bool <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a8465f181dd9bbbe21856ecf3dcaa1124">use_before</a>, bool <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a364df47f8d70f0e89149d56db8963461">use_old_state_in_after</a>, bool <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db">use_new_state_in_after</a>)</td></tr>
@@ -233,7 +235,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_interior_simplex_invariant_8cpp_source.html#l00021">21</a> of file <a class="el" href="_interior_simplex_invariant_8cpp_source.html">InteriorSimplexInvariant.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_boundary_checker_8cpp_source.html#l00036">wmtk::multimesh::BoundaryChecker::add_mesh()</a>, and <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00019">m_boundary_checker</a>.</p>
+<p class="reference">References <a class="el" href="_boundary_checker_8cpp_source.html#l00083">wmtk::multimesh::BoundaryChecker::add_mesh()</a>, and <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00020">m_boundary_checker</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -270,7 +272,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_interior_simplex_invariant_8cpp_source.html#l00012">12</a> of file <a class="el" href="_interior_simplex_invariant_8cpp_source.html">InteriorSimplexInvariant.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_boundary_checker_8cpp_source.html#l00004">wmtk::multimesh::BoundaryChecker::is_boundary()</a>, <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00019">m_boundary_checker</a>, <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00018">m_primitive_type</a>, <a class="el" href="_invariant_8cpp_source.html#l00035">wmtk::invariants::Invariant::mesh()</a>, and <a class="el" href="_simplex_8hpp_source.html#l00053">wmtk::simplex::Simplex::tuple()</a>.</p>
+<p class="reference">References <a class="el" href="_boundary_checker_8cpp_source.html#l00004">wmtk::multimesh::BoundaryChecker::is_boundary()</a>, <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00020">m_boundary_checker</a>, <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00019">m_primitive_type</a>, <a class="el" href="_invariant_8cpp_source.html#l00049">wmtk::invariants::Invariant::mesh()</a>, and <a class="el" href="_simplex_8hpp_source.html#l00053">wmtk::simplex::Simplex::tuple()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -341,6 +343,44 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="a40561daf46c15e991183908fd41e8a90" name="a40561daf46c15e991183908fd41e8a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40561daf46c15e991183908fd41e8a90">&#9670;&#160;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string wmtk::invariants::InteriorSimplexInvariant::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a71d5d449aff6bcc9e4c274b3edc003d2">wmtk::invariants::Invariant</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classwmtk_1_1invariants_1_1_interior_edge_invariant.html#ac01d96aca8dc57e3cf57e7758953532c">wmtk::invariants::InteriorEdgeInvariant</a>, and <a class="el" href="classwmtk_1_1invariants_1_1_interior_vertex_invariant.html#a6a4db00d71919473784bfc0e0021b06c">wmtk::invariants::InteriorVertexInvariant</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_interior_simplex_invariant_8cpp_source.html#l00025">25</a> of file <a class="el" href="_interior_simplex_invariant_8cpp_source.html">InteriorSimplexInvariant.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00019">m_primitive_type</a>, and <a class="el" href="_primitive_type_8cpp_source.html#l00042">wmtk::primitive_type_name()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1invariants_1_1_interior_simplex_invariant_a40561daf46c15e991183908fd41e8a90_cgraph.svg" width="655" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a25f549bee0042fefa52c7fa150f44ba2" name="a25f549bee0042fefa52c7fa150f44ba2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a25f549bee0042fefa52c7fa150f44ba2">&#9670;&#160;</a></span>m_boundary_checker</h2>
@@ -362,7 +402,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00019">19</a> of file <a class="el" href="_interior_simplex_invariant_8hpp_source.html">InteriorSimplexInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00020">20</a> of file <a class="el" href="_interior_simplex_invariant_8hpp_source.html">InteriorSimplexInvariant.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_interior_simplex_invariant_8cpp_source.html#l00021">add_boundary()</a>, and <a class="el" href="_interior_simplex_invariant_8cpp_source.html#l00012">before()</a>.</p>
 
@@ -388,9 +428,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00018">18</a> of file <a class="el" href="_interior_simplex_invariant_8hpp_source.html">InteriorSimplexInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_interior_simplex_invariant_8hpp_source.html#l00019">19</a> of file <a class="el" href="_interior_simplex_invariant_8hpp_source.html">InteriorSimplexInvariant.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_interior_simplex_invariant_8cpp_source.html#l00012">before()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_interior_simplex_invariant_8cpp_source.html#l00012">before()</a>, and <a class="el" href="_interior_simplex_invariant_8cpp_source.html#l00025">name()</a>.</p>
 
 </div>
 </div>

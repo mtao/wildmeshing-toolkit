@@ -22,6 +22,7 @@ var namespacewmtk_1_1multimesh =
     [ "MultiMeshVisitor", "classwmtk_1_1multimesh_1_1_multi_mesh_visitor.html", "classwmtk_1_1multimesh_1_1_multi_mesh_visitor" ],
     [ "MultiMeshVisitorExecutor", "classwmtk_1_1multimesh_1_1_multi_mesh_visitor_executor.html", "classwmtk_1_1multimesh_1_1_multi_mesh_visitor_executor" ],
     [ "consolidate", "namespacewmtk_1_1multimesh.html#a75477c4fe069fcdff90f57a76087afe0", null ],
+    [ "from_facet_orientations", "namespacewmtk_1_1multimesh.html#ad4e8a8e817522761d7ad62304dffb0f2", null ],
     [ "MultiMeshSimplexEventVisitor", "namespacewmtk_1_1multimesh.html#a01d3d8f1b33c52ff3e2346930a8c08f3", null ],
     [ "MultiMeshSimplexVisitor", "namespacewmtk_1_1multimesh.html#ac447732e8bc8b65ee41196c57a3cdb48", null ],
     [ "MultiMeshSimplexVisitor", "namespacewmtk_1_1multimesh.html#a898c3217faf649a20219206925c382ce", null ],

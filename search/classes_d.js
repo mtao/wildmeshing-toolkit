@@ -1,16 +1,10 @@
 var searchData=
 [
-  ['paraviewinternalwriter_0',['ParaviewInternalWriter',['../classwmtk_1_1io_1_1_paraview_writer_1_1_paraview_internal_writer.html',1,'wmtk::io::ParaviewWriter']]],
-  ['paraviewwriter_1',['ParaviewWriter',['../classwmtk_1_1io_1_1_paraview_writer.html',1,'wmtk::io']]],
-  ['pathresolver_2',['PathResolver',['../classwmtk_1_1components_1_1utils_1_1_path_resolver.html',1,'wmtk::components::utils']]],
-  ['periodicoptimizationoptions_3',['PeriodicOptimizationOptions',['../structwmtk_1_1components_1_1_periodic_optimization_options.html',1,'wmtk::components']]],
-  ['persimplexautodifffunction_4',['PerSimplexAutodiffFunction',['../classwmtk_1_1function_1_1_per_simplex_autodiff_function.html',1,'wmtk::function']]],
-  ['persimplexfunction_5',['PerSimplexFunction',['../classwmtk_1_1function_1_1_per_simplex_function.html',1,'wmtk::function']]],
-  ['pointmesh_6',['PointMesh',['../classwmtk_1_1_point_mesh.html',1,'wmtk']]],
-  ['positionmapamips2d_7',['PositionMapAMIPS2D',['../classwmtk_1_1function_1_1_position_map_a_m_i_p_s2_d.html',1,'wmtk::function']]],
-  ['positionmapevaluator_8',['PositionMapEvaluator',['../classwmtk_1_1function_1_1utils_1_1_position_map_evaluator.html',1,'wmtk::function::utils']]],
-  ['primitive_9',['Primitive',['../classwmtk_1_1_primitive.html',1,'wmtk']]],
-  ['primitivetyperange_10',['PrimitiveTypeRange',['../classwmtk_1_1utils_1_1detail_1_1_primitive_type_range.html',1,'wmtk::utils::detail']]],
-  ['proceduraloptions_11',['ProceduralOptions',['../structwmtk_1_1components_1_1procedural_1_1_procedural_options.html',1,'wmtk::components::procedural']]],
-  ['projectoperation_12',['ProjectOperation',['../classwmtk_1_1operations_1_1composite_1_1_project_operation.html',1,'wmtk::operations::composite']]]
+  ['openstariterable_0',['OpenStarIterable',['../classwmtk_1_1simplex_1_1_open_star_iterable.html',1,'wmtk::simplex']]],
+  ['operation_1',['Operation',['../classwmtk_1_1operations_1_1_operation.html',1,'wmtk::operations']]],
+  ['operationoptions_2',['OperationOptions',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html',1,'wmtk::components::isotropic_remeshing']]],
+  ['operationsequence_3',['OperationSequence',['../classwmtk_1_1operations_1_1_operation_sequence.html',1,'wmtk::operations']]],
+  ['optimizationsmoothing_4',['OptimizationSmoothing',['../classwmtk_1_1operations_1_1_optimization_smoothing.html',1,'wmtk::operations']]],
+  ['oroperationsequence_5',['OrOperationSequence',['../classwmtk_1_1operations_1_1_or_operation_sequence.html',1,'wmtk::operations']]],
+  ['outputoptions_6',['OutputOptions',['../structwmtk_1_1components_1_1output_1_1_output_options.html',1,'wmtk::components::output']]]
 ];

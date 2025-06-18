@@ -1,5 +1,6 @@
 var _types_8hpp =
 [
+    [ "ColVectors", "_types_8hpp.html#a8921d31f6dafb4e62d2a742fc63f7506", null ],
     [ "MatrixX", "_types_8hpp.html#ae2013f5a8b3c4a8df232b70b5bf9a146", null ],
     [ "MatrixXl", "_types_8hpp.html#addc4daac0072efdc066eca04d8e8d5c4", null ],
     [ "RowVector", "_types_8hpp.html#aedb4fc2d32ca00754b3eff536d9959fb", null ],
@@ -17,6 +18,7 @@ var _types_8hpp =
     [ "RowVectorX", "_types_8hpp.html#a4c1b32a678807150ab1e40dfff84b066", null ],
     [ "SquareMatrix", "_types_8hpp.html#a82c8a56363b1b6302a662848855d5966", null ],
     [ "Vector", "_types_8hpp.html#a495a42545971206f3448a613b8fe7993", null ],
+    [ "Vector1", "_types_8hpp.html#ae5b06b99ce8c05d738cf537a6e8fb6dd", null ],
     [ "Vector2", "_types_8hpp.html#aa8602f5df2ebb323b2d2ad01b466eb90", null ],
     [ "Vector2l", "_types_8hpp.html#a30c6efa3ff491450e712bffb6d7345c4", null ],
     [ "Vector2r", "_types_8hpp.html#ae5436e9784ad52a9866cbc0d54c1d0a2", null ],

@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: src/wmtk/autogen/utils/relative_face_index.hpp Source File</title>
+<title>Wildmeshing Toolkit: src/wmtk/dart/utils/relative_face_index.hpp Source File</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -131,21 +131,21 @@ $(document).ready(function(){initNavTree('relative__face__index_8hpp_source.html
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="_primitive_type_8hpp.html">wmtk/PrimitiveType.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1autogen.html">wmtk::autogen</a> {</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart.html">wmtk::dart</a>{</div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">class </span>SimplexDart;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>}</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1autogen_1_1utils.html">wmtk::autogen::utils</a> {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>int8_t <a class="code hl_function" href="namespacewmtk_1_1autogen_1_1utils.html#a352f026edc714c9492a25d3bf311e66b">relative_face_index</a>(</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>int8_t <a class="code hl_function" href="namespacewmtk_1_1dart_1_1utils.html#a5f31fe5234df47891fdb49db5909c693">relative_face_index</a>(</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keyword">const</span> SimplexDart&amp; sd,</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    int8_t current_orientation,</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    int8_t current_permutation,</div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> target_type,</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    int8_t target_index);</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace wmtk::autogen::utils</span></div>
 <div class="ttc" id="a_primitive_type_8hpp_html"><div class="ttname"><a href="_primitive_type_8hpp.html">PrimitiveType.hpp</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1autogen_1_1utils_html"><div class="ttname"><a href="namespacewmtk_1_1autogen_1_1utils.html">wmtk::autogen::utils</a></div><div class="ttdef"><b>Definition</b> <a href="largest__shared__subdart__size_8cpp_source.html#l00007">largest_shared_subdart_size.cpp:7</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1autogen_1_1utils_html_a352f026edc714c9492a25d3bf311e66b"><div class="ttname"><a href="namespacewmtk_1_1autogen_1_1utils.html#a352f026edc714c9492a25d3bf311e66b">wmtk::autogen::utils::relative_face_index</a></div><div class="ttdeci">int8_t relative_face_index(const SimplexDart &amp;sd, int8_t current_orientation, PrimitiveType target_type, int8_t target_index)</div><div class="ttdoc">: Returns the relative local index of a simplex with respect to an orientation When we switch a dart ...</div><div class="ttdef"><b>Definition</b> <a href="relative__face__index_8cpp_source.html#l00009">relative_face_index.cpp:9</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1autogen_html"><div class="ttname"><a href="namespacewmtk_1_1autogen.html">wmtk::autogen</a></div><div class="ttdef"><b>Definition</b> <a href="_dart_8cpp_source.html#l00004">Dart.cpp:4</a></div></div>
+<div class="ttc" id="anamespacewmtk_1_1dart_1_1utils_html"><div class="ttname"><a href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a></div><div class="ttdef"><b>Definition</b> <a href="apply__simplex__involution_8cpp_source.html#l00012">apply_simplex_involution.cpp:12</a></div></div>
+<div class="ttc" id="anamespacewmtk_1_1dart_1_1utils_html_a5f31fe5234df47891fdb49db5909c693"><div class="ttname"><a href="namespacewmtk_1_1dart_1_1utils.html#a5f31fe5234df47891fdb49db5909c693">wmtk::dart::utils::relative_face_index</a></div><div class="ttdeci">int8_t relative_face_index(const SimplexDart &amp;sd, int8_t current_orientation, PrimitiveType target_type, int8_t target_index)</div><div class="ttdoc">: Returns the relative local index of a simplex with respect to an permutation When we switch a dart ...</div><div class="ttdef"><b>Definition</b> <a href="relative__face__index_8cpp_source.html#l00009">relative_face_index.cpp:9</a></div></div>
+<div class="ttc" id="anamespacewmtk_1_1dart_html"><div class="ttname"><a href="namespacewmtk_1_1dart.html">wmtk::dart</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00016">Accessor.hpp:16</a></div></div>
 <div class="ttc" id="anamespacewmtk_html_af11e67c10a0ab2b57b9bbc3998b62345"><div class="ttname"><a href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">wmtk::PrimitiveType</a></div><div class="ttdeci">PrimitiveType</div><div class="ttdef"><b>Definition</b> <a href="_primitive_type_8hpp_source.html#l00009">PrimitiveType.hpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
@@ -153,7 +153,7 @@ $(document).ready(function(){initNavTree('relative__face__index_8hpp_source.html
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f7a95b7257057fa18adfa4b3aabbe846.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_228c2c271cc4cd9f4cc4d2c9e4cc379f.html">autogen</a></li><li class="navelem"><a class="el" href="dir_514289894c2b8fb0f028b6faab6dfc00.html">utils</a></li><li class="navelem"><a class="el" href="relative__face__index_8hpp.html">relative_face_index.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f7a95b7257057fa18adfa4b3aabbe846.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_22f5d99172a5abbb27ead3628330a87f.html">dart</a></li><li class="navelem"><a class="el" href="dir_99bec2f75ed0941dc876d6e41197a83f.html">utils</a></li><li class="navelem"><a class="el" href="relative__face__index_8hpp.html">relative_face_index.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

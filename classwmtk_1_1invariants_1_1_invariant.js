@@ -8,6 +8,7 @@ var classwmtk_1_1invariants_1_1_invariant =
     [ "directly_modified_after", "classwmtk_1_1invariants_1_1_invariant.html#a09dcf6e3fa8f371321c5393960972a43", null ],
     [ "get_top_dimension_cofaces", "classwmtk_1_1invariants_1_1_invariant.html#a73041de6196a1d4b139741180a05c91d", null ],
     [ "mesh", "classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139", null ],
+    [ "name", "classwmtk_1_1invariants_1_1_invariant.html#a71d5d449aff6bcc9e4c274b3edc003d2", null ],
     [ "use_after", "classwmtk_1_1invariants_1_1_invariant.html#a87f3f3aee0bb8eb24470df18aab5fe50", null ],
     [ "use_before", "classwmtk_1_1invariants_1_1_invariant.html#a8465f181dd9bbbe21856ecf3dcaa1124", null ],
     [ "use_new_state_in_after", "classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db", null ],

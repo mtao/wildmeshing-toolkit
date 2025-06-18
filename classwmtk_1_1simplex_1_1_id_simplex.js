@@ -6,6 +6,7 @@ var classwmtk_1_1simplex_1_1_id_simplex =
     [ "as_tuple", "classwmtk_1_1simplex_1_1_id_simplex.html#a12a0de9e744f487a3c70f02205f67a31", null ],
     [ "dimension", "classwmtk_1_1simplex_1_1_id_simplex.html#ae995120a546dfa75c198a2d7613a78d0", null ],
     [ "index", "classwmtk_1_1simplex_1_1_id_simplex.html#ad483628062bc856966d9a7519abec00b", null ],
+    [ "operator std::string", "classwmtk_1_1simplex_1_1_id_simplex.html#a4d37fa8afc1584eede31ac9dad185d6a", null ],
     [ "operator!=", "classwmtk_1_1simplex_1_1_id_simplex.html#a18ddce5635cb51d695be20129e7f504a", null ],
     [ "operator<", "classwmtk_1_1simplex_1_1_id_simplex.html#ae799434daad5e343fba1a1c50197a740", null ],
     [ "operator==", "classwmtk_1_1simplex_1_1_id_simplex.html#a879a38530318a4c6bfe5565a9277fadf", null ],
@@ -13,6 +14,7 @@ var classwmtk_1_1simplex_1_1_id_simplex =
     [ "valid", "classwmtk_1_1simplex_1_1_id_simplex.html#a2d37fc8ae94514346526da0089f85cb0", null ],
     [ "NavigatableSimplex", "classwmtk_1_1simplex_1_1_id_simplex.html#af49ed3aa12d76b225124bdaddb46fa7a", null ],
     [ "wmtk::Mesh", "classwmtk_1_1simplex_1_1_id_simplex.html#a40e16ebf947f9980244ad9e954e38aa3", null ],
+    [ "wmtk::utils::internal::IndexSimplexMapper", "classwmtk_1_1simplex_1_1_id_simplex.html#a6a78bf011e2914bbd2e1c3c40078bfa1", null ],
     [ "m_index", "classwmtk_1_1simplex_1_1_id_simplex.html#ac066c82ddb13613c0ee16ca0b3d0a18a", null ],
     [ "m_primitive_type", "classwmtk_1_1simplex_1_1_id_simplex.html#aa844ca18fbc5bcea521d4936e70aaeb6", null ]
 ];

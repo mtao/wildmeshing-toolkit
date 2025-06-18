@@ -141,12 +141,12 @@ $(document).ready(function(){initNavTree('delaunay__geogram_8cpp_source.html',''
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespacewmtk_1_1components_1_1internal.html#ae00fb07c978db1538564754acf291d2e">   11</a></span>std::tuple&lt;Eigen::MatrixXd, Eigen::MatrixXi&gt; <a class="code hl_function" href="namespacewmtk_1_1components_1_1internal.html#ae00fb07c978db1538564754acf291d2e">delaunay_geogram</a>(</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    Eigen::Ref&lt;const Eigen::MatrixXd&gt; points)</div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    Eigen::MatrixXd <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a04b1e47aa146538c1a677fc9c5538241">vertices</a>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    Eigen::MatrixXd vertices;</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    Eigen::MatrixXi tetrahedra;</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (points.rows() == 0) {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().warn(<span class="stringliteral">&quot;Cannot run delaunay on an empty point set&quot;</span>);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">return</span> {<a class="code hl_function" href="namespacewmtk_1_1simplex.html#a04b1e47aa146538c1a677fc9c5538241">vertices</a>, tetrahedra};</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">return</span> {vertices, tetrahedra};</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    int64_t dim = points.cols();</div>
@@ -182,18 +182,18 @@ $(document).ready(function(){initNavTree('delaunay__geogram_8cpp_source.html',''
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    engine-&gt;set_vertices(<span class="keyword">static_cast&lt;</span>GEO::index_t<span class="keyword">&gt;</span>(points.rows()), points_transposed.data());</div>
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
 <div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="comment">// Extract output.</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a04b1e47aa146538c1a677fc9c5538241">vertices</a>.resize(engine-&gt;nb_vertices(), dim);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    vertices.resize(engine-&gt;nb_vertices(), dim);</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    tetrahedra.resize(engine-&gt;nb_cells(), dim + 1);</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">for</span> (GEO::index_t i = 0; i &lt; <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a04b1e47aa146538c1a677fc9c5538241">vertices</a>.rows(); ++i) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">for</span> (GEO::index_t i = 0; i &lt; vertices.rows(); ++i) {</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="comment">//   depending on branch prediction to make these calls cost nothing</span></div>
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordflow">switch</span> (dim) {</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keywordflow">case</span> 2: {</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a04b1e47aa146538c1a677fc9c5538241">vertices</a>.row(i) = Eigen::Map&lt;const Eigen::Vector2d&gt;(engine-&gt;vertex_ptr(i)).transpose();</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            vertices.row(i) = Eigen::Map&lt;const Eigen::Vector2d&gt;(engine-&gt;vertex_ptr(i)).transpose();</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        }</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="keywordflow">case</span> 3: {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a04b1e47aa146538c1a677fc9c5538241">vertices</a>.row(i) = Eigen::Map&lt;const Eigen::Vector3d&gt;(engine-&gt;vertex_ptr(i)).transpose();</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>            vertices.row(i) = Eigen::Map&lt;const Eigen::Vector3d&gt;(engine-&gt;vertex_ptr(i)).transpose();</div>
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>            <span class="keywordflow">break</span>;</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        }</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>            <span class="comment">// default: {</span></div>
@@ -211,7 +211,7 @@ $(document).ready(function(){initNavTree('delaunay__geogram_8cpp_source.html',''
 <div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        }</div>
 <div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    }</div>
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> {<a class="code hl_function" href="namespacewmtk_1_1simplex.html#a04b1e47aa146538c1a677fc9c5538241">vertices</a>, tetrahedra};</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordflow">return</span> {vertices, tetrahedra};</div>
 <div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
 </div>
 <div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
@@ -221,7 +221,6 @@ $(document).ready(function(){initNavTree('delaunay__geogram_8cpp_source.html',''
 <div class="ttc" id="adelaunay__geogram_8hpp_html"><div class="ttname"><a href="delaunay__geogram_8hpp.html">delaunay_geogram.hpp</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1components_1_1internal_html"><div class="ttname"><a href="namespacewmtk_1_1components_1_1internal.html">wmtk::components::internal</a></div><div class="ttdef"><b>Definition</b> <a href="internal_2_c_d_t_8cpp_source.html#l00016">CDT.cpp:16</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1components_1_1internal_html_ae00fb07c978db1538564754acf291d2e"><div class="ttname"><a href="namespacewmtk_1_1components_1_1internal.html#ae00fb07c978db1538564754acf291d2e">wmtk::components::internal::delaunay_geogram</a></div><div class="ttdeci">std::tuple&lt; Eigen::MatrixXd, Eigen::MatrixXi &gt; delaunay_geogram(Eigen::Ref&lt; const Eigen::MatrixXd &gt; points)</div><div class="ttdef"><b>Definition</b> <a href="delaunay__geogram_8cpp_source.html#l00011">delaunay_geogram.cpp:11</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1simplex_html_a04b1e47aa146538c1a677fc9c5538241"><div class="ttname"><a href="namespacewmtk_1_1simplex.html#a04b1e47aa146538c1a677fc9c5538241">wmtk::simplex::vertices</a></div><div class="ttdeci">std::vector&lt; Tuple &gt; vertices(const Mesh &amp;m, const Simplex &amp;simplex)</div><div class="ttdef"><b>Definition</b> <a href="faces__single__dimension_8cpp_source.html#l00009">faces_single_dimension.cpp:9</a></div></div>
 <div class="ttc" id="anamespacewmtk_html_a6a35f11c12436093d26fdd8be6fecc06"><div class="ttname"><a href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a></div><div class="ttdeci">spdlog::logger &amp; logger()</div><div class="ttdoc">Retrieves the current logger.</div><div class="ttdef"><b>Definition</b> <a href="_logger_8cpp_source.html#l00058">Logger.cpp:58</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

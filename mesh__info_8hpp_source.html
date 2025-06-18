@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: components/mesh_info/wmtk/components/mesh_info/mesh_info.hpp Source File</title>
+<title>Wildmeshing Toolkit: components/mesh_info/src/wmtk/components/mesh_info/mesh_info.hpp Source File</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -129,28 +129,34 @@ $(document).ready(function(){initNavTree('mesh__info_8hpp_source.html',''); init
 <div class="contents">
 <a href="mesh__info_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="_cache_8hpp.html">wmtk/io/Cache.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;filesystem&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;wmtk/components/utils/Paths.hpp&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;nlohmann/json.hpp&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk.html">wmtk</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span>components {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacewmtk_1_1components.html#aa7e8287564bd3455310ad6c48a39b028">mesh_info</a>(<span class="keyword">const</span> utils::Paths&amp; paths, <span class="keyword">const</span> nlohmann::json&amp; j, io::Cache&amp; cache);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace components</span></div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>} <span class="comment">// namespace wmtk</span></div>
-<div class="ttc" id="a_cache_8hpp_html"><div class="ttname"><a href="_cache_8hpp.html">Cache.hpp</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1components_html_aa7e8287564bd3455310ad6c48a39b028"><div class="ttname"><a href="namespacewmtk_1_1components.html#aa7e8287564bd3455310ad6c48a39b028">wmtk::components::mesh_info</a></div><div class="ttdeci">void mesh_info(const utils::Paths &amp;paths, const nlohmann::json &amp;j, io::Cache &amp;cache)</div><div class="ttdef"><b>Definition</b> <a href="mesh__info_8cpp_source.html#l00011">mesh_info.cpp:11</a></div></div>
-<div class="ttc" id="anamespacewmtk_html"><div class="ttname"><a href="namespacewmtk.html">wmtk</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00008">Accessor.hpp:8</a></div></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk.html">wmtk</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">class </span>Mesh;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="keyword">namespace </span>components {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_function" href="namespacewmtk_1_1components_1_1multimesh.html#a1319047d22f3994a0c3c846379ed2196">multimesh</a> {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword">class </span>MeshCollection;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>}</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span><a class="code hl_function" href="namespacewmtk_1_1components_1_1mesh__info.html#a7a5e822b134d36aef19381700499fd3c">mesh_info</a> {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>nlohmann::json <a class="code hl_function" href="namespacewmtk_1_1components_1_1mesh__info.html#a7a5e822b134d36aef19381700499fd3c">mesh_info</a>(<span class="keyword">const</span> Mesh&amp; mesh);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>} <span class="comment">// namespace components</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace wmtk</span></div>
+<div class="ttc" id="anamespacewmtk_1_1components_1_1mesh__info_html_a7a5e822b134d36aef19381700499fd3c"><div class="ttname"><a href="namespacewmtk_1_1components_1_1mesh__info.html#a7a5e822b134d36aef19381700499fd3c">wmtk::components::mesh_info::mesh_info</a></div><div class="ttdeci">nlohmann::json mesh_info(const Mesh &amp;mesh)</div><div class="ttdef"><b>Definition</b> <a href="mesh__info_8cpp_source.html#l00012">mesh_info.cpp:12</a></div></div>
+<div class="ttc" id="anamespacewmtk_1_1components_1_1multimesh_html_a1319047d22f3994a0c3c846379ed2196"><div class="ttname"><a href="namespacewmtk_1_1components_1_1multimesh.html#a1319047d22f3994a0c3c846379ed2196">wmtk::components::multimesh::multimesh</a></div><div class="ttdeci">std::pair&lt; std::shared_ptr&lt; Mesh &gt;, std::shared_ptr&lt; Mesh &gt; &gt; multimesh(const MultiMeshType &amp;type, Mesh &amp;parent, std::shared_ptr&lt; Mesh &gt; child, const attribute::MeshAttributeHandle &amp;parent_position_handle, const std::string &amp;tag_name, const int64_t tag_value, const int64_t primitive)</div><div class="ttdef"><b>Definition</b> <a href="multimesh_8cpp_source.html#l00016">multimesh.cpp:16</a></div></div>
+<div class="ttc" id="anamespacewmtk_html"><div class="ttname"><a href="namespacewmtk.html">wmtk</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00009">Accessor.hpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_16fe362307cb3199b99b583dba3301ec.html">mesh_info</a></li><li class="navelem"><a class="el" href="dir_1656741ff34097bfa2cc9d4201bd4971.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_a11ab9ec0afa72ae2ae2bc32028034e9.html">components</a></li><li class="navelem"><a class="el" href="dir_d53f063adb5077a3d1ce35e2c0dac8f1.html">mesh_info</a></li><li class="navelem"><a class="el" href="mesh__info_8hpp.html">mesh_info.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_16fe362307cb3199b99b583dba3301ec.html">mesh_info</a></li><li class="navelem"><a class="el" href="dir_634c5db33ca32adab866802ab229e8cc.html">src</a></li><li class="navelem"><a class="el" href="dir_5d25d2ff9657a9eed9cbb7e75405b014.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_269e03933783b1f402ccb27f16ca6f64.html">components</a></li><li class="navelem"><a class="el" href="dir_74e44a00a61f29fec4f5100a1270d26b.html">mesh_info</a></li><li class="navelem"><a class="el" href="mesh__info_8hpp.html">mesh_info.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

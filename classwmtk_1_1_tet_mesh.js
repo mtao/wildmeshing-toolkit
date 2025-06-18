@@ -9,6 +9,7 @@ var classwmtk_1_1_tet_mesh =
     [ "edge_tuple_from_id", "classwmtk_1_1_tet_mesh.html#a68609916210858129ba39958a273e78e", null ],
     [ "face_tuple_from_id", "classwmtk_1_1_tet_mesh.html#a6d216046ac28a11f7d0fd07f9e090ba3", null ],
     [ "id", "classwmtk_1_1_tet_mesh.html#aa8424e5e4d709981e9e10d659f87f97d", null ],
+    [ "id", "classwmtk_1_1_tet_mesh.html#a48726598fc9b8205c46da4faf10ac536", null ],
     [ "id_edge", "classwmtk_1_1_tet_mesh.html#ab73daeea94935518ab142fb5131978dc", null ],
     [ "id_face", "classwmtk_1_1_tet_mesh.html#a2f834d28e74550ff3662b55a8c696bbc", null ],
     [ "id_tet", "classwmtk_1_1_tet_mesh.html#ab06d615fb517f9fa4c20e4593ae46500", null ],

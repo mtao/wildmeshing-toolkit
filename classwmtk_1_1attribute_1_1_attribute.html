@@ -158,8 +158,8 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af4e2ee79105f21583036f4dd92446d60" id="r_af4e2ee79105f21583036f4dd92446d60"><td class="memItemLeft" align="right" valign="top">std::map&lt; std::string, size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#af4e2ee79105f21583036f4dd92446d60">child_hashes</a> () const override</td></tr>
 <tr class="separator:af4e2ee79105f21583036f4dd92446d60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a866829bfa210a3e735951e64a04ec68d" id="r_a866829bfa210a3e735951e64a04ec68d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#a866829bfa210a3e735951e64a04ec68d">serialize</a> (int dim, <a class="el" href="classwmtk_1_1_mesh_writer.html">MeshWriter</a> &amp;writer) const</td></tr>
-<tr class="separator:a866829bfa210a3e735951e64a04ec68d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e3802addb0116a688fa2aa62e1d9a5f" id="r_a7e3802addb0116a688fa2aa62e1d9a5f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#a7e3802addb0116a688fa2aa62e1d9a5f">serialize</a> (int dim, <a class="el" href="classwmtk_1_1io_1_1_mesh_writer.html">io::MeshWriter</a> &amp;writer) const</td></tr>
+<tr class="separator:a7e3802addb0116a688fa2aa62e1d9a5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a156720686b0e59cfc3c5e4dd0ff04e41" id="r_a156720686b0e59cfc3c5e4dd0ff04e41"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#a156720686b0e59cfc3c5e4dd0ff04e41">Attribute</a> (const std::string &amp;<a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#a42387cc260059120b1963e0592c17ec3">name</a>, int64_t <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#ab25b9751fc5ae0eaa3e1094c47354678">dimension</a>, T <a class="el" href="classwmtk_1_1attribute_1_1_attribute.html#acbe584885b69bf32590ac3a11ee64810">default_value</a>=T(0), int64_t size=0)</td></tr>
 <tr class="memdesc:a156720686b0e59cfc3c5e4dd0ff04e41"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize the attribute.  <br /></td></tr>
 <tr class="separator:a156720686b0e59cfc3c5e4dd0ff04e41"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -317,7 +317,7 @@ Protected Attributes</h2></td></tr>
 class wmtk::attribute::Attribute&lt; T &gt;</div><p>This class stores data of type T in a vector. </p>
 <p>If multiple values should be hold per index, the data will be automatically linearized. For example, per index we have a 3-dimensional vector. Then the data vector will contain: [x0,y0,z0,x1,y1,z1,...] </p>
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00021">21</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00023">23</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a965a998c0b89ab9ed1b09c12d15aca1f" name="a965a998c0b89ab9ed1b09c12d15aca1f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a965a998c0b89ab9ed1b09c12d15aca1f">&#9670;&#160;</a></span>ConstMapResult</h2>
@@ -335,7 +335,7 @@ template&lt;int D = Eigen::Dynamic&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00029">29</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00031">31</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 
 </div>
 </div>
@@ -355,7 +355,7 @@ template&lt;int D = Eigen::Dynamic&gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00027">27</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00029">29</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 
 </div>
 </div>
@@ -373,7 +373,7 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00024">24</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00026">26</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 
 </div>
 </div>
@@ -431,7 +431,7 @@ template&lt;typename T &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_8cpp_source.html#l00018">18</a> of file <a class="el" href="_attribute_8cpp_source.html">Attribute.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_8hpp_source.html#l00188">wmtk::attribute::Attribute&lt; T &gt;::m_dimension</a>, and <a class="el" href="_attribute_8cpp_source.html#l00061">wmtk::attribute::Attribute&lt; T &gt;::reserve()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_8hpp_source.html#l00190">wmtk::attribute::Attribute&lt; T &gt;::m_dimension</a>, and <a class="el" href="_attribute_8cpp_source.html#l00061">wmtk::attribute::Attribute&lt; T &gt;::reserve()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1024,7 +1024,7 @@ template&lt;typename T &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_8hxx_source.html#l00181">181</a> of file <a class="el" href="_attribute_8hxx_source.html">Attribute.hxx</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_typed_attribute_manager_8hpp_source.html#l00144">wmtk::attribute::TypedAttributeManager&lt; T &gt;::dimension()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_typed_attribute_manager_8hpp_source.html#l00147">wmtk::attribute::TypedAttributeManager&lt; T &gt;::dimension()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1108,7 +1108,7 @@ template&lt;typename T &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_8cpp_source.html#l00079">79</a> of file <a class="el" href="_attribute_8cpp_source.html">Attribute.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_attribute_8hpp_source.html#l00184">wmtk::attribute::Attribute&lt; T &gt;::set_name()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_attribute_8hpp_source.html#l00186">wmtk::attribute::Attribute&lt; T &gt;::set_name()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1193,7 +1193,7 @@ template&lt;typename T &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_8cpp_source.html#l00053">53</a> of file <a class="el" href="_attribute_8cpp_source.html">Attribute.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_8hpp_source.html#l00187">wmtk::attribute::Attribute&lt; T &gt;::m_data</a>, <a class="el" href="_attribute_8hpp_source.html#l00189">wmtk::attribute::Attribute&lt; T &gt;::m_default_value</a>, <a class="el" href="_attribute_8hpp_source.html#l00188">wmtk::attribute::Attribute&lt; T &gt;::m_dimension</a>, and <a class="el" href="_attribute_8hpp_source.html#l00191">wmtk::attribute::Attribute&lt; T &gt;::m_name</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_8hpp_source.html#l00189">wmtk::attribute::Attribute&lt; T &gt;::m_data</a>, <a class="el" href="_attribute_8hpp_source.html#l00191">wmtk::attribute::Attribute&lt; T &gt;::m_default_value</a>, <a class="el" href="_attribute_8hpp_source.html#l00190">wmtk::attribute::Attribute&lt; T &gt;::m_dimension</a>, and <a class="el" href="_attribute_8hpp_source.html#l00193">wmtk::attribute::Attribute&lt; T &gt;::m_name</a>.</p>
 
 </div>
 </div>
@@ -1330,8 +1330,8 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
-<a id="a866829bfa210a3e735951e64a04ec68d" name="a866829bfa210a3e735951e64a04ec68d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a866829bfa210a3e735951e64a04ec68d">&#9670;&#160;</a></span>serialize()</h2>
+<a id="a7e3802addb0116a688fa2aa62e1d9a5f" name="a7e3802addb0116a688fa2aa62e1d9a5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e3802addb0116a688fa2aa62e1d9a5f">&#9670;&#160;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1347,7 +1347,7 @@ template&lt;typename T &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmtk_1_1_mesh_writer.html">MeshWriter</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmtk_1_1io_1_1_mesh_writer.html">io::MeshWriter</a> &amp;&#160;</td>
           <td class="paramname"><em>writer</em>&#160;</td>
         </tr>
         <tr>
@@ -1360,11 +1360,11 @@ template&lt;typename T &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_8cpp_source.html#l00011">11</a> of file <a class="el" href="_attribute_8cpp_source.html">Attribute.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classwmtk_1_1_mesh_writer.html#a9775a31599c23785098b9be77bdbfb62">wmtk::MeshWriter::write()</a>.</p>
+<p class="reference">References <a class="el" href="classwmtk_1_1io_1_1_mesh_writer.html#a097517380759a95cd670d009ec05126f">wmtk::io::MeshWriter::write()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_a866829bfa210a3e735951e64a04ec68d_cgraph.svg" width="430" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_a7e3802addb0116a688fa2aa62e1d9a5f_cgraph.svg" width="410" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1419,9 +1419,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00184">184</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00186">186</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_8hpp_source.html#l00191">wmtk::attribute::Attribute&lt; T &gt;::m_name</a>, and <a class="el" href="_attribute_8cpp_source.html#l00079">wmtk::attribute::Attribute&lt; T &gt;::name()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_8hpp_source.html#l00193">wmtk::attribute::Attribute&lt; T &gt;::m_name</a>, and <a class="el" href="_attribute_8cpp_source.html#l00079">wmtk::attribute::Attribute&lt; T &gt;::name()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1789,7 +1789,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00187">187</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00189">189</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_attribute_8cpp_source.html#l00053">wmtk::attribute::Attribute&lt; T &gt;::operator==()</a>.</p>
 
@@ -1817,7 +1817,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00189">189</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00191">191</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_attribute_8cpp_source.html#l00053">wmtk::attribute::Attribute&lt; T &gt;::operator==()</a>.</p>
 
@@ -1845,7 +1845,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00188">188</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00190">190</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_attribute_8cpp_source.html#l00018">wmtk::attribute::Attribute&lt; T &gt;::Attribute()</a>, and <a class="el" href="_attribute_8cpp_source.html#l00053">wmtk::attribute::Attribute&lt; T &gt;::operator==()</a>.</p>
 
@@ -1873,9 +1873,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00191">191</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_8hpp_source.html#l00193">193</a> of file <a class="el" href="_attribute_8hpp_source.html">Attribute.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_attribute_8cpp_source.html#l00053">wmtk::attribute::Attribute&lt; T &gt;::operator==()</a>, and <a class="el" href="_attribute_8hpp_source.html#l00184">wmtk::attribute::Attribute&lt; T &gt;::set_name()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_attribute_8cpp_source.html#l00053">wmtk::attribute::Attribute&lt; T &gt;::operator==()</a>, and <a class="el" href="_attribute_8hpp_source.html#l00186">wmtk::attribute::Attribute&lt; T &gt;::set_name()</a>.</p>
 
 </div>
 </div>

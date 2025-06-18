@@ -126,6 +126,10 @@ $(document).ready(function(){initNavTree('axis__aligned__fusion_8cpp.html',''); 
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="axis__aligned__fusion_8hpp_source.html">axis_aligned_fusion.hpp</a>&quot;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<code>#include &lt;set&gt;</code><br />
+<code>#include &lt;<a class="el" href="_disjoint_set_8hpp_source.html">wmtk/utils/DisjointSet.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="decompose__attribute__path_8hpp_source.html">utils//decompose_attribute_path.hpp</a>&quot;</code><br />
 <code>#include &lt;<a class="el" href="_mesh_8hpp_source.html">wmtk/Mesh.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_tet_mesh_8hpp_source.html">wmtk/TetMesh.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_tri_mesh_8hpp_source.html">wmtk/TriMesh.hpp</a>&gt;</code><br />
@@ -134,6 +138,8 @@ $(document).ready(function(){initNavTree('axis__aligned__fusion_8cpp.html',''); 
 <code>#include &lt;<a class="el" href="_logger_8hpp_source.html">wmtk/utils/Logger.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="mesh__utils_8hpp_source.html">wmtk/utils/mesh_utils.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="same__simplex__dimension__bijection_8hpp_source.html">wmtk/multimesh/same_simplex_dimension_bijection.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="_mesh_collection_8hpp_source.html">MeshCollection.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="get__attribute_8hpp_source.html">utils/get_attribute.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for axis_aligned_fusion.cpp:</div>
 <div class="dyncontent">
@@ -155,6 +161,12 @@ Namespaces</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:afd7e3fbf6613b1570cf648edfea6c9b9" id="r_afd7e3fbf6613b1570cf648edfea6c9b9"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#afd7e3fbf6613b1570cf648edfea6c9b9">wmtk::components::multimesh::axis_aligned_fusion</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;mesh, const std::vector&lt; bool &gt; &amp;operating_axis, double eps)</td></tr>
 <tr class="separator:afd7e3fbf6613b1570cf648edfea6c9b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc4283ceabdeef453b2562ab37a6190c" id="r_abc4283ceabdeef453b2562ab37a6190c"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#abc4283ceabdeef453b2562ab37a6190c">wmtk::components::multimesh::axis_aligned_fusion</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;position_handle, const std::vector&lt; bool &gt; &amp;operating_axis, double eps)</td></tr>
+<tr class="separator:abc4283ceabdeef453b2562ab37a6190c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae7cab5e6874acdd9d7c97336a5e9ba9" id="r_aae7cab5e6874acdd9d7c97336a5e9ba9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#aae7cab5e6874acdd9d7c97336a5e9ba9">wmtk::components::multimesh::WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE</a> (<a class="el" href="structwmtk_1_1components_1_1multimesh_1_1_multimesh_axis_aligned_fusion_options.html">MultimeshAxisAlignedFusionOptions</a>)</td></tr>
+<tr class="separator:aae7cab5e6874acdd9d7c97336a5e9ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12acae5db19032d3f562d45cba751948" id="r_a12acae5db19032d3f562d45cba751948"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#a12acae5db19032d3f562d45cba751948">wmtk::components::multimesh::WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE</a> (<a class="el" href="structwmtk_1_1components_1_1multimesh_1_1_multimesh_axis_aligned_fusion_options.html">MultimeshAxisAlignedFusionOptions</a>)</td></tr>
+<tr class="separator:a12acae5db19032d3f562d45cba751948"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -1,8 +1,28 @@
 var searchData=
 [
-  ['less_0',['less',['../classwmtk_1_1simplex_1_1utils_1_1_mesh_simplex_comparator_1_1_less.html',1,'wmtk::simplex::utils::MeshSimplexComparator::Less'],['../classwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_default_comparator_type_1_1_less.html',1,'wmtk::utils::metaprogramming::detail::DefaultComparatorType::Less']]],
-  ['linkiterable_1',['LinkIterable',['../classwmtk_1_1simplex_1_1_link_iterable.html',1,'wmtk::simplex']]],
-  ['linksingledimensioniterable_2',['LinkSingleDimensionIterable',['../classwmtk_1_1simplex_1_1_link_single_dimension_iterable.html',1,'wmtk::simplex']]],
-  ['localneighborssumfunction_3',['LocalNeighborsSumFunction',['../classwmtk_1_1function_1_1_local_neighbors_sum_function.html',1,'wmtk::function']]],
-  ['longestedgesplitoptions_4',['LongestEdgeSplitOptions',['../structwmtk_1_1components_1_1longest__edge__split_1_1_longest_edge_split_options.html',1,'wmtk::components::longest_edge_split']]]
+  ['idsimplex_0',['IdSimplex',['../classwmtk_1_1simplex_1_1_id_simplex.html',1,'wmtk::simplex']]],
+  ['idsimplexcollection_1',['IdSimplexCollection',['../classwmtk_1_1simplex_1_1_id_simplex_collection.html',1,'wmtk::simplex']]],
+  ['image_2',['Image',['../classwmtk_1_1components_1_1adaptive__tessellation_1_1image_1_1_image.html',1,'wmtk::components::adaptive_tessellation::image']]],
+  ['impl_3',['Impl',['../structwmtk_1_1components_1_1utils_1_1_path_resolver_1_1_impl.html',1,'wmtk::components::utils::PathResolver']]],
+  ['importcacheoptions_4',['ImportCacheOptions',['../structwmtk_1_1components_1_1internal_1_1_import_cache_options.html',1,'wmtk::components::internal']]],
+  ['improvementinvariant_5',['ImprovementInvariant',['../classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_improvement_invariant.html',1,'wmtk::components::isotropic_remeshing::invariants']]],
+  ['incidentfacedata_6',['incidentfacedata',['../structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_face_data.html',1,'wmtk::operations::tet_mesh::EdgeOperationData::IncidentFaceData'],['../structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_incident_face_data.html',1,'wmtk::operations::tri_mesh::EdgeOperationData::IncidentFaceData']]],
+  ['incidenttetdata_7',['IncidentTetData',['../structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html',1,'wmtk::operations::tet_mesh::EdgeOperationData']]],
+  ['indexflagaccessor_8',['IndexFlagAccessor',['../classwmtk_1_1attribute_1_1_index_flag_accessor.html',1,'wmtk::attribute']]],
+  ['indexflagaccessor_3c_20wmtk_3a_3amesh_20_3e_9',['IndexFlagAccessor&lt; wmtk::Mesh &gt;',['../classwmtk_1_1attribute_1_1_index_flag_accessor.html',1,'wmtk::attribute']]],
+  ['indexsimplexmapper_10',['IndexSimplexMapper',['../classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html',1,'wmtk::utils::internal']]],
+  ['inputoptions_11',['InputOptions',['../classwmtk_1_1components_1_1input_1_1_input_options.html',1,'wmtk::components::input']]],
+  ['interioredgeinvariant_12',['InteriorEdgeInvariant',['../classwmtk_1_1invariants_1_1_interior_edge_invariant.html',1,'wmtk::invariants']]],
+  ['interiorsimplexinvariant_13',['InteriorSimplexInvariant',['../classwmtk_1_1invariants_1_1_interior_simplex_invariant.html',1,'wmtk::invariants']]],
+  ['interiorvertexinvariant_14',['InteriorVertexInvariant',['../classwmtk_1_1invariants_1_1_interior_vertex_invariant.html',1,'wmtk::invariants']]],
+  ['invariant_15',['Invariant',['../classwmtk_1_1invariants_1_1_invariant.html',1,'wmtk::invariants']]],
+  ['invariantcollection_16',['InvariantCollection',['../classwmtk_1_1invariants_1_1_invariant_collection.html',1,'wmtk::invariants']]],
+  ['invariantoptions_17',['InvariantOptions',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html',1,'wmtk::components::isotropic_remeshing']]],
+  ['invariantparameters_18',['InvariantParameters',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html',1,'wmtk::components::isotropic_remeshing']]],
+  ['involution_19',['Involution',['../classwmtk_1_1dart_1_1_involution.html',1,'wmtk::dart']]],
+  ['is_5ftyped_5fattribute_5fhandle_20',['is_typed_attribute_handle',['../structwmtk_1_1attribute_1_1internal_1_1is__typed__attribute__handle.html',1,'wmtk::attribute::internal']]],
+  ['is_5ftyped_5fattribute_5fhandle_3c_20typedattributehandle_3c_20t_20_3e_20_3e_21',['is_typed_attribute_handle&lt; TypedAttributeHandle&lt; T &gt; &gt;',['../structwmtk_1_1attribute_1_1internal_1_1is__typed__attribute__handle_3_01_typed_attribute_handle_3_01_t_01_4_01_4.html',1,'wmtk::attribute::internal']]],
+  ['isotropicremeshing_22',['IsotropicRemeshing',['../classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html',1,'wmtk::components::isotropic_remeshing']]],
+  ['isotropicremeshingoptions_23',['IsotropicRemeshingOptions',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html',1,'wmtk::components::isotropic_remeshing']]],
+  ['iterator_24',['iterator',['../classwmtk_1_1utils_1_1_dynamic_array_1_1_iterator.html',1,'wmtk::utils::DynamicArray&lt; T, ArraySize &gt;::Iterator'],['../classwmtk_1_1utils_1_1detail_1_1_primitive_type_range_1_1iterator.html',1,'wmtk::utils::detail::PrimitiveTypeRange&lt; Start, End, Inverted &gt;::iterator'],['../classwmtk_1_1simplex_1_1_top_dimension_cofaces_iterable_1_1_iterator.html',1,'wmtk::simplex::TopDimensionCofacesIterable::Iterator'],['../classwmtk_1_1simplex_1_1_open_star_iterable_1_1_iterator.html',1,'wmtk::simplex::OpenStarIterable::Iterator'],['../classwmtk_1_1simplex_1_1_link_single_dimension_iterable_1_1_iterator.html',1,'wmtk::simplex::LinkSingleDimensionIterable::Iterator'],['../classwmtk_1_1simplex_1_1_link_iterable_1_1_iterator.html',1,'wmtk::simplex::LinkIterable::Iterator'],['../classwmtk_1_1simplex_1_1_half_closed_star_iterable_1_1_iterator.html',1,'wmtk::simplex::HalfClosedStarIterable::Iterator'],['../classwmtk_1_1simplex_1_1_cofaces_single_dimension_iterable_1_1_iterator.html',1,'wmtk::simplex::CofacesSingleDimensionIterable::Iterator'],['../classwmtk_1_1simplex_1_1_cofaces_in_simplex_iterable_1_1_iterator.html',1,'wmtk::simplex::CofacesInSimplexIterable::Iterator'],['../classwmtk_1_1simplex_1_1_closed_star_iterable_1_1_iterator.html',1,'wmtk::simplex::ClosedStarIterable::Iterator'],['../classwmtk_1_1dart_1_1_simplex_adjacency_1_1_iterator.html',1,'wmtk::dart::SimplexAdjacency&lt; Dim &gt;::Iterator&lt; IsConst &gt;']]]
 ];

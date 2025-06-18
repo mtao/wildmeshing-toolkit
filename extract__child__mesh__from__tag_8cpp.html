@@ -126,19 +126,15 @@ $(document).ready(function(){initNavTree('extract__child__mesh__from__tag_8cpp.h
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="extract__child__mesh__from__tag_8hpp_source.html">extract_child_mesh_from_tag.hpp</a>&quot;</code><br />
-<code>#include &lt;map&gt;</code><br />
-<code>#include &lt;numeric&gt;</code><br />
 <code>#include &lt;<a class="el" href="_edge_mesh_8hpp_source.html">wmtk/EdgeMesh.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_mesh_8hpp_source.html">wmtk/Mesh.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_multi_mesh_manager_8hpp_source.html">wmtk/multimesh/MultiMeshManager.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_point_mesh_8hpp_source.html">wmtk/PointMesh.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_primitive_8hpp_source.html">wmtk/Primitive.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_tet_mesh_8hpp_source.html">wmtk/TetMesh.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_tri_mesh_8hpp_source.html">wmtk/TriMesh.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_mesh_attribute_handle_8hpp_source.html">wmtk/attribute/MeshAttributeHandle.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_typed_attribute_handle_8hpp_source.html">wmtk/attribute/TypedAttributeHandle.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="from__facet__orientations_8hpp_source.html">wmtk/multimesh/from_facet_orientations.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_logger_8hpp_source.html">wmtk/utils/Logger.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="extract__child__simplices__and__map__from__tag_8hpp_source.html">extract_child_simplices_and_map_from_tag.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_tuple_tag_8hpp_source.html">internal/TupleTag.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="is__manifold_8hpp_source.html">wmtk/utils/internal/is_manifold.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for extract_child_mesh_from_tag.cpp:</div>
 <div class="dyncontent">
@@ -158,15 +154,15 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a4c77e0353f0106b750a18d225d22cd8a" id="r_a4c77e0353f0106b750a18d225d22cd8a"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#a4c77e0353f0106b750a18d225d22cd8a">wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag</a> (<a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, const std::string &amp;tag, const int64_t tag_value, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, bool child_is_free=false)</td></tr>
-<tr class="memdesc:a4c77e0353f0106b750a18d225d22cd8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract a child mesh based on the given tag and tag value, and register it to the input (parent) mesh  <br /></td></tr>
-<tr class="separator:a4c77e0353f0106b750a18d225d22cd8a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3884bf7da96f02deb13cc2b7c8b3629e" id="r_a3884bf7da96f02deb13cc2b7c8b3629e"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#a3884bf7da96f02deb13cc2b7c8b3629e">wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag_handle</a> (<a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, const <a class="el" href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html">wmtk::attribute::TypedAttributeHandle</a>&lt; int64_t &gt; &amp;tag_handle, const int64_t tag_value, bool child_is_free=false)</td></tr>
-<tr class="memdesc:a3884bf7da96f02deb13cc2b7c8b3629e"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract a child mesh based on the tag handle and the tag value, and register it to the input (parent) mesh  <br /></td></tr>
-<tr class="separator:a3884bf7da96f02deb13cc2b7c8b3629e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7abce025022d68cda1ab1de2663865df" id="r_a7abce025022d68cda1ab1de2663865df"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#a7abce025022d68cda1ab1de2663865df">wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag</a> (<a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &amp;tag_handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#ad3399195a55099a6304e29cf7f78b517">wmtk::attribute::MeshAttributeHandle::ValueVariant</a> &amp;tag_value, bool child_is_free=false)</td></tr>
-<tr class="memdesc:a7abce025022d68cda1ab1de2663865df"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract a child mesh based on the tag handle and the tag value, and register it to the input (parent) mesh  <br /></td></tr>
-<tr class="separator:a7abce025022d68cda1ab1de2663865df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfbb74b2e6a2c7a053a9124137f85465" id="r_adfbb74b2e6a2c7a053a9124137f85465"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#adfbb74b2e6a2c7a053a9124137f85465">wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag</a> (<a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, const std::string &amp;tag, const int64_t tag_value, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, bool child_is_free=false, bool decompose_nonmanifold=false)</td></tr>
+<tr class="memdesc:adfbb74b2e6a2c7a053a9124137f85465"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract a child mesh based on the given tag and tag value, and register it to the input (parent) mesh  <br /></td></tr>
+<tr class="separator:adfbb74b2e6a2c7a053a9124137f85465"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1bbd0cb41b6ab9f8075b3f7788aaf4b" id="r_ab1bbd0cb41b6ab9f8075b3f7788aaf4b"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#ab1bbd0cb41b6ab9f8075b3f7788aaf4b">wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag_handle</a> (<a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, const <a class="el" href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html">wmtk::attribute::TypedAttributeHandle</a>&lt; int64_t &gt; &amp;tag_handle, const int64_t tag_value, bool child_is_free=false, bool decompose_nonmanifold=false)</td></tr>
+<tr class="memdesc:ab1bbd0cb41b6ab9f8075b3f7788aaf4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract a child mesh based on the tag handle and the tag value, and register it to the input (parent) mesh  <br /></td></tr>
+<tr class="separator:ab1bbd0cb41b6ab9f8075b3f7788aaf4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a815f038116a0c0b3c7492029dcd1959f" id="r_a815f038116a0c0b3c7492029dcd1959f"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#a815f038116a0c0b3c7492029dcd1959f">wmtk::multimesh::utils::extract_and_register_child_mesh_from_tag</a> (<a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &amp;tag_handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#ad94661ff02ac9b1927259f0aa4553298">wmtk::attribute::MeshAttributeHandle::ValueVariant</a> &amp;tag_value, bool child_is_free=false, bool decompose_nonmanifold=false)</td></tr>
+<tr class="memdesc:a815f038116a0c0b3c7492029dcd1959f"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract a child mesh based on the tag handle and the tag value, and register it to the input (parent) mesh  <br /></td></tr>
+<tr class="separator:a815f038116a0c0b3c7492029dcd1959f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

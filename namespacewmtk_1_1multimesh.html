@@ -162,6 +162,8 @@ Classes</h2></td></tr>
 Functions</h2></td></tr>
 <tr class="memitem:a75477c4fe069fcdff90f57a76087afe0" id="r_a75477c4fe069fcdff90f57a76087afe0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh.html#a75477c4fe069fcdff90f57a76087afe0">consolidate</a> (<a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;mesh)</td></tr>
 <tr class="separator:a75477c4fe069fcdff90f57a76087afe0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4e8a8e817522761d7ad62304dffb0f2" id="r_ad4e8a8e817522761d7ad62304dffb0f2"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::array&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a>, 2 &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh.html#ad4e8a8e817522761d7ad62304dffb0f2">from_facet_orientations</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;parent, const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;child, const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;parent_tuples)</td></tr>
+<tr class="separator:ad4e8a8e817522761d7ad62304dffb0f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a01d3d8f1b33c52ff3e2346930a8c08f3" id="r_a01d3d8f1b33c52ff3e2346930a8c08f3"><td class="memTemplParams" colspan="2">template&lt;int64_t cell_dimension, typename Functor &gt; </td></tr>
 <tr class="memitem:a01d3d8f1b33c52ff3e2346930a8c08f3"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh.html#a01d3d8f1b33c52ff3e2346930a8c08f3">MultiMeshSimplexEventVisitor</a> (const <a class="el" href="classwmtk_1_1multimesh_1_1_multi_mesh_simplex_visitor.html">MultiMeshSimplexVisitor</a>&lt; cell_dimension, Functor &gt; &amp;visitor) -&gt; <a class="el" href="classwmtk_1_1multimesh_1_1_multi_mesh_simplex_event_visitor.html">MultiMeshSimplexEventVisitor</a>&lt; cell_dimension, Functor &gt;</td></tr>
 <tr class="separator:a01d3d8f1b33c52ff3e2346930a8c08f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -200,7 +202,7 @@ Functions</h2></td></tr>
 
 <p class="reference">References <a class="el" href="_multi_mesh_visitor_8hpp_source.html#l00079">wmtk::multimesh::MultiMeshVisitor&lt; NodeFunctor_ &gt;::execute_from_root()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="isotropic__remeshing_8cpp_source.html#l00056">wmtk::components::isotropic_remeshing::isotropic_remeshing()</a>, <a class="el" href="longest__edge__split_8cpp_source.html#l00019">wmtk::components::longest_edge_split::longest_edge_split()</a>, <a class="el" href="internal_2periodic__optimization_8cpp_source.html#l00112">wmtk::components::internal::periodic_optimization()</a>, <a class="el" href="shortest__edge__collapse_8cpp_source.html#l00027">wmtk::components::shortest_edge_collapse::shortest_edge_collapse()</a>, <a class="el" href="wildmeshing__old_8cpp_source.html#l00407">wmtk::components::wildmeshing()</a>, <a class="el" href="wildmeshing2d_8cpp_source.html#l00085">wmtk::components::internal::wildmeshing2d()</a>, and <a class="el" href="wildmeshing3d_8cpp_source.html#l00088">wmtk::components::internal::wildmeshing3d()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="longest__edge__split_8cpp_source.html#l00019">wmtk::components::longest_edge_split::longest_edge_split()</a>, <a class="el" href="internal_2periodic__optimization_8cpp_source.html#l00112">wmtk::components::internal::periodic_optimization()</a>, <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00233">wmtk::components::isotropic_remeshing::IsotropicRemeshing::run()</a>, <a class="el" href="shortest__edge__collapse_8cpp_source.html#l00027">wmtk::components::shortest_edge_collapse::shortest_edge_collapse()</a>, <a class="el" href="wildmeshing__old_8cpp_source.html#l00407">wmtk::components::wildmeshing()</a>, <a class="el" href="wildmeshing2d_8cpp_source.html#l00086">wmtk::components::internal::wildmeshing2d()</a>, and <a class="el" href="wildmeshing3d_8cpp_source.html#l00088">wmtk::components::internal::wildmeshing3d()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -210,6 +212,56 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1multimesh_a75477c4fe069fcdff90f57a76087afe0_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="ad4e8a8e817522761d7ad62304dffb0f2" name="ad4e8a8e817522761d7ad62304dffb0f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad4e8a8e817522761d7ad62304dffb0f2">&#9670;&#160;</a></span>from_facet_orientations()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::array&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a>, 2 &gt; &gt; wmtk::multimesh::from_facet_orientations </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>child</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>parent_tuples</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="from__facet__orientations_8cpp_source.html#l00009">9</a> of file <a class="el" href="from__facet__orientations_8cpp_source.html">from_facet_orientations.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_mesh__attributes_8cpp_source.html#l00084">wmtk::Mesh::capacity()</a>, <a class="el" href="_mesh_8cpp_source.html#l00020">wmtk::Mesh::get_all()</a>, <a class="el" href="identity__tuple_8cpp_source.html#l00005">wmtk::utils::internal::identity_tuple()</a>, and <a class="el" href="_mesh_8hpp_source.html#l01040">wmtk::Mesh::top_simplex_type()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="extract__child__mesh__from__tag_8cpp_source.html#l00017">wmtk::multimesh::utils::internal::TupleTag::extract_and_register_child_mesh_from_tag_handle()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1multimesh_ad4e8a8e817522761d7ad62304dffb0f2_cgraph.svg" width="100%" height="482"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1multimesh_ad4e8a8e817522761d7ad62304dffb0f2_icgraph.svg" width="100%" height="471"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -332,9 +384,9 @@ template&lt;typename NodeFunctor &gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="same__simplex__dimension__bijection_8cpp_source.html#l00009">9</a> of file <a class="el" href="same__simplex__dimension__bijection_8cpp_source.html">same_simplex_dimension_bijection.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_mesh__attributes_8cpp_source.html#l00084">wmtk::Mesh::capacity()</a>, <a class="el" href="same__simplex__dimension__surjection_8cpp_source.html#l00008">same_simplex_dimension_surjection()</a>, and <a class="el" href="_mesh_8hpp_source.html#l00980">wmtk::Mesh::top_simplex_type()</a>.</p>
+<p class="reference">References <a class="el" href="_mesh__attributes_8cpp_source.html#l00084">wmtk::Mesh::capacity()</a>, <a class="el" href="same__simplex__dimension__surjection_8cpp_source.html#l00008">same_simplex_dimension_surjection()</a>, and <a class="el" href="_mesh_8hpp_source.html#l01040">wmtk::Mesh::top_simplex_type()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="axis__aligned__fusion_8cpp_source.html#l00018">wmtk::components::multimesh::axis_aligned_fusion()</a>, <a class="el" href="from__facet__bijection_8cpp_source.html#l00007">wmtk::components::multimesh::from_facet_bijection()</a>, <a class="el" href="utils_8cpp_source.html#l00011">make_child()</a>, and <a class="el" href="multimesh_8cpp_source.html#l00015">wmtk::components::multimesh::multimesh()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="axis__aligned__fusion_8cpp_source.html#l00032">wmtk::components::multimesh::axis_aligned_fusion()</a>, <a class="el" href="from__facet__bijection_8cpp_source.html#l00026">wmtk::components::multimesh::from_facet_bijection()</a>, <a class="el" href="utils_8cpp_source.html#l00011">make_child()</a>, and <a class="el" href="multimesh_8cpp_source.html#l00016">wmtk::components::multimesh::multimesh()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -343,7 +395,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1multimesh_ae9d6749c097baf5c55d25e598ecec6e1_icgraph.svg" width="100%" height="480"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1multimesh_ae9d6749c097baf5c55d25e598ecec6e1_icgraph.svg" width="100%" height="547"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -382,9 +434,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="same__simplex__dimension__surjection_8cpp_source.html#l00008">8</a> of file <a class="el" href="same__simplex__dimension__surjection_8cpp_source.html">same_simplex_dimension_surjection.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_multi_mesh_manager_8cpp_source.html#l00667">wmtk::multimesh::MultiMeshManager::same_simplex_dimension_surjection()</a>.</p>
+<p class="reference">References <a class="el" href="_multi_mesh_manager_8cpp_source.html#l00829">wmtk::multimesh::MultiMeshManager::same_simplex_dimension_surjection()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="same__simplex__dimension__bijection_8cpp_source.html#l00009">same_simplex_dimension_bijection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="from__facet__surjection_8cpp_source.html#l00007">wmtk::components::multimesh::from_facet_surjection()</a>, and <a class="el" href="same__simplex__dimension__bijection_8cpp_source.html#l00009">same_simplex_dimension_bijection()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -393,7 +445,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1multimesh_a7bd59ab748f0b54f3ab7dc9d625b04ec_icgraph.svg" width="100%" height="480"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1multimesh_a7bd59ab748f0b54f3ab7dc9d625b04ec_icgraph.svg" width="100%" height="547"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>

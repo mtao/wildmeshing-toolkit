@@ -1,6 +1,6 @@
 var classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor =
 [
-    [ "child_global_cid", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a3155691dfd0bfef41e0dba6d4c1a08b1", null ],
+    [ "child_global_cid", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#ab413d7900df2ba3309ed000de38248e5", null ],
     [ "operator()", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a34a9d1b901b746f227331b404606ac14", null ],
     [ "operator()", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#aea3b79c818c10455e635602977d16b45", null ],
     [ "operator()", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a6f3a220b85044a73d43a4c124d099bbc", null ],
@@ -10,9 +10,10 @@ var classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_fu
     [ "operator()", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a57611fefa85bea3d1858ca385b0f350a", null ],
     [ "operator()", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#aac119196791985369035cec5059809fd", null ],
     [ "operator()", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a6f288597493f5914cf6d75e7a8674e70", null ],
-    [ "parent_global_cid", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#adbec1cad96a39195a0f4f5b111aa8f17", null ],
-    [ "parent_local_fid", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a3a762d0b64c2da117820d12430480fd2", null ],
+    [ "parent_global_cid", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a98bb9167e59b593de458bd7c6040868e", null ],
+    [ "parent_local_fid", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#aa27624c5173e22260721f2cf0adec1f8", null ],
     [ "update_all_hashes", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a0e68925616ea65b5fedbf614333658e5", null ],
+    [ "update_ear_replacement", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a5af9197d80099e7d29859ed9ccd88fa5", null ],
     [ "update_ear_replacement", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a572bd6605137e21189ac91b5290af06d", null ],
     [ "update_ear_replacement", "classwmtk_1_1operations_1_1utils_1_1_update_edge_operation_multi_mesh_map_functor.html#a4c69338c29bf0105b1881d829a177d45", null ]
 ];

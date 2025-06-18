@@ -125,10 +125,15 @@ $(document).ready(function(){initNavTree('from__tag_8cpp.html',''); initResizabl
   <div class="headertitle"><div class="title">from_tag.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="_mesh_8hpp_source.html">wmtk/Mesh.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="_mesh_attribute_handle_8hpp_source.html">wmtk/attribute/MeshAttributeHandle.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="from__tag_8hpp_source.html">from_tag.hpp</a>&quot;</code><br />
+<code>#include &lt;<a class="el" href="_mesh_8hpp_source.html">wmtk/Mesh.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="extract__child__mesh__from__tag_8hpp_source.html">wmtk/multimesh/utils/extract_child_mesh_from_tag.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="transfer__attribute_8hpp_source.html">wmtk/multimesh/utils/transfer_attribute.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_attribute_transfer_strategy_8hpp_source.html">wmtk/operations/attribute_update/AttributeTransferStrategy.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="is__manifold_8hpp_source.html">wmtk/utils/internal/is_manifold.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="_mesh_collection_8hpp_source.html">MeshCollection.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_multimesh_runnable_options_8hpp_source.html">MultimeshRunnableOptions.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="get__attribute_8hpp_source.html">utils/get_attribute.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for from_tag.cpp:</div>
 <div class="dyncontent">
@@ -148,8 +153,14 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a89507b95304fafebdef81b6876544d03" id="r_a89507b95304fafebdef81b6876544d03"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#a89507b95304fafebdef81b6876544d03">wmtk::components::multimesh::from_tag</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &amp;handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#ad3399195a55099a6304e29cf7f78b517">wmtk::attribute::MeshAttributeHandle::ValueVariant</a> &amp;tag_value, const std::vector&lt; <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &gt; &amp;passed_attributes)</td></tr>
-<tr class="separator:a89507b95304fafebdef81b6876544d03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27a3d7292fc4a2a3ee4a94a74574d424" id="r_a27a3d7292fc4a2a3ee4a94a74574d424"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#a27a3d7292fc4a2a3ee4a94a74574d424">wmtk::components::multimesh::from_tag</a> (const <a class="el" href="structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html">FromTagOptions</a> &amp;options)</td></tr>
+<tr class="separator:a27a3d7292fc4a2a3ee4a94a74574d424"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab0d7d5e27b93fa5a991f00d3b6867594" id="r_ab0d7d5e27b93fa5a991f00d3b6867594"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#ab0d7d5e27b93fa5a991f00d3b6867594">wmtk::components::multimesh::from_tag</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &amp;handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#ad94661ff02ac9b1927259f0aa4553298">wmtk::attribute::MeshAttributeHandle::ValueVariant</a> &amp;tag_value, const std::vector&lt; <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &gt; &amp;passed_attributes, bool manifold_decomposition)</td></tr>
+<tr class="separator:ab0d7d5e27b93fa5a991f00d3b6867594"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a105815a9092e817eda1fb0d1b4cf9644" id="r_a105815a9092e817eda1fb0d1b4cf9644"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#a105815a9092e817eda1fb0d1b4cf9644">wmtk::components::multimesh::WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE</a> (<a class="el" href="structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html">MultimeshTagOptions</a>)</td></tr>
+<tr class="separator:a105815a9092e817eda1fb0d1b4cf9644"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f165e1a5aa0a12314a0986b6f4cae7a" id="r_a5f165e1a5aa0a12314a0986b6f4cae7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html#a5f165e1a5aa0a12314a0986b6f4cae7a">wmtk::components::multimesh::WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE</a> (<a class="el" href="structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html">MultimeshTagOptions</a>)</td></tr>
+<tr class="separator:a5f165e1a5aa0a12314a0986b6f4cae7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

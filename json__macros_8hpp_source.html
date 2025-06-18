@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: components/utils/wmtk/components/utils/json_macros.hpp Source File</title>
+<title>Wildmeshing Toolkit: components/utils/src/wmtk/components/utils/json_macros.hpp Source File</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -133,49 +133,55 @@ $(document).ready(function(){initNavTree('json__macros_8hpp_source.html',''); in
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="comment">// place these in the class for which serialization is desired</span></div>
 <div class="foldopen" id="foldopen00006" data-start="" data-end="">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a22e47e2f1c2df281197428a3943f5129">    6</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Type)\</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">    friend void to_json(nlohmann::json&amp; nlohmann_json_j, const Type&amp; nlohmann_json_t);\</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">    friend void from_json(const nlohmann::json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t);</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a22e47e2f1c2df281197428a3943f5129">    6</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Type)                                    \</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">    friend void to_json(nlohmann::json&amp; nlohmann_json_j, const Type&amp; nlohmann_json_t); \</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">    friend void from_json(const nlohmann::ordered_json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t);</span></div>
 </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="comment">// place these in the class for which serialization is desired</span></div>
 <div class="foldopen" id="foldopen00011" data-start="" data-end="">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a3a58bcdc60f8ca6249f32eeccd544ba8">   11</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_DECLARATION(Type)\</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">    void to_json(nlohmann::json&amp; nlohmann_json_j, const Type&amp; nlohmann_json_t);\</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">    void from_json(const nlohmann::json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t);</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a3a58bcdc60f8ca6249f32eeccd544ba8">   11</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_DECLARATION(Type)                                    \</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">    void to_json(nlohmann::json&amp; nlohmann_json_j, const Type&amp; nlohmann_json_t); \</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">    void from_json(const nlohmann::ordered_json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t);</span></div>
 </div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">// place this to define the prototype of the to_json function</span></div>
 <div class="foldopen" id="foldopen00017" data-start="" data-end="">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#aaeccd16dfca3724950a8cb6b6bdeebf1">   17</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(Type)\</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#aaeccd16dfca3724950a8cb6b6bdeebf1">   17</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(Type) \</span></div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="preprocessor">    void to_json(nlohmann::json&amp; nlohmann_json_j, const Type&amp; nlohmann_json_t)</span></div>
 </div>
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="comment">// place this to define the prototype of the from_json function</span></div>
 <div class="foldopen" id="foldopen00020" data-start="" data-end="">
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#ab4858d28536b60bb21d470067edc1775">   20</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(Type)\</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">    void from_json(const nlohmann::json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t)</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#ab4858d28536b60bb21d470067edc1775">   20</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(Type) \</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><span class="preprocessor">    void from_json(const nlohmann::ordered_json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t)</span></div>
 </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
 <div class="foldopen" id="foldopen00023" data-start="" data-end="">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a1fadfca6e00bb9a2606545b61dc3cd55">   23</a></span><span class="preprocessor">#define WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(...)  \</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">    { NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, __VA_ARGS__)) }</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a1fadfca6e00bb9a2606545b61dc3cd55">   23</a></span><span class="preprocessor">#define WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(...) \</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span><span class="preprocessor">    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, __VA_ARGS__))}</span></div>
 </div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
 <div class="foldopen" id="foldopen00026" data-start="" data-end="">
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a3d51af81bd82bb92c068d33e12ca1934">   26</a></span><span class="preprocessor">#define WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(...)  \</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">    { NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM, __VA_ARGS__)) }</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a3d51af81bd82bb92c068d33e12ca1934">   26</a></span><span class="preprocessor">#define WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(...) \</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span><span class="preprocessor">    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM, __VA_ARGS__))}</span></div>
 </div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span><span class="comment">// Before declaring assignment with a default you need to construct a default object</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a7dd9ebf4849014472deb6e9cbd5ce894">   31</a></span><span class="preprocessor">#define WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(Type) const Type nlohmann_json_default_obj{};</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="json__macros_8hpp.html#a42eddc46ced4e924a1cfdfdf7f0abdff">   33</a></span><span class="preprocessor">#define WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(...)                                 \</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="preprocessor">    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM_WITH_DEFAULT, __VA_ARGS__))} \</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">    </span><span class="comment">// if nlohmann_json_default_obj doesn&#39;t exist call WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_141255b66ec4604466b3430e281cf831.html">utils</a></li><li class="navelem"><a class="el" href="dir_3673f076e68f259a60362c4d9e0fd016.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_8b41c41b9efe06ae2e37b7f1c0c216d5.html">components</a></li><li class="navelem"><a class="el" href="dir_f17e2153a65e7166cfb2037e675d5562.html">utils</a></li><li class="navelem"><a class="el" href="json__macros_8hpp.html">json_macros.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_141255b66ec4604466b3430e281cf831.html">utils</a></li><li class="navelem"><a class="el" href="dir_79506aa31a75d3c527c1a77ad8a760b5.html">src</a></li><li class="navelem"><a class="el" href="dir_729c522b412f8d61eb505a0a97244173.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_327618763872b6ab1f5675bbe2e61c78.html">components</a></li><li class="navelem"><a class="el" href="dir_34ddfa85d6926e8d588125991768d72f.html">utils</a></li><li class="navelem"><a class="el" href="json__macros_8hpp.html">json_macros.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

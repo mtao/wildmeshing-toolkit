@@ -12,6 +12,7 @@ var dir_f2a03d151d5632e9cfdfcc5fe4223b5a =
     [ "AttributeManager.hpp", "_attribute_manager_8hpp.html", "_attribute_manager_8hpp" ],
     [ "AttributeScopeHandle.cpp", "attribute_2_attribute_scope_handle_8cpp.html", null ],
     [ "AttributeScopeHandle.hpp", "attribute_2_attribute_scope_handle_8hpp.html", "attribute_2_attribute_scope_handle_8hpp" ],
+    [ "AttributeType.cpp", "_attribute_type_8cpp.html", "_attribute_type_8cpp" ],
     [ "AttributeType.hpp", "_attribute_type_8hpp.html", "_attribute_type_8hpp" ],
     [ "CachingAttribute.cpp", "_caching_attribute_8cpp.html", null ],
     [ "CachingAttribute.hpp", "_caching_attribute_8hpp.html", "_caching_attribute_8hpp" ],

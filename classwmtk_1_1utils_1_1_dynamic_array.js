@@ -1,6 +1,9 @@
 var classwmtk_1_1utils_1_1_dynamic_array =
 [
     [ "Iterator", "classwmtk_1_1utils_1_1_dynamic_array_1_1_iterator.html", "classwmtk_1_1utils_1_1_dynamic_array_1_1_iterator" ],
+    [ "const_iterator_type", "classwmtk_1_1utils_1_1_dynamic_array.html#a8ab05dd8996f33402bca57ea2a186390", null ],
+    [ "iterator_type", "classwmtk_1_1utils_1_1_dynamic_array.html#af844bc167804c8509e2cf36a3270ca28", null ],
+    [ "value_type", "classwmtk_1_1utils_1_1_dynamic_array.html#aea7807d02e8da6f59887b3782cc6bb5e", null ],
     [ "begin", "classwmtk_1_1utils_1_1_dynamic_array.html#a6cad27dc08a9b5d783869b4cadc5c762", null ],
     [ "capacity", "classwmtk_1_1utils_1_1_dynamic_array.html#ac2f3ac2cd0e58483701b3d9196039d58", null ],
     [ "emplace_back", "classwmtk_1_1utils_1_1_dynamic_array.html#a3a2c2d7df546f3a48cadde5ded09b58c", null ],

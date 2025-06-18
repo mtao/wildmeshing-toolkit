@@ -1,6 +1,7 @@
 var namespacewmtk_1_1invariants =
 [
     [ "internal", "namespacewmtk_1_1invariants_1_1internal.html", "namespacewmtk_1_1invariants_1_1internal" ],
+    [ "CannotMapSimplexInvariant", "classwmtk_1_1invariants_1_1_cannot_map_simplex_invariant.html", "classwmtk_1_1invariants_1_1_cannot_map_simplex_invariant" ],
     [ "CollapseEnergyBeforeInvariant", "classwmtk_1_1invariants_1_1_collapse_energy_before_invariant.html", "classwmtk_1_1invariants_1_1_collapse_energy_before_invariant" ],
     [ "CollapseEnergyBeforeInvariantDouble", "classwmtk_1_1invariants_1_1_collapse_energy_before_invariant_double.html", "classwmtk_1_1invariants_1_1_collapse_energy_before_invariant_double" ],
     [ "CollapseSoftEnergyBeforeInvariant", "classwmtk_1_1invariants_1_1_collapse_soft_energy_before_invariant.html", "classwmtk_1_1invariants_1_1_collapse_soft_energy_before_invariant" ],

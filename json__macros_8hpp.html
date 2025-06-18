@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: components/utils/wmtk/components/utils/json_macros.hpp File Reference</title>
+<title>Wildmeshing Toolkit: components/utils/src/wmtk/components/utils/json_macros.hpp File Reference</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('json__macros_8hpp.html',''); initResiz
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for json_macros.hpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="json__macros_8hpp__incl.svg" width="187" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="json__macros_8hpp__incl.svg" width="190" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -146,12 +146,16 @@ Macros</h2></td></tr>
 <tr class="separator:a3a58bcdc60f8ca6249f32eeccd544ba8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaeccd16dfca3724950a8cb6b6bdeebf1" id="r_aaeccd16dfca3724950a8cb6b6bdeebf1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#aaeccd16dfca3724950a8cb6b6bdeebf1">WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE</a>(Type)&#160;&#160;&#160;    void to_json(<a class="el" href="tests_2input_8cpp.html#ab701e3ac61a85b337ec5c1abaad6742d">nlohmann::json</a>&amp; nlohmann_json_j, const Type&amp; nlohmann_json_t)</td></tr>
 <tr class="separator:aaeccd16dfca3724950a8cb6b6bdeebf1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4858d28536b60bb21d470067edc1775" id="r_ab4858d28536b60bb21d470067edc1775"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#ab4858d28536b60bb21d470067edc1775">WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE</a>(Type)&#160;&#160;&#160;    void from_json(const <a class="el" href="tests_2input_8cpp.html#ab701e3ac61a85b337ec5c1abaad6742d">nlohmann::json</a>&amp; nlohmann_json_j, Type&amp; nlohmann_json_t)</td></tr>
+<tr class="memitem:ab4858d28536b60bb21d470067edc1775" id="r_ab4858d28536b60bb21d470067edc1775"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#ab4858d28536b60bb21d470067edc1775">WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE</a>(Type)&#160;&#160;&#160;    void from_json(const nlohmann::ordered_json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t)</td></tr>
 <tr class="separator:ab4858d28536b60bb21d470067edc1775"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fadfca6e00bb9a2606545b61dc3cd55" id="r_a1fadfca6e00bb9a2606545b61dc3cd55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#a1fadfca6e00bb9a2606545b61dc3cd55">WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON</a>(...)&#160;&#160;&#160;    { NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, __VA_ARGS__)) }</td></tr>
+<tr class="memitem:a1fadfca6e00bb9a2606545b61dc3cd55" id="r_a1fadfca6e00bb9a2606545b61dc3cd55"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#a1fadfca6e00bb9a2606545b61dc3cd55">WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON</a>(...)&#160;&#160;&#160;    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, __VA_ARGS__))}</td></tr>
 <tr class="separator:a1fadfca6e00bb9a2606545b61dc3cd55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d51af81bd82bb92c068d33e12ca1934" id="r_a3d51af81bd82bb92c068d33e12ca1934"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#a3d51af81bd82bb92c068d33e12ca1934">WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON</a>(...)&#160;&#160;&#160;    { NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM, __VA_ARGS__)) }</td></tr>
+<tr class="memitem:a3d51af81bd82bb92c068d33e12ca1934" id="r_a3d51af81bd82bb92c068d33e12ca1934"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#a3d51af81bd82bb92c068d33e12ca1934">WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON</a>(...)&#160;&#160;&#160;    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM, __VA_ARGS__))}</td></tr>
 <tr class="separator:a3d51af81bd82bb92c068d33e12ca1934"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7dd9ebf4849014472deb6e9cbd5ce894" id="r_a7dd9ebf4849014472deb6e9cbd5ce894"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#a7dd9ebf4849014472deb6e9cbd5ce894">WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT</a>(Type)&#160;&#160;&#160;const Type nlohmann_json_default_obj{};</td></tr>
+<tr class="separator:a7dd9ebf4849014472deb6e9cbd5ce894"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42eddc46ced4e924a1cfdfdf7f0abdff" id="r_a42eddc46ced4e924a1cfdfdf7f0abdff"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="json__macros_8hpp.html#a42eddc46ced4e924a1cfdfdf7f0abdff">WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT</a>(...)&#160;&#160;&#160;    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM_WITH_DEFAULT, __VA_ARGS__))} \</td></tr>
+<tr class="separator:a42eddc46ced4e924a1cfdfdf7f0abdff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3d51af81bd82bb92c068d33e12ca1934" name="a3d51af81bd82bb92c068d33e12ca1934"></a>
@@ -165,12 +169,32 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;    { NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM, __VA_ARGS__)) }</td>
+          <td>&#160;&#160;&#160;    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM, __VA_ARGS__))}</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="json__macros_8hpp_source.html#l00026">26</a> of file <a class="el" href="json__macros_8hpp_source.html">json_macros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a42eddc46ced4e924a1cfdfdf7f0abdff" name="a42eddc46ced4e924a1cfdfdf7f0abdff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42eddc46ced4e924a1cfdfdf7f0abdff">&#9670;&#160;</a></span>WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>...</em></td><td>)</td>
+          <td>&#160;&#160;&#160;    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_FROM_WITH_DEFAULT, __VA_ARGS__))} \</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="json__macros_8hpp_source.html#l00033">33</a> of file <a class="el" href="json__macros_8hpp_source.html">json_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -185,7 +209,7 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>...</em></td><td>)</td>
-          <td>&#160;&#160;&#160;    { NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, __VA_ARGS__)) }</td>
+          <td>&#160;&#160;&#160;    {NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, __VA_ARGS__))}</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -209,10 +233,30 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordtype">void</span> to_json(nlohmann::json&amp; nlohmann_json_j, <span class="keyword">const</span> Type&amp; nlohmann_json_t);\</div>
-<div class="line">    <span class="keywordtype">void</span> from_json(<span class="keyword">const</span> nlohmann::json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t);</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordtype">void</span> to_json(nlohmann::json&amp; nlohmann_json_j, <span class="keyword">const</span> Type&amp; nlohmann_json_t); \</div>
+<div class="line">    <span class="keywordtype">void</span> from_json(<span class="keyword">const</span> nlohmann::ordered_json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t);</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="json__macros_8hpp_source.html#l00011">11</a> of file <a class="el" href="json__macros_8hpp_source.html">json_macros.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7dd9ebf4849014472deb6e9cbd5ce894" name="a7dd9ebf4849014472deb6e9cbd5ce894"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dd9ebf4849014472deb6e9cbd5ce894">&#9670;&#160;</a></span>WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">Type</td><td>)</td>
+          <td>&#160;&#160;&#160;const Type nlohmann_json_default_obj{};</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="json__macros_8hpp_source.html#l00031">31</a> of file <a class="el" href="json__macros_8hpp_source.html">json_macros.hpp</a>.</p>
 
 </div>
 </div>
@@ -231,8 +275,8 @@ Macros</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">friend</span> <span class="keywordtype">void</span> to_json(nlohmann::json&amp; nlohmann_json_j, <span class="keyword">const</span> Type&amp; nlohmann_json_t);\</div>
-<div class="line">    <span class="keyword">friend</span> <span class="keywordtype">void</span> from_json(<span class="keyword">const</span> nlohmann::json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t);</div>
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keyword">friend</span> <span class="keywordtype">void</span> to_json(nlohmann::json&amp; nlohmann_json_j, <span class="keyword">const</span> Type&amp; nlohmann_json_t); \</div>
+<div class="line">    <span class="keyword">friend</span> <span class="keywordtype">void</span> from_json(<span class="keyword">const</span> nlohmann::ordered_json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t);</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="json__macros_8hpp_source.html#l00006">6</a> of file <a class="el" href="json__macros_8hpp_source.html">json_macros.hpp</a>.</p>
 
@@ -249,7 +293,7 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">Type</td><td>)</td>
-          <td>&#160;&#160;&#160;    void from_json(const <a class="el" href="tests_2input_8cpp.html#ab701e3ac61a85b337ec5c1abaad6742d">nlohmann::json</a>&amp; nlohmann_json_j, Type&amp; nlohmann_json_t)</td>
+          <td>&#160;&#160;&#160;    void from_json(const nlohmann::ordered_json&amp; nlohmann_json_j, Type&amp; nlohmann_json_t)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -284,7 +328,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_141255b66ec4604466b3430e281cf831.html">utils</a></li><li class="navelem"><a class="el" href="dir_3673f076e68f259a60362c4d9e0fd016.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_8b41c41b9efe06ae2e37b7f1c0c216d5.html">components</a></li><li class="navelem"><a class="el" href="dir_f17e2153a65e7166cfb2037e675d5562.html">utils</a></li><li class="navelem"><a class="el" href="json__macros_8hpp.html">json_macros.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_141255b66ec4604466b3430e281cf831.html">utils</a></li><li class="navelem"><a class="el" href="dir_79506aa31a75d3c527c1a77ad8a760b5.html">src</a></li><li class="navelem"><a class="el" href="dir_729c522b412f8d61eb505a0a97244173.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_327618763872b6ab1f5675bbe2e61c78.html">components</a></li><li class="navelem"><a class="el" href="dir_34ddfa85d6926e8d588125991768d72f.html">utils</a></li><li class="navelem"><a class="el" href="json__macros_8hpp.html">json_macros.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

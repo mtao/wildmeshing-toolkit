@@ -129,87 +129,127 @@ $(document).ready(function(){initNavTree('_mesh__construction_8cpp_source.html',
 <div class="contents">
 <a href="_mesh__construction_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span> </div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;numeric&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_mesh_8hpp.html">Mesh.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="_logger_8hpp.html">wmtk/utils/Logger.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="_rational_8hpp.html">wmtk/utils/Rational.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="_primitive_8hpp.html">Primitive.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk.html">wmtk</a> {</div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_edge_mesh_8hpp.html">EdgeMesh.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="_mesh_8hpp.html">Mesh.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="_point_mesh_8hpp.html">PointMesh.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="_tet_mesh_8hpp.html">TetMesh.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="_tri_mesh_8hpp.html">TriMesh.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;<a class="code" href="_logger_8hpp.html">wmtk/utils/Logger.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;<a class="code" href="_rational_8hpp.html">wmtk/utils/Rational.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#aac1b58f33df36fc07f54dbe8e9abceb0">   12</a></span><a class="code hl_function" href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">Mesh::Mesh</a>(<a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>&amp;&amp; other)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    : m_attribute_manager(<a class="code hl_namespace" href="namespacestd.html">std</a>::move(other.m_attribute_manager))</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    , m_multi_mesh_manager(<a class="code hl_namespace" href="namespacestd.html">std</a>::move(other.m_multi_mesh_manager))</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    , m_top_cell_dimension(other.m_top_cell_dimension)</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    , m_is_free(other.m_is_free)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">m_flag_handles</a> = std::move(other.m_flag_handles);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;<a class="code" href="_primitive_8hpp.html">Primitive.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk.html">wmtk</a> {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#aac1b58f33df36fc07f54dbe8e9abceb0">   16</a></span><a class="code hl_function" href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">Mesh::Mesh</a>(<a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>&amp;&amp; other)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    : m_attribute_manager(<a class="code hl_namespace" href="namespacestd.html">std</a>::move(other.m_attribute_manager))</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    , m_multi_mesh_manager(<a class="code hl_namespace" href="namespacestd.html">std</a>::move(other.m_multi_mesh_manager))</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    , m_top_cell_dimension(other.m_top_cell_dimension)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    , m_is_free(other.m_is_free)</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>{</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">m_flag_handles</a> = std::move(other.m_flag_handles);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
 </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#a2481d032d7e83b7b28bd4207eb023567">   22</a></span><a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>&amp; <a class="code hl_function" href="classwmtk_1_1_mesh.html#a88250f03bee2d6b1a71529b6c92d485b">Mesh::operator=</a>(<a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>&amp;&amp; other)</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#af64daf6aaf6ffd14ce791695d6428cbc">m_attribute_manager</a> = std::move(other.m_attribute_manager);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a74dc5eaa8112266a82dd9f5126d305ea">m_multi_mesh_manager</a> = std::move(other.m_multi_mesh_manager);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">m_flag_handles</a> = std::move(other.m_flag_handles);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#ab6b247bf032f8d237179fec51f08fa2a">m_top_cell_dimension</a> = other.m_top_cell_dimension;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a05287c6baa8681683ef6b03d36d1aa94">m_is_free</a> = other.m_is_free;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
-</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">   33</a></span><a class="code hl_function" href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">Mesh::Mesh</a>(<span class="keyword">const</span> int64_t&amp; dimension)</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#a2481d032d7e83b7b28bd4207eb023567">   26</a></span><a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>&amp; <a class="code hl_function" href="classwmtk_1_1_mesh.html#a88250f03bee2d6b1a71529b6c92d485b">Mesh::operator=</a>(<a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>&amp;&amp; other)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#af64daf6aaf6ffd14ce791695d6428cbc">m_attribute_manager</a> = std::move(other.m_attribute_manager);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a74dc5eaa8112266a82dd9f5126d305ea">m_multi_mesh_manager</a> = std::move(other.m_multi_mesh_manager);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">m_flag_handles</a> = std::move(other.m_flag_handles);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#ab6b247bf032f8d237179fec51f08fa2a">m_top_cell_dimension</a> = other.m_top_cell_dimension;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a05287c6baa8681683ef6b03d36d1aa94">m_is_free</a> = other.m_is_free;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span> </div>
 <div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh_c_r_t_p.html#a08d8a6df17f4189071051f4874ed0c4a">   34</a></span>    : <a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>(dimension, dimension)</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>{}</div>
-</div>
-</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh_c_r_t_p.html#a08d8a6df17f4189071051f4874ed0c4a">   34</a></span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
 <div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#a433121010e8677fe57e3548e33dffcf3">   37</a></span><a class="code hl_function" href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">Mesh::Mesh</a>(<span class="keyword">const</span> int64_t&amp; dimension, <span class="keyword">const</span> int64_t&amp; max_primitive_type_id)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    : m_attribute_manager(max_primitive_type_id + 1)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    , m_multi_mesh_manager(max_primitive_type_id + 1)</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    , m_top_cell_dimension(dimension)</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>{</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">m_flag_handles</a>.reserve(max_primitive_type_id + 1);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordflow">for</span> (int64_t j = 0; j &lt;= max_primitive_type_id; ++j) {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">m_flag_handles</a>.emplace_back(</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            register_attribute_typed&lt;char&gt;(<span class="stringliteral">&quot;flags&quot;</span>, <a class="code hl_function" href="namespacewmtk.html#a3b08a5d7fb42f02c54bae85758b39f59">get_primitive_type_from_id</a>(j), 1, <span class="keyword">false</span>, 0));</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    }</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">   37</a></span><a class="code hl_function" href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">Mesh::Mesh</a>(<span class="keyword">const</span> int64_t&amp; dimension)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    : <a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>(dimension, dimension)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>{}</div>
 </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
-<div class="foldopen" id="foldopen00050" data-start="{" data-end="}">
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#a8c067f91e141a541a3de7ddbcbf3fae2">   50</a></span><a class="code hl_function" href="classwmtk_1_1_mesh.html#a8c067f91e141a541a3de7ddbcbf3fae2">Mesh::~Mesh</a>() {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a74dc5eaa8112266a82dd9f5126d305ea">m_multi_mesh_manager</a>.<a class="code hl_function" href="classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a560692f12ae7b0737295b8700d095602">detach_children</a>();</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>} <span class="comment">// namespace wmtk</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> </div>
+<div class="foldopen" id="foldopen00041" data-start="{" data-end="}">
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#a433121010e8677fe57e3548e33dffcf3">   41</a></span><a class="code hl_function" href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">Mesh::Mesh</a>(<span class="keyword">const</span> int64_t&amp; dimension, <span class="keyword">const</span> int64_t&amp; max_primitive_type_id)</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    : m_attribute_manager(max_primitive_type_id + 1)</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    , m_multi_mesh_manager(max_primitive_type_id + 1)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    , m_top_cell_dimension(dimension)</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>{</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">m_flag_handles</a>.reserve(max_primitive_type_id + 1);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="keywordflow">for</span> (int64_t j = 0; j &lt;= max_primitive_type_id; ++j) {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">m_flag_handles</a>.emplace_back(</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            register_attribute_typed&lt;char&gt;(<span class="stringliteral">&quot;flags&quot;</span>, <a class="code hl_function" href="namespacewmtk.html#a3b08a5d7fb42f02c54bae85758b39f59">get_primitive_type_from_id</a>(j), 1, <span class="keyword">false</span>, 0));</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>}</div>
+</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="foldopen" id="foldopen00054" data-start="{" data-end="}">
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#a8c067f91e141a541a3de7ddbcbf3fae2">   54</a></span><a class="code hl_function" href="classwmtk_1_1_mesh.html#a8c067f91e141a541a3de7ddbcbf3fae2">Mesh::~Mesh</a>()</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <a class="code hl_variable" href="classwmtk_1_1_mesh.html#a74dc5eaa8112266a82dd9f5126d305ea">m_multi_mesh_manager</a>.<a class="code hl_function" href="classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a560692f12ae7b0737295b8700d095602">detach_children</a>();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="foldopen" id="foldopen00059" data-start="{" data-end="}">
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno"><a class="line" href="classwmtk_1_1_mesh.html#ae111b8b0bdce48ed95c4c0321b593ca3">   59</a></span>std::shared_ptr&lt;Mesh&gt; <a class="code hl_function" href="classwmtk_1_1_mesh.html#ae111b8b0bdce48ed95c4c0321b593ca3">Mesh::from_vertex_indices</a>(Eigen::Ref&lt;const MatrixXl&gt; S)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">switch</span> (S.cols()) {</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">case</span> 1: {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">auto</span> p = std::make_shared&lt;PointMesh&gt;(S.rows());</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        <span class="keywordflow">return</span> p;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">case</span> 2: {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">auto</span> p = std::make_shared&lt;EdgeMesh&gt;();</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        p-&gt;initialize(S);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">return</span> p;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keywordflow">case</span> 3: {</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keyword">auto</span> p = std::make_shared&lt;TriMesh&gt;();</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        p-&gt;initialize(S);</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="keywordflow">return</span> p;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    }</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    <span class="keywordflow">case</span> 4: {</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="keyword">auto</span> p = std::make_shared&lt;TetMesh&gt;();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        p-&gt;initialize(S);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keywordflow">return</span> p;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">default</span>:</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordflow">throw</span> std::invalid_argument(</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>            <span class="stringliteral">&quot;Cannot make a mesh from vertex indices other than for S.cols() in 1,2,3,4&quot;</span>);</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    }</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>}</div>
+</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>} <span class="comment">// namespace wmtk</span></div>
+</div>
+<div class="ttc" id="a_edge_mesh_8hpp_html"><div class="ttname"><a href="_edge_mesh_8hpp.html">EdgeMesh.hpp</a></div></div>
 <div class="ttc" id="a_logger_8hpp_html"><div class="ttname"><a href="_logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="a_mesh_8hpp_html"><div class="ttname"><a href="_mesh_8hpp.html">Mesh.hpp</a></div></div>
+<div class="ttc" id="a_point_mesh_8hpp_html"><div class="ttname"><a href="_point_mesh_8hpp.html">PointMesh.hpp</a></div></div>
 <div class="ttc" id="a_primitive_8hpp_html"><div class="ttname"><a href="_primitive_8hpp.html">Primitive.hpp</a></div></div>
 <div class="ttc" id="a_rational_8hpp_html"><div class="ttname"><a href="_rational_8hpp.html">Rational.hpp</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html"><div class="ttname"><a href="classwmtk_1_1_mesh.html">wmtk::Mesh</a></div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00094">Mesh.hpp:95</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_a05287c6baa8681683ef6b03d36d1aa94"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a05287c6baa8681683ef6b03d36d1aa94">wmtk::Mesh::m_is_free</a></div><div class="ttdeci">bool m_is_free</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00834">Mesh.hpp:834</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_a08d8a6df17f4189071051f4874ed0c4a"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">wmtk::Mesh::Mesh</a></div><div class="ttdeci">Mesh(const int64_t &amp;dimension)</div><div class="ttdef"><b>Definition</b> <a href="_mesh__construction_8cpp_source.html#l00033">Mesh_construction.cpp:33</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_a41ec501e2bd3fdb51fcc7ab7615ffb30"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">wmtk::Mesh::m_flag_handles</a></div><div class="ttdeci">std::vector&lt; TypedAttributeHandle&lt; char &gt; &gt; m_flag_handles</div><div class="ttdoc">0x1 == true = simplex is active (simplex exists) all flag default to 0</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00852">Mesh.hpp:852</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_a74dc5eaa8112266a82dd9f5126d305ea"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a74dc5eaa8112266a82dd9f5126d305ea">wmtk::Mesh::m_multi_mesh_manager</a></div><div class="ttdeci">multimesh::MultiMeshManager m_multi_mesh_manager</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00829">Mesh.hpp:829</a></div></div>
+<div class="ttc" id="a_tet_mesh_8hpp_html"><div class="ttname"><a href="_tet_mesh_8hpp.html">TetMesh.hpp</a></div></div>
+<div class="ttc" id="a_tri_mesh_8hpp_html"><div class="ttname"><a href="_tri_mesh_8hpp.html">TriMesh.hpp</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html"><div class="ttname"><a href="classwmtk_1_1_mesh.html">wmtk::Mesh</a></div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00101">Mesh.hpp:102</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_a05287c6baa8681683ef6b03d36d1aa94"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a05287c6baa8681683ef6b03d36d1aa94">wmtk::Mesh::m_is_free</a></div><div class="ttdeci">bool m_is_free</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00889">Mesh.hpp:889</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_a08d8a6df17f4189071051f4874ed0c4a"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a08d8a6df17f4189071051f4874ed0c4a">wmtk::Mesh::Mesh</a></div><div class="ttdeci">Mesh(const int64_t &amp;dimension)</div><div class="ttdef"><b>Definition</b> <a href="_mesh__construction_8cpp_source.html#l00037">Mesh_construction.cpp:37</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_a41ec501e2bd3fdb51fcc7ab7615ffb30"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a41ec501e2bd3fdb51fcc7ab7615ffb30">wmtk::Mesh::m_flag_handles</a></div><div class="ttdeci">std::vector&lt; TypedAttributeHandle&lt; char &gt; &gt; m_flag_handles</div><div class="ttdoc">0x1 == true = simplex is active (simplex exists) all flag default to 0</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00907">Mesh.hpp:907</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_a74dc5eaa8112266a82dd9f5126d305ea"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a74dc5eaa8112266a82dd9f5126d305ea">wmtk::Mesh::m_multi_mesh_manager</a></div><div class="ttdeci">multimesh::MultiMeshManager m_multi_mesh_manager</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00884">Mesh.hpp:884</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html_a88250f03bee2d6b1a71529b6c92d485b"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a88250f03bee2d6b1a71529b6c92d485b">wmtk::Mesh::operator=</a></div><div class="ttdeci">Mesh &amp; operator=(const Mesh &amp;other)=delete</div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_a8c067f91e141a541a3de7ddbcbf3fae2"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a8c067f91e141a541a3de7ddbcbf3fae2">wmtk::Mesh::~Mesh</a></div><div class="ttdeci">virtual ~Mesh()</div><div class="ttdef"><b>Definition</b> <a href="_mesh__construction_8cpp_source.html#l00050">Mesh_construction.cpp:50</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_ab6b247bf032f8d237179fec51f08fa2a"><div class="ttname"><a href="classwmtk_1_1_mesh.html#ab6b247bf032f8d237179fec51f08fa2a">wmtk::Mesh::m_top_cell_dimension</a></div><div class="ttdeci">int64_t m_top_cell_dimension</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00831">Mesh.hpp:831</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_af64daf6aaf6ffd14ce791695d6428cbc"><div class="ttname"><a href="classwmtk_1_1_mesh.html#af64daf6aaf6ffd14ce791695d6428cbc">wmtk::Mesh::m_attribute_manager</a></div><div class="ttdeci">attribute::AttributeManager m_attribute_manager</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00827">Mesh.hpp:827</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1multimesh_1_1_multi_mesh_manager_html_a560692f12ae7b0737295b8700d095602"><div class="ttname"><a href="classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a560692f12ae7b0737295b8700d095602">wmtk::multimesh::MultiMeshManager::detach_children</a></div><div class="ttdeci">void detach_children()</div><div class="ttdef"><b>Definition</b> <a href="_multi_mesh_manager_8cpp_source.html#l00024">MultiMeshManager.cpp:24</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_a8c067f91e141a541a3de7ddbcbf3fae2"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a8c067f91e141a541a3de7ddbcbf3fae2">wmtk::Mesh::~Mesh</a></div><div class="ttdeci">virtual ~Mesh()</div><div class="ttdef"><b>Definition</b> <a href="_mesh__construction_8cpp_source.html#l00054">Mesh_construction.cpp:54</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_ab6b247bf032f8d237179fec51f08fa2a"><div class="ttname"><a href="classwmtk_1_1_mesh.html#ab6b247bf032f8d237179fec51f08fa2a">wmtk::Mesh::m_top_cell_dimension</a></div><div class="ttdeci">int64_t m_top_cell_dimension</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00886">Mesh.hpp:886</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_ae111b8b0bdce48ed95c4c0321b593ca3"><div class="ttname"><a href="classwmtk_1_1_mesh.html#ae111b8b0bdce48ed95c4c0321b593ca3">wmtk::Mesh::from_vertex_indices</a></div><div class="ttdeci">static std::shared_ptr&lt; Mesh &gt; from_vertex_indices(Eigen::Ref&lt; const MatrixXl &gt; S)</div><div class="ttdef"><b>Definition</b> <a href="_mesh__construction_8cpp_source.html#l00059">Mesh_construction.cpp:59</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_af64daf6aaf6ffd14ce791695d6428cbc"><div class="ttname"><a href="classwmtk_1_1_mesh.html#af64daf6aaf6ffd14ce791695d6428cbc">wmtk::Mesh::m_attribute_manager</a></div><div class="ttdeci">attribute::AttributeManager m_attribute_manager</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00882">Mesh.hpp:882</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1multimesh_1_1_multi_mesh_manager_html_a560692f12ae7b0737295b8700d095602"><div class="ttname"><a href="classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a560692f12ae7b0737295b8700d095602">wmtk::multimesh::MultiMeshManager::detach_children</a></div><div class="ttdeci">void detach_children()</div><div class="ttdef"><b>Definition</b> <a href="_multi_mesh_manager_8cpp_source.html#l00033">MultiMeshManager.cpp:33</a></div></div>
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="autodiff_8h_source.html#l00995">autodiff.h:995</a></div></div>
-<div class="ttc" id="anamespacewmtk_html"><div class="ttname"><a href="namespacewmtk.html">wmtk</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00008">Accessor.hpp:8</a></div></div>
-<div class="ttc" id="anamespacewmtk_html_a3b08a5d7fb42f02c54bae85758b39f59"><div class="ttname"><a href="namespacewmtk.html#a3b08a5d7fb42f02c54bae85758b39f59">wmtk::get_primitive_type_from_id</a></div><div class="ttdeci">constexpr PrimitiveType get_primitive_type_from_id(int8_t id)</div><div class="ttdoc">Get the primitive type corresponding to its unique integer id.</div><div class="ttdef"><b>Definition</b> <a href="_primitive_type_8hpp_source.html#l00059">PrimitiveType.hpp:59</a></div></div>
+<div class="ttc" id="anamespacewmtk_html"><div class="ttname"><a href="namespacewmtk.html">wmtk</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00009">Accessor.hpp:9</a></div></div>
+<div class="ttc" id="anamespacewmtk_html_a3b08a5d7fb42f02c54bae85758b39f59"><div class="ttname"><a href="namespacewmtk.html#a3b08a5d7fb42f02c54bae85758b39f59">wmtk::get_primitive_type_from_id</a></div><div class="ttdeci">constexpr PrimitiveType get_primitive_type_from_id(int8_t id)</div><div class="ttdoc">Get the primitive type corresponding to its unique integer id.</div><div class="ttdef"><b>Definition</b> <a href="_primitive_type_8hpp_source.html#l00037">PrimitiveType.hpp:37</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->

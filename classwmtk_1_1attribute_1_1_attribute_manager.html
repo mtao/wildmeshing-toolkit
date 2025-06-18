@@ -162,8 +162,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a7ee8d15e43059df1cfe4c81f4383529a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c8738df1731c57be9b261d84440fe9a" id="r_a1c8738df1731c57be9b261d84440fe9a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_scope_handle.html">AttributeScopeHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a1c8738df1731c57be9b261d84440fe9a">create_scope</a> (<a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m)</td></tr>
 <tr class="separator:a1c8738df1731c57be9b261d84440fe9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f9290f582622604dc0daba270c84f9b" id="r_a2f9290f582622604dc0daba270c84f9b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a2f9290f582622604dc0daba270c84f9b">serialize</a> (<a class="el" href="classwmtk_1_1_mesh_writer.html">MeshWriter</a> &amp;writer) const</td></tr>
-<tr class="separator:a2f9290f582622604dc0daba270c84f9b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c861f5653db4d16eaf54bd64370ae21" id="r_a0c861f5653db4d16eaf54bd64370ae21"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a0c861f5653db4d16eaf54bd64370ae21">serialize</a> (<a class="el" href="classwmtk_1_1io_1_1_mesh_writer.html">io::MeshWriter</a> &amp;writer) const</td></tr>
+<tr class="separator:a0c861f5653db4d16eaf54bd64370ae21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a18df3f3c3a1358954dcbc935c58444fd" id="r_a18df3f3c3a1358954dcbc935c58444fd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a18df3f3c3a1358954dcbc935c58444fd">reserve_to_fit</a> ()</td></tr>
 <tr class="separator:a18df3f3c3a1358954dcbc935c58444fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4fa415bb426f10d888dd765bf11f3163" id="r_a4fa415bb426f10d888dd765bf11f3163"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a4fa415bb426f10d888dd765bf11f3163">reserve_attributes_to_fit</a> ()</td></tr>
@@ -202,6 +202,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a449b09f7a95caf1441ed304a0122443b" id="r_a449b09f7a95caf1441ed304a0122443b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:a449b09f7a95caf1441ed304a0122443b"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1attribute_1_1_typed_attribute_manager.html">TypedAttributeManager</a>&lt; T &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a449b09f7a95caf1441ed304a0122443b">get</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html">TypedAttributeHandle</a>&lt; T &gt; &amp;handle)</td></tr>
 <tr class="separator:a449b09f7a95caf1441ed304a0122443b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a101c37987399c578f999835c0c3ec27e" id="r_a101c37987399c578f999835c0c3ec27e"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a101c37987399c578f999835c0c3ec27e"><td class="memTemplItemLeft" align="right" valign="top">bool&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#a101c37987399c578f999835c0c3ec27e">has_attribute</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html">TypedAttributeHandle</a>&lt; T &gt; &amp;h) const</td></tr>
+<tr class="separator:a101c37987399c578f999835c0c3ec27e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab37901c560fe81350c6e2ec34ff3769c" id="r_ab37901c560fe81350c6e2ec34ff3769c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
 <tr class="memitem:ab37901c560fe81350c6e2ec34ff3769c"><td class="memTemplItemLeft" align="right" valign="top">std::string&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmtk_1_1attribute_1_1_attribute_manager.html#ab37901c560fe81350c6e2ec34ff3769c">get_name</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html">TypedAttributeHandle</a>&lt; T &gt; &amp;attr) const</td></tr>
 <tr class="separator:ab37901c560fe81350c6e2ec34ff3769c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -287,7 +290,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00016">16</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00018">18</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3b04347c7c79c570ad20c88f29e779e5" name="a3b04347c7c79c570ad20c88f29e779e5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3b04347c7c79c570ad20c88f29e779e5">&#9670;&#160;</a></span>AttributeManager() <span class="overload">[1/3]</span></h2>
@@ -404,9 +407,9 @@ Friends</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00133">133</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_mesh_8cpp_source.html#l00227">wmtk::Mesh::assert_capacity_valid()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_mesh_8cpp_source.html#l00234">wmtk::Mesh::assert_capacity_valid()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -432,7 +435,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00255">255</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_checkpoint_scope_8cpp_source.html#l00010">wmtk::attribute::internal::CheckpointScope::~CheckpointScope()</a>.</p>
 <div class="dynheader">
@@ -460,7 +463,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00239">239</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_checkpoint_scope_8cpp_source.html#l00005">wmtk::attribute::internal::CheckpointScope::CheckpointScope()</a>.</p>
 <div class="dynheader">
@@ -498,7 +501,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00017">17</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 </div>
 </div>
@@ -529,7 +532,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00037">37</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_merkle_tree_interior_node_8cpp_source.html#l00007">wmtk::utils::MerkleTreeInteriorNode::child_hashes()</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>.</p>
+<p class="reference">References <a class="el" href="_merkle_tree_interior_node_8cpp_source.html#l00007">wmtk::utils::MerkleTreeInteriorNode::child_hashes()</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -564,7 +567,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00323">323</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_primitive_type_8hpp_source.html#l00059">wmtk::get_primitive_type_from_id()</a>, and <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>.</p>
+<p class="reference">References <a class="el" href="get__attribute__handles_8cpp_source.html#l00071">attributes</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00037">wmtk::get_primitive_type_from_id()</a>, and <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_mesh__attributes_8cpp_source.html#l00165">wmtk::Mesh::clear_attributes()</a>, and <a class="el" href="_mesh__attributes_8cpp_source.html#l00170">wmtk::Mesh::clear_attributes()</a>.</p>
 <div class="dynheader">
@@ -676,11 +679,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00148">148</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00158">158</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_multi_mesh_manager_8cpp_source.html#l00266">wmtk::multimesh::MultiMeshManager::deregister_child_mesh()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00222">get_attribute_default_value()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00214">get_attribute_dimension()</a>, <a class="el" href="_mesh_8hpp_source.html#l00911">wmtk::Mesh::get_attribute_handle_typed()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00236">get_name()</a>, <a class="el" href="_mesh_8hpp_source.html#l00921">wmtk::Mesh::has_attribute()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00242">set_name()</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00230">validate_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_multi_mesh_manager_8cpp_source.html#l00361">wmtk::multimesh::MultiMeshManager::deregister_child_mesh()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00232">get_attribute_default_value()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00224">get_attribute_dimension()</a>, <a class="el" href="_mesh_8hpp_source.html#l00966">wmtk::Mesh::get_attribute_handle_typed()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00246">get_name()</a>, <a class="el" href="_mesh_8hpp_source.html#l00976">wmtk::Mesh::has_attribute()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00252">set_name()</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00240">validate_handle()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -714,9 +717,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00132">132</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00137">137</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 </div>
 </div>
@@ -746,7 +749,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00179">179</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00189">189</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00040">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_primitive_type</a>.</p>
 
@@ -778,7 +781,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00184">184</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00194">194</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00040">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_primitive_type</a>.</p>
 
@@ -810,7 +813,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00172">172</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00182">182</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>.</p>
 <div class="dynheader">
@@ -847,7 +850,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00165">165</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00175">175</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>.</p>
 <div class="dynheader">
@@ -875,7 +878,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00271">271</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_primitive_type_8hpp_source.html#l00059">wmtk::get_primitive_type_from_id()</a>.</p>
+<p class="reference">References <a class="el" href="_primitive_type_8hpp_source.html#l00037">wmtk::get_primitive_type_from_id()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_mesh__attributes_8cpp_source.html#l00152">wmtk::Mesh::custom_attributes()</a>.</p>
 <div class="dynheader">
@@ -917,9 +920,9 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00222">222</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00232">232</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00066">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::is_valid()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00066">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::is_valid()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_mesh__attributes_8cpp_source.html#l00038">wmtk::Mesh::get_attribute_default_value()</a>.</p>
 <div class="dynheader">
@@ -961,11 +964,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00214">214</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00224">224</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00066">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::is_valid()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00066">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::is_valid()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_mesh_8hpp_source.html#l00927">wmtk::Mesh::get_attribute_dimension()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_mesh_8hpp_source.html#l00987">wmtk::Mesh::get_attribute_dimension()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -997,7 +1000,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00179">179</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00236">get_name()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00246">get_name()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1032,11 +1035,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00236">236</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00246">246</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_mesh__attributes_8cpp_source.html#l00160">wmtk::Mesh::get_attribute_name()</a>, <a class="el" href="_mesh_8hpp_source.html#l00933">wmtk::Mesh::get_attribute_name()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00179">get_name()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_mesh__attributes_8cpp_source.html#l00160">wmtk::Mesh::get_attribute_name()</a>, <a class="el" href="_mesh_8hpp_source.html#l00993">wmtk::Mesh::get_attribute_name()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00179">get_name()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1105,7 +1108,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00095">95</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00106">guarantee_at_least_attributes()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00119">wmtk::Mesh::guarantee_at_least_attributes()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00115">wmtk::Mesh::guarantee_at_least_attributes()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00114">guarantee_more_attributes()</a>.</p>
 <div class="dynheader">
@@ -1176,7 +1179,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00114">114</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00120">guarantee_more_attributes()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00130">wmtk::Mesh::guarantee_more_attributes()</a>, and <a class="el" href="_mesh__attributes_8cpp_source.html#l00126">wmtk::Mesh::guarantee_more_attributes()</a>.</p>
 <div class="dynheader">
@@ -1188,6 +1191,42 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_aa140b8ac06fd93c15a7de9a1feaf3c39_icgraph.svg" width="100%" height="451"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a101c37987399c578f999835c0c3ec27e" name="a101c37987399c578f999835c0c3ec27e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a101c37987399c578f999835c0c3ec27e">&#9670;&#160;</a></span>has_attribute()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmtk::attribute::AttributeManager::has_attribute </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html">TypedAttributeHandle</a>&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>h</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00153">153</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00068">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::base_handle()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00067">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::primitive_type()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_mesh_8hpp_source.html#l00981">wmtk::Mesh::has_attribute()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_a101c37987399c578f999835c0c3ec27e_cgraph.svg" width="474" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_a101c37987399c578f999835c0c3ec27e_icgraph.svg" width="443" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1262,7 +1301,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00166">166</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 </div>
 </div>
@@ -1302,7 +1341,7 @@ template&lt;typename Functor , typename... Args&gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00205">205</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00215">215</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1324,7 +1363,7 @@ template&lt;typename Functor , typename... Args&gt; </div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00207">207</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="attribute_2_attribute_scope_handle_8cpp_source.html#l00028">wmtk::attribute::AttributeScopeHandle::~AttributeScopeHandle()</a>.</p>
 <div class="dynheader">
@@ -1352,7 +1391,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00192">192</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="attribute_2_attribute_scope_handle_8cpp_source.html#l00004">wmtk::attribute::AttributeScopeHandle::AttributeScopeHandle()</a>.</p>
 <div class="dynheader">
@@ -1417,7 +1456,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00190">190</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00200">200</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>, <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00040">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_primitive_type</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
 
@@ -1463,7 +1502,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00072">72</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_mesh__attributes_8cpp_source.html#l00093">wmtk::Mesh::reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00154">reserve_attributes_to_fit()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00065">reserve_to_fit()</a>.</p>
 <div class="dynheader">
@@ -1491,7 +1530,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00154">154</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00127">set_capacities()</a>.</p>
 <div class="dynheader">
@@ -1562,7 +1601,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00080">80</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00088">reserve_more_attributes()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00108">wmtk::Mesh::reserve_more_attributes()</a>, and <a class="el" href="_mesh__attributes_8cpp_source.html#l00103">wmtk::Mesh::reserve_more_attributes()</a>.</p>
 <div class="dynheader">
@@ -1595,7 +1634,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00065">65</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_mesh__attributes_8cpp_source.html#l00089">wmtk::Mesh::reserve_attributes_to_fit()</a>.</p>
 <div class="dynheader">
@@ -1628,7 +1667,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00223">223</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, and <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="attribute_2_attribute_scope_handle_8cpp_source.html#l00019">wmtk::attribute::AttributeScopeHandle::mark_failed()</a>.</p>
 <div class="dynheader">
@@ -1639,8 +1678,8 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a id="a2f9290f582622604dc0daba270c84f9b" name="a2f9290f582622604dc0daba270c84f9b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2f9290f582622604dc0daba270c84f9b">&#9670;&#160;</a></span>serialize()</h2>
+<a id="a0c861f5653db4d16eaf54bd64370ae21" name="a0c861f5653db4d16eaf54bd64370ae21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c861f5653db4d16eaf54bd64370ae21">&#9670;&#160;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1648,7 +1687,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void wmtk::attribute::AttributeManager::serialize </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmtk_1_1_mesh_writer.html">MeshWriter</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmtk_1_1io_1_1_mesh_writer.html">io::MeshWriter</a> &amp;&#160;</td>
           <td class="paramname"><em>writer</em></td><td>)</td>
           <td> const</td>
         </tr>
@@ -1657,18 +1696,18 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00052">52</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00031">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00032">m_long_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_rational_attributes</a>, <a class="el" href="classwmtk_1_1_mesh_writer.html#a9775a31599c23785098b9be77bdbfb62">wmtk::MeshWriter::write()</a>, and <a class="el" href="classwmtk_1_1_mesh_writer.html#adaf132d57772f8692155189c4c5789b9">wmtk::MeshWriter::write_capacities()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00033">m_char_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00035">m_double_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00034">m_long_attributes</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00036">m_rational_attributes</a>, <a class="el" href="classwmtk_1_1io_1_1_mesh_writer.html#a097517380759a95cd670d009ec05126f">wmtk::io::MeshWriter::write()</a>, and <a class="el" href="classwmtk_1_1io_1_1_mesh_writer.html#a606a34a213f1cd43904e33f7c822bd50">wmtk::io::MeshWriter::write_capacities()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_mesh_8cpp_source.html#l00093">wmtk::Mesh::serialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_mesh_8cpp_source.html#l00103">wmtk::Mesh::serialize()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_a2f9290f582622604dc0daba270c84f9b_cgraph.svg" width="430" height="102"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_a0c861f5653db4d16eaf54bd64370ae21_cgraph.svg" width="410" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_a2f9290f582622604dc0daba270c84f9b_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_a0c861f5653db4d16eaf54bd64370ae21_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1691,7 +1730,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00127">127</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00154">reserve_attributes_to_fit()</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00154">reserve_attributes_to_fit()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_mesh__attributes_8cpp_source.html#l00097">wmtk::Mesh::set_capacities()</a>.</p>
 <div class="dynheader">
@@ -1743,11 +1782,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00242">242</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00252">252</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_multi_mesh_manager__map__updates_8cpp_source.html#l00039">wmtk::multimesh::MultiMeshManager::update_child_handles()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_multi_mesh_manager__map__updates_8cpp_source.html#l00107">wmtk::multimesh::MultiMeshManager::update_child_handles()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1756,7 +1795,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_adc55e1e34f555ca1639375ba6c013478_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1attribute_1_1_attribute_manager_adc55e1e34f555ca1639375ba6c013478_icgraph.svg" width="100%" height="452"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1778,9 +1817,9 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_attribute_manager_8cpp_source.html#l00162">162</a> of file <a class="el" href="_attribute_manager_8cpp_source.html">AttributeManager.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00038">m_capacities</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00040">m_capacities</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00106">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00120">guarantee_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00114">guarantee_more_attributes()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00190">register_attribute()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00154">reserve_attributes_to_fit()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00088">reserve_more_attributes()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00106">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00120">guarantee_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00114">guarantee_more_attributes()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00200">register_attribute()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00154">reserve_attributes_to_fit()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00088">reserve_more_attributes()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1815,11 +1854,11 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00230">230</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00240">240</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
+<p class="reference">References <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, and <a class="el" href="_typed_attribute_handle_8hpp_source.html#l00039">wmtk::attribute::TypedAttributeHandle&lt; T &gt;::m_base_handle</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_mesh_8hpp_source.html#l01005">wmtk::Mesh::validate_handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_mesh_8hpp_source.html#l01065">wmtk::Mesh::validate_handle()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1854,7 +1893,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00018">18</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00020">20</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
 </div>
 </div>
@@ -1871,9 +1910,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00038">38</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00040">40</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00084">wmtk::Mesh::capacity()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00037">child_hashes()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00114">guarantee_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00043">wmtk::Mesh::request_simplex_indices()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00154">reserve_attributes_to_fit()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00065">reserve_to_fit()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00127">set_capacities()</a>, <a class="el" href="_mesh_8cpp_source.html#l00182">wmtk::Mesh::set_capacities_from_flags()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00084">wmtk::Mesh::capacity()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00037">child_hashes()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00114">guarantee_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00043">wmtk::Mesh::request_simplex_indices()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00154">reserve_attributes_to_fit()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00065">reserve_to_fit()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00127">set_capacities()</a>, <a class="el" href="_mesh_8cpp_source.html#l00189">wmtk::Mesh::set_capacities_from_flags()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00162">size()</a>.</p>
 
 </div>
 </div>
@@ -1889,9 +1928,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00031">31</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00033">33</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00255">change_to_child_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00239">change_to_parent_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00017">child_hashables()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00132">get()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00207">pop_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00192">push_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00223">rollback_current_scope()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00255">change_to_child_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00239">change_to_parent_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00017">child_hashables()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00137">get()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00207">pop_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00192">push_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00223">rollback_current_scope()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>.</p>
 
 </div>
 </div>
@@ -1907,9 +1946,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00033">33</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00035">35</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00255">change_to_child_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00239">change_to_parent_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00017">child_hashables()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00132">get()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00207">pop_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00192">push_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00223">rollback_current_scope()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00255">change_to_child_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00239">change_to_parent_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00017">child_hashables()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00137">get()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00207">pop_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00192">push_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00223">rollback_current_scope()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>.</p>
 
 </div>
 </div>
@@ -1925,9 +1964,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00032">32</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00034">34</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00255">change_to_child_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00239">change_to_parent_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00017">child_hashables()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00132">get()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00207">pop_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00192">push_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00223">rollback_current_scope()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00255">change_to_child_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00239">change_to_parent_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00017">child_hashables()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00137">get()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00207">pop_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00192">push_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00223">rollback_current_scope()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>.</p>
 
 </div>
 </div>
@@ -1943,9 +1982,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00034">34</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_manager_8hpp_source.html#l00036">36</a> of file <a class="el" href="_attribute_manager_8hpp_source.html">AttributeManager.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00255">change_to_child_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00239">change_to_parent_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00017">child_hashables()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00148">get()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00132">get()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00207">pop_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00192">push_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00223">rollback_current_scope()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_attribute_manager_8cpp_source.html#l00133">assert_capacity_valid()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00255">change_to_child_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00239">change_to_parent_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00017">child_hashables()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00209">wmtk::Mesh::consolidate()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00158">get()</a>, <a class="el" href="_attribute_manager_8hpp_source.html#l00137">get()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00095">guarantee_at_least_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00166">operator==()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00207">pop_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00192">push_scope()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00072">reserve_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00080">reserve_more_attributes()</a>, <a class="el" href="_attribute_manager_8cpp_source.html#l00223">rollback_current_scope()</a>, and <a class="el" href="_attribute_manager_8cpp_source.html#l00052">serialize()</a>.</p>
 
 </div>
 </div>

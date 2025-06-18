@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt; Class Template Reference</title>
+<title>Wildmeshing Toolkit: wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType, MyDim, ParentDim &gt; Class Template Reference</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -126,51 +126,54 @@ $(document).ready(function(){initNavTree('classwmtk_1_1operations_1_1_single_att
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType, MyDim, ParentDim &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
 <p><code>#include &lt;<a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>&gt;</code></p>
 <div class="dynheader">
-Inheritance diagram for wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt;:</div>
+Inheritance diagram for wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType, MyDim, ParentDim &gt;:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy__inherit__graph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy__inherit__graph.svg" width="100%" height="490"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
-Collaboration diagram for wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt;:</div>
+Collaboration diagram for wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType, MyDim, ParentDim &gt;:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy__coll__graph.svg" width="100%" height="590"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a717021997f0de6a66487fb53f53ce3a6" id="r_a717021997f0de6a66487fb53f53ce3a6"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a717021997f0de6a66487fb53f53ce3a6"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a717021997f0de6a66487fb53f53ce3a6">VecType</a> = <a class="el" href="namespacewmtk.html#a9cd7285cb03e74d8aa2609646ea0308f">VectorX</a>&lt; T &gt;</td></tr>
-<tr class="separator:a717021997f0de6a66487fb53f53ce3a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19c7ed79c52d553e4fcc883236d47f98" id="r_a19c7ed79c52d553e4fcc883236d47f98"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a19c7ed79c52d553e4fcc883236d47f98"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a19c7ed79c52d553e4fcc883236d47f98">MatType</a> = <a class="el" href="namespacewmtk.html#ae2013f5a8b3c4a8df232b70b5bf9a146">MatrixX</a>&lt; T &gt;</td></tr>
-<tr class="separator:a19c7ed79c52d553e4fcc883236d47f98"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc2500dd9feeea3f48880c3f1f0d4b48" id="r_afc2500dd9feeea3f48880c3f1f0d4b48"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#afc2500dd9feeea3f48880c3f1f0d4b48">MyVecType</a> = <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a717021997f0de6a66487fb53f53ce3a6">VecType</a>&lt; MyType &gt;</td></tr>
-<tr class="separator:afc2500dd9feeea3f48880c3f1f0d4b48"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a910c4e1ac96f1bb0e00f160b69c88f14" id="r_a910c4e1ac96f1bb0e00f160b69c88f14"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a910c4e1ac96f1bb0e00f160b69c88f14">ParentMatType</a> = <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a19c7ed79c52d553e4fcc883236d47f98">MatType</a>&lt; ParentType &gt;</td></tr>
-<tr class="separator:a910c4e1ac96f1bb0e00f160b69c88f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace66a79835e575308bbd1d0b5b3b47c5" id="r_ace66a79835e575308bbd1d0b5b3b47c5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ace66a79835e575308bbd1d0b5b3b47c5">FunctorWithoutSimplicesType</a> = std::function&lt; <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#afc2500dd9feeea3f48880c3f1f0d4b48">MyVecType</a>(const <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a910c4e1ac96f1bb0e00f160b69c88f14">ParentMatType</a> &amp;)&gt;</td></tr>
-<tr class="separator:ace66a79835e575308bbd1d0b5b3b47c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6cda576daf36482645b6acdcbffb9f82" id="r_a6cda576daf36482645b6acdcbffb9f82"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a6cda576daf36482645b6acdcbffb9f82">FunctorType</a> = std::function&lt; <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#afc2500dd9feeea3f48880c3f1f0d4b48">MyVecType</a>(const <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a910c4e1ac96f1bb0e00f160b69c88f14">ParentMatType</a> &amp;, const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;)&gt;</td></tr>
-<tr class="separator:a6cda576daf36482645b6acdcbffb9f82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3359cd8dd490f5c5191176cd9af11062" id="r_a3359cd8dd490f5c5191176cd9af11062"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a3359cd8dd490f5c5191176cd9af11062">BaseType</a> = <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html">SingleAttributeTransferStrategyBase</a>&lt; MyType, ParentType &gt;</td></tr>
+<tr class="separator:a3359cd8dd490f5c5191176cd9af11062"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71fdbfcd3f8dd3f89ee29a07dd92b4a1" id="r_a71fdbfcd3f8dd3f89ee29a07dd92b4a1"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a71fdbfcd3f8dd3f89ee29a07dd92b4a1">MyVecType</a> = <a class="el" href="namespacewmtk.html#a495a42545971206f3448a613b8fe7993">Vector</a>&lt; MyType, MyDim &gt;</td></tr>
+<tr class="separator:a71fdbfcd3f8dd3f89ee29a07dd92b4a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adbb2c5d7ec1bd5906bf5d1a9b4ef8bce" id="r_adbb2c5d7ec1bd5906bf5d1a9b4ef8bce"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#adbb2c5d7ec1bd5906bf5d1a9b4ef8bce">ParentMatType</a> = <a class="el" href="namespacewmtk.html#a8921d31f6dafb4e62d2a742fc63f7506">ColVectors</a>&lt; ParentType, ParentDim &gt;</td></tr>
+<tr class="separator:adbb2c5d7ec1bd5906bf5d1a9b4ef8bce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90426aa54ec0ddcb20b8ac62d7c87af7" id="r_a90426aa54ec0ddcb20b8ac62d7c87af7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a90426aa54ec0ddcb20b8ac62d7c87af7">FunctorWithoutSimplicesType</a> = std::function&lt; <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a71fdbfcd3f8dd3f89ee29a07dd92b4a1">MyVecType</a>(const <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#adbb2c5d7ec1bd5906bf5d1a9b4ef8bce">ParentMatType</a> &amp;)&gt;</td></tr>
+<tr class="separator:a90426aa54ec0ddcb20b8ac62d7c87af7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a303f4a899a902a88aeee33a166dde1f0" id="r_a303f4a899a902a88aeee33a166dde1f0"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a303f4a899a902a88aeee33a166dde1f0">FunctorType</a> = std::function&lt; <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a71fdbfcd3f8dd3f89ee29a07dd92b4a1">MyVecType</a>(const <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#adbb2c5d7ec1bd5906bf5d1a9b4ef8bce">ParentMatType</a> &amp;, const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;)&gt;</td></tr>
+<tr class="separator:a303f4a899a902a88aeee33a166dde1f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7e31f2d5f0bfe0f8cf08358f084a9062" id="r_a7e31f2d5f0bfe0f8cf08358f084a9062"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a7e31f2d5f0bfe0f8cf08358f084a9062">SingleAttributeTransferStrategy</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;my_handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;parent_handle, <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a6cda576daf36482645b6acdcbffb9f82">FunctorType</a> &amp;&amp;=nullptr)</td></tr>
-<tr class="separator:a7e31f2d5f0bfe0f8cf08358f084a9062"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ace0810cb6960ee2a01d35b2db20006c3" id="r_ace0810cb6960ee2a01d35b2db20006c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ace0810cb6960ee2a01d35b2db20006c3">SingleAttributeTransferStrategy</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;my_handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;parent_handle, <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ace66a79835e575308bbd1d0b5b3b47c5">FunctorWithoutSimplicesType</a> &amp;&amp;=nullptr)</td></tr>
-<tr class="separator:ace0810cb6960ee2a01d35b2db20006c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a76438300120e03d6e24b9fef14116f30" id="r_a76438300120e03d6e24b9fef14116f30"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a76438300120e03d6e24b9fef14116f30">run</a> (const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;s) const final override</td></tr>
-<tr class="separator:a76438300120e03d6e24b9fef14116f30"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2bcd6cb19eb8c8b9fa1994966f7304b1" id="r_a2bcd6cb19eb8c8b9fa1994966f7304b1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a2bcd6cb19eb8c8b9fa1994966f7304b1">parent_primitive_type</a> () const</td></tr>
-<tr class="separator:a2bcd6cb19eb8c8b9fa1994966f7304b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a114507c3010e055fa88bceb5b538a991" id="r_a114507c3010e055fa88bceb5b538a991"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a114507c3010e055fa88bceb5b538a991">sources</a> () const final override</td></tr>
-<tr class="separator:a114507c3010e055fa88bceb5b538a991"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea41128e318d5a01c6be8b10bef3a9ae" id="r_aea41128e318d5a01c6be8b10bef3a9ae"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#aea41128e318d5a01c6be8b10bef3a9ae">SingleAttributeTransferStrategy</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;my_handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#af2688eff75552a455e85777009436c29">parent_handle</a>, <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a303f4a899a902a88aeee33a166dde1f0">FunctorType</a> &amp;&amp;=nullptr)</td></tr>
+<tr class="separator:aea41128e318d5a01c6be8b10bef3a9ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a00e22823ccd770942d1aa1f5187aa33e" id="r_a00e22823ccd770942d1aa1f5187aa33e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a00e22823ccd770942d1aa1f5187aa33e">SingleAttributeTransferStrategy</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;my_handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#af2688eff75552a455e85777009436c29">parent_handle</a>, <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a90426aa54ec0ddcb20b8ac62d7c87af7">FunctorWithoutSimplicesType</a> &amp;&amp;=nullptr)</td></tr>
+<tr class="separator:a00e22823ccd770942d1aa1f5187aa33e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a45eec1ee8ad0a966f5de1a30ecfa9ad2" id="r_a45eec1ee8ad0a966f5de1a30ecfa9ad2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a45eec1ee8ad0a966f5de1a30ecfa9ad2">run</a> (const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;s) const final</td></tr>
+<tr class="separator:a45eec1ee8ad0a966f5de1a30ecfa9ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2688eff75552a455e85777009436c29" id="r_af2688eff75552a455e85777009436c29"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#af2688eff75552a455e85777009436c29">parent_handle</a> () const</td></tr>
+<tr class="separator:af2688eff75552a455e85777009436c29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html">wmtk::operations::SingleAttributeTransferStrategyBase&lt; MyType, ParentType &gt;</a></td></tr>
+<tr class="memitem:a40b5a75bb7aeed2d86838a6a88a1eb6d inherit pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base" id="r_a40b5a75bb7aeed2d86838a6a88a1eb6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html#a40b5a75bb7aeed2d86838a6a88a1eb6d">SingleAttributeTransferStrategyBase</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;my_handle, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html#af2688eff75552a455e85777009436c29">parent_handle</a>)</td></tr>
+<tr class="separator:a40b5a75bb7aeed2d86838a6a88a1eb6d inherit pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1048e3cc3cd3a07ec87852798b64e70c inherit pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base" id="r_a1048e3cc3cd3a07ec87852798b64e70c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html#a1048e3cc3cd3a07ec87852798b64e70c">parent_primitive_type</a> () const</td></tr>
+<tr class="separator:a1048e3cc3cd3a07ec87852798b64e70c inherit pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a822746f8cd55a0437dd65885a772dbbf inherit pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base" id="r_a822746f8cd55a0437dd65885a772dbbf"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html#a822746f8cd55a0437dd65885a772dbbf">sources</a> () const final</td></tr>
+<tr class="separator:a822746f8cd55a0437dd65885a772dbbf inherit pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2688eff75552a455e85777009436c29 inherit pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base" id="r_af2688eff75552a455e85777009436c29"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html#af2688eff75552a455e85777009436c29">parent_handle</a> () const</td></tr>
+<tr class="separator:af2688eff75552a455e85777009436c29 inherit pub_methods_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmtk_1_1operations_1_1_attribute_transfer_strategy"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmtk_1_1operations_1_1_attribute_transfer_strategy')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_strategy.html">wmtk::operations::AttributeTransferStrategy&lt; MyType &gt;</a></td></tr>
 <tr class="memitem:add6ae343d68cad58dc943adca0139457 inherit pub_methods_classwmtk_1_1operations_1_1_attribute_transfer_strategy" id="r_add6ae343d68cad58dc943adca0139457"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_strategy.html#add6ae343d68cad58dc943adca0139457">AttributeTransferStrategy</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;my_handle)</td></tr>
 <tr class="separator:add6ae343d68cad58dc943adca0139457 inherit pub_methods_classwmtk_1_1operations_1_1_attribute_transfer_strategy"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,8 +208,8 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a1dec2e27f2b2e9251f08141df2563d8d" id="r_a1dec2e27f2b2e9251f08141df2563d8d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a6cda576daf36482645b6acdcbffb9f82">FunctorType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a1dec2e27f2b2e9251f08141df2563d8d">make_nosimplices_func</a> (<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ace66a79835e575308bbd1d0b5b3b47c5">FunctorWithoutSimplicesType</a> &amp;&amp;fp)</td></tr>
-<tr class="separator:a1dec2e27f2b2e9251f08141df2563d8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abeb8de62fadf14dc74006d28b41aaddc" id="r_abeb8de62fadf14dc74006d28b41aaddc"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a303f4a899a902a88aeee33a166dde1f0">FunctorType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#abeb8de62fadf14dc74006d28b41aaddc">make_nosimplices_func</a> (<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a90426aa54ec0ddcb20b8ac62d7c87af7">FunctorWithoutSimplicesType</a> &amp;&amp;fp)</td></tr>
+<tr class="separator:abeb8de62fadf14dc74006d28b41aaddc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_methods_classwmtk_1_1operations_1_1_attribute_transfer_strategy_base"><td colspan="2" onclick="javascript:toggleInherit('pub_static_methods_classwmtk_1_1operations_1_1_attribute_transfer_strategy_base')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html">wmtk::operations::AttributeTransferStrategyBase</a></td></tr>
 <tr class="memitem:a6883c6416f61c4ee06588a86c3b8d731 inherit pub_static_methods_classwmtk_1_1operations_1_1_attribute_transfer_strategy_base" id="r_a6883c6416f61c4ee06588a86c3b8d731"><td class="memItemLeft" align="right" valign="top">static std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html#a6883c6416f61c4ee06588a86c3b8d731">get_parent_simplices</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;parent, const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;s, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> parent_primitive_type)</td></tr>
 <tr class="separator:a6883c6416f61c4ee06588a86c3b8d731 inherit pub_static_methods_classwmtk_1_1operations_1_1_attribute_transfer_strategy_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -215,19 +218,23 @@ Static Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aa5bf8a5fdf8527d9843f3f578c646b41" id="r_aa5bf8a5fdf8527d9843f3f578c646b41"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a910c4e1ac96f1bb0e00f160b69c88f14">ParentMatType</a>, std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#aa5bf8a5fdf8527d9843f3f578c646b41">read_parent_values</a> (const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;my_simplex) const</td></tr>
-<tr class="separator:aa5bf8a5fdf8527d9843f3f578c646b41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f3548b1b037a88b10a17f0a8e6d17db" id="r_a0f3548b1b037a88b10a17f0a8e6d17db"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#adbb2c5d7ec1bd5906bf5d1a9b4ef8bce">ParentMatType</a>, std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a0f3548b1b037a88b10a17f0a8e6d17db">read_parent_values</a> (const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;my_simplex) const</td></tr>
+<tr class="separator:a0f3548b1b037a88b10a17f0a8e6d17db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a1bc42b537642167d3c4c4789b67faceb" id="r_a1bc42b537642167d3c4c4789b67faceb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a6cda576daf36482645b6acdcbffb9f82">FunctorType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a1bc42b537642167d3c4c4789b67faceb">m_functor</a></td></tr>
-<tr class="separator:a1bc42b537642167d3c4c4789b67faceb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac5cd8fe704e6576b71278a3c4bac1296" id="r_ac5cd8fe704e6576b71278a3c4bac1296"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ac5cd8fe704e6576b71278a3c4bac1296">m_parent_handle</a></td></tr>
-<tr class="separator:ac5cd8fe704e6576b71278a3c4bac1296"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac95eafcb339e3d65052e8d61c0ea0e4b" id="r_ac95eafcb339e3d65052e8d61c0ea0e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a303f4a899a902a88aeee33a166dde1f0">FunctorType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ac95eafcb339e3d65052e8d61c0ea0e4b">m_functor</a></td></tr>
+<tr class="separator:ac95eafcb339e3d65052e8d61c0ea0e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pro_attribs_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html">wmtk::operations::SingleAttributeTransferStrategyBase&lt; MyType, ParentType &gt;</a></td></tr>
+<tr class="memitem:aa5ee8da824ef095c9f8502e0e0b55889 inherit pro_attribs_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base" id="r_aa5ee8da824ef095c9f8502e0e0b55889"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html#aa5ee8da824ef095c9f8502e0e0b55889">m_parent_handle</a></td></tr>
+<tr class="separator:aa5ee8da824ef095c9f8502e0e0b55889 inherit pro_attribs_classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename MyType, typename ParentType&gt;<br />
-class wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt;</div><dl class="tparams"><dt>Template Parameters</dt><dd>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename MyType, typename ParentType, int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt;<br />
+class wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType, MyDim, ParentDim &gt;</div><dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">MyType</td><td>The type to which transfer should go to. </td></tr>
     <tr><td class="paramname">ParentType</td><td>The type that causes the change in MyType. </td></tr>
@@ -235,131 +242,109 @@ class wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00029">29</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00063">63</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a6cda576daf36482645b6acdcbffb9f82" name="a6cda576daf36482645b6acdcbffb9f82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6cda576daf36482645b6acdcbffb9f82">&#9670;&#160;</a></span>FunctorType</h2>
+<a id="a3359cd8dd490f5c5191176cd9af11062" name="a3359cd8dd490f5c5191176cd9af11062"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3359cd8dd490f5c5191176cd9af11062">&#9670;&#160;</a></span>BaseType</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::FunctorType =  std::function&lt;<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#afc2500dd9feeea3f48880c3f1f0d4b48">MyVecType</a>(const <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a910c4e1ac96f1bb0e00f160b69c88f14">ParentMatType</a>&amp;, const std::vector&lt;<a class="el" href="classwmtk_1_1_tuple.html">Tuple</a>&gt;&amp;)&gt;</td>
+          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::BaseType =  <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html">SingleAttributeTransferStrategyBase</a>&lt;MyType, ParentType&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00051">51</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00067">67</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ace66a79835e575308bbd1d0b5b3b47c5" name="ace66a79835e575308bbd1d0b5b3b47c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace66a79835e575308bbd1d0b5b3b47c5">&#9670;&#160;</a></span>FunctorWithoutSimplicesType</h2>
+<a id="a303f4a899a902a88aeee33a166dde1f0" name="a303f4a899a902a88aeee33a166dde1f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a303f4a899a902a88aeee33a166dde1f0">&#9670;&#160;</a></span>FunctorType</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::FunctorWithoutSimplicesType =  std::function&lt;<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#afc2500dd9feeea3f48880c3f1f0d4b48">MyVecType</a>(const <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a910c4e1ac96f1bb0e00f160b69c88f14">ParentMatType</a>&amp;)&gt;</td>
+          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::FunctorType =  std::function&lt;<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a71fdbfcd3f8dd3f89ee29a07dd92b4a1">MyVecType</a>(const <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#adbb2c5d7ec1bd5906bf5d1a9b4ef8bce">ParentMatType</a>&amp;, const std::vector&lt;<a class="el" href="classwmtk_1_1_tuple.html">Tuple</a>&gt;&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00050">50</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00084">84</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a19c7ed79c52d553e4fcc883236d47f98" name="a19c7ed79c52d553e4fcc883236d47f98"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19c7ed79c52d553e4fcc883236d47f98">&#9670;&#160;</a></span>MatType</h2>
+<a id="a90426aa54ec0ddcb20b8ac62d7c87af7" name="a90426aa54ec0ddcb20b8ac62d7c87af7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90426aa54ec0ddcb20b8ac62d7c87af7">&#9670;&#160;</a></span>FunctorWithoutSimplicesType</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::MatType =  <a class="el" href="namespacewmtk.html#ae2013f5a8b3c4a8df232b70b5bf9a146">MatrixX</a>&lt;T&gt;</td>
+          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::FunctorWithoutSimplicesType =  std::function&lt;<a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a71fdbfcd3f8dd3f89ee29a07dd92b4a1">MyVecType</a>(const <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#adbb2c5d7ec1bd5906bf5d1a9b4ef8bce">ParentMatType</a>&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00040">40</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00083">83</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="afc2500dd9feeea3f48880c3f1f0d4b48" name="afc2500dd9feeea3f48880c3f1f0d4b48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc2500dd9feeea3f48880c3f1f0d4b48">&#9670;&#160;</a></span>MyVecType</h2>
+<a id="a71fdbfcd3f8dd3f89ee29a07dd92b4a1" name="a71fdbfcd3f8dd3f89ee29a07dd92b4a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71fdbfcd3f8dd3f89ee29a07dd92b4a1">&#9670;&#160;</a></span>MyVecType</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::MyVecType =  <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a717021997f0de6a66487fb53f53ce3a6">VecType</a>&lt;MyType&gt;</td>
+          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::MyVecType =  <a class="el" href="namespacewmtk.html#a495a42545971206f3448a613b8fe7993">Vector</a>&lt;MyType, MyDim&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00041">41</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00074">74</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a910c4e1ac96f1bb0e00f160b69c88f14" name="a910c4e1ac96f1bb0e00f160b69c88f14"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a910c4e1ac96f1bb0e00f160b69c88f14">&#9670;&#160;</a></span>ParentMatType</h2>
+<a id="adbb2c5d7ec1bd5906bf5d1a9b4ef8bce" name="adbb2c5d7ec1bd5906bf5d1a9b4ef8bce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adbb2c5d7ec1bd5906bf5d1a9b4ef8bce">&#9670;&#160;</a></span>ParentMatType</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::ParentMatType =  <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a19c7ed79c52d553e4fcc883236d47f98">MatType</a>&lt;ParentType&gt;</td>
+          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::ParentMatType =  <a class="el" href="namespacewmtk.html#a8921d31f6dafb4e62d2a742fc63f7506">ColVectors</a>&lt;ParentType, ParentDim&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00042">42</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a717021997f0de6a66487fb53f53ce3a6" name="a717021997f0de6a66487fb53f53ce3a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a717021997f0de6a66487fb53f53ce3a6">&#9670;&#160;</a></span>VecType</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::VecType =  <a class="el" href="namespacewmtk.html#a9cd7285cb03e74d8aa2609646ea0308f">VectorX</a>&lt;T&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00038">38</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00075">75</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7e31f2d5f0bfe0f8cf08358f084a9062" name="a7e31f2d5f0bfe0f8cf08358f084a9062"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e31f2d5f0bfe0f8cf08358f084a9062">&#9670;&#160;</a></span>SingleAttributeTransferStrategy() <span class="overload">[1/2]</span></h2>
+<a id="aea41128e318d5a01c6be8b10bef3a9ae" name="aea41128e318d5a01c6be8b10bef3a9ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea41128e318d5a01c6be8b10bef3a9ae">&#9670;&#160;</a></span>SingleAttributeTransferStrategy() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim, int ParentDim&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::SingleAttributeTransferStrategy </td>
+          <td class="memname"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::SingleAttributeTransferStrategy </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;&#160;</td>
           <td class="paramname"><em>my_handle</em>, </td>
@@ -373,7 +358,7 @@ template&lt;typename MyType , typename ParentType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a6cda576daf36482645b6acdcbffb9f82">FunctorType</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a303f4a899a902a88aeee33a166dde1f0">FunctorType</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>f</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -384,20 +369,27 @@ template&lt;typename MyType , typename ParentType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00102">102</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00139">139</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_mesh_8hpp_source.html#l00987">wmtk::Mesh::get_attribute_dimension()</a>, <a class="el" href="_attribute_transfer_strategy_base_8hpp_source.html#l00049">wmtk::operations::AttributeTransferStrategyBase::handle()</a>, <a class="el" href="_mesh_attribute_handle_8cpp_source.html#l00018">wmtk::attribute::MeshAttributeHandle::mesh()</a>, and <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00049">wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType, MyDim, ParentDim &gt;::parent_handle()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_aea41128e318d5a01c6be8b10bef3a9ae_cgraph.svg" width="100%" height="518"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
-<a id="ace0810cb6960ee2a01d35b2db20006c3" name="ace0810cb6960ee2a01d35b2db20006c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ace0810cb6960ee2a01d35b2db20006c3">&#9670;&#160;</a></span>SingleAttributeTransferStrategy() <span class="overload">[2/2]</span></h2>
+<a id="a00e22823ccd770942d1aa1f5187aa33e" name="a00e22823ccd770942d1aa1f5187aa33e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a00e22823ccd770942d1aa1f5187aa33e">&#9670;&#160;</a></span>SingleAttributeTransferStrategy() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim, int ParentDim&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::SingleAttributeTransferStrategy </td>
+          <td class="memname"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::SingleAttributeTransferStrategy </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;&#160;</td>
           <td class="paramname"><em>my_handle</em>, </td>
@@ -411,7 +403,7 @@ template&lt;typename MyType , typename ParentType &gt; </div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ace66a79835e575308bbd1d0b5b3b47c5">FunctorWithoutSimplicesType</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a90426aa54ec0ddcb20b8ac62d7c87af7">FunctorWithoutSimplicesType</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>f</em> = <code>nullptr</code>&#160;</td>
         </tr>
         <tr>
@@ -422,26 +414,26 @@ template&lt;typename MyType , typename ParentType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00114">114</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00168">168</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a1dec2e27f2b2e9251f08141df2563d8d" name="a1dec2e27f2b2e9251f08141df2563d8d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dec2e27f2b2e9251f08141df2563d8d">&#9670;&#160;</a></span>make_nosimplices_func()</h2>
+<a id="abeb8de62fadf14dc74006d28b41aaddc" name="abeb8de62fadf14dc74006d28b41aaddc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abeb8de62fadf14dc74006d28b41aaddc">&#9670;&#160;</a></span>make_nosimplices_func()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a6cda576daf36482645b6acdcbffb9f82">FunctorType</a> <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::make_nosimplices_func </td>
+          <td class="memname">static <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a303f4a899a902a88aeee33a166dde1f0">FunctorType</a> <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::make_nosimplices_func </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#ace66a79835e575308bbd1d0b5b3b47c5">FunctorWithoutSimplicesType</a> &amp;&amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a90426aa54ec0ddcb20b8ac62d7c87af7">FunctorWithoutSimplicesType</a> &amp;&amp;&#160;</td>
           <td class="paramname"><em>fp</em></td><td>)</td>
           <td></td>
         </tr>
@@ -453,44 +445,59 @@ template&lt;typename MyType , typename ParentType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00067">67</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00098">98</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a2bcd6cb19eb8c8b9fa1994966f7304b1" name="a2bcd6cb19eb8c8b9fa1994966f7304b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2bcd6cb19eb8c8b9fa1994966f7304b1">&#9670;&#160;</a></span>parent_primitive_type()</h2>
+<a id="af2688eff75552a455e85777009436c29" name="af2688eff75552a455e85777009436c29"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af2688eff75552a455e85777009436c29">&#9670;&#160;</a></span>parent_handle()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::parent_primitive_type </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00158">158</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aa5bf8a5fdf8527d9843f3f578c646b41" name="aa5bf8a5fdf8527d9843f3f578c646b41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5bf8a5fdf8527d9843f3f578c646b41">&#9670;&#160;</a></span>read_parent_values()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">auto <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::read_parent_values </td>
+          <td class="memname">const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp; <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_base.html">wmtk::operations::SingleAttributeTransferStrategyBase</a>&lt; MyType, ParentType &gt;::parent_handle </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00049">49</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00140">wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType, MyDim, ParentDim &gt;::SingleAttributeTransferStrategy()</a>, and <a class="el" href="_volume_operator_8hpp_source.html#l00075">wmtk::components::mesh_info::simplex::operators::VolumeOperator&lt; MyType, ParentType, ParentDim &gt;::VolumeOperator()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_af2688eff75552a455e85777009436c29_icgraph.svg" width="496" height="144"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a0f3548b1b037a88b10a17f0a8e6d17db" name="a0f3548b1b037a88b10a17f0a8e6d17db"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f3548b1b037a88b10a17f0a8e6d17db">&#9670;&#160;</a></span>read_parent_values()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename MyType , typename ParentType , int MyDim, int ParentDim&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::read_parent_values </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;&#160;</td>
           <td class="paramname"><em>my_simplex</em></td><td>)</td>
@@ -504,30 +511,30 @@ template&lt;typename MyType , typename ParentType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00122">122</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00177">177</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="classwmtk_1_1_mesh.html#a4cd7e6ca59d8d58cc7057c13bd190d57">wmtk::Mesh::create_const_accessor()</a>, <a class="el" href="_attribute_transfer_strategy_base_8cpp_source.html#l00037">wmtk::operations::AttributeTransferStrategyBase::get_parent_simplices()</a>, and <a class="el" href="_attribute_transfer_strategy_8cpp_source.html#l00022">wmtk::operations::AttributeTransferStrategy&lt; MyType &gt;::mesh()</a>.</p>
+<p class="reference">References <a class="el" href="classwmtk_1_1_mesh.html#a4cd7e6ca59d8d58cc7057c13bd190d57">wmtk::Mesh::create_const_accessor()</a>, <a class="el" href="_attribute_transfer_strategy_base_8cpp_source.html#l00038">wmtk::operations::AttributeTransferStrategyBase::get_parent_simplices()</a>, and <a class="el" href="_attribute_transfer_strategy_8cpp_source.html#l00022">wmtk::operations::AttributeTransferStrategy&lt; MyType &gt;::mesh()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_aa5bf8a5fdf8527d9843f3f578c646b41_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_a0f3548b1b037a88b10a17f0a8e6d17db_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
 </div>
-<a id="a76438300120e03d6e24b9fef14116f30" name="a76438300120e03d6e24b9fef14116f30"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a76438300120e03d6e24b9fef14116f30">&#9670;&#160;</a></span>run()</h2>
+<a id="a45eec1ee8ad0a966f5de1a30ecfa9ad2" name="a45eec1ee8ad0a966f5de1a30ecfa9ad2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45eec1ee8ad0a966f5de1a30ecfa9ad2">&#9670;&#160;</a></span>run()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim, int ParentDim&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::run </td>
+          <td class="memname">void <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::run </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;&#160;</td>
           <td class="paramname"><em>s</em></td><td>)</td>
@@ -536,71 +543,38 @@ template&lt;typename MyType , typename ParentType &gt; </div>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Implements <a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html#a54b80f6cd6e4e951f2ca697f940bb175">wmtk::operations::AttributeTransferStrategyBase</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00141">141</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00203">203</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_simplex_8hpp_source.html#l00051">wmtk::simplex::Simplex::primitive_type()</a>, and <a class="el" href="_simplex_8hpp_source.html#l00053">wmtk::simplex::Simplex::tuple()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_a76438300120e03d6e24b9fef14116f30_cgraph.svg" width="454" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy_a45eec1ee8ad0a966f5de1a30ecfa9ad2_cgraph.svg" width="454" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-
-</div>
-</div>
-<a id="a114507c3010e055fa88bceb5b538a991" name="a114507c3010e055fa88bceb5b538a991"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a114507c3010e055fa88bceb5b538a991">&#9670;&#160;</a></span>sources()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &gt; <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::sources </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="classwmtk_1_1operations_1_1_attribute_transfer_edge.html#ab908d769836dabe21be3f8b76e064003">wmtk::operations::AttributeTransferEdge</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00072">72</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
-
-<p class="reference">References <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00084">wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt;::m_parent_handle</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a1bc42b537642167d3c4c4789b67faceb" name="a1bc42b537642167d3c4c4789b67faceb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bc42b537642167d3c4c4789b67faceb">&#9670;&#160;</a></span>m_functor</h2>
+<a id="ac95eafcb339e3d65052e8d61c0ea0e4b" name="ac95eafcb339e3d65052e8d61c0ea0e4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac95eafcb339e3d65052e8d61c0ea0e4b">&#9670;&#160;</a></span>m_functor</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
+template&lt;typename MyType , typename ParentType , int MyDim = Eigen::Dynamic, int ParentDim = Eigen::Dynamic&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a6cda576daf36482645b6acdcbffb9f82">FunctorType</a> <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::m_functor</td>
+          <td class="memname"><a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html#a303f4a899a902a88aeee33a166dde1f0">FunctorType</a> <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType, MyDim, ParentDim &gt;::m_functor</td>
         </tr>
       </table>
   </td>
@@ -610,35 +584,7 @@ template&lt;typename MyType , typename ParentType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00083">83</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ac5cd8fe704e6576b71278a3c4bac1296" name="ac5cd8fe704e6576b71278a3c4bac1296"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac5cd8fe704e6576b71278a3c4bac1296">&#9670;&#160;</a></span>m_parent_handle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<div class="memtemplate">
-template&lt;typename MyType , typename ParentType &gt; </div>
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> <a class="el" href="classwmtk_1_1operations_1_1_single_attribute_transfer_strategy.html">wmtk::operations::SingleAttributeTransferStrategy</a>&lt; MyType, ParentType &gt;::m_parent_handle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00084">84</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00072">wmtk::operations::SingleAttributeTransferStrategy&lt; MyType, ParentType &gt;::sources()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_attribute_transfer_strategy_8hpp_source.html#l00110">110</a> of file <a class="el" href="_attribute_transfer_strategy_8hpp_source.html">AttributeTransferStrategy.hpp</a>.</p>
 
 </div>
 </div>

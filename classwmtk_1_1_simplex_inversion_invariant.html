@@ -121,6 +121,7 @@ $(document).ready(function(){initNavTree('classwmtk_1_1_simplex_inversion_invari
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classwmtk_1_1_simplex_inversion_invariant-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">wmtk::SimplexInversionInvariant&lt; T &gt; Class Template Reference</div></div>
@@ -141,8 +142,8 @@ Collaboration diagram for wmtk::SimplexInversionInvariant&lt; T &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a06bc64243e7edc0f435f57e67e903dbd" id="r_a06bc64243e7edc0f435f57e67e903dbd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a06bc64243e7edc0f435f57e67e903dbd">SimplexInversionInvariant</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, const <a class="el" href="namespacewmtk.html#a49c007ac9ba40c3688e46dcf5d4bb624">TypedAttributeHandle</a>&lt; T &gt; &amp;coordinate)</td></tr>
-<tr class="separator:a06bc64243e7edc0f435f57e67e903dbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb5a44b80140d33237a4a9e2155d8c42" id="r_adb5a44b80140d33237a4a9e2155d8c42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#adb5a44b80140d33237a4a9e2155d8c42">SimplexInversionInvariant</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, const <a class="el" href="namespacewmtk.html#a49c007ac9ba40c3688e46dcf5d4bb624">TypedAttributeHandle</a>&lt; T &gt; &amp;coordinate, bool inverted=false)</td></tr>
+<tr class="separator:adb5a44b80140d33237a4a9e2155d8c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1163728175bfbd4dc26f4861019ee591" id="r_a1163728175bfbd4dc26f4861019ee591"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a1163728175bfbd4dc26f4861019ee591">after</a> (const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;, const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;top_dimension_tuples_after) const override</td></tr>
 <tr class="memdesc:a1163728175bfbd4dc26f4861019ee591"><td class="mdescLeft">&#160;</td><td class="mdescRight">we assume with local vid order (v0,v1,v2,v3) has positive volume (orient3d(v0,v1,v2,v3)&gt;0) a CLOCKWISE input tuple will have the same orientation as the local vid order  <br /></td></tr>
 <tr class="separator:a1163728175bfbd4dc26f4861019ee591"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -171,19 +172,34 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a364df47f8d70f0e89149d56db8963461 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a497379c6c71970345a2d3e28ec90c8db inherit pub_methods_classwmtk_1_1invariants_1_1_invariant" id="r_a497379c6c71970345a2d3e28ec90c8db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db">use_new_state_in_after</a> () const</td></tr>
 <tr class="separator:a497379c6c71970345a2d3e28ec90c8db inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71d5d449aff6bcc9e4c274b3edc003d2 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant" id="r_a71d5d449aff6bcc9e4c274b3edc003d2"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a71d5d449aff6bcc9e4c274b3edc003d2">name</a> () const</td></tr>
+<tr class="separator:a71d5d449aff6bcc9e4c274b3edc003d2 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr class="memitem:a83a71376c1f99777ab0829ea1e5f8abd" id="r_a83a71376c1f99777ab0829ea1e5f8abd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a83a71376c1f99777ab0829ea1e5f8abd">is_oriented</a> (const T &amp;p0, const T &amp;p1) const</td></tr>
+<tr class="separator:a83a71376c1f99777ab0829ea1e5f8abd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48b8824bd7fe9597982e36b4eaf23513" id="r_a48b8824bd7fe9597982e36b4eaf23513"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a48b8824bd7fe9597982e36b4eaf23513">is_oriented</a> (const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#ae5b06b99ce8c05d738cf537a6e8fb6dd">Vector1</a>&lt; T &gt; &gt; &amp;p0, const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#ae5b06b99ce8c05d738cf537a6e8fb6dd">Vector1</a>&lt; T &gt; &gt; &amp;p1) const</td></tr>
+<tr class="separator:a48b8824bd7fe9597982e36b4eaf23513"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d79ea5ef7a5e47e6bdc62a9b92e9a3f" id="r_a5d79ea5ef7a5e47e6bdc62a9b92e9a3f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a5d79ea5ef7a5e47e6bdc62a9b92e9a3f">is_oriented</a> (const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#aa8602f5df2ebb323b2d2ad01b466eb90">Vector2</a>&lt; T &gt; &gt; &amp;p0, const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#aa8602f5df2ebb323b2d2ad01b466eb90">Vector2</a>&lt; T &gt; &gt; &amp;p1, const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#aa8602f5df2ebb323b2d2ad01b466eb90">Vector2</a>&lt; T &gt; &gt; &amp;p2) const</td></tr>
+<tr class="separator:a5d79ea5ef7a5e47e6bdc62a9b92e9a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b8aec3f4552cfdff2c72b0c525f27dd" id="r_a7b8aec3f4552cfdff2c72b0c525f27dd"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a7b8aec3f4552cfdff2c72b0c525f27dd">is_oriented</a> (const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b">Vector3</a>&lt; T &gt; &gt; &amp;p0, const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b">Vector3</a>&lt; T &gt; &gt; &amp;p1, const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b">Vector3</a>&lt; T &gt; &gt; &amp;p2, const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b">Vector3</a>&lt; T &gt; &gt; &amp;p3) const</td></tr>
+<tr class="separator:a7b8aec3f4552cfdff2c72b0c525f27dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a9368c5b1963e3fb92b2024d1ab85df56" id="r_a9368c5b1963e3fb92b2024d1ab85df56"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="namespacewmtk.html#a49c007ac9ba40c3688e46dcf5d4bb624">TypedAttributeHandle</a>&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a9368c5b1963e3fb92b2024d1ab85df56">m_coordinate_handle</a></td></tr>
 <tr class="separator:a9368c5b1963e3fb92b2024d1ab85df56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a460cd024dfc9e74f41756fbd3a8ee48a" id="r_a460cd024dfc9e74f41756fbd3a8ee48a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a460cd024dfc9e74f41756fbd3a8ee48a">m_inverted</a> = false</td></tr>
+<tr class="separator:a460cd024dfc9e74f41756fbd3a8ee48a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename T&gt;<br />
 class wmtk::SimplexInversionInvariant&lt; T &gt;</div>
-<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00008">8</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00010">10</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a06bc64243e7edc0f435f57e67e903dbd" name="a06bc64243e7edc0f435f57e67e903dbd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06bc64243e7edc0f435f57e67e903dbd">&#9670;&#160;</a></span>SimplexInversionInvariant()</h2>
+<a id="adb5a44b80140d33237a4a9e2155d8c42" name="adb5a44b80140d33237a4a9e2155d8c42"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb5a44b80140d33237a4a9e2155d8c42">&#9670;&#160;</a></span>SimplexInversionInvariant()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,7 +216,13 @@ template&lt;typename T &gt; </div>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const <a class="el" href="namespacewmtk.html#a49c007ac9ba40c3688e46dcf5d4bb624">TypedAttributeHandle</a>&lt; T &gt; &amp;&#160;</td>
-          <td class="paramname"><em>coordinate</em>&#160;</td>
+          <td class="paramname"><em>coordinate</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>inverted</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -255,9 +277,9 @@ template&lt;typename T &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#aeb4f932816cd79ab4591db6808f6446a">wmtk::invariants::Invariant</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8cpp_source.html#l00022">22</a> of file <a class="el" href="_simplex_inversion_invariant_8cpp_source.html">SimplexInversionInvariant.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8cpp_source.html#l00024">24</a> of file <a class="el" href="_simplex_inversion_invariant_8cpp_source.html">SimplexInversionInvariant.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_mesh_c_r_t_p_8hpp_source.html#l00074">wmtk::MeshCRTP&lt; Derived &gt;::create_const_accessor()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_tri_mesh_8cpp_source.html#l00170">wmtk::TriMesh::is_ccw()</a>, <a class="el" href="_logger_8cpp_source.html#l00058">wmtk::logger()</a>, <a class="el" href="_tet_mesh_8cpp_source.html#l00614">wmtk::TetMesh::orient_vertices()</a>, <a class="el" href="_tri_mesh_8cpp_source.html#l00099">wmtk::TriMesh::switch_tuple()</a>, <a class="el" href="_edge_mesh_8cpp_source.html#l00038">wmtk::EdgeMesh::switch_tuple()</a>, <a class="el" href="_mesh_c_r_t_p_8hpp_source.html#l00136">wmtk::MeshCRTP&lt; Derived &gt;::switch_tuples()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>, <a class="el" href="orient_8cpp_source.html#l00267">wmtk::utils::wmtk_orient1d()</a>, <a class="el" href="orient_8cpp_source.html#l00178">wmtk::utils::wmtk_orient2d()</a>, and <a class="el" href="orient_8cpp_source.html#l00075">wmtk::utils::wmtk_orient3d()</a>.</p>
+<p class="reference">References <a class="el" href="_mesh_c_r_t_p_8hpp_source.html#l00074">wmtk::MeshCRTP&lt; Derived &gt;::create_const_accessor()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_tri_mesh_8cpp_source.html#l00171">wmtk::TriMesh::is_ccw()</a>, <a class="el" href="_logger_8cpp_source.html#l00058">wmtk::logger()</a>, <a class="el" href="_tet_mesh_8cpp_source.html#l00630">wmtk::TetMesh::orient_vertices()</a>, <a class="el" href="_tri_mesh_8cpp_source.html#l00099">wmtk::TriMesh::switch_tuple()</a>, <a class="el" href="_edge_mesh_8cpp_source.html#l00039">wmtk::EdgeMesh::switch_tuple()</a>, <a class="el" href="_mesh_c_r_t_p_8hpp_source.html#l00144">wmtk::MeshCRTP&lt; Derived &gt;::switch_tuples()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>, and <a class="el" href="orient_8cpp_source.html#l00075">wmtk::utils::wmtk_orient3d()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_simplicial_embedding_8cpp_source.html#l00053">wmtk::components::internal::SimplicialEmbedding::regularize_tags()</a>.</p>
 <div class="dynheader">
@@ -339,6 +361,205 @@ template&lt;typename T &gt; </div>
 
 </div>
 </div>
+<a id="a48b8824bd7fe9597982e36b4eaf23513" name="a48b8824bd7fe9597982e36b4eaf23513"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48b8824bd7fe9597982e36b4eaf23513">&#9670;&#160;</a></span>is_oriented() <span class="overload">[1/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html">wmtk::SimplexInversionInvariant</a>&lt; T &gt;::is_oriented </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#ae5b06b99ce8c05d738cf537a6e8fb6dd">Vector1</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#ae5b06b99ce8c05d738cf537a6e8fb6dd">Vector1</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8cpp_source.html#l00091">91</a> of file <a class="el" href="_simplex_inversion_invariant_8cpp_source.html">SimplexInversionInvariant.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5d79ea5ef7a5e47e6bdc62a9b92e9a3f" name="a5d79ea5ef7a5e47e6bdc62a9b92e9a3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5d79ea5ef7a5e47e6bdc62a9b92e9a3f">&#9670;&#160;</a></span>is_oriented() <span class="overload">[2/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html">wmtk::SimplexInversionInvariant</a>&lt; T &gt;::is_oriented </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#aa8602f5df2ebb323b2d2ad01b466eb90">Vector2</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#aa8602f5df2ebb323b2d2ad01b466eb90">Vector2</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#aa8602f5df2ebb323b2d2ad01b466eb90">Vector2</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8cpp_source.html#l00109">109</a> of file <a class="el" href="_simplex_inversion_invariant_8cpp_source.html">SimplexInversionInvariant.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="orient_8cpp_source.html#l00178">wmtk::utils::wmtk_orient2d()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1_simplex_inversion_invariant_a5d79ea5ef7a5e47e6bdc62a9b92e9a3f_cgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a7b8aec3f4552cfdff2c72b0c525f27dd" name="a7b8aec3f4552cfdff2c72b0c525f27dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7b8aec3f4552cfdff2c72b0c525f27dd">&#9670;&#160;</a></span>is_oriented() <span class="overload">[3/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html">wmtk::SimplexInversionInvariant</a>&lt; T &gt;::is_oriented </td>
+          <td>(</td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b">Vector3</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b">Vector3</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b">Vector3</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const Eigen::Ref&lt; const <a class="el" href="namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b">Vector3</a>&lt; T &gt; &gt; &amp;&#160;</td>
+          <td class="paramname"><em>p3</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8cpp_source.html#l00123">123</a> of file <a class="el" href="_simplex_inversion_invariant_8cpp_source.html">SimplexInversionInvariant.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="orient_8cpp_source.html#l00075">wmtk::utils::wmtk_orient3d()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1_simplex_inversion_invariant_a7b8aec3f4552cfdff2c72b0c525f27dd_cgraph.svg" width="100%" height="432"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a83a71376c1f99777ab0829ea1e5f8abd" name="a83a71376c1f99777ab0829ea1e5f8abd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83a71376c1f99777ab0829ea1e5f8abd">&#9670;&#160;</a></span>is_oriented() <span class="overload">[4/4]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html">wmtk::SimplexInversionInvariant</a>&lt; T &gt;::is_oriented </td>
+          <td>(</td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>p0</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const T &amp;&#160;</td>
+          <td class="paramname"><em>p1</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8cpp_source.html#l00098">98</a> of file <a class="el" href="_simplex_inversion_invariant_8cpp_source.html">SimplexInversionInvariant.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="orient_8cpp_source.html#l00267">wmtk::utils::wmtk_orient1d()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1_simplex_inversion_invariant_a83a71376c1f99777ab0829ea1e5f8abd_cgraph.svg" width="499" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a9368c5b1963e3fb92b2024d1ab85df56" name="a9368c5b1963e3fb92b2024d1ab85df56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9368c5b1963e3fb92b2024d1ab85df56">&#9670;&#160;</a></span>m_coordinate_handle</h2>
@@ -362,7 +583,33 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00022">22</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00040">40</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a460cd024dfc9e74f41756fbd3a8ee48a" name="a460cd024dfc9e74f41756fbd3a8ee48a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a460cd024dfc9e74f41756fbd3a8ee48a">&#9670;&#160;</a></span>m_inverted</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html">wmtk::SimplexInversionInvariant</a>&lt; T &gt;::m_inverted = false</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00041">41</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
 
 </div>
 </div>

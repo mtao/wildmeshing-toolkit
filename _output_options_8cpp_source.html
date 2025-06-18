@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: components/output/wmtk/components/output/OutputOptions.cpp Source File</title>
+<title>Wildmeshing Toolkit: components/output/src/wmtk/components/output/OutputOptions.cpp Source File</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -136,58 +136,72 @@ $(document).ready(function(){initNavTree('_output_options_8cpp_source.html','');
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1components_1_1output.html">wmtk::components::output</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespacewmtk_1_1components_1_1output.html#a5a27e61d81ed901e9bcf27f13bd11f2b">   11</a></span><a class="code hl_define" href="json__macros_8hpp.html#aaeccd16dfca3724950a8cb6b6bdeebf1">WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE</a>(<a class="code hl_struct" href="structwmtk_1_1components_1_1output_1_1_output_options.html">OutputOptions</a>)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <a class="code hl_define" href="json__macros_8hpp.html#a1fadfca6e00bb9a2606545b61dc3cd55">WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON</a>(file, type)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">if</span> (nlohmann_json_t.mesh_name_path.has_value()) {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        nlohmann_json_j[<span class="stringliteral">&quot;mesh_name_path&quot;</span>] = nlohmann_json_t.mesh_name_path.value();</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    }</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="comment">//</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="comment">// nlohmann_json_j[&quot;file&quot;] = nlohmann_json_t.file.string();</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="comment">// nlohmann_json_j[&quot;type&quot;] = nlohmann_json_t.type;</span></div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    nlohmann_json_j[<span class="stringliteral">&quot;position_attribute&quot;</span>] = std::visit(</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; attr) -&gt; std::string {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="keyword">using </span>T = std::decay_t&lt;<span class="keyword">decltype</span>(attr)&gt;;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_same_v&lt;std::string, T&gt;) {</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>                <span class="keywordflow">return</span> attr;</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>                <span class="keywordflow">return</span> attr.mesh().get_attribute_name(attr.handle());</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            }</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        },</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        nlohmann_json_t.position_attribute);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>}</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="comment">//bool OutputOptions::operator&lt;=&gt;(const OutputOptions&amp; o) const = default;</span></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">//bool OutputOptions::operator&lt;=&gt;(const OutputOptions&amp; o) const{</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>        <span class="comment">//return std::tie(path,type) &lt;=&gt; std::tie(o.path, o.type);</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="comment">//}</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="namespacewmtk_1_1components_1_1output.html#a5a27e61d81ed901e9bcf27f13bd11f2b">   17</a></span><a class="code hl_define" href="json__macros_8hpp.html#aaeccd16dfca3724950a8cb6b6bdeebf1">WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE</a>(<a class="code hl_struct" href="structwmtk_1_1components_1_1output_1_1_output_options.html">OutputOptions</a>)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <a class="code hl_define" href="json__macros_8hpp.html#a1fadfca6e00bb9a2606545b61dc3cd55">WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON</a>(path, type)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (nlohmann_json_t.mesh_name_path.has_value()) {</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        nlohmann_json_j[<span class="stringliteral">&quot;mesh_name_path&quot;</span>] = nlohmann_json_t.mesh_name_path.value();</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    }</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="comment">//</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// nlohmann_json_j[&quot;file&quot;] = nlohmann_json_t.file.string();</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// nlohmann_json_j[&quot;type&quot;] = nlohmann_json_t.type;</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    nlohmann_json_j[<span class="stringliteral">&quot;position_attribute&quot;</span>] = std::visit(</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        [](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; attr) -&gt; std::string {</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            <span class="keyword">using </span>T = std::decay_t&lt;<span class="keyword">decltype</span>(attr)&gt;;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_same_v&lt;std::string, T&gt;) {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                <span class="keywordflow">return</span> attr;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                <span class="keywordflow">return</span> attr.mesh().get_attribute_name(attr.handle());</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            }</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        },</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        nlohmann_json_t.position_attribute);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
 </div>
-<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="namespacewmtk_1_1components_1_1output.html#a8f209e027c6a5c72d3ce4ee0efca2163">   33</a></span><a class="code hl_define" href="json__macros_8hpp.html#ab4858d28536b60bb21d470067edc1775">WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE</a>(<a class="code hl_struct" href="structwmtk_1_1components_1_1output_1_1_output_options.html">OutputOptions</a>)</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>{</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordflow">if</span> (nlohmann_json_j.is_string()) {</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        nlohmann_json_t.file = nlohmann_json_j.get&lt;std::filesystem::path&gt;();</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        nlohmann_json_t.file = nlohmann_json_j[<span class="stringliteral">&quot;file&quot;</span>].get&lt;std::filesystem::path&gt;();</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    }</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keywordflow">if</span> (nlohmann_json_j.contains(<span class="stringliteral">&quot;type&quot;</span>)) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        nlohmann_json_t.type = nlohmann_json_j[<span class="stringliteral">&quot;type&quot;</span>];</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        nlohmann_json_t.type = nlohmann_json_t.file.extension().string();</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            <span class="stringliteral">&quot;Guessing extension type of [{}] is [{}]&quot;</span>,</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>            nlohmann_json_t.file,</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>            nlohmann_json_t.type);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    }</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">if</span> (nlohmann_json_j.contains(<span class="stringliteral">&quot;position_attribute&quot;</span>)) {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        nlohmann_json_t.position_attribute = nlohmann_json_j[<span class="stringliteral">&quot;position_attribute&quot;</span>];</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    }</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span> (nlohmann_json_j.contains(<span class="stringliteral">&quot;mesh_name_path&quot;</span>)) {</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        nlohmann_json_t.mesh_name_path = nlohmann_json_j[<span class="stringliteral">&quot;mesh_name_path&quot;</span>].get&lt;std::filesystem::path&gt;();</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>}</div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="namespacewmtk_1_1components_1_1output.html#a8f209e027c6a5c72d3ce4ee0efca2163">   39</a></span><a class="code hl_define" href="json__macros_8hpp.html#ab4858d28536b60bb21d470067edc1775">WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE</a>(<a class="code hl_struct" href="structwmtk_1_1components_1_1output_1_1_output_options.html">OutputOptions</a>)</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">if</span> (nlohmann_json_j.is_string()) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        nlohmann_json_t.path = nlohmann_json_j.get&lt;std::filesystem::path&gt;();</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (nlohmann_json_j.contains(<span class="stringliteral">&quot;path&quot;</span>)) {</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        nlohmann_json_t.path = nlohmann_json_j[<span class="stringliteral">&quot;path&quot;</span>].get&lt;std::filesystem::path&gt;();</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (nlohmann_json_j.contains(<span class="stringliteral">&quot;file&quot;</span>)) {</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().warn(<span class="stringliteral">&quot;OutputOptions using file is deprecated, use file&quot;</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        nlohmann_json_t.path = nlohmann_json_j[<span class="stringliteral">&quot;file&quot;</span>].get&lt;std::filesystem::path&gt;();</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">throw</span> std::runtime_error(fmt::format(</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="stringliteral">&quot;OutputOptions from json needs a path of sorts!, input was {}&quot;</span>,</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            nlohmann_json_j.dump()));</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span> (nlohmann_json_j.contains(<span class="stringliteral">&quot;type&quot;</span>)) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        nlohmann_json_t.type = nlohmann_json_j[<span class="stringliteral">&quot;type&quot;</span>];</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        nlohmann_json_t.type = nlohmann_json_t.path.extension().string();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>            <span class="stringliteral">&quot;Guessing extension type of [{}] is [{}]&quot;</span>,</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>            nlohmann_json_t.path,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            nlohmann_json_t.type);</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    }</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    <span class="keywordflow">if</span> (nlohmann_json_j.contains(<span class="stringliteral">&quot;position_attribute&quot;</span>)) {</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        nlohmann_json_t.position_attribute = nlohmann_json_j[<span class="stringliteral">&quot;position_attribute&quot;</span>];</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    }</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keywordflow">if</span> (nlohmann_json_j.contains(<span class="stringliteral">&quot;mesh_name_path&quot;</span>)) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        nlohmann_json_t.mesh_name_path =</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>            nlohmann_json_j[<span class="stringliteral">&quot;mesh_name_path&quot;</span>].get&lt;std::filesystem::path&gt;();</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    }</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
 </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>} <span class="comment">// namespace wmtk::components::output</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>} <span class="comment">// namespace wmtk::components::output</span></div>
 <div class="ttc" id="a_logger_8hpp_html"><div class="ttname"><a href="_logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="a_mesh_8hpp_html"><div class="ttname"><a href="_mesh_8hpp.html">Mesh.hpp</a></div></div>
 <div class="ttc" id="a_output_options_8hpp_html"><div class="ttname"><a href="_output_options_8hpp.html">OutputOptions.hpp</a></div></div>
@@ -195,7 +209,7 @@ $(document).ready(function(){initNavTree('_output_options_8cpp_source.html','');
 <div class="ttc" id="ajson__macros_8hpp_html_aaeccd16dfca3724950a8cb6b6bdeebf1"><div class="ttname"><a href="json__macros_8hpp.html#aaeccd16dfca3724950a8cb6b6bdeebf1">WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE</a></div><div class="ttdeci">#define WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(Type)</div><div class="ttdef"><b>Definition</b> <a href="json__macros_8hpp_source.html#l00017">json_macros.hpp:17</a></div></div>
 <div class="ttc" id="ajson__macros_8hpp_html_ab4858d28536b60bb21d470067edc1775"><div class="ttname"><a href="json__macros_8hpp.html#ab4858d28536b60bb21d470067edc1775">WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE</a></div><div class="ttdeci">#define WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(Type)</div><div class="ttdef"><b>Definition</b> <a href="json__macros_8hpp_source.html#l00020">json_macros.hpp:20</a></div></div>
 <div class="ttc" id="ajson__utils_8hpp_html"><div class="ttname"><a href="json__utils_8hpp.html">json_utils.hpp</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1components_1_1output_html"><div class="ttname"><a href="namespacewmtk_1_1components_1_1output.html">wmtk::components::output</a></div><div class="ttdef"><b>Definition</b> <a href="output_8cpp_source.html#l00014">output.cpp:14</a></div></div>
+<div class="ttc" id="anamespacewmtk_1_1components_1_1output_html"><div class="ttname"><a href="namespacewmtk_1_1components_1_1output.html">wmtk::components::output</a></div><div class="ttdef"><b>Definition</b> <a href="_isotropic_remeshing_options_8hpp_source.html#l00013">IsotropicRemeshingOptions.hpp:13</a></div></div>
 <div class="ttc" id="anamespacewmtk_html_a6a35f11c12436093d26fdd8be6fecc06"><div class="ttname"><a href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a></div><div class="ttdeci">spdlog::logger &amp; logger()</div><div class="ttdoc">Retrieves the current logger.</div><div class="ttdef"><b>Definition</b> <a href="_logger_8cpp_source.html#l00058">Logger.cpp:58</a></div></div>
 <div class="ttc" id="astructwmtk_1_1components_1_1output_1_1_output_options_html"><div class="ttname"><a href="structwmtk_1_1components_1_1output_1_1_output_options.html">wmtk::components::output::OutputOptions</a></div><div class="ttdef"><b>Definition</b> <a href="_output_options_8hpp_source.html#l00009">OutputOptions.hpp:10</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
@@ -204,7 +218,7 @@ $(document).ready(function(){initNavTree('_output_options_8cpp_source.html','');
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_c2a2448aa4410a2735c93a90deffb512.html">output</a></li><li class="navelem"><a class="el" href="dir_13548d34a093cf85ed109effc264279c.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_c20e222dffb132562e8327bb01cd7672.html">components</a></li><li class="navelem"><a class="el" href="dir_501d69ed04b54f8f2cd596c3df7162bc.html">output</a></li><li class="navelem"><a class="el" href="_output_options_8cpp.html">OutputOptions.cpp</a></li>
+    <li class="navelem"><a class="el" href="dir_409f97388efe006bc3438b95e9edef48.html">components</a></li><li class="navelem"><a class="el" href="dir_c2a2448aa4410a2735c93a90deffb512.html">output</a></li><li class="navelem"><a class="el" href="dir_148a42a2c3dba75c7c3037c7b6c056ba.html">src</a></li><li class="navelem"><a class="el" href="dir_3b23743f7bc0f0b4194ddff5a9153765.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_05ed0b47e1968748a46143e411399dab.html">components</a></li><li class="navelem"><a class="el" href="dir_ecfafe7502364c946a5b66b3397b1868.html">output</a></li><li class="navelem"><a class="el" href="_output_options_8cpp.html">OutputOptions.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

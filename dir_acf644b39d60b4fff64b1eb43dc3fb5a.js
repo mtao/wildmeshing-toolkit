@@ -7,6 +7,8 @@ var dir_acf644b39d60b4fff64b1eb43dc3fb5a =
     [ "BoundaryChecker.hpp", "_boundary_checker_8hpp.html", "_boundary_checker_8hpp" ],
     [ "consolidate.cpp", "consolidate_8cpp.html", "consolidate_8cpp" ],
     [ "consolidate.hpp", "consolidate_8hpp.html", "consolidate_8hpp" ],
+    [ "from_facet_orientations.cpp", "from__facet__orientations_8cpp.html", "from__facet__orientations_8cpp" ],
+    [ "from_facet_orientations.hpp", "from__facet__orientations_8hpp.html", "from__facet__orientations_8hpp" ],
     [ "Mappable.hpp", "_mappable_8hpp.html", "_mappable_8hpp" ],
     [ "MappableContainer.cpp", "_mappable_container_8cpp.html", null ],
     [ "MappableContainer.hpp", "_mappable_container_8hpp.html", "_mappable_container_8hpp" ],

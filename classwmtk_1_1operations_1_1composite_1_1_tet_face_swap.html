@@ -145,8 +145,8 @@ Collaboration diagram for wmtk::operations::composite::TetFaceSwap:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aff1d42ecd518109b952f70b4f4adbaf7" id="r_aff1d42ecd518109b952f70b4f4adbaf7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1composite_1_1_tet_face_swap.html#aff1d42ecd518109b952f70b4f4adbaf7">TetFaceSwap</a> (<a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m)</td></tr>
-<tr class="separator:aff1d42ecd518109b952f70b4f4adbaf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa429574c8f6225f878781734c361416b" id="r_aa429574c8f6225f878781734c361416b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1composite_1_1_tet_face_swap.html#aa429574c8f6225f878781734c361416b">TetFaceSwap</a> (<a class="el" href="classwmtk_1_1_tet_mesh.html">TetMesh</a> &amp;m)</td></tr>
+<tr class="separator:aa429574c8f6225f878781734c361416b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1c6714160513c0d8d933618084c5903d" id="r_a1c6714160513c0d8d933618084c5903d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1composite_1_1_tet_face_swap.html#a1c6714160513c0d8d933618084c5903d">primitive_type</a> () const override</td></tr>
 <tr class="separator:a1c6714160513c0d8d933618084c5903d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7aa6c80ca9eb810d53d392db5c83e67b" id="r_a7aa6c80ca9eb810d53d392db5c83e67b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1operations_1_1_edge_split.html">EdgeSplit</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1composite_1_1_tet_face_swap.html#a7aa6c80ca9eb810d53d392db5c83e67b">split</a> ()</td></tr>
@@ -220,7 +220,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A FaceSwap (or a Swap 2-3) performs a swap a face sharing by two tets to an edge split the volume of the two tets into three new tets. </p>
-<p>This is the reverse operation of a EdgeSwap 3-2.</p>
+<p>This is the reverse operation of a <a class="el" href="classwmtk_1_1operations_1_1composite_1_1_edge_swap.html">EdgeSwap</a> 3-2.</p>
 <p>FaceSwap executes two splits then two collapses.</p>
 <p>FaceSwap cannot be performed on boundary faces.</p>
 <ul>
@@ -234,8 +234,8 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_tet_face_swap_8hpp_source.html#l00037">37</a> of file <a class="el" href="_tet_face_swap_8hpp_source.html">TetFaceSwap.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aff1d42ecd518109b952f70b4f4adbaf7" name="aff1d42ecd518109b952f70b4f4adbaf7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff1d42ecd518109b952f70b4f4adbaf7">&#9670;&#160;</a></span>TetFaceSwap()</h2>
+<a id="aa429574c8f6225f878781734c361416b" name="aa429574c8f6225f878781734c361416b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa429574c8f6225f878781734c361416b">&#9670;&#160;</a></span>TetFaceSwap()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +243,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">wmtk::operations::composite::TetFaceSwap::TetFaceSwap </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmtk_1_1_tet_mesh.html">TetMesh</a> &amp;&#160;</td>
           <td class="paramname"><em>m</em></td><td>)</td>
           <td></td>
         </tr>
@@ -314,7 +314,7 @@ Additional Inherited Members</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_tet_face_swap_8cpp_source.html#l00011">11</a> of file <a class="el" href="_tet_face_swap_8cpp_source.html">TetFaceSwap.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_simplex_8hpp_source.html#l00061">wmtk::simplex::Simplex::edge()</a>, <a class="el" href="_tet_face_swap_8hpp_source.html#l00054">m_collapse</a>, <a class="el" href="_tet_face_swap_8hpp_source.html#l00053">m_split</a>, <a class="el" href="_operation_8hpp_source.html#l00045">wmtk::operations::Operation::mesh()</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00025">wmtk::PE</a>, <a class="el" href="faces__single__dimension_8cpp_source.html#l00005">PF</a>, <a class="el" href="faces__single__dimension_8cpp_source.html#l00006">PT</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00024">wmtk::PV</a>, <a class="el" href="_mesh_8hpp_source.html#l00951">wmtk::Mesh::switch_tuples()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, <a class="el" href="_simplex_8hpp_source.html#l00053">wmtk::simplex::Simplex::tuple()</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_simplex_8hpp_source.html#l00061">wmtk::simplex::Simplex::edge()</a>, <a class="el" href="_tet_face_swap_8hpp_source.html#l00054">m_collapse</a>, <a class="el" href="_tet_face_swap_8hpp_source.html#l00053">m_split</a>, <a class="el" href="_operation_8hpp_source.html#l00045">wmtk::operations::Operation::mesh()</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00025">wmtk::PE</a>, <a class="el" href="faces__single__dimension_8cpp_source.html#l00006">PF</a>, <a class="el" href="faces__single__dimension_8cpp_source.html#l00007">PT</a>, <a class="el" href="_envelope_invariant_8cpp_source.html#l00024">wmtk::PV</a>, <a class="el" href="_mesh_8hpp_source.html#l01011">wmtk::Mesh::switch_tuples()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, <a class="el" href="_simplex_8hpp_source.html#l00053">wmtk::simplex::Simplex::tuple()</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">

@@ -2,6 +2,7 @@ var classwmtk_1_1_rational =
 [
     [ "Rational", "classwmtk_1_1_rational.html#a0775b66b876a5aebc92f1f79a4c2e405", null ],
     [ "Rational", "classwmtk_1_1_rational.html#ae7253e80d3e6bdfef28f39312ad71edc", null ],
+    [ "Rational", "classwmtk_1_1_rational.html#a03e6b81669319d3d0379e28a339cf2ad", null ],
     [ "Rational", "classwmtk_1_1_rational.html#af44882c2af76795e80b68b2d02286f21", null ],
     [ "Rational", "classwmtk_1_1_rational.html#ab05811d4720572c704054b4463490abd", null ],
     [ "Rational", "classwmtk_1_1_rational.html#ac6dea2d2a68452b2c2cf91a658543000", null ],

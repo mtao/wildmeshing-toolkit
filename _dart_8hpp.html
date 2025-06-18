@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: src/wmtk/autogen/Dart.hpp File Reference</title>
+<title>Wildmeshing Toolkit: src/wmtk/dart/Dart.hpp File Reference</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -126,13 +126,14 @@ $(document).ready(function(){initNavTree('_dart_8hpp.html',''); initResizable();
   <div class="headertitle"><div class="title">Dart.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cinttypes&gt;</code><br />
+<div class="textblock"><code>#include &lt;fmt/format.h&gt;</code><br />
+<code>#include &lt;cinttypes&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;tuple&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Dart.hpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="_dart_8hpp__incl.svg" width="256" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="_dart_8hpp__incl.svg" width="384" height="110"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -144,59 +145,35 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1autogen_1_1_dart.html">wmtk::autogen::Dart</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1dart_1_1___dart.html">wmtk::dart::_Dart&lt; IndexType, OrientType &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1dart_1_1_dart.html">wmtk::dart::Dart</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1dart_1_1_dart_wrap.html">wmtk::dart::DartWrap</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1dart_1_1_const_dart_wrap.html">wmtk::dart::ConstDartWrap</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacewmtk" id="r_namespacewmtk"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk.html">wmtk</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacewmtk_1_1autogen" id="r_namespacewmtk_1_1autogen"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1autogen.html">wmtk::autogen</a></td></tr>
+<tr class="memitem:namespacewmtk_1_1dart" id="r_namespacewmtk_1_1dart"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart.html">wmtk::dart</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ab67e6afece8f926b3924212b64ec1e82" id="r_ab67e6afece8f926b3924212b64ec1e82"><td class="memItemLeft" align="right" valign="top">auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_dart_8hpp.html#ab67e6afece8f926b3924212b64ec1e82">operator&lt;&lt;</a> (std::ostream &amp;out, const <a class="el" href="classwmtk_1_1autogen_1_1_dart.html">wmtk::autogen::Dart</a> &amp;vec) -&gt; std::ostream &amp;</td></tr>
-<tr class="separator:ab67e6afece8f926b3924212b64ec1e82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abd683f07068ed5ed065a11e4a9be340c" id="r_abd683f07068ed5ed065a11e4a9be340c"><td class="memTemplParams" colspan="2">template&lt;typename IndexType , typename OrientType , typename IndexType2 , typename OrientType2 &gt; </td></tr>
+<tr class="memitem:abd683f07068ed5ed065a11e4a9be340c"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart.html#abd683f07068ed5ed065a11e4a9be340c">wmtk::dart::operator==</a> (const <a class="el" href="classwmtk_1_1dart_1_1___dart.html">_Dart</a>&lt; IndexType, OrientType &gt; &amp;a, const <a class="el" href="classwmtk_1_1dart_1_1___dart.html">_Dart</a>&lt; IndexType2, OrientType2 &gt; &amp;b) -&gt; bool</td></tr>
+<tr class="separator:abd683f07068ed5ed065a11e4a9be340c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Function Documentation</h2>
-<a id="ab67e6afece8f926b3924212b64ec1e82" name="ab67e6afece8f926b3924212b64ec1e82"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab67e6afece8f926b3924212b64ec1e82">&#9670;&#160;</a></span>operator&lt;&lt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">auto operator&lt;&lt; </td>
-          <td>(</td>
-          <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>out</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const <a class="el" href="classwmtk_1_1autogen_1_1_dart.html">wmtk::autogen::Dart</a> &amp;&#160;</td>
-          <td class="paramname"><em>vec</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td> -&gt;  std::ostream &amp;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_dart_8cpp_source.html#l00010">10</a> of file <a class="el" href="_dart_8cpp_source.html">Dart.cpp</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f7a95b7257057fa18adfa4b3aabbe846.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_228c2c271cc4cd9f4cc4d2c9e4cc379f.html">autogen</a></li><li class="navelem"><a class="el" href="_dart_8hpp.html">Dart.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f7a95b7257057fa18adfa4b3aabbe846.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_22f5d99172a5abbb27ead3628330a87f.html">dart</a></li><li class="navelem"><a class="el" href="_dart_8hpp.html">Dart.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

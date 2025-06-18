@@ -1,5 +1,9 @@
 var namespacewmtk_1_1autogen_1_1tri__mesh =
 [
+    [ "constants", "namespacewmtk_1_1autogen_1_1tri__mesh_1_1constants.html", [
+      [ "primitive_type", "namespacewmtk_1_1autogen_1_1tri__mesh_1_1constants.html#ad9f84c6aef8a982c59cc1c6909e32a72", null ],
+      [ "simplex_dimension", "namespacewmtk_1_1autogen_1_1tri__mesh_1_1constants.html#adfba9e753282e985f18cfa661c21c1f0", null ]
+    ] ],
     [ "internal", "namespacewmtk_1_1autogen_1_1tri__mesh_1_1internal.html", [
       [ "identity_valid_tuple_index", "namespacewmtk_1_1autogen_1_1tri__mesh_1_1internal.html#ad4f2609b424b59276a869bbb37f165da", null ],
       [ "switch_primitive_to_valid_tuple_index", "namespacewmtk_1_1autogen_1_1tri__mesh_1_1internal.html#a4d2b99eb58e6fd1d825180dbea0167f1", null ]
@@ -8,18 +12,27 @@ var namespacewmtk_1_1autogen_1_1tri__mesh =
     [ "get_tuple_from_simplex_local_edge_id", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a530b50420c1de783bf379b4f77a789a5", null ],
     [ "get_tuple_from_simplex_local_id", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a9ee5b70116288b47809c0e85bc8b8e4b", null ],
     [ "get_tuple_from_simplex_local_vertex_id", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a4dbbd2b3fec9775f277752dd7d8c3a6e", null ],
+    [ "identity", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a756478133ea539f0d1b3ae7eae2faabe", null ],
+    [ "inverse", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a3b57c849408a00d4fcacffd3f81fd7fa", null ],
     [ "is_ccw", "namespacewmtk_1_1autogen_1_1tri__mesh.html#aaab85f5120a223c29bae0881cd7f2c87", null ],
     [ "local_id_table_offset", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a1c9b651c47ee993e160a8dca570cf35c", null ],
     [ "local_switch_tuple", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a5752d2943ce38291c6da0696d89e62ee", null ],
     [ "local_switch_tuple", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a91e6b348f528d93ad6d9031bae1480da", null ],
     [ "lvid_leid_from_table_offset", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a8ebe5892d2ca5e457f09075b0160df0e", null ],
-    [ "simplex_index_from_valid_index", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a3033bdef6fa25295f298a2e4ee4d66a7", null ],
+    [ "opposite", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a25e078e652aedd370cc78d06e9938ad4", null ],
+    [ "permutation_index_from_primitive_switch", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a4e6cf316458dce9547c5305b034ec101", null ],
+    [ "permutation_index_from_tuple", "namespacewmtk_1_1autogen_1_1tri__mesh.html#acda8bc53cd7772a2c5f3209eb646b134", null ],
+    [ "permutation_indices", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a1f64500f8f88007bef75193e371d0203", null ],
+    [ "permutation_indices_dynamic", "namespacewmtk_1_1autogen_1_1tri__mesh.html#ae2b0c802ea884dd9dcb8d31b3eff30b7", null ],
+    [ "product", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a4625af8d1cecfb720435206b947067e0", null ],
+    [ "simplex_index", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a937ffd0c50dcdfe8458799ae7741f619", null ],
+    [ "simplex_index_from_permutation_index", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a2925b59cc22704e2365313840b016cb7", null ],
+    [ "size", "namespacewmtk_1_1autogen_1_1tri__mesh.html#abe92a79289be24885ac45d183a562e61", null ],
     [ "subdart_maximal_action_to_face", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a4ed90cb979c5c2753822f39472e9ddc6", null ],
     [ "subdart_maximal_action_to_face_action", "namespacewmtk_1_1autogen_1_1tri__mesh.html#aeeca538f69391f9162cafaf464897737", null ],
     [ "subdart_maximal_action_to_face_size", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a6dd4d5f30900add59669380efcb4bdf5", null ],
-    [ "tuple_from_valid_index", "namespacewmtk_1_1autogen_1_1tri__mesh.html#aa2ec3dcd719ab81c10b79cab4415cfbd", null ],
+    [ "tuple_from_permutation_index", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a1642768c1a7bc091584eabf48c47ec2f", null ],
     [ "tuple_is_valid_for_ccw", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a786155d6d2270c482ffd6a96d3211867", null ],
-    [ "valid_index_from_tuple", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a62728e3e11c8fece1c85f27dbf39187c", null ],
     [ "auto_2d_edges", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a6dbba4867ca242453fe3ab2b14a6a471", null ],
     [ "auto_2d_table_ccw", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a4b8703af50eea4f51c57896f2780c07c", null ],
     [ "auto_2d_table_complete_edge", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a242dee029a09527b1887f869e698b46c", null ],
@@ -27,12 +40,17 @@ var namespacewmtk_1_1autogen_1_1tri__mesh =
     [ "auto_2d_table_edge", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a36082b06b92dec4e81c2b914b6d4c573", null ],
     [ "auto_2d_table_vertex", "namespacewmtk_1_1autogen_1_1tri__mesh.html#ae1de97c02223b587f628a5316ff75187", null ],
     [ "auto_all_to_valid_tuple_indices", "namespacewmtk_1_1autogen_1_1tri__mesh.html#ab0cd30dabbdd1d279e95d12884c484e7", null ],
+    [ "auto_valid_switch_edge_mirror_indices", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a03b4ff3299acd42d14cb06f32aec65dc", null ],
     [ "auto_valid_switch_inverse_table", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a5c8d6d98be2653a8206a540c0f1badff", null ],
     [ "auto_valid_switch_product_table", "namespacewmtk_1_1autogen_1_1tri__mesh.html#ade6d025f45538225cac18735101008cf", null ],
     [ "auto_valid_switch_table", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a21fe92da3b81a2358a27cba44be93440", null ],
     [ "auto_valid_tuple_indices", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a428f7c698aae80db9a73b951b8a455da", null ],
     [ "auto_valid_tuple_switch_indices", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a913db126568c3fac2b8f6facf879b82e", null ],
     [ "auto_valid_tuples", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a656b0d73a748826ce1c83e8cda49e539", null ],
+    [ "canonical_simplex", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a1a8afc1b106185185544e03584bcf08b", null ],
+    [ "canonical_subdart", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a0c4d3f0e621306498caefa108685430e", null ],
+    [ "canonical_supdart", "namespacewmtk_1_1autogen_1_1tri__mesh.html#aea7f442cad101fa2637d4f2b59730899", null ],
     [ "max_subdart_preservation_dimension_1", "namespacewmtk_1_1autogen_1_1tri__mesh.html#adaa0f0802d7337cfd3c92f110394879b", null ],
+    [ "permutations", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a971b5cdc2bc8299ae5afe066d55164cc", null ],
     [ "subdart_preserving_action_1", "namespacewmtk_1_1autogen_1_1tri__mesh.html#a34d114ca0e4638772afec4d642e62b24", null ]
 ];

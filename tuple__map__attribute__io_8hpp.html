@@ -128,6 +128,7 @@ $(document).ready(function(){initNavTree('tuple__map__attribute__io_8hpp.html','
 <div class="contents">
 <div class="textblock"><code>#include &lt;<a class="el" href="_types_8hpp_source.html">wmtk/Types.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_accessor_8hpp_source.html">wmtk/attribute/Accessor.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_multi_mesh_manager_8hpp_source.html">wmtk/multimesh/MultiMeshManager.hpp</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for tuple_map_attribute_io.hpp:</div>
 <div class="dyncontent">
@@ -136,7 +137,7 @@ Include dependency graph for tuple_map_attribute_io.hpp:</div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="tuple__map__attribute__io_8hpp__dep__incl.svg" width="100%" height="426"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="tuple__map__attribute__io_8hpp__dep__incl.svg" width="100%" height="503"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="tuple__map__attribute__io_8hpp_source.html">Go to the source code of this file.</a></p>
@@ -173,13 +174,13 @@ Functions</h2></td></tr>
 <tr class="memitem:a7d748ef4839b09a5460e8af97b9fa678" id="r_a7d748ef4839b09a5460e8af97b9fa678"><td class="memTemplParams" colspan="2">template&lt;typename MeshType &gt; </td></tr>
 <tr class="memitem:a7d748ef4839b09a5460e8af97b9fa678"><td class="memTemplItemLeft" align="right" valign="top">std::tuple&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a>, <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#a7d748ef4839b09a5460e8af97b9fa678">wmtk::multimesh::utils::read_tuple_map_attribute</a> (const <a class="el" href="classwmtk_1_1attribute_1_1_accessor.html">wmtk::attribute::Accessor</a>&lt; int64_t, MeshType &gt; &amp;accessor, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;source_tuple)</td></tr>
 <tr class="separator:a7d748ef4839b09a5460e8af97b9fa678"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab19d57f46b80f20b1b4685ed83e305d5" id="r_ab19d57f46b80f20b1b4685ed83e305d5"><td class="memTemplParams" colspan="2">template&lt;typename MeshA , typename MeshB &gt; </td></tr>
-<tr class="memitem:ab19d57f46b80f20b1b4685ed83e305d5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#ab19d57f46b80f20b1b4685ed83e305d5">wmtk::multimesh::utils::symmetric_write_tuple_map_attributes</a> (<a class="el" href="classwmtk_1_1attribute_1_1_accessor.html">wmtk::attribute::Accessor</a>&lt; int64_t, MeshA &gt; &amp;a_to_b, <a class="el" href="classwmtk_1_1attribute_1_1_accessor.html">wmtk::attribute::Accessor</a>&lt; int64_t, MeshB &gt; &amp;b_to_a, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;a_tuple, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;b_tuple)</td></tr>
-<tr class="separator:ab19d57f46b80f20b1b4685ed83e305d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab96c92511f3311e2c2aa44286a401c5c" id="r_ab96c92511f3311e2c2aa44286a401c5c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#ab96c92511f3311e2c2aa44286a401c5c">wmtk::multimesh::utils::write_tuple_map_attribute_slow</a> (<a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;source_mesh, <a class="el" href="namespacewmtk.html#a49c007ac9ba40c3688e46dcf5d4bb624">TypedAttributeHandle</a>&lt; int64_t &gt; map_handle, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;source_tuple, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;target_tuple)</td></tr>
 <tr class="separator:ab96c92511f3311e2c2aa44286a401c5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3378cfa3a16e6e1ac3cd9e1300d8d217" id="r_a3378cfa3a16e6e1ac3cd9e1300d8d217"><td class="memItemLeft" align="right" valign="top">std::tuple&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a>, <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#a3378cfa3a16e6e1ac3cd9e1300d8d217">wmtk::multimesh::utils::read_tuple_map_attribute_slow</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;source_mesh, <a class="el" href="namespacewmtk.html#a49c007ac9ba40c3688e46dcf5d4bb624">TypedAttributeHandle</a>&lt; int64_t &gt; map_handle, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;source_tuple)</td></tr>
 <tr class="separator:a3378cfa3a16e6e1ac3cd9e1300d8d217"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab19d57f46b80f20b1b4685ed83e305d5" id="r_ab19d57f46b80f20b1b4685ed83e305d5"><td class="memTemplParams" colspan="2">template&lt;typename MeshA , typename MeshB &gt; </td></tr>
+<tr class="memitem:ab19d57f46b80f20b1b4685ed83e305d5"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1multimesh_1_1utils.html#ab19d57f46b80f20b1b4685ed83e305d5">wmtk::multimesh::utils::symmetric_write_tuple_map_attributes</a> (<a class="el" href="classwmtk_1_1attribute_1_1_accessor.html">wmtk::attribute::Accessor</a>&lt; int64_t, MeshA &gt; &amp;a_to_b, <a class="el" href="classwmtk_1_1attribute_1_1_accessor.html">wmtk::attribute::Accessor</a>&lt; int64_t, MeshB &gt; &amp;b_to_a, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;a_tuple, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;b_tuple)</td></tr>
+<tr class="separator:ab19d57f46b80f20b1b4685ed83e305d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

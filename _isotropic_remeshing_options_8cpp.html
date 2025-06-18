@@ -120,12 +120,26 @@ $(document).ready(function(){initNavTree('_isotropic_remeshing_options_8cpp.html
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#define-members">Macros</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">IsotropicRemeshingOptions.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;nlohmann/json.hpp&gt;</code><br />
-<code>#include &quot;<a class="el" href="_isotropic_remeshing_options_8hpp_source.html">IsotropicRemeshingOptions.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="_isotropic_remeshing_options_8hpp_source.html">IsotropicRemeshingOptions.hpp</a>&quot;</code><br />
+<code>#include &lt;fmt/format.h&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
+<code>#include &lt;Eigen/Dense&gt;</code><br />
+<code>#include &lt;Eigen/Geometry&gt;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="_transfer_strategy_factory_8hpp_source.html">wmtk/components/mesh_info/transfer/TransferStrategyFactory.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="init_8hpp_source.html">wmtk/components/mesh_info/transfer/init.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_attribute_description_8hpp_source.html">wmtk/components/multimesh/utils/AttributeDescription.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="get__attribute_8hpp_source.html">wmtk/components/multimesh/utils/get_attribute.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="parse__output_8hpp_source.html">wmtk/components/output/parse_output.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_logger_8hpp_source.html">wmtk/utils/Logger.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="_mesh_8hpp_source.html">wmtk/Mesh.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="_transfer_strategy_factory_registry_8hpp_source.html">wmtk/components/mesh_info/transfer/TransferStrategyFactoryRegistry.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for IsotropicRemeshingOptions.cpp:</div>
 <div class="dyncontent">
@@ -142,7 +156,40 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacewmtk_1_1components_1_1isotropic__remeshing" id="r_namespacewmtk_1_1components_1_1isotropic__remeshing"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html">wmtk::components::isotropic_remeshing</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ac95f4b0ca6db8257708f161274725001" id="r_ac95f4b0ca6db8257708f161274725001"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_isotropic_remeshing_options_8cpp.html#ac95f4b0ca6db8257708f161274725001">DEFAULT_PARSABLE_ARGS</a></td></tr>
+<tr class="separator:ac95f4b0ca6db8257708f161274725001"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ad7f4b1a975120aad4ccb0026757412ef" id="r_ad7f4b1a975120aad4ccb0026757412ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html#ad7f4b1a975120aad4ccb0026757412ef">wmtk::components::isotropic_remeshing::to_json</a> (nlohmann::json &amp;nlohmann_json_j, const <a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html">IsotropicRemeshingOptions</a> &amp;nlohmann_json_t)</td></tr>
+<tr class="separator:ad7f4b1a975120aad4ccb0026757412ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acab5635f28a1bfc9d621bb88bdf97d02" id="r_acab5635f28a1bfc9d621bb88bdf97d02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html#acab5635f28a1bfc9d621bb88bdf97d02">wmtk::components::isotropic_remeshing::from_json</a> (const nlohmann::json &amp;nlohmann_json_j, <a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html">IsotropicRemeshingOptions</a> &amp;nlohmann_json_t)</td></tr>
+<tr class="separator:acab5635f28a1bfc9d621bb88bdf97d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4e4ae6d836a38c5e8cc8544564dc5bd1" id="r_a4e4ae6d836a38c5e8cc8544564dc5bd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html#a4e4ae6d836a38c5e8cc8544564dc5bd1">wmtk::components::isotropic_remeshing::fill_operation_parameters</a> ()</td></tr>
+<tr class="separator:a4e4ae6d836a38c5e8cc8544564dc5bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ac95f4b0ca6db8257708f161274725001" name="ac95f4b0ca6db8257708f161274725001"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac95f4b0ca6db8257708f161274725001">&#9670;&#160;</a></span>DEFAULT_PARSABLE_ARGS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEFAULT_PARSABLE_ARGS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">    iterations, lock_boundary, use_for_periodic, fix_uv_seam, intermediate_output_format, split, \</div>
+<div class="line">        swap, collapse, smooth, start_with_collapse, passes</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="_isotropic_remeshing_options_8cpp_source.html#l00018">18</a> of file <a class="el" href="_isotropic_remeshing_options_8cpp_source.html">IsotropicRemeshingOptions.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->

@@ -1,8 +1,12 @@
 var dir_9f42d488f21f30bdc75c62948fa574ea =
 [
+    [ "internal", "dir_00ed98349effabaca475d7e2e449f3d6.html", "dir_00ed98349effabaca475d7e2e449f3d6" ],
     [ "metaprogramming", "dir_7094acbd2526777900e9c94c9c26ba58.html", "dir_7094acbd2526777900e9c94c9c26ba58" ],
     [ "array_to_map.hpp", "array__to__map_8hpp.html", "array__to__map_8hpp" ],
+    [ "as_eigen_matrices.cpp", "as__eigen__matrices_8cpp.html", "as__eigen__matrices_8cpp" ],
+    [ "as_eigen_matrices.hpp", "as__eigen__matrices_8hpp.html", "as__eigen__matrices_8hpp" ],
     [ "cast_attribute.hpp", "cast__attribute_8hpp.html", "cast__attribute_8hpp" ],
+    [ "DisjointSet.hpp", "_disjoint_set_8hpp.html", "_disjoint_set_8hpp" ],
     [ "DynamicArray.hpp", "_dynamic_array_8hpp.html", "_dynamic_array_8hpp" ],
     [ "DynamicArray.hxx", "_dynamic_array_8hxx.html", null ],
     [ "edge_insertion.cpp", "src_2wmtk_2utils_2edge__insertion_8cpp.html", "src_2wmtk_2utils_2edge__insertion_8cpp" ],
@@ -45,9 +49,12 @@ var dir_9f42d488f21f30bdc75c62948fa574ea =
     [ "triangle_areas.hpp", "triangle__areas_8hpp.html", "triangle__areas_8hpp" ],
     [ "trimesh_topology_initialization.cpp", "trimesh__topology__initialization_8cpp.html", "trimesh__topology__initialization_8cpp" ],
     [ "trimesh_topology_initialization.h", "trimesh__topology__initialization_8h.html", "trimesh__topology__initialization_8h" ],
+    [ "TriMeshInspector.hpp", "_tri_mesh_inspector_8hpp.html", "_tri_mesh_inspector_8hpp" ],
     [ "TupleCellLessThanFunctor.hpp", "_tuple_cell_less_than_functor_8hpp.html", "_tuple_cell_less_than_functor_8hpp" ],
     [ "vector_hash.cpp", "vector__hash_8cpp.html", "vector__hash_8cpp" ],
     [ "vector_hash.hpp", "vector__hash_8hpp.html", "vector__hash_8hpp" ],
+    [ "verify_simplex_index_valences.cpp", "verify__simplex__index__valences_8cpp.html", "verify__simplex__index__valences_8cpp" ],
+    [ "verify_simplex_index_valences.hpp", "verify__simplex__index__valences_8hpp.html", "verify__simplex__index__valences_8hpp" ],
     [ "VolumeRemesherTriangleInsertion.cpp", "_volume_remesher_triangle_insertion_8cpp.html", "_volume_remesher_triangle_insertion_8cpp" ],
     [ "VolumeRemesherTriangleInsertion.hpp", "_volume_remesher_triangle_insertion_8hpp.html", "_volume_remesher_triangle_insertion_8hpp" ]
 ];

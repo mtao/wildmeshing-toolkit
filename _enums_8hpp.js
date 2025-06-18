@@ -20,6 +20,7 @@ var _enums_8hpp =
       [ "CopyTuple", "_enums_8hpp.html#a66f2eeff5a03569f85abf655b0f64d48af32779b89f6792c677a8209d9afc4724", null ],
       [ "CopyOther", "_enums_8hpp.html#a66f2eeff5a03569f85abf655b0f64d48a68e55eab4f30286567022eafb9fa79f6", null ],
       [ "Mean", "_enums_8hpp.html#a66f2eeff5a03569f85abf655b0f64d48a3d6c9ac08ada31c184094bbc67afe00d", null ],
+      [ "Min", "_enums_8hpp.html#a66f2eeff5a03569f85abf655b0f64d48a78d811e98514cd165dda532286610fd2", null ],
       [ "Throw", "_enums_8hpp.html#a66f2eeff5a03569f85abf655b0f64d48a8ce61dd2505effd96f937fa743b6491f", null ],
       [ "None", "_enums_8hpp.html#a66f2eeff5a03569f85abf655b0f64d48a6adf97f83acf6453d4a6a4b1070f3754", null ]
     ] ]

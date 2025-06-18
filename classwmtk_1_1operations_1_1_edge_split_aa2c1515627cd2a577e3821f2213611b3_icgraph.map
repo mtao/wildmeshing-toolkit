@@ -1,33 +1,44 @@
 <map id="wmtk::operations::EdgeSplit::set_new_attribute_strategy" name="wmtk::operations::EdgeSplit::set_new_attribute_strategy">
-<area shape="rect" id="Node000001" title=" " alt="" coords="737,165,945,205"/>
-<area shape="rect" id="Node000002" href="$classwmtk_1_1operations_1_1_attribute_transfer_configuration.html#a925a620c457fe7b87785c2dbd0412658" title=" " alt="" coords="449,5,655,45"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="811,157,757,107,724,81,688,60,654,46,656,41,691,55,727,77,761,103,815,153"/>
-<area shape="rect" id="Node000003" href="$namespacewmtk_1_1components_1_1internal.html#aff1250493ee8c47518118b92223c8576" title=" " alt="" coords="449,69,655,109"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="784,162,688,124,647,112,649,107,690,119,786,157"/>
-<area shape="rect" id="Node000004" href="$classwmtk_1_1components_1_1_marching.html#a93c8d735afd009d73bfc4700b4f8e3f6" title="Perform the actual marching." alt="" coords="445,133,659,173"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="723,175,659,168,660,163,724,170"/>
-<area shape="rect" id="Node000008" href="$classwmtk_1_1components_1_1internal_1_1_regular_space.html#af9adef544fff10ba9257d128fd13393c" title=" " alt="" coords="439,197,665,237"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="724,201,666,207,665,202,723,196"/>
-<area shape="rect" id="Node000012" href="$classwmtk_1_1components_1_1internal_1_1_simplicial_embedding.html#a56a218aa40f62ce6ecdb5ac253553e6c" title="Regularize tags in mesh." alt="" coords="415,261,689,301"/>
-<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="786,214,690,252,649,264,647,259,688,247,784,209"/>
-<area shape="rect" id="Node000016" href="$classwmtk_1_1operations_1_1_edge_split.html#a9ad8025fa6682135fc5bbbb5fc6cefcf" title=" " alt="" coords="448,325,656,365"/>
-<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="815,217,761,268,727,294,691,316,657,329,655,324,688,311,724,289,757,264,811,213"/>
-<area shape="rect" id="Node000005" href="$namespacewmtk_1_1components.html#a6f27411696c9ba6e294768451f31351f" title="Perform maching tetrahedra/triangles." alt="" coords="149,90,365,115"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="431,135,332,118,332,113,432,130"/>
-<area shape="rect" id="Node000006" href="$tests_2marching_8cpp.html#a74e4ea64dd134ace15ef3292b4eb9753" title=" " alt="" coords="5,66,100,91"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="136,91,100,87,100,81,136,86"/>
-<area shape="rect" id="Node000007" href="$tests_2marching_8cpp.html#af20fbc246d1ad31be8d9ec0011ac52d6" title=" " alt="" coords="5,115,100,141"/>
-<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="141,120,100,125,100,120,141,114"/>
-<area shape="rect" id="Node000009" href="$namespacewmtk_1_1components.html#a7cec0c38121ddd036af26c760311d0e8" title=" " alt="" coords="157,140,358,180"/>
-<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="435,197,358,182,359,177,436,192"/>
-<area shape="rect" id="Node000010" href="$test__component__regular__space_8cpp.html#a728024a1ea7ac078fd93d4035f705520" title=" " alt="" coords="210,205,305,230"/>
-<area shape="poly" id="edge9_Node000008_Node000010" title=" " alt="" coords="425,220,305,220,305,215,425,215"/>
-<area shape="rect" id="Node000011" href="$test__component__regular__space_8cpp.html#a5e69783b3ce0c074477e3081ab8cf658" title=" " alt="" coords="210,254,305,279"/>
-<area shape="poly" id="edge10_Node000008_Node000011" title=" " alt="" coords="426,241,305,261,304,256,425,236"/>
-<area shape="rect" id="Node000013" href="$namespacewmtk_1_1components.html#abab23cfb68442b5652e27826a47ba553" title=" " alt="" coords="148,304,367,344"/>
-<area shape="poly" id="edge12_Node000012_Node000013" title=" " alt="" coords="401,306,367,311,367,306,401,301"/>
-<area shape="rect" id="Node000014" href="$test__simplicial__embedding_8cpp.html#a0e974097f50df389ea6daa673b677ca6" title=" " alt="" coords="5,286,100,311"/>
-<area shape="poly" id="edge13_Node000013_Node000014" title=" " alt="" coords="134,311,100,307,101,302,135,306"/>
-<area shape="rect" id="Node000015" href="$test__simplicial__embedding_8cpp.html#a49717460104eb5696a0b66b964ff84a0" title=" " alt="" coords="5,335,100,361"/>
-<area shape="poly" id="edge14_Node000013_Node000015" title=" " alt="" coords="135,341,101,345,100,340,134,336"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="893,245,1101,285"/>
+<area shape="rect" id="Node000002" href="$classwmtk_1_1operations_1_1_attribute_transfer_configuration.html#a925a620c457fe7b87785c2dbd0412658" title=" " alt="" coords="605,5,811,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="979,234,958,193,928,146,890,99,844,60,810,43,812,38,847,55,893,95,932,143,962,190,984,231"/>
+<area shape="rect" id="Node000003" href="$namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#a8000c42114e541f2dc6b27f4f86e7e22" title=" " alt="" coords="579,69,837,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="971,236,917,178,882,149,844,124,817,112,819,107,847,119,885,144,920,174,974,233"/>
+<area shape="rect" id="Node000006" href="$namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#aa6fa18af49d7916df5c7e73978de812d" title=" " alt="" coords="596,134,820,189"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="939,242,844,204,807,191,808,186,846,199,941,237"/>
+<area shape="rect" id="Node000008" href="$namespacewmtk_1_1components_1_1internal.html#aff1250493ee8c47518118b92223c8576" title=" " alt="" coords="605,213,811,253"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="880,255,811,247,811,242,880,250"/>
+<area shape="rect" id="Node000009" href="$classwmtk_1_1components_1_1_marching.html#a93c8d735afd009d73bfc4700b4f8e3f6" title="Perform the actual marching." alt="" coords="601,277,815,317"/>
+<area shape="poly" id="edge9_Node000001_Node000009" title=" " alt="" coords="880,281,816,288,815,283,879,276"/>
+<area shape="rect" id="Node000013" href="$classwmtk_1_1components_1_1internal_1_1_regular_space.html#af9adef544fff10ba9257d128fd13393c" title=" " alt="" coords="595,341,821,381"/>
+<area shape="poly" id="edge13_Node000001_Node000013" title=" " alt="" coords="942,294,846,332,805,344,803,339,844,327,940,289"/>
+<area shape="rect" id="Node000017" href="$classwmtk_1_1components_1_1internal_1_1_simplicial_embedding.html#a56a218aa40f62ce6ecdb5ac253553e6c" title="Regularize tags in mesh." alt="" coords="571,405,845,445"/>
+<area shape="poly" id="edge17_Node000001_Node000017" title=" " alt="" coords="971,297,917,348,883,374,847,396,818,408,815,403,844,391,880,369,913,344,967,293"/>
+<area shape="rect" id="Node000021" href="$classwmtk_1_1operations_1_1_edge_split.html#a9ad8025fa6682135fc5bbbb5fc6cefcf" title=" " alt="" coords="604,469,812,509"/>
+<area shape="poly" id="edge21_Node000001_Node000021" title=" " alt="" coords="982,299,960,337,929,380,891,423,847,460,813,475,811,471,844,455,888,420,925,377,955,334,977,296"/>
+<area shape="rect" id="Node000004" href="$classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a8bec7072050739ae1ed34897897ea3aa" title=" " alt="" coords="288,58,523,113"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="565,90,523,90,523,84,565,85"/>
+<area shape="rect" id="Node000005" href="$classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a951640c38ad8cae68ec2bf2ad67df72d" title=" " alt="" coords="5,98,240,153"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="275,106,241,111,240,106,274,101"/>
+<area shape="rect" id="Node000007" href="$classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a008d39ffd449e059a4b85d2aff6a265e" title=" " alt="" coords="288,137,523,191"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="582,165,523,166,523,160,582,160"/>
+<area shape="poly" id="edge7_Node000007_Node000005" title=" " alt="" coords="274,149,240,144,241,139,275,143"/>
+<area shape="rect" id="Node000010" href="$namespacewmtk_1_1components.html#a6f27411696c9ba6e294768451f31351f" title="Perform maching tetrahedra/triangles." alt="" coords="297,234,513,259"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="587,280,482,262,483,257,587,274"/>
+<area shape="rect" id="Node000011" href="$tests_2_marching_8cpp.html#a74e4ea64dd134ace15ef3292b4eb9753" title=" " alt="" coords="75,210,170,235"/>
+<area shape="poly" id="edge11_Node000010_Node000011" title=" " alt="" coords="283,239,170,229,170,224,284,234"/>
+<area shape="rect" id="Node000012" href="$tests_2_marching_8cpp.html#af20fbc246d1ad31be8d9ec0011ac52d6" title=" " alt="" coords="75,259,170,285"/>
+<area shape="poly" id="edge12_Node000010_Node000012" title=" " alt="" coords="284,260,170,270,170,265,283,255"/>
+<area shape="rect" id="Node000014" href="$namespacewmtk_1_1components.html#a7cec0c38121ddd036af26c760311d0e8" title=" " alt="" coords="305,284,506,324"/>
+<area shape="poly" id="edge14_Node000013_Node000014" title=" " alt="" coords="588,341,506,326,507,320,589,336"/>
+<area shape="rect" id="Node000015" href="$test__component__regular__space_8cpp.html#a728024a1ea7ac078fd93d4035f705520" title=" " alt="" coords="358,349,453,374"/>
+<area shape="poly" id="edge15_Node000013_Node000015" title=" " alt="" coords="581,364,453,364,453,359,581,359"/>
+<area shape="rect" id="Node000016" href="$test__component__regular__space_8cpp.html#a5e69783b3ce0c074477e3081ab8cf658" title=" " alt="" coords="358,398,453,423"/>
+<area shape="poly" id="edge16_Node000013_Node000016" title=" " alt="" coords="582,385,453,406,452,400,581,379"/>
+<area shape="rect" id="Node000018" href="$namespacewmtk_1_1components.html#abab23cfb68442b5652e27826a47ba553" title=" " alt="" coords="296,448,515,488"/>
+<area shape="poly" id="edge18_Node000017_Node000018" title=" " alt="" coords="557,449,515,455,514,450,556,444"/>
+<area shape="rect" id="Node000019" href="$test__simplicial__embedding_8cpp.html#a0e974097f50df389ea6daa673b677ca6" title=" " alt="" coords="75,430,170,455"/>
+<area shape="poly" id="edge19_Node000018_Node000019" title=" " alt="" coords="282,460,170,450,170,444,283,454"/>
+<area shape="rect" id="Node000020" href="$test__simplicial__embedding_8cpp.html#a49717460104eb5696a0b66b964ff84a0" title=" " alt="" coords="75,479,170,505"/>
+<area shape="poly" id="edge20_Node000018_Node000020" title=" " alt="" coords="283,481,170,491,170,485,282,476"/>
 </map>
