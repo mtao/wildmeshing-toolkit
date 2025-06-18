@@ -261,6 +261,7 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
 
 void MapValidator::print()
 {
+#if defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
     for (const auto& [cptr, attr] : m_mesh.m_multi_mesh_manager.m_children) {
         const auto& child = *cptr;
         auto [me_to_child, child_to_me] =
@@ -268,6 +269,7 @@ void MapValidator::print()
 
         internal::print_all_mapped_tuples(me_to_child, child_to_me);
     }
+#endif
 }
 
 } // namespace wmtk::multimesh::utils
