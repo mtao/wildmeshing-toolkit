@@ -59,10 +59,11 @@ auto TriMesh::TriMeshOperationExecutor::get_incident_face_data(Tuple t) -> Incid
         }
         t = next_edge(t);
     }
-    assert(simplex::utils::SimplexComparisons::equal(
-        m_mesh,
-        simplex::Simplex::edge(m_mesh, t),
-        simplex::Simplex::edge(m_mesh, m_operating_tuple)));
+    assert(
+        simplex::utils::SimplexComparisons::equal(
+            m_mesh,
+            simplex::Simplex::edge(m_mesh, t),
+            simplex::Simplex::edge(m_mesh, m_operating_tuple)));
 
     if (!simplex::utils::SimplexComparisons::equal(
             m_mesh,
@@ -70,10 +71,11 @@ auto TriMesh::TriMeshOperationExecutor::get_incident_face_data(Tuple t) -> Incid
             simplex::Simplex::vertex(m_mesh, m_operating_tuple))) {
         t = m_mesh.switch_vertex(t);
     }
-    assert(simplex::utils::SimplexComparisons::equal(
-        m_mesh,
-        simplex::Simplex::vertex(m_mesh, t),
-        simplex::Simplex::vertex(m_mesh, m_operating_tuple)));
+    assert(
+        simplex::utils::SimplexComparisons::equal(
+            m_mesh,
+            simplex::Simplex::vertex(m_mesh, t),
+            simplex::Simplex::vertex(m_mesh, m_operating_tuple)));
 
     const std::array<Tuple, 2> ear_edges{
         {m_mesh.switch_edge(t), m_mesh.switch_edge(m_mesh.switch_vertex(t))}};
@@ -91,9 +93,8 @@ auto TriMesh::TriMeshOperationExecutor::get_incident_face_data(Tuple t) -> Incid
             // accessing ear face id through FF to make it work also at boundaries
             const int64_t ear_fid = ff_accessor.const_vector_attribute(edge)[edge.local_eid()];
 
-            return EarData{
-                /*.fid = */ ear_fid,
-                /*.eid = */ m_mesh.id_edge(edge)};
+            return EarData{/*.fid = */ ear_fid,
+                           /*.eid = */ m_mesh.id_edge(edge)};
         });
 
     return face_data;
@@ -125,11 +126,11 @@ TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor(
 void TriMesh::TriMeshOperationExecutor::delete_simplices()
 {
     for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-        wmtk::logger().trace(
-            "Deleting {} {}-simplices [{}]",
-            simplex_ids_to_delete[d].size(),
-            d,
-            fmt::join(simplex_ids_to_delete[d], ","));
+        // wmtk::logger().debug(
+        //     "Deleting {} {}-simplices [{}]",
+        //     simplex_ids_to_delete[d].size(),
+        //     d,
+        //     fmt::join(simplex_ids_to_delete[d], ","));
         for (const int64_t id : simplex_ids_to_delete[d]) {
             flag_accessors[d].index_access().deactivate(id);
         }
@@ -520,7 +521,9 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
     faces.sort_and_clean();
     for (const auto& s : faces) {
         const int64_t index = static_cast<int64_t>(s.primitive_type());
-        if (!m_mesh.has_child_mesh_in_dimension(index)) continue;
+        if (!m_mesh.has_child_mesh_in_dimension(index)) {
+            continue;
+        }
 
         int64_t id = m_mesh.id(s);
         bool found = false;
@@ -551,11 +554,11 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
         } else if (index == 2) {
             continue;
         }
-        // spdlog::info(
-        //     "Want to check {}-simplex {} index {}",
-        //     index,
-        //     m_mesh.id(s),
-        //     primitive_type_name(s.primitive_type()));
+        spdlog::info(
+            "Want to check {}-simplex {} index {}",
+            index,
+            m_mesh.id(s),
+            primitive_type_name(s.primitive_type()));
         auto cofaces = wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
         global_ids_to_potential_tuples.at(index).emplace_back(id, std::move(cofaces));

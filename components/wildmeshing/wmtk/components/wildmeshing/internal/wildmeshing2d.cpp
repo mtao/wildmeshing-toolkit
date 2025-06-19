@@ -283,6 +283,7 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
             const auto& parent_v =
                 input_ptr->map_to_parent(simplex::Simplex::vertex(*input_ptr, v));
             frozen_vertex_accessor.scalar_attribute(parent_v) = 1;
+            spdlog::info("Frozen vertex index: {} ({})", std::string(parent_v.tuple()), mesh->id(parent_v));
             frozen_cnt++;
         } else {
             // frozen_vertex_accessor.scalar_attribute(parent_v) = 0; // redundant, just for safe
@@ -965,6 +966,7 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
 
 
     wmtk::attribute::TypedAttributeHandle<char> visited_edge_flag_t = visited_edge_flag.as<char>();
+    return {};
 
     pre_stats = scheduler.run_operation_on_all(*collapse_then_round, visited_edge_flag_t);
     logger().info(
@@ -1012,6 +1014,8 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
         }
     }
 
+    logger().info("Optimizing the mesh a bit");
+    return {};
 
     // compute max energy
     double max_energy = std::numeric_limits<double>::lowest();
@@ -1042,6 +1046,7 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
     // }
 
 
+    logger().info("Optimizing the mesh a bit");
     return {};
     double old_max_energy = max_energy;
     double old_avg_energy = avg_energy;

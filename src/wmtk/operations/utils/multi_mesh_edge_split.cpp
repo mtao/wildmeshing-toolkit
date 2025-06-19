@@ -63,20 +63,24 @@ std::vector<simplex::Simplex> multi_mesh_edge_split_with_modified_simplices(
         new_attr_strategies)
 {
     simplex::NavigatableSimplex nsimplex(mesh, simplex);
-    auto candidates = top_dimension_cofaces(mesh, simplex);
     auto return_data = multi_mesh_edge_split(mesh, nsimplex, new_attr_strategies);
 
+    auto func = [&mesh](const auto& rt) -> std::vector<simplex::Simplex> {
+        if (mesh.is_free()) {
+            return rt.new_vertices(mesh);
+        } else {
+            return {simplex::Simplex::vertex(mesh, rt.m_output_tuple)};
+        }
+    };
+
+    if (return_data.has_variant(mesh, nsimplex)) {
+        return std::visit(func, return_data.get_variant(mesh, nsimplex));
+    }
+    auto candidates = top_dimension_cofaces(mesh, simplex);
     for (const auto& c : candidates) {
-        if (return_data.has_variant(mesh, nsimplex)) {
-            return std::visit(
-                [&mesh](const auto& rt) -> std::vector<simplex::Simplex> {
-                    if (mesh.is_free()) {
-                        return rt.new_vertices(mesh);
-                    } else {
-                        return {simplex::Simplex::vertex(mesh, rt.m_output_tuple)};
-                    }
-                },
-                return_data.get_variant(mesh, nsimplex));
+        simplex::NavigatableSimplex nc(mesh, c);
+        if (return_data.has_variant(mesh, nc)) {
+            return std::visit(func, return_data.get_variant(mesh, nc));
         }
     }
 

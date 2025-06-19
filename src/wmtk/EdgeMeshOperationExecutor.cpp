@@ -60,6 +60,11 @@ EdgeMesh::EdgeMeshOperationExecutor::EdgeMeshOperationExecutor(
 void EdgeMesh::EdgeMeshOperationExecutor::delete_simplices()
 {
     for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
+        //wmtk::logger().debug(
+        //    "Deleting {} {}-simplices [{}]",
+        //    simplex_ids_to_delete[d].size(),
+        //    d,
+        //    fmt::join(simplex_ids_to_delete[d], ","));
         for (const int64_t id : simplex_ids_to_delete[d]) {
             flag_accessors[d].index_access().deactivate(id);
         }

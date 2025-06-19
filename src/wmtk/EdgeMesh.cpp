@@ -243,7 +243,7 @@ bool EdgeMesh::is_valid(const Tuple& tuple) const
 
 bool EdgeMesh::is_connectivity_valid() const
 {
-    // 
+    //
     // leave in print to make sure that this slow function is visible when called
     logger().debug("Checking if EdgeMesh connectivity is valid");
     // get accessors for topology
@@ -262,8 +262,8 @@ bool EdgeMesh::is_connectivity_valid() const
         }
         int cnt = 0;
         for (int64_t j = 0; j < 2; ++j) {
-            if (ev_accessor.const_vector_attribute<2>(
-                    ve_accessor.const_scalar_attribute(i))(j) == i) {
+            if (ev_accessor.const_vector_attribute<2>(ve_accessor.const_scalar_attribute(i))(j) ==
+                i) {
                 cnt++;
             }
         }
@@ -291,6 +291,17 @@ bool EdgeMesh::is_connectivity_valid() const
             continue;
             // return false;
         }
+        for (int64_t j = 0; j < 2; ++j) {
+            if (!v_flag_accessor.index_access().is_active(ev(j))) {
+                wmtk::logger().error(
+                    "Edge {} is active but its vertex EV[{},{}] = {} is not active",
+                    i,
+                    i,
+                    j,
+                    ev(j));
+                return false;
+            }
+        }
 
         for (int64_t j = 0; j < 2; ++j) {
             int64_t nbre = ee(j);
@@ -298,6 +309,16 @@ bool EdgeMesh::is_connectivity_valid() const
             if (nbre == -1) {
                 continue;
             }
+            if (!e_flag_accessor.index_access().is_active(ee(j))) {
+                wmtk::logger().error(
+                    "Edge {} is active but its nonempty neighbor EE[{},{}] = {} is not active",
+                    i,
+                    i,
+                    j,
+                    ee(j));
+                return false;
+            }
+
             auto nbree = ee_accessor.attribute().const_vector_attribute<2>(nbre);
             auto nbrev = ev_accessor.attribute().const_vector_attribute<2>(nbre);
             bool found = false;
