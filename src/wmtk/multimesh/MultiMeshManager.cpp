@@ -62,9 +62,31 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     }
     const int64_t target_global_id = involution.global_id();
 
+#if !defined(NDEBUG)
+    if (true) {
+        const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
+        const int64_t desired_source_gid = inverse_involution.global_id();
+        logger().warn(
+            "cid:{}={},{}={}",
+            desired_source_gid,
+            source_to_target_map_accessor.mesh().is_removed(desired_source_gid),
+            target_global_id,
+            target_to_source_map_accessor.mesh().is_removed(target_global_id));
+
+        // logger().warn(
+        //     "cid:{},id:{} {}",
+        //     desired_source_gid,
+        //     source_to_target_map_accessor.mesh().id(source_tuple_, target_pt),
+        //     target_global_id);
+    }
+#endif
+
+    assert(!target_to_source_map_accessor.mesh().is_removed(target_global_id));
+
     if (pt > target_pt) {
         const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
         const int64_t desired_source_gid = inverse_involution.global_id();
+        assert(!source_to_target_map_accessor.mesh().is_removed(desired_source_gid));
 
 
         if (desired_source_gid != source_tuple.global_cid()) {
@@ -88,7 +110,9 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(target_pt);
     assert(osd.is_valid(target_dart));
 
-    return osd.tuple_from_dart(target_dart);
+    const Tuple t = osd.tuple_from_dart(target_dart);
+    assert(target_to_source_map_accessor.mesh().is_valid(t));
+    return t;
 }
 #else
 Tuple MultiMeshManager::map_tuple_between_meshes(
@@ -749,6 +773,7 @@ std::vector<Tuple> MultiMeshManager::map_to_child_tuples(
     const simplex::Simplex& my_simplex) const
 {
     assert((&my_mesh.m_multi_mesh_manager) == this);
+    assert(my_mesh.is_valid(my_simplex));
 
     const Mesh& child_mesh = *child_data.mesh;
     if (child_mesh.top_simplex_type() < my_simplex.primitive_type()) {
@@ -776,8 +801,10 @@ std::vector<Tuple> MultiMeshManager::map_to_child_tuples(
 #endif
     for (Tuple& tuple : tuples) {
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
+        assert(my_mesh.is_valid(tuple));
         // auto parent_map_accessor = AccessorType(my_mesh, map_handle);
         tuple = map_tuple_between_meshes(map_accessor, child_map_accessor, tuple);
+        assert(tuple.is_null() || child_mesh.is_valid(tuple));
 #else
         tuple = map_tuple_between_meshes(my_mesh, child_mesh, map_accessor, tuple);
 #endif
@@ -1106,12 +1133,13 @@ void MultiMeshManager::serialize(io::MeshWriter& writer, const Mesh* local_root)
 
 bool MultiMeshManager::has_child_mesh() const
 {
-    for (const bool c : m_has_child_mesh_in_dimension) {
-        if (c) {
-            return true;
-        }
-    }
-    return false;
+    return !m_children.empty();
+    // for (const bool c : m_has_child_mesh_in_dimension) {
+    //     if (c) {
+    //         return true;
+    //     }
+    // }
+    // return false;
 }
 
 bool MultiMeshManager::can_map(

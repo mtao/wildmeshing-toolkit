@@ -198,6 +198,10 @@ void MultiMeshManager::update_maps_from_edge_operation(
                 operation_data);
 
 
+            spdlog::info(
+                "Updating tuple gids {} {}",
+                std::string(parent_tuple),
+                std::string(child_tuple));
             wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
                 parent_to_child_accessor,
                 child_to_parent_accessor,
@@ -217,11 +221,19 @@ void MultiMeshManager::update_map_tuple_hashes(
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
     const auto& parent_sd = dart::SimplexDart::get_singleton(parent_primitive_type);
 #endif
+    // spdlog::info(
+    //     "Updating tuple hashes {}: {}",
+    //     primitive_type_name(primitive_type),
+    //     simplices_to_update.size());
 
 
     // go over every child mesh and try to update their hashes
     for (auto& child_data : children()) {
         auto& child_mesh = *child_data.mesh;
+        spdlog::info(
+            "{} {}",
+            primitive_type_name(child_mesh.top_simplex_type()),
+            primitive_type_name(primitive_type));
         // ignore ones whos map are the wrong dimension
         if (child_mesh.top_simplex_type() != primitive_type) {
             continue;
@@ -235,6 +247,8 @@ void MultiMeshManager::update_map_tuple_hashes(
 
         for (const auto& [original_parent_gid, equivalent_parent_tuples] : simplices_to_update) {
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
+
+            spdlog::info("{}-{}", primitive_type_name(primitive_type), original_parent_gid);
 
             const dart::SimplexDart& child_sd = dart::SimplexDart::get_singleton(primitive_type);
             //  read off the original map's data
@@ -308,6 +322,15 @@ void MultiMeshManager::update_map_tuple_hashes(
 
 
                 child_to_parent_accessor[child_map_dart.global_id()] = parent_map_dart;
+                // parent_to_child_accessor[original_parent_gid] = new_child_dart;
+
+                spdlog::info(
+                    "Updating {} to {} at gids {} {}",
+                    std::string(parent_map_dart),
+                    std::string(child_map_dart),
+                    original_parent_gid,
+                    child_map_dart.global_id());
+
                 wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
                     parent_to_child_accessor,
                     child_to_parent_accessor,
@@ -328,8 +351,12 @@ void MultiMeshManager::update_map_tuple_hashes(
                 int64_t new_parent_gid = new_parent_shared_opt.value().global_cid();
 
                 parent_map_dart = dart::Dart(new_parent_gid, parent_map_dart.permutation());
-                // spdlog::info("Updating {} to {}", std::string(parent_dart),
-                // std::string(child_dart));
+                spdlog::info(
+                    "Updating {} to {} at gids {} {}",
+                    std::string(parent_map_dart),
+                    std::string(child_map_dart),
+                    original_parent_gid,
+                    child_map_dart.global_id());
                 parent_to_child_accessor[original_parent_gid] = child_map_dart;
                 child_to_parent_accessor[child_map_dart.global_id()] = parent_map_dart;
             }

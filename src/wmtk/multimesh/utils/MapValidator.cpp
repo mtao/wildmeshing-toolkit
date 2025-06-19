@@ -51,7 +51,7 @@ bool MapValidator::check_child_map_attributes_valid() const
             wmtk::PrimitiveType prim_type = wmtk::PrimitiveType(j);
 
             for (const auto& pt : m_mesh.get_all(prim_type)) {
-                wmtk::simplex::Simplex s(m_mesh, prim_type, pt);
+                wmtk::simplex::Simplex s(prim_type, pt);
 
                 auto tups = simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
@@ -224,7 +224,7 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
                     continue;
                 }
 
-                wmtk::simplex::Simplex switched_simplex(child, pt, child.switch_tuple(t, spt));
+                wmtk::simplex::Simplex switched_simplex(pt, child.switch_tuple(t, spt));
                 wmtk::Tuple switch_map = child.map_to_parent_tuple(switched_simplex);
                 wmtk::Tuple map_switch = m_mesh.switch_tuple(parent_tuple, spt);
                 for (PrimitiveType my_pt : wmtk::utils::primitive_below(child.top_simplex_type())) {

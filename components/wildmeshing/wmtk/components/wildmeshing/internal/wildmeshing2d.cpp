@@ -966,7 +966,6 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
 
 
     wmtk::attribute::TypedAttributeHandle<char> visited_edge_flag_t = visited_edge_flag.as<char>();
-    return {};
 
     pre_stats = scheduler.run_operation_on_all(*collapse_then_round, visited_edge_flag_t);
     logger().info(
