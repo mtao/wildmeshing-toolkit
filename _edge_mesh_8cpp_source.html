@@ -399,7 +399,7 @@ $(document).ready(function(){initNavTree('_edge_mesh_8cpp_source.html',''); init
 <div class="foldopen" id="foldopen00244" data-start="{" data-end="}">
 <div class="line"><a id="l00244" name="l00244"></a><span class="lineno"><a class="line" href="classwmtk_1_1_edge_mesh.html#a3bf6f960d630d1e3a79a09c71a43100f">  244</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classwmtk_1_1_edge_mesh.html#a3bf6f960d630d1e3a79a09c71a43100f">EdgeMesh::is_connectivity_valid</a>()<span class="keyword"> const</span></div>
 <div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="comment">// </span></div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>    <span class="comment">//</span></div>
 <div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>    <span class="comment">// leave in print to make sure that this slow function is visible when called</span></div>
 <div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().debug(<span class="stringliteral">&quot;Checking if EdgeMesh connectivity is valid&quot;</span>);</div>
 <div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>    <span class="comment">// get accessors for topology</span></div>
@@ -418,8 +418,8 @@ $(document).ready(function(){initNavTree('_edge_mesh_8cpp_source.html',''); init
 <div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>        }</div>
 <div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        <span class="keywordtype">int</span> cnt = 0;</div>
 <div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        <span class="keywordflow">for</span> (int64_t j = 0; j &lt; 2; ++j) {</div>
-<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            <span class="keywordflow">if</span> (ev_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_accessor.html#abecebb154568864219abda80a1beb803">const_vector_attribute</a>&lt;2&gt;(</div>
-<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>                    ve_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_accessor.html#a6d3222130c85d3dcd2d7ae51257dc988">const_scalar_attribute</a>(i))(j) == i) {</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>            <span class="keywordflow">if</span> (ev_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_accessor.html#abecebb154568864219abda80a1beb803">const_vector_attribute</a>&lt;2&gt;(ve_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_accessor.html#a6d3222130c85d3dcd2d7ae51257dc988">const_scalar_attribute</a>(i))(j) ==</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>                i) {</div>
 <div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>                cnt++;</div>
 <div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>            }</div>
 <div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        }</div>
@@ -447,79 +447,100 @@ $(document).ready(function(){initNavTree('_edge_mesh_8cpp_source.html',''); init
 <div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>            <span class="keywordflow">continue</span>;</div>
 <div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>            <span class="comment">// return false;</span></div>
 <div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>        }</div>
-<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span> </div>
-<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        <span class="keywordflow">for</span> (int64_t j = 0; j &lt; 2; ++j) {</div>
-<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>            int64_t nbre = ee(j);</div>
-<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>            <span class="comment">// if boundary nvm</span></div>
-<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>            <span class="keywordflow">if</span> (nbre == -1) {</div>
-<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>            }</div>
-<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>            <span class="keyword">auto</span> nbree = ee_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_accessor.html#aaeafc36889f90d4e4e9478f998d240d7">attribute</a>().const_vector_attribute&lt;2&gt;(nbre);</div>
-<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>            <span class="keyword">auto</span> nbrev = ev_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_accessor.html#aaeafc36889f90d4e4e9478f998d240d7">attribute</a>().const_vector_attribute&lt;2&gt;(nbre);</div>
-<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>            <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>            <span class="keywordflow">for</span> (int64_t k = 0; k &lt; 2; ++k) {</div>
-<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>                <span class="keywordflow">if</span> (nbrev(k) == ev(j)) {</div>
-<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>                    found = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span> </div>
-<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>                    <span class="keywordflow">if</span> (nbree(k) != i) {</div>
-<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>                        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().error(</div>
-<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                            <span class="stringliteral">&quot;EV[{}] = {}, got EV[EE[{},{}]] = {}, which does not include {} but &quot;</span></div>
-<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>                            <span class="stringliteral">&quot;needed to at position {}&quot;</span>,</div>
-<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>                            i,</div>
-<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                            fmt::join(ev, <span class="stringliteral">&quot;,&quot;</span>),</div>
-<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                            i,</div>
-<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>                            j,</div>
-<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                            fmt::join(nbrev, <span class="stringliteral">&quot;,&quot;</span>),</div>
-<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                            ev(j),</div>
-<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>                            k);</div>
-<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>                    }</div>
-<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>                }</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>            }</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span> </div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            <span class="keywordflow">if</span> (!found) {</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().error(</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>                    <span class="stringliteral">&quot;EE[{}] = {}, got EE[EE[{},{}]] = {}, which does not include {} but needed to&quot;</span>,</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>                    i,</div>
-<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>                    fmt::join(ee, <span class="stringliteral">&quot;,&quot;</span>),</div>
-<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>                    i,</div>
-<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>                    j,</div>
-<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>                    fmt::join(nbree, <span class="stringliteral">&quot;,&quot;</span>),</div>
-<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>                    i);</div>
-<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>            }</div>
-<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>        }</div>
-<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>        <span class="comment">// TODO: need to handle cornor case (self-loop)</span></div>
-<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>    }</div>
-<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span> </div>
-<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span> </div>
-<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>}</div>
-</div>
-<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span> </div>
-<div class="foldopen" id="foldopen00343" data-start="{" data-end="}">
-<div class="line"><a id="l00343" name="l00343"></a><span class="lineno"><a class="line" href="classwmtk_1_1_edge_mesh.html#afebb96e4c7a3cea00d27003e8664e682">  343</a></span>std::vector&lt;std::vector&lt;TypedAttributeHandle&lt;int64_t&gt;&gt;&gt; <a class="code hl_function" href="classwmtk_1_1_edge_mesh.html#afebb96e4c7a3cea00d27003e8664e682">EdgeMesh::connectivity_attributes</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>    std::vector&lt;std::vector&lt;TypedAttributeHandle&lt;int64_t&gt;&gt;&gt; handles(2);</div>
-<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span> </div>
-<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>    handles[1].push_back(<a class="code hl_variable" href="classwmtk_1_1_edge_mesh.html#a9a95eb5094a314293961b68f6656efcc">m_ve_handle</a>);</div>
-<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>    handles[1].push_back(<a class="code hl_variable" href="classwmtk_1_1_edge_mesh.html#a07b759fafee886dc6e149f11ee70173a">m_ee_handle</a>);</div>
-<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>    handles[0].push_back(<a class="code hl_variable" href="classwmtk_1_1_edge_mesh.html#a7b8a8315153163fff07fd644c887c394">m_ev_handle</a>);</div>
-<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span> </div>
-<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>    <span class="keywordflow">return</span> handles;</div>
-<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>}</div>
-</div>
-<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span> </div>
-<div class="foldopen" id="foldopen00354" data-start="{" data-end="}">
-<div class="line"><a id="l00354" name="l00354"></a><span class="lineno"><a class="line" href="classwmtk_1_1_edge_mesh.html#a7736ba2bb588d8aa81511cc42502bf68">  354</a></span>std::vector&lt;Tuple&gt; <a class="code hl_function" href="classwmtk_1_1_edge_mesh.html#a7736ba2bb588d8aa81511cc42502bf68">EdgeMesh::orient_vertices</a>(<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; tuple)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>    int64_t cid = tuple.<a class="code hl_function" href="classwmtk_1_1_tuple.html#aef64a43ff5f5617dbc99d865356bbc25">global_cid</a>();</div>
-<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>    <span class="keywordflow">return</span> {<a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>(0, -1, -1, cid), <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>(1, -1, -1, cid)};</div>
-<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>}</div>
-</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>        <span class="keywordflow">for</span> (int64_t j = 0; j &lt; 2; ++j) {</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>            <span class="keywordflow">if</span> (!v_flag_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_flag_accessor.html#a4f49a666c3811fee9b841c1cd1f66250">index_access</a>().<a class="code hl_function" href="classwmtk_1_1attribute_1_1_index_flag_accessor.html#a195252af3f6230f09f0c1379cbec7240">is_active</a>(ev(j))) {</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().error(</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>                    <span class="stringliteral">&quot;Edge {} is active but its vertex EV[{},{}] = {} is not active&quot;</span>,</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>                    i,</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>                    i,</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>                    j,</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>                    ev(j));</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno">  303</span>            }</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>        }</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span> </div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>        <span class="keywordflow">for</span> (int64_t j = 0; j &lt; 2; ++j) {</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>            int64_t nbre = ee(j);</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>            <span class="comment">// if boundary nvm</span></div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>            <span class="keywordflow">if</span> (nbre == -1) {</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>            }</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>            <span class="keywordflow">if</span> (!e_flag_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_flag_accessor.html#a4f49a666c3811fee9b841c1cd1f66250">index_access</a>().<a class="code hl_function" href="classwmtk_1_1attribute_1_1_index_flag_accessor.html#a195252af3f6230f09f0c1379cbec7240">is_active</a>(ee(j))) {</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().error(</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>                    <span class="stringliteral">&quot;Edge {} is active but its nonempty neighbor EE[{},{}] = {} is not active&quot;</span>,</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span>                    i,</div>
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno">  316</span>                    i,</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>                    j,</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>                    ee(j));</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>            }</div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span> </div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>            <span class="keyword">auto</span> nbree = ee_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_accessor.html#aaeafc36889f90d4e4e9478f998d240d7">attribute</a>().const_vector_attribute&lt;2&gt;(nbre);</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            <span class="keyword">auto</span> nbrev = ev_accessor.<a class="code hl_function" href="classwmtk_1_1attribute_1_1_accessor.html#aaeafc36889f90d4e4e9478f998d240d7">attribute</a>().const_vector_attribute&lt;2&gt;(nbre);</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            <span class="keywordflow">for</span> (int64_t k = 0; k &lt; 2; ++k) {</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>                <span class="keywordflow">if</span> (nbrev(k) == ev(j)) {</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>                    found = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span> </div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>                    <span class="keywordflow">if</span> (nbree(k) != i) {</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>                        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().error(</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>                            <span class="stringliteral">&quot;EV[{}] = {}, got EV[EE[{},{}]] = {}, which does not include {} but &quot;</span></div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>                            <span class="stringliteral">&quot;needed to at position {}&quot;</span>,</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>                            i,</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>                            fmt::join(ev, <span class="stringliteral">&quot;,&quot;</span>),</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span>                            i,</div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>                            j,</div>
+<div class="line"><a id="l00337" name="l00337"></a><span class="lineno">  337</span>                            fmt::join(nbrev, <span class="stringliteral">&quot;,&quot;</span>),</div>
+<div class="line"><a id="l00338" name="l00338"></a><span class="lineno">  338</span>                            ev(j),</div>
+<div class="line"><a id="l00339" name="l00339"></a><span class="lineno">  339</span>                            k);</div>
+<div class="line"><a id="l00340" name="l00340"></a><span class="lineno">  340</span>                        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00341" name="l00341"></a><span class="lineno">  341</span>                    }</div>
+<div class="line"><a id="l00342" name="l00342"></a><span class="lineno">  342</span>                }</div>
+<div class="line"><a id="l00343" name="l00343"></a><span class="lineno">  343</span>            }</div>
+<div class="line"><a id="l00344" name="l00344"></a><span class="lineno">  344</span> </div>
+<div class="line"><a id="l00345" name="l00345"></a><span class="lineno">  345</span>            <span class="keywordflow">if</span> (!found) {</div>
+<div class="line"><a id="l00346" name="l00346"></a><span class="lineno">  346</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().error(</div>
+<div class="line"><a id="l00347" name="l00347"></a><span class="lineno">  347</span>                    <span class="stringliteral">&quot;EE[{}] = {}, got EE[EE[{},{}]] = {}, which does not include {} but needed to&quot;</span>,</div>
+<div class="line"><a id="l00348" name="l00348"></a><span class="lineno">  348</span>                    i,</div>
+<div class="line"><a id="l00349" name="l00349"></a><span class="lineno">  349</span>                    fmt::join(ee, <span class="stringliteral">&quot;,&quot;</span>),</div>
+<div class="line"><a id="l00350" name="l00350"></a><span class="lineno">  350</span>                    i,</div>
+<div class="line"><a id="l00351" name="l00351"></a><span class="lineno">  351</span>                    j,</div>
+<div class="line"><a id="l00352" name="l00352"></a><span class="lineno">  352</span>                    fmt::join(nbree, <span class="stringliteral">&quot;,&quot;</span>),</div>
+<div class="line"><a id="l00353" name="l00353"></a><span class="lineno">  353</span>                    i);</div>
+<div class="line"><a id="l00354" name="l00354"></a><span class="lineno">  354</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00355" name="l00355"></a><span class="lineno">  355</span>            }</div>
+<div class="line"><a id="l00356" name="l00356"></a><span class="lineno">  356</span>        }</div>
+<div class="line"><a id="l00357" name="l00357"></a><span class="lineno">  357</span>        <span class="comment">// TODO: need to handle cornor case (self-loop)</span></div>
+<div class="line"><a id="l00358" name="l00358"></a><span class="lineno">  358</span>    }</div>
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span> </div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span> </div>
-<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>} <span class="comment">// namespace wmtk</span></div>
+<div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>}</div>
+</div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
+<div class="foldopen" id="foldopen00364" data-start="{" data-end="}">
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno"><a class="line" href="classwmtk_1_1_edge_mesh.html#afebb96e4c7a3cea00d27003e8664e682">  364</a></span>std::vector&lt;std::vector&lt;TypedAttributeHandle&lt;int64_t&gt;&gt;&gt; <a class="code hl_function" href="classwmtk_1_1_edge_mesh.html#afebb96e4c7a3cea00d27003e8664e682">EdgeMesh::connectivity_attributes</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span>    std::vector&lt;std::vector&lt;TypedAttributeHandle&lt;int64_t&gt;&gt;&gt; handles(2);</div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span> </div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    handles[1].push_back(<a class="code hl_variable" href="classwmtk_1_1_edge_mesh.html#a9a95eb5094a314293961b68f6656efcc">m_ve_handle</a>);</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>    handles[1].push_back(<a class="code hl_variable" href="classwmtk_1_1_edge_mesh.html#a07b759fafee886dc6e149f11ee70173a">m_ee_handle</a>);</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span>    handles[0].push_back(<a class="code hl_variable" href="classwmtk_1_1_edge_mesh.html#a7b8a8315153163fff07fd644c887c394">m_ev_handle</a>);</div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span> </div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>    <span class="keywordflow">return</span> handles;</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span>}</div>
+</div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span> </div>
+<div class="foldopen" id="foldopen00375" data-start="{" data-end="}">
+<div class="line"><a id="l00375" name="l00375"></a><span class="lineno"><a class="line" href="classwmtk_1_1_edge_mesh.html#a7736ba2bb588d8aa81511cc42502bf68">  375</a></span>std::vector&lt;Tuple&gt; <a class="code hl_function" href="classwmtk_1_1_edge_mesh.html#a7736ba2bb588d8aa81511cc42502bf68">EdgeMesh::orient_vertices</a>(<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; tuple)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00376" name="l00376"></a><span class="lineno">  376</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00377" name="l00377"></a><span class="lineno">  377</span>    int64_t cid = tuple.<a class="code hl_function" href="classwmtk_1_1_tuple.html#aef64a43ff5f5617dbc99d865356bbc25">global_cid</a>();</div>
+<div class="line"><a id="l00378" name="l00378"></a><span class="lineno">  378</span>    <span class="keywordflow">return</span> {<a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>(0, -1, -1, cid), <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>(1, -1, -1, cid)};</div>
+<div class="line"><a id="l00379" name="l00379"></a><span class="lineno">  379</span>}</div>
+</div>
+<div class="line"><a id="l00380" name="l00380"></a><span class="lineno">  380</span> </div>
+<div class="line"><a id="l00381" name="l00381"></a><span class="lineno">  381</span> </div>
+<div class="line"><a id="l00382" name="l00382"></a><span class="lineno">  382</span>} <span class="comment">// namespace wmtk</span></div>
 <div class="ttc" id="a_edge_mesh_8hpp_html"><div class="ttname"><a href="_edge_mesh_8hpp.html">EdgeMesh.hpp</a></div></div>
 <div class="ttc" id="a_logger_8hpp_html"><div class="ttname"><a href="_logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html">wmtk::EdgeMesh</a></div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8hpp_source.html#l00015">EdgeMesh.hpp:16</a></div></div>
@@ -535,7 +556,7 @@ $(document).ready(function(){initNavTree('_edge_mesh_8cpp_source.html',''); init
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_a5fc396537aa183d59d555e66aa8d1e70"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#a5fc396537aa183d59d555e66aa8d1e70">wmtk::EdgeMesh::initialize_free</a></div><div class="ttdeci">void initialize_free(int64_t count)</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00146">EdgeMesh.cpp:146</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_a6e3be3f5a753ecbc208e791357efc7f2"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#a6e3be3f5a753ecbc208e791357efc7f2">wmtk::EdgeMesh::tuple_from_id</a></div><div class="ttdeci">Tuple tuple_from_id(const PrimitiveType type, const int64_t gid) const override</div><div class="ttdoc">internal function that returns the tuple of requested type, and has the global index cid</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00156">EdgeMesh.cpp:156</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_a72273ee79b910155046cb3ef291fbc49"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#a72273ee79b910155046cb3ef291fbc49">wmtk::EdgeMesh::edge_tuple_from_id</a></div><div class="ttdeci">Tuple edge_tuple_from_id(int64_t id) const</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00196">EdgeMesh.cpp:196</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_a7736ba2bb588d8aa81511cc42502bf68"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#a7736ba2bb588d8aa81511cc42502bf68">wmtk::EdgeMesh::orient_vertices</a></div><div class="ttdeci">std::vector&lt; Tuple &gt; orient_vertices(const Tuple &amp;tuple) const override</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00354">EdgeMesh.cpp:354</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_a7736ba2bb588d8aa81511cc42502bf68"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#a7736ba2bb588d8aa81511cc42502bf68">wmtk::EdgeMesh::orient_vertices</a></div><div class="ttdeci">std::vector&lt; Tuple &gt; orient_vertices(const Tuple &amp;tuple) const override</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00375">EdgeMesh.cpp:375</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_a7b8a8315153163fff07fd644c887c394"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#a7b8a8315153163fff07fd644c887c394">wmtk::EdgeMesh::m_ev_handle</a></div><div class="ttdeci">attribute::TypedAttributeHandle&lt; int64_t &gt; m_ev_handle</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8hpp_source.html#l00081">EdgeMesh.hpp:81</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_a830d7c95df87c69a47132c9aa992f128"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#a830d7c95df87c69a47132c9aa992f128">wmtk::EdgeMesh::vertex_tuple_from_id</a></div><div class="ttdeci">Tuple vertex_tuple_from_id(int64_t id) const</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00179">EdgeMesh.cpp:179</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_a83db0c93833dacdfb169807d8ba4b6ca"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#a83db0c93833dacdfb169807d8ba4b6ca">wmtk::EdgeMesh::is_ccw</a></div><div class="ttdeci">bool is_ccw(const Tuple &amp;tuple) const override</div><div class="ttdoc">TODO this needs dimension?</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00093">EdgeMesh.cpp:93</a></div></div>
@@ -543,7 +564,7 @@ $(document).ready(function(){initNavTree('_edge_mesh_8cpp_source.html',''); init
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_aa7afedd14fd602beb08931fe35856d5f"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#aa7afedd14fd602beb08931fe35856d5f">wmtk::EdgeMesh::~EdgeMesh</a></div><div class="ttdeci">~EdgeMesh() override</div></div>
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_ab2c9399dcd6f0e68b65126cde5ee9fd6"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#ab2c9399dcd6f0e68b65126cde5ee9fd6">wmtk::EdgeMesh::initialize</a></div><div class="ttdeci">void initialize(Eigen::Ref&lt; const RowVectors2l &gt; E, bool is_free=false)</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00133">EdgeMesh.cpp:133</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_acd802c89cf0cba9c312a8e7ecfa11c80"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#acd802c89cf0cba9c312a8e7ecfa11c80">wmtk::EdgeMesh::is_valid</a></div><div class="ttdeci">bool is_valid(const Tuple &amp;tuple) const final override</div><div class="ttdoc">check validity of tuple including its hash</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00222">EdgeMesh.cpp:222</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_afebb96e4c7a3cea00d27003e8664e682"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#afebb96e4c7a3cea00d27003e8664e682">wmtk::EdgeMesh::connectivity_attributes</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; TypedAttributeHandle&lt; int64_t &gt; &gt; &gt; connectivity_attributes() const override</div><div class="ttdoc">Returns a vector of vectors of attribute handles.</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00343">EdgeMesh.cpp:343</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_edge_mesh_html_afebb96e4c7a3cea00d27003e8664e682"><div class="ttname"><a href="classwmtk_1_1_edge_mesh.html#afebb96e4c7a3cea00d27003e8664e682">wmtk::EdgeMesh::connectivity_attributes</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; TypedAttributeHandle&lt; int64_t &gt; &gt; &gt; connectivity_attributes() const override</div><div class="ttdoc">Returns a vector of vectors of attribute handles.</div><div class="ttdef"><b>Definition</b> <a href="_edge_mesh_8cpp_source.html#l00364">EdgeMesh.cpp:364</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_c_r_t_p_html"><div class="ttname"><a href="classwmtk_1_1_mesh_c_r_t_p.html">wmtk::MeshCRTP</a></div><div class="ttdoc">A Curiously Recurring Template Pattern shim to enable generic specialization of functions.</div><div class="ttdef"><b>Definition</b> <a href="_mesh_c_r_t_p_8hpp_source.html#l00023">MeshCRTP.hpp:24</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html_a05287c6baa8681683ef6b03d36d1aa94"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a05287c6baa8681683ef6b03d36d1aa94">wmtk::Mesh::m_is_free</a></div><div class="ttdeci">bool m_is_free</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00889">Mesh.hpp:889</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html_a05eaf6f3eeb78949f3b95c359cc6df68"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a05eaf6f3eeb78949f3b95c359cc6df68">wmtk::Mesh::set_capacities</a></div><div class="ttdeci">void set_capacities(std::vector&lt; int64_t &gt; capacities)</div><div class="ttdef"><b>Definition</b> <a href="_mesh__attributes_8cpp_source.html#l00097">Mesh_attributes.cpp:97</a></div></div>
