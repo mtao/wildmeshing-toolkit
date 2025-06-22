@@ -92,8 +92,10 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
         auto mods = execute(simplex);
 #ifndef NDEBUG
         if (!mesh().is_free()) {
+            spdlog::error("CHECKING TUPLE VALIDITY!");
             for (const auto& s : mods) {
-                assert(mesh().is_valid(s.tuple()));
+                assert(mesh().is_valid(s));
+                spdlog::info("direct mods valid: {} {}", std::string(s.tuple()), mesh().id(s));
             }
         }
 #endif
@@ -213,12 +215,12 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
             auto& at_mesh = at_ptr->mesh();
 #if defined(MTAO_CONSTANTLY_VERIFY_MESH)
             assert(at_mesh.is_connectivity_valid());
+            assert(wmtk::multimesh::utils::check_maps_valid(at_mesh));
 #endif
             for (const auto& s : direct_mods) {
                 assert(m_mesh.is_valid(s));
             }
             auto at_mesh_simplices = m_mesh.map(at_mesh, direct_mods);
-            assert(wmtk::multimesh::utils::check_maps_valid(at_mesh));
 
             // wmtk::multimesh::utils::internal::print_all_mapped_tuples(m_mesh);
 

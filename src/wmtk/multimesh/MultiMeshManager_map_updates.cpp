@@ -171,6 +171,11 @@ void MultiMeshManager::update_maps_from_edge_operation(
             }
 
             auto [parent_tuple, child_tuple] = mapped_tuples(my_mesh, *child_data.mesh, gid);
+            spdlog::info(
+                "update map edge op gid {} found map {} {}",
+                gid, 
+                std::string(parent_tuple),
+                std::string(child_tuple));
 
 
             // If the parent tuple is valid, it means this parent-child pair has already been
@@ -255,12 +260,21 @@ void MultiMeshManager::update_map_tuple_hashes(
             // auto [parent_tuple, child_tuple] =
             //    mapped_tuples(my_mesh, *child_data.mesh, original_parent_gid);
             dart::Dart child_map_dart = parent_to_child_accessor[original_parent_gid];
+            if(child_map_dart.is_null()) {
+                continue;
+            }
             dart::Dart parent_map_dart = child_to_parent_accessor[child_map_dart.global_id()];
+            spdlog::info(
+                "gid {} found map {} {}",
+                original_parent_gid, 
+                std::string(parent_map_dart),
+                std::string( child_map_dart));
 
             // If the parent tuple is valid, it means this parent-child pair has already been
             // handled, so we can skip it
             // If the parent tuple is invalid then there was no map so we can try the next cell
             if (parent_map_dart.is_null()) {
+                logger().debug("parent dart was null");
                 continue;
             }
 
@@ -269,6 +283,7 @@ void MultiMeshManager::update_map_tuple_hashes(
             // that alraedy check if the map is handled in the ear case if the child simplex is
             // deleted then we can skip it
             if (child_mesh.is_removed(child_map_dart.global_id())) {
+                logger().debug("child simplex was removed, moving on");
                 continue;
             }
 

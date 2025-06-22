@@ -4,6 +4,7 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/components/multimesh/from_tag.hpp>
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/Rational.hpp>
@@ -125,7 +126,10 @@ EdgeInsertionMeshes edge_insertion(EdgeMesh& input_mesh, TriMesh& bg_mesh)
 
     auto pt_attribute = m->get_attribute_handle<Rational>("vertices", PrimitiveType::Vertex);
 
+    assert(wmtk::multimesh::utils::check_maps_valid(*m));
+
     for (auto child : m->get_child_meshes()) {
+        assert(wmtk::multimesh::utils::check_maps_valid(*child));
         auto child_position_handle = child->register_attribute<Rational>(
             "vertices",
             PrimitiveType::Vertex,

@@ -126,11 +126,11 @@ TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor(
 void TriMesh::TriMeshOperationExecutor::delete_simplices()
 {
     for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-        // wmtk::logger().debug(
-        //     "Deleting {} {}-simplices [{}]",
-        //     simplex_ids_to_delete[d].size(),
-        //     d,
-        //     fmt::join(simplex_ids_to_delete[d], ","));
+        wmtk::logger().debug(
+            "FM-Deleting {} {}-simplices [{}]",
+            simplex_ids_to_delete[d].size(),
+            d,
+            fmt::join(simplex_ids_to_delete[d], ","));
         for (const int64_t id : simplex_ids_to_delete[d]) {
             flag_accessors[d].index_access().deactivate(id);
         }
@@ -370,6 +370,7 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
         fv = old_fv;
         fe = old_fe;
         ff = old_ff;
+        spdlog::info("Old ff for {} was {}", f_old, fmt::join(ff, ","));
         // correct old connectivity
         for (size_t i = 0; i < 3; ++i) {
             // if the original face edge was the other ear's edge then we replace it with thee
@@ -554,11 +555,11 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
         } else if (index == 2) {
             continue;
         }
-        spdlog::info(
-            "Want to check {}-simplex {} index {}",
-            index,
-            m_mesh.id(s),
-            primitive_type_name(s.primitive_type()));
+        //spdlog::info(
+        //    "Want to check {}-simplex {} index {}",
+        //    index,
+        //    m_mesh.id(s),
+        //    primitive_type_name(s.primitive_type()));
         auto cofaces = wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
         global_ids_to_potential_tuples.at(index).emplace_back(id, std::move(cofaces));
@@ -668,6 +669,7 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
 {
     set_collapse();
     is_collapse = true;
+    logger().warn("Edge collapse on {}", m_mesh.id_edge(m_operating_tuple));
 
     const simplex::Simplex edge_operating(m_mesh, PrimitiveType::Edge, m_operating_tuple);
 
@@ -720,6 +722,11 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
                 continue;
             }
 
+            //spdlog::info(
+            //    "Want to check {}-simplex {} index {}",
+            //    index,
+            //    m_mesh.id(s),
+            //    primitive_type_name(s.primitive_type()));
             global_ids_to_potential_tuples.at(index).emplace_back(
                 m_mesh.id(s),
                 wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, m_mesh.get_simplex(s)));

@@ -53,10 +53,14 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     const PrimitiveType pt = source_to_target_map_accessor.mesh().top_simplex_type();
     const PrimitiveType target_pt = target_to_source_map_accessor.mesh().top_simplex_type();
     const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(pt);
+    const PrimitiveType min_pt = pt < target_pt ? pt : target_pt;
 
+    assert(source_to_target_map_accessor.mesh().is_valid(source_tuple));
+    int64_t id = source_to_target_map_accessor.mesh().id(source_tuple, min_pt);
+    assert(!source_to_target_map_accessor.mesh().is_removed(id, min_pt));
     wmtk::dart::Dart source_dart = sd.dart_from_tuple(source_tuple);
     assert(sd.is_valid(source_dart));
-    const auto involution = source_to_target_map_accessor[source_dart][0];
+    const auto involution = source_to_target_map_accessor[id][0];
     if (involution.is_null()) {
         return {};
     }
@@ -67,11 +71,13 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
         const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
         const int64_t desired_source_gid = inverse_involution.global_id();
         logger().warn(
-            "cid:{}={},{}={}",
+            "cid:{}={},{}={} (source gid was {})",
             desired_source_gid,
             source_to_target_map_accessor.mesh().is_removed(desired_source_gid),
             target_global_id,
-            target_to_source_map_accessor.mesh().is_removed(target_global_id));
+            target_to_source_map_accessor.mesh().is_removed(target_global_id),
+            id
+            );
 
         // logger().warn(
         //     "cid:{},id:{} {}",

@@ -15,6 +15,7 @@ MapValidator::MapValidator(const Mesh& m)
 {}
 bool MapValidator::check_all() const
 {
+    logger().info("Checking all map validitiy checks");
     bool ok = true;
     ok &= check_parent_map_attribute_valid();
     ok &= check_child_map_attributes_valid();
@@ -22,13 +23,14 @@ bool MapValidator::check_all() const
         return ok;
     }
     ok &= check_switch_homomorphism();
+    ok &= check_facet_uniqueness();
 
     return ok;
 }
 
 bool MapValidator::check_child_map_attributes_valid() const
 {
-    logger().info("Child attributes valid with {} children");
+    logger().debug("Checking child map attributes are valid");
 #if defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
     // return true;
 #endif
@@ -100,7 +102,9 @@ bool MapValidator::check_child_map_attributes_valid() const
 
 bool MapValidator::check_parent_map_attribute_valid() const
 {
-    logger().debug("Checking parent map attribute validity for {}", fmt::join(m_mesh.absolute_multi_mesh_id(), ","));
+    logger().debug(
+        "Checking parent map attribute validity for {}",
+        fmt::join(m_mesh.absolute_multi_mesh_id(), ","));
     bool ok = true;
     const auto& parent_ptr = m_mesh.m_multi_mesh_manager.m_parent;
     if (parent_ptr == nullptr) {
@@ -196,6 +200,54 @@ bool MapValidator::check_switch_homomorphism() const
     }
     return ok;
 }
+bool MapValidator::check_facet_uniqueness() const
+{
+    bool ok = true;
+    for (const auto& cptr : m_mesh.get_child_meshes()) {
+        ok &= check_child_facet_uniqueness(*cptr);
+    }
+    return ok;
+}
+bool MapValidator::check_child_facet_uniqueness(const Mesh& child) const
+{
+    bool ok = true;
+    assert(child.m_multi_mesh_manager.m_parent == &m_mesh);
+    const auto pt = child.top_simplex_type();
+
+    auto child_facets = child.get_all(pt);
+
+
+    std::vector<std::vector<simplex::Simplex>> children_mapped(child_facets.size());
+
+
+    for (const auto& parent_t : m_mesh.get_all(pt)) {
+        wmtk::simplex::Simplex s(pt, parent_t);
+        auto child_ss = m_mesh.map_to_child(child, s);
+        for (const auto& child_s : child_ss) {
+            children_mapped[child.id(child_s)].emplace_back(child_s);
+        }
+    }
+    for (size_t j = 0; j < children_mapped.size(); ++j) {
+        const auto& children = children_mapped[j];
+        if (children.size() > 1) {
+            std::vector<std::string> tups;
+            ok = false;
+            std::transform(
+                children.begin(),
+                children.end(),
+                std::back_inserter(tups),
+                [](const auto& x) { return std::string(x.tuple()); });
+            wmtk::logger().error(
+                "Single child facet maps to multiple parent facets: [{}]:{} maps to [{}]:{}",
+                fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
+                j,
+                fmt::join(child.absolute_multi_mesh_id(), ","),
+                fmt::join(tups, ","));
+        }
+    }
+    return ok;
+}
+
 bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
 {
     assert(child.m_multi_mesh_manager.m_parent == &m_mesh);
