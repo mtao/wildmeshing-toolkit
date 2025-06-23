@@ -15,6 +15,7 @@ public:
         const TypedAttributeHandle<T>& coordinate,
         bool inverted = false);
     using Invariant::Invariant;
+    std::string name() const final override;
 
     /**
      *  we assume with local vid order (v0,v1,v2,v3) has positive volume (orient3d(v0,v1,v2,v3)>0)

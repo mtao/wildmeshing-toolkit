@@ -21,7 +21,8 @@ public:
     FrozenOppVertexInvariant(
         const Mesh& m,
         const TypedAttributeHandle<int64_t>& frozen_vertex_handle);
-    bool before(const simplex::Simplex& t) const override;
+    bool before(const simplex::Simplex& t) const override final;
+    std::string name() const final override;
 
 private:
     const TypedAttributeHandle<int64_t> m_frozen_vertex_handle;

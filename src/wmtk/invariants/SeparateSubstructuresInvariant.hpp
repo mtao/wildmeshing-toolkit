@@ -28,6 +28,7 @@ public:
     SeparateSubstructuresInvariant(const Mesh& m, bool check_condition_2 = true);
 
     bool before(const simplex::Simplex& s) const override;
+    std::string name() const final override;
 
 private:
     const bool m_check_condition_2 = true;

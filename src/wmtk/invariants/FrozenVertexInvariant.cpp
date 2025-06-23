@@ -38,4 +38,9 @@ bool FrozenOppVertexInvariant::before(const simplex::Simplex& t) const
     }
     return true;
 }
+
+std::string FrozenVertexInvariant::name() const
+{
+    return "FrozenVertexInvariant";
+}
 } // namespace wmtk::invariants
