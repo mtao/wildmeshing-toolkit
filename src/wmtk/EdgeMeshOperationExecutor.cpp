@@ -1,5 +1,6 @@
 
 #include "EdgeMeshOperationExecutor.hpp"
+#include <fmt/ranges.h>
 #include <wmtk/operations/internal/SplitAlternateFacetData.hpp>
 #include <wmtk/simplex/faces.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
@@ -235,6 +236,7 @@ Tuple EdgeMesh::EdgeMeshOperationExecutor::collapse_edge_single_mesh()
 
     simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
 
+    spdlog::info("Edge collapse on {} with neighbors {}, vertices {}", m_operating_edge_id,fmt::join( m_neighbor_eids,",") ,fmt::join(m_spine_vids,","));
     // update ee
     {
         // for neighbor edges

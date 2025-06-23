@@ -135,11 +135,12 @@ bool SimplexInversionInvariant<T>::is_oriented(
     //
 }
 
-template class SimplexInversionInvariant<double>;
-template class SimplexInversionInvariant<Rational>;
-std::string SimplexInversionInvariant::name() const
+template <typename T>
+std::string SimplexInversionInvariant<T>::name() const
 {
     return "SimplexInversionInvariant";
 }
 
+template class SimplexInversionInvariant<double>;
+template class SimplexInversionInvariant<Rational>;
 } // namespace wmtk

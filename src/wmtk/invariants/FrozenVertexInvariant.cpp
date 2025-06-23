@@ -43,4 +43,8 @@ std::string FrozenVertexInvariant::name() const
 {
     return "FrozenVertexInvariant";
 }
+std::string FrozenOppVertexInvariant::name() const
+{
+    return "FrozenOppVertexInvariant";
+}
 } // namespace wmtk::invariants

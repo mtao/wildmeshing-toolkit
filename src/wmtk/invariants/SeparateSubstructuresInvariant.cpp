@@ -76,9 +76,9 @@ bool SeparateSubstructuresInvariant::before(const simplex::Simplex& s) const
     return v0_includes_v1 || v1_includes_v0;
 }
 
-std::string SeparateSubstructureInvariant::name() const
+std::string SeparateSubstructuresInvariant::name() const
 {
-    return "SeparateSubstructureInvariant";
+    return "SeparateSubstructuresInvariant";
 }
 
 } // namespace wmtk::invariants
