@@ -1,5 +1,11 @@
 var NAVTREEINDEX45 =
 {
+"structwmtk_1_1components_1_1_fusion_options.html#ac9098426598a59860c1a431611abac90":[9,0,10,2,18,0],
+"structwmtk_1_1components_1_1_fusion_options.html#ac9098426598a59860c1a431611abac90":[10,0,2,2,18,0],
+"structwmtk_1_1components_1_1_fusion_options.html#aff8cc4a918858d77761b882ec13e58f3":[10,0,2,2,18,2],
+"structwmtk_1_1components_1_1_fusion_options.html#aff8cc4a918858d77761b882ec13e58f3":[9,0,10,2,18,2],
+"structwmtk_1_1components_1_1_marching_options.html":[10,0,2,2,20],
+"structwmtk_1_1components_1_1_marching_options.html":[9,0,10,2,20],
 "structwmtk_1_1components_1_1_marching_options.html#a271b4de1c14e39e02537b4a43036bf3e":[10,0,2,2,20,0],
 "structwmtk_1_1components_1_1_marching_options.html#a271b4de1c14e39e02537b4a43036bf3e":[9,0,10,2,20,0],
 "structwmtk_1_1components_1_1_marching_options.html#a44d17e333cd45e21bceace6a89af4980":[10,0,2,2,20,5],
@@ -243,11 +249,5 @@ var NAVTREEINDEX45 =
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html":[9,0,10,2,3,7],
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html":[10,0,2,2,3,6],
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html":[9,0,10,2,3,9],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html":[10,0,2,2,3,8],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a00a611754553b511dca0ab47a9ab0d3a":[10,0,2,2,3,8,23],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a00a611754553b511dca0ab47a9ab0d3a":[9,0,10,2,3,9,23],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a1daf4df5c901c4a32a016fd100bda1d7":[10,0,2,2,3,8,8],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a1daf4df5c901c4a32a016fd100bda1d7":[9,0,10,2,3,9,8],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a217133ac755786621609204bd26b117c":[10,0,2,2,3,8,15],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a217133ac755786621609204bd26b117c":[9,0,10,2,3,9,15]
+"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html":[10,0,2,2,3,8]
 };

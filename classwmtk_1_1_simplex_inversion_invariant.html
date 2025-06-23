@@ -144,6 +144,8 @@ Collaboration diagram for wmtk::SimplexInversionInvariant&lt; T &gt;:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:adb5a44b80140d33237a4a9e2155d8c42" id="r_adb5a44b80140d33237a4a9e2155d8c42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#adb5a44b80140d33237a4a9e2155d8c42">SimplexInversionInvariant</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, const <a class="el" href="namespacewmtk.html#a49c007ac9ba40c3688e46dcf5d4bb624">TypedAttributeHandle</a>&lt; T &gt; &amp;coordinate, bool inverted=false)</td></tr>
 <tr class="separator:adb5a44b80140d33237a4a9e2155d8c42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ea946c4d2cbbb59f7c71a80789b46a7" id="r_a3ea946c4d2cbbb59f7c71a80789b46a7"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a3ea946c4d2cbbb59f7c71a80789b46a7">name</a> () const final override</td></tr>
+<tr class="separator:a3ea946c4d2cbbb59f7c71a80789b46a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1163728175bfbd4dc26f4861019ee591" id="r_a1163728175bfbd4dc26f4861019ee591"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html#a1163728175bfbd4dc26f4861019ee591">after</a> (const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;, const std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt; &amp;top_dimension_tuples_after) const override</td></tr>
 <tr class="memdesc:a1163728175bfbd4dc26f4861019ee591"><td class="mdescLeft">&#160;</td><td class="mdescRight">we assume with local vid order (v0,v1,v2,v3) has positive volume (orient3d(v0,v1,v2,v3)&gt;0) a CLOCKWISE input tuple will have the same orientation as the local vid order  <br /></td></tr>
 <tr class="separator:a1163728175bfbd4dc26f4861019ee591"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -172,8 +174,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a364df47f8d70f0e89149d56db8963461 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a497379c6c71970345a2d3e28ec90c8db inherit pub_methods_classwmtk_1_1invariants_1_1_invariant" id="r_a497379c6c71970345a2d3e28ec90c8db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db">use_new_state_in_after</a> () const</td></tr>
 <tr class="separator:a497379c6c71970345a2d3e28ec90c8db inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a71d5d449aff6bcc9e4c274b3edc003d2 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant" id="r_a71d5d449aff6bcc9e4c274b3edc003d2"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a71d5d449aff6bcc9e4c274b3edc003d2">name</a> () const</td></tr>
-<tr class="separator:a71d5d449aff6bcc9e4c274b3edc003d2 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -560,6 +560,37 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
+<a id="a3ea946c4d2cbbb59f7c71a80789b46a7" name="a3ea946c4d2cbbb59f7c71a80789b46a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ea946c4d2cbbb59f7c71a80789b46a7">&#9670;&#160;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string <a class="el" href="classwmtk_1_1_simplex_inversion_invariant.html">wmtk::SimplexInversionInvariant</a>&lt; T &gt;::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">final</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reimplemented from <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a71d5d449aff6bcc9e4c274b3edc003d2">wmtk::invariants::Invariant</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8cpp_source.html#l00140">140</a> of file <a class="el" href="_simplex_inversion_invariant_8cpp_source.html">SimplexInversionInvariant.cpp</a>.</p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Data Documentation</h2>
 <a id="a9368c5b1963e3fb92b2024d1ab85df56" name="a9368c5b1963e3fb92b2024d1ab85df56"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9368c5b1963e3fb92b2024d1ab85df56">&#9670;&#160;</a></span>m_coordinate_handle</h2>
@@ -583,7 +614,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00040">40</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00041">41</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
 
 </div>
 </div>
@@ -609,7 +640,7 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00041">41</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_simplex_inversion_invariant_8hpp_source.html#l00042">42</a> of file <a class="el" href="_simplex_inversion_invariant_8hpp_source.html">SimplexInversionInvariant.hpp</a>.</p>
 
 </div>
 </div>

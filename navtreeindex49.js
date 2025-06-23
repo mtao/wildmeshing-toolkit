@@ -1,5 +1,11 @@
 var NAVTREEINDEX49 =
 {
+"structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a13622b6a5ef6e3406bddcbf6833d6990":[9,0,10,11,4,1,4,16],
+"structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a13622b6a5ef6e3406bddcbf6833d6990":[10,0,2,8,4,1,4,16],
+"structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a1972d5cac69d45a0f31e19bf05eb593f":[9,0,10,11,4,1,4,15],
+"structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a1972d5cac69d45a0f31e19bf05eb593f":[10,0,2,8,4,1,4,15],
+"structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a347816d41f41bc9a82a692e27b7889ac":[10,0,2,8,4,1,4,17],
+"structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a347816d41f41bc9a82a692e27b7889ac":[9,0,10,11,4,1,4,17],
 "structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a391c66473ec97de3984d178add16f903":[10,0,2,8,4,1,4,10],
 "structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a391c66473ec97de3984d178add16f903":[9,0,10,11,4,1,4,10],
 "structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_incident_tet_data.html#a4293c765da35781d47f4b97111877c7b":[10,0,2,8,4,1,4,9],
@@ -243,11 +249,5 @@ var NAVTREEINDEX49 =
 "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void.html":[9,0,10,15,2,1,0,9],
 "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void.html":[10,0,2,10,2,1,0,9],
 "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void.html#afa6d6ab0f9cba4b7df44e16bfa283def":[9,0,10,15,2,1,0,9,0],
-"structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void.html#afa6d6ab0f9cba4b7df44e16bfa283def":[10,0,2,10,2,1,0,9,0],
-"structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void_3_01_t_00_01_ts_8_8_8_01_4.html":[9,0,10,15,2,1,0,11],
-"structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void_3_01_t_00_01_ts_8_8_8_01_4.html":[10,0,2,10,2,1,0,11],
-"structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void_3_01_t_00_01_ts_8_8_8_01_4.html#ad014dbd1e948f474d2d896769faf990a":[10,0,2,10,2,1,0,11,0],
-"structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void_3_01_t_00_01_ts_8_8_8_01_4.html#ad014dbd1e948f474d2d896769faf990a":[9,0,10,15,2,1,0,11,0],
-"structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void_3_01_t_01_4.html":[10,0,2,10,2,1,0,10],
-"structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void_3_01_t_01_4.html":[9,0,10,15,2,1,0,10]
+"structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1remove__void.html#afa6d6ab0f9cba4b7df44e16bfa283def":[10,0,2,10,2,1,0,9,0]
 };
