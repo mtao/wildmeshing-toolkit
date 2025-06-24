@@ -233,22 +233,37 @@ Tuple EdgeMesh::EdgeMeshOperationExecutor::collapse_edge_single_mesh()
                            m_mesh.is_boundary_vertex(m_mesh.switch_vertex(m_operating_tuple)))) {
         return Tuple();
     }
-
     simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
 
-    spdlog::info("Edge collapse on {} with neighbors {}, vertices {}", m_operating_edge_id,fmt::join( m_neighbor_eids,",") ,fmt::join(m_spine_vids,","));
-    // update ee
+    std::cout << std::endl << std::endl;
+    spdlog::info(
+        "Edge collapse on [{}]: {} with neighbors {}, vertices {}",
+        fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
+        m_operating_edge_id,
+        fmt::join(m_neighbor_eids, ","),
+        fmt::join(m_spine_vids, ","));
+    //  update ee
     {
         // for neighbor edges
         for (int64_t i = 0; i < 2; i++) {
             if (m_neighbor_eids[i] != -1) {
                 auto ee_neighbor = ee_accessor.vector_attribute(m_neighbor_eids[i]);
+                spdlog::info(
+                    "neighbor {} with gid {} had old ee of {}",
+                    i,
+                    m_neighbor_eids[i],
+                    fmt::join(ee_neighbor, ","));
                 for (int64_t j = 0; j < 2; j++) {
                     if (ee_neighbor[j] == m_operating_edge_id) {
                         ee_neighbor[j] = m_neighbor_eids[i ^ 1];
                         break;
                     }
                 }
+                spdlog::warn(
+                    "neighbor {} with gid {} has new ee of {}",
+                    i,
+                    m_neighbor_eids[i],
+                    fmt::join(ee_neighbor, ","));
             }
         }
     }
@@ -257,11 +272,21 @@ Tuple EdgeMesh::EdgeMeshOperationExecutor::collapse_edge_single_mesh()
     {
         if (m_neighbor_eids[0] != -1) {
             auto ev_neighbor = ev_accessor.vector_attribute(m_neighbor_eids[0]);
+            spdlog::info(
+                "neighbor {} with gid {} had old ee of {}",
+                0,
+                m_neighbor_eids[0],
+                fmt::join(ev_neighbor, ","));
             for (int64_t j = 0; j < 2; j++) {
                 if (ev_neighbor[j] == m_spine_vids[0]) {
                     ev_neighbor[j] = m_spine_vids[1];
                 }
             }
+            spdlog::warn(
+                "neighbor {} with gid {} had old ee of {}",
+                0,
+                m_neighbor_eids[0],
+                fmt::join(ev_neighbor, ","));
         }
     }
 
@@ -270,6 +295,11 @@ Tuple EdgeMesh::EdgeMeshOperationExecutor::collapse_edge_single_mesh()
     {
         ve_accessor.scalar_attribute(m_spine_vids[1]) =
             (m_neighbor_eids[1] != -1) ? m_neighbor_eids[1] : m_neighbor_eids[0];
+
+        spdlog::info(
+            "Vertex {} set to ve {}",
+            m_spine_vids[1],
+            (m_neighbor_eids[1] != -1) ? m_neighbor_eids[1] : m_neighbor_eids[0]);
     }
 
     delete_simplices();

@@ -1,7 +1,10 @@
 #pragma once
-#include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/Operation.hpp>
 
+namespace wmtk::operations {
+
+    class EdgeCollapse;
+}
 namespace wmtk::operations::composite {
 class CollapseAndUpdateVertex : public Operation
 {

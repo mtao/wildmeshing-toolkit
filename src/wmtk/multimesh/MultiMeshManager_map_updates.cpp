@@ -235,10 +235,10 @@ void MultiMeshManager::update_map_tuple_hashes(
     // go over every child mesh and try to update their hashes
     for (auto& child_data : children()) {
         auto& child_mesh = *child_data.mesh;
-        spdlog::info(
-            "{} {}",
-            primitive_type_name(child_mesh.top_simplex_type()),
-            primitive_type_name(primitive_type));
+        //spdlog::info(
+        //    "{} {}",
+        //    primitive_type_name(child_mesh.top_simplex_type()),
+        //    primitive_type_name(primitive_type));
         // ignore ones whos map are the wrong dimension
         if (child_mesh.top_simplex_type() != primitive_type) {
             continue;
@@ -253,7 +253,7 @@ void MultiMeshManager::update_map_tuple_hashes(
         for (const auto& [original_parent_gid, equivalent_parent_tuples] : simplices_to_update) {
 #if defined(WMTK_ENABLED_MULTIMESH_DART)
 
-            spdlog::info("{}-{}", primitive_type_name(primitive_type), original_parent_gid);
+            //spdlog::info("{}-{}", primitive_type_name(primitive_type), original_parent_gid);
 
             const dart::SimplexDart& child_sd = dart::SimplexDart::get_singleton(primitive_type);
             //  read off the original map's data

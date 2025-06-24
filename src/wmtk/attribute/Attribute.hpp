@@ -35,7 +35,7 @@ public:
     std::map<std::string, size_t> child_hashes() const override;
 
 
-    void serialize(int dim, io::MeshWriter& writer) const;
+    virtual void serialize(int dim, io::MeshWriter& writer) const;
 
     /**
      * @brief Initialize the attribute.
@@ -101,7 +101,6 @@ public:
     bool operator==(const Attribute<T>& o) const;
 
 
-
     /**
      * @brief Consolidate the vector, using the new2old map m provided and resizing the vector to
      * m.size()
@@ -164,20 +163,15 @@ public:
      * serialization
      */
     template <int D = Eigen::Dynamic>
-    const T& const_vector_single_value(
-        int64_t index,
-        int8_t vector_index,
-        const std::vector<T>& data) const;
+    const T&
+    const_vector_single_value(int64_t index, int8_t vector_index, const std::vector<T>& data) const;
     /**
      * @brief Accesses the attribute using the specified scalar as the underlying data
      * This is internally used by the single-arg vector_single_value and to help with
      * serialization
      */
     template <int D = Eigen::Dynamic>
-    T& vector_single_value(
-        int64_t index,
-        int8_t vector_index,
-        std::vector<T>& data) const;
+    T& vector_single_value(int64_t index, int8_t vector_index, std::vector<T>& data) const;
 
     // computes the "reserved size" but using the passed in data
     int64_t reserved_size(const std::vector<T>& data) const;

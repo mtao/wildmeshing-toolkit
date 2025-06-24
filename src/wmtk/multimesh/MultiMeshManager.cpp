@@ -67,7 +67,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     const int64_t target_global_id = involution.global_id();
 
 #if !defined(NDEBUG)
-    if (true) {
+    if (false) {
         const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
         const int64_t desired_source_gid = inverse_involution.global_id();
         logger().warn(
@@ -76,8 +76,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
             source_to_target_map_accessor.mesh().is_removed(desired_source_gid),
             target_global_id,
             target_to_source_map_accessor.mesh().is_removed(target_global_id),
-            id
-            );
+            id);
 
         // logger().warn(
         //     "cid:{},id:{} {}",

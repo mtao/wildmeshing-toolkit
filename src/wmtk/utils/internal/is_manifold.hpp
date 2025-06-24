@@ -2,11 +2,11 @@
 #include <wmtk/Types.hpp>
 
 namespace wmtk {
-    class Mesh;
+class Mesh;
 }
 
 namespace wmtk::utils::internal {
 
-    bool is_manifold(const Mesh& m);
+bool is_manifold(const Mesh& m);
 }
 

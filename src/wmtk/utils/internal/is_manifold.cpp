@@ -18,6 +18,13 @@ namespace {
 template <int8_t SimplexDim, int8_t FaceDim, typename MeshType>
 bool is_manifold(const MeshType& m)
 {
+    spdlog::info(
+        "Running is-manifold {} {} [{}]",
+
+        fmt::join(m.absolute_multi_mesh_id(), ","),
+        SimplexDim,
+        FaceDim);
+
     PrimitiveType stype = m.top_simplex_type();
     assert(SimplexDim == get_primitive_type_id(stype));
     static_assert(SimplexDim > FaceDim);
@@ -49,12 +56,28 @@ bool is_manifold(const MeshType& m)
 
         if (cof_ids2 != cof_ids.at(id)) {
             spdlog::info(
-                "{}-simplex {}-face index {} had {} and {} as neighbor facets",
+                "{}-simplex {}-face index {} had cofaces from ids: {} and cofaces from topology:{} "
+                "as neighbor facets",
                 SimplexDim,
                 FaceDim,
                 id,
                 fmt::join(cof_ids.at(id), ","),
                 fmt::join(cof_ids2, ","));
+            if constexpr (SimplexDim == 1) {
+                auto ts = m.get_all(stype);
+                for (const auto& facet_id : cof_ids[id]) {
+                    auto myt = ts[facet_id];
+                    int64_t vid0 = m.id(myt, PrimitiveType::Vertex);
+                    int64_t vid1 = m.id(m.switch_vertex(myt), PrimitiveType::Vertex);
+                    spdlog::info("{} had vids {} {}", facet_id, vid0, vid1);
+                }
+                for (const auto& facet_id : cof_ids2) {
+                    auto myt = ts[facet_id];
+                    int64_t vid0 = m.id(myt, PrimitiveType::Vertex);
+                    int64_t vid1 = m.id(m.switch_vertex(myt), PrimitiveType::Vertex);
+                    spdlog::info("topo {} had vids {} {}", facet_id, vid0, vid1);
+                }
+            }
             return false;
         }
     }

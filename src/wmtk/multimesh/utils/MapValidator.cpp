@@ -224,11 +224,12 @@ bool MapValidator::check_child_facet_uniqueness(const Mesh& child) const
         wmtk::simplex::Simplex s(pt, parent_t);
         auto child_ss = m_mesh.map_to_child(child, s);
         for (const auto& child_s : child_ss) {
-            children_mapped[child.id(child_s)].emplace_back(child_s);
+            auto id = child.id(child_s);
+            children_mapped.at(id).emplace_back(child_s);
         }
     }
     for (size_t j = 0; j < children_mapped.size(); ++j) {
-        const auto& children = children_mapped[j];
+        const auto& children = children_mapped.at(j);
         if (children.size() > 1) {
             std::vector<std::string> tups;
             ok = false;

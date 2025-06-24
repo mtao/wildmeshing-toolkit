@@ -1,5 +1,7 @@
-
 #include "CollapseAndUpdateVertex.hpp"
+#include <wmtk/multimesh/MultiMeshVisitor.hpp>
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
+#include <wmtk/operations/EdgeCollapse.hpp>
 
 namespace wmtk::operations::composite {
 CollapseAndUpdateVertex::CollapseAndUpdateVertex(Mesh& m)
@@ -28,6 +30,7 @@ std::vector<simplex::Simplex> CollapseAndUpdateVertex::execute(const simplex::Si
 {
     assert(simplex.primitive_type() == PrimitiveType::Edge);
     assert(bool(m_vertex_update));
+    assert(wmtk::multimesh::utils::check_maps_valid(mesh()));
     // switch edge - switch face
     //    /|\ .
     //   / ^ \ .
@@ -40,6 +43,7 @@ std::vector<simplex::Simplex> CollapseAndUpdateVertex::execute(const simplex::Si
     if (collapse_simplices.empty()) return {};
     assert(collapse_simplices.size() == 1);
 
+    assert(wmtk::multimesh::utils::check_maps_valid(mesh()));
     simplex::Simplex s = simplex::Simplex::vertex(collapse_simplices[0].tuple());
     assert(mesh().is_valid(s));
 

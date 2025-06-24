@@ -11,9 +11,9 @@ public:
     void delete_simplices();
 
     std::array<attribute::FlagAccessor<EdgeMesh>, 2> flag_accessors;
-    attribute::Accessor<int64_t, EdgeMesh> ee_accessor;
-    attribute::Accessor<int64_t, EdgeMesh> ev_accessor;
-    attribute::Accessor<int64_t, EdgeMesh> ve_accessor;
+    attribute::Accessor<int64_t, EdgeMesh, attribute::CachingAttribute<int64_t>, 2> ee_accessor;
+    attribute::Accessor<int64_t, EdgeMesh, attribute::CachingAttribute<int64_t>, 2> ev_accessor;
+    attribute::Accessor<int64_t, EdgeMesh, attribute::CachingAttribute<int64_t>, 1> ve_accessor;
 
     /**
      * @brief gather all simplices that are deleted in a split
