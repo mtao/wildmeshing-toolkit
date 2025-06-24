@@ -1,6 +1,8 @@
 var NAVTREEINDEX36 =
 {
+"from__vertex__simplices_8hpp_source.html":[11,0,0,13,0,0,0,0,16],
 "functions.html":[10,3,0,0],
+"functions.html":[10,3,0],
 "functions_a.html":[10,3,0,1],
 "functions_b.html":[10,3,0,2],
 "functions_c.html":[10,3,0,3],
@@ -9,8 +11,8 @@ var NAVTREEINDEX36 =
 "functions_enum.html":[10,3,4],
 "functions_eval.html":[10,3,5],
 "functions_f.html":[10,3,0,6],
-"functions_func.html":[10,3,1,0],
 "functions_func.html":[10,3,1],
+"functions_func.html":[10,3,1,0],
 "functions_func_a.html":[10,3,1,1],
 "functions_func_b.html":[10,3,1,2],
 "functions_func_c.html":[10,3,1,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX36 =
 "import__cache_8cpp_source.html":[11,0,0,6,0,0,0,0],
 "import__cache_8hpp.html":[11,0,0,6,0,0,0,1],
 "import__cache_8hpp.html#a0cdf23b4ed7ff0a739f4e29a086b7ae3":[11,0,0,6,0,0,0,1,0],
-"import__cache_8hpp_source.html":[11,0,0,6,0,0,0,1],
-"index.html":[0],
-"index.html":[]
+"import__cache_8hpp_source.html":[11,0,0,6,0,0,0,1]
 };

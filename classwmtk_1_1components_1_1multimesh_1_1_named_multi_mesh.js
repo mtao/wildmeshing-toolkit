@@ -25,6 +25,7 @@ var classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh =
     [ "has_name", "classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#a182338fad067bde27d93edc5a9d8cbb6", null ],
     [ "is_valid", "classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#a55e9cb94892a7dac9efeb35a307e4149", null ],
     [ "name", "classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#a4040f237867ca303d2c596b7296c39b5", null ],
+    [ "operator bool", "classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#aec8ea538a3572a9df996dbe23bd2a283", null ],
     [ "operator=", "classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#a1793da30792d2f6216e18a38494bd4a6", null ],
     [ "populate_default_names", "classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#ab9ccf238ab78796d1b082083a61d252f", null ],
     [ "root", "classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#a357d4893beb2c66bb60ec7312a97c36f", null ],

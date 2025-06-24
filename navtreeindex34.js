@@ -1,5 +1,7 @@
 var NAVTREEINDEX34 =
 {
+"delaunay__3d_8cpp.html#a2b8f841c866f2be5ad04a5b453746b6e":[11,0,0,2,0,0,0,0,2,0],
+"delaunay__3d_8cpp_source.html":[11,0,0,2,0,0,0,0,2],
 "delaunay__3d_8hpp.html":[11,0,0,2,0,0,0,0,3],
 "delaunay__3d_8hpp.html#a2b8f841c866f2be5ad04a5b453746b6e":[11,0,0,2,0,0,0,0,3,0],
 "delaunay__3d_8hpp_source.html":[11,0,0,2,0,0,0,0,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX34 =
 "edge__mesh_2_edge_operation_data_8cpp.html":[11,0,2,0,7,3,2],
 "edge__mesh_2_edge_operation_data_8cpp_source.html":[11,0,2,0,7,3,2],
 "edge__mesh_2_edge_operation_data_8hpp.html":[11,0,2,0,7,3,3],
-"edge__mesh_2_edge_operation_data_8hpp_source.html":[11,0,2,0,7,3,3],
-"edge__mesh_2_split_new_attribute_topo_info_8cpp.html":[11,0,2,0,7,3,4],
-"edge__mesh_2_split_new_attribute_topo_info_8cpp_source.html":[11,0,2,0,7,3,4]
+"edge__mesh_2_edge_operation_data_8hpp_source.html":[11,0,2,0,7,3,3]
 };
