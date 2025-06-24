@@ -75,7 +75,9 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
     auto scope = mesh().create_scope();
     assert(simplex.primitive_type() == primitive_type());
 
+#if defined(WMTK_BLOCK_OPERATION_EXCEPTIONS)
     try {
+#endif
 #ifndef NDEBUG
         assert(!simplex.tuple().is_null());
         mesh().parent_scope([&]() { assert(mesh().is_valid(simplex.tuple())); });
@@ -90,15 +92,16 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
         }
 #endif
         auto mods = execute(simplex);
-#ifndef NDEBUG
-        if (!mesh().is_free()) {
-            spdlog::error("CHECKING TUPLE VALIDITY!");
-            for (const auto& s : mods) {
-                assert(mesh().is_valid(s));
-                spdlog::info("direct mods valid: {} {}", std::string(s.tuple()), mesh().id(s));
-            }
-        }
-#endif
+        // #ifndef NDEBUG
+        //         if (!mesh().is_free()) {
+        //             spdlog::error("CHECKING TUPLE VALIDITY!");
+        //             for (const auto& s : mods) {
+        //                 assert(mesh().is_valid(s));
+        //                 spdlog::info("direct mods valid: {} {}", std::string(s.tuple()),
+        //                 mesh().id(s));
+        //             }
+        //         }
+        // #endif
 
         if (!mods.empty()) { // success should be marked here
             apply_attribute_transfer(mods);
@@ -106,10 +109,12 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
                 return mods; // scope destructor is called
             }
         }
+#if defined(WMTK_BLOCK_OPERATION_EXCEPTIONS)
     } catch (const std::exception& e) {
         scope.mark_failed();
         throw e;
     }
+#endif
     scope.mark_failed();
     return {}; // scope destructor is called
 }
