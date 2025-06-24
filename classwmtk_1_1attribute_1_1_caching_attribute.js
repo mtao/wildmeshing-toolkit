@@ -40,6 +40,7 @@ var classwmtk_1_1attribute_1_1_caching_attribute =
     [ "reset", "classwmtk_1_1attribute_1_1_caching_attribute.html#aa889735cf49727ac537a6c945c16450b", null ],
     [ "rollback_current_scope", "classwmtk_1_1attribute_1_1_caching_attribute.html#a1231089f02d9db3ef4f9c2ebfcf2c789", null ],
     [ "scalar_attribute", "classwmtk_1_1attribute_1_1_caching_attribute.html#af5e3561844f6de6f531abbbb0db15b78", null ],
+    [ "serialize", "classwmtk_1_1attribute_1_1_caching_attribute.html#ae140ec547a41c41b82b10080390a5609", null ],
     [ "transaction_depth", "classwmtk_1_1attribute_1_1_caching_attribute.html#a97ed4ee5091ee09a44d3588ca890c876", null ],
     [ "transaction_start_begin", "classwmtk_1_1attribute_1_1_caching_attribute.html#adcc20c10a90c4429def7e9ec9250d0ec", null ],
     [ "transaction_start_rend", "classwmtk_1_1attribute_1_1_caching_attribute.html#a829a6135acfbcc27eed885afb0e948ca", null ],
