@@ -96,6 +96,13 @@ multimesh::NamedMultiMesh input(
 
     if (options.validate) {
         for (const auto& mptr : mm.root().get_all_meshes()) {
+            if (!mptr->is_connectivity_valid()) {
+                throw std::runtime_error(fmt::format(
+                    "Mesh {} connectivity was not valid, check env WMTK_LOGGER_LEVEL=debug for more info",
+                    mm.get_name(*mptr)));
+            }
+
+
             if (!wmtk::utils::verify_simplex_index_valences(*mptr)) {
                 throw std::runtime_error(fmt::format(
                     "Mesh {} was not valid, check env WMTK_LOGGER_LEVEL=debug for more info",

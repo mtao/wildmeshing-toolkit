@@ -6,7 +6,12 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
 
+//
+#include <wmtk/components/input/InputOptions.hpp>
 #include <wmtk/components/input/input.hpp>
+#include <wmtk/components/multimesh/NamedMultiMesh.hpp>
+#include <wmtk/components/utils/PathResolver.hpp>
+//
 #include <wmtk/components/longest_edge_split/longest_edge_split.hpp>
 #include <wmtk/components/multimesh/multimesh.hpp>
 #include <wmtk/components/output/output.hpp>
@@ -16,6 +21,7 @@
 
 using namespace wmtk;
 namespace fs = std::filesystem;
+constexpr static std::string root_attribute_name = "root";
 
 
 using wmtk::components::utils::resolve_paths;
@@ -58,10 +64,32 @@ int main(int argc, char* argv[])
             j = spec_engine.inject_defaults(j, longest_edge_split_spec);
         }
     }
+    components::utils::PathResolver path_resolver;
+    if (j.contains(root_attribute_name)) {
+        path_resolver = j[root_attribute_name];
+    }
+    // const fs::path input_file = resolve_paths(json_input_file, {j["input_path"], j["input"]});
 
-    const fs::path input_file = resolve_paths(json_input_file, {j["input_path"], j["input"]});
+    std::shared_ptr<Mesh> mesh_in;
 
-    std::shared_ptr<Mesh> mesh_in = wmtk::components::input::input(input_file, true);
+    for (const auto& p : {j["input_path"], j["input"]}) {
+        wmtk::components::input::InputOptions input_opts;
+        input_opts.path = p.get<std::string>();
+        input_opts.ignore_z_if_zero = true;
+        try {
+            auto nmm = wmtk::components::input::input(input_opts, path_resolver);
+            if (bool(nmm)) {
+                mesh_in = nmm.root().shared_from_this();
+                break;
+            }
+        } catch (const std::exception& e) {
+        }
+    }
+    if (!mesh_in) {
+        wmtk::logger().error("Could not find mesh");
+        return 1;
+    }
+    // std::shared_ptr<Mesh> mesh_in = wmtk::components::input::input(input_file, true);
 
     attribute::MeshAttributeHandle pos_handle =
         mesh_in->get_attribute_handle<double>("vertices", PrimitiveType::Vertex);

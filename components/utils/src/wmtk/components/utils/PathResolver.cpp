@@ -1,5 +1,6 @@
 #include "PathResolver.hpp"
 #include "json_utils.hpp"
+#include "wmtk/utils/Logger.hpp"
 
 
 namespace fs = std::filesystem;
@@ -10,19 +11,28 @@ std::pair<std::filesystem::path, bool> PathResolver::try_resolving_path(
     const std::filesystem::path& path)
 {
     if (path.is_absolute()) {
-        return {path, true};
+        bool exists = fs::exists(path);
+        logger().debug("PathResolver resolved an absolute path [{}] - does it exists? {}", path.string(), exists);
+        return {path, exists};
     }
 
     const fs::path root_abs = fs::absolute(potential_base);
 
     if (!fs::is_directory(root_abs)) {
+        logger().debug("PathResolver failed to resolved a potential base path [{}] because it is not a directory", potential_base.string());
         return {path, false};
     }
 
 
     const fs::path resolved_path = fs::weakly_canonical(potential_base / path);
 
-    return {resolved_path, fs::exists(resolved_path)};
+    bool exists =  fs::exists(resolved_path);
+    if(exists) {
+        logger().debug("PathResolver resolved a potential base path [{}] with [{}] to form [{}]", potential_base.string(), path.string(), resolved_path.string());
+    } else {
+        logger().debug("PathResolver failed to resolve a potential base path [{}] with [{}] to form [{}]", potential_base.string(), path.string(), resolved_path.string());
+    }
+    return {resolved_path, exists};
 }
 
 struct PathResolver::Impl
@@ -38,6 +48,7 @@ struct PathResolver::Impl
     std::pair<std::filesystem::path, bool> resolve(const std::filesystem::path& path) const
     {
         for (const auto& p : m_paths) {
+            logger().debug("PathResolver trying to use base path [{}]", p.string());
             auto res = try_resolving_path(p, path);
             const auto& [new_path, succeeded] = res;
             if (succeeded) {
