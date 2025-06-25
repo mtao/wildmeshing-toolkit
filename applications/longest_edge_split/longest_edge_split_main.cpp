@@ -21,7 +21,7 @@
 
 using namespace wmtk;
 namespace fs = std::filesystem;
-constexpr static std::string root_attribute_name = "root";
+constexpr static std::string root_attribute_name = "input_path";
 
 
 using wmtk::components::utils::resolve_paths;
@@ -68,6 +68,7 @@ int main(int argc, char* argv[])
     if (j.contains(root_attribute_name)) {
         path_resolver = j[root_attribute_name];
     }
+
     // const fs::path input_file = resolve_paths(json_input_file, {j["input_path"], j["input"]});
 
     std::shared_ptr<Mesh> mesh_in;
