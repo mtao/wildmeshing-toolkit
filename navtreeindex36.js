@@ -1,5 +1,9 @@
 var NAVTREEINDEX36 =
 {
+"from__vertex__simplices_8hpp.html":[11,0,0,13,0,0,0,0,16],
+"from__vertex__simplices_8hpp.html#a00fe4abc81015a628e316cc0d4e479ee":[11,0,0,13,0,0,0,0,16,2],
+"from__vertex__simplices_8hpp.html#ac07baa000804aae7fb0fe7321d452394":[11,0,0,13,0,0,0,0,16,1],
+"from__vertex__simplices_8hpp.html#af788a1e34ada6ee56f00f90c733b9dc3":[11,0,0,13,0,0,0,0,16,0],
 "from__vertex__simplices_8hpp_source.html":[11,0,0,13,0,0,0,0,16],
 "functions.html":[10,3,0,0],
 "functions.html":[10,3,0],
@@ -53,8 +57,8 @@ var NAVTREEINDEX36 =
 "functions_type.html":[10,3,3],
 "functions_u.html":[10,3,0,20],
 "functions_v.html":[10,3,0,21],
-"functions_vars.html":[10,3,2,0],
 "functions_vars.html":[10,3,2],
+"functions_vars.html":[10,3,2,0],
 "functions_vars_a.html":[10,3,2,1],
 "functions_vars_b.html":[10,3,2,2],
 "functions_vars_c.html":[10,3,2,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX36 =
 "identity__tuple_8hpp.html#a69a1604c5b530349f6a88f0a75e71299":[11,0,2,0,9,0,4,0],
 "identity__tuple_8hpp_source.html":[11,0,2,0,9,0,4],
 "import__cache_8cpp.html":[11,0,0,6,0,0,0,0],
-"import__cache_8cpp.html#a0cdf23b4ed7ff0a739f4e29a086b7ae3":[11,0,0,6,0,0,0,0,0],
-"import__cache_8cpp_source.html":[11,0,0,6,0,0,0,0],
-"import__cache_8hpp.html":[11,0,0,6,0,0,0,1],
-"import__cache_8hpp.html#a0cdf23b4ed7ff0a739f4e29a086b7ae3":[11,0,0,6,0,0,0,1,0],
-"import__cache_8hpp_source.html":[11,0,0,6,0,0,0,1]
+"import__cache_8cpp.html#a0cdf23b4ed7ff0a739f4e29a086b7ae3":[11,0,0,6,0,0,0,0,0]
 };

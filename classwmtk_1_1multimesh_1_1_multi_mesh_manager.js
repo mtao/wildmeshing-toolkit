@@ -9,6 +9,8 @@ var classwmtk_1_1multimesh_1_1_multi_mesh_manager =
     [ "absolute_id", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a812e0992812b2c48a889e10ae9e50758", null ],
     [ "can_map", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#adbdd51ce90b08ce81fec54bfaa85b533", null ],
     [ "can_map_child", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a3ded46d7d107bd43d3c40b43727c8ebf", null ],
+    [ "can_map_to_child", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a5aa2a506c2e7964d0a7208c707f5bfbd", null ],
+    [ "can_map_to_parent", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#ac2bb7fdadc7d508884a0f30251b6328f", null ],
     [ "can_map_up", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#adc98daa47bd5d20a5fea4906d71dfbc4", null ],
     [ "check_child_map_valid", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#ad1b3fcd12c4e092d9e92f2aa7db224bf", null ],
     [ "check_map_valid", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a01d41f4e6fd9e1c07166ac2470068eaf", null ],

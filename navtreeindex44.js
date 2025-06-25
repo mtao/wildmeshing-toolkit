@@ -1,5 +1,9 @@
 var NAVTREEINDEX44 =
 {
+"save__image__exr_8hpp_source.html":[11,0,0,0,0,0,0,0,8],
+"setup__amips_8hpp.html":[11,0,0,8,0,0,0,0,7],
+"setup__amips_8hpp.html#a979f065e426cf276066f3d3c4d75ec34":[11,0,0,8,0,0,0,0,7,0],
+"setup__amips_8hpp_source.html":[11,0,0,8,0,0,0,0,7],
 "share__simplex_8cpp.html":[11,0,2,0,2,1,32],
 "share__simplex_8cpp.html#a0da3bb8b3f6be11f2609971777450d46":[11,0,2,0,2,1,32,0],
 "share__simplex_8cpp_source.html":[11,0,2,0,2,1,32],
@@ -245,9 +249,5 @@ var NAVTREEINDEX44 =
 "structwmtk_1_1components_1_1_envelope_options.html#a812d9964f531d1d66c997681577dec66":[9,0,10,2,17,0],
 "structwmtk_1_1components_1_1_envelope_options.html#a812d9964f531d1d66c997681577dec66":[10,0,2,2,17,0],
 "structwmtk_1_1components_1_1_envelope_options.html#ad8bb07887acaab5780205d3af7838ca1":[9,0,10,2,17,1],
-"structwmtk_1_1components_1_1_envelope_options.html#ad8bb07887acaab5780205d3af7838ca1":[10,0,2,2,17,1],
-"structwmtk_1_1components_1_1_envelope_options.html#af664cd467077e7025d78739dd120e6f7":[9,0,10,2,17,4],
-"structwmtk_1_1components_1_1_envelope_options.html#af664cd467077e7025d78739dd120e6f7":[10,0,2,2,17,4],
-"structwmtk_1_1components_1_1_fusion_options.html":[9,0,10,2,18],
-"structwmtk_1_1components_1_1_fusion_options.html":[10,0,2,2,18]
+"structwmtk_1_1components_1_1_envelope_options.html#ad8bb07887acaab5780205d3af7838ca1":[10,0,2,2,17,1]
 };

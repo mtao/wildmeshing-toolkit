@@ -1,5 +1,9 @@
 var NAVTREEINDEX45 =
 {
+"structwmtk_1_1components_1_1_envelope_options.html#af664cd467077e7025d78739dd120e6f7":[9,0,10,2,17,4],
+"structwmtk_1_1components_1_1_envelope_options.html#af664cd467077e7025d78739dd120e6f7":[10,0,2,2,17,4],
+"structwmtk_1_1components_1_1_fusion_options.html":[9,0,10,2,18],
+"structwmtk_1_1components_1_1_fusion_options.html":[10,0,2,2,18],
 "structwmtk_1_1components_1_1_fusion_options.html#a001cabd32595922b862a6734049c9dcc":[10,0,2,2,18,3],
 "structwmtk_1_1components_1_1_fusion_options.html#a001cabd32595922b862a6734049c9dcc":[9,0,10,2,18,3],
 "structwmtk_1_1components_1_1_fusion_options.html#a3d8f8e4b67c540c4db131258100ce6e0":[9,0,10,2,18,4],
@@ -245,9 +249,5 @@ var NAVTREEINDEX45 =
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options.html":[10,0,2,2,3,4],
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options.html":[9,0,10,2,3,5],
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options.html#a5d8925f5c2de9745ce255f6656225758":[9,0,10,2,3,5,0],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options.html#a5d8925f5c2de9745ce255f6656225758":[10,0,2,2,3,4,0],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html":[9,0,10,2,3,6],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html":[10,0,2,2,3,5],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html#abf839ea8a3f0934d1d05952f83c496d0":[10,0,2,2,3,5,1],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html#abf839ea8a3f0934d1d05952f83c496d0":[9,0,10,2,3,6,1]
+"structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options.html#a5d8925f5c2de9745ce255f6656225758":[10,0,2,2,3,4,0]
 };
