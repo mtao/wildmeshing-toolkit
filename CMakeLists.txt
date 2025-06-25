@@ -157,6 +157,12 @@ if(WMTK_UNIFY_DART_AND_TUPLES)
     target_compile_options(wildmeshing_toolkit PUBLIC  -DUNIFY_DART_AND_TUPLES)
 endif()
 
+option(WMTK_TEST_BREAKING_CHECKS "verify mesh" OFF)
+if(WMTK_TEST_BREAKING_CHECKS)
+    target_compile_options(wildmeshing_toolkit PUBLIC  -DWMTK_TEST_BREAKING_CHECKS)
+endif()
+
+
 #target_compile_options(wildmeshing_toolkit PUBLIC  -fconcepts)
 
 # the max dimension an attribute can be - default is to be any size (a dynamic size), but this can be set to a number like 6

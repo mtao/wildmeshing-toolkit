@@ -1,5 +1,8 @@
 #include "Operation.hpp"
 
+#if WMTK_TEST_BREAKING_CHECKS
+#define WMTK_BLOCK_OPERATION_EXCEPTIONS
+#endif
 #include <wmtk/Mesh.hpp>
 #include <wmtk/multimesh/MultiMeshVisitor.hpp>
 #include <wmtk/multimesh/utils/check_map_valid.hpp>

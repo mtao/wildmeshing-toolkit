@@ -1191,4 +1191,31 @@ bool MultiMeshManager::can_map_up(const Mesh& my_mesh, const Mesh& other_mesh) c
     return true;
 }
 
+bool MultiMeshManager::can_map_to_child(const Mesh& my_mesh, const simplex::Simplex& s) const
+{
+    int64_t id = my_mesh.id(s);
+    const auto& sd = dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
+    const dart::Dart d = sd.dart_from_tuple(s.tuple());
+    for (const auto& c : m_children) {
+        if (s.primitive_type() < s.primitive_type()) {
+            continue;
+        }
+
+        const Mesh& child_mesh = *c.mesh;
+        const auto& parent_to_child_handle = c.map_handle;
+        AccessorType acc(my_mesh, parent_to_child_handle);
+        if (!acc[d][0].is_null()) {
+            return true;
+        }
+    }
+    return false;
+}
+bool MultiMeshManager::can_map_to_parent(const Mesh& my_mesh, const simplex::Simplex& s) const
+{
+    if (m_parent == nullptr) {
+        return false;
+    }
+    return true;
+}
+
 } // namespace wmtk::multimesh

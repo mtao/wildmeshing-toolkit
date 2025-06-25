@@ -333,6 +333,9 @@ public:
 
     bool can_map_up(const Mesh& my_mesh, const Mesh& other_mesh) const;
 
+    bool can_map_to_child(const Mesh& my_mesh, const simplex::Simplex& s) const;
+    bool can_map_to_parent(const Mesh& my_mesh, const simplex::Simplex& s) const;
+
     /* @brief obtains the root mesh of this multi-mesh tree
      *
      * @param my_mesh the mesh that this structure is owned by
