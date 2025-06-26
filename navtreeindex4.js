@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"_transfer_strategy_factory_8hpp.html#a7493e4ad9b89b3b7af4e2fffda48d7fb":[11,0,0,12,0,0,0,0,2,32,2],
+"_transfer_strategy_factory_8hpp_source.html":[11,0,0,12,0,0,0,0,2,32],
+"_transfer_strategy_factory_collection_8cpp.html":[11,0,0,12,0,0,0,0,2,33],
 "_transfer_strategy_factory_collection_8cpp.html#a4a49f34174b4b9d8dfacc90e4606b539":[11,0,0,12,0,0,0,0,2,33,1],
 "_transfer_strategy_factory_collection_8cpp.html#a4f350330281ed517be3876e30b99ec3e":[11,0,0,12,0,0,0,0,2,33,0],
 "_transfer_strategy_factory_collection_8cpp_source.html":[11,0,0,12,0,0,0,0,2,33],
@@ -246,8 +249,5 @@ var NAVTREEINDEX4 =
 "autogen_2edge__mesh_2local__switch__tuple_8hpp.html#a73029a8306ed3639bb9a9d117ca333f5":[11,0,2,0,1,0,7,3],
 "autogen_2edge__mesh_2local__switch__tuple_8hpp.html#af2ea1fe812f5b748599644ace3041a5a":[11,0,2,0,1,0,7,0],
 "autogen_2edge__mesh_2local__switch__tuple_8hpp_source.html":[11,0,2,0,1,0,7],
-"autogen_2edge__mesh_2permutation__index__from__tuple_8hpp.html":[11,0,2,0,1,0,9],
-"autogen_2edge__mesh_2permutation__index__from__tuple_8hpp.html#ab110df2d03a15f064e8c11baff7a0af1":[11,0,2,0,1,0,9,0],
-"autogen_2edge__mesh_2permutation__index__from__tuple_8hpp_source.html":[11,0,2,0,1,0,9],
-"autogen_2edge__mesh_2simplex__index__from__permutation__index_8hpp.html":[11,0,2,0,1,0,11]
+"autogen_2edge__mesh_2permutation__index__from__tuple_8hpp.html":[11,0,2,0,1,0,9]
 };

@@ -28,7 +28,7 @@ var dir_cce1e74d6889f0f8c282b81d2e706218 =
     [ "EdgeSplit.hpp", "_edge_split_8hpp.html", "_edge_split_8hpp" ],
     [ "MinOperationSequence.cpp", "_min_operation_sequence_8cpp.html", null ],
     [ "MinOperationSequence.hpp", "_min_operation_sequence_8hpp.html", "_min_operation_sequence_8hpp" ],
-    [ "Operation.cpp", "_operation_8cpp.html", null ],
+    [ "Operation.cpp", "_operation_8cpp.html", "_operation_8cpp" ],
     [ "Operation.hpp", "_operation_8hpp.html", "_operation_8hpp" ],
     [ "OperationSequence.cpp", "_operation_sequence_8cpp.html", null ],
     [ "OperationSequence.hpp", "_operation_sequence_8hpp.html", "_operation_sequence_8hpp" ],

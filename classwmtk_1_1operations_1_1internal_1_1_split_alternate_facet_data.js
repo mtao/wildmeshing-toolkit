@@ -2,6 +2,8 @@ var classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data =
 [
     [ "AltData", "classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#ab0e8eb2e92c005228c0ac85c91d88541", null ],
     [ "Data", "classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#a15979f85409b84b397d26224c3b28a02", null ],
+    [ "SplitAlternateFacetData", "classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#a44bcd9818b2ef4562f4516fe26beecb5", null ],
+    [ "SplitAlternateFacetData", "classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#a68f14963cd51823bb52a649758d403b8", null ],
     [ "add_facet", "classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#a54f41c539c7fd9c3381fdf5baeb88a72", null ],
     [ "add_facet", "classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#a6d058aa5a832bcf22fd76c0762fe058a", null ],
     [ "get_alternative", "classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#a1e89ba699efda4818d81a6b8d2f38057", null ],
