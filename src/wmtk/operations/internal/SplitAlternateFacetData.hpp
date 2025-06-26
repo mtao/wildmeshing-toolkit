@@ -16,6 +16,8 @@ class SplitAlternateFacetData
 public:
     using Data = SplitAlternateFacetOptionData;
     using AltData = std::vector<Data>;
+    SplitAlternateFacetData() = default;
+    SplitAlternateFacetData(const Mesh& m, const Tuple& input_tuple);
     AltData m_facet_maps;
 
 

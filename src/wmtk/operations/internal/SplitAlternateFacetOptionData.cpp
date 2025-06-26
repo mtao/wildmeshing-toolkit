@@ -1,4 +1,5 @@
 #include "SplitAlternateFacetOptionData.hpp"
+#include <spdlog/spdlog.h>
 #include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/operations/internal/ear_actions.hpp>
 
@@ -101,7 +102,9 @@ SplitAlternateFacetOptionData::SplitAlternateFacetOptionData(
     const std::array<int64_t, 2>& n)
     : input(i)
     , new_facet_indices(n)
-{}
+{
+    spdlog::info("Split facet data {}", std::string(i));
+}
 
 
 auto SplitAlternateFacetOptionData::new_gid(PrimitiveType mesh_type, int8_t orientation) const

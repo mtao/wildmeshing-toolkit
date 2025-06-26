@@ -1,12 +1,12 @@
 #include "CollapseAlternateFacetOptionData.hpp"
 #include <wmtk/Mesh.hpp>
+#include <wmtk/autogen/local_switch_tuple.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/find_local_dart_action.hpp>
-#include <wmtk/dart/utils/edge_mirror.hpp>
 #include <wmtk/dart/local_dart_action.hpp>
-#include <wmtk/autogen/local_switch_tuple.hpp>
-#include "ear_actions.hpp"
+#include <wmtk/dart/utils/edge_mirror.hpp>
 #include <wmtk/utils/Logger.hpp>
+#include "ear_actions.hpp"
 namespace wmtk::operations::internal {
 
 CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
@@ -19,7 +19,10 @@ CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
           input_tuple.local_id(m.top_simplex_type() - 1),
           m.switch_tuple(input_tuple, PrimitiveType::Vertex).local_id(m.top_simplex_type() - 1),
       }})
-{}
+{
+    spdlog::info("Collapse facet data {}", std::string(input_tuple));
+}
+
 
 CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
     const Mesh& m,
@@ -66,17 +69,21 @@ auto CollapseAlternateFacetOptionData::get_neighbor_action(
     return d;
 }
 
-    auto CollapseAlternateFacetOptionData::map_dart_to_alt(const wmtk::dart::SimplexDart& sd, const Dart& d, int8_t index) const -> Dart {
+auto CollapseAlternateFacetOptionData::map_dart_to_alt(
+    const wmtk::dart::SimplexDart& sd,
+    const Dart& d,
+    int8_t index) const -> Dart
+{
+    const wmtk::dart::Dart& transform = alts[index];
+    const int8_t& local_boundary_index = local_boundary_indices[index];
 
-
-        const wmtk::dart::Dart& transform = alts[index];
-        const int8_t& local_boundary_index = local_boundary_indices[index];
-
-        if(transform.is_null()) {
-            Dart newd(d.global_id(), wmtk::dart::utils::edge_mirror(sd,d.permutation(), input.permutation()));
-            return map_dart_to_alt(sd,newd,1 - index);
-        }
-
-        return {};
+    if (transform.is_null()) {
+        Dart newd(
+            d.global_id(),
+            wmtk::dart::utils::edge_mirror(sd, d.permutation(), input.permutation()));
+        return map_dart_to_alt(sd, newd, 1 - index);
     }
+
+    return {};
+}
 } // namespace wmtk::operations::internal

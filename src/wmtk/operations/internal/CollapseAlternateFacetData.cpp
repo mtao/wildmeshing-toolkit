@@ -9,6 +9,7 @@
 #include <wmtk/dart/utils/share_simplex.hpp>
 #include <wmtk/multimesh/utils/find_local_dart_action.hpp>
 #include <wmtk/multimesh/utils/find_local_switch_sequence.hpp>
+#include <wmtk/simplex/cofaces_single_dimension.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 #include "ear_actions.hpp"
@@ -25,6 +26,16 @@ constexpr auto sort_int_op = [](const CollapseAlternateFacetData::Data& value,
     return value.input.global_id() < facet_id;
 };
 } // namespace
+CollapseAlternateFacetData::CollapseAlternateFacetData(const Mesh& m, const Tuple& input_tuple)
+{
+    spdlog::info("Constructing");
+    for (const auto& s : simplex::cofaces_single_dimension_tuples(
+             m,
+             simplex::Simplex::edge(input_tuple),
+             m.top_simplex_type())) {
+        add(m, s);
+    }
+}
 
 void CollapseAlternateFacetData::add(const Mesh& m, const Tuple& input_tuple)
 {
@@ -45,15 +56,19 @@ CollapseAlternateFacetData::~CollapseAlternateFacetData() = default;
 auto CollapseAlternateFacetData::get_alternative_data_it(const int64_t& input_facet) const
     -> AltData::const_iterator
 {
-    assert(std::is_sorted(m_data.begin(), m_data.end(), sort_op));
-    auto it = std::lower_bound(m_data.begin(), m_data.end(), input_facet, sort_int_op);
-    auto end = m_data.cend();
+    AltData::const_iterator it;
+    if (std::is_sorted(m_data.begin(), m_data.end(), sort_op)) {
+        it = std::lower_bound(m_data.begin(), m_data.end(), input_facet, sort_int_op);
+        auto end = m_data.cend();
 
-    // if we found
+        // if we found
 
-    // fix case where the lower bound was not the target value
-    if (it != end && it->input.global_id() != input_facet) {
-        it = end;
+        // fix case where the lower bound was not the target value
+        if (it != end && it->input.global_id() != input_facet) {
+            it = end;
+        }
+    } else {
+        it = std::find(m_data.begin(), m_data.end(), input_facet);
     }
     return it;
 }
@@ -134,24 +149,23 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
     // Find the action such that data.input = action * t_dart
     const int8_t action =
         wmtk::multimesh::utils::find_local_dart_action(mesh_pt, t_dart, data.input);
-    auto map = [/*action, &sd, &data, ear_orientations*/](const size_t index) -> Tuple {
-        // const int8_t ear_orientation = ear_orientation[index];
+    auto map = [action, &sd, &data, ear_orientations](const size_t index) -> Tuple {
+        const int8_t ear_orientation = ear_orientation[index];
 
-        // const int8_t in_ear_action =
-        //     wmtk::dart::find_local_dart_action(sd, t_dart.permutation(), ear_orientation);
+        const int8_t in_ear_action =
+            wmtk::dart::find_local_dart_action(sd, t_dart.permutation(), ear_orientation);
 
-        // if(wmtk::dart::subgroup::can_convert(mesh_pt, mesh_pt - 1, in_ear_action)) {
-
-        //}
-        // const PrimitiveType mappable_dart_dimension = a;
-        // if (transform.is_null() || mappable_dart_dimension < simplex_dimension) {
-        //     return {};
-        // } else {
-        //     int8_t projected_subdart = sd.convert(action, , mesh_pt - 1);
-        //     int8_t mapped_dart = sd.product(tup.permutation(), action);
-        //     const wmtk::dart::Dart d(tup.global_id(), mapped_dart);
-        //     return sd.tuple_from_dart(d);
-        // }
+        if (wmtk::dart::subgroup::can_convert(mesh_pt, mesh_pt - 1, in_ear_action)) {
+        }
+        const PrimitiveType mappable_dart_dimension = a;
+        if (transform.is_null() || mappable_dart_dimension < simplex_dimension) {
+            return {};
+        } else {
+            int8_t projected_subdart = sd.convert(action, , mesh_pt - 1);
+            int8_t mapped_dart = sd.product(tup.permutation(), action);
+            const wmtk::dart::Dart d(tup.global_id(), mapped_dart);
+            return sd.tuple_from_dart(d);
+        }
         return {};
     };
 

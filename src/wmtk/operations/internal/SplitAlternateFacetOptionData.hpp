@@ -47,4 +47,9 @@ private:
     // returns the indices of the ear boundary simplices
     const std::array<int8_t, 2>& boundary_indices(PrimitiveType pt) const;
 };
+
+inline bool operator==(const SplitAlternateFacetOptionData& a, int64_t b)
+{
+    return a.input.global_id() == b;
+}
 } // namespace wmtk::operations::internal

@@ -6,6 +6,7 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/operations/EdgeOperationData.hpp>
+#include <wmtk/simplex/cofaces_single_dimension.hpp>
 #include "ear_actions.hpp"
 namespace wmtk::operations::internal {
 namespace {
@@ -19,6 +20,17 @@ auto sort_int_op = [](const SplitAlternateFacetData::Data& value, const int64_t&
 };
 } // namespace
 
+SplitAlternateFacetData::SplitAlternateFacetData(const Mesh& m, const Tuple& input_tuple)
+{
+    for (const auto& s : simplex::cofaces_single_dimension_tuples(
+             m,
+             simplex::Simplex::edge(input_tuple),
+             m.top_simplex_type())) {
+        add_facet(m, s, {});
+    }
+}
+
+
 void SplitAlternateFacetData::sort()
 {
     std::sort(m_facet_maps.begin(), m_facet_maps.end(), sort_op);
@@ -28,14 +40,16 @@ void SplitAlternateFacetData::sort()
 auto SplitAlternateFacetData::get_alternative_facets_it(const int64_t& input_cell) const
     -> AltData::const_iterator
 {
-    assert(std::is_sorted(m_facet_maps.begin(), m_facet_maps.end(), sort_op));
-
-
-    auto it = std::lower_bound(m_facet_maps.begin(), m_facet_maps.end(), input_cell, sort_int_op);
-    auto end = m_facet_maps.cend();
-    // fix case where the lower bound was not the target value
-    if (it != end && it->input.global_id() != input_cell) {
-        it = end;
+    AltData::const_iterator it;
+    if (std::is_sorted(m_facet_maps.begin(), m_facet_maps.end(), sort_op)) {
+        it = std::lower_bound(m_facet_maps.begin(), m_facet_maps.end(), input_cell, sort_int_op);
+        auto end = m_facet_maps.cend();
+        // fix case where the lower bound was not the target value
+        if (it != end && it->input.global_id() != input_cell) {
+            it = end;
+        }
+    } else {
+        it = std::find(m_facet_maps.begin(), m_facet_maps.end(), input_cell);
     }
     return it;
 }

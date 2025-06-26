@@ -447,6 +447,7 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
 
 void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
 {
+    set_split(m_mesh, m_operating_tuple);
     set_split();
     // need to write:
     // * global_ids_to_potential_tuples
@@ -667,6 +668,7 @@ void TriMesh::TriMeshOperationExecutor::create_spine_simplices()
 
 void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
 {
+    // set_collapse(m_mesh, m_operating_tuple);
     set_collapse();
     is_collapse = true;
     // logger().warn("Edge collapse on {}", m_mesh.id_edge(m_operating_tuple));

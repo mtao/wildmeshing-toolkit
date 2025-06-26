@@ -53,4 +53,8 @@ private:
     // given an ear tuple reports the relative orientation across the edge
     Dart get_neighbor_action(const Mesh& m, const Tuple& t, int8_t local_action) const;
 };
+inline bool operator==(const CollapseAlternateFacetOptionData& a, int64_t b)
+{
+    return a.input.global_id() == b;
+}
 } // namespace wmtk::operations::internal

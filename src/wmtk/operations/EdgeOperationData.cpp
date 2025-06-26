@@ -33,6 +33,15 @@ void EdgeOperationData::set_collapse()
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>();
 }
 
+void EdgeOperationData::set_split(const Mesh& m, const Tuple& t)
+{
+    m_op_data = std::make_unique<internal::SplitAlternateFacetData>(m,t);
+}
+void EdgeOperationData::set_collapse(const Mesh& m, const Tuple& t)
+{
+    m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m,t);
+}
+
 const internal::SplitAlternateFacetData& EdgeOperationData::const_split_facet_data() const
 {
     const auto& ptr = std::get<std::unique_ptr<internal::SplitAlternateFacetData>>(m_op_data);

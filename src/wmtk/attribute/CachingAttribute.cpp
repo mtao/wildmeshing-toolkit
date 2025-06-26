@@ -34,9 +34,11 @@ DEC(char)
 template <typename T>
 void CachingAttribute<T>::serialize(int dim, io::MeshWriter& writer) const
 {
+#if defined(WMTK_TEST_BREAKING_CHECKS)
     if (has_transactions()) {
         throw std::runtime_error("Cannot serialize a mesh while there are active transactions");
     }
+#endif
     Attribute<T>::serialize(dim, writer);
 }
 

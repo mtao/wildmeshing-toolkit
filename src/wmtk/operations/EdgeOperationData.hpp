@@ -52,6 +52,9 @@ public:
     void set_split();
     void set_collapse();
 
+    void set_split(const Mesh& m, const Tuple& t);
+    void set_collapse(const Mesh& m, const Tuple& t);
+
 
     /// Returns facet data held if the edge operation was a split - throws if data does not exist
     const internal::SplitAlternateFacetData& const_split_facet_data() const;

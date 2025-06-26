@@ -17,6 +17,7 @@ public:
     using Data = CollapseAlternateFacetOptionData;
     CollapseAlternateFacetData();
     ~CollapseAlternateFacetData();
+    CollapseAlternateFacetData(const Mesh& m, const Tuple& input_tuple);
 
     void add(const Mesh& m, const Tuple& input_tuple);
 

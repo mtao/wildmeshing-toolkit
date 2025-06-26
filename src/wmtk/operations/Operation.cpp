@@ -1,6 +1,6 @@
 #include "Operation.hpp"
 
-#if WMTK_TEST_BREAKING_CHECKS
+#if !defined(WMTK_TEST_BREAKING_CHECKS)
 #define WMTK_BLOCK_OPERATION_EXCEPTIONS
 #endif
 #include <wmtk/Mesh.hpp>
