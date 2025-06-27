@@ -1,5 +1,8 @@
 var NAVTREEINDEX38 =
 {
+"longest__edge__split_8hpp.html":[11,0,0,9,0,0,0,1],
+"longest__edge__split_8hpp.html#a0be451c677a35037d6e49f97356604cb":[11,0,0,9,0,0,0,1,1],
+"longest__edge__split_8hpp.html#a91cd0e6f904d4c6d1e0000504cc0a257":[11,0,0,9,0,0,0,1,0],
 "longest__edge__split_8hpp_source.html":[11,0,0,9,0,0,0,1],
 "make__cast__attribute__transfer__strategy_8cpp.html":[11,0,2,0,7,1,5],
 "make__cast__attribute__transfer__strategy_8cpp.html#acfc9277b9947c423a9b729daa789f6b6":[11,0,2,0,7,1,5,0],
@@ -34,9 +37,6 @@ var NAVTREEINDEX38 =
 "manifold__decomposition_8hpp.html#a555eea2100db4b56d57034bb5c1e5ce7":[11,0,2,0,9,0,9,1],
 "manifold__decomposition_8hpp.html#aa5c6eb4e8078a4a9433694e11f6aab9c":[11,0,2,0,9,0,9,2],
 "manifold__decomposition_8hpp_source.html":[11,0,2,0,9,0,9],
-"marching_8cpp.html":[11,0,0,11,0,0,0,2],
-"marching_8cpp.html#a6f27411696c9ba6e294768451f31351f":[11,0,0,11,0,0,0,2,0],
-"marching_8cpp_source.html":[11,0,0,11,0,0,0,2],
 "max__neighbor_8cpp.html":[11,0,0,12,0,0,0,0,2,9],
 "max__neighbor_8cpp_source.html":[11,0,0,12,0,0,0,0,2,9],
 "max__neighbor_8hpp.html":[11,0,0,12,0,0,0,0,2,10],
@@ -207,8 +207,8 @@ var NAVTREEINDEX38 =
 "namespaceinternal.html":[9,0,4],
 "namespaceinternal.html#a3fa61cd9a5bc07d701326b589bafc9ad":[9,0,4,0],
 "namespaceinternal.html#ac7d044af3e6028ae2a916de6fa9c05ef":[9,0,4,1],
-"namespacemembers.html":[9,1,0,0],
 "namespacemembers.html":[9,1,0],
+"namespacemembers.html":[9,1,0,0],
 "namespacemembers_a.html":[9,1,0,1],
 "namespacemembers_b.html":[9,1,0,2],
 "namespacemembers_c.html":[9,1,0,3],

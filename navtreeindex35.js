@@ -1,5 +1,8 @@
 var NAVTREEINDEX35 =
 {
+"ear__actions_8hpp.html#acc4e3b7adce475e70ff52430eb6259f8":[11,0,2,0,7,4,5,0],
+"ear__actions_8hpp_source.html":[11,0,2,0,7,4,5],
+"edge__angle_8cpp.html":[11,0,0,12,0,0,0,0,2,1],
 "edge__angle_8cpp_source.html":[11,0,0,12,0,0,0,0,2,1],
 "edge__angle_8hpp.html":[11,0,0,12,0,0,0,0,2,2],
 "edge__angle_8hpp.html#ad7fa7475a320c6b80b6c9014ea8ca2b3":[11,0,0,12,0,0,0,0,2,2,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX35 =
 "from__manifold__decomposition_8hpp.html":[11,0,0,13,0,0,0,0,12],
 "from__manifold__decomposition_8hpp.html#a007e6b246a53d318f71a595256d06c4b":[11,0,0,13,0,0,0,0,12,1],
 "from__manifold__decomposition_8hpp.html#a4ce78e6a496aee49d62259fdf4272bee":[11,0,0,13,0,0,0,0,12,2],
-"from__manifold__decomposition_8hpp_source.html":[11,0,0,13,0,0,0,0,12],
-"from__tag_8cpp.html":[11,0,0,13,0,0,0,0,13],
-"from__tag_8cpp.html#a105815a9092e817eda1fb0d1b4cf9644":[11,0,0,13,0,0,0,0,13,3],
-"from__tag_8cpp.html#a27a3d7292fc4a2a3ee4a94a74574d424":[11,0,0,13,0,0,0,0,13,0]
+"from__manifold__decomposition_8hpp_source.html":[11,0,0,13,0,0,0,0,12]
 };
