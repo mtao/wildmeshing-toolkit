@@ -20,7 +20,6 @@ CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
           m.switch_tuple(input_tuple, PrimitiveType::Vertex).local_id(m.top_simplex_type() - 1),
       }})
 {
-    spdlog::info("Collapse facet data {}", std::string(input_tuple));
 }
 
 

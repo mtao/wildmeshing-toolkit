@@ -5,8 +5,11 @@
 #include <wmtk/autogen/subgroup/convert.hpp>
 #include <wmtk/dart/Dart.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/find_local_dart_action.hpp>
 #include <wmtk/dart/local_dart_action.hpp>
+#include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/dart/utils/share_simplex.hpp>
+#include <wmtk/dart/utils/subdart_maximal_action_to_face.hpp>
 #include <wmtk/multimesh/utils/find_local_dart_action.hpp>
 #include <wmtk/multimesh/utils/find_local_switch_sequence.hpp>
 #include <wmtk/simplex/cofaces_single_dimension.hpp>
@@ -84,14 +87,18 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
     const PrimitiveType simplex_dimension) const
 {
     const auto& data = get_alternatives_data(t);
+    spdlog::info(
+        "internal raw alts data is {} {}",
+        std::string(data.alts[0]),
+        std::string(data.alts[1]));
 
     const wmtk::dart::SimplexDart& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
     const wmtk::dart::Dart t_dart = sd.dart_from_tuple(t);
 
-    auto ear_orientations = ear_actions(mesh_pt);
-    for (auto& ear_orientation : ear_orientations) {
-        ear_orientation = sd.product(ear_orientation, data.input.permutation());
-    }
+    const auto ear_orientations = ear_actions(mesh_pt);
+    // for (auto& ear_orientation : ear_orientations) {
+    //     ear_orientation = sd.product(data.input.permutation(), ear_orientation);
+    // }
 
 
     // As input we recieve
@@ -146,14 +153,54 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
     // we are trying to evaluate
 
 
-    // Find the action such that data.input = action * t_dart
-    const int8_t action =
-        wmtk::multimesh::utils::find_local_dart_action(mesh_pt, t_dart, data.input);
-    auto map = [action, &sd, &data, ear_orientations](const size_t index) -> Tuple {
-        const int8_t ear_orientation = ear_orientation[index];
+    // Find the action such that data.input = action(t_dart)
+    const int8_t relative_action =
+        wmtk::multimesh::utils::find_local_dart_action(mesh_pt, data.input, t_dart);
+    const PrimitiveType face_pt = mesh_pt - 1;
+    spdlog::info("Relative action: {}", relative_action);
+    auto map = [&](const size_t index) -> Tuple {
+        const auto& alt = data.alts[index];
+        if (alt.is_null()) {
+            return {};
+        }
+        const int8_t ear_orientation = ear_orientations[index];
+
+        const int8_t face_index = sd.simplex_index(ear_orientation, face_pt);
+        if (wmtk::dart::utils::largest_shared_subdart_size(
+                mesh_pt,
+                relative_action,
+                face_pt,
+                face_index) < get_primitive_type_id(simplex_dimension)) {
+            return {};
+        }
+
+        const int8_t act = wmtk::dart::utils::subdart_maximal_action_to_face_action(
+            mesh_pt,
+            relative_action,
+            face_pt,
+            face_index);
+        const int8_t moved_relative_action = sd.act(relative_action, act);
+        spdlog::info(
+            "Maximal subdart moved {} to {} with {}",
+            relative_action,
+            moved_relative_action,
+            act);
 
         const int8_t in_ear_action =
-            wmtk::dart::find_local_dart_action(sd, t_dart.permutation(), ear_orientation);
+            wmtk::dart::find_local_dart_action(sd, ear_orientation, moved_relative_action);
+        spdlog::info(
+            "Ear orientation {} got face index {}, relative action {}",
+            ear_orientation,
+            face_index,
+            act);
+
+        spdlog::info("Alt here: {}", std::string(alt));
+        const int8_t nbr_permutation = sd.act(alt.permutation(), in_ear_action);
+        spdlog::info("{} x {} => {}", alt.permutation(), in_ear_action, nbr_permutation);
+        const wmtk::dart::Dart d(alt.global_id(), nbr_permutation);
+        spdlog::info("Sptting out {}", std::string(d));
+        return sd.tuple_from_dart(d);
+        /*
 
         if (wmtk::dart::subgroup::can_convert(mesh_pt, mesh_pt - 1, in_ear_action)) {
         }
@@ -166,7 +213,7 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
             const wmtk::dart::Dart d(tup.global_id(), mapped_dart);
             return sd.tuple_from_dart(d);
         }
-        return {};
+        */
     };
 
     std::array<Tuple, 2> r{{map(0), map(1)}};

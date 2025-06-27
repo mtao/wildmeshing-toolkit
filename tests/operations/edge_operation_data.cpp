@@ -233,6 +233,7 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D]")
                 const auto& d = data_vec[j];
                 const auto& b = bdata[j];
                 const auto& bits = std::get<1>(b);
+                spdlog::info("In data for {}th facet", j);
                 for (size_t k = 0; k < 2; ++k) {
                     const auto& alt = d.alts[k];
                     REQUIRE(alt.is_null() == bits[k]);
