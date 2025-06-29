@@ -4,7 +4,6 @@ var namespacewmtk =
     [ "autogen", "namespacewmtk_1_1autogen.html", "namespacewmtk_1_1autogen" ],
     [ "components", "namespacewmtk_1_1components.html", "namespacewmtk_1_1components" ],
     [ "dart", "namespacewmtk_1_1dart.html", "namespacewmtk_1_1dart" ],
-    [ "dart ", "namespacewmtk_1_1dart_01.html", "namespacewmtk_1_1dart_01" ],
     [ "function", "namespacewmtk_1_1function.html", "namespacewmtk_1_1function" ],
     [ "image", "namespacewmtk_1_1image.html", null ],
     [ "invariants", "namespacewmtk_1_1invariants.html", "namespacewmtk_1_1invariants" ],

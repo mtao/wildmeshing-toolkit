@@ -25,6 +25,8 @@ var dir_99bec2f75ed0941dc876d6e41197a83f =
     [ "largest_shared_subdart_size.hpp", "largest__shared__subdart__size_8hpp.html", "largest__shared__subdart__size_8hpp" ],
     [ "local_simplex_decomposition.cpp", "local__simplex__decomposition_8cpp.html", "local__simplex__decomposition_8cpp" ],
     [ "local_simplex_decomposition.hpp", "local__simplex__decomposition_8hpp.html", "local__simplex__decomposition_8hpp" ],
+    [ "opposite.cpp", "opposite_8cpp.html", "opposite_8cpp" ],
+    [ "opposite.hpp", "opposite_8hpp.html", "opposite_8hpp" ],
     [ "permutation_index_from_tuple.cpp", "permutation__index__from__tuple_8cpp.html", "permutation__index__from__tuple_8cpp" ],
     [ "permutation_index_from_tuple.hpp", "dart_2utils_2permutation__index__from__tuple_8hpp.html", "dart_2utils_2permutation__index__from__tuple_8hpp" ],
     [ "permutation_index_to_simplex_index.cpp", "permutation__index__to__simplex__index_8cpp.html", "permutation__index__to__simplex__index_8cpp" ],

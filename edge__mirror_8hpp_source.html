@@ -129,19 +129,29 @@ $(document).ready(function(){initNavTree('edge__mirror_8hpp_source.html',''); in
 <div class="contents">
 <a href="edge__mirror_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart.html">wmtk::dart</a> {</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>    <span class="keyword">class </span>SimplexDart;</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>}</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="namespacewmtk_1_1dart_1_1utils.html#ab25051ce803664c531ca9d411583d968">   10</a></span>    int8_t <a class="code hl_function" href="namespacewmtk_1_1dart_1_1utils.html#ab25051ce803664c531ca9d411583d968">edge_mirror</a>(<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a>&amp; sd, int8_t permutation_index, int8_t edge_dart);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
-<div class="ttc" id="aclasswmtk_1_1dart_1_1_simplex_dart_html"><div class="ttname"><a href="classwmtk_1_1dart_1_1_simplex_dart.html">wmtk::dart::SimplexDart</a></div><div class="ttdef"><b>Definition</b> <a href="dart_2_simplex_dart_8hpp_source.html#l00010">SimplexDart.hpp:11</a></div></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="_dart_8hpp.html">wmtk/dart/Dart.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart.html">wmtk::dart</a> {</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">class </span>SimplexDart;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>}</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">// with respect to a simplex&#39;s local permutation [0,1,2,3]</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="comment">// this creates a dart such that if [0,1] were collapsed we would have hte same dart</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="comment">// that is, it swaps 0,1 no matter where they are</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>int8_t <a class="code hl_function" href="namespacewmtk_1_1dart_1_1utils.html#adb71d0c4b7bee860a02037c07f29f927">edge_mirror</a>(<span class="keyword">const</span> SimplexDart&amp; sd, int8_t permutation_index);</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>dart::Dart <a class="code hl_function" href="namespacewmtk_1_1dart_1_1utils.html#adb71d0c4b7bee860a02037c07f29f927">edge_mirror</a>(<span class="keyword">const</span> SimplexDart&amp; sd, <span class="keyword">const</span> dart::Dart&amp; dart);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>int8_t <a class="code hl_function" href="namespacewmtk_1_1dart_1_1utils.html#adb71d0c4b7bee860a02037c07f29f927">edge_mirror</a>(<span class="keyword">const</span> SimplexDart&amp; sd, int8_t edge_permutation_index, int8_t dart);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>dart::Dart <a class="code hl_function" href="namespacewmtk_1_1dart_1_1utils.html#adb71d0c4b7bee860a02037c07f29f927">edge_mirror</a>(<span class="keyword">const</span> SimplexDart&amp; sd, <span class="keyword">const</span> dart::Dart&amp; edge_dart, <span class="keyword">const</span> dart::Dart&amp; dart);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>} <span class="comment">// namespace wmtk::dart::utils</span></div>
+<div class="ttc" id="a_dart_8hpp_html"><div class="ttname"><a href="_dart_8hpp.html">Dart.hpp</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1dart_1_1utils_html"><div class="ttname"><a href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a></div><div class="ttdef"><b>Definition</b> <a href="apply__simplex__involution_8cpp_source.html#l00012">apply_simplex_involution.cpp:12</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1dart_1_1utils_html_ab25051ce803664c531ca9d411583d968"><div class="ttname"><a href="namespacewmtk_1_1dart_1_1utils.html#ab25051ce803664c531ca9d411583d968">wmtk::dart::utils::edge_mirror</a></div><div class="ttdeci">int8_t edge_mirror(const SimplexDart &amp;sd, int8_t permutation_index, int8_t edge_dart)</div></div>
+<div class="ttc" id="anamespacewmtk_1_1dart_1_1utils_html_adb71d0c4b7bee860a02037c07f29f927"><div class="ttname"><a href="namespacewmtk_1_1dart_1_1utils.html#adb71d0c4b7bee860a02037c07f29f927">wmtk::dart::utils::edge_mirror</a></div><div class="ttdeci">int8_t edge_mirror(const SimplexDart &amp;sd, int8_t permutation_index)</div><div class="ttdef"><b>Definition</b> <a href="edge__mirror_8cpp_source.html#l00043">edge_mirror.cpp:43</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1dart_html"><div class="ttname"><a href="namespacewmtk_1_1dart.html">wmtk::dart</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00016">Accessor.hpp:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

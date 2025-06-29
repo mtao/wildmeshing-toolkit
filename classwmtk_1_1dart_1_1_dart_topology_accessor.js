@@ -10,5 +10,6 @@ var classwmtk_1_1dart_1_1_dart_topology_accessor =
     [ "populate", "classwmtk_1_1dart_1_1_dart_topology_accessor.html#a3e3e91d4b9c8a52353cbf60b10b2830b", null ],
     [ "switch_dart", "classwmtk_1_1dart_1_1_dart_topology_accessor.html#aad0eea77aaff583749cc87a3d3823aad", null ],
     [ "switch_facet", "classwmtk_1_1dart_1_1_dart_topology_accessor.html#a1ed1336c50a7023ab1f0c75228ffacb9", null ],
+    [ "switch_facet", "classwmtk_1_1dart_1_1_dart_topology_accessor.html#a5f83d6d9845e2797b5e1069fc97c0e71", null ],
     [ "switch_facet", "classwmtk_1_1dart_1_1_dart_topology_accessor.html#a51daafd112d7ef209418627ea3fb6310", null ]
 ];

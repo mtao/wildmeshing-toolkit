@@ -126,13 +126,19 @@ $(document).ready(function(){initNavTree('edge__mirror_8cpp.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="edge__mirror_8hpp_source.html">edge_mirror.hpp</a>&quot;</code><br />
-<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &lt;array&gt;</code><br />
 <code>#include &lt;cassert&gt;</code><br />
 <code>#include &lt;exception&gt;</code><br />
+<code>#include &lt;stdexcept&gt;</code><br />
+<code>#include &quot;<a class="el" href="opposite_8hpp_source.html">opposite.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="dart_2_simplex_dart_8hpp_source.html">wmtk/dart/SimplexDart.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="get__local__vertex__permutation_8hpp_source.html">get_local_vertex_permutation.hpp</a>&quot;</code><br />
+<code>#include &lt;spdlog/spdlog.h&gt;</code><br />
+<code>#include &lt;fmt/ranges.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for edge_mirror.cpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="edge__mirror_8cpp__incl.svg" width="456" height="198"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="edge__mirror_8cpp__incl.svg" width="100%" height="558"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="edge__mirror_8cpp_source.html">Go to the source code of this file.</a></p>
@@ -141,15 +147,21 @@ Include dependency graph for edge_mirror.cpp:</div>
 Namespaces</h2></td></tr>
 <tr class="memitem:namespacewmtk" id="r_namespacewmtk"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk.html">wmtk</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacewmtk_1_1dart_01" id="r_namespacewmtk_1_1dart_01"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_01.html">wmtk::dart </a></td></tr>
+<tr class="memitem:namespacewmtk_1_1dart" id="r_namespacewmtk_1_1dart"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart.html">wmtk::dart</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacewmtk_1_1dart_01_1_1utils" id="r_namespacewmtk_1_1dart_01_1_1utils"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_01_1_1utils.html">wmtk::dart ::utils</a></td></tr>
+<tr class="memitem:namespacewmtk_1_1dart_1_1utils" id="r_namespacewmtk_1_1dart_1_1utils"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a591d0194ad1b43b14334f4779f2e6be3" id="r_a591d0194ad1b43b14334f4779f2e6be3"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_01_1_1utils.html#a591d0194ad1b43b14334f4779f2e6be3">wmtk::dart ::utils::edge_mirror</a> (const SimplexDart &amp;sd, int8_t permutation_index, int8_t edge_local_index)</td></tr>
-<tr class="separator:a591d0194ad1b43b14334f4779f2e6be3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb71d0c4b7bee860a02037c07f29f927" id="r_adb71d0c4b7bee860a02037c07f29f927"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#adb71d0c4b7bee860a02037c07f29f927">wmtk::dart::utils::edge_mirror</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, int8_t permutation_index)</td></tr>
+<tr class="separator:adb71d0c4b7bee860a02037c07f29f927"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7930d3cc0ee0f5f062eb264d2e49ed7" id="r_ab7930d3cc0ee0f5f062eb264d2e49ed7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1dart_1_1_dart.html">dart::Dart</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#ab7930d3cc0ee0f5f062eb264d2e49ed7">wmtk::dart::utils::edge_mirror</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, const <a class="el" href="classwmtk_1_1dart_1_1_dart.html">dart::Dart</a> &amp;dart)</td></tr>
+<tr class="separator:ab7930d3cc0ee0f5f062eb264d2e49ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62cdf3ebb0a6bb03853783a3c54493cd" id="r_a62cdf3ebb0a6bb03853783a3c54493cd"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a62cdf3ebb0a6bb03853783a3c54493cd">wmtk::dart::utils::edge_mirror</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, int8_t edge_permutation_index, int8_t permutation_index)</td></tr>
+<tr class="separator:a62cdf3ebb0a6bb03853783a3c54493cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af00e21f7312b26e4ca9766c3ffeee076" id="r_af00e21f7312b26e4ca9766c3ffeee076"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1dart_1_1_dart.html">dart::Dart</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#af00e21f7312b26e4ca9766c3ffeee076">wmtk::dart::utils::edge_mirror</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, const <a class="el" href="classwmtk_1_1dart_1_1_dart.html">dart::Dart</a> &amp;edge_dart, const <a class="el" href="classwmtk_1_1dart_1_1_dart.html">dart::Dart</a> &amp;dart)</td></tr>
+<tr class="separator:af00e21f7312b26e4ca9766c3ffeee076"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->
