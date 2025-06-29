@@ -7,6 +7,7 @@ set(TEST_SOURCES
     simplex_adjacency.cpp
     dart_accessor.cpp
     topology_initialization.cpp
+    edge_mirror.cpp
     relative_faces.cpp
 
     simplex_involution.cpp

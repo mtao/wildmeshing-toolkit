@@ -9,6 +9,7 @@
 #include <tools/TetMesh_examples.hpp>
 #include <tools/TriMesh_examples.hpp>
 #include <tools/single_simplex_mesh.hpp>
+#include <wmtk/dart/utils/apply_simplex_involution.hpp>
 #include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/operations/EdgeOperationData.hpp>
 #include <wmtk/operations/internal/CollapseAlternateFacetData.hpp>
@@ -159,10 +160,7 @@ TEST_CASE("split_facet_maps_mesh", "[operations][data]")
                 wmtk::dart::Dart(scm_data.new_facet_indices[0], edge_orientation));
             wmtk::Tuple right_tuple = sd.tuple_from_dart(
                 wmtk::dart::Dart(scm_data.new_facet_indices[1], edge_orientation));
-            spdlog::info(
-                "{} {}",
-                std::string(left_tuple),
-                std::string(right_tuple));
+            spdlog::info("{} {}", std::string(left_tuple), std::string(right_tuple));
 
             const auto left_global_ids = wmtk::tests::tools::global_ids(*mesh_ptr, left_tuple);
             const auto right_global_ids = wmtk::tests::tools::global_ids(*mesh_ptr, right_tuple);
@@ -286,6 +284,7 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D]")
                     CHECK(m_debug.id(tup, wmtk::PrimitiveType::Edge) == nbr_edge_index);
                 }
             }
+            for (int j = 0; j < 10; ++j) spdlog::info("==");
         }
     }
 }
@@ -434,27 +433,41 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
                 REQUIRE(data_vec.size() == 1);
                 const auto& dat = data_vec[0];
 
-                const auto& left_dart = dat.alts[0];
-                const auto& right_dart = dat.alts[1];
-                const int8_t left_ear_eid = left_ear.local_eid();
-                const int8_t right_ear_eid = right_ear.local_eid();
-                CHECK(left_ear_eid == dat.local_boundary_indices[0]);
-                CHECK(right_ear_eid == dat.local_boundary_indices[1]);
+                const auto& left_action = dat.alts[0];
+                const auto& right_action = dat.alts[1];
+                // const int8_t left_ear_eid = left_ear.local_eid();
+                // const int8_t right_ear_eid = right_ear.local_eid();
+                // CHECK(left_ear_eid == dat.local_boundary_indices[0]);
+                // CHECK(right_ear_eid == dat.local_boundary_indices[1]);
 
-                CHECK(left_dart.global_id() == 1);
-                CHECK(right_dart.global_id() == 2);
+                CHECK(left_action.global_id() == 1);
+                CHECK(right_action.global_id() == 2);
 
-                auto left_act = sd.act(main_dart, left_dart.permutation());
-                auto right_act = sd.act(main_dart, right_dart.permutation());
-                fmt::print(
-                    "{} => {} {} == {} {} (ignore the global ids)\n",
-                    std::string(main_dart),
-                    std::string(left_alt_opp_dart),
-                    std::string(right_alt_opp_dart),
-                    std::string(left_act),
-                    std::string(right_act));
-                CHECK(left_alt_opp_dart.permutation() == left_act.permutation());
-                CHECK(right_alt_opp_dart.permutation() == right_act.permutation());
+                auto left_act = wmtk::dart::utils::apply_simplex_involution(
+                    wmtk::PrimitiveType::Triangle,
+                    wmtk::PrimitiveType::Triangle,
+                    left_action,
+                    sd.dart_from_tuple(left_ear));
+                auto right_act = wmtk::dart::utils::apply_simplex_involution(
+                    wmtk::PrimitiveType::Triangle,
+                    wmtk::PrimitiveType::Triangle,
+                    right_action,
+                    sd.dart_from_tuple(right_ear));
+                CHECK(left_alt_dart.permutation() == left_act.permutation());
+                CHECK(right_alt_dart.permutation() == right_act.permutation());
+
+                auto left_act_opp = wmtk::dart::utils::apply_simplex_involution(
+                    wmtk::PrimitiveType::Triangle,
+                    wmtk::PrimitiveType::Triangle,
+                    left_action,
+                    sd.dart_from_tuple(left_ear_opp));
+                auto right_act_opp = wmtk::dart::utils::apply_simplex_involution(
+                    wmtk::PrimitiveType::Triangle,
+                    wmtk::PrimitiveType::Triangle,
+                    right_action,
+                    sd.dart_from_tuple(right_ear_opp));
+                CHECK(left_alt_opp_dart.permutation() == left_act_opp.permutation());
+                CHECK(right_alt_opp_dart.permutation() == right_act_opp.permutation());
             }
             std::vector<std::tuple<wmtk::Tuple, wmtk::Tuple>> left_alternatives, right_alternatives;
 
@@ -470,32 +483,54 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
 
             results.emplace_back(left_ear, Dat{left_alt, {}, wmtk::PrimitiveType::Edge});
             results.emplace_back(right_ear, Dat{{}, right_alt, wmtk::PrimitiveType::Edge});
-            // results.emplace_back(
-            //     left_ear_opp,
-            //     std::array<wmtk::Tuple, 2>{{left_alt_opp, right_alt_opp}});
-            // results.emplace_back(
-            //     right_ear_opp,
-            //     std::array<wmtk::Tuple, 2>{{left_alt_opp, right_alt_opp}});
+
+            results.emplace_back(
+                left_ear_opp,
+                Dat{left_alt_opp, right_alt_opp, wmtk::PrimitiveType::Edge});
+            results.emplace_back(
+                right_ear_opp,
+                Dat{left_alt_opp, right_alt_opp, wmtk::PrimitiveType::Edge});
 
 
             for (const auto& [t, pr] : results) {
-                auto ret =
-                    data.get_alternatives(m.top_simplex_type(), t, wmtk::PrimitiveType::Edge);
-
+                spdlog::warn("Input {}", t.as_string());
+                const auto& adat = data.get_alternatives_data(t);
+                const int8_t input_permutation = sd.dart_from_tuple(t).permutation();
                 const auto& [a, b, pt] = pr;
-                const auto& [c, d] = ret;
-                // spdlog::info(
-                //     "Input {}: Expecteed two alts{} {} => Got two alts{} {}",
-                //     t.as_string(),
-                //     a.as_string(),
-                //     b.as_string(),
-                //     c.as_string(),
-                //     d.as_string());
-                // notation is triangle; vertex, edge (matches global; local vid, local eid)
-                // 0; 1,2 (global: 0; 1,0)
-                // currently: 1;1,0 2;1,2 => 1;1,2 2;1,0
-                CHECK(a == c);
-                CHECK(b == d);
+                if (!a.is_null()) {
+                    auto left = adat.map_permutation_to_alt(sd, input_permutation, 0);
+
+
+                    spdlog::info(
+                        "Expecteed left alt {} => Got {}",
+                        std::string(sd.tuple_from_dart(left)),
+                        std::string(a));
+                    CHECK(sd.tuple_from_dart(left) == a);
+                }
+                if (!b.is_null()) {
+                    auto right = adat.map_permutation_to_alt(sd, input_permutation, 1);
+                    spdlog::info(
+                        "Expecteed rightalt {} => Got {}",
+                        std::string(sd.tuple_from_dart(right)),
+                        std::string(b));
+                    CHECK(sd.tuple_from_dart(right) == b);
+                }
+                // auto ret =
+                //     data.get_alternatives(m.top_simplex_type(), t, wmtk::PrimitiveType::Edge);
+
+                // const auto& [c, d] = ret;
+                //  spdlog::info(
+                //      "Input {}: Expecteed two alts{} {} => Got two alts{} {}",
+                //      t.as_string(),
+                //      a.as_string(),
+                //      b.as_string(),
+                //      c.as_string(),
+                //      d.as_string());
+                //  notation is triangle; vertex, edge (matches global; local vid, local eid)
+                //  0; 1,2 (global: 0; 1,0)
+                //  currently: 1;1,0 2;1,2 => 1;1,2 2;1,0
+                // CHECK(a == c);
+                // CHECK(b == d);
             }
         }
     }

@@ -7,6 +7,7 @@
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/find_local_dart_action.hpp>
 #include <wmtk/dart/local_dart_action.hpp>
+#include <wmtk/dart/utils/edge_mirror.hpp>
 #include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/dart/utils/share_simplex.hpp>
 #include <wmtk/dart/utils/subdart_maximal_action_to_face.hpp>
@@ -166,17 +167,30 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
         const int8_t ear_orientation = ear_orientations[index];
 
         const int8_t face_index = sd.simplex_index(ear_orientation, face_pt);
-        if (wmtk::dart::utils::largest_shared_subdart_size(
+
+        int8_t in_ear_permutation = relative_action;
+        if (int8_t largest_subdart_size = wmtk::dart::utils::largest_shared_subdart_size(
                 mesh_pt,
                 relative_action,
                 face_pt,
-                face_index) < get_primitive_type_id(simplex_dimension)) {
-            return {};
+                face_index);
+            largest_subdart_size < get_primitive_type_id(simplex_dimension)) {
+            in_ear_permutation = dart::utils::edge_mirror(sd, relative_action);
+
+#if !defined(NDEBUG)
+            largest_subdart_size = wmtk::dart::utils::largest_shared_subdart_size(
+                mesh_pt,
+                relative_action,
+                face_pt,
+                face_index);
+
+            assert(largest_subdart_size < get_primitive_type_id(simplex_dimension));
+#endif
         }
 
         const int8_t act = wmtk::dart::utils::subdart_maximal_action_to_face_action(
             mesh_pt,
-            relative_action,
+            in_ear_permutation,
             face_pt,
             face_index);
         const int8_t moved_relative_action = sd.act(relative_action, act);
@@ -189,10 +203,12 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
         const int8_t in_ear_action =
             wmtk::dart::find_local_dart_action(sd, ear_orientation, moved_relative_action);
         spdlog::info(
-            "Ear orientation {} got face index {}, relative action {}",
+            "Ear orientation {} got face index {}, relative action {}. Reached {} with {}",
             ear_orientation,
             face_index,
-            act);
+            in_ear_permutation,
+            moved_relative_action,
+            in_ear_action);
 
         spdlog::info("Alt here: {}", std::string(alt));
         const int8_t nbr_permutation = sd.act(alt.permutation(), in_ear_action);

@@ -25,7 +25,8 @@ auto make_left_ear_darts() -> std::array<int8_t, 4>
         PrimitiveType pt = get_primitive_type_from_id(j);
         const wmtk::dart::SimplexDart& sd = wmtk::dart::SimplexDart::get_singleton(pt);
         int8_t& action = darts[j];
-        action = sd.product(action, sd.primitive_as_index(wmtk::PrimitiveType::Vertex));
+        action = sd.product(sd.primitive_as_index(wmtk::PrimitiveType::Vertex), action);
+        // action = sd.product(action, sd.primitive_as_index(wmtk::PrimitiveType::Vertex));
     }
     return darts;
 }
@@ -44,14 +45,17 @@ int8_t right_ear_action(PrimitiveType mesh_type)
     return right_ear_darts[off];
 }
 
-int8_t ear_action(PrimitiveType mesh_dimension, bool is_left) {
-    if(is_left) {
+int8_t ear_action(PrimitiveType mesh_dimension, bool is_left)
+{
+    if (is_left) {
         return left_ear_action(mesh_dimension);
     } else {
         return right_ear_action(mesh_dimension);
     }
 }
-std::array<int8_t,2> ear_actions(PrimitiveType mesh_dimension) {
-    return std::array<int8_t,2> {{left_ear_action(mesh_dimension),right_ear_action(mesh_dimension)}};
+std::array<int8_t, 2> ear_actions(PrimitiveType mesh_dimension)
+{
+    return std::array<int8_t, 2>{
+        {left_ear_action(mesh_dimension), right_ear_action(mesh_dimension)}};
 }
 } // namespace wmtk::operations::internal

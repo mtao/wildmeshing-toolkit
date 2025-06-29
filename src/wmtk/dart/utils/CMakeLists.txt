@@ -21,6 +21,9 @@ set(SRC_FILES
     tuple_from_permutation_index.hpp
     tuple_from_permutation_index.cpp
 
+    
+    opposite.hpp
+    opposite.cpp
 
     edge_mirror.hpp
     edge_mirror.cpp

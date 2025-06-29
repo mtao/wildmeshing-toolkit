@@ -44,7 +44,15 @@ public:
     //
     Dart convert(const Dart& d, size_t index) const;
 
-    Dart map_dart_to_alt(const wmtk::dart::SimplexDart& sd, const Dart& d, int8_t index) const;
+    // index is which ear we're currently at
+    Dart map_permutation_to_alt(
+        const wmtk::dart::SimplexDart& sd,
+        const int8_t permutation,
+        int8_t index) const;
+    Dart map_dart_to_alt(const wmtk::dart::SimplexDart& sd, const Dart& d) const;
+
+    // selects which index to use
+    Dart map_permutation_to_alt(const wmtk::dart::SimplexDart& sd, const int8_t permutation) const;
 
 
 private:

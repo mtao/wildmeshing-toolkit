@@ -2,8 +2,8 @@
 #include <spdlog/spdlog.h>
 #include <wmtk/dart/find_local_dart_action.hpp>
 #include "DartAccessor.hpp"
-#include "utils/get_simplex_involution.hpp"
 #include "utils/apply_simplex_involution.hpp"
+#include "utils/get_simplex_involution.hpp"
 namespace wmtk::dart {
 
 // dim = number of vertices in a facet. tri = 3
@@ -119,10 +119,25 @@ private:
 
 
         const auto anchor = IndexBaseType::operator[](global_id)[sd.simplex_index(permutation, BT)];
-        return utils::apply_simplex_involution(FT,FT,anchor,DartWrap(global_id,permutation));
+        return utils::apply_simplex_involution(FT, FT, anchor, DartWrap(global_id, permutation));
 
 
-        //return dart::Dart(anchor.global_id(), sd.product(anchor.permutation(), permutation));
+        // return dart::Dart(anchor.global_id(), sd.product(anchor.permutation(), permutation));
+    }
+
+public:
+    template <typename IT, typename OT>
+    dart::Dart switch_facet(const PrimitiveType FT, const _Dart<IT, OT>& anchor, int8_t permutation)
+        const
+    {
+        PrimitiveType BT = FT - 1;
+        const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(FT);
+
+
+        return utils::apply_simplex_involution(FT, FT, anchor, permutation);
+
+
+        // return dart::Dart(anchor.global_id(), sd.product(anchor.permutation(), permutation));
     }
 };
 
