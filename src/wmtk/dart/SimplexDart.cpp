@@ -30,6 +30,16 @@ const SimplexDart& SimplexDart::get_singleton(wmtk::PrimitiveType simplex_type)
     case PrimitiveType::Tetrahedron: return tsd_singleton;
     }
 }
+const SimplexDart& SimplexDart::get_singleton(int8_t simplex_type)
+{
+    switch (simplex_type) {
+    case 0: return psd_singleton;
+    case 1: return esd_singleton;
+    case 2: return fsd_singleton;
+    default:
+    case 3: return tsd_singleton;
+    }
+}
 wmtk::Tuple SimplexDart::tuple_from_permutation_index(int64_t gid, int8_t index) const
 {
     return utils::tuple_from_permutation_index(simplex_type(), gid, index);
@@ -88,6 +98,17 @@ int8_t SimplexDart::simplex_index(const int8_t permutation_index, PrimitiveType 
 int8_t SimplexDart::act(int8_t permutation, int8_t action) const
 {
     return product(permutation, action);
+}
+
+int8_t SimplexDart::product(const std::initializer_list<int8_t>& indices) const
+{
+    auto it = indices.begin();
+    int8_t prod = *it;
+    ++it;
+    for (; it != indices.end(); ++it) {
+        prod = product(prod, *it);
+    }
+    return prod;
 }
 Dart SimplexDart::act(const Dart& d, int8_t action) const
 {

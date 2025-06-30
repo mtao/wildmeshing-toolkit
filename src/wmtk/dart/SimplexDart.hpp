@@ -12,6 +12,7 @@ class SimplexDart
 public:
     // to avoid potential construction costs we have some singletons available
     static const SimplexDart& get_singleton(wmtk::PrimitiveType simplex_type);
+    static const SimplexDart& get_singleton(int8_t dim);
     virtual ~SimplexDart();
     virtual int8_t product(int8_t a, int8_t b) const = 0;
     virtual int8_t inverse(int8_t a) const = 0;
@@ -53,6 +54,8 @@ public:
         return permutation_index_from_primitive_switch(pt);
     }
 
+
+    int8_t product(const std::initializer_list<int8_t>& indices) const;
 
     // converts input valid_indx to the target mesh
     int8_t convert(int8_t permutation_index, const SimplexDart& target) const;

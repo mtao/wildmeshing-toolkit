@@ -12,6 +12,7 @@
 #include <wmtk/dart/utils/permute.hpp>
 #include "utils/canonical_darts.hpp"
 
+#include <wmtk/dart/utils/from_local_vertex_permutation.hpp>
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/utils/primitive_range.hpp>
 using namespace wmtk;
@@ -642,3 +643,74 @@ TEST_CASE("permute_operator", "[permutation]")
     // run(std::array<int64_t, 3>{{5, 7, 6}});
     // run(std::array<int64_t, 4>{{5, 2, 7, 6}});
 }
+
+
+namespace {
+template <int8_t Dim>
+int8_t swap(int8_t a, int8_t b)
+{
+    std::array<int8_t, Dim + 1> indices;
+    for (int8_t j = 0; j <= Dim; ++j) {
+        if (j == a) {
+            indices[j] = b;
+        } else if (j == b) {
+            indices[j] = a;
+        } else {
+            indices[j] = j;
+        }
+    }
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(Dim);
+    return dart::utils::from_local_vertex_permutation(indices);
+}
+
+TEST_CASE("swap_edge_permutation", "[permutation]")
+{
+    /*
+    auto run = []<int8_t N>(std::integral_constant<int8_t, N>) {
+        const PrimitiveType pt = get_primitive_type_from_id(int8_t(N - 1));
+        const auto& sd = dart::SimplexDart::get_singleton(pt);
+        for (int8_t perm_index = 0; perm_index < sd.size(); ++perm_index) {
+            auto perm = dart::utils::get_local_vertex_permutation(pt, perm_index);
+        }
+    };
+
+
+    run(std::integral_constant<int8_t, 1>{});
+    run(std::integral_constant<int8_t, 2>{});
+    run(std::integral_constant<int8_t, 3>{});
+    */
+    {
+        const PrimitiveType pt = PrimitiveType::Triangle;
+        const auto& sd = dart::SimplexDart::get_singleton(pt);
+        int8_t s01 = swap<2>(0, 1);
+        int8_t s12 = swap<2>(1, 2);
+        int8_t s02 = swap<2>(2, 0);
+        spdlog::info("s01 {}", dart::utils::get_local_vertex_permutation(pt, s01));
+        spdlog::info("s12 {}", dart::utils::get_local_vertex_permutation(pt, s12));
+        spdlog::info("s02 {}", dart::utils::get_local_vertex_permutation(pt, s02));
+        auto op = [&](int8_t p) {
+            int8_t pinv = sd.inverse(p);
+            // int8_t r = sd.product({(p), d102.permutation(), sd.inverse(p)});
+            int8_t tmp = sd.product(p, d102.permutation());
+            int8_t r = sd.product(tmp, pinv);
+            // int8_t r = sd.product({sd.inverse(p), d102.permutation(), p});
+            spdlog::info(
+                "{} => {} => {}",
+                dart::utils::get_local_vertex_permutation(pt, tmp),
+                dart::utils::get_local_vertex_permutation(pt, p),
+                dart::utils::get_local_vertex_permutation(pt, r));
+            return r;
+        };
+
+
+        op(d012.permutation());
+        op(d102.permutation());
+        op(d021.permutation());
+
+
+        // spdlog::info("s01 {}", dart::utils::get_local_vertex_permutation(pt, s012));
+    }
+}
+
+
+} // namespace
