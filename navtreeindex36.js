@@ -1,5 +1,9 @@
 var NAVTREEINDEX36 =
 {
+"from__local__vertex__permutation_8cpp.html#ad0bc959d50bcee993c1971b893ffbc4b":[11,0,2,0,2,1,5,0],
+"from__local__vertex__permutation_8cpp.html#ad9d59c8cb5df3d18678f5cda2cf9f733":[11,0,2,0,2,1,5,6],
+"from__local__vertex__permutation_8cpp.html#adce69549ca210f29c2f7710689e130a5":[11,0,2,0,2,1,5,2],
+"from__local__vertex__permutation_8cpp_source.html":[11,0,2,0,2,1,5],
 "from__local__vertex__permutation_8hpp.html":[11,0,2,0,2,1,6],
 "from__local__vertex__permutation_8hpp.html#a064f80c8852f8641a6051ad9d65c7b1e":[11,0,2,0,2,1,6,4],
 "from__local__vertex__permutation_8hpp.html#a10c6694a0652dd219cd5e33f7e15d939":[11,0,2,0,2,1,6,5],
@@ -33,8 +37,8 @@ var NAVTREEINDEX36 =
 "from__vertex__simplices_8hpp.html#ac07baa000804aae7fb0fe7321d452394":[11,0,0,13,0,0,0,0,16,1],
 "from__vertex__simplices_8hpp.html#af788a1e34ada6ee56f00f90c733b9dc3":[11,0,0,13,0,0,0,0,16,0],
 "from__vertex__simplices_8hpp_source.html":[11,0,0,13,0,0,0,0,16],
-"functions.html":[10,3,0],
 "functions.html":[10,3,0,0],
+"functions.html":[10,3,0],
 "functions_a.html":[10,3,0,1],
 "functions_b.html":[10,3,0,2],
 "functions_c.html":[10,3,0,3],
@@ -245,9 +249,5 @@ var NAVTREEINDEX36 =
 "get_r_s_s_8h.html#a4e15db151197e42a39676ee7059dfb52":[11,0,2,0,9,17,0],
 "get_r_s_s_8h_source.html":[11,0,2,0,9,17],
 "globals.html":[11,1,0],
-"globals_defs.html":[11,1,6],
-"globals_enum.html":[11,1,4],
-"globals_eval.html":[11,1,5],
-"globals_func.html":[11,1,1],
-"globals_type.html":[11,1,3]
+"globals_defs.html":[11,1,6]
 };

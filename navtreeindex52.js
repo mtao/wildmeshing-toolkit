@@ -1,5 +1,10 @@
 var NAVTREEINDEX52 =
 {
+"tri__mesh_2simplex__index__from__permutation__index_8hxx.html":[11,0,2,0,1,4,12],
+"tri__mesh_2simplex__index__from__permutation__index_8hxx.html#a2925b59cc22704e2365313840b016cb7":[11,0,2,0,1,4,12,0],
+"tri__mesh_2simplex__index__from__permutation__index_8hxx_source.html":[11,0,2,0,1,4,12],
+"tri__mesh_2tuple__from__permutation__index_8hxx.html":[11,0,2,0,1,4,18],
+"tri__mesh_2tuple__from__permutation__index_8hxx.html#a1642768c1a7bc091584eabf48c47ec2f":[11,0,2,0,1,4,18,0],
 "tri__mesh_2tuple__from__permutation__index_8hxx_source.html":[11,0,2,0,1,4,18],
 "triangle__areas_8cpp.html":[11,0,2,0,9,45],
 "triangle__areas_8cpp_source.html":[11,0,2,0,9,45],

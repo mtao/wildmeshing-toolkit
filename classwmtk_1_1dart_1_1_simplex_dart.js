@@ -18,6 +18,7 @@ var classwmtk_1_1dart_1_1_simplex_dart =
     [ "permutation_index_from_tuple", "classwmtk_1_1dart_1_1_simplex_dart.html#a1f6c93a8f4f9898043c7c9d1ce0c2871", null ],
     [ "permutation_indices", "classwmtk_1_1dart_1_1_simplex_dart.html#a50154f402d62a24b98d94ea942c0ff2e", null ],
     [ "primitive_as_index", "classwmtk_1_1dart_1_1_simplex_dart.html#ad837f9caa9ec5bf4833f13b3a0d69a46", null ],
+    [ "product", "classwmtk_1_1dart_1_1_simplex_dart.html#ab865cc7196dbe4e8574e14341e2eda6b", null ],
     [ "product", "classwmtk_1_1dart_1_1_simplex_dart.html#a61de0a16f65d51c565bab5abf01d25aa", null ],
     [ "simplex_index", "classwmtk_1_1dart_1_1_simplex_dart.html#a003e5ef36e56b27a54b412fb23119183", null ],
     [ "simplex_index", "classwmtk_1_1dart_1_1_simplex_dart.html#ad657cee68299758eeb9f380ee376c359", null ],

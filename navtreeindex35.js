@@ -1,5 +1,7 @@
 var NAVTREEINDEX35 =
 {
+"ear__actions_8cpp.html#a744507c7fccc19234c2feb22c5337cc9":[11,0,2,0,7,4,4,3],
+"ear__actions_8cpp.html#aa8e007034aa64e1840bc1eb9754a3576":[11,0,2,0,7,4,4,2],
 "ear__actions_8cpp.html#acc4e3b7adce475e70ff52430eb6259f8":[11,0,2,0,7,4,4,0],
 "ear__actions_8cpp_source.html":[11,0,2,0,7,4,4],
 "ear__actions_8hpp.html":[11,0,2,0,7,4,5],
@@ -82,15 +84,17 @@ var NAVTREEINDEX35 =
 "edge__mesh_2tuple__from__permutation__index_8hxx.html#a733920e99772f077eaf992236a4d44d0":[11,0,2,0,1,0,18,0],
 "edge__mesh_2tuple__from__permutation__index_8hxx_source.html":[11,0,2,0,1,0,18],
 "edge__mirror_8cpp.html":[11,0,2,0,2,1,3],
+"edge__mirror_8cpp.html#a0721b4e767d3215bb7ac1d0de3122c14":[11,0,2,0,2,1,3,3],
+"edge__mirror_8cpp.html#a29feb97a24cc121b53b85ff19b10e2c8":[11,0,2,0,2,1,3,4],
 "edge__mirror_8cpp.html#a62cdf3ebb0a6bb03853783a3c54493cd":[11,0,2,0,2,1,3,2],
 "edge__mirror_8cpp.html#ab7930d3cc0ee0f5f062eb264d2e49ed7":[11,0,2,0,2,1,3,0],
-"edge__mirror_8cpp.html#adb71d0c4b7bee860a02037c07f29f927":[11,0,2,0,2,1,3,3],
 "edge__mirror_8cpp.html#af00e21f7312b26e4ca9766c3ffeee076":[11,0,2,0,2,1,3,1],
 "edge__mirror_8cpp_source.html":[11,0,2,0,2,1,3],
 "edge__mirror_8hpp.html":[11,0,2,0,2,1,4],
+"edge__mirror_8hpp.html#a0721b4e767d3215bb7ac1d0de3122c14":[11,0,2,0,2,1,4,3],
+"edge__mirror_8hpp.html#a29feb97a24cc121b53b85ff19b10e2c8":[11,0,2,0,2,1,4,4],
 "edge__mirror_8hpp.html#a62cdf3ebb0a6bb03853783a3c54493cd":[11,0,2,0,2,1,4,2],
 "edge__mirror_8hpp.html#ab7930d3cc0ee0f5f062eb264d2e49ed7":[11,0,2,0,2,1,4,0],
-"edge__mirror_8hpp.html#adb71d0c4b7bee860a02037c07f29f927":[11,0,2,0,2,1,4,3],
 "edge__mirror_8hpp.html#af00e21f7312b26e4ca9766c3ffeee076":[11,0,2,0,2,1,4,1],
 "edge__mirror_8hpp_source.html":[11,0,2,0,2,1,4],
 "edgemesh__topology__initialization_8cpp.html":[11,0,2,0,9,11],
@@ -245,9 +249,5 @@ var NAVTREEINDEX35 =
 "from__local__vertex__permutation_8cpp.html#a13cd76ed1efba55aad86ae9f8faee2dd":[11,0,2,0,2,1,5,4],
 "from__local__vertex__permutation_8cpp.html#aa40f35943640500fab606c0b20fd1049":[11,0,2,0,2,1,5,5],
 "from__local__vertex__permutation_8cpp.html#ab0d3c7db65de4342e3c494ad0a42db60":[11,0,2,0,2,1,5,3],
-"from__local__vertex__permutation_8cpp.html#abde62c0a71389836c3c3284be845b64a":[11,0,2,0,2,1,5,1],
-"from__local__vertex__permutation_8cpp.html#ad0bc959d50bcee993c1971b893ffbc4b":[11,0,2,0,2,1,5,0],
-"from__local__vertex__permutation_8cpp.html#ad9d59c8cb5df3d18678f5cda2cf9f733":[11,0,2,0,2,1,5,6],
-"from__local__vertex__permutation_8cpp.html#adce69549ca210f29c2f7710689e130a5":[11,0,2,0,2,1,5,2],
-"from__local__vertex__permutation_8cpp_source.html":[11,0,2,0,2,1,5]
+"from__local__vertex__permutation_8cpp.html#abde62c0a71389836c3c3284be845b64a":[11,0,2,0,2,1,5,1]
 };
