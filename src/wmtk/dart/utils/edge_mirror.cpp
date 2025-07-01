@@ -43,13 +43,11 @@ return _data[simplex_dimension];
 int8_t edge_mirror_left_action(const SimplexDart& sd, int8_t edge_permutation_index)
 {
     const int8_t SV = sd.primitive_as_index(PrimitiveType::Vertex);
-    return sd.product({sd.inverse(edge_permutation_index), SV, edge_permutation_index});
-    // return sd.product(sd.primitive_as_index(PrimitiveType::Vertex), permutation_index);
-    //  return
-    //  sd.product(permutation_index,sd.product(sd.primitive_as_index(PrimitiveType::Vertex),sd.inverse(permutation_index)));
 
-    // return sd.act(permutation_index,
-    // edge_mirror_action(get_primitive_type_id(sd.simplex_type())));
+    int8_t edge_permutation_index_inv = sd.inverse(edge_permutation_index);
+    int8_t tmp = sd.product(edge_permutation_index, SV);
+    int8_t r = sd.product(tmp, edge_permutation_index_inv);
+    return r;
 }
 dart::Dart edge_mirror(const SimplexDart& sd, const dart::Dart& dart)
 {
@@ -64,41 +62,6 @@ int8_t edge_mirror(const SimplexDart& sd, int8_t edge_permutation_index, int8_t 
 {
     int8_t pushforward_action = edge_mirror_left_action(sd, edge_permutation_index);
     const int8_t SV = sd.primitive_as_index(PrimitiveType::Vertex);
-    spdlog::info(
-        "primitive swap {} got mapped to {} from edge {}",
-        fmt::join(get_local_vertex_permutation(sd.simplex_type(), SV), ","),
-        fmt::join(get_local_vertex_permutation(sd.simplex_type(), pushforward_action), ","),
-        fmt::join(get_local_vertex_permutation(sd.simplex_type(), edge_permutation_index), ","));
-
-    spdlog::info(
-        "{}",
-        fmt::join(
-            get_local_vertex_permutation(
-                sd.simplex_type(), //
-                sd.product(SV, edge_permutation_index)
-                //
-                ),
-            ","));
-    spdlog::info(
-        "{}",
-        fmt::join(
-            get_local_vertex_permutation(
-                sd.simplex_type(), //
-                sd.inverse(edge_permutation_index)
-                //
-                ),
-            ","));
-    spdlog::info(
-        "{}",
-        fmt::join(
-            get_local_vertex_permutation(
-                sd.simplex_type(), //
-                sd.product(
-                    sd.inverse(edge_permutation_index),
-                    sd.product(SV, edge_permutation_index))
-                //
-                ),
-            ","));
 
     return sd.product(pushforward_action, permutation_index);
 }

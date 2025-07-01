@@ -665,47 +665,48 @@ int8_t swap(int8_t a, int8_t b)
 
 TEST_CASE("swap_edge_permutation", "[permutation]")
 {
-    /*
-    auto run = []<int8_t N>(std::integral_constant<int8_t, N>) {
-        const PrimitiveType pt = get_primitive_type_from_id(int8_t(N - 1));
-        const auto& sd = dart::SimplexDart::get_singleton(pt);
-        for (int8_t perm_index = 0; perm_index < sd.size(); ++perm_index) {
-            auto perm = dart::utils::get_local_vertex_permutation(pt, perm_index);
-        }
-    };
-
-
-    run(std::integral_constant<int8_t, 1>{});
-    run(std::integral_constant<int8_t, 2>{});
-    run(std::integral_constant<int8_t, 3>{});
-    */
     {
         const PrimitiveType pt = PrimitiveType::Triangle;
         const auto& sd = dart::SimplexDart::get_singleton(pt);
-        int8_t s01 = swap<2>(0, 1);
-        int8_t s12 = swap<2>(1, 2);
-        int8_t s02 = swap<2>(2, 0);
-        spdlog::info("s01 {}", dart::utils::get_local_vertex_permutation(pt, s01));
-        spdlog::info("s12 {}", dart::utils::get_local_vertex_permutation(pt, s12));
-        spdlog::info("s02 {}", dart::utils::get_local_vertex_permutation(pt, s02));
         auto op = [&](int8_t p) {
             int8_t pinv = sd.inverse(p);
-            // int8_t r = sd.product({(p), d102.permutation(), sd.inverse(p)});
+            auto verts = dart::utils::get_local_vertex_permutation(pt, p);
+            int8_t a = verts[0];
+            int8_t b = verts[1];
+            const int8_t target = swap<2>(a, b);
             int8_t tmp = sd.product(p, d102.permutation());
             int8_t r = sd.product(tmp, pinv);
-            // int8_t r = sd.product({sd.inverse(p), d102.permutation(), p});
-            spdlog::info(
-                "{} => {} => {}",
-                dart::utils::get_local_vertex_permutation(pt, tmp),
-                dart::utils::get_local_vertex_permutation(pt, p),
-                dart::utils::get_local_vertex_permutation(pt, r));
-            return r;
+            CHECK(r == target);
         };
 
 
-        op(d012.permutation());
-        op(d102.permutation());
-        op(d021.permutation());
+        for (const auto& d : D2) {
+            op(d.permutation());
+        }
+
+
+        // spdlog::info("s01 {}", dart::utils::get_local_vertex_permutation(pt, s012));
+    }
+    {
+        const PrimitiveType pt = PrimitiveType::Tetrahedron;
+        const auto& sd = dart::SimplexDart::get_singleton(pt);
+        auto op = [&](int8_t p) {
+            int8_t pinv = sd.inverse(p);
+            auto verts = dart::utils::get_local_vertex_permutation(pt, p);
+            int8_t a = verts[0];
+            int8_t b = verts[1];
+            const int8_t target = swap<3>(a, b);
+            // int8_t r = sd.product({(p), d102.permutation(), sd.inverse(p)});
+            int8_t tmp = sd.product(p, d1023.permutation());
+            int8_t r = sd.product(tmp, pinv);
+            CHECK(r == target);
+        };
+
+        op(d0123.permutation());
+
+        for (const auto& d : D3) {
+            op(d.permutation());
+        }
 
 
         // spdlog::info("s01 {}", dart::utils::get_local_vertex_permutation(pt, s012));
