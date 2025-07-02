@@ -32,7 +32,6 @@ public:
     // Note that for D-1 subdart encoded on G, M will return the equivalent D-1 subdart on Ge
     //
     std::array<dart::Dart, 2> alts;
-    std::array<int8_t, 2> local_boundary_indices;
 
     // Let d be a dart where every D-simplex for D <the input mesh dimension
     // lies in left/index=0 (equivalently right/index=1) ear then
@@ -45,14 +44,17 @@ public:
     Dart convert(const Dart& d, size_t index) const;
 
     // index is which ear we're currently at
-    Dart map_permutation_to_alt(
-        const wmtk::dart::SimplexDart& sd,
-        const int8_t permutation,
-        int8_t index) const;
+    Dart map_permutation_to_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation, int8_t index)
+        const;
+    const Dart& best_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation) const;
+    std::array<int8_t, 2> largest_subdarts(const wmtk::dart::SimplexDart& sd, int8_t permutation)
+        const;
+    std::array<int8_t, 2> local_boundary_indices(const wmtk::dart::SimplexDart& sd) const;
+
     Dart map_dart_to_alt(const wmtk::dart::SimplexDart& sd, const Dart& d) const;
 
-    // selects which index to use
-    Dart map_permutation_to_alt(const wmtk::dart::SimplexDart& sd, const int8_t permutation) const;
+    // selects which index to use // false = 0, true = 1
+    bool map_permutation_to_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation) const;
 
 
 private:

@@ -235,14 +235,13 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D]")
                 for (size_t k = 0; k < 2; ++k) {
                     const auto& alt = d.alts[k];
                     REQUIRE(alt.is_null() == bits[k]);
-                    const auto& i = d.local_boundary_indices[k];
+                    // const auto& i = d.local_boundary_indices[k];
                     spdlog::info(
-                        "Bdata {}:{} global id {}  with local orientation {} => points to {}",
+                        "Bdata {}:{} global id {}  with local orientation {}",
                         j,
                         k,
                         alt.global_id(),
-                        alt.permutation(),
-                        i);
+                        alt.permutation());
                 }
             }
         }
@@ -497,6 +496,7 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
                 const auto& adat = data.get_alternatives_data(t);
                 const int8_t input_permutation = sd.dart_from_tuple(t).permutation();
                 const auto& [a, b, pt] = pr;
+                auto dart = adat.map_permutation_to_alt(sd, input_permutation);
                 if (!a.is_null()) {
                     auto left = adat.map_permutation_to_alt(sd, input_permutation, 0);
 
