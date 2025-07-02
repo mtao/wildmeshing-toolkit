@@ -6,6 +6,7 @@ var classwmtk_1_1operations_1_1_edge_operation_data =
     [ "collapse_facet_data", "classwmtk_1_1operations_1_1_edge_operation_data.html#a94486f5f3c55350e06dd4083901c8682", null ],
     [ "const_collapse_facet_data", "classwmtk_1_1operations_1_1_edge_operation_data.html#accca0d3d5f93be8391759c4b65a49247", null ],
     [ "const_split_facet_data", "classwmtk_1_1operations_1_1_edge_operation_data.html#a200ff6f705563f45f1954be27caa3119", null ],
+    [ "get_alternative", "classwmtk_1_1operations_1_1_edge_operation_data.html#a3fdda0729fd9d5cf9b8015105e262031", null ],
     [ "operator=", "classwmtk_1_1operations_1_1_edge_operation_data.html#a095b34f546789114b1741e47cb139607", null ],
     [ "set_collapse", "classwmtk_1_1operations_1_1_edge_operation_data.html#a206614aefc56f3438ade92860efc4f3c", null ],
     [ "set_collapse", "classwmtk_1_1operations_1_1_edge_operation_data.html#ae7c1bd14167b8e46a0f3d960e477c3dc", null ],

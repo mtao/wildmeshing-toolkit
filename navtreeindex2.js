@@ -1,7 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"_max_function_invariant_8hpp_source.html":[11,0,2,0,4,35],
-"_merkle_tree_interior_node_8cpp.html":[11,0,2,0,9,28],
 "_merkle_tree_interior_node_8cpp_source.html":[11,0,2,0,9,28],
 "_merkle_tree_interior_node_8hpp.html":[11,0,2,0,9,29],
 "_merkle_tree_interior_node_8hpp_source.html":[11,0,2,0,9,29],
@@ -239,15 +237,17 @@ var NAVTREEINDEX2 =
 "_primitive_8hpp.html":[11,0,2,0,26],
 "_primitive_8hpp_source.html":[11,0,2,0,26],
 "_primitive_type_8cpp.html":[11,0,2,0,27],
-"_primitive_type_8cpp.html#a339897f6efeb23a997750141f12892ee":[11,0,2,0,27,1],
-"_primitive_type_8cpp.html#a71c70b23475a8313d0109f43cae0ca43":[11,0,2,0,27,0],
+"_primitive_type_8cpp.html#a339897f6efeb23a997750141f12892ee":[11,0,2,0,27,2],
+"_primitive_type_8cpp.html#a403f1b687924c16d9871fd3e1445ca57":[11,0,2,0,27,0],
+"_primitive_type_8cpp.html#a71c70b23475a8313d0109f43cae0ca43":[11,0,2,0,27,1],
 "_primitive_type_8cpp_source.html":[11,0,2,0,27],
 "_primitive_type_8hpp.html":[11,0,2,0,28],
-"_primitive_type_8hpp.html#a339897f6efeb23a997750141f12892ee":[11,0,2,0,28,6],
-"_primitive_type_8hpp.html#a3b08a5d7fb42f02c54bae85758b39f59":[11,0,2,0,28,2],
-"_primitive_type_8hpp.html#a5cf45c152e856196bb734c6f48919a24":[11,0,2,0,28,3],
-"_primitive_type_8hpp.html#a71c70b23475a8313d0109f43cae0ca43":[11,0,2,0,28,1],
-"_primitive_type_8hpp.html#a79cca18cd26ba3e868151125118d25a2":[11,0,2,0,28,5],
-"_primitive_type_8hpp.html#ae0be06e6baca3ef10d4d963e9030f344":[11,0,2,0,28,4],
+"_primitive_type_8hpp.html#a339897f6efeb23a997750141f12892ee":[11,0,2,0,28,7],
+"_primitive_type_8hpp.html#a3b08a5d7fb42f02c54bae85758b39f59":[11,0,2,0,28,3],
+"_primitive_type_8hpp.html#a403f1b687924c16d9871fd3e1445ca57":[11,0,2,0,28,1],
+"_primitive_type_8hpp.html#a5cf45c152e856196bb734c6f48919a24":[11,0,2,0,28,4],
+"_primitive_type_8hpp.html#a71c70b23475a8313d0109f43cae0ca43":[11,0,2,0,28,2],
+"_primitive_type_8hpp.html#a79cca18cd26ba3e868151125118d25a2":[11,0,2,0,28,6],
+"_primitive_type_8hpp.html#ae0be06e6baca3ef10d4d963e9030f344":[11,0,2,0,28,5],
 "_primitive_type_8hpp.html#af11e67c10a0ab2b57b9bbc3998b62345":[11,0,2,0,28,0]
 };

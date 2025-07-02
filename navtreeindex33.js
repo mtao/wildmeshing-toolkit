@@ -1,5 +1,15 @@
 var NAVTREEINDEX33 =
 {
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ab9e3fe650479936b42854ef034cd5885":[10,0,2,10,1,0,16],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ac08be9aada418b9f2d9c1d1056128a74":[9,0,10,14,1,1,17],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ac08be9aada418b9f2d9c1d1056128a74":[10,0,2,10,1,0,17],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ac1c6160e9aab1e97cbebae405c52f4e8":[9,0,10,14,1,1,22],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ac1c6160e9aab1e97cbebae405c52f4e8":[10,0,2,10,1,0,22],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#aca38cda13780651c13caed52b26f6dbe":[9,0,10,14,1,1,25],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#aca38cda13780651c13caed52b26f6dbe":[10,0,2,10,1,0,25],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ad6ec7632918d51e0aba0b7c27ff41466":[9,0,10,14,1,1,35],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ad6ec7632918d51e0aba0b7c27ff41466":[10,0,2,10,1,0,35],
+"classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ad81ecae31f8083edba882130356b33b4":[10,0,2,10,1,0,12],
 "classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#ad81ecae31f8083edba882130356b33b4":[9,0,10,14,1,1,12],
 "classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#adc260ca7abdc4e6ad8430a5fccff857e":[10,0,2,10,1,0,27],
 "classwmtk_1_1utils_1_1internal_1_1_index_simplex_mapper.html#adc260ca7abdc4e6ad8430a5fccff857e":[9,0,10,14,1,1,27],
@@ -239,15 +249,5 @@ var NAVTREEINDEX33 =
 "dart_2subgroup_2convert_8hpp.html#a2bf6fed0cc64c6ad326e56135c6e8497":[11,0,2,0,2,0,0,2],
 "dart_2subgroup_2convert_8hpp.html#a851a31103d5a0edebb5766332820fd04":[11,0,2,0,2,0,0,1],
 "dart_2subgroup_2convert_8hpp.html#aff039c88ca9e71a4fd50f4783d299ffc":[11,0,2,0,2,0,0,0],
-"dart_2subgroup_2convert_8hpp_source.html":[11,0,2,0,2,0,0],
-"dart_2utils_2permutation__index__from__tuple_8hpp.html":[11,0,2,0,2,1,28],
-"dart_2utils_2permutation__index__from__tuple_8hpp.html#a5938bfad02927360fa7dbdc22ba196af":[11,0,2,0,2,1,28,0],
-"dart_2utils_2permutation__index__from__tuple_8hpp_source.html":[11,0,2,0,2,1,28],
-"dart_2utils_2simplex__index__from__permutation__index_8hpp.html":[11,0,2,0,2,1,37],
-"dart_2utils_2simplex__index__from__permutation__index_8hpp.html#a372b3dc51045664821dc4d31392c4e29":[11,0,2,0,2,1,37,0],
-"dart_2utils_2simplex__index__from__permutation__index_8hpp_source.html":[11,0,2,0,2,1,37],
-"dart_2utils_2subdart__maximal__action__to__face_8cpp.html":[11,0,2,0,2,1,38],
-"dart_2utils_2subdart__maximal__action__to__face_8cpp.html#a0ba23d42a8a8025c7686ade8ecc8b738":[11,0,2,0,2,1,38,1],
-"dart_2utils_2subdart__maximal__action__to__face_8cpp.html#a440fcba9a4aa845f0032260625f6ae42":[11,0,2,0,2,1,38,5],
-"dart_2utils_2subdart__maximal__action__to__face_8cpp.html#a64455ce8f02f751ca88e81bf5c326c9b":[11,0,2,0,2,1,38,3]
+"dart_2subgroup_2convert_8hpp_source.html":[11,0,2,0,2,0,0]
 };

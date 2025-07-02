@@ -137,8 +137,6 @@ var NAVTREEINDEX0 =
 "_collapse_alternate_facet_data_8hpp.html":[11,0,2,0,7,4,1],
 "_collapse_alternate_facet_data_8hpp_source.html":[11,0,2,0,7,4,1],
 "_collapse_alternate_facet_option_data_8cpp.html":[11,0,2,0,7,4,2],
-"_collapse_alternate_facet_option_data_8cpp.html#ad01cc16532cad89b24b8a339be36ae9e":[11,0,2,0,7,4,2,1],
-"_collapse_alternate_facet_option_data_8cpp.html#ae4e4f6841986a64255466c9baedab476":[11,0,2,0,7,4,2,0],
 "_collapse_alternate_facet_option_data_8cpp_source.html":[11,0,2,0,7,4,2],
 "_collapse_alternate_facet_option_data_8hpp.html":[11,0,2,0,7,4,3],
 "_collapse_alternate_facet_option_data_8hpp.html#ac9a81d528bcafc07feefac6c408d821b":[11,0,2,0,7,4,3,1],
@@ -249,5 +247,7 @@ var NAVTREEINDEX0 =
 "_edge_valence_invariant_8hpp_source.html":[11,0,2,0,4,10],
 "_eigen_matrix_writer_8cpp.html":[11,0,2,0,9,13],
 "_eigen_matrix_writer_8cpp_source.html":[11,0,2,0,9,13],
-"_eigen_matrix_writer_8hpp.html":[11,0,2,0,9,14]
+"_eigen_matrix_writer_8hpp.html":[11,0,2,0,9,14],
+"_eigen_matrix_writer_8hpp_source.html":[11,0,2,0,9,14],
+"_energy_filter_invariant_8cpp.html":[11,0,2,0,4,11]
 };

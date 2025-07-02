@@ -166,6 +166,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:accca0d3d5f93be8391759c4b65a49247" id="r_accca0d3d5f93be8391759c4b65a49247"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html">internal::CollapseAlternateFacetData</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#accca0d3d5f93be8391759c4b65a49247">const_collapse_facet_data</a> () const</td></tr>
 <tr class="memdesc:accca0d3d5f93be8391759c4b65a49247"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns facet data held if the edge operation was a collapse- throws if data does not exist.  <br /></td></tr>
 <tr class="separator:accca0d3d5f93be8391759c4b65a49247"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3fdda0729fd9d5cf9b8015105e262031" id="r_a3fdda0729fd9d5cf9b8015105e262031"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1_tuple.html">Tuple</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#a3fdda0729fd9d5cf9b8015105e262031">get_alternative</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;t) const</td></tr>
+<tr class="separator:a3fdda0729fd9d5cf9b8015105e262031"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -362,6 +364,38 @@ Friends</h2></td></tr>
 <p>Returns facet data held if the edge operation was a split - throws if data does not exist. </p>
 
 <p class="definition">Definition at line <a class="el" href="_edge_operation_data_8cpp_source.html#l00045">45</a> of file <a class="el" href="_edge_operation_data_8cpp_source.html">EdgeOperationData.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_edge_operation_data_8hpp_source.html#l00049">m_op_data</a>.</p>
+
+</div>
+</div>
+<a id="a3fdda0729fd9d5cf9b8015105e262031" name="a3fdda0729fd9d5cf9b8015105e262031"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3fdda0729fd9d5cf9b8015105e262031">&#9670;&#160;</a></span>get_alternative()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> wmtk::operations::EdgeOperationData::get_alternative </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>mesh_pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;&#160;</td>
+          <td class="paramname"><em>t</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_edge_operation_data_8cpp_source.html#l00091">91</a> of file <a class="el" href="_edge_operation_data_8cpp_source.html">EdgeOperationData.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_edge_operation_data_8hpp_source.html#l00049">m_op_data</a>.</p>
 
@@ -795,7 +829,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_edge_operation_data_8hpp_source.html#l00049">49</a> of file <a class="el" href="_edge_operation_data_8hpp_source.html">EdgeOperationData.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_edge_operation_data_8cpp_source.html#l00072">collapse_facet_data()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00054">const_collapse_facet_data()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00045">const_split_facet_data()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00031">set_collapse()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00040">set_collapse()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00027">set_split()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00036">set_split()</a>, and <a class="el" href="_edge_operation_data_8cpp_source.html#l00063">split_facet_data()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_edge_operation_data_8cpp_source.html#l00072">collapse_facet_data()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00054">const_collapse_facet_data()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00045">const_split_facet_data()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00091">get_alternative()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00031">set_collapse()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00040">set_collapse()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00027">set_split()</a>, <a class="el" href="_edge_operation_data_8cpp_source.html#l00036">set_split()</a>, and <a class="el" href="_edge_operation_data_8cpp_source.html#l00063">split_facet_data()</a>.</p>
 
 </div>
 </div>

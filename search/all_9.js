@@ -129,7 +129,7 @@ var searchData=
   ['inversion_5fposition_5fattribute_126',['inversion_position_attribute',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a7c374f3bad76291ca3726578d1a385df',1,'wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions']]],
   ['invert_127',['invert',['../classwmtk_1_1dart_1_1_involution.html#a0a49d42a8b2e4d4fada0feb649d6eb13',1,'wmtk::dart::Involution']]],
   ['invert_5ffilter_128',['invert_filter',['../classwmtk_1_1components_1_1_marching.html#a60c8961e8a709079fe43b8c47e1cebe4',1,'wmtk::components::Marching']]],
-  ['involution_129',['involution',['../classwmtk_1_1dart_1_1_involution.html#a791cb560dc390831187046f75339366d',1,'wmtk::dart::Involution::Involution(PrimitiveType spt, const Dart &amp;s, PrimitiveType tpt, const Dart &amp;t)'],['../classwmtk_1_1dart_1_1_involution.html#a4443e70e901e600ff81de2305704c5f4',1,'wmtk::dart::Involution::involution'],['../classwmtk_1_1dart_1_1_involution.html',1,'wmtk::dart::Involution']]],
+  ['involution_129',['involution',['../classwmtk_1_1dart_1_1_involution.html#a4443e70e901e600ff81de2305704c5f4',1,'wmtk::dart::Involution::involution'],['../classwmtk_1_1dart_1_1_involution.html#a791cb560dc390831187046f75339366d',1,'wmtk::dart::Involution::Involution(PrimitiveType spt, const Dart &amp;s, PrimitiveType tpt, const Dart &amp;t)'],['../classwmtk_1_1dart_1_1_involution.html',1,'wmtk::dart::Involution']]],
   ['involution_2ecpp_130',['Involution.cpp',['../_involution_8cpp.html',1,'']]],
   ['involution_2ehpp_131',['Involution.hpp',['../_involution_8hpp.html',1,'']]],
   ['io_132',['io',['../index.html#autotoc_md11',1,'']]],

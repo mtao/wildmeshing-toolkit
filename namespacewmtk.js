@@ -110,6 +110,7 @@ var namespacewmtk =
     [ "find_invariant_in_collection_by_type", "namespacewmtk.html#ae975d72ae7f4a759f36108e53d2c144d", null ],
     [ "find_invariants_in_collection_by_type", "namespacewmtk.html#a03e738f947e892d769944effbc92963c", null ],
     [ "first_available_color", "namespacewmtk.html#a74159b2980a810f63934969e068e93fe", null ],
+    [ "format_as", "namespacewmtk.html#a403f1b687924c16d9871fd3e1445ca57", null ],
     [ "get_max_primitive_type_id", "namespacewmtk.html#a71c70b23475a8313d0109f43cae0ca43", null ],
     [ "get_primitive_type_from_id", "namespacewmtk.html#a3b08a5d7fb42f02c54bae85758b39f59", null ],
     [ "get_primitive_type_id", "namespacewmtk.html#a5cf45c152e856196bb734c6f48919a24", null ],
