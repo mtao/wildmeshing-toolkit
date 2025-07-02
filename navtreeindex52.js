@@ -1,5 +1,13 @@
 var NAVTREEINDEX52 =
 {
+"tri__mesh_2local__switch__tuple_8hxx.html#a4d2b99eb58e6fd1d825180dbea0167f1":[11,0,2,0,1,4,8,3],
+"tri__mesh_2local__switch__tuple_8hxx.html#a5752d2943ce38291c6da0696d89e62ee":[11,0,2,0,1,4,8,1],
+"tri__mesh_2local__switch__tuple_8hxx.html#a91e6b348f528d93ad6d9031bae1480da":[11,0,2,0,1,4,8,2],
+"tri__mesh_2local__switch__tuple_8hxx.html#ad4f2609b424b59276a869bbb37f165da":[11,0,2,0,1,4,8,0],
+"tri__mesh_2local__switch__tuple_8hxx_source.html":[11,0,2,0,1,4,8],
+"tri__mesh_2permutation__index__from__tuple_8hxx.html":[11,0,2,0,1,4,10],
+"tri__mesh_2permutation__index__from__tuple_8hxx.html#acda8bc53cd7772a2c5f3209eb646b134":[11,0,2,0,1,4,10,0],
+"tri__mesh_2permutation__index__from__tuple_8hxx_source.html":[11,0,2,0,1,4,10],
 "tri__mesh_2simplex__index__from__permutation__index_8hxx.html":[11,0,2,0,1,4,12],
 "tri__mesh_2simplex__index__from__permutation__index_8hxx.html#a2925b59cc22704e2365313840b016cb7":[11,0,2,0,1,4,12,0],
 "tri__mesh_2simplex__index__from__permutation__index_8hxx_source.html":[11,0,2,0,1,4,12],

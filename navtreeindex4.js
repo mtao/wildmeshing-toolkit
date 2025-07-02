@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"_transfer_strategy_factory_8cpp.html#ab72e5cdeb3f0b25598c82873b103ede9":[11,0,0,12,0,0,0,0,2,31,1],
+"_transfer_strategy_factory_8cpp.html#ae09d87b5fae1f20a046210c379da8992":[11,0,0,12,0,0,0,0,2,31,0],
 "_transfer_strategy_factory_8cpp_source.html":[11,0,0,12,0,0,0,0,2,31],
 "_transfer_strategy_factory_8hpp.html":[11,0,0,12,0,0,0,0,2,32],
 "_transfer_strategy_factory_8hpp.html#a6cb2184b5296228e87b2635e05c84b64":[11,0,0,12,0,0,0,0,2,32,1],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "autogen_2edge__mesh_2_simplex_dart_8hpp.html#af3165f0aff67a7efc02d776b9f6a24f0":[11,0,2,0,1,0,14,3],
 "autogen_2edge__mesh_2_simplex_dart_8hpp_source.html":[11,0,2,0,1,0,14],
 "autogen_2edge__mesh_2local__switch__tuple_8hpp.html":[11,0,2,0,1,0,7],
-"autogen_2edge__mesh_2local__switch__tuple_8hpp.html#a31f57ece5d376a6b13f38500d5fc34dc":[11,0,2,0,1,0,7,2],
-"autogen_2edge__mesh_2local__switch__tuple_8hpp.html#a4a05a2b6b2c2456ec5c1713ae96fd854":[11,0,2,0,1,0,7,1],
-"autogen_2edge__mesh_2local__switch__tuple_8hpp.html#a73029a8306ed3639bb9a9d117ca333f5":[11,0,2,0,1,0,7,3]
+"autogen_2edge__mesh_2local__switch__tuple_8hpp.html#a31f57ece5d376a6b13f38500d5fc34dc":[11,0,2,0,1,0,7,2]
 };

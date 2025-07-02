@@ -1,5 +1,7 @@
 var NAVTREEINDEX2 =
 {
+"_max_function_invariant_8hpp_source.html":[11,0,2,0,4,35],
+"_merkle_tree_interior_node_8cpp.html":[11,0,2,0,9,28],
 "_merkle_tree_interior_node_8cpp_source.html":[11,0,2,0,9,28],
 "_merkle_tree_interior_node_8hpp.html":[11,0,2,0,9,29],
 "_merkle_tree_interior_node_8hpp_source.html":[11,0,2,0,9,29],
@@ -247,7 +249,5 @@ var NAVTREEINDEX2 =
 "_primitive_type_8hpp.html#a71c70b23475a8313d0109f43cae0ca43":[11,0,2,0,28,1],
 "_primitive_type_8hpp.html#a79cca18cd26ba3e868151125118d25a2":[11,0,2,0,28,5],
 "_primitive_type_8hpp.html#ae0be06e6baca3ef10d4d963e9030f344":[11,0,2,0,28,4],
-"_primitive_type_8hpp.html#af11e67c10a0ab2b57b9bbc3998b62345":[11,0,2,0,28,0],
-"_primitive_type_8hpp.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b":[11,0,2,0,28,0,2],
-"_primitive_type_8hpp.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6":[11,0,2,0,28,0,0]
+"_primitive_type_8hpp.html#af11e67c10a0ab2b57b9bbc3998b62345":[11,0,2,0,28,0]
 };
