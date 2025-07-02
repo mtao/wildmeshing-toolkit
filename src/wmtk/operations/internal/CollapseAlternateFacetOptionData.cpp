@@ -9,6 +9,7 @@
 #include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/dart/utils/get_simplex_involution.hpp>
 #include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
+#include <wmtk/dart/utils/opposite.hpp>
 #include <wmtk/dart/utils/subdart_maximal_action_to_face.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/primitive_range.hpp>
@@ -70,6 +71,7 @@ auto CollapseAlternateFacetOptionData::get_neighbor_action(
     return d;
 }
 
+/*
 auto CollapseAlternateFacetOptionData::best_alt(
     const wmtk::dart::SimplexDart& sd,
     int8_t permutation) const -> const Dart&
@@ -79,12 +81,10 @@ auto CollapseAlternateFacetOptionData::best_alt(
     spdlog::info("Perm {} got {} {}", permutation, left_is_boundary, right_is_boundary);
 
     int8_t index;
-    const PrimitiveType mesh_pt = sd.simplex_type();
-    const PrimitiveType face_pt = mesh_pt - 1;
 
 
+    auto largest_subdarts = this->largest_subdarts(sd, permutation);
     if (!left_is_boundary && !right_is_boundary) {
-    auto largest_subdarts = largest_subdarts(
         if (largest_subdarts[0] >= largest_subdarts[1]) {
             index = 1;
         } else {
@@ -93,6 +93,7 @@ auto CollapseAlternateFacetOptionData::best_alt(
 
     } else {
         assert(left_is_boundary || right_is_boundary);
+        // pick the one that isn't bad
         index = alts[0].is_null() ? 1 : 0;
         if (largest_subdarts[index] >= largest_subdarts[1 - index]) {
             spdlog::info("Swapping subdarts");
@@ -100,34 +101,52 @@ auto CollapseAlternateFacetOptionData::best_alt(
         }
     }
     assert(!alts[index].is_null());
+    return alts[index];
 }
-std::array<int8_t, 2> largest_subdarts(const wmtk::dart::SimplexDart& sd, int8_t permutation) const
+*/
+std::array<int8_t, 2> CollapseAlternateFacetOptionData::largest_subdarts(
+    const wmtk::dart::SimplexDart& sd,
+    int8_t permutation) const
 {
-    auto local_boundary_indices = this->local_boundary_indices(sd);
-    std::array<int8_t, 2> ls;
-    spdlog::info("Largest subdart sizes {} on faces {}", ls, local_boundary_indices);
-    for (size_t k = 0; k < 2; ++k) {
-        ls[k] = wmtk::dart::utils::largest_shared_subdart_size(
-            mesh_pt,
-            permutation,
-            face_pt,
-            local_boundary_indices[k]);
-    }
-    return ls;
+    return std::array<int8_t, 2>{
+        {largest_subdart(sd, permutation, 0), largest_subdart(sd, permutation, 1)}};
 }
-std::array<int8_t, 2> local_boundary_indices(const wmtk::dart::SimplexDart& sd) const
+int8_t CollapseAlternateFacetOptionData::largest_subdart(
+    const wmtk::dart::SimplexDart& sd,
+    int8_t permutation,
+    int8_t index) const
 {
-    std::array<int8_t, 2> bi;
+    const PrimitiveType mesh_pt = sd.simplex_type();
+    const PrimitiveType face_pt = mesh_pt - 1;
+    return wmtk::dart::utils::largest_shared_subdart_size(
+        mesh_pt,
+        permutation,
+        face_pt,
+        local_boundary_index(sd, index));
+}
+std::array<int8_t, 2> CollapseAlternateFacetOptionData::local_boundary_indices(
+    const wmtk::dart::SimplexDart& sd) const
+{
+    return std::array<int8_t, 2>{{local_boundary_index(sd, 0), local_boundary_index(sd, 1)}};
+}
+int8_t CollapseAlternateFacetOptionData::local_boundary_index(
+    const wmtk::dart::SimplexDart& sd,
+    int8_t index) const
+{
     const int8_t p = input.permutation();
     const PrimitiveType mesh_pt = sd.simplex_type();
     const PrimitiveType face_pt = mesh_pt - 1;
 
-    bi[1] = sd.simplex_index(sd.opposite(p), face_pt);
-    bi[0] = sd.simplex_index(
-        sd.opposite(sd.act(p, sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex))),
-        face_pt);
-
-    return bi;
+    int8_t face_p;
+    if (index == 0) {
+        face_p = dart::utils::opposite(
+            sd,
+            sd.act(p, sd.permutation_index_from_primitive_switch(PrimitiveType::Vertex)));
+    } else {
+        face_p = dart::utils::opposite(sd, p);
+    }
+    spdlog::info("Boundary index {} got tuple {}", index, face_p);
+    return sd.simplex_index(face_p, face_pt);
 }
 
 auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
@@ -135,7 +154,6 @@ auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
     int8_t p,
     int8_t index) const -> Dart
 {
-    assert(!alts[0].is_null() || !alts[1].is_null());
     const wmtk::dart::Dart& transform = alts[index];
     if (transform.is_null()) {
         return {};
@@ -144,7 +162,24 @@ auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
     const PrimitiveType mesh_pt = sd.simplex_type();
     const PrimitiveType face_pt = mesh_pt - 1;
 
-    int8_t ear_p = sd.act(ear_action(mesh_pt, input.permutation()), input);
+
+    {
+        auto ls = largest_subdarts(sd, p);
+        auto lb = local_boundary_indices(sd);
+        spdlog::info("Largest subdarts {} with local boundaries {}", ls, lb);
+        if (ls[index] > ls[1 - index]) {
+            int8_t p2 = wmtk::dart::utils::edge_mirror(sd, input.permutation(), p);
+            spdlog::info(
+                "Mirrored {} to {}",
+                dart::utils::get_local_vertex_permutation(mesh_pt, p),
+                dart::utils::get_local_vertex_permutation(mesh_pt, p2));
+
+            p = p2;
+        }
+    }
+
+
+    int8_t ear_p = sd.act(input.permutation(), ear_action(mesh_pt, index == 0));
     int8_t ear_face = sd.simplex_index(ear_p, face_pt);
 
     int8_t to_face =
@@ -165,23 +200,9 @@ auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
     spdlog::info("Perm {} got {} {}", permutation, left_is_boundary, right_is_boundary);
 
     int8_t index;
-    const PrimitiveType mesh_pt = sd.simplex_type();
-    const PrimitiveType face_pt = mesh_pt - 1;
-    spdlog::info(
-        "Input edge was {}, mapping dart {} on face {}",
-        dart::utils::get_local_vertex_permutation(mesh_pt, input.permutation()),
-        dart::utils::get_local_vertex_permutation(mesh_pt, permutation),
-        sd.simplex_index(permutation, face_pt));
 
-    std::array<int8_t, 2> largest_subdarts;
-    spdlog::info("Largest subdart sizes {} on faces {}", largest_subdarts, local_boundary_indices);
-    for (size_t k = 0; k < 2; ++k) {
-        largest_subdarts[k] = wmtk::dart::utils::largest_shared_subdart_size(
-            mesh_pt,
-            permutation,
-            face_pt,
-            local_boundary_indices[k]);
-    }
+
+    auto largest_subdarts = this->largest_subdarts(sd, permutation);
     if (!left_is_boundary && !right_is_boundary) {
         if (largest_subdarts[0] >= largest_subdarts[1]) {
             index = 1;
@@ -191,6 +212,7 @@ auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
 
     } else {
         assert(left_is_boundary || right_is_boundary);
+        // pick the one that isn't bad
         index = alts[0].is_null() ? 1 : 0;
         if (largest_subdarts[index] >= largest_subdarts[1 - index]) {
             spdlog::info("Swapping subdarts");

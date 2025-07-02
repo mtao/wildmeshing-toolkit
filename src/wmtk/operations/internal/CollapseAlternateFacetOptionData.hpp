@@ -46,15 +46,20 @@ public:
     // index is which ear we're currently at
     Dart map_permutation_to_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation, int8_t index)
         const;
-    const Dart& best_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation) const;
+    // const Dart& best_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation) const;
     std::array<int8_t, 2> largest_subdarts(const wmtk::dart::SimplexDart& sd, int8_t permutation)
         const;
+
+
+    int8_t largest_subdart(const wmtk::dart::SimplexDart& sd, int8_t permutation, int8_t index)
+        const;
     std::array<int8_t, 2> local_boundary_indices(const wmtk::dart::SimplexDart& sd) const;
+    int8_t local_boundary_index(const wmtk::dart::SimplexDart& sd, int8_t index) const;
 
     Dart map_dart_to_alt(const wmtk::dart::SimplexDart& sd, const Dart& d) const;
 
     // selects which index to use // false = 0, true = 1
-    bool map_permutation_to_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation) const;
+    Dart map_permutation_to_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation) const;
 
 
 private:
