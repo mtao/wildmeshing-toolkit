@@ -61,6 +61,9 @@ public:
     /// Returns facet data held if the edge operation was a collapse- throws if data does not exist
     const internal::CollapseAlternateFacetData& const_collapse_facet_data() const;
 
+    Tuple get_alternative(const PrimitiveType mesh_pt, const Tuple& t) const;
+
+
 protected:
     /// Returns facet data held if the edge operation was a split - throws if data does not exist
     internal::SplitAlternateFacetData& split_facet_data();

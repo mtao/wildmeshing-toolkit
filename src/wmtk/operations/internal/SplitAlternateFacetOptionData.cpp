@@ -1,5 +1,4 @@
 #include "SplitAlternateFacetOptionData.hpp"
-#include <spdlog/spdlog.h>
 #include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/operations/internal/ear_actions.hpp>
 
@@ -27,8 +26,8 @@ auto make_inds()
 
             for (int8_t k = 0; k < sd.size(); ++k) {
                 if (sd.simplex_index(k, wmtk::PrimitiveType::Edge) == edge_index) {
-                    const int8_t left = sd.product(left_ear_action(sd.simplex_type()), k);
-                    const int8_t right = sd.product(right_ear_action(sd.simplex_type()), k);
+                    const int8_t left = sd.act(k,left_ear_action(sd.simplex_type()));
+                    const int8_t right = sd.act(k,right_ear_action(sd.simplex_type()));
                     main[0] = sd.simplex_index(left, boundary_type);
                     main[1] = sd.simplex_index(right, boundary_type);
                     break;
@@ -57,7 +56,7 @@ const std::array<int8_t, 2>& boundary_indices_(
 {
     const int8_t edge_index = sd.simplex_index(o, wmtk::PrimitiveType::Edge);
     const int8_t boundary_index =
-        sd.simplex_index(sd.product(sd.opposite(), o), sd.simplex_type() - 1);
+        sd.simplex_index(sd.act(o,sd.opposite()), sd.simplex_type() - 1);
     const PairPair& pairpair = arr.at(edge_index);
     const Pair& pair = std::get<0>(pairpair);
     static_assert(std::tuple_size_v<Pair> == 2);
@@ -103,7 +102,6 @@ SplitAlternateFacetOptionData::SplitAlternateFacetOptionData(
     : input(i)
     , new_facet_indices(n)
 {
-    spdlog::info("Split facet data {}", std::string(i));
 }
 
 

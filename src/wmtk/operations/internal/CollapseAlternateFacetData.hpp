@@ -30,6 +30,15 @@ public:
         const Tuple& t,
         const PrimitiveType simplex_dimension) const;
 
+    std::array<Tuple, 2> get_alternatives(
+        const PrimitiveType mesh_pt,
+        const Tuple& t
+        ) const;
+    Tuple get_alternative(
+        const PrimitiveType mesh_pt,
+        const Tuple& t
+        ) const;
+
     using AltData = std::vector<Data>;
     AltData m_data;
 

@@ -145,7 +145,7 @@ int8_t CollapseAlternateFacetOptionData::local_boundary_index(
     } else {
         face_p = dart::utils::opposite(sd, p);
     }
-    spdlog::info("Boundary index {} got tuple {}", index, face_p);
+    // spdlog::info("Boundary index {} got tuple {}", index, face_p);
     return sd.simplex_index(face_p, face_pt);
 }
 
@@ -165,14 +165,14 @@ auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
 
     {
         auto ls = largest_subdarts(sd, p);
-        auto lb = local_boundary_indices(sd);
-        spdlog::info("Largest subdarts {} with local boundaries {}", ls, lb);
-        if (ls[index] > ls[1 - index]) {
+        // auto lb = local_boundary_indices(sd);
+        //  spdlog::info("Largest subdarts {} with local boundaries {}", ls, lb);
+        if (ls[index] < ls[1 - index]) {
             int8_t p2 = wmtk::dart::utils::edge_mirror(sd, input.permutation(), p);
-            spdlog::info(
-                "Mirrored {} to {}",
-                dart::utils::get_local_vertex_permutation(mesh_pt, p),
-                dart::utils::get_local_vertex_permutation(mesh_pt, p2));
+            // spdlog::info(
+            //     "Mirrored {} to {}",
+            //     dart::utils::get_local_vertex_permutation(mesh_pt, p),
+            //     dart::utils::get_local_vertex_permutation(mesh_pt, p2));
 
             p = p2;
         }
@@ -197,7 +197,7 @@ auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
 {
     const bool left_is_boundary = alts[0].is_null();
     const bool right_is_boundary = alts[1].is_null();
-    spdlog::info("Perm {} got {} {}", permutation, left_is_boundary, right_is_boundary);
+    // spdlog::info("Perm {} got {} {}", permutation, left_is_boundary, right_is_boundary);
 
     int8_t index;
 
@@ -215,7 +215,7 @@ auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
         // pick the one that isn't bad
         index = alts[0].is_null() ? 1 : 0;
         if (largest_subdarts[index] >= largest_subdarts[1 - index]) {
-            spdlog::info("Swapping subdarts");
+            // spdlog::info("Swapping subdarts");
             permutation = wmtk::dart::utils::edge_mirror(sd, input.permutation(), permutation);
         }
     }

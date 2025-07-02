@@ -49,4 +49,7 @@ std::string_view primitive_type_name(PrimitiveType t)
     }
 }
 
+std::string_view format_as(PrimitiveType t) {
+    return primitive_type_name(t);
+}
 } // namespace wmtk

@@ -84,6 +84,13 @@ auto SplitAlternateFacetData::get_alternative(
     const Tuple& t,
     const PrimitiveType simplex_dimension) const -> Tuple
 {
+    return get_alternative(mesh_pt, t);
+}
+auto SplitAlternateFacetData::get_alternative(
+    const PrimitiveType mesh_pt,
+    const Tuple& t
+    ) const -> Tuple
+{
     assert(mesh_pt > PrimitiveType::Vertex);
     const auto alts_it = get_alternative_facets_it(t.global_cid());
     assert(alts_it != m_facet_maps.end());

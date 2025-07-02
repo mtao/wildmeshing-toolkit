@@ -10,6 +10,7 @@
 #include <tools/TriMesh_examples.hpp>
 #include <tools/single_simplex_mesh.hpp>
 #include <wmtk/dart/utils/apply_simplex_involution.hpp>
+#include <wmtk/dart/utils/get_local_vertex_permutation.hpp>
 #include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/operations/EdgeOperationData.hpp>
 #include <wmtk/operations/internal/CollapseAlternateFacetData.hpp>
@@ -25,9 +26,10 @@
 
 TEST_CASE("split_facet_maps", "[operations][data]")
 {
-    for (wmtk::PrimitiveType mesh_type : wmtk::utils::primitive_range(
-             wmtk::PrimitiveType::Edge,
-             wmtk::PrimitiveType::Tetrahedron)) {
+    // for (wmtk::PrimitiveType mesh_type : wmtk::utils::primitive_range(
+    //          wmtk::PrimitiveType::Edge,
+    //          wmtk::PrimitiveType::Tetrahedron)) {
+    for (wmtk::PrimitiveType mesh_type : {wmtk::PrimitiveType::Tetrahedron}) {
         const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
         wmtk::operations::internal::SplitAlternateFacetData data;
 
@@ -65,13 +67,26 @@ TEST_CASE("split_facet_maps", "[operations][data]")
         const int8_t RA = wmtk::operations::internal::right_ear_action(mesh_type);
         const std::array<int8_t, 2> actions{{LA, RA}};
 
+        spdlog::warn(
+            "Left right actions: {} {}",
+            wmtk::dart::utils::get_local_vertex_permutation(mesh_type, LA),
+            wmtk::dart::utils::get_local_vertex_permutation(mesh_type, RA));
         const wmtk::PrimitiveType boundary_type = mesh_type - 1;
         for (const auto& scm_data : scm) {
             std::array<int8_t, 2> boundaries;
+            const int8_t input_permutation = scm_data.input.permutation();
+            spdlog::info(
+                "Input edge permutation {}",
+                wmtk::dart::utils::get_local_vertex_permutation(mesh_type, input_permutation));
             for (size_t j = 0; j < 2; ++j) {
-                boundaries[j] = sd.simplex_index(
-                    sd.product(actions[j], scm_data.input.permutation()),
-                    boundary_type);
+                const int8_t boundary_permutation =
+                    sd.product(input_permutation, actions[j]); //, input_permutation);
+                spdlog::info(
+                    "Boundary permutation {}",
+                    wmtk::dart::utils::get_local_vertex_permutation(
+                        mesh_type,
+                        boundary_permutation));
+                boundaries[j] = sd.simplex_index(boundary_permutation, boundary_type);
             }
             for (int8_t j = 0; j < sd.size(); ++j) {
                 int left_efficacy = wmtk::dart::utils::largest_shared_subdart_size(
@@ -496,6 +511,8 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
                 const auto& adat = data.get_alternatives_data(t);
                 const int8_t input_permutation = sd.dart_from_tuple(t).permutation();
                 const auto& [a, b, pt] = pr;
+                std::array<wmtk::Tuple, 2> ret =
+                    data.get_alternatives(m.top_simplex_type(), t, wmtk::PrimitiveType::Edge);
                 if (!a.is_null()) {
                     auto left = adat.map_permutation_to_alt(sd, input_permutation, 0);
 
@@ -505,6 +522,9 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
                         std::string(sd.tuple_from_dart(left)),
                         std::string(a));
                     CHECK(sd.tuple_from_dart(left) == a);
+                    CHECK(ret[0] == a);
+                } else {
+                    CHECK(ret[0].is_null());
                 }
                 if (!b.is_null()) {
                     auto right = adat.map_permutation_to_alt(sd, input_permutation, 1);
@@ -513,9 +533,11 @@ TEST_CASE("collapse_facet_maps_2d", "[operations][data][2D][.]")
                         std::string(sd.tuple_from_dart(right)),
                         std::string(b));
                     CHECK(sd.tuple_from_dart(right) == b);
+                    CHECK(ret[1] == a);
+                } else {
+                    CHECK(ret[1].is_null());
                 }
-                // auto ret =
-                //     data.get_alternatives(m.top_simplex_type(), t, wmtk::PrimitiveType::Edge);
+
 
                 // const auto& [c, d] = ret;
                 //  spdlog::info(

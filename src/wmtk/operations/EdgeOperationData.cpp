@@ -35,11 +35,11 @@ void EdgeOperationData::set_collapse()
 
 void EdgeOperationData::set_split(const Mesh& m, const Tuple& t)
 {
-    m_op_data = std::make_unique<internal::SplitAlternateFacetData>(m,t);
+    m_op_data = std::make_unique<internal::SplitAlternateFacetData>(m, t);
 }
 void EdgeOperationData::set_collapse(const Mesh& m, const Tuple& t)
 {
-    m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m,t);
+    m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t);
 }
 
 const internal::SplitAlternateFacetData& EdgeOperationData::const_split_facet_data() const
@@ -87,6 +87,10 @@ EdgeOperationData::request_simplex_indices(Mesh& mesh, const PrimitiveType type,
     // wmtk::logger()
     //     .trace("Requesting {} {}-simplices. got [{}]", count, int(type), fmt::join(ret, ","));
     return ret;
+}
+Tuple EdgeOperationData::get_alternative(const PrimitiveType mesh_pt, const Tuple& t) const
+{
+    return std::visit([&](const auto& m) { return m->get_alternative(mesh_pt, t); }, m_op_data);
 }
 
 } // namespace wmtk::operations

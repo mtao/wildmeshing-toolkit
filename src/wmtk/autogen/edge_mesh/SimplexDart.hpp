@@ -49,7 +49,12 @@ inline auto permutation_indices_dynamic()
 
 inline int8_t simplex_index(int8_t permutation_index, wmtk::PrimitiveType type)
 {
+    if(type == PrimitiveType::Vertex) {
     return auto_valid_tuples[permutation_index][get_primitive_type_id(type)];
+    } else {
+        assert(type == PrimitiveType::Edge);
+        return 0;
+    }
 }
 
 

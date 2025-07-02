@@ -48,5 +48,6 @@ constexpr inline PrimitiveType get_primitive_type_from_id(int8_t id)
 int8_t get_max_primitive_type_id(const std::vector<PrimitiveType>& primitive_types);
 
 std::string_view primitive_type_name(PrimitiveType t);
+std::string_view format_as(PrimitiveType t);
 
 } // namespace wmtk
