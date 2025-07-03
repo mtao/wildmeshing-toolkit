@@ -656,329 +656,331 @@ $(document).ready(function(){initNavTree('_tri_mesh_operation_executor_8cpp_sour
 <div class="line"><a id="l00513" name="l00513"></a><span class="lineno">  513</span>    hash_update_region.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#ab318c99d54327383ff1b985bed043f3a">sort_and_clean</a>();</div>
 <div class="line"><a id="l00514" name="l00514"></a><span class="lineno">  514</span> </div>
 <div class="line"><a id="l00515" name="l00515"></a><span class="lineno">  515</span>    global_ids_to_potential_tuples.resize(3);</div>
-<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex_collection.html">simplex::SimplexCollection</a> faces(m_mesh);</div>
-<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span> </div>
-<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a>&amp; f : hash_update_region.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a3c5684abe23553010bb7f87840e9518d">simplex_vector</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">PrimitiveType::Triangle</a>)) {</div>
-<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>        faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a1e7079b3b75f70dd28c524556cab76cf">add</a>(<a class="code hl_function" href="namespacewmtk_1_1simplex.html#aee89641a0de7b5ddf8d15bf376f9d33b">wmtk::simplex::faces</a>(m_mesh, f, <span class="keyword">false</span>));</div>
-<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>        faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a1e7079b3b75f70dd28c524556cab76cf">add</a>(f);</div>
-<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>    }</div>
-<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span> </div>
-<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span>    faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#ab318c99d54327383ff1b985bed043f3a">sort_and_clean</a>();</div>
-<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : faces) {</div>
-<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>        <span class="keyword">const</span> int64_t index = <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(s.primitive_type());</div>
-<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        <span class="keywordflow">if</span> (!m_mesh.has_child_mesh_in_dimension(index)) {</div>
-<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>        }</div>
-<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span> </div>
-<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span>        int64_t <span class="keywordtype">id</span> = m_mesh.id(s);</div>
-<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>        <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>        <span class="keywordflow">if</span> (index == 1) {</div>
-<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>            <span class="comment">/*</span></div>
-<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span><span class="comment">            for (const auto&amp; eid : split_spine_eids) {</span></div>
-<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span><span class="comment">                if (eid == id) {</span></div>
-<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span><span class="comment">                    found = true;</span></div>
-<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span><span class="comment">                    break;</span></div>
-<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span><span class="comment">                }</span></div>
-<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span><span class="comment">            }</span></div>
-<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span><span class="comment">            if (found) {</span></div>
-<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span><span class="comment">                continue;</span></div>
-<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span><span class="comment">            }</span></div>
-<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span><span class="comment">            if (id == spine_eid) {</span></div>
-<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span><span class="comment">                found = true;</span></div>
-<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span><span class="comment">                continue;</span></div>
-<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span><span class="comment">            }</span></div>
-<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="comment">            */</span></div>
-<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span>            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == m_operating_edge_id) {</div>
-<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>                <span class="comment">// found = true;</span></div>
-<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>            }</div>
-<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (index == 0) {</div>
-<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == split_new_vid) {</div>
-<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>            }</div>
-<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (index == 2) {</div>
-<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>            <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>        }</div>
-<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>        <span class="comment">// spdlog::info(</span></div>
-<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>        <span class="comment">//     &quot;Want to check {}-simplex {} index {}&quot;,</span></div>
-<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>        <span class="comment">//     index,</span></div>
-<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        <span class="comment">//     m_mesh.id(s),</span></div>
-<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>        <span class="comment">//     primitive_type_name(s.primitive_type()));</span></div>
-<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>        <span class="keyword">auto</span> cofaces = <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a0101f27eb2ad82814390b92ab1a4d1a0">wmtk::simplex::top_dimension_cofaces_tuples</a>(m_mesh, s);</div>
-<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span> </div>
-<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span>        global_ids_to_potential_tuples.at(index).emplace_back(<span class="keywordtype">id</span>, std::move(cofaces));</div>
-<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>    }</div>
-<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span> </div>
-<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>    create_spine_simplices();</div>
-<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span>    fill_split_facet_data();</div>
-<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>}</div>
+<div class="line"><a id="l00516" name="l00516"></a><span class="lineno">  516</span>    global_ids_to_update.resize(3);</div>
+<div class="line"><a id="l00517" name="l00517"></a><span class="lineno">  517</span>    <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex_collection.html">simplex::SimplexCollection</a> faces(m_mesh);</div>
+<div class="line"><a id="l00518" name="l00518"></a><span class="lineno">  518</span> </div>
+<div class="line"><a id="l00519" name="l00519"></a><span class="lineno">  519</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a>&amp; f : hash_update_region.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a3c5684abe23553010bb7f87840e9518d">simplex_vector</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">PrimitiveType::Triangle</a>)) {</div>
+<div class="line"><a id="l00520" name="l00520"></a><span class="lineno">  520</span>        faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a1e7079b3b75f70dd28c524556cab76cf">add</a>(<a class="code hl_function" href="namespacewmtk_1_1simplex.html#aee89641a0de7b5ddf8d15bf376f9d33b">wmtk::simplex::faces</a>(m_mesh, f, <span class="keyword">false</span>));</div>
+<div class="line"><a id="l00521" name="l00521"></a><span class="lineno">  521</span>        faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a1e7079b3b75f70dd28c524556cab76cf">add</a>(f);</div>
+<div class="line"><a id="l00522" name="l00522"></a><span class="lineno">  522</span>    }</div>
+<div class="line"><a id="l00523" name="l00523"></a><span class="lineno">  523</span> </div>
+<div class="line"><a id="l00524" name="l00524"></a><span class="lineno">  524</span>    faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#ab318c99d54327383ff1b985bed043f3a">sort_and_clean</a>();</div>
+<div class="line"><a id="l00525" name="l00525"></a><span class="lineno">  525</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : faces) {</div>
+<div class="line"><a id="l00526" name="l00526"></a><span class="lineno">  526</span>        <span class="keyword">const</span> int64_t index = <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(s.primitive_type());</div>
+<div class="line"><a id="l00527" name="l00527"></a><span class="lineno">  527</span>        <span class="keywordflow">if</span> (!m_mesh.has_child_mesh_in_dimension(index)) {</div>
+<div class="line"><a id="l00528" name="l00528"></a><span class="lineno">  528</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00529" name="l00529"></a><span class="lineno">  529</span>        }</div>
+<div class="line"><a id="l00530" name="l00530"></a><span class="lineno">  530</span> </div>
+<div class="line"><a id="l00531" name="l00531"></a><span class="lineno">  531</span>        int64_t <span class="keywordtype">id</span> = m_mesh.id(s);</div>
+<div class="line"><a id="l00532" name="l00532"></a><span class="lineno">  532</span>        <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00533" name="l00533"></a><span class="lineno">  533</span>        <span class="keywordflow">if</span> (index == 1) {</div>
+<div class="line"><a id="l00534" name="l00534"></a><span class="lineno">  534</span>            <span class="comment">/*</span></div>
+<div class="line"><a id="l00535" name="l00535"></a><span class="lineno">  535</span><span class="comment">            for (const auto&amp; eid : split_spine_eids) {</span></div>
+<div class="line"><a id="l00536" name="l00536"></a><span class="lineno">  536</span><span class="comment">                if (eid == id) {</span></div>
+<div class="line"><a id="l00537" name="l00537"></a><span class="lineno">  537</span><span class="comment">                    found = true;</span></div>
+<div class="line"><a id="l00538" name="l00538"></a><span class="lineno">  538</span><span class="comment">                    break;</span></div>
+<div class="line"><a id="l00539" name="l00539"></a><span class="lineno">  539</span><span class="comment">                }</span></div>
+<div class="line"><a id="l00540" name="l00540"></a><span class="lineno">  540</span><span class="comment">            }</span></div>
+<div class="line"><a id="l00541" name="l00541"></a><span class="lineno">  541</span><span class="comment">            if (found) {</span></div>
+<div class="line"><a id="l00542" name="l00542"></a><span class="lineno">  542</span><span class="comment">                continue;</span></div>
+<div class="line"><a id="l00543" name="l00543"></a><span class="lineno">  543</span><span class="comment">            }</span></div>
+<div class="line"><a id="l00544" name="l00544"></a><span class="lineno">  544</span><span class="comment">            if (id == spine_eid) {</span></div>
+<div class="line"><a id="l00545" name="l00545"></a><span class="lineno">  545</span><span class="comment">                found = true;</span></div>
+<div class="line"><a id="l00546" name="l00546"></a><span class="lineno">  546</span><span class="comment">                continue;</span></div>
+<div class="line"><a id="l00547" name="l00547"></a><span class="lineno">  547</span><span class="comment">            }</span></div>
+<div class="line"><a id="l00548" name="l00548"></a><span class="lineno">  548</span><span class="comment">            */</span></div>
+<div class="line"><a id="l00549" name="l00549"></a><span class="lineno">  549</span>            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == m_operating_edge_id) {</div>
+<div class="line"><a id="l00550" name="l00550"></a><span class="lineno">  550</span>                <span class="comment">// found = true;</span></div>
+<div class="line"><a id="l00551" name="l00551"></a><span class="lineno">  551</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00552" name="l00552"></a><span class="lineno">  552</span>            }</div>
+<div class="line"><a id="l00553" name="l00553"></a><span class="lineno">  553</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (index == 0) {</div>
+<div class="line"><a id="l00554" name="l00554"></a><span class="lineno">  554</span>            <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == split_new_vid) {</div>
+<div class="line"><a id="l00555" name="l00555"></a><span class="lineno">  555</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00556" name="l00556"></a><span class="lineno">  556</span>            }</div>
+<div class="line"><a id="l00557" name="l00557"></a><span class="lineno">  557</span>        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (index == 2) {</div>
+<div class="line"><a id="l00558" name="l00558"></a><span class="lineno">  558</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00559" name="l00559"></a><span class="lineno">  559</span>        }</div>
+<div class="line"><a id="l00560" name="l00560"></a><span class="lineno">  560</span>        <span class="comment">// spdlog::info(</span></div>
+<div class="line"><a id="l00561" name="l00561"></a><span class="lineno">  561</span>        <span class="comment">//     &quot;Want to check {}-simplex {} index {}&quot;,</span></div>
+<div class="line"><a id="l00562" name="l00562"></a><span class="lineno">  562</span>        <span class="comment">//     index,</span></div>
+<div class="line"><a id="l00563" name="l00563"></a><span class="lineno">  563</span>        <span class="comment">//     m_mesh.id(s),</span></div>
+<div class="line"><a id="l00564" name="l00564"></a><span class="lineno">  564</span>        <span class="comment">//     primitive_type_name(s.primitive_type()));</span></div>
+<div class="line"><a id="l00565" name="l00565"></a><span class="lineno">  565</span>        <span class="keyword">auto</span> cofaces = <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a0101f27eb2ad82814390b92ab1a4d1a0">wmtk::simplex::top_dimension_cofaces_tuples</a>(m_mesh, s);</div>
+<div class="line"><a id="l00566" name="l00566"></a><span class="lineno">  566</span> </div>
+<div class="line"><a id="l00567" name="l00567"></a><span class="lineno">  567</span>        global_ids_to_potential_tuples.at(index).emplace_back(<span class="keywordtype">id</span>, std::move(cofaces));</div>
+<div class="line"><a id="l00568" name="l00568"></a><span class="lineno">  568</span>        global_ids_to_update.at(index).emplace_back(<span class="keywordtype">id</span>);</div>
+<div class="line"><a id="l00569" name="l00569"></a><span class="lineno">  569</span>    }</div>
+<div class="line"><a id="l00570" name="l00570"></a><span class="lineno">  570</span> </div>
+<div class="line"><a id="l00571" name="l00571"></a><span class="lineno">  571</span>    create_spine_simplices();</div>
+<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span>    fill_split_facet_data();</div>
+<div class="line"><a id="l00573" name="l00573"></a><span class="lineno">  573</span>}</div>
 </div>
-<div class="line"><a id="l00572" name="l00572"></a><span class="lineno">  572</span> </div>
-<div class="foldopen" id="foldopen00573" data-start="{" data-end="}">
-<div class="line"><a id="l00573" name="l00573"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a3df1e4a6e6de766e419522774d6463d6">  573</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a3df1e4a6e6de766e419522774d6463d6">TriMesh::TriMeshOperationExecutor::fill_split_facet_data</a>()</div>
-<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span>{</div>
-<div class="line"><a id="l00575" name="l00575"></a><span class="lineno">  575</span>    {</div>
-<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>        <span class="keyword">const</span> <span class="keywordtype">size_t</span> facet_size = m_incident_face_datas.size();</div>
-<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>        std::vector&lt;int64_t&gt; new_facet_ids =</div>
-<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>            this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">PrimitiveType::Triangle</a>, 2 * facet_size);</div>
-<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>        assert(new_facet_ids.size() == 2 * facet_size);</div>
-<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; facet_size; ++j) {</div>
-<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>            std::array&lt;int64_t, 2&gt; arr;</div>
-<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>            std::copy(</div>
-<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>                new_facet_ids.begin() + 2 * j,</div>
-<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>                new_facet_ids.begin() + 2 * (j + 1),</div>
-<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>                arr.begin());</div>
-<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>            <span class="comment">// const auto&amp; data =</span></div>
-<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>            split_facet_data().add_facet(m_mesh, m_operating_tuple, arr);</div>
-<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>            m_incident_face_datas[j].split_f = arr;</div>
-<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>        }</div>
-<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>    }</div>
-<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>}</div>
+<div class="line"><a id="l00574" name="l00574"></a><span class="lineno">  574</span> </div>
+<div class="foldopen" id="foldopen00575" data-start="{" data-end="}">
+<div class="line"><a id="l00575" name="l00575"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a3df1e4a6e6de766e419522774d6463d6">  575</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a3df1e4a6e6de766e419522774d6463d6">TriMesh::TriMeshOperationExecutor::fill_split_facet_data</a>()</div>
+<div class="line"><a id="l00576" name="l00576"></a><span class="lineno">  576</span>{</div>
+<div class="line"><a id="l00577" name="l00577"></a><span class="lineno">  577</span>    {</div>
+<div class="line"><a id="l00578" name="l00578"></a><span class="lineno">  578</span>        <span class="keyword">const</span> <span class="keywordtype">size_t</span> facet_size = m_incident_face_datas.size();</div>
+<div class="line"><a id="l00579" name="l00579"></a><span class="lineno">  579</span>        std::vector&lt;int64_t&gt; new_facet_ids =</div>
+<div class="line"><a id="l00580" name="l00580"></a><span class="lineno">  580</span>            this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">PrimitiveType::Triangle</a>, 2 * facet_size);</div>
+<div class="line"><a id="l00581" name="l00581"></a><span class="lineno">  581</span>        assert(new_facet_ids.size() == 2 * facet_size);</div>
+<div class="line"><a id="l00582" name="l00582"></a><span class="lineno">  582</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; facet_size; ++j) {</div>
+<div class="line"><a id="l00583" name="l00583"></a><span class="lineno">  583</span>            std::array&lt;int64_t, 2&gt; arr;</div>
+<div class="line"><a id="l00584" name="l00584"></a><span class="lineno">  584</span>            std::copy(</div>
+<div class="line"><a id="l00585" name="l00585"></a><span class="lineno">  585</span>                new_facet_ids.begin() + 2 * j,</div>
+<div class="line"><a id="l00586" name="l00586"></a><span class="lineno">  586</span>                new_facet_ids.begin() + 2 * (j + 1),</div>
+<div class="line"><a id="l00587" name="l00587"></a><span class="lineno">  587</span>                arr.begin());</div>
+<div class="line"><a id="l00588" name="l00588"></a><span class="lineno">  588</span>            <span class="comment">// const auto&amp; data =</span></div>
+<div class="line"><a id="l00589" name="l00589"></a><span class="lineno">  589</span>            split_facet_data().add_facet(m_mesh, m_operating_tuple, arr);</div>
+<div class="line"><a id="l00590" name="l00590"></a><span class="lineno">  590</span>            m_incident_face_datas[j].split_f = arr;</div>
+<div class="line"><a id="l00591" name="l00591"></a><span class="lineno">  591</span>        }</div>
+<div class="line"><a id="l00592" name="l00592"></a><span class="lineno">  592</span>    }</div>
+<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>}</div>
 </div>
-<div class="foldopen" id="foldopen00592" data-start="{" data-end="}">
-<div class="line"><a id="l00592" name="l00592"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab634365fab3fdd82e567cb433b54ed33">  592</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab634365fab3fdd82e567cb433b54ed33">TriMesh::TriMeshOperationExecutor::split_edge</a>()</div>
-<div class="line"><a id="l00593" name="l00593"></a><span class="lineno">  593</span>{</div>
-<div class="line"><a id="l00594" name="l00594"></a><span class="lineno">  594</span>    split_edge_precompute();</div>
-<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span> </div>
-<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>    assert(m_incident_face_datas.size() &lt;= 2);</div>
+<div class="foldopen" id="foldopen00594" data-start="{" data-end="}">
+<div class="line"><a id="l00594" name="l00594"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab634365fab3fdd82e567cb433b54ed33">  594</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab634365fab3fdd82e567cb433b54ed33">TriMesh::TriMeshOperationExecutor::split_edge</a>()</div>
+<div class="line"><a id="l00595" name="l00595"></a><span class="lineno">  595</span>{</div>
+<div class="line"><a id="l00596" name="l00596"></a><span class="lineno">  596</span>    split_edge_precompute();</div>
 <div class="line"><a id="l00597" name="l00597"></a><span class="lineno">  597</span> </div>
-<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span> </div>
-<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span>    <span class="keywordflow">for</span> (<a class="code hl_struct" href="structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_incident_face_data.html">IncidentFaceData</a>&amp; face_data : m_incident_face_datas) {</div>
-<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span>        replace_incident_face(face_data);</div>
-<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>    }</div>
-<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>    <span class="keywordflow">if</span> (m_incident_face_datas.size() &gt; 1) {</div>
-<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>        connect_faces_across_spine();</div>
-<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    }</div>
-<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span> </div>
-<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span> </div>
-<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span>    <span class="comment">//  ---------v2--------</span></div>
-<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span>    <span class="comment">// |        /|\        |</span></div>
-<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    <span class="comment">// | ef0   / | \   ef1 |</span></div>
-<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    <span class="comment">// |      /  |  \      |</span></div>
-<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    <span class="comment">// |     /  oe   \     |</span></div>
-<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    <span class="comment">// |  ee0    |    ee1  |</span></div>
-<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    <span class="comment">// |   /     |     \   |</span></div>
-<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    <span class="comment">// |  /  f0  |  f1  \  |</span></div>
-<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    <span class="comment">// | /       |       \ |</span></div>
-<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    <span class="comment">// v0--se0-v_new-se1--v1</span></div>
-<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span> </div>
-<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    <span class="comment">// return Tuple new_fid, new_vid that points</span></div>
-<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span>    <span class="keyword">const</span> int64_t new_tuple_fid = m_incident_face_datas[0].split_f[1];</div>
-<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    <span class="keywordflow">if</span> (m_mesh.is_free()) {</div>
-<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>        m_output_tuple =</div>
-<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>            m_mesh.tuple_from_global_ids(new_tuple_fid, split_spine_eids[1], m_free_split_v[1]);</div>
-<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>        assert(m_mesh.id_vertex(m_output_tuple) == m_free_split_v[1]);</div>
-<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>        m_output_tuple =</div>
-<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>            m_mesh.tuple_from_global_ids(new_tuple_fid, split_spine_eids[1], split_new_vid);</div>
-<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>        assert(m_mesh.id_vertex(m_output_tuple) == split_new_vid);</div>
-<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>    }</div>
-<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>    assert(m_mesh.id_face(m_output_tuple) == new_tuple_fid);</div>
-<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>    assert(m_mesh.is_valid(m_output_tuple));</div>
-<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span> </div>
-<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    delete_simplices();</div>
-<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span>}</div>
+<div class="line"><a id="l00598" name="l00598"></a><span class="lineno">  598</span>    assert(m_incident_face_datas.size() &lt;= 2);</div>
+<div class="line"><a id="l00599" name="l00599"></a><span class="lineno">  599</span> </div>
+<div class="line"><a id="l00600" name="l00600"></a><span class="lineno">  600</span> </div>
+<div class="line"><a id="l00601" name="l00601"></a><span class="lineno">  601</span>    <span class="keywordflow">for</span> (<a class="code hl_struct" href="structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_incident_face_data.html">IncidentFaceData</a>&amp; face_data : m_incident_face_datas) {</div>
+<div class="line"><a id="l00602" name="l00602"></a><span class="lineno">  602</span>        replace_incident_face(face_data);</div>
+<div class="line"><a id="l00603" name="l00603"></a><span class="lineno">  603</span>    }</div>
+<div class="line"><a id="l00604" name="l00604"></a><span class="lineno">  604</span>    <span class="keywordflow">if</span> (m_incident_face_datas.size() &gt; 1) {</div>
+<div class="line"><a id="l00605" name="l00605"></a><span class="lineno">  605</span>        connect_faces_across_spine();</div>
+<div class="line"><a id="l00606" name="l00606"></a><span class="lineno">  606</span>    }</div>
+<div class="line"><a id="l00607" name="l00607"></a><span class="lineno">  607</span> </div>
+<div class="line"><a id="l00608" name="l00608"></a><span class="lineno">  608</span> </div>
+<div class="line"><a id="l00609" name="l00609"></a><span class="lineno">  609</span>    <span class="comment">//  ---------v2--------</span></div>
+<div class="line"><a id="l00610" name="l00610"></a><span class="lineno">  610</span>    <span class="comment">// |        /|\        |</span></div>
+<div class="line"><a id="l00611" name="l00611"></a><span class="lineno">  611</span>    <span class="comment">// | ef0   / | \   ef1 |</span></div>
+<div class="line"><a id="l00612" name="l00612"></a><span class="lineno">  612</span>    <span class="comment">// |      /  |  \      |</span></div>
+<div class="line"><a id="l00613" name="l00613"></a><span class="lineno">  613</span>    <span class="comment">// |     /  oe   \     |</span></div>
+<div class="line"><a id="l00614" name="l00614"></a><span class="lineno">  614</span>    <span class="comment">// |  ee0    |    ee1  |</span></div>
+<div class="line"><a id="l00615" name="l00615"></a><span class="lineno">  615</span>    <span class="comment">// |   /     |     \   |</span></div>
+<div class="line"><a id="l00616" name="l00616"></a><span class="lineno">  616</span>    <span class="comment">// |  /  f0  |  f1  \  |</span></div>
+<div class="line"><a id="l00617" name="l00617"></a><span class="lineno">  617</span>    <span class="comment">// | /       |       \ |</span></div>
+<div class="line"><a id="l00618" name="l00618"></a><span class="lineno">  618</span>    <span class="comment">// v0--se0-v_new-se1--v1</span></div>
+<div class="line"><a id="l00619" name="l00619"></a><span class="lineno">  619</span> </div>
+<div class="line"><a id="l00620" name="l00620"></a><span class="lineno">  620</span>    <span class="comment">// return Tuple new_fid, new_vid that points</span></div>
+<div class="line"><a id="l00621" name="l00621"></a><span class="lineno">  621</span>    <span class="keyword">const</span> int64_t new_tuple_fid = m_incident_face_datas[0].split_f[1];</div>
+<div class="line"><a id="l00622" name="l00622"></a><span class="lineno">  622</span>    <span class="keywordflow">if</span> (m_mesh.is_free()) {</div>
+<div class="line"><a id="l00623" name="l00623"></a><span class="lineno">  623</span>        m_output_tuple =</div>
+<div class="line"><a id="l00624" name="l00624"></a><span class="lineno">  624</span>            m_mesh.tuple_from_global_ids(new_tuple_fid, split_spine_eids[1], m_free_split_v[1]);</div>
+<div class="line"><a id="l00625" name="l00625"></a><span class="lineno">  625</span>        assert(m_mesh.id_vertex(m_output_tuple) == m_free_split_v[1]);</div>
+<div class="line"><a id="l00626" name="l00626"></a><span class="lineno">  626</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00627" name="l00627"></a><span class="lineno">  627</span>        m_output_tuple =</div>
+<div class="line"><a id="l00628" name="l00628"></a><span class="lineno">  628</span>            m_mesh.tuple_from_global_ids(new_tuple_fid, split_spine_eids[1], split_new_vid);</div>
+<div class="line"><a id="l00629" name="l00629"></a><span class="lineno">  629</span>        assert(m_mesh.id_vertex(m_output_tuple) == split_new_vid);</div>
+<div class="line"><a id="l00630" name="l00630"></a><span class="lineno">  630</span>    }</div>
+<div class="line"><a id="l00631" name="l00631"></a><span class="lineno">  631</span>    assert(m_mesh.id_face(m_output_tuple) == new_tuple_fid);</div>
+<div class="line"><a id="l00632" name="l00632"></a><span class="lineno">  632</span>    assert(m_mesh.is_valid(m_output_tuple));</div>
+<div class="line"><a id="l00633" name="l00633"></a><span class="lineno">  633</span> </div>
+<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span>    delete_simplices();</div>
+<div class="line"><a id="l00635" name="l00635"></a><span class="lineno">  635</span>}</div>
 </div>
-<div class="line"><a id="l00634" name="l00634"></a><span class="lineno">  634</span> </div>
-<div class="foldopen" id="foldopen00635" data-start="{" data-end="}">
-<div class="line"><a id="l00635" name="l00635"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54ec111e8890281195a6d2449f822f02">  635</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54ec111e8890281195a6d2449f822f02">TriMesh::TriMeshOperationExecutor::create_spine_simplices</a>()</div>
-<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span>{</div>
-<div class="line"><a id="l00637" name="l00637"></a><span class="lineno">  637</span>    <span class="keywordflow">if</span> (m_mesh.is_free()) {</div>
-<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>        <span class="comment">// create new vertex (center)</span></div>
-<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>        std::vector&lt;int64_t&gt; new_vids = this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, 3);</div>
-<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>        assert(new_vids.size() == 3);</div>
-<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span> </div>
-<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>        std::copy(new_vids.begin() + 1, new_vids.end(), m_free_split_v.begin());</div>
-<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span>        split_new_vid = new_vids[0];</div>
-<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span> </div>
-<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>        <span class="comment">// create new edges (spine)</span></div>
-<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span>        std::vector&lt;int64_t&gt; new_eids = this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">PrimitiveType::Edge</a>, 4);</div>
-<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>        assert(new_eids.size() == 4);</div>
-<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span> </div>
-<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>        <span class="keyword">auto</span> midpoint = new_eids.begin() + 2;</div>
-<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span>        std::copy(new_eids.begin(), midpoint, split_spine_eids.begin());</div>
-<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>        std::copy(midpoint, new_eids.end(), m_free_split_e.begin());</div>
-<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span> </div>
-<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span>        <span class="comment">// create new vertex (center)</span></div>
-<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>        std::vector&lt;int64_t&gt; new_vids = this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, 1);</div>
-<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        assert(new_vids.size() == 1);</div>
-<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        split_new_vid = new_vids[0];</div>
-<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().trace(<span class="stringliteral">&quot;new split vid {}&quot;</span>, split_new_vid);</div>
-<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span> </div>
-<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        <span class="comment">// create new edges (spine)</span></div>
-<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span>        std::vector&lt;int64_t&gt; new_eids = this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">PrimitiveType::Edge</a>, 2);</div>
-<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>        assert(new_eids.size() == 2);</div>
-<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span> </div>
-<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>        std::copy(new_eids.begin(), new_eids.end(), split_spine_eids.begin());</div>
-<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().trace(<span class="stringliteral">&quot;new split eids {}&quot;</span>, fmt::join(split_spine_eids, <span class="stringliteral">&quot;,&quot;</span>));</div>
-<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>    }</div>
-<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>}</div>
+<div class="line"><a id="l00636" name="l00636"></a><span class="lineno">  636</span> </div>
+<div class="foldopen" id="foldopen00637" data-start="{" data-end="}">
+<div class="line"><a id="l00637" name="l00637"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54ec111e8890281195a6d2449f822f02">  637</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54ec111e8890281195a6d2449f822f02">TriMesh::TriMeshOperationExecutor::create_spine_simplices</a>()</div>
+<div class="line"><a id="l00638" name="l00638"></a><span class="lineno">  638</span>{</div>
+<div class="line"><a id="l00639" name="l00639"></a><span class="lineno">  639</span>    <span class="keywordflow">if</span> (m_mesh.is_free()) {</div>
+<div class="line"><a id="l00640" name="l00640"></a><span class="lineno">  640</span>        <span class="comment">// create new vertex (center)</span></div>
+<div class="line"><a id="l00641" name="l00641"></a><span class="lineno">  641</span>        std::vector&lt;int64_t&gt; new_vids = this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, 3);</div>
+<div class="line"><a id="l00642" name="l00642"></a><span class="lineno">  642</span>        assert(new_vids.size() == 3);</div>
+<div class="line"><a id="l00643" name="l00643"></a><span class="lineno">  643</span> </div>
+<div class="line"><a id="l00644" name="l00644"></a><span class="lineno">  644</span>        std::copy(new_vids.begin() + 1, new_vids.end(), m_free_split_v.begin());</div>
+<div class="line"><a id="l00645" name="l00645"></a><span class="lineno">  645</span>        split_new_vid = new_vids[0];</div>
+<div class="line"><a id="l00646" name="l00646"></a><span class="lineno">  646</span> </div>
+<div class="line"><a id="l00647" name="l00647"></a><span class="lineno">  647</span>        <span class="comment">// create new edges (spine)</span></div>
+<div class="line"><a id="l00648" name="l00648"></a><span class="lineno">  648</span>        std::vector&lt;int64_t&gt; new_eids = this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">PrimitiveType::Edge</a>, 4);</div>
+<div class="line"><a id="l00649" name="l00649"></a><span class="lineno">  649</span>        assert(new_eids.size() == 4);</div>
+<div class="line"><a id="l00650" name="l00650"></a><span class="lineno">  650</span> </div>
+<div class="line"><a id="l00651" name="l00651"></a><span class="lineno">  651</span>        <span class="keyword">auto</span> midpoint = new_eids.begin() + 2;</div>
+<div class="line"><a id="l00652" name="l00652"></a><span class="lineno">  652</span>        std::copy(new_eids.begin(), midpoint, split_spine_eids.begin());</div>
+<div class="line"><a id="l00653" name="l00653"></a><span class="lineno">  653</span>        std::copy(midpoint, new_eids.end(), m_free_split_e.begin());</div>
+<div class="line"><a id="l00654" name="l00654"></a><span class="lineno">  654</span> </div>
+<div class="line"><a id="l00655" name="l00655"></a><span class="lineno">  655</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00656" name="l00656"></a><span class="lineno">  656</span>        <span class="comment">// create new vertex (center)</span></div>
+<div class="line"><a id="l00657" name="l00657"></a><span class="lineno">  657</span>        std::vector&lt;int64_t&gt; new_vids = this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, 1);</div>
+<div class="line"><a id="l00658" name="l00658"></a><span class="lineno">  658</span>        assert(new_vids.size() == 1);</div>
+<div class="line"><a id="l00659" name="l00659"></a><span class="lineno">  659</span>        split_new_vid = new_vids[0];</div>
+<div class="line"><a id="l00660" name="l00660"></a><span class="lineno">  660</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().trace(<span class="stringliteral">&quot;new split vid {}&quot;</span>, split_new_vid);</div>
+<div class="line"><a id="l00661" name="l00661"></a><span class="lineno">  661</span> </div>
+<div class="line"><a id="l00662" name="l00662"></a><span class="lineno">  662</span>        <span class="comment">// create new edges (spine)</span></div>
+<div class="line"><a id="l00663" name="l00663"></a><span class="lineno">  663</span>        std::vector&lt;int64_t&gt; new_eids = this-&gt;<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac205d6addf4e76f000c70547253735f0">request_simplex_indices</a>(<a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">PrimitiveType::Edge</a>, 2);</div>
+<div class="line"><a id="l00664" name="l00664"></a><span class="lineno">  664</span>        assert(new_eids.size() == 2);</div>
+<div class="line"><a id="l00665" name="l00665"></a><span class="lineno">  665</span> </div>
+<div class="line"><a id="l00666" name="l00666"></a><span class="lineno">  666</span>        std::copy(new_eids.begin(), new_eids.end(), split_spine_eids.begin());</div>
+<div class="line"><a id="l00667" name="l00667"></a><span class="lineno">  667</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().trace(<span class="stringliteral">&quot;new split eids {}&quot;</span>, fmt::join(split_spine_eids, <span class="stringliteral">&quot;,&quot;</span>));</div>
+<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span>    }</div>
+<div class="line"><a id="l00669" name="l00669"></a><span class="lineno">  669</span>}</div>
 </div>
-<div class="line"><a id="l00668" name="l00668"></a><span class="lineno">  668</span> </div>
-<div class="foldopen" id="foldopen00669" data-start="{" data-end="}">
-<div class="line"><a id="l00669" name="l00669"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a783d12a65b5678519da53e2c6192f353">  669</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a783d12a65b5678519da53e2c6192f353">TriMesh::TriMeshOperationExecutor::collapse_edge_precompute</a>()</div>
-<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span>{</div>
-<div class="line"><a id="l00671" name="l00671"></a><span class="lineno">  671</span>    <span class="comment">// set_collapse(m_mesh, m_operating_tuple);</span></div>
-<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>    set_collapse();</div>
-<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>    is_collapse = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>    <span class="comment">// logger().warn(&quot;Edge collapse on {}&quot;, m_mesh.id_edge(m_operating_tuple));</span></div>
-<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span> </div>
-<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>    <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> edge_operating(m_mesh, <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">PrimitiveType::Edge</a>, m_operating_tuple);</div>
+<div class="line"><a id="l00670" name="l00670"></a><span class="lineno">  670</span> </div>
+<div class="foldopen" id="foldopen00671" data-start="{" data-end="}">
+<div class="line"><a id="l00671" name="l00671"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a783d12a65b5678519da53e2c6192f353">  671</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a783d12a65b5678519da53e2c6192f353">TriMesh::TriMeshOperationExecutor::collapse_edge_precompute</a>()</div>
+<div class="line"><a id="l00672" name="l00672"></a><span class="lineno">  672</span>{</div>
+<div class="line"><a id="l00673" name="l00673"></a><span class="lineno">  673</span>    <span class="comment">// set_collapse(m_mesh, m_operating_tuple);</span></div>
+<div class="line"><a id="l00674" name="l00674"></a><span class="lineno">  674</span>    set_collapse();</div>
+<div class="line"><a id="l00675" name="l00675"></a><span class="lineno">  675</span>    is_collapse = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00676" name="l00676"></a><span class="lineno">  676</span>    <span class="comment">// logger().warn(&quot;Edge collapse on {}&quot;, m_mesh.id_edge(m_operating_tuple));</span></div>
 <div class="line"><a id="l00677" name="l00677"></a><span class="lineno">  677</span> </div>
-<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>    <span class="comment">// get all faces incident to the edge</span></div>
-<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; f : <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a0d1ccc8ee1bfbe2657f869c2fb95a699">simplex::top_dimension_cofaces_iterable</a>(m_mesh, edge_operating)) {</div>
-<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>        m_incident_face_datas.emplace_back(get_incident_face_data(f));</div>
-<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>    }</div>
-<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span> </div>
-<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>    assert(m_incident_face_datas.size() &lt;= 2);</div>
-<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span>    <span class="keywordflow">if</span> (m_incident_face_datas[0].fid != m_mesh.id_face(m_operating_tuple)) {</div>
-<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>        assert(m_incident_face_datas.size() == 2);</div>
-<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>        std::swap(m_incident_face_datas[0], m_incident_face_datas[1]);</div>
-<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>    }</div>
-<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span> </div>
-<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>    <span class="keywordflow">if</span> (m_mesh.has_child_mesh()) {</div>
-<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span>        global_ids_to_potential_tuples.resize(3);</div>
-<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span> </div>
-<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>        <a class="code hl_class" href="classwmtk_1_1simplex_1_1_id_simplex_collection.html">simplex::IdSimplexCollection</a> faces(m_mesh);</div>
-<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span>        {</div>
-<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>            <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> v0(m_mesh, <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, m_operating_tuple);</div>
-<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>            <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> v1(</div>
-<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>                m_mesh,</div>
-<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>                <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>,</div>
-<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>                m_mesh.switch_vertex(m_operating_tuple));</div>
-<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>            std::array&lt;simplex::internal::VisitedArray&lt;wmtk::simplex::IdSimplex&gt;, 3&gt; visited;</div>
-<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span> </div>
-<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_id_simplex.html">simplex::IdSimplex</a>&amp; s : <a class="code hl_function" href="namespacewmtk_1_1simplex.html#ae37e7bd61fb3f9b968b6ce6f9cf6f11f">simplex::closed_star_iterable</a>(m_mesh, v0)) {</div>
-<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span>                visited[<a class="code hl_function" href="namespacewmtk.html#a5cf45c152e856196bb734c6f48919a24">get_primitive_type_id</a>(s.primitive_type())].is_visited(s);</div>
-<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>            }</div>
-<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_id_simplex.html">simplex::IdSimplex</a>&amp; s : <a class="code hl_function" href="namespacewmtk_1_1simplex.html#ae37e7bd61fb3f9b968b6ce6f9cf6f11f">simplex::closed_star_iterable</a>(m_mesh, v1)) {</div>
-<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>                visited[<a class="code hl_function" href="namespacewmtk.html#a5cf45c152e856196bb734c6f48919a24">get_primitive_type_id</a>(s.primitive_type())].is_visited(s);</div>
-<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>            }</div>
-<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>            faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a1973c83eede96b64f422049c6fc52976">reserve</a>(</div>
-<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>                visited[0].visited_array().size() + visited[1].visited_array().size() +</div>
-<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>                visited[2].visited_array().size());</div>
-<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; visited.size(); ++j) {</div>
-<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>                <span class="comment">// if (!m_mesh.has_child_mesh_in_dimension(j)) {</span></div>
-<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>                <span class="comment">//     continue;</span></div>
-<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>                <span class="comment">// }</span></div>
-<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; arr = visited[j];</div>
-<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>                <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; arr.visited_array().size(); ++i) {</div>
-<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>                    faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a1e7079b3b75f70dd28c524556cab76cf">add</a>(arr.visited_array()[i]);</div>
-<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                }</div>
-<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>            }</div>
-<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>        }</div>
-<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span> </div>
-<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_id_simplex.html">simplex::IdSimplex</a>&amp; s : faces) {</div>
-<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span>            <span class="keyword">const</span> int64_t index = <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(s.primitive_type());</div>
-<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>            <span class="keywordflow">if</span> (!m_mesh.has_child_mesh_in_dimension(index)) {</div>
-<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>            }</div>
-<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span> </div>
-<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>            <span class="comment">// spdlog::info(</span></div>
-<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span>            <span class="comment">//     &quot;Want to check {}-simplex {} index {}&quot;,</span></div>
-<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>            <span class="comment">//     index,</span></div>
-<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>            <span class="comment">//     m_mesh.id(s),</span></div>
-<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>            <span class="comment">//     primitive_type_name(s.primitive_type()));</span></div>
-<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>            global_ids_to_potential_tuples.at(index).emplace_back(</div>
-<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>                m_mesh.id(s),</div>
-<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>                <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a0101f27eb2ad82814390b92ab1a4d1a0">wmtk::simplex::top_dimension_cofaces_tuples</a>(m_mesh, m_mesh.get_simplex(s)));</div>
-<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>        }</div>
-<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>    }</div>
-<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span> </div>
-<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);</div>
-<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span>}</div>
+<div class="line"><a id="l00678" name="l00678"></a><span class="lineno">  678</span>    <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> edge_operating(m_mesh, <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">PrimitiveType::Edge</a>, m_operating_tuple);</div>
+<div class="line"><a id="l00679" name="l00679"></a><span class="lineno">  679</span> </div>
+<div class="line"><a id="l00680" name="l00680"></a><span class="lineno">  680</span>    <span class="comment">// get all faces incident to the edge</span></div>
+<div class="line"><a id="l00681" name="l00681"></a><span class="lineno">  681</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; f : <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a0d1ccc8ee1bfbe2657f869c2fb95a699">simplex::top_dimension_cofaces_iterable</a>(m_mesh, edge_operating)) {</div>
+<div class="line"><a id="l00682" name="l00682"></a><span class="lineno">  682</span>        m_incident_face_datas.emplace_back(get_incident_face_data(f));</div>
+<div class="line"><a id="l00683" name="l00683"></a><span class="lineno">  683</span>    }</div>
+<div class="line"><a id="l00684" name="l00684"></a><span class="lineno">  684</span> </div>
+<div class="line"><a id="l00685" name="l00685"></a><span class="lineno">  685</span>    assert(m_incident_face_datas.size() &lt;= 2);</div>
+<div class="line"><a id="l00686" name="l00686"></a><span class="lineno">  686</span>    <span class="keywordflow">if</span> (m_incident_face_datas[0].fid != m_mesh.id_face(m_operating_tuple)) {</div>
+<div class="line"><a id="l00687" name="l00687"></a><span class="lineno">  687</span>        assert(m_incident_face_datas.size() == 2);</div>
+<div class="line"><a id="l00688" name="l00688"></a><span class="lineno">  688</span>        std::swap(m_incident_face_datas[0], m_incident_face_datas[1]);</div>
+<div class="line"><a id="l00689" name="l00689"></a><span class="lineno">  689</span>    }</div>
+<div class="line"><a id="l00690" name="l00690"></a><span class="lineno">  690</span> </div>
+<div class="line"><a id="l00691" name="l00691"></a><span class="lineno">  691</span>    <span class="keywordflow">if</span> (m_mesh.has_child_mesh()) {</div>
+<div class="line"><a id="l00692" name="l00692"></a><span class="lineno">  692</span>        global_ids_to_potential_tuples.resize(3);</div>
+<div class="line"><a id="l00693" name="l00693"></a><span class="lineno">  693</span> </div>
+<div class="line"><a id="l00694" name="l00694"></a><span class="lineno">  694</span>        <a class="code hl_class" href="classwmtk_1_1simplex_1_1_id_simplex_collection.html">simplex::IdSimplexCollection</a> faces(m_mesh);</div>
+<div class="line"><a id="l00695" name="l00695"></a><span class="lineno">  695</span>        {</div>
+<div class="line"><a id="l00696" name="l00696"></a><span class="lineno">  696</span>            <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> v0(m_mesh, <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, m_operating_tuple);</div>
+<div class="line"><a id="l00697" name="l00697"></a><span class="lineno">  697</span>            <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> v1(</div>
+<div class="line"><a id="l00698" name="l00698"></a><span class="lineno">  698</span>                m_mesh,</div>
+<div class="line"><a id="l00699" name="l00699"></a><span class="lineno">  699</span>                <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>,</div>
+<div class="line"><a id="l00700" name="l00700"></a><span class="lineno">  700</span>                m_mesh.switch_vertex(m_operating_tuple));</div>
+<div class="line"><a id="l00701" name="l00701"></a><span class="lineno">  701</span>            std::array&lt;simplex::internal::VisitedArray&lt;wmtk::simplex::IdSimplex&gt;, 3&gt; visited;</div>
+<div class="line"><a id="l00702" name="l00702"></a><span class="lineno">  702</span> </div>
+<div class="line"><a id="l00703" name="l00703"></a><span class="lineno">  703</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_id_simplex.html">simplex::IdSimplex</a>&amp; s : <a class="code hl_function" href="namespacewmtk_1_1simplex.html#ae37e7bd61fb3f9b968b6ce6f9cf6f11f">simplex::closed_star_iterable</a>(m_mesh, v0)) {</div>
+<div class="line"><a id="l00704" name="l00704"></a><span class="lineno">  704</span>                visited[<a class="code hl_function" href="namespacewmtk.html#a5cf45c152e856196bb734c6f48919a24">get_primitive_type_id</a>(s.primitive_type())].is_visited(s);</div>
+<div class="line"><a id="l00705" name="l00705"></a><span class="lineno">  705</span>            }</div>
+<div class="line"><a id="l00706" name="l00706"></a><span class="lineno">  706</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_id_simplex.html">simplex::IdSimplex</a>&amp; s : <a class="code hl_function" href="namespacewmtk_1_1simplex.html#ae37e7bd61fb3f9b968b6ce6f9cf6f11f">simplex::closed_star_iterable</a>(m_mesh, v1)) {</div>
+<div class="line"><a id="l00707" name="l00707"></a><span class="lineno">  707</span>                visited[<a class="code hl_function" href="namespacewmtk.html#a5cf45c152e856196bb734c6f48919a24">get_primitive_type_id</a>(s.primitive_type())].is_visited(s);</div>
+<div class="line"><a id="l00708" name="l00708"></a><span class="lineno">  708</span>            }</div>
+<div class="line"><a id="l00709" name="l00709"></a><span class="lineno">  709</span>            faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a1973c83eede96b64f422049c6fc52976">reserve</a>(</div>
+<div class="line"><a id="l00710" name="l00710"></a><span class="lineno">  710</span>                visited[0].visited_array().size() + visited[1].visited_array().size() +</div>
+<div class="line"><a id="l00711" name="l00711"></a><span class="lineno">  711</span>                visited[2].visited_array().size());</div>
+<div class="line"><a id="l00712" name="l00712"></a><span class="lineno">  712</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; visited.size(); ++j) {</div>
+<div class="line"><a id="l00713" name="l00713"></a><span class="lineno">  713</span>                <span class="comment">// if (!m_mesh.has_child_mesh_in_dimension(j)) {</span></div>
+<div class="line"><a id="l00714" name="l00714"></a><span class="lineno">  714</span>                <span class="comment">//     continue;</span></div>
+<div class="line"><a id="l00715" name="l00715"></a><span class="lineno">  715</span>                <span class="comment">// }</span></div>
+<div class="line"><a id="l00716" name="l00716"></a><span class="lineno">  716</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; arr = visited[j];</div>
+<div class="line"><a id="l00717" name="l00717"></a><span class="lineno">  717</span>                <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; arr.visited_array().size(); ++i) {</div>
+<div class="line"><a id="l00718" name="l00718"></a><span class="lineno">  718</span>                    faces.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex_collection.html#a1e7079b3b75f70dd28c524556cab76cf">add</a>(arr.visited_array()[i]);</div>
+<div class="line"><a id="l00719" name="l00719"></a><span class="lineno">  719</span>                }</div>
+<div class="line"><a id="l00720" name="l00720"></a><span class="lineno">  720</span>            }</div>
+<div class="line"><a id="l00721" name="l00721"></a><span class="lineno">  721</span>        }</div>
+<div class="line"><a id="l00722" name="l00722"></a><span class="lineno">  722</span> </div>
+<div class="line"><a id="l00723" name="l00723"></a><span class="lineno">  723</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_id_simplex.html">simplex::IdSimplex</a>&amp; s : faces) {</div>
+<div class="line"><a id="l00724" name="l00724"></a><span class="lineno">  724</span>            <span class="keyword">const</span> int64_t index = <span class="keyword">static_cast&lt;</span>int64_t<span class="keyword">&gt;</span>(s.primitive_type());</div>
+<div class="line"><a id="l00725" name="l00725"></a><span class="lineno">  725</span>            <span class="keywordflow">if</span> (!m_mesh.has_child_mesh_in_dimension(index)) {</div>
+<div class="line"><a id="l00726" name="l00726"></a><span class="lineno">  726</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00727" name="l00727"></a><span class="lineno">  727</span>            }</div>
+<div class="line"><a id="l00728" name="l00728"></a><span class="lineno">  728</span> </div>
+<div class="line"><a id="l00729" name="l00729"></a><span class="lineno">  729</span>            <span class="comment">// spdlog::info(</span></div>
+<div class="line"><a id="l00730" name="l00730"></a><span class="lineno">  730</span>            <span class="comment">//     &quot;Want to check {}-simplex {} index {}&quot;,</span></div>
+<div class="line"><a id="l00731" name="l00731"></a><span class="lineno">  731</span>            <span class="comment">//     index,</span></div>
+<div class="line"><a id="l00732" name="l00732"></a><span class="lineno">  732</span>            <span class="comment">//     m_mesh.id(s),</span></div>
+<div class="line"><a id="l00733" name="l00733"></a><span class="lineno">  733</span>            <span class="comment">//     primitive_type_name(s.primitive_type()));</span></div>
+<div class="line"><a id="l00734" name="l00734"></a><span class="lineno">  734</span>            global_ids_to_potential_tuples.at(index).emplace_back(</div>
+<div class="line"><a id="l00735" name="l00735"></a><span class="lineno">  735</span>                m_mesh.id(s),</div>
+<div class="line"><a id="l00736" name="l00736"></a><span class="lineno">  736</span>                <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a0101f27eb2ad82814390b92ab1a4d1a0">wmtk::simplex::top_dimension_cofaces_tuples</a>(m_mesh, m_mesh.get_simplex(s)));</div>
+<div class="line"><a id="l00737" name="l00737"></a><span class="lineno">  737</span>        }</div>
+<div class="line"><a id="l00738" name="l00738"></a><span class="lineno">  738</span>    }</div>
+<div class="line"><a id="l00739" name="l00739"></a><span class="lineno">  739</span> </div>
+<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span>    simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);</div>
+<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span>}</div>
 </div>
-<div class="line"><a id="l00740" name="l00740"></a><span class="lineno">  740</span> </div>
-<div class="line"><a id="l00741" name="l00741"></a><span class="lineno">  741</span> </div>
-<div class="foldopen" id="foldopen00742" data-start="{" data-end="}">
-<div class="line"><a id="l00742" name="l00742"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54e966bf94ccc52c22d4be0186a8d281">  742</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54e966bf94ccc52c22d4be0186a8d281">TriMesh::TriMeshOperationExecutor::collapse_edge</a>()</div>
-<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span>{</div>
-<div class="line"><a id="l00744" name="l00744"></a><span class="lineno">  744</span>    collapse_edge_precompute();</div>
-<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span> </div>
-<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    <span class="keywordflow">if</span> (!m_mesh.is_free()) {</div>
-<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span>        <span class="comment">// must collect star before changing connectivity</span></div>
-<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>        <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> v0_simplex(m_mesh, <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, m_operating_tuple);</div>
-<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>        <a class="code hl_class" href="classwmtk_1_1utils_1_1_dynamic_array.html">utils::DynamicArray&lt;int64_t, 20&gt;</a> v0_neighbors;</div>
-<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; t : <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a0d1ccc8ee1bfbe2657f869c2fb95a699">simplex::top_dimension_cofaces_iterable</a>(m_mesh, v0_simplex)) {</div>
-<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>            v0_neighbors.<a class="code hl_function" href="classwmtk_1_1utils_1_1_dynamic_array.html#a3a2c2d7df546f3a48cadde5ded09b58c">emplace_back</a>(m_mesh.id(t, <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">PrimitiveType::Triangle</a>));</div>
-<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>        }</div>
-<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span> </div>
-<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span> </div>
-<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span>        connect_ears();</div>
+<div class="line"><a id="l00742" name="l00742"></a><span class="lineno">  742</span> </div>
+<div class="line"><a id="l00743" name="l00743"></a><span class="lineno">  743</span> </div>
+<div class="foldopen" id="foldopen00744" data-start="{" data-end="}">
+<div class="line"><a id="l00744" name="l00744"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54e966bf94ccc52c22d4be0186a8d281">  744</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54e966bf94ccc52c22d4be0186a8d281">TriMesh::TriMeshOperationExecutor::collapse_edge</a>()</div>
+<div class="line"><a id="l00745" name="l00745"></a><span class="lineno">  745</span>{</div>
+<div class="line"><a id="l00746" name="l00746"></a><span class="lineno">  746</span>    collapse_edge_precompute();</div>
+<div class="line"><a id="l00747" name="l00747"></a><span class="lineno">  747</span> </div>
+<div class="line"><a id="l00748" name="l00748"></a><span class="lineno">  748</span>    <span class="keywordflow">if</span> (!m_mesh.is_free()) {</div>
+<div class="line"><a id="l00749" name="l00749"></a><span class="lineno">  749</span>        <span class="comment">// must collect star before changing connectivity</span></div>
+<div class="line"><a id="l00750" name="l00750"></a><span class="lineno">  750</span>        <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> v0_simplex(m_mesh, <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">PrimitiveType::Vertex</a>, m_operating_tuple);</div>
+<div class="line"><a id="l00751" name="l00751"></a><span class="lineno">  751</span>        <a class="code hl_class" href="classwmtk_1_1utils_1_1_dynamic_array.html">utils::DynamicArray&lt;int64_t, 20&gt;</a> v0_neighbors;</div>
+<div class="line"><a id="l00752" name="l00752"></a><span class="lineno">  752</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; t : <a class="code hl_function" href="namespacewmtk_1_1simplex.html#a0d1ccc8ee1bfbe2657f869c2fb95a699">simplex::top_dimension_cofaces_iterable</a>(m_mesh, v0_simplex)) {</div>
+<div class="line"><a id="l00753" name="l00753"></a><span class="lineno">  753</span>            v0_neighbors.<a class="code hl_function" href="classwmtk_1_1utils_1_1_dynamic_array.html#a3a2c2d7df546f3a48cadde5ded09b58c">emplace_back</a>(m_mesh.id(t, <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">PrimitiveType::Triangle</a>));</div>
+<div class="line"><a id="l00754" name="l00754"></a><span class="lineno">  754</span>        }</div>
+<div class="line"><a id="l00755" name="l00755"></a><span class="lineno">  755</span> </div>
 <div class="line"><a id="l00756" name="l00756"></a><span class="lineno">  756</span> </div>
-<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>        <span class="keyword">const</span> int64_t&amp; v0 = m_spine_vids[0];</div>
-<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span>        <span class="keyword">const</span> int64_t&amp; v1 = m_spine_vids[1];</div>
-<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span> </div>
-<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span> </div>
-<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span>        <span class="comment">// replace v0 by v1 in incident faces</span></div>
-<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> int64_t fid : v0_neighbors) {</div>
-<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>            <span class="keywordtype">bool</span> is_fid_deleted = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>            <span class="keywordflow">for</span> (int64_t i = 0; i &lt; m_incident_face_datas.size(); ++i) {</div>
-<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>                <span class="keywordflow">if</span> (m_incident_face_datas[i].fid == fid) {</div>
-<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>                    is_fid_deleted = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>                }</div>
-<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>            }</div>
-<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>            <span class="keywordflow">if</span> (is_fid_deleted) {</div>
-<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>            }</div>
-<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>            <span class="keyword">auto</span> fv = fv_accessor.vector_attribute(fid);</div>
-<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>            <span class="keywordflow">for</span> (int64_t i = 0; i &lt; 3; ++i) {</div>
-<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>                <span class="keywordflow">if</span> (fv[i] == v0) {</div>
-<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>                    fv[i] = v1;</div>
-<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>                    <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>                }</div>
-<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>            }</div>
-<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>        }</div>
-<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span> </div>
-<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>        <span class="keyword">const</span> int64_t&amp; ret_eid = m_incident_face_datas[0].ears[1].eid;</div>
-<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span>        <span class="keyword">const</span> int64_t&amp; ret_vid = m_spine_vids[1];</div>
-<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>        <span class="keyword">const</span> int64_t&amp; ef0 = m_incident_face_datas[0].ears[0].fid;</div>
-<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>        <span class="keyword">const</span> int64_t&amp; ef1 = m_incident_face_datas[0].ears[1].fid;</div>
-<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span> </div>
-<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>        <span class="keyword">const</span> int64_t new_tuple_fid = (ef0 &gt; -1) ? ef0 : ef1;</div>
+<div class="line"><a id="l00757" name="l00757"></a><span class="lineno">  757</span>        connect_ears();</div>
+<div class="line"><a id="l00758" name="l00758"></a><span class="lineno">  758</span> </div>
+<div class="line"><a id="l00759" name="l00759"></a><span class="lineno">  759</span>        <span class="keyword">const</span> int64_t&amp; v0 = m_spine_vids[0];</div>
+<div class="line"><a id="l00760" name="l00760"></a><span class="lineno">  760</span>        <span class="keyword">const</span> int64_t&amp; v1 = m_spine_vids[1];</div>
+<div class="line"><a id="l00761" name="l00761"></a><span class="lineno">  761</span> </div>
+<div class="line"><a id="l00762" name="l00762"></a><span class="lineno">  762</span> </div>
+<div class="line"><a id="l00763" name="l00763"></a><span class="lineno">  763</span>        <span class="comment">// replace v0 by v1 in incident faces</span></div>
+<div class="line"><a id="l00764" name="l00764"></a><span class="lineno">  764</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> int64_t fid : v0_neighbors) {</div>
+<div class="line"><a id="l00765" name="l00765"></a><span class="lineno">  765</span>            <span class="keywordtype">bool</span> is_fid_deleted = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00766" name="l00766"></a><span class="lineno">  766</span>            <span class="keywordflow">for</span> (int64_t i = 0; i &lt; m_incident_face_datas.size(); ++i) {</div>
+<div class="line"><a id="l00767" name="l00767"></a><span class="lineno">  767</span>                <span class="keywordflow">if</span> (m_incident_face_datas[i].fid == fid) {</div>
+<div class="line"><a id="l00768" name="l00768"></a><span class="lineno">  768</span>                    is_fid_deleted = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00769" name="l00769"></a><span class="lineno">  769</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00770" name="l00770"></a><span class="lineno">  770</span>                }</div>
+<div class="line"><a id="l00771" name="l00771"></a><span class="lineno">  771</span>            }</div>
+<div class="line"><a id="l00772" name="l00772"></a><span class="lineno">  772</span>            <span class="keywordflow">if</span> (is_fid_deleted) {</div>
+<div class="line"><a id="l00773" name="l00773"></a><span class="lineno">  773</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00774" name="l00774"></a><span class="lineno">  774</span>            }</div>
+<div class="line"><a id="l00775" name="l00775"></a><span class="lineno">  775</span>            <span class="keyword">auto</span> fv = fv_accessor.vector_attribute(fid);</div>
+<div class="line"><a id="l00776" name="l00776"></a><span class="lineno">  776</span>            <span class="keywordflow">for</span> (int64_t i = 0; i &lt; 3; ++i) {</div>
+<div class="line"><a id="l00777" name="l00777"></a><span class="lineno">  777</span>                <span class="keywordflow">if</span> (fv[i] == v0) {</div>
+<div class="line"><a id="l00778" name="l00778"></a><span class="lineno">  778</span>                    fv[i] = v1;</div>
+<div class="line"><a id="l00779" name="l00779"></a><span class="lineno">  779</span>                    <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00780" name="l00780"></a><span class="lineno">  780</span>                }</div>
+<div class="line"><a id="l00781" name="l00781"></a><span class="lineno">  781</span>            }</div>
+<div class="line"><a id="l00782" name="l00782"></a><span class="lineno">  782</span>        }</div>
+<div class="line"><a id="l00783" name="l00783"></a><span class="lineno">  783</span> </div>
+<div class="line"><a id="l00784" name="l00784"></a><span class="lineno">  784</span>        <span class="keyword">const</span> int64_t&amp; ret_eid = m_incident_face_datas[0].ears[1].eid;</div>
+<div class="line"><a id="l00785" name="l00785"></a><span class="lineno">  785</span>        <span class="keyword">const</span> int64_t&amp; ret_vid = m_spine_vids[1];</div>
+<div class="line"><a id="l00786" name="l00786"></a><span class="lineno">  786</span>        <span class="keyword">const</span> int64_t&amp; ef0 = m_incident_face_datas[0].ears[0].fid;</div>
+<div class="line"><a id="l00787" name="l00787"></a><span class="lineno">  787</span>        <span class="keyword">const</span> int64_t&amp; ef1 = m_incident_face_datas[0].ears[1].fid;</div>
 <div class="line"><a id="l00788" name="l00788"></a><span class="lineno">  788</span> </div>
-<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span> </div>
-<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span>        m_output_tuple = m_mesh.edge_tuple_from_id(ret_eid);</div>
+<div class="line"><a id="l00789" name="l00789"></a><span class="lineno">  789</span>        <span class="keyword">const</span> int64_t new_tuple_fid = (ef0 &gt; -1) ? ef0 : ef1;</div>
+<div class="line"><a id="l00790" name="l00790"></a><span class="lineno">  790</span> </div>
 <div class="line"><a id="l00791" name="l00791"></a><span class="lineno">  791</span> </div>
-<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>        <span class="comment">// auto faces =</span></div>
-<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span>        <span class="comment">//     simplex::top_dimension_cofaces_tuples(m_mesh,</span></div>
-<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>        <span class="comment">//     simplex::Simplex::edge(m_output_tuple));</span></div>
-<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span> </div>
-<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>        <span class="comment">// assert(faces.size() == m_incident_face_datas.size());</span></div>
-<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span>        <span class="keywordflow">if</span> (m_mesh.id_vertex(m_output_tuple) != ret_vid) {</div>
-<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>            m_output_tuple = m_mesh.switch_vertex(m_output_tuple);</div>
-<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>        }</div>
-<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>        assert(m_mesh.id_vertex(m_output_tuple) == ret_vid);</div>
-<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>        <span class="keywordflow">if</span> (m_mesh.id_face(m_output_tuple) != new_tuple_fid) {</div>
-<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>            m_output_tuple = m_mesh.switch_face(m_output_tuple);</div>
-<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>        }</div>
-<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>        assert(m_mesh.id_face(m_output_tuple) == new_tuple_fid);</div>
-<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>        assert(m_mesh.is_valid(m_output_tuple));</div>
-<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>    }</div>
-<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span> </div>
-<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    delete_simplices();</div>
+<div class="line"><a id="l00792" name="l00792"></a><span class="lineno">  792</span>        m_output_tuple = m_mesh.edge_tuple_from_id(ret_eid);</div>
+<div class="line"><a id="l00793" name="l00793"></a><span class="lineno">  793</span> </div>
+<div class="line"><a id="l00794" name="l00794"></a><span class="lineno">  794</span>        <span class="comment">// auto faces =</span></div>
+<div class="line"><a id="l00795" name="l00795"></a><span class="lineno">  795</span>        <span class="comment">//     simplex::top_dimension_cofaces_tuples(m_mesh,</span></div>
+<div class="line"><a id="l00796" name="l00796"></a><span class="lineno">  796</span>        <span class="comment">//     simplex::Simplex::edge(m_output_tuple));</span></div>
+<div class="line"><a id="l00797" name="l00797"></a><span class="lineno">  797</span> </div>
+<div class="line"><a id="l00798" name="l00798"></a><span class="lineno">  798</span>        <span class="comment">// assert(faces.size() == m_incident_face_datas.size());</span></div>
+<div class="line"><a id="l00799" name="l00799"></a><span class="lineno">  799</span>        <span class="keywordflow">if</span> (m_mesh.id_vertex(m_output_tuple) != ret_vid) {</div>
+<div class="line"><a id="l00800" name="l00800"></a><span class="lineno">  800</span>            m_output_tuple = m_mesh.switch_vertex(m_output_tuple);</div>
+<div class="line"><a id="l00801" name="l00801"></a><span class="lineno">  801</span>        }</div>
+<div class="line"><a id="l00802" name="l00802"></a><span class="lineno">  802</span>        assert(m_mesh.id_vertex(m_output_tuple) == ret_vid);</div>
+<div class="line"><a id="l00803" name="l00803"></a><span class="lineno">  803</span>        <span class="keywordflow">if</span> (m_mesh.id_face(m_output_tuple) != new_tuple_fid) {</div>
+<div class="line"><a id="l00804" name="l00804"></a><span class="lineno">  804</span>            m_output_tuple = m_mesh.switch_face(m_output_tuple);</div>
+<div class="line"><a id="l00805" name="l00805"></a><span class="lineno">  805</span>        }</div>
+<div class="line"><a id="l00806" name="l00806"></a><span class="lineno">  806</span>        assert(m_mesh.id_face(m_output_tuple) == new_tuple_fid);</div>
+<div class="line"><a id="l00807" name="l00807"></a><span class="lineno">  807</span>        assert(m_mesh.is_valid(m_output_tuple));</div>
+<div class="line"><a id="l00808" name="l00808"></a><span class="lineno">  808</span>    }</div>
 <div class="line"><a id="l00809" name="l00809"></a><span class="lineno">  809</span> </div>
-<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span><span class="preprocessor">#if defined(MTAO_CONSTANTLY_VERIFY_MESH)</span></div>
-<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span>    assert(m_mesh.is_connectivity_valid());</div>
-<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span> </div>
-<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span>    <span class="comment">// return a ccw tuple from left ear if it exists, otherwise return a ccw tuple from right ear</span></div>
-<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span>    <span class="comment">// return m_mesh.tuple_from_id(PrimitiveType::Vertex, v1);</span></div>
-<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>}</div>
+<div class="line"><a id="l00810" name="l00810"></a><span class="lineno">  810</span>    delete_simplices();</div>
+<div class="line"><a id="l00811" name="l00811"></a><span class="lineno">  811</span> </div>
+<div class="line"><a id="l00812" name="l00812"></a><span class="lineno">  812</span><span class="preprocessor">#if defined(MTAO_CONSTANTLY_VERIFY_MESH)</span></div>
+<div class="line"><a id="l00813" name="l00813"></a><span class="lineno">  813</span>    assert(m_mesh.is_connectivity_valid());</div>
+<div class="line"><a id="l00814" name="l00814"></a><span class="lineno">  814</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00815" name="l00815"></a><span class="lineno">  815</span> </div>
+<div class="line"><a id="l00816" name="l00816"></a><span class="lineno">  816</span>    <span class="comment">// return a ccw tuple from left ear if it exists, otherwise return a ccw tuple from right ear</span></div>
+<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span>    <span class="comment">// return m_mesh.tuple_from_id(PrimitiveType::Vertex, v1);</span></div>
+<div class="line"><a id="l00818" name="l00818"></a><span class="lineno">  818</span>}</div>
 </div>
-<div class="line"><a id="l00817" name="l00817"></a><span class="lineno">  817</span> </div>
-<div class="foldopen" id="foldopen00818" data-start="{" data-end="}">
-<div class="line"><a id="l00818" name="l00818"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a49846c8a03b7ccae44fd042ee5ba18d4">  818</a></span>std::vector&lt;int64_t&gt; <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a49846c8a03b7ccae44fd042ee5ba18d4">TriMesh::TriMeshOperationExecutor::request_simplex_indices</a>(</div>
-<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> type,</div>
-<div class="line"><a id="l00820" name="l00820"></a><span class="lineno">  820</span>    int64_t count)</div>
-<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>{</div>
-<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>    <span class="keywordflow">return</span> EdgeOperationData::request_simplex_indices(m_mesh, type, count);</div>
-<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>}</div>
+<div class="line"><a id="l00819" name="l00819"></a><span class="lineno">  819</span> </div>
+<div class="foldopen" id="foldopen00820" data-start="{" data-end="}">
+<div class="line"><a id="l00820" name="l00820"></a><span class="lineno"><a class="line" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a49846c8a03b7ccae44fd042ee5ba18d4">  820</a></span>std::vector&lt;int64_t&gt; <a class="code hl_function" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a49846c8a03b7ccae44fd042ee5ba18d4">TriMesh::TriMeshOperationExecutor::request_simplex_indices</a>(</div>
+<div class="line"><a id="l00821" name="l00821"></a><span class="lineno">  821</span>    <span class="keyword">const</span> <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> type,</div>
+<div class="line"><a id="l00822" name="l00822"></a><span class="lineno">  822</span>    int64_t count)</div>
+<div class="line"><a id="l00823" name="l00823"></a><span class="lineno">  823</span>{</div>
+<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span>    <span class="keywordflow">return</span> EdgeOperationData::request_simplex_indices(m_mesh, type, count);</div>
+<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>}</div>
 </div>
-<div class="line"><a id="l00824" name="l00824"></a><span class="lineno">  824</span> </div>
-<div class="line"><a id="l00825" name="l00825"></a><span class="lineno">  825</span>} <span class="comment">// namespace wmtk</span></div>
+<div class="line"><a id="l00826" name="l00826"></a><span class="lineno">  826</span> </div>
+<div class="line"><a id="l00827" name="l00827"></a><span class="lineno">  827</span>} <span class="comment">// namespace wmtk</span></div>
 <div class="ttc" id="a_id_simplex_collection_8hpp_html"><div class="ttname"><a href="_id_simplex_collection_8hpp.html">IdSimplexCollection.hpp</a></div></div>
 <div class="ttc" id="a_simplex_comparisons_8hpp_html"><div class="ttname"><a href="_simplex_comparisons_8hpp.html">SimplexComparisons.hpp</a></div></div>
 <div class="ttc" id="a_split_alternate_facet_data_8hpp_html"><div class="ttname"><a href="_split_alternate_facet_data_8hpp.html">SplitAlternateFacetData.hpp</a></div></div>
@@ -992,17 +994,17 @@ $(document).ready(function(){initNavTree('_tri_mesh_operation_executor_8cpp_sour
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a17977fc07ce1f6618c8dd6e5cef42e6e"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a17977fc07ce1f6618c8dd6e5cef42e6e">wmtk::TriMesh::TriMeshOperationExecutor::get_collapse_simplices_to_delete</a></div><div class="ttdeci">static const std::array&lt; std::vector&lt; int64_t &gt;, 3 &gt; get_collapse_simplices_to_delete(const Tuple &amp;tuple, const TriMesh &amp;m)</div><div class="ttdoc">gather all simplices that are deleted in a collapse</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00156">TriMeshOperationExecutor.cpp:156</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a1a30577b22daadfe571a2ea49699e363"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a1a30577b22daadfe571a2ea49699e363">wmtk::TriMesh::TriMeshOperationExecutor::delete_simplices</a></div><div class="ttdeci">void delete_simplices()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00126">TriMeshOperationExecutor.cpp:126</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a3b5e2092950215dcb224bd682f455518"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a3b5e2092950215dcb224bd682f455518">wmtk::TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor</a></div><div class="ttdeci">TriMeshOperationExecutor(TriMesh &amp;m, const Tuple &amp;operating_tuple)</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00104">TriMeshOperationExecutor.cpp:104</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a3df1e4a6e6de766e419522774d6463d6"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a3df1e4a6e6de766e419522774d6463d6">wmtk::TriMesh::TriMeshOperationExecutor::fill_split_facet_data</a></div><div class="ttdeci">void fill_split_facet_data()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00573">TriMeshOperationExecutor.cpp:573</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a3df1e4a6e6de766e419522774d6463d6"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a3df1e4a6e6de766e419522774d6463d6">wmtk::TriMesh::TriMeshOperationExecutor::fill_split_facet_data</a></div><div class="ttdeci">void fill_split_facet_data()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00575">TriMeshOperationExecutor.cpp:575</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a400efff4f802a87f2e32914190ec7b3b"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a400efff4f802a87f2e32914190ec7b3b">wmtk::TriMesh::TriMeshOperationExecutor::next_edge</a></div><div class="ttdeci">Tuple next_edge(const Tuple &amp;tuple) const</div><div class="ttdoc">jump to the next edge</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00035">TriMeshOperationExecutor.cpp:35</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a49846c8a03b7ccae44fd042ee5ba18d4"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a49846c8a03b7ccae44fd042ee5ba18d4">wmtk::TriMesh::TriMeshOperationExecutor::request_simplex_indices</a></div><div class="ttdeci">std::vector&lt; int64_t &gt; request_simplex_indices(const PrimitiveType type, int64_t count)</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00818">TriMeshOperationExecutor.cpp:818</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a54e966bf94ccc52c22d4be0186a8d281"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54e966bf94ccc52c22d4be0186a8d281">wmtk::TriMesh::TriMeshOperationExecutor::collapse_edge</a></div><div class="ttdeci">void collapse_edge()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00742">TriMeshOperationExecutor.cpp:742</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a54ec111e8890281195a6d2449f822f02"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54ec111e8890281195a6d2449f822f02">wmtk::TriMesh::TriMeshOperationExecutor::create_spine_simplices</a></div><div class="ttdeci">void create_spine_simplices()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00635">TriMeshOperationExecutor.cpp:635</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a49846c8a03b7ccae44fd042ee5ba18d4"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a49846c8a03b7ccae44fd042ee5ba18d4">wmtk::TriMesh::TriMeshOperationExecutor::request_simplex_indices</a></div><div class="ttdeci">std::vector&lt; int64_t &gt; request_simplex_indices(const PrimitiveType type, int64_t count)</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00820">TriMeshOperationExecutor.cpp:820</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a54e966bf94ccc52c22d4be0186a8d281"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54e966bf94ccc52c22d4be0186a8d281">wmtk::TriMesh::TriMeshOperationExecutor::collapse_edge</a></div><div class="ttdeci">void collapse_edge()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00744">TriMeshOperationExecutor.cpp:744</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a54ec111e8890281195a6d2449f822f02"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54ec111e8890281195a6d2449f822f02">wmtk::TriMesh::TriMeshOperationExecutor::create_spine_simplices</a></div><div class="ttdeci">void create_spine_simplices()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00637">TriMeshOperationExecutor.cpp:637</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a6d1be7cbfcd32fff22e8939390bbebac"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a6d1be7cbfcd32fff22e8939390bbebac">wmtk::TriMesh::TriMeshOperationExecutor::connect_ears</a></div><div class="ttdeci">void connect_ears()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00229">TriMeshOperationExecutor.cpp:229</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a783d12a65b5678519da53e2c6192f353"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a783d12a65b5678519da53e2c6192f353">wmtk::TriMesh::TriMeshOperationExecutor::collapse_edge_precompute</a></div><div class="ttdeci">void collapse_edge_precompute()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00669">TriMeshOperationExecutor.cpp:669</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a783d12a65b5678519da53e2c6192f353"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a783d12a65b5678519da53e2c6192f353">wmtk::TriMesh::TriMeshOperationExecutor::collapse_edge_precompute</a></div><div class="ttdeci">void collapse_edge_precompute()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00671">TriMeshOperationExecutor.cpp:671</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a8aaccd059935a5ec25b0680df485da96"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a8aaccd059935a5ec25b0680df485da96">wmtk::TriMesh::TriMeshOperationExecutor::prev_edge</a></div><div class="ttdeci">Tuple prev_edge(const Tuple &amp;tuple) const</div><div class="ttdoc">jump to the previous edge</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00039">TriMeshOperationExecutor.cpp:39</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a91b12d90db098f3a1a09e2fbd85ceb22"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a91b12d90db098f3a1a09e2fbd85ceb22">wmtk::TriMesh::TriMeshOperationExecutor::m_mesh</a></div><div class="ttdeci">TriMesh &amp; m_mesh</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8hpp_source.html#l00076">TriMeshOperationExecutor.hpp:76</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_a998d9ebaf1507d842fb01db91e044644"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a998d9ebaf1507d842fb01db91e044644">wmtk::TriMesh::TriMeshOperationExecutor::replace_incident_face</a></div><div class="ttdeci">void replace_incident_face(IncidentFaceData &amp;face_data)</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00317">TriMeshOperationExecutor.cpp:317</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_ab634365fab3fdd82e567cb433b54ed33"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab634365fab3fdd82e567cb433b54ed33">wmtk::TriMesh::TriMeshOperationExecutor::split_edge</a></div><div class="ttdeci">void split_edge()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00592">TriMeshOperationExecutor.cpp:592</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_ab634365fab3fdd82e567cb433b54ed33"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab634365fab3fdd82e567cb433b54ed33">wmtk::TriMesh::TriMeshOperationExecutor::split_edge</a></div><div class="ttdeci">void split_edge()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00594">TriMeshOperationExecutor.cpp:594</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_ab7c2e31aeac6b8b9c55475675497ae77"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab7c2e31aeac6b8b9c55475675497ae77">wmtk::TriMesh::TriMeshOperationExecutor::split_edge_precompute</a></div><div class="ttdeci">void split_edge_precompute()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00448">TriMeshOperationExecutor.cpp:448</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_ac345870292a6f98fe63dcbdffe56bae9"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ac345870292a6f98fe63dcbdffe56bae9">wmtk::TriMesh::TriMeshOperationExecutor::connect_faces_across_spine</a></div><div class="ttdeci">void connect_faces_across_spine()</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00280">TriMeshOperationExecutor.cpp:280</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_html_ae53961f6be232903d726c95345ada815"><div class="ttname"><a href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ae53961f6be232903d726c95345ada815">wmtk::TriMesh::TriMeshOperationExecutor::update_ids_in_ear</a></div><div class="ttdeci">void update_ids_in_ear(const EarData &amp;ear, const int64_t new_fid, const int64_t old_fid)</div><div class="ttdoc">handling the topology glueing of ear to non-ear face, transfering data from ear-oldface to ear-newfac...</div><div class="ttdef"><b>Definition</b> <a href="_tri_mesh_operation_executor_8cpp_source.html#l00202">TriMeshOperationExecutor.cpp:202</a></div></div>
