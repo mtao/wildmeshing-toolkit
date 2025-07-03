@@ -35,6 +35,11 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_all_hashes(
             .update_map_tuple_hashes(m, PTs[j], simplices_to_update[j], split_cell_maps);
     }
 }
+void UpdateEdgeOperationMultiMeshMapFunctor::update_all_maps(Mesh& m, const EdgeOperationData& eod)
+    const
+{
+    m.m_multi_mesh_manager.update_maps_from_edge_operation(m, eod);
+}
 
 void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
     EdgeMesh& m,
@@ -175,13 +180,14 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                     // not child_tuple on this parent edge
                     continue;
                 }
-                if(child_ptr->is_removed(child_tuple, PrimitiveType::Edge)) {
+                if (child_ptr->is_removed(child_tuple, PrimitiveType::Edge)) {
                     continue;
                 }
 
 
                 //  check also the flag accessor of child mesh
-                const bool child_tuple_exists = child_cell_flag_accessor.index_access().is_active(child_tuple.global_cid());
+                const bool child_tuple_exists =
+                    child_cell_flag_accessor.index_access().is_active(child_tuple.global_cid());
                 if (!child_tuple_exists) {
                     continue;
                 }
@@ -626,12 +632,13 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
         parent_global_cid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
     int64_t target_parent_local_fid =
         parent_local_fid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
-    //spdlog::info("Managing a parent to child relationship {}", target_parent_tid);
+    // spdlog::info("Managing a parent to child relationship {}", target_parent_tid);
     for (const auto& parent_data : parent_incident_tet_datas) {
-        //spdlog::info("parent data tid: {}", parent_data.tid);
+        // spdlog::info("parent data tid: {}", parent_data.tid);
         if (parent_data.tid != target_parent_tid) continue;
 
-        //spdlog::info("At parent tid {}, incident faces were {}", target_parent_tid, fmt::join(parent_data.incident_face_local_fid,","));
+        // spdlog::info("At parent tid {}, incident faces were {}", target_parent_tid,
+        // fmt::join(parent_data.incident_face_local_fid,","));
         int64_t face_index = -1; // shoule be 0 or 1 after if
         for (int i = 0; i < 2; ++i) {
             if (parent_data.incident_face_local_fid[i] == target_parent_local_fid) {
@@ -855,15 +862,15 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const tri_mesh::EdgeOperationData& parent_fmoe)
 {
-    //spdlog::error("Trimesh node update");
+    // spdlog::error("Trimesh node update");
     std::vector<std::tuple<int64_t, std::array<int64_t, 2>>> parent_split_cell_maps;
     const auto& parent_incident_datas = parent_fmoe.incident_face_datas();
     for (const auto& parent_data : parent_incident_datas) {
         if (parent_data.split_f[0] == -1) break;
         parent_split_cell_maps.emplace_back(parent_data.fid, parent_data.split_f);
     }
-    //spdlog::info("Parent split cells: ", parent_split_cell_maps.size());
-    // TODO: update the ear edges here?
+    // spdlog::info("Parent split cells: ", parent_split_cell_maps.size());
+    //  TODO: update the ear edges here?
 
     if (parent_fmoe.is_collapse) {
         update_ear_replacement(parent_mesh, parent_fmoe);

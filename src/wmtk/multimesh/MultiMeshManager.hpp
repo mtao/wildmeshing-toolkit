@@ -470,6 +470,10 @@ protected: // protected to enable unit testing
         PrimitiveType primitive_type,
         const operations::EdgeOperationData& operation_data);
 
+    void update_maps_from_edge_operation(
+        Mesh& my_mesh,
+        const operations::EdgeOperationData& operation_data);
+
 
     // uses the available parameters to find a tuple that is equivalent to old_smiplex but using
     // still-existing top level simplices. by equivalent each sub-simplex of old_simplex's tuple
