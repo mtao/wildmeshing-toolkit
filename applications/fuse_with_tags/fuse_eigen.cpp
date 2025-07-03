@@ -9,6 +9,7 @@
 #include <wmtk/components/multimesh/from_facet_surjection.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
 #include "utils.hpp"
+#include <wmtk/Types.hpp>
 
 std::shared_ptr<wmtk::TriMesh> fuse_eigen(
     wmtk::components::multimesh::MeshCollection& mc,
@@ -34,7 +35,8 @@ std::shared_ptr<wmtk::TriMesh> fuse_eigen(
         em.F.assign(F);
     }
     Eigen::MatrixXd SV;
-    Eigen::MatrixX<int64_t> SVI, SVJ, SF;
+    Eigen::MatrixX<int64_t>  SF;
+    wmtk::VectorX<int64_t> SVI, SVJ;
     spdlog::info("Calling remove_Duplicate_vertices");
 
     igl::remove_duplicate_vertices(V, F, 0, SV, SVI, SVJ, SF);

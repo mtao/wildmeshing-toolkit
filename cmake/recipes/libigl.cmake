@@ -8,7 +8,7 @@ include(FetchContent)
 CPMAddPackage(
     libigl
     GIT_REPOSITORY https://github.com/libigl/libigl.git
-    GIT_TAG 3ea7f9480967fcf6bf02ce9b993c0ea6d2fc45f6
+    GIT_TAG v2.6.0
     OPTIONS LIBIGL_INSTALL OFF
 )
 # include(eigen)
