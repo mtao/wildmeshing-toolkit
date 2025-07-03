@@ -1,5 +1,9 @@
 var NAVTREEINDEX47 =
 {
+"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_mean_ratio_measure_functor.html#aece135132a881d5cff6f372121236e8b":[9,0,10,2,5,1,6,0],
+"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_mean_ratio_measure_functor.html#aece135132a881d5cff6f372121236e8b":[10,0,2,2,5,1,6,0],
+"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_min_neighbor_functor.html":[9,0,10,2,5,1,7],
+"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_min_neighbor_functor.html":[10,0,2,2,5,1,7],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_min_neighbor_functor.html#a07a88213d1d8f648c7e7b198566bfb4d":[9,0,10,2,5,1,7,0],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_min_neighbor_functor.html#a07a88213d1d8f648c7e7b198566bfb4d":[10,0,2,2,5,1,7,0],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_min_neighbor_functor.html#a7900ec71c8a14d602364c7668561d7ff":[9,0,10,2,5,1,7,1],
@@ -245,9 +249,5 @@ var NAVTREEINDEX47 =
 "structwmtk_1_1components_1_1multimesh_1_1_multimesh_bijection_options.html#adb16fc1892875c0093efcffdeb66e6b8":[9,0,10,2,6,5,1],
 "structwmtk_1_1components_1_1multimesh_1_1_multimesh_bijection_options.html#adb16fc1892875c0093efcffdeb66e6b8":[10,0,2,2,6,4,1],
 "structwmtk_1_1components_1_1multimesh_1_1_multimesh_bijection_options.html#ae1ea7a017085f6fe659cf717a19668b4":[9,0,10,2,6,5,4],
-"structwmtk_1_1components_1_1multimesh_1_1_multimesh_bijection_options.html#ae1ea7a017085f6fe659cf717a19668b4":[10,0,2,2,6,4,4],
-"structwmtk_1_1components_1_1multimesh_1_1_multimesh_boundary_options.html":[10,0,2,2,6,5],
-"structwmtk_1_1components_1_1multimesh_1_1_multimesh_boundary_options.html":[9,0,10,2,6,6],
-"structwmtk_1_1components_1_1multimesh_1_1_multimesh_boundary_options.html#a188bd351fe0c4cfc1fd9f908b006ba6f":[10,0,2,2,6,5,7],
-"structwmtk_1_1components_1_1multimesh_1_1_multimesh_boundary_options.html#a188bd351fe0c4cfc1fd9f908b006ba6f":[9,0,10,2,6,6,7]
+"structwmtk_1_1components_1_1multimesh_1_1_multimesh_bijection_options.html#ae1ea7a017085f6fe659cf717a19668b4":[10,0,2,2,6,4,4]
 };
