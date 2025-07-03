@@ -143,7 +143,7 @@ void MultiMeshManager::update_maps_from_edge_operation(
     //      if(acc.index_access().
     //  };
 
-    std::vector<int64_t> gids; // get facet gids(primitive_type);
+    const std::vector<int64_t>& gids = operation_data.global_ids_to_update[get_primitive_type_id(primitive_type)]; // get facet gids(primitive_type);
 
     // go over every child mesh and try to update their hashes
     for (auto& child_data : children()) {

@@ -513,6 +513,7 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
     hash_update_region.sort_and_clean();
 
     global_ids_to_potential_tuples.resize(3);
+    global_ids_to_update.resize(3);
     simplex::SimplexCollection faces(m_mesh);
 
     for (const simplex::Simplex& f : hash_update_region.simplex_vector(PrimitiveType::Triangle)) {
@@ -564,6 +565,7 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
         auto cofaces = wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
         global_ids_to_potential_tuples.at(index).emplace_back(id, std::move(cofaces));
+        global_ids_to_update.at(index).emplace_back(id);
     }
 
     create_spine_simplices();
