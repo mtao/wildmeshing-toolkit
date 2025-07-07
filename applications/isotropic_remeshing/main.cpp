@@ -40,10 +40,14 @@ int main(int argc, char* argv[])
     app.ignore_case();
 
     fs::path json_input_file;
+    fs::path log_file;
     fs::path json_integration_config_file;
+    bool no_console_logging = false;
     app.add_option("-j, --json", json_input_file, "json specification file")
         ->required(true)
         ->check(CLI::ExistingFile);
+    app.add_option("-l, --log_file", log_file, "log path");
+    app.add_option("--no-console-logging", no_console_logging, "whether the logger should output to the screen");
     app.add_option(
            "-i, --integration-test-config",
            json_integration_config_file,
@@ -56,10 +60,31 @@ int main(int argc, char* argv[])
     //     json_input_file);
 
     spdlog::warn("File is {}", json_input_file.string());
+
+
+
+    // =====================
+    // Parse input json file
+    // =====================
+
     std::ifstream ifs(json_input_file);
     nlohmann::ordered_json j = nlohmann::ordered_json::parse(ifs);
 
-    const auto& input_js = j["input"];
+    // =====================
+    // Parse base settings
+    // =====================
+    if(!log_file.empty()) {
+        wmtk::add_file_sink(log_file, /*keep_console_log \equiv*/!no_console_logging);
+    } else {
+        if(no_console_logging) {
+            logger().sinks().clear();
+        }
+    }
+    
+
+    // =====================
+    // Parse input path util
+    // =====================
     components::utils::PathResolver path_resolver;
 
     if (j.contains(root_attribute_name)) {
@@ -71,6 +96,11 @@ int main(int argc, char* argv[])
             argv[0]);
         path_resolver.add_path(path);
     }
+
+    // =====================
+    // Parse input path json
+    // =====================
+    const auto& input_js = j["input"];
 
     wmtk::components::multimesh::MeshCollection mc;
 

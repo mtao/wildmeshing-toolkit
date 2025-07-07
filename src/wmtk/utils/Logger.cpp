@@ -1,14 +1,16 @@
 #include <wmtk/utils/Logger.hpp>
 
+#include <spdlog/sinks/basic_file_sink.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
 #include <spdlog/spdlog.h>
 
 #include <sstream>
 
 namespace wmtk {
-bool has_user_overloaded_logger_level() {
+bool has_user_overloaded_logger_level()
+{
     const char* val = std::getenv("WMTK_LOGGER_LEVEL");
-    if(val == nullptr) {
+    if (val == nullptr) {
         return false;
     }
     std::string env_val = val;
@@ -84,6 +86,30 @@ spdlog::logger& opt_logger()
         static auto default_logger = spdlog::stdout_color_mt("wmtk-opt");
         return *default_logger;
     }
+}
+
+void add_file_sink(
+    const std::filesystem::path& sink_name,
+    bool replace_other_sinks,
+    spdlog::level::level_enum level)
+{
+    auto& sinks = get_shared_logger()->sinks();
+    if (level == spdlog::level::n_levels) {
+        if (sinks.empty()) {
+            logger().warn(
+                "Cannot wmtk::utils::add_file_sink cannot read logger level from another sink "
+                "because there are no other sinks. Defaulting to level trace");
+            level = spdlog::level::trace;
+        } else {
+            level = sinks[0]->level();
+        }
+    }
+    if (replace_other_sinks) {
+        sinks.clear();
+    }
+    auto file_sink = std::make_shared<spdlog::sinks::basic_file_sink_mt>(sink_name, true);
+    file_sink->set_level(level);
+    sinks.emplace_back(file_sink);
 }
 
 // Use a custom logger
