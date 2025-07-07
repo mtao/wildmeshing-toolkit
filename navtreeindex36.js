@@ -1,5 +1,7 @@
 var NAVTREEINDEX36 =
 {
+"from__facet__bijection_8hpp.html":[11,0,0,13,0,0,0,0,8],
+"from__facet__bijection_8hpp.html#a520cff3557e74c0a0d648947dc42280f":[11,0,0,13,0,0,0,0,8,1],
 "from__facet__bijection_8hpp_source.html":[11,0,0,13,0,0,0,0,8],
 "from__facet__orientations_8cpp.html":[11,0,2,0,6,7],
 "from__facet__orientations_8cpp.html#ad4e8a8e817522761d7ad62304dffb0f2":[11,0,2,0,6,7,0],
@@ -67,8 +69,8 @@ var NAVTREEINDEX36 =
 "functions_enum.html":[10,3,4],
 "functions_eval.html":[10,3,5],
 "functions_f.html":[10,3,0,6],
-"functions_func.html":[10,3,1],
 "functions_func.html":[10,3,1,0],
+"functions_func.html":[10,3,1],
 "functions_func_a.html":[10,3,1,1],
 "functions_func_b.html":[10,3,1,2],
 "functions_func_c.html":[10,3,1,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX36 =
 "get__simplex__involution_8hpp.html#aabd873fac842193741d6ae0cf2e62cbc":[11,0,2,0,2,1,19,2],
 "get__simplex__involution_8hpp_source.html":[11,0,2,0,2,1,19],
 "get__unique__remove__void__types_8hpp.html":[11,0,2,0,9,1,0,2],
-"get__unique__remove__void__types_8hpp.html#a8e9bde7f74ae72dda89821b14b0e7474":[11,0,2,0,9,1,0,2,2],
-"get__unique__remove__void__types_8hpp.html#af985c1c151bf00710dc27631c18daf15":[11,0,2,0,9,1,0,2,3],
-"get__unique__remove__void__types_8hpp_source.html":[11,0,2,0,9,1,0,2]
+"get__unique__remove__void__types_8hpp.html#a8e9bde7f74ae72dda89821b14b0e7474":[11,0,2,0,9,1,0,2,2]
 };

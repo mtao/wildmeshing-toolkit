@@ -1,5 +1,6 @@
 var _logger_8hpp =
 [
+    [ "add_file_sink", "_logger_8hpp.html#a94e1dad0475ea9c46573f2ee1c4ed3e1", null ],
     [ "has_user_overloaded_logger_level", "_logger_8hpp.html#a1d15e628edf89f87be62412176114df6", null ],
     [ "log_and_throw_error", "_logger_8hpp.html#a441d6ad4f19569c7d4946e743da1a925", null ],
     [ "log_and_throw_error", "_logger_8hpp.html#a14feab21b3c2f51fc2d7ecc55fa4a941", null ],

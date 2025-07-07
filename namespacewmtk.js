@@ -105,6 +105,7 @@ var namespacewmtk =
       [ "Tetrahedron", "namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80", null ]
     ] ],
     [ "abs", "namespacewmtk.html#a415d7a83177f8770f317416478c57cae", null ],
+    [ "add_file_sink", "namespacewmtk.html#a94e1dad0475ea9c46573f2ee1c4ed3e1", null ],
     [ "cmp", "namespacewmtk.html#a2f35ead9c86e0fd722118c11a8cbcf08", null ],
     [ "edgemesh_topology_initialization", "namespacewmtk.html#adf595e35ecb28937978ce5e794bb041e", null ],
     [ "find_invariant_in_collection_by_type", "namespacewmtk.html#ae975d72ae7f4a759f36108e53d2c144d", null ],
