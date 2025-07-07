@@ -43,6 +43,9 @@ filtered_neighbor_count.cpp
 
 threshold.hpp
 threshold.cpp
+
+amips.hpp
+amips.cpp
 init.hpp
 init.cpp
 )
