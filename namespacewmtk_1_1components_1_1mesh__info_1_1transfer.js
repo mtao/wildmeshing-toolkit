@@ -1,5 +1,6 @@
 var namespacewmtk_1_1components_1_1mesh__info_1_1transfer =
 [
+    [ "AMIPSFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor" ],
     [ "CoeffWiseTransfer", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_coeff_wise_transfer.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_coeff_wise_transfer" ],
     [ "EdgeAngleFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_angle_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_angle_functor" ],
     [ "EdgeLengthFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor" ],
@@ -19,6 +20,7 @@ var namespacewmtk_1_1components_1_1mesh__info_1_1transfer =
     [ "TransferStrategyFactory", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory" ],
     [ "TransferStrategyFactoryRegistry", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_registry.html", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_registry" ],
     [ "VolumeFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor" ],
+    [ "AMIPS", "namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a43d8e3745997a2fc799db6997d0d6d41", null ],
     [ "EdgeAngle", "namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#ad7fa7475a320c6b80b6c9014ea8ca2b3", null ],
     [ "EdgeLength", "namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#abeb8a2a0b37670288167283d2ec65f6e", null ],
     [ "FilteredNeighborCount", "namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a3eb6078ae870c19ee47dc89f8fa2ffbb", null ],

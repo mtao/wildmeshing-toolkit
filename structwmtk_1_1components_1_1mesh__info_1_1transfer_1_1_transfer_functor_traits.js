@@ -1,5 +1,6 @@
 var structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits =
 [
+    [ "output_dimension", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#aa28c67ff35c48f8e3e934e803984a0e3", null ],
     [ "output_dimension", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#a04562a4e1f4735cf70c2c5d41e9c7cc0", null ],
     [ "output_dimension", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#a94f8e6fc5e2f5bc8617ca0f025bae7ee", null ],
     [ "output_dimension", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#af3badd926bdc57fa4ccbd42cee4bbf8a", null ],
@@ -12,6 +13,7 @@ var structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_trai
     [ "output_type", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#a83729edc5466159569ac49fa5fb2d856", null ],
     [ "output_type", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#a32f38dbced1641aa9cbe2f12d8407f8e", null ],
     [ "output_type", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#a1e5c0850f496c1da03c5389fac64e7ec", null ],
+    [ "simplex_dimension", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#a21fd69dd5d425d13180c8c28be942e91", null ],
     [ "simplex_dimension", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#aba8a4d0987d974b6b6bdaa7f39acb0aa", null ],
     [ "simplex_dimension", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#a818f86412ef0a84d9da02d3f8aceb818", null ],
     [ "simplex_dimension", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html#a741045d67233c0777e19d6f5a7b7576a", null ],

@@ -14,6 +14,7 @@ var hierarchy =
     [ "nlohmann::adl_serializer< std::filesystem::path >", "structnlohmann_1_1adl__serializer_3_01std_1_1filesystem_1_1path_01_4.html", null ],
     [ "nlohmann::adl_serializer< wmtk::components::input::InputOptions >", "structnlohmann_1_1adl__serializer_3_01wmtk_1_1components_1_1input_1_1_input_options_01_4.html", null ],
     [ "nlohmann::adl_serializer< wmtk::components::output::OutputOptionsCollection >", "structnlohmann_1_1adl__serializer_3_01wmtk_1_1components_1_1output_1_1_output_options_collection_01_4.html", null ],
+    [ "wmtk::components::mesh_info::transfer::AMIPSFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor.html", null ],
     [ "wmtk::utils::metaprogramming::detail::as_variant_impl< BaseVariantTraitsType, IsConst, TupleType, Index >", "structwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1as__variant__impl.html", null ],
     [ "wmtk::utils::metaprogramming::detail::as_variant_impl< BaseVariantTraitsType, IsConst, std::tuple< DerivedTypes... >, Index >", "structwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1as__variant__impl_3_01_base_variant_traits_t6a1192944e90055aac8867a18a15c7a4.html", null ],
     [ "wmtk::utils::metaprogramming::tuple::detail::as_variant_type< T >", "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1as__variant__type.html", null ],

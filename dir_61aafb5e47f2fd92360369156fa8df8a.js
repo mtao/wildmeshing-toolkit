@@ -1,5 +1,7 @@
 var dir_61aafb5e47f2fd92360369156fa8df8a =
 [
+    [ "amips.cpp", "components_2mesh__info_2src_2wmtk_2components_2mesh__info_2transfer_2amips_8cpp.html", null ],
+    [ "amips.hpp", "components_2mesh__info_2src_2wmtk_2components_2mesh__info_2transfer_2amips_8hpp.html", "components_2mesh__info_2src_2wmtk_2components_2mesh__info_2transfer_2amips_8hpp" ],
     [ "CoeffWiseTransfer.hpp", "_coeff_wise_transfer_8hpp.html", "_coeff_wise_transfer_8hpp" ],
     [ "edge_angle.cpp", "edge__angle_8cpp.html", null ],
     [ "edge_angle.hpp", "edge__angle_8hpp.html", "edge__angle_8hpp" ],

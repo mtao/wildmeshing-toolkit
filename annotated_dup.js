@@ -114,6 +114,7 @@ var annotated_dup =
             ] ]
           ] ],
           [ "transfer", "namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html", [
+            [ "AMIPSFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor" ],
             [ "CoeffWiseTransfer", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_coeff_wise_transfer.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_coeff_wise_transfer" ],
             [ "EdgeAngleFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_angle_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_angle_functor" ],
             [ "EdgeLengthFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor" ],
