@@ -32,7 +32,6 @@ constexpr auto sort_int_op = [](const CollapseAlternateFacetData::Data& value,
 } // namespace
 CollapseAlternateFacetData::CollapseAlternateFacetData(const Mesh& m, const Tuple& input_tuple)
 {
-    spdlog::info("Constructing");
     for (const auto& s : simplex::cofaces_single_dimension_tuples(
              m,
              simplex::Simplex::edge(input_tuple),

@@ -1,4 +1,5 @@
 #include "UpdateEdgeOperationMultiMeshMapFunctor.hpp"
+#define WMTK_NOT_HASH_MAP_UPDATE
 
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Mesh.hpp>
@@ -33,6 +34,7 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_all_hashes(
     for (size_t j = 0; j < simplices_to_update.size(); ++j) {
         m.m_multi_mesh_manager
             .update_map_tuple_hashes(m, PTs[j], simplices_to_update[j], split_cell_maps);
+
     }
 }
 void UpdateEdgeOperationMultiMeshMapFunctor::update_all_maps(Mesh& m, const EdgeOperationData& eod)
@@ -850,10 +852,14 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
 
         // TODO: update the ear edges here?
     }
+#if defined(WMTK_NOT_HASH_MAP_UPDATE)
+    update_all_maps(parent_mesh, parent_emoe);
+#else
     update_all_hashes(
         parent_mesh,
         parent_emoe.global_ids_to_potential_tuples,
         parent_split_cell_maps);
+#endif
 }
 
 // tri
@@ -875,10 +881,14 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     if (parent_fmoe.is_collapse) {
         update_ear_replacement(parent_mesh, parent_fmoe);
     }
+#if defined(WMTK_NOT_HASH_MAP_UPDATE)
+    update_all_maps(parent_mesh, parent_fmoe);
+#else
     update_all_hashes(
         parent_mesh,
         parent_fmoe.global_ids_to_potential_tuples,
         parent_split_cell_maps);
+#endif
 }
 
 // tet
@@ -897,10 +907,14 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     if (parent_tmoe.is_collapse) {
         update_ear_replacement(parent_mesh, parent_tmoe);
     }
+#if defined(WMTK_NOT_HASH_MAP_UPDATE)
+    update_all_maps(parent_mesh, parent_tmoe);
+#else
     update_all_hashes(
         parent_mesh,
         parent_tmoe.global_ids_to_potential_tuples,
         parent_split_cell_maps);
+#endif
 }
 
 int64_t UpdateEdgeOperationMultiMeshMapFunctor::child_global_cid(

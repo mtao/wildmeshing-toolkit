@@ -25,6 +25,7 @@ endmacro()
 
 add_application(delaunay ON)
 add_application(marching ON)
+add_application(mesh_info ON)
 add_application(procedural ON)
 add_application(multimesh OFF)
 add_application(isotropic_remeshing ON)

@@ -93,7 +93,11 @@ auto SplitAlternateFacetData::get_alternative(
 {
     assert(mesh_pt > PrimitiveType::Vertex);
     const auto alts_it = get_alternative_facets_it(t.global_cid());
-    assert(alts_it != m_facet_maps.end());
+    //assert(alts_it != m_facet_maps.end());
+    if(alts_it == m_facet_maps.end()) {
+        //spdlog::info("Returning null");
+        return {};
+    }
 
     const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
 

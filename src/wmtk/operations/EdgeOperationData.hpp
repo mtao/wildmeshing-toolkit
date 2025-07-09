@@ -26,6 +26,7 @@ public:
     EdgeOperationData(EdgeOperationData&&);
     EdgeOperationData& operator=(EdgeOperationData&&);
     Tuple m_operating_tuple;
+    int64_t m_input_edge_gid;
 
     Tuple m_output_tuple;
     std::array<int64_t, 2> m_spine_vids; // two endpoints of the edge

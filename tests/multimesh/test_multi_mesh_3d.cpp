@@ -233,7 +233,7 @@ TEST_CASE("test_split_multi_mesh_1D_3D", "[multimesh][1D][3D]")
 
         for (const auto& child0_e : child0.get_all(PE)) {
             CHECK(
-                parent.id(child0.map_to_parent_tuple(Simplex::edge(child0, child0_e)), PT) >
+                parent.id(child0.map_to_parent_tuple(Simplex::edge(child0_e)), PT) >
                 5); // all parent tets should be new
 
             int64_t parent_old = -1;

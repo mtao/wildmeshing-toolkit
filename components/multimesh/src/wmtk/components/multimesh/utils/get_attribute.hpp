@@ -35,5 +35,16 @@ wmtk::attribute::MeshAttributeHandle get_attribute(
     const Mesh& mesh,
     const AttributeDescription& description);
 
+
+std::vector<wmtk::attribute::MeshAttributeHandle> get_attributes(
+    const NamedMultiMesh& mesh,
+    const AttributeDescription& description);
+std::vector<wmtk::attribute::MeshAttributeHandle> get_attributes(
+    const MeshCollection& mesh,
+    const AttributeDescription& description);
+std::vector<wmtk::attribute::MeshAttributeHandle> get_attributes(
+    const Mesh& mesh,
+    const AttributeDescription& description);
+
 } // namespace utils
 } // namespace wmtk::components::multimesh

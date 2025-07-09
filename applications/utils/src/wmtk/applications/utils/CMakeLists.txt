@@ -9,4 +9,7 @@ target_sources(wmtk_application_utils PRIVATE
     get_integration_test_data_root.cpp
 
 
+    read_inputs.hpp
+    read_inputs.cpp
+
 )

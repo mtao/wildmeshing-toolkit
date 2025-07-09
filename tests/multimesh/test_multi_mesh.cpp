@@ -9,6 +9,7 @@
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
 #include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/EdgeSplit.hpp>
+#include <wmtk/utils/as_eigen_matrices.hpp>
 #include <wmtk/simplex/utils/SimplexComparisons.hpp>
 #include "../tools/DEBUG_EdgeMesh.hpp"
 #include "../tools/DEBUG_TriMesh.hpp"
@@ -895,6 +896,21 @@ TEST_CASE("test_split_multi_mesh_1D_2D_a", "[multimesh][1D][2D]")
     spdlog::error("Map state before operation");
     print_tuple_map(parent, p_mul_manager);
 
+    // global ids
+    //  3-- --- 0
+    //   |     / \\.
+    //     f1 /2  \\ .
+    //   |  0/ f0  \\.
+    //   |  /       \\.
+    //  1  ==========2
+    //
+    // local ids
+    //  0--1---2 0
+    //   |     / \
+    //   2    /2   1
+    //   |  0/     \ .
+    //   |  /       \ .
+    //  1 1----0---- 2
     {
         Tuple edge = parent.edge_tuple_with_vs_and_t(0, 1, 0);
         operations::EdgeSplit op(parent);
@@ -949,23 +965,38 @@ TEST_CASE("test_split_multi_mesh_1D_2D", "[multimesh][1D][2D]")
     child1_map[1] = {child1.tuple_from_edge_id(1), parent.tuple_from_id(PE, 3)};
 
     {
+        auto ear = parent.tuple_from_id(PE, 0);
+        int64_t vid = parent.id(ear, PrimitiveType::Vertex);
+        int64_t vid2 = parent.id(parent.switch_vertex(ear), PrimitiveType::Vertex);
+        spdlog::warn("child 0 edge 0 mapped to {} {}", vid, vid2);
+    }
+    {
         auto ear = parent.tuple_from_id(PE, 1);
         int64_t vid = parent.id(ear, PrimitiveType::Vertex);
         int64_t vid2 = parent.id(parent.switch_vertex(ear), PrimitiveType::Vertex);
-        spdlog::warn("ear edge 0 mapped to {} {}", vid, vid2);
+        spdlog::warn("child 1 ear edge 0 mapped to {} {}", vid, vid2);
     }
     {
         auto ear = parent.tuple_from_id(PE, 3);
         int64_t vid = parent.id(ear, PrimitiveType::Vertex);
         int64_t vid2 = parent.id(parent.switch_vertex(ear), PrimitiveType::Vertex);
-        spdlog::warn("ear edge 1 mapped to {} {}", vid, vid2);
+        spdlog::warn("child 1 ear edge 1 mapped to {} {}", vid, vid2);
     }
+    // global ids
     //  3-- --- 0
     //   |     / \\.
     //     f1 /2  \\ .
     //   |  0/ f0  \\.
     //   |  /       \\.
     //  1  ==========2
+    //
+    // local ids
+    //  0--1---2 0
+    //   |     / \
+    //   2    /2   1
+    //   |  0/     \ .
+    //   |  /       \ .
+    //  1 1----0---- 2
 
     parent.register_child_mesh(child0_ptr, child0_map);
     parent.register_child_mesh(child1_ptr, child1_map);
@@ -991,6 +1022,22 @@ TEST_CASE("test_split_multi_mesh_1D_2D", "[multimesh][1D][2D]")
     REQUIRE(child1.is_connectivity_valid());
     p_mul_manager.check_map_valid(parent);
 
+    {
+    auto F = wmtk::utils::as_eigen_matrices(parent);
+    spdlog::info("Parent mesh:");
+    std::cout << F << std::endl;
+    }
+    {
+    auto E = wmtk::utils::as_eigen_matrices(child0);
+    spdlog::info("Child0:");
+    std::cout << E << std::endl;
+    }
+
+    {
+    auto E = wmtk::utils::as_eigen_matrices(child1);
+    spdlog::info("Child1:");
+    std::cout << E << std::endl;
+    }
     print_tuple_map(parent, p_mul_manager);
     CHECK(wmtk::multimesh::utils::check_maps_valid(parent));
     CHECK(wmtk::multimesh::utils::check_maps_valid(child0));
@@ -1039,8 +1086,8 @@ TEST_CASE("test_collapse_multi_mesh_1D_2D", "[multimesh][1D][2D]")
     std::vector<std::array<Tuple, 2>> child2_map(1);
     child2_map[0] = {child2.tuple_from_edge_id(0), parent.edge_tuple_with_vs_and_t(0, 4, 2)};
 
-    // parent.register_child_mesh(child0_ptr, child0_map);
-    // parent.register_child_mesh(child1_ptr, child1_map);
+     parent.register_child_mesh(child0_ptr, child0_map);
+     parent.register_child_mesh(child1_ptr, child1_map);
     parent.register_child_mesh(child2_ptr, child2_map);
 
     const auto& p_mul_manager = parent.multi_mesh_manager();

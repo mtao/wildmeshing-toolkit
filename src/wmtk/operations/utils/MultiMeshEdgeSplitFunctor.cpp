@@ -39,6 +39,7 @@ tri_mesh::EdgeOperationData MultiMeshEdgeSplitFunctor::operator()(
     TriMesh::TriMeshOperationExecutor exec(m, s.tuple());
 
     exec.split_edge();
+    /*
     for (const auto& id : exec.incident_face_datas()) {
         logger().trace(
             "[{}] mapped {}->{}",
@@ -46,6 +47,7 @@ tri_mesh::EdgeOperationData MultiMeshEdgeSplitFunctor::operator()(
             id.fid,
             fmt::join(id.split_f, ","));
     }
+    */
 
     return std::move(static_cast<tri_mesh::EdgeOperationData&>(exec));
 }

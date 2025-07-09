@@ -35,10 +35,12 @@ void EdgeOperationData::set_collapse()
 
 void EdgeOperationData::set_split(const Mesh& m, const Tuple& t)
 {
+    m_input_edge_gid = m.id(t, PrimitiveType::Edge);
     m_op_data = std::make_unique<internal::SplitAlternateFacetData>(m, t);
 }
 void EdgeOperationData::set_collapse(const Mesh& m, const Tuple& t)
 {
+    m_input_edge_gid = m.id(t, PrimitiveType::Edge);
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t);
 }
 
