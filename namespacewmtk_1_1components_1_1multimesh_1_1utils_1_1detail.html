@@ -151,6 +151,8 @@ Functions</h2></td></tr>
 <tr class="separator:a74ad95cd049405e25bc2b4e5355bdc54"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7eb947b31a7ef2085883e6c338cd692e" id="r_a7eb947b31a7ef2085883e6c338cd692e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh_1_1utils_1_1detail.html#a7eb947b31a7ef2085883e6c338cd692e">get_attribute</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;mesh, const std::string_view &amp;name, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, <a class="el" href="namespacewmtk_1_1attribute.html#a9557a29293cbe11f080093a4af4a91f7">wmtk::attribute::AttributeType</a> type)</td></tr>
 <tr class="separator:a7eb947b31a7ef2085883e6c338cd692e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5340b29f29a897c9a77f063b16e1bbc4" id="r_a5340b29f29a897c9a77f063b16e1bbc4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh_1_1utils_1_1detail.html#a5340b29f29a897c9a77f063b16e1bbc4">get_attributes</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;mesh, const std::string_view &amp;name, const std::optional&lt; <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> &gt; &amp;pt, const std::optional&lt; <a class="el" href="namespacewmtk_1_1attribute.html#a9557a29293cbe11f080093a4af4a91f7">wmtk::attribute::AttributeType</a> &gt; &amp;type, const std::optional&lt; int64_t &gt; &amp;dimension)</td></tr>
+<tr class="separator:a5340b29f29a897c9a77f063b16e1bbc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3af4d07563c7b99c024e49b7d76ec3ca" id="r_a3af4d07563c7b99c024e49b7d76ec3ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh_1_1utils_1_1detail.html#a3af4d07563c7b99c024e49b7d76ec3ca">get_attribute</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;mesh, const std::string_view &amp;name, const std::optional&lt; <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> &gt; &amp;pt, const std::optional&lt; <a class="el" href="namespacewmtk_1_1attribute.html#a9557a29293cbe11f080093a4af4a91f7">wmtk::attribute::AttributeType</a> &gt; &amp;type, const std::optional&lt; int64_t &gt; &amp;dimension)</td></tr>
 <tr class="separator:a3af4d07563c7b99c024e49b7d76ec3ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -307,7 +309,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="get__attribute_8cpp_source.html#l00055">55</a> of file <a class="el" href="get__attribute_8cpp_source.html">get_attribute.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="get__attribute_8cpp_source.html#l00147">147</a> of file <a class="el" href="get__attribute_8cpp_source.html">get_attribute.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_mesh_attribute_handle_8cpp_source.html#l00058">wmtk::attribute::MeshAttributeHandle::dimension()</a>, <a class="el" href="get__attribute_8cpp_source.html#l00020">get_attribute()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="_mesh_attribute_handle_8cpp_source.html#l00038">wmtk::attribute::MeshAttributeHandle::is_valid()</a>, <a class="el" href="_logger_8cpp_source.html#l00060">wmtk::logger()</a>, <a class="el" href="attribute__missing__error_8hpp_source.html#l00017">wmtk::components::multimesh::utils::detail::attribute_missing_error::make()</a>, <a class="el" href="attribute__ambiguous__error_8hpp_source.html#l00021">wmtk::components::multimesh::utils::detail::attribute_ambiguous_error::make()</a>, <a class="el" href="primitive__range__iter_8hpp_source.html#l00107">wmtk::utils::primitive_below()</a>, <a class="el" href="_primitive_type_8cpp_source.html#l00042">wmtk::primitive_type_name()</a>, and <a class="el" href="_mesh_8hpp_source.html#l01040">wmtk::Mesh::top_simplex_type()</a>.</p>
 <div class="dynheader">
@@ -356,7 +358,7 @@ template&lt;typename T &gt; </div>
 
 <p class="reference">References <a class="el" href="_mesh_8hpp_source.html#l00956">wmtk::Mesh::get_attribute_handle()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="_mesh_8hpp_source.html#l00976">wmtk::Mesh::has_attribute()</a>, and <a class="el" href="attribute__missing__error_8hpp_source.html#l00017">wmtk::components::multimesh::utils::detail::attribute_missing_error::make()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="get__attribute_8cpp_source.html#l00176">wmtk::components::multimesh::utils::get_attribute()</a>, <a class="el" href="get__attribute_8cpp_source.html#l00055">get_attribute()</a>, <a class="el" href="get__attribute_8cpp_source.html#l00161">wmtk::components::multimesh::utils::get_attribute()</a>, and <a class="el" href="get__attribute_8cpp_source.html#l00149">wmtk::components::multimesh::utils::get_attribute()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="get__attribute_8cpp_source.html#l00268">wmtk::components::multimesh::utils::get_attribute()</a>, <a class="el" href="get__attribute_8cpp_source.html#l00147">get_attribute()</a>, <a class="el" href="get__attribute_8cpp_source.html#l00253">wmtk::components::multimesh::utils::get_attribute()</a>, <a class="el" href="get__attribute_8cpp_source.html#l00241">wmtk::components::multimesh::utils::get_attribute()</a>, and <a class="el" href="get__attribute_8cpp_source.html#l00055">get_attributes()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -411,6 +413,68 @@ Here is the caller graph for this function:</div>
 <p class="definition">Definition at line <a class="el" href="get__attribute_8cpp_source.html#l00032">32</a> of file <a class="el" href="get__attribute_8cpp_source.html">get_attribute.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="create__attribute_8cpp.html#af83aef093a06598906fc9c0c05cc8a31">ENTRY</a>.</p>
+
+</div>
+</div>
+<a id="a5340b29f29a897c9a77f063b16e1bbc4" name="a5340b29f29a897c9a77f063b16e1bbc4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5340b29f29a897c9a77f063b16e1bbc4">&#9670;&#160;</a></span>get_attributes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">wmtk::attribute::MeshAttributeHandle</a> &gt; wmtk::components::multimesh::utils::detail::get_attributes </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>mesh</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string_view &amp;&#160;</td>
+          <td class="paramname"><em>name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; <a class="el" href="namespacewmtk_1_1attribute.html#a9557a29293cbe11f080093a4af4a91f7">wmtk::attribute::AttributeType</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::optional&lt; int64_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>dimension</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="get__attribute_8cpp_source.html#l00055">55</a> of file <a class="el" href="get__attribute_8cpp_source.html">get_attribute.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="get__attribute_8cpp_source.html#l00020">get_attribute()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="_logger_8cpp_source.html#l00060">wmtk::logger()</a>, <a class="el" href="attribute__missing__error_8hpp_source.html#l00017">wmtk::components::multimesh::utils::detail::attribute_missing_error::make()</a>, <a class="el" href="attribute__ambiguous__error_8hpp_source.html#l00021">wmtk::components::multimesh::utils::detail::attribute_ambiguous_error::make()</a>, <a class="el" href="primitive__range__iter_8hpp_source.html#l00107">wmtk::utils::primitive_below()</a>, <a class="el" href="_primitive_type_8cpp_source.html#l00042">wmtk::primitive_type_name()</a>, and <a class="el" href="_mesh_8hpp_source.html#l01040">wmtk::Mesh::top_simplex_type()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="get__attribute_8cpp_source.html#l00308">wmtk::components::multimesh::utils::get_attributes()</a>, <a class="el" href="get__attribute_8cpp_source.html#l00293">wmtk::components::multimesh::utils::get_attributes()</a>, and <a class="el" href="get__attribute_8cpp_source.html#l00281">wmtk::components::multimesh::utils::get_attributes()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1components_1_1multimesh_1_1utils_1_1detail_a5340b29f29a897c9a77f063b16e1bbc4_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1components_1_1multimesh_1_1utils_1_1detail_a5340b29f29a897c9a77f063b16e1bbc4_icgraph.svg" width="510" height="179"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>

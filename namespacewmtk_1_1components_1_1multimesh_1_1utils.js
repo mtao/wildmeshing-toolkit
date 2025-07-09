@@ -15,6 +15,9 @@ var namespacewmtk_1_1components_1_1multimesh_1_1utils =
     [ "get_attribute_handle", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#afce1aac0965a65ac67492a4eb42e0e5b", null ],
     [ "get_attribute_handle", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#a7156a75d6bd02943bfacfe462098324e", null ],
     [ "get_attribute_name_from_attribute_path", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#a00decd0f81bb541273a4dea712e90390", null ],
+    [ "get_attributes", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#aa1efc92139eb2694a7405101acc92bab", null ],
+    [ "get_attributes", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#a6fbf85385d791c0a49cb5c7413b38e00", null ],
+    [ "get_attributes", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#a51ecb6c564f8dc13c714afd055bf3b15", null ],
     [ "get_mesh_path_from_attribute_path", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#a5a578374350fa08e9a1002b9a85ec3d2", null ],
     [ "WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#afa1ea4de7de8f13e29639254f2b2483a", null ],
     [ "WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE", "namespacewmtk_1_1components_1_1multimesh_1_1utils.html#aed6566ee3d30a9dc247b9bc456ca6f72", null ]

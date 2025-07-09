@@ -17,6 +17,7 @@ var classwmtk_1_1operations_1_1_edge_operation_data =
     [ "internal::SplitAlternateFacetData", "classwmtk_1_1operations_1_1_edge_operation_data.html#a81a7a1c16ff4f241e4f6474df6bc2674", null ],
     [ "global_ids_to_potential_tuples", "classwmtk_1_1operations_1_1_edge_operation_data.html#a46996078702aaa4c9f74f8f4f3d7bafa", null ],
     [ "global_ids_to_update", "classwmtk_1_1operations_1_1_edge_operation_data.html#a227b86248f90a144459163c575fbb46c", null ],
+    [ "m_input_edge_gid", "classwmtk_1_1operations_1_1_edge_operation_data.html#a1702916e4993ca0bc8f8d1acc15ee292", null ],
     [ "m_op_data", "classwmtk_1_1operations_1_1_edge_operation_data.html#a575e4a9487f927262845c7a6b0f775d4", null ],
     [ "m_operating_tuple", "classwmtk_1_1operations_1_1_edge_operation_data.html#af79950322a6ed6ff68334d5e671d53c9", null ],
     [ "m_output_tuple", "classwmtk_1_1operations_1_1_edge_operation_data.html#a9f75455eda1fb6d7cb8da3f5bdea9dfb", null ],
