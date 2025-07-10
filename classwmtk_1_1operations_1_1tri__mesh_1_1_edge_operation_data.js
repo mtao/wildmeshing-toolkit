@@ -2,7 +2,6 @@ var classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data =
 [
     [ "EarData", "structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_ear_data.html", "structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_ear_data" ],
     [ "IncidentFaceData", "structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_incident_face_data.html", "structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_incident_face_data" ],
-    [ "EdgeOperationData", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a65c7efa2d5aab4c75cb502091fc44183", null ],
     [ "EdgeOperationData", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#ab6565d369cf4a4918676220a157adc84", null ],
     [ "collapse_merged_ear_edges", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a19ba6bb0b28c4f084bda16e1ff41342d", null ],
     [ "ear_edges", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a8855b298c81dc9576891f77fa10c4b64", null ],
@@ -11,7 +10,6 @@ var classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data =
     [ "input_endpoints", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#abde449107fdbb8d53b331d0071109a33", null ],
     [ "input_faces", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a0f5a5db2ec38cf6bdb447cd475104e22", null ],
     [ "new_vertices", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a38257053d489d0dd4fdb6fccaa9569bb", null ],
-    [ "operating_edge_id", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a5ee18111aa94d462c833ca436792dec9", null ],
     [ "operator=", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a4feb0800c171c52998675ee76d613e82", null ],
     [ "split_new_rib_edges", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a8af96f573f1a561ab9dda9375c2a2a4c", null ],
     [ "split_output_edges", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#afb2540171ed00a0002c0cc164f44cf4f", null ],
@@ -21,7 +19,6 @@ var classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data =
     [ "m_free_split_e", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#abc8b6457a14397473e764ef629dfcc75", null ],
     [ "m_free_split_v", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a92ff9553709b0dd789f749cacaffa25e", null ],
     [ "m_incident_face_datas", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a68d4934b73c798d0f3a5cf56fdfeb986", null ],
-    [ "m_operating_edge_id", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a83cd066c842feee7496fa8d67d31189e", null ],
     [ "simplex_ids_to_delete", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#adddef387d15254327732043b4006c696", null ],
     [ "spine_eid", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a1cf0075e11b7efc30cd1c083bf3541c9", null ],
     [ "split_new_vid", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a0e2340c5c07860beaebae415bcfa6114", null ],
