@@ -631,9 +631,9 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
         parent_mmmanager.get_map_accessors(parent_mesh, child_mesh);
 
     int64_t target_parent_tid =
-        parent_global_cid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
+        parent_global_cid(child_to_parent_accessor, child_emoe.operating_edge_id());
     int64_t target_parent_local_fid =
-        parent_local_fid(child_to_parent_accessor, child_emoe.m_operating_edge_id);
+        parent_local_fid(child_to_parent_accessor, child_emoe.operating_edge_id());
     // spdlog::info("Managing a parent to child relationship {}", target_parent_tid);
     for (const auto& parent_data : parent_incident_tet_datas) {
         // spdlog::info("parent data tid: {}", parent_data.tid);
@@ -848,7 +848,7 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     if (parent_emoe.m_split_v == -1) {
         update_ear_replacement(parent_mesh, parent_emoe);
     } else {
-        parent_split_cell_maps.emplace_back(parent_emoe.m_operating_edge_id, parent_emoe.m_split_e);
+        parent_split_cell_maps.emplace_back(parent_emoe.operating_edge_id(), parent_emoe.m_split_e);
 
         // TODO: update the ear edges here?
     }

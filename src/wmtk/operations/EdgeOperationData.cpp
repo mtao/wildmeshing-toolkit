@@ -10,10 +10,20 @@
 #include "internal/SplitAlternateFacetData.hpp"
 namespace wmtk::operations {
 
-EdgeOperationData::EdgeOperationData() = default;
+EdgeOperationData::EdgeOperationData(Mesh& m, const Tuple& operating_tuple)
+    : m_mesh(m)
+    , m_operating_tuple(operating_tuple)
+    , m_input_edge_gid(m_mesh.id(m_operating_tuple, PrimitiveType::Edge))
+    , m_spine_vids(
+          std::array<int64_t, 2>{
+              {m_mesh.id(m_operating_tuple, PrimitiveType::Vertex),
+               m_mesh.id(
+                   m_mesh.switch_tuple(m_operating_tuple, PrimitiveType::Vertex),
+                   PrimitiveType::Vertex)}})
+
+{}
 EdgeOperationData::~EdgeOperationData() = default;
 EdgeOperationData::EdgeOperationData(EdgeOperationData&&) = default;
-EdgeOperationData& EdgeOperationData::operator=(EdgeOperationData&&) = default;
 auto EdgeOperationData::tuple_from_id(const Mesh& m, const PrimitiveType type, const int64_t gid)
     -> Tuple
 {

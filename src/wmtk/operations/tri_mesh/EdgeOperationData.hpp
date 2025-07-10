@@ -12,7 +12,8 @@ namespace wmtk::operations::tri_mesh {
 class EdgeOperationData : public wmtk::operations::EdgeOperationData
 {
 public:
-    EdgeOperationData() = default;
+    using wmtk::operations::EdgeOperationData::EdgeOperationData;
+    //EdgeOperationData() = default;
     EdgeOperationData(EdgeOperationData&&) = default;
     EdgeOperationData& operator=(EdgeOperationData&&) = default;
     //           C
@@ -74,7 +75,6 @@ public:
 
     const std::array<int64_t, 2>& incident_vids() const { return m_spine_vids; }
 
-    int64_t operating_edge_id() const { return m_operating_edge_id; }
 
     // only returns valid tuples for the state before an operation occurred
     std::vector<std::array<Tuple, 2>> ear_edges(const TriMesh& m) const;
@@ -94,7 +94,6 @@ public:
 
     // common simplicies
     int64_t spine_eid = -1;
-    int64_t m_operating_edge_id = -1;
 
     // simplices required per-face
     std::vector<IncidentFaceData> m_incident_face_datas;

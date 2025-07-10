@@ -37,9 +37,7 @@ public:
         const Tuple& tuple,
         const EdgeMesh& m);
 
-    const std::array<int64_t, 2>& incident_vids() const { return m_spine_vids; }
 
-    int64_t operating_edge_id() const { return m_operating_edge_id; }
 
     void split_edge();
     void collapse_edge();
@@ -48,7 +46,9 @@ public:
 
     std::vector<int64_t> request_simplex_indices(const PrimitiveType type, int64_t count);
 
-    EdgeMesh& m_mesh;
+    EdgeMesh& mesh() { return static_cast<EdgeMesh&>(m_mesh); }
+    const EdgeMesh& mesh() const { return static_cast<EdgeMesh&>(m_mesh); }
+    //EdgeMesh& m_mesh;
 
 
 private:

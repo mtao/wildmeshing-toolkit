@@ -12,7 +12,8 @@ namespace wmtk::operations::edge_mesh {
 class EdgeOperationData : public wmtk::operations::EdgeOperationData
 {
 public:
-    EdgeOperationData() = default;
+    // EdgeOperationData() = default;
+    using wmtk::operations::EdgeOperationData::EdgeOperationData;
     EdgeOperationData(EdgeOperationData&&) = default;
     EdgeOperationData& operator=(EdgeOperationData&&) = default;
     std::array<std::vector<int64_t>, 2> simplex_ids_to_delete;
@@ -30,8 +31,6 @@ public:
 
     bool m_is_self_loop = false;
     // common simplicies
-    std::array<int64_t, 2> m_spine_vids; // V_A_id, V_B_id;
     std::array<int64_t, 2> m_neighbor_eids = {{-1, -1}};
-    int64_t m_operating_edge_id;
 };
 } // namespace wmtk::operations::edge_mesh

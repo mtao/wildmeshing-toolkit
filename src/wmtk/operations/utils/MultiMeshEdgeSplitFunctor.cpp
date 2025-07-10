@@ -21,7 +21,7 @@ wmtk::operations::EdgeOperationData MultiMeshEdgeSplitFunctor::run(
     default: break;
     }
     assert(false);
-    return {};
+    throw std::runtime_error("Unknown mesh type");
 }
 
 edge_mesh::EdgeOperationData MultiMeshEdgeSplitFunctor::operator()(

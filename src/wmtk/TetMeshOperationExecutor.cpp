@@ -94,7 +94,8 @@ TetMesh::TetMeshOperationExecutor::get_incident_tets_and_faces(Tuple t)
 TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
     TetMesh& m,
     const Tuple& operating_tuple)
-    : flag_accessors{{m.get_flag_accessor(PrimitiveType::Vertex), m.get_flag_accessor(PrimitiveType::Edge), m.get_flag_accessor(PrimitiveType::Triangle), m.get_flag_accessor(PrimitiveType::Tetrahedron)}}
+    : operations::tet_mesh::EdgeOperationData(m, operating_tuple)
+    , flag_accessors{{m.get_flag_accessor(PrimitiveType::Vertex), m.get_flag_accessor(PrimitiveType::Edge), m.get_flag_accessor(PrimitiveType::Triangle), m.get_flag_accessor(PrimitiveType::Tetrahedron)}}
     , tt_accessor(*m.m_tt_accessor)
     , tf_accessor(*m.m_tf_accessor)
     , te_accessor(*m.m_te_accessor)
@@ -104,11 +105,7 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
     , ft_accessor(*m.m_ft_accessor)
     , m_mesh(m)
 {
-    m_operating_tuple = operating_tuple;
     // store ids of edge and incident vertices
-    m_operating_edge_id = m_mesh.id_edge(m_operating_tuple);
-    m_spine_vids[0] = m_mesh.id_vertex(m_operating_tuple);
-    m_spine_vids[1] = m_mesh.id_vertex(m_mesh.switch_vertex(m_operating_tuple));
     m_operating_face_id = m_mesh.id_face(m_operating_tuple);
     m_operating_tet_id = m_mesh.id_tet(m_operating_tuple);
 
@@ -198,7 +195,7 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
             }
             int64_t id = m_mesh.id(s);
             if (index == 1) {
-                if (id == m_operating_edge_id) {
+                if (id == operating_edge_id()) {
                     // found = true;
                     continue;
                 }
@@ -334,7 +331,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
             new_face_ids.begin() + 2 * i,
             new_face_ids.begin() + 2 * (i + 1),
             fsd.fid_new.begin());
-        fsd.eid_spine_old = m_operating_edge_id;
+        fsd.eid_spine_old = operating_edge_id();
         fsd.eid_spine_new[0] = new_eids[0]; // redundant
         fsd.eid_spine_new[1] = new_eids[1]; // redundant
         fsd.eid_rib = splitting_eids[0]; // redundant

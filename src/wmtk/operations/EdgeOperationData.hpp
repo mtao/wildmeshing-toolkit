@@ -21,12 +21,14 @@ class EdgeOperationData
 public:
     friend class internal::SplitAlternateFacetData;
     friend class internal::CollapseAlternateFacetData;
-    EdgeOperationData();
+    EdgeOperationData(Mesh& m, const Tuple& operating_tuple);
     ~EdgeOperationData();
     EdgeOperationData(EdgeOperationData&&);
-    EdgeOperationData& operator=(EdgeOperationData&&);
+    Mesh& m_mesh;
     Tuple m_operating_tuple;
     int64_t m_input_edge_gid;
+    int64_t operating_edge_id() const { return m_input_edge_gid; }
+    const std::array<int64_t, 2>& incident_vids() const { return m_spine_vids; }
 
     Tuple m_output_tuple;
     std::array<int64_t, 2> m_spine_vids; // two endpoints of the edge

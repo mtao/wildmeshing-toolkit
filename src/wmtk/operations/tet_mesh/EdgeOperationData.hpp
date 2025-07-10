@@ -12,7 +12,8 @@ namespace wmtk::operations::tet_mesh {
 class EdgeOperationData : public wmtk::operations::EdgeOperationData
 {
 public:
-    EdgeOperationData() = default;
+    // EdgeOperationData() = default;
+    using wmtk::operations::EdgeOperationData::EdgeOperationData;
     EdgeOperationData(EdgeOperationData&&) = default;
     EdgeOperationData& operator=(EdgeOperationData&&) = default;
     //
@@ -119,7 +120,6 @@ public:
 
     const std::array<int64_t, 2>& incident_vids() const { return m_spine_vids; }
 
-    int64_t operating_edge_id() const { return m_operating_edge_id; }
 
 
     std::array<std::vector<int64_t>, 4> simplex_ids_to_delete;
@@ -153,8 +153,6 @@ public:
 
 protected:
     // common simplices
-    std::array<int64_t, 2> m_spine_vids; // two endpoints of the edge
-    int64_t m_operating_edge_id;
     int64_t m_operating_face_id;
     int64_t m_operating_tet_id;
 

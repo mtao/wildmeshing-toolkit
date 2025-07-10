@@ -104,7 +104,8 @@ auto TriMesh::TriMeshOperationExecutor::get_incident_face_data(Tuple t) -> Incid
 TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor(
     TriMesh& m,
     const Tuple& operating_tuple)
-    : flag_accessors{{m.get_flag_accessor(PrimitiveType::Vertex), m.get_flag_accessor(PrimitiveType::Edge), m.get_flag_accessor(PrimitiveType::Triangle)}}
+    : operations::tri_mesh::EdgeOperationData(m, operating_tuple)
+    , flag_accessors{{m.get_flag_accessor(PrimitiveType::Vertex), m.get_flag_accessor(PrimitiveType::Edge), m.get_flag_accessor(PrimitiveType::Triangle)}}
     , ff_accessor(*m.m_ff_accessor)
     , fe_accessor(*m.m_fe_accessor)
     , fv_accessor(*m.m_fv_accessor)
@@ -116,11 +117,7 @@ TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor(
 #if defined(MTAO_CONSTANTLY_VERIFY_MESH)
     assert(m.is_connectivity_valid());
 #endif
-    m_operating_tuple = operating_tuple;
     // store ids of edge and incident vertices
-    m_operating_edge_id = m_mesh.id_edge(m_operating_tuple);
-    m_spine_vids[0] = m_mesh.id_vertex(m_operating_tuple);
-    m_spine_vids[1] = m_mesh.id_vertex(m_mesh.switch_vertex(m_operating_tuple));
 }
 
 void TriMesh::TriMeshOperationExecutor::delete_simplices()
@@ -388,7 +385,7 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
             }
 
             // replace the input edge iwth the new edge for this triangle
-            if (fe[i] == m_operating_edge_id) {
+            if (fe[i] == operating_edge_id()) {
                 logger().trace("fe[{},{}] = {}", f, i, se);
                 fe[i] = se;
             }
@@ -546,7 +543,7 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
                 continue;
             }
             */
-            if (id == m_operating_edge_id) {
+            if (id == operating_edge_id()) {
                 // found = true;
                 continue;
             }
