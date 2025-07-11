@@ -64,6 +64,7 @@ class EdgeSplit;
 class EdgeOperationData;
 namespace internal {
 class CollapseAlternateFacetData;
+class SplitAlternateFacetData;
 }
 namespace utils {
 class UpdateEdgeOperationMultiMeshMapFunctor;
@@ -126,6 +127,7 @@ public:
     friend class operations::EdgeSplit;
     friend class operations::EdgeOperationData;
     friend class operations::internal::CollapseAlternateFacetData;
+    friend class operations::internal::SplitAlternateFacetData;
 
 
     int64_t top_cell_dimension() const;

@@ -1,4 +1,5 @@
 #include "SplitAlternateFacetData.hpp"
+#include <fmt/ranges.h>
 #include <algorithm>
 #include <array>
 #include <cassert>
@@ -50,6 +51,10 @@ auto SplitAlternateFacetData::get_alternative_facets_it(const int64_t& input_cel
         }
     } else {
         it = std::find(m_facet_maps.begin(), m_facet_maps.end(), input_cell);
+    }
+    spdlog::info("Looked for {}", input_cell);
+    for(const auto& s: m_facet_maps) {
+        spdlog::info("checked {}", std::string(s.input));
     }
     return it;
 }
@@ -103,6 +108,7 @@ auto SplitAlternateFacetData::get_alternative(
 
     int64_t new_global_cid = alts_it->new_gid(mesh_pt, sd.permutation_index_from_tuple(t));
 
+    spdlog::info("GID {} to {} with alts {}", t.global_cid(), alts_it->input.global_id(), fmt::join(alts_it->new_facet_indices,","));
 
     return {t.local_vid(), t.local_eid(), t.local_fid(), new_global_cid};
 }

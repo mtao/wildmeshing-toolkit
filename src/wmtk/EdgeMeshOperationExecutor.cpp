@@ -56,37 +56,24 @@ EdgeMesh::EdgeMeshOperationExecutor::EdgeMeshOperationExecutor(
     // }
 }
 
-void EdgeMesh::EdgeMeshOperationExecutor::delete_simplices()
-{
-    for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-        wmtk::logger().debug(
-            "EM-Deleting {} {}-simplices [{}]",
-            simplex_ids_to_delete[d].size(),
-            d,
-            fmt::join(simplex_ids_to_delete[d], ","));
-        for (const int64_t id : simplex_ids_to_delete[d]) {
-            flag_accessors[d].index_access().deactivate(id);
-        }
-    }
-}
 
 
-const std::array<std::vector<int64_t>, 2>
+const std::array<std::vector<int64_t>, 4>
 EdgeMesh::EdgeMeshOperationExecutor::get_split_simplices_to_delete(
     const Tuple& tuple,
     const EdgeMesh& m)
 {
-    std::array<std::vector<int64_t>, 2> ids;
+    std::array<std::vector<int64_t>, 4> ids;
     ids[1].emplace_back(m.id_edge(tuple));
     return ids;
 }
 
-const std::array<std::vector<int64_t>, 2>
+const std::array<std::vector<int64_t>, 4>
 EdgeMesh::EdgeMeshOperationExecutor::get_collapse_simplices_to_delete(
     const Tuple& tuple,
     const EdgeMesh& m)
 {
-    std::array<std::vector<int64_t>, 2> ids;
+    std::array<std::vector<int64_t>, 4> ids;
     ids[0].emplace_back(m.id_vertex(tuple));
     ids[1].emplace_back(m.id_edge(tuple));
     if (m.is_free()) {

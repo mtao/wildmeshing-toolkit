@@ -42,12 +42,13 @@ TEST_CASE("get_split_simplices_to_delete", "[operations][split][2D]")
         const DEBUG_TriMesh m = single_triangle();
         const Tuple edge = m.edge_tuple_with_vs_and_t(1, 2, 0);
 
-        std::array<std::vector<int64_t>, 3> ids_to_delete =
+        std::array<std::vector<int64_t>, 4> ids_to_delete =
             TMOE::get_split_simplices_to_delete(edge, m);
 
         REQUIRE(ids_to_delete[0].size() == 0);
         REQUIRE(ids_to_delete[1].size() == 1);
         REQUIRE(ids_to_delete[2].size() == 1);
+        REQUIRE(ids_to_delete[3].size() == 0);
 
         const int64_t edge_to_delete = ids_to_delete[1][0];
         CHECK(edge_to_delete == m.id(edge, PE));
@@ -59,12 +60,13 @@ TEST_CASE("get_split_simplices_to_delete", "[operations][split][2D]")
         const DEBUG_TriMesh m = hex_plus_two();
         const Tuple edge = m.edge_tuple_with_vs_and_t(4, 5, 2);
 
-        std::array<std::vector<int64_t>, 3> ids_to_delete =
+        std::array<std::vector<int64_t>, 4> ids_to_delete =
             TMOE::get_split_simplices_to_delete(edge, m);
 
         REQUIRE(ids_to_delete[0].size() == 0);
         REQUIRE(ids_to_delete[1].size() == 1);
         REQUIRE(ids_to_delete[2].size() == 2);
+        REQUIRE(ids_to_delete[3].size() == 0);
 
         const int64_t edge_to_delete = ids_to_delete[1][0];
         CHECK(edge_to_delete == m.id(edge, PE));
@@ -89,12 +91,13 @@ TEST_CASE("get_split_simplices_to_delete", "[operations][split][2D]")
             return m;
         }();
         for (Tuple edge : m.get_all(PrimitiveType::Edge)) {
-            std::array<std::vector<int64_t>, 3> ids_to_delete =
+            std::array<std::vector<int64_t>, 4> ids_to_delete =
                 TMOE::get_split_simplices_to_delete(edge, m);
 
             REQUIRE(ids_to_delete[0].size() == 0);
             REQUIRE(ids_to_delete[1].size() == 1);
             REQUIRE(ids_to_delete[2].size() == 1);
+            REQUIRE(ids_to_delete[3].size() == 0);
 
             // compare expected face ids with the actual ones that should be deleted
             std::set<int64_t> fid_expected;

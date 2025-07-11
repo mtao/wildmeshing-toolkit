@@ -82,12 +82,13 @@ TetMesh six_cycle_tets()
     TetMesh m;
     RowVectors4l tets;
     tets.resize(6, 4);
-    tets.row(0) << 0, 1, 2, 3;
-    tets.row(1) << 0, 2, 3, 4;
-    tets.row(2) << 2, 5, 3, 4;
-    tets.row(3) << 6, 1, 2, 3;
-    tets.row(4) << 6, 2, 3, 7;
-    tets.row(5) << 7, 2, 3, 5;
+    // these are ordered so the adjacent entries are are in face-adjacent
+    tets.row(0) << 0, 1, 2, 3;// outer edge 0 - 1
+    tets.row(3) << 6, 1, 2, 3;// outer edge 1 - 6
+    tets.row(4) << 6, 2, 3, 7;// outer edge 6 - 7
+    tets.row(5) << 7, 2, 3, 5;// outer edge 7 - 5
+    tets.row(2) << 2, 5, 3, 4;// outer edge 4 - 5
+    tets.row(1) << 0, 2, 3, 4;// outer edge 0 - 4
     m.initialize(tets);
     return m;
 }

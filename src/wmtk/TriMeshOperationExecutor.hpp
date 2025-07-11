@@ -10,7 +10,6 @@ class TriMesh::TriMeshOperationExecutor : public operations::tri_mesh::EdgeOpera
 {
 public:
     TriMeshOperationExecutor(TriMesh& m, const Tuple& operating_tuple);
-    void delete_simplices();
 
     std::array<attribute::FlagAccessor<TriMesh>, 3> flag_accessors;
     attribute::Accessor<int64_t, TriMesh>& ff_accessor;
@@ -33,7 +32,7 @@ public:
      *
      * The deleted simplices are exactly the open star of the edge
      */
-    static const std::array<std::vector<int64_t>, 3> get_split_simplices_to_delete(
+    static const std::array<std::vector<int64_t>, 4> get_split_simplices_to_delete(
         const Tuple& tuple,
         const TriMesh& m);
 
@@ -44,7 +43,7 @@ public:
      * of the edge. This comes down to one vertex, three edges, and two faces if the edge is on the
      * interior. On the boundary it is one vertex, two edges, and one face.
      */
-    static const std::array<std::vector<int64_t>, 3> get_collapse_simplices_to_delete(
+    static const std::array<std::vector<int64_t>, 4> get_collapse_simplices_to_delete(
         const Tuple& tuple,
         const TriMesh& m);
 

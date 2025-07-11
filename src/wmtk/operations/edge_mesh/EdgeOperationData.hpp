@@ -16,7 +16,6 @@ public:
     using wmtk::operations::EdgeOperationData::EdgeOperationData;
     EdgeOperationData(EdgeOperationData&&) = default;
     EdgeOperationData& operator=(EdgeOperationData&&) = default;
-    std::array<std::vector<int64_t>, 2> simplex_ids_to_delete;
     std::vector<int64_t> cell_ids_to_update_hash;
 
 
