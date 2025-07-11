@@ -1,5 +1,4 @@
 #include "TransferStrategyFactory.hpp"
-#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategyBase.hpp>
@@ -28,7 +27,6 @@ std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> TransferStrateg
     bool populate) const
 {
     auto t = create_transfer(mc);
-    spdlog::info("Creating attribute transfer {}", attribute_path);
     if (populate) {
         t->run_on_all();
     }
@@ -44,7 +42,6 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(TransferStrategyFactory)
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(TransferStrategyFactory)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute_path, type);
-    spdlog::info("Got {} {}", nlohmann_json_t.attribute_path, nlohmann_json_t.type);
     nlohmann_json_t.from_json(nlohmann_json_j);
 }
 } // namespace wmtk::components::mesh_info::transfer
