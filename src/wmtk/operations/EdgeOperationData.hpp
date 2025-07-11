@@ -44,6 +44,9 @@ public:
 
     std::vector<std::vector<int64_t>> global_ids_to_update;
 
+    std::array<std::vector<int64_t>, 4> simplex_ids_to_delete;
+    void delete_simplices();
+
     // std::unique_ptr<internal::SplitAlternateFacetData> m_split_data;
     // std::unique_ptr<internal::CollapseAlternateFacetData> m_collapse_data;
     std::variant<

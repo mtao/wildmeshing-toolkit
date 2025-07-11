@@ -229,14 +229,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
     }
 }
 
-void TetMesh::TetMeshOperationExecutor::delete_simplices()
-{
-    for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-        for (const int64_t id : simplex_ids_to_delete[d]) {
-            flag_accessors[d].index_access().deactivate(id);
-        }
-    }
-}
 
 
 const std::array<std::vector<int64_t>, 4>
@@ -288,7 +280,7 @@ void TetMesh::TetMeshOperationExecutor::update_ear_connectivity(
 
 void TetMesh::TetMeshOperationExecutor::split_edge()
 {
-    set_split();
+    set_split(m_mesh, m_operating_tuple);
     simplex_ids_to_delete = get_split_simplices_to_delete(m_operating_tuple, m_mesh);
 
 
@@ -356,7 +348,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         tsd.rib_f = split_fids[0];
         tsd.new_face_id = split_fids[0];
 
-        split_facet_data().add_facet(m_mesh, m_operating_tuple, tsd.split_t);
+        //split_facet_data().add_facet(m_mesh, m_operating_tuple, tsd.split_t);
 
         // get ears here
         Tuple ear1 = m_mesh.switch_face(m_mesh.switch_edge(tet_tup));
@@ -756,7 +748,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
 
 void TetMesh::TetMeshOperationExecutor::collapse_edge()
 {
-    set_collapse();
+     set_collapse(m_mesh, m_operating_tuple);
     is_collapse = true;
     simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
 

@@ -8,7 +8,6 @@ class TetMesh::TetMeshOperationExecutor : public operations::tet_mesh::EdgeOpera
 {
 public:
     TetMeshOperationExecutor(TetMesh& m, const Tuple& operating_tuple);
-    void delete_simplices();
 
     std::array<attribute::FlagAccessor<TetMesh>, 4> flag_accessors;
     attribute::Accessor<int64_t,TetMesh>& tt_accessor;

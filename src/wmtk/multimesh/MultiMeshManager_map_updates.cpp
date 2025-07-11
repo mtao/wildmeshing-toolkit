@@ -184,12 +184,18 @@ void MultiMeshManager::update_maps_from_edge_operation(
             }
 
             auto [parent_tuple, child_tuple] = mapped_tuples(my_mesh, *child_data.mesh, gid);
+            //logger().debug(
+            //    "update map edge op gid {} found map parent {} child {}",
+            //    gid,
+            //    std::string(parent_tuple),
+            //    std::string(child_tuple));
 
 
             // If the parent tuple is valid, it means this parent-child pair has already been
             // handled, so we can skip it
             // If the parent tuple is invalid then there was no map so we can try the next cell
             if (parent_tuple.is_null()) {
+                logger().debug("parent in map null, skip!");
                 continue;
             }
 
@@ -204,11 +210,12 @@ void MultiMeshManager::update_maps_from_edge_operation(
             }
 
             spdlog::info(
-                "update map edge op gid {} found map {} {}",
+                "update map edge op gid {} found map parent {} child {}",
                 gid,
                 std::string(parent_tuple),
                 std::string(child_tuple));
 
+            
             parent_tuple = wmtk::multimesh::find_valid_tuple(
                 my_mesh,
                 parent_tuple,

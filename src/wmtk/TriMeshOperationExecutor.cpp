@@ -120,28 +120,15 @@ TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor(
     // store ids of edge and incident vertices
 }
 
-void TriMesh::TriMeshOperationExecutor::delete_simplices()
-{
-    for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-        wmtk::logger().debug(
-            "FM-Deleting {} {}-simplices [{}]",
-            simplex_ids_to_delete[d].size(),
-            d,
-            fmt::join(simplex_ids_to_delete[d], ","));
-        for (const int64_t id : simplex_ids_to_delete[d]) {
-            flag_accessors[d].index_access().deactivate(id);
-        }
-    }
-}
 
 
-const std::array<std::vector<int64_t>, 3>
+const std::array<std::vector<int64_t>, 4>
 TriMesh::TriMeshOperationExecutor::get_split_simplices_to_delete(
     const Tuple& tuple,
     const TriMesh& m)
 {
     const simplex::SimplexCollection sc = simplex::open_star(m, simplex::Simplex::edge(m, tuple));
-    std::array<std::vector<int64_t>, 3> ids;
+    std::array<std::vector<int64_t>, 4> ids;
     for (const simplex::Simplex& s : sc) {
         ids[get_primitive_type_id(s.primitive_type())].emplace_back(m.id(s));
     }
@@ -149,12 +136,12 @@ TriMesh::TriMeshOperationExecutor::get_split_simplices_to_delete(
     return ids;
 }
 
-const std::array<std::vector<int64_t>, 3>
+const std::array<std::vector<int64_t>, 4>
 TriMesh::TriMeshOperationExecutor::get_collapse_simplices_to_delete(
     const Tuple& tuple,
     const TriMesh& m)
 {
-    std::array<std::vector<int64_t>, 3> ids;
+    std::array<std::vector<int64_t>, 4> ids;
     if (m.is_free()) {
         auto get_sc = [&]() -> simplex::SimplexCollection {
             simplex::Simplex simp(m, PrimitiveType::Triangle, tuple);
@@ -445,7 +432,6 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
 void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
 {
     set_split(m_mesh, m_operating_tuple);
-    set_split();
     // need to write:
     // * global_ids_to_potential_tuples
     // * m_incident_face_datas
@@ -583,7 +569,7 @@ void TriMesh::TriMeshOperationExecutor::fill_split_facet_data()
                 new_facet_ids.begin() + 2 * (j + 1),
                 arr.begin());
             // const auto& data =
-            split_facet_data().add_facet(m_mesh, m_operating_tuple, arr);
+            //split_facet_data().add_facet(m_mesh, m_operating_tuple, arr);
             m_incident_face_datas[j].split_f = arr;
         }
     }
@@ -667,8 +653,7 @@ void TriMesh::TriMeshOperationExecutor::create_spine_simplices()
 
 void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
 {
-    // set_collapse(m_mesh, m_operating_tuple);
-    set_collapse();
+     set_collapse(m_mesh, m_operating_tuple);
     is_collapse = true;
     // logger().warn("Edge collapse on {}", m_mesh.id_edge(m_operating_tuple));
 
