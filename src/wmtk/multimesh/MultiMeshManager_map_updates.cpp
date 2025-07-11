@@ -184,11 +184,6 @@ void MultiMeshManager::update_maps_from_edge_operation(
             }
 
             auto [parent_tuple, child_tuple] = mapped_tuples(my_mesh, *child_data.mesh, gid);
-            spdlog::info(
-                "update map edge op gid {} found map {} {}",
-                gid,
-                std::string(parent_tuple),
-                std::string(child_tuple));
 
 
             // If the parent tuple is valid, it means this parent-child pair has already been
@@ -208,6 +203,11 @@ void MultiMeshManager::update_maps_from_edge_operation(
                 continue;
             }
 
+            spdlog::info(
+                "update map edge op gid {} found map {} {}",
+                gid,
+                std::string(parent_tuple),
+                std::string(child_tuple));
 
             parent_tuple = wmtk::multimesh::find_valid_tuple(
                 my_mesh,
@@ -216,6 +216,7 @@ void MultiMeshManager::update_maps_from_edge_operation(
                 operation_data);
 
             if (parent_tuple.is_null()) {
+                spdlog::info("Dropping because find_valid_tuple returned null");
                 continue;
             }
 
