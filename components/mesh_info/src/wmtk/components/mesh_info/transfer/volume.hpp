@@ -51,11 +51,13 @@ inline int TransferFunctorTraits<VolumeFunctor>::simplex_dimension(
     const attribute::MeshAttributeHandle& mah,
     const nlohmann::json& js)
 {
+    int dim;
     if (js.contains("simplex_dimension")) {
-        return js["simplex_dimension"];
+        dim = js["simplex_dimension"];
     } else {
-        return get_primitive_type_id(mah.primitive_type());
+        dim = get_primitive_type_id(mah.mesh().top_simplex_type());
     }
+    return dim;
 }
 using Volume = SingleAttributeTransferStrategyFactory<VolumeFunctor>;
 
