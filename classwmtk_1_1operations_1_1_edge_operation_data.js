@@ -6,6 +6,7 @@ var classwmtk_1_1operations_1_1_edge_operation_data =
     [ "collapse_facet_data", "classwmtk_1_1operations_1_1_edge_operation_data.html#a94486f5f3c55350e06dd4083901c8682", null ],
     [ "const_collapse_facet_data", "classwmtk_1_1operations_1_1_edge_operation_data.html#accca0d3d5f93be8391759c4b65a49247", null ],
     [ "const_split_facet_data", "classwmtk_1_1operations_1_1_edge_operation_data.html#a200ff6f705563f45f1954be27caa3119", null ],
+    [ "delete_simplices", "classwmtk_1_1operations_1_1_edge_operation_data.html#a863407658398a36e27ad94e0dc5a8c68", null ],
     [ "get_alternative", "classwmtk_1_1operations_1_1_edge_operation_data.html#a3fdda0729fd9d5cf9b8015105e262031", null ],
     [ "incident_vids", "classwmtk_1_1operations_1_1_edge_operation_data.html#a1d52c2ccbd45e3af8e0bd46f8ede6939", null ],
     [ "operating_edge_id", "classwmtk_1_1operations_1_1_edge_operation_data.html#a34aa633de8c755a7cbaa95204591dd06", null ],
@@ -24,5 +25,6 @@ var classwmtk_1_1operations_1_1_edge_operation_data =
     [ "m_operating_tuple", "classwmtk_1_1operations_1_1_edge_operation_data.html#af79950322a6ed6ff68334d5e671d53c9", null ],
     [ "m_output_tuple", "classwmtk_1_1operations_1_1_edge_operation_data.html#a9f75455eda1fb6d7cb8da3f5bdea9dfb", null ],
     [ "m_spine_vids", "classwmtk_1_1operations_1_1_edge_operation_data.html#a3fd03c63f1dbcbc386d92997281538a2", null ],
+    [ "simplex_ids_to_delete", "classwmtk_1_1operations_1_1_edge_operation_data.html#a462089ab1543e5461770700b71afeee0", null ],
     [ "split_boundary_complex", "classwmtk_1_1operations_1_1_edge_operation_data.html#ae77d5f6e622dca4e9d2822f7c22d3663", null ]
 ];

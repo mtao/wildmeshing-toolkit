@@ -163,6 +163,7 @@ var classwmtk_1_1_mesh =
     [ "operations::EdgeOperationData", "classwmtk_1_1_mesh.html#a1264fe05d4c13c1223630b68e1028cbb", null ],
     [ "operations::EdgeSplit", "classwmtk_1_1_mesh.html#a00d9f2854936ca9367676cf9108178d7", null ],
     [ "operations::internal::CollapseAlternateFacetData", "classwmtk_1_1_mesh.html#ac9aa2b4b9616518d3203824086a84028", null ],
+    [ "operations::internal::SplitAlternateFacetData", "classwmtk_1_1_mesh.html#a8bd0b2dc7e10095ab2f0091a199305aa", null ],
     [ "operations::Operation", "classwmtk_1_1_mesh.html#ae00aedffbf97f4e854d05099801960a6", null ],
     [ "operations::utils::UpdateEdgeOperationMultiMeshMapFunctor", "classwmtk_1_1_mesh.html#adb76cb4220d4955c139bd9a3a8852f12", null ],
     [ "tests::DEBUG_Mesh", "classwmtk_1_1_mesh.html#ab0b947f70c2006eee2936efa5655ee84", null ],

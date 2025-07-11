@@ -144,8 +144,6 @@ Collaboration diagram for wmtk::TetMesh::TetMeshOperationExecutor:</div>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:acac0375cc0218906ab5e82ff00463471" id="r_acac0375cc0218906ab5e82ff00463471"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor.html#acac0375cc0218906ab5e82ff00463471">TetMeshOperationExecutor</a> (<a class="el" href="classwmtk_1_1_tet_mesh.html">TetMesh</a> &amp;m, const <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &amp;operating_tuple)</td></tr>
 <tr class="separator:acac0375cc0218906ab5e82ff00463471"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af23d6ccf14b2f0d0a1b81a3b6dc3a371" id="r_af23d6ccf14b2f0d0a1b81a3b6dc3a371"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor.html#af23d6ccf14b2f0d0a1b81a3b6dc3a371">delete_simplices</a> ()</td></tr>
-<tr class="separator:af23d6ccf14b2f0d0a1b81a3b6dc3a371"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9117fb5dfe4679d52015ccb33f0736fe" id="r_a9117fb5dfe4679d52015ccb33f0736fe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor.html#a9117fb5dfe4679d52015ccb33f0736fe">update_ear_connectivity</a> (const int64_t ear_tid, const int64_t new_tid, const int64_t old_tid, const int64_t common_fid)</td></tr>
 <tr class="separator:a9117fb5dfe4679d52015ccb33f0736fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afdafef0c67dc0d9b6f2aef827d638eb6" id="r_afdafef0c67dc0d9b6f2aef827d638eb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor.html#afdafef0c67dc0d9b6f2aef827d638eb6">split_edge</a> ()</td></tr>
@@ -209,6 +207,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a34aa633de8c755a7cbaa95204591dd06 inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1d52c2ccbd45e3af8e0bd46f8ede6939 inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data" id="r_a1d52c2ccbd45e3af8e0bd46f8ede6939"><td class="memItemLeft" align="right" valign="top">const std::array&lt; int64_t, 2 &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#a1d52c2ccbd45e3af8e0bd46f8ede6939">incident_vids</a> () const</td></tr>
 <tr class="separator:a1d52c2ccbd45e3af8e0bd46f8ede6939 inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a863407658398a36e27ad94e0dc5a8c68 inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data" id="r_a863407658398a36e27ad94e0dc5a8c68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#a863407658398a36e27ad94e0dc5a8c68">delete_simplices</a> ()</td></tr>
+<tr class="separator:a863407658398a36e27ad94e0dc5a8c68 inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa523932ecd17f4cf11aa48427aa350ac inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data" id="r_aa523932ecd17f4cf11aa48427aa350ac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#aa523932ecd17f4cf11aa48427aa350ac">set_split</a> ()</td></tr>
 <tr class="separator:aa523932ecd17f4cf11aa48427aa350ac inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a206614aefc56f3438ade92860efc4f3c inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data" id="r_a206614aefc56f3438ade92860efc4f3c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#a206614aefc56f3438ade92860efc4f3c">set_collapse</a> ()</td></tr>
@@ -256,10 +256,6 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:a9d9f35a7d1960db08bf76cf4a54f1699" id="r_a9d9f35a7d1960db08bf76cf4a54f1699"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classwmtk_1_1_tet_mesh.html">TetMesh</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor.html#a9d9f35a7d1960db08bf76cf4a54f1699">m_mesh</a></td></tr>
 <tr class="separator:a9d9f35a7d1960db08bf76cf4a54f1699"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data"><td colspan="2" onclick="javascript:toggleInherit('pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data')"><img src="closed.png" alt="-"/>&#160;Public Attributes inherited from <a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html">wmtk::operations::tet_mesh::EdgeOperationData</a></td></tr>
-<tr class="memitem:a501fcecdec86b2203a17f2c0620bc537 inherit pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data" id="r_a501fcecdec86b2203a17f2c0620bc537"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::vector&lt; int64_t &gt;, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#a501fcecdec86b2203a17f2c0620bc537">simplex_ids_to_delete</a></td></tr>
-<tr class="separator:a501fcecdec86b2203a17f2c0620bc537 inherit pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a36eb3263b490a39b69b1a32a52c7d9ce inherit pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data" id="r_a36eb3263b490a39b69b1a32a52c7d9ce"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::vector&lt; <a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> &gt;, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#a36eb3263b490a39b69b1a32a52c7d9ce">simplex_tuples_to_delete</a></td></tr>
-<tr class="separator:a36eb3263b490a39b69b1a32a52c7d9ce inherit pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2fba1f662df9e59e64e9746af8660953 inherit pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data" id="r_a2fba1f662df9e59e64e9746af8660953"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#a2fba1f662df9e59e64e9746af8660953">cell_ids_to_update_hash</a></td></tr>
 <tr class="separator:a2fba1f662df9e59e64e9746af8660953 inherit pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a44d7f62f86cf496612eaa806fef07037 inherit pub_attribs_classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data" id="r_a44d7f62f86cf496612eaa806fef07037"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data.html#a44d7f62f86cf496612eaa806fef07037">is_collapse</a> = false</td></tr>
@@ -281,6 +277,8 @@ Public Attributes</h2></td></tr>
 <tr class="separator:a46996078702aaa4c9f74f8f4f3d7bafa inherit pub_attribs_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a227b86248f90a144459163c575fbb46c inherit pub_attribs_classwmtk_1_1operations_1_1_edge_operation_data" id="r_a227b86248f90a144459163c575fbb46c"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; int64_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#a227b86248f90a144459163c575fbb46c">global_ids_to_update</a></td></tr>
 <tr class="separator:a227b86248f90a144459163c575fbb46c inherit pub_attribs_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462089ab1543e5461770700b71afeee0 inherit pub_attribs_classwmtk_1_1operations_1_1_edge_operation_data" id="r_a462089ab1543e5461770700b71afeee0"><td class="memItemLeft" align="right" valign="top">std::array&lt; std::vector&lt; int64_t &gt;, 4 &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#a462089ab1543e5461770700b71afeee0">simplex_ids_to_delete</a></td></tr>
+<tr class="separator:a462089ab1543e5461770700b71afeee0 inherit pub_attribs_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a575e4a9487f927262845c7a6b0f775d4 inherit pub_attribs_classwmtk_1_1operations_1_1_edge_operation_data" id="r_a575e4a9487f927262845c7a6b0f775d4"><td class="memItemLeft" align="right" valign="top">std::variant&lt; std::unique_ptr&lt; <a class="el" href="classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html">internal::SplitAlternateFacetData</a> &gt;, std::unique_ptr&lt; <a class="el" href="classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html">internal::CollapseAlternateFacetData</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#a575e4a9487f927262845c7a6b0f775d4">m_op_data</a></td></tr>
 <tr class="separator:a575e4a9487f927262845c7a6b0f775d4 inherit pub_attribs_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -381,7 +379,7 @@ Here is the call graph for this function:</div>
 </pre><p> input: tuple(v1, v1-v2, v1-v2-v4, v1-v2-v4-v3)</p>
 <p>If tet 2-3-4-6 exists, return <a class="el" href="classwmtk_1_1_tuple.html" title="The Tuple is the basic navigation tool in our mesh data structure.">Tuple</a>(v2, v2-v4, v2-v4-v3 v2-v4-v3-v6), otherwise return <a class="el" href="classwmtk_1_1_tuple.html" title="The Tuple is the basic navigation tool in our mesh data structure.">Tuple</a>(v2, v2-v4, v2-v4-v3, v2-v4-v3-v5). Must exist a valid return (check by link condition user level? <em>should return a invalid tuple if no ears?</em>). </p>
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00757">757</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00749">749</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_id_simplex_collection_8cpp_source.html#l00043">wmtk::simplex::IdSimplexCollection::add()</a>, <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00039">wmtk::operations::tet_mesh::EdgeOperationData::EarTet::fid</a>, <a class="el" href="_id_simplex_collection_8cpp_source.html#l00144">wmtk::simplex::IdSimplexCollection::reserve()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="top__dimension__cofaces__iterable_8cpp_source.html#l00005">wmtk::simplex::top_dimension_cofaces_iterable()</a>, and <a class="el" href="_simplex_8hpp_source.html#l00056">wmtk::simplex::Simplex::vertex()</a>.</p>
 
@@ -396,27 +394,6 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor_a2dbbc55e551845492a5befcccf9bc541_icgraph.svg" width="540" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
-
-</div>
-</div>
-<a id="af23d6ccf14b2f0d0a1b81a3b6dc3a371" name="af23d6ccf14b2f0d0a1b81a3b6dc3a371"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af23d6ccf14b2f0d0a1b81a3b6dc3a371">&#9670;&#160;</a></span>delete_simplices()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void wmtk::TetMesh::TetMeshOperationExecutor::delete_simplices </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00232">232</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
-
-<p class="reference">References <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00013">flag_accessors</a>, and <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00125">wmtk::operations::tet_mesh::EdgeOperationData::simplex_ids_to_delete</a>.</p>
 
 </div>
 </div>
@@ -459,7 +436,7 @@ Here is the caller graph for this function:</div>
 <p>For boundary case: Same as above.</p>
 <dl class="section return"><dt>Returns</dt><dd>a pair of vector of ids (int64_t) and tuples(tuple) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00257">257</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00249">249</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="half__closed__star__iterable_8cpp_source.html#l00005">wmtk::simplex::half_closed_star_iterable()</a>, and <a class="el" href="_tet_mesh_8hpp_source.html#l00130">wmtk::TetMesh::id()</a>.</p>
 <div class="dynheader">
@@ -497,7 +474,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00021">21</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_tet_mesh_8hpp_source.html#l00071">wmtk::TetMesh::id_tet()</a>, <a class="el" href="_tet_mesh_8cpp_source.html#l00382">wmtk::TetMesh::is_boundary_face()</a>, <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00107">m_mesh</a>, <a class="el" href="_tet_mesh_8hpp_source.html#l00121">wmtk::TetMesh::switch_face()</a>, and <a class="el" href="_tet_mesh_8hpp_source.html#l00125">wmtk::TetMesh::switch_tetrahedron()</a>.</p>
+<p class="reference">References <a class="el" href="_tet_mesh_8hpp_source.html#l00071">wmtk::TetMesh::id_tet()</a>, <a class="el" href="_tet_mesh_8cpp_source.html#l00382">wmtk::TetMesh::is_boundary_face()</a>, <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00106">m_mesh</a>, <a class="el" href="_tet_mesh_8hpp_source.html#l00121">wmtk::TetMesh::switch_face()</a>, and <a class="el" href="_tet_mesh_8hpp_source.html#l00125">wmtk::TetMesh::switch_tetrahedron()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -543,7 +520,7 @@ Here is the call graph for this function:</div>
 <p>gather all simplices that are deleted in a split </p>
 <p>The deleted simplices are the one ring tets AND the one ring faces of the edge AND the edge itself. That is, the open star of the edge. </p>
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00243">243</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00235">235</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="_simplex_8hpp_source.html#l00061">wmtk::simplex::Simplex::edge()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="_tet_mesh_8hpp_source.html#l00130">wmtk::TetMesh::id()</a>, and <a class="el" href="open__star_8cpp_source.html#l00012">wmtk::simplex::open_star()</a>.</p>
 <div class="dynheader">
@@ -580,7 +557,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l01054">1054</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l01046">1046</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
 
 </div>
 </div>
@@ -613,7 +590,7 @@ ear1  /| \ \   ear2
 <p>input: tuple(v1, v1-v2, v1-v2-v4, v1-v2-v4-v3) (vertex, edge, face, tet)</p>
 <p>This function will return the tuple that has: the same vertex as the input, a new edge along the input edge, a new face on the input face, and a new tet with is half of the input tet. In the illustration it will return <a class="el" href="classwmtk_1_1_tuple.html" title="The Tuple is the basic navigation tool in our mesh data structure.">Tuple</a>(v_new, v_new-v2, v_new-v2-v4, v_new-v2-v4-v3) </p>
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00289">289</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00281">281</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_simplex_8hpp_source.html#l00061">wmtk::simplex::Simplex::edge()</a>, <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00062">wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData::eid_rib</a>, <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00061">wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData::eid_spine_new</a>, <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00060">wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData::eid_spine_old</a>, <a class="el" href="_simplex_8hpp_source.html#l00063">wmtk::simplex::Simplex::face()</a>, <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00039">wmtk::operations::tet_mesh::EdgeOperationData::EarTet::fid</a>, <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00059">wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData::fid_new</a>, <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00058">wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData::fid_old</a>, <a class="el" href="tet__mesh_2_edge_operation_data_8hpp_source.html#l00064">wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData::local_operating_tuple</a>, <a class="el" href="_logger_8cpp_source.html#l00060">wmtk::logger()</a>, <a class="el" href="_mesh__attributes_8cpp_source.html#l00043">wmtk::Mesh::request_simplex_indices()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="_simplex_8hpp_source.html#l00068">wmtk::simplex::Simplex::tetrahedron()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>, and <a class="el" href="_simplex_8hpp_source.html#l00056">wmtk::simplex::Simplex::vertex()</a>.</p>
 
@@ -669,7 +646,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00268">268</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00260">260</a> of file <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html">TetMeshOperationExecutor.cpp</a>.</p>
 
 </div>
 </div>
@@ -686,7 +663,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00019">19</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00018">18</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 </div>
 </div>
@@ -702,9 +679,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00013">13</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00232">delete_simplices()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00012">12</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 </div>
 </div>
@@ -720,7 +695,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00020">20</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00019">19</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 </div>
 </div>
@@ -736,7 +711,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00107">107</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00106">106</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_tet_mesh_operation_executor_8cpp_source.html#l00021">get_incident_tets_and_faces()</a>.</p>
 
@@ -754,7 +729,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00016">16</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00015">15</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 </div>
 </div>
@@ -770,7 +745,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00015">15</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00014">14</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 </div>
 </div>
@@ -786,7 +761,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00014">14</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00013">13</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 </div>
 </div>
@@ -802,7 +777,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00017">17</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00016">16</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 </div>
 </div>
@@ -818,7 +793,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00018">18</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html#l00017">17</a> of file <a class="el" href="_tet_mesh_operation_executor_8hpp_source.html">TetMeshOperationExecutor.hpp</a>.</p>
 
 </div>
 </div>

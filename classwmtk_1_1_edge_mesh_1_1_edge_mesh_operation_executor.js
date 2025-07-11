@@ -3,7 +3,6 @@ var classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor =
     [ "EdgeMeshOperationExecutor", "classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#a4d67a0864de3401b710f5f98f950707f", null ],
     [ "collapse_edge", "classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#a6bdc1a1b0f87a7d34095177947029f5c", null ],
     [ "collapse_edge_single_mesh", "classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#a1205a3f179088ad8391dc241f6a579f4", null ],
-    [ "delete_simplices", "classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#ae757030d0b82b51c8b16760155c9f96a", null ],
     [ "mesh", "classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#acfaf44d5ea942cb80793f702546335e5", null ],
     [ "mesh", "classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#aacbca38a7dda351fcb4f0497550cec9d", null ],
     [ "request_simplex_indices", "classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#a6998653a06ffa3f2a1c147adaaa378c4", null ],

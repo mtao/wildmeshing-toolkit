@@ -6,7 +6,6 @@ var classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor =
     [ "connect_ears", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a6d1be7cbfcd32fff22e8939390bbebac", null ],
     [ "connect_faces_across_spine", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ac345870292a6f98fe63dcbdffe56bae9", null ],
     [ "create_spine_simplices", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a54ec111e8890281195a6d2449f822f02", null ],
-    [ "delete_simplices", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a1a30577b22daadfe571a2ea49699e363", null ],
     [ "fill_split_facet_data", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a3df1e4a6e6de766e419522774d6463d6", null ],
     [ "get_incident_face_data", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a15a37c1d8c6556c11d387fbf78060f4e", null ],
     [ "next_edge", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a400efff4f802a87f2e32914190ec7b3b", null ],

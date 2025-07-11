@@ -1,13 +1,5 @@
 var NAVTREEINDEX40 =
 {
-"namespacewmtk_1_1autogen_1_1tet__mesh.html#a6405c6f318d77c27b48d2311f3ff89f0":[9,0,10,1,4,36],
-"namespacewmtk_1_1autogen_1_1tet__mesh.html#a64fc7d3a4d78cb72a252766d82d635ff":[9,0,10,1,4,4],
-"namespacewmtk_1_1autogen_1_1tet__mesh.html#a6c2a7209bd594316d454766d6be8c9df":[9,0,10,1,4,25],
-"namespacewmtk_1_1autogen_1_1tet__mesh.html#a6ec3401245a6c704214c0cf2f6abdc37":[9,0,10,1,4,19],
-"namespacewmtk_1_1autogen_1_1tet__mesh.html#a7348a77bf82a544f1b46719377823982":[9,0,10,1,4,33],
-"namespacewmtk_1_1autogen_1_1tet__mesh.html#a76a9e44667b5409342b46f3a6457d2e1":[9,0,10,1,4,26],
-"namespacewmtk_1_1autogen_1_1tet__mesh.html#a7c5d56d61772f9a754fccf512799c15a":[9,0,10,1,4,41],
-"namespacewmtk_1_1autogen_1_1tet__mesh.html#a8087691d4dd17f9001503a1f57362ecc":[9,0,10,1,4,16],
 "namespacewmtk_1_1autogen_1_1tet__mesh.html#a907acdf42079e0371b22ee3b63b393f0":[9,0,10,1,4,45],
 "namespacewmtk_1_1autogen_1_1tet__mesh.html#a940318fed1b790a034a7a30b7ca739b6":[9,0,10,1,4,7],
 "namespacewmtk_1_1autogen_1_1tet__mesh.html#a944e21208e52e1e4ae1b53c7382a288c":[9,0,10,1,4,21],
@@ -249,5 +241,13 @@ var NAVTREEINDEX40 =
 "namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#a979f065e426cf276066f3d3c4d75ec34":[9,0,10,2,3,0,8],
 "namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#aa6fa18af49d7916df5c7e73978de812d":[9,0,10,2,3,0,5],
 "namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#aaa463c19712c9eeb35d2f24579906b30":[9,0,10,2,3,0,6],
-"namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#ae5c92748921681f6f2d0f0f6c5628621":[9,0,10,2,3,0,11]
+"namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#ae5c92748921681f6f2d0f0f6c5628621":[9,0,10,2,3,0,11],
+"namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#ae9c9564e4a1a11dd763cc6f386c8871f":[9,0,10,2,3,0,0],
+"namespacewmtk_1_1components_1_1isotropic__remeshing_1_1internal.html#afc7f55138f61dd02af11403444093220":[9,0,10,2,3,0,9],
+"namespacewmtk_1_1components_1_1isotropic__remeshing_1_1invariants.html":[9,0,10,2,3,1],
+"namespacewmtk_1_1components_1_1longest__edge__split.html":[9,0,10,2,4],
+"namespacewmtk_1_1components_1_1longest__edge__split.html#a0be451c677a35037d6e49f97356604cb":[9,0,10,2,4,2],
+"namespacewmtk_1_1components_1_1longest__edge__split.html#a91cd0e6f904d4c6d1e0000504cc0a257":[9,0,10,2,4,1],
+"namespacewmtk_1_1components_1_1mesh__info.html":[9,0,10,2,5],
+"namespacewmtk_1_1components_1_1mesh__info.html#a1fd74b6ef8c446a95e28b200b03d0788":[9,0,10,2,5,8]
 };

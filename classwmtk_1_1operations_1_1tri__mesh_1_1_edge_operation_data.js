@@ -19,7 +19,6 @@ var classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data =
     [ "m_free_split_e", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#abc8b6457a14397473e764ef629dfcc75", null ],
     [ "m_free_split_v", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a92ff9553709b0dd789f749cacaffa25e", null ],
     [ "m_incident_face_datas", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a68d4934b73c798d0f3a5cf56fdfeb986", null ],
-    [ "simplex_ids_to_delete", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#adddef387d15254327732043b4006c696", null ],
     [ "spine_eid", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a1cf0075e11b7efc30cd1c083bf3541c9", null ],
     [ "split_new_vid", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a0e2340c5c07860beaebae415bcfa6114", null ],
     [ "split_spine_eids", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a2610504ba663cc5465529375ab788f2d", null ]
