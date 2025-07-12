@@ -18,6 +18,12 @@ public:
     CollapseAlternateFacetData();
     ~CollapseAlternateFacetData();
     CollapseAlternateFacetData(const Mesh& m, const Tuple& input_tuple);
+    // TODO: delete this constructor someday because it is just for ID compatibility with previous
+    // impl in tetmesh operations
+    CollapseAlternateFacetData(
+        const Mesh& m,
+        const Tuple& input_tuple,
+        const std::vector<Tuple>& local_input_tuples);
 
     void add(const Mesh& m, const Tuple& input_tuple);
 
@@ -30,14 +36,8 @@ public:
         const Tuple& t,
         const PrimitiveType simplex_dimension) const;
 
-    std::array<Tuple, 2> get_alternatives(
-        const PrimitiveType mesh_pt,
-        const Tuple& t
-        ) const;
-    Tuple get_alternative(
-        const PrimitiveType mesh_pt,
-        const Tuple& t
-        ) const;
+    std::array<Tuple, 2> get_alternatives(const PrimitiveType mesh_pt, const Tuple& t) const;
+    Tuple get_alternative(const PrimitiveType mesh_pt, const Tuple& t) const;
 
     using AltData = std::vector<Data>;
     AltData m_data;

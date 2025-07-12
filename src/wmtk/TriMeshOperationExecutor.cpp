@@ -121,7 +121,6 @@ TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor(
 }
 
 
-
 const std::array<std::vector<int64_t>, 4>
 TriMesh::TriMeshOperationExecutor::get_split_simplices_to_delete(
     const Tuple& tuple,
@@ -431,11 +430,12 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
 
 void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
 {
-    set_split(m_mesh, m_operating_tuple);
-    // need to write:
-    // * global_ids_to_potential_tuples
-    // * m_incident_face_datas
-    // * simplex_ids_to_delete
+    set_split();
+    // set_split(m_mesh, m_operating_tuple);
+    //  need to write:
+    //  * global_ids_to_potential_tuples
+    //  * m_incident_face_datas
+    //  * simplex_ids_to_delete
     simplex_ids_to_delete = get_split_simplices_to_delete(m_operating_tuple, m_mesh);
 
     std::vector<Tuple> adjacent_facets = wmtk::simplex::top_dimension_cofaces_tuples(
@@ -569,7 +569,10 @@ void TriMesh::TriMeshOperationExecutor::fill_split_facet_data()
                 new_facet_ids.begin() + 2 * (j + 1),
                 arr.begin());
             // const auto& data =
-            //split_facet_data().add_facet(m_mesh, m_operating_tuple, arr);
+            split_facet_data().add_facet(
+                m_mesh,
+                m_incident_face_datas[j].local_operating_tuple,
+                arr);
             m_incident_face_datas[j].split_f = arr;
         }
     }
@@ -653,7 +656,7 @@ void TriMesh::TriMeshOperationExecutor::create_spine_simplices()
 
 void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
 {
-     set_collapse(m_mesh, m_operating_tuple);
+    set_collapse(m_mesh, m_operating_tuple);
     is_collapse = true;
     // logger().warn("Edge collapse on {}", m_mesh.id_edge(m_operating_tuple));
 
@@ -672,6 +675,7 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
 
     if (m_mesh.has_child_mesh()) {
         global_ids_to_potential_tuples.resize(3);
+        global_ids_to_update.resize(3);
 
         simplex::IdSimplexCollection faces(m_mesh);
         {
@@ -716,6 +720,8 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
             global_ids_to_potential_tuples.at(index).emplace_back(
                 m_mesh.id(s),
                 wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, m_mesh.get_simplex(s)));
+            global_ids_to_update.at(index).emplace_back(
+                m_mesh.id(s));
         }
     }
 

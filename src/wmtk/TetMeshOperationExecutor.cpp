@@ -230,7 +230,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
 }
 
 
-
 const std::array<std::vector<int64_t>, 4>
 TetMesh::TetMeshOperationExecutor::get_split_simplices_to_delete(
     const Tuple& tuple,
@@ -280,7 +279,10 @@ void TetMesh::TetMeshOperationExecutor::update_ear_connectivity(
 
 void TetMesh::TetMeshOperationExecutor::split_edge()
 {
-    set_split(m_mesh, m_operating_tuple);
+    // auto [incident_tets, incident_faces] = get_incident_tets_and_faces(m_operating_tuple);
+    // set_split(m_mesh, m_operating_tuple, incident_tets);
+    set_split();
+    // set_split(m_mesh, m_operating_tuple);
     simplex_ids_to_delete = get_split_simplices_to_delete(m_operating_tuple, m_mesh);
 
 
@@ -348,7 +350,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         tsd.rib_f = split_fids[0];
         tsd.new_face_id = split_fids[0];
 
-        //split_facet_data().add_facet(m_mesh, m_operating_tuple, tsd.split_t);
+        split_facet_data().add_facet(m_mesh, tsd.local_operating_tuple, tsd.split_t);
 
         // get ears here
         Tuple ear1 = m_mesh.switch_face(m_mesh.switch_edge(tet_tup));
@@ -436,7 +438,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     int64_t return_local_fid = -1;
     int64_t return_tid = -1;
 
-    // these are used only for assertions
+// these are used only for assertions
 #ifndef NDEBUG
     int64_t return_fid = -1;
     int64_t return_split_fid = -1;
@@ -748,7 +750,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
 
 void TetMesh::TetMeshOperationExecutor::collapse_edge()
 {
-     set_collapse(m_mesh, m_operating_tuple);
+    set_collapse(m_mesh, m_operating_tuple);
     is_collapse = true;
     simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
 

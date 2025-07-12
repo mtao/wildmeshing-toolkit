@@ -1,4 +1,5 @@
 #include "CollapseAlternateFacetData.hpp"
+#include <fmt/ranges.h>
 #include <array>
 #include <vector>
 #include <wmtk/Mesh.hpp>
@@ -30,15 +31,26 @@ constexpr auto sort_int_op = [](const CollapseAlternateFacetData::Data& value,
     return value.input.global_id() < facet_id;
 };
 } // namespace
-CollapseAlternateFacetData::CollapseAlternateFacetData(const Mesh& m, const Tuple& input_tuple)
+
+CollapseAlternateFacetData::CollapseAlternateFacetData(
+    const Mesh& m,
+    const Tuple& input_tuple,
+    const std::vector<Tuple>& local_input_tuples)
 {
-    for (const auto& s : simplex::cofaces_single_dimension_tuples(
-             m,
-             simplex::Simplex::edge(input_tuple),
-             m.top_simplex_type())) {
+    for (const auto& s : local_input_tuples) {
         add(m, s);
     }
 }
+
+CollapseAlternateFacetData::CollapseAlternateFacetData(const Mesh& m, const Tuple& input_tuple)
+    : CollapseAlternateFacetData(
+          m,
+          input_tuple,
+          simplex::cofaces_single_dimension_tuples(
+              m,
+              simplex::Simplex::edge(input_tuple),
+              m.top_simplex_type()))
+{}
 
 void CollapseAlternateFacetData::add(const Mesh& m, const Tuple& input_tuple)
 {
@@ -59,6 +71,10 @@ CollapseAlternateFacetData::~CollapseAlternateFacetData() = default;
 auto CollapseAlternateFacetData::get_alternative_data_it(const int64_t& input_facet) const
     -> AltData::const_iterator
 {
+    spdlog::info("looking for facet {}");
+    for( const auto& t: m_data) {
+        spdlog::info("Option: {} {}", std::string(t.input), fmt::join(t.alts,","));
+    }
     AltData::const_iterator it;
     if (std::is_sorted(m_data.begin(), m_data.end(), sort_op)) {
         it = std::lower_bound(m_data.begin(), m_data.end(), input_facet, sort_int_op);
@@ -86,7 +102,7 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
     const Tuple& t,
     const PrimitiveType simplex_dimension) const
 {
-    return get_alternatives(mesh_pt,t);
+    return get_alternatives(mesh_pt, t);
 }
 std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
     const PrimitiveType mesh_pt,
@@ -115,9 +131,7 @@ Tuple CollapseAlternateFacetData::get_alternative(
     return get_alternative(mesh_pt, t);
 }
 
-Tuple CollapseAlternateFacetData::get_alternative(
-    const PrimitiveType mesh_pt,
-    const Tuple& t) const
+Tuple CollapseAlternateFacetData::get_alternative(const PrimitiveType mesh_pt, const Tuple& t) const
 {
     // TODO: map to a valid face
 
