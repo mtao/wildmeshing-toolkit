@@ -1,5 +1,13 @@
 var NAVTREEINDEX46 =
 {
+"structwmtk_1_1components_1_1internal_1_1_mesh_info_options.html#adddc5c38cba8a03973af85dad8edfca3":[10,0,2,2,2,5,0],
+"structwmtk_1_1components_1_1internal_1_1_mesh_info_options.html#adddc5c38cba8a03973af85dad8edfca3":[9,0,10,2,2,5,0],
+"structwmtk_1_1components_1_1internal_1_1_regular_space_options.html":[9,0,10,2,2,8],
+"structwmtk_1_1components_1_1internal_1_1_regular_space_options.html":[10,0,2,2,2,8],
+"structwmtk_1_1components_1_1internal_1_1_regular_space_options.html#a03e2b14998ba01e4a21c373ee8007cd6":[10,0,2,2,2,8,0],
+"structwmtk_1_1components_1_1internal_1_1_regular_space_options.html#a03e2b14998ba01e4a21c373ee8007cd6":[9,0,10,2,2,8,0],
+"structwmtk_1_1components_1_1internal_1_1_regular_space_options.html#a1cabcb4b9a094930288be963aba148fa":[9,0,10,2,2,8,1],
+"structwmtk_1_1components_1_1internal_1_1_regular_space_options.html#a1cabcb4b9a094930288be963aba148fa":[10,0,2,2,2,8,1],
 "structwmtk_1_1components_1_1internal_1_1_regular_space_options.html#a80ff8497637d45b327309e53615468fb":[10,0,2,2,2,8,2],
 "structwmtk_1_1components_1_1internal_1_1_regular_space_options.html#a80ff8497637d45b327309e53615468fb":[9,0,10,2,2,8,2],
 "structwmtk_1_1components_1_1internal_1_1_regular_space_options.html#ae1068b17102bef5ce7ccc0a86095125a":[10,0,2,2,2,8,4],
@@ -241,13 +249,5 @@ var NAVTREEINDEX46 =
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a4ffde947585c617944c9f53e6b6e53f7":[10,0,2,2,5,1,3,1],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a4ffde947585c617944c9f53e6b6e53f7":[9,0,10,2,5,1,3,1],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a71827391cec2433c4d75df2a04879e54":[10,0,2,2,5,1,3,0],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a71827391cec2433c4d75df2a04879e54":[9,0,10,2,5,1,3,0],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html":[9,0,10,2,5,1,4],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html":[10,0,2,2,5,1,4],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#a09709bab880bf4780e6112a347778670":[10,0,2,2,5,1,4,1],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#a09709bab880bf4780e6112a347778670":[9,0,10,2,5,1,4,1],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#a20c19f9d8d1b1aeb5fabc3f327aa4b50":[10,0,2,2,5,1,4,0],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#a20c19f9d8d1b1aeb5fabc3f327aa4b50":[9,0,10,2,5,1,4,0],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#ac5b7de4ddaa69b0ab763f59af0bdadf0":[9,0,10,2,5,1,4,3],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#ac5b7de4ddaa69b0ab763f59af0bdadf0":[10,0,2,2,5,1,4,3]
+"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a71827391cec2433c4d75df2a04879e54":[9,0,10,2,5,1,3,0]
 };
