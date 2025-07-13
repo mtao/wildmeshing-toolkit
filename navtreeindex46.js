@@ -1,7 +1,5 @@
 var NAVTREEINDEX46 =
 {
-"structwmtk_1_1components_1_1internal_1_1_mesh_info_options.html#adddc5c38cba8a03973af85dad8edfca3":[10,0,2,2,2,5,0],
-"structwmtk_1_1components_1_1internal_1_1_mesh_info_options.html#adddc5c38cba8a03973af85dad8edfca3":[9,0,10,2,2,5,0],
 "structwmtk_1_1components_1_1internal_1_1_regular_space_options.html":[9,0,10,2,2,8],
 "structwmtk_1_1components_1_1internal_1_1_regular_space_options.html":[10,0,2,2,2,8],
 "structwmtk_1_1components_1_1internal_1_1_regular_space_options.html#a03e2b14998ba01e4a21c373ee8007cd6":[10,0,2,2,2,8,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX46 =
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a4ffde947585c617944c9f53e6b6e53f7":[10,0,2,2,5,1,3,1],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a4ffde947585c617944c9f53e6b6e53f7":[9,0,10,2,5,1,3,1],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a71827391cec2433c4d75df2a04879e54":[10,0,2,2,5,1,3,0],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a71827391cec2433c4d75df2a04879e54":[9,0,10,2,5,1,3,0]
+"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html#a71827391cec2433c4d75df2a04879e54":[9,0,10,2,5,1,3,0],
+"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html":[9,0,10,2,5,1,4],
+"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html":[10,0,2,2,5,1,4]
 };

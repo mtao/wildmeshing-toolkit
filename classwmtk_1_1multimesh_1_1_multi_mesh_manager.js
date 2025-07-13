@@ -1,7 +1,7 @@
 var classwmtk_1_1multimesh_1_1_multi_mesh_manager =
 [
     [ "ChildData", "structwmtk_1_1multimesh_1_1_multi_mesh_manager_1_1_child_data.html", "structwmtk_1_1multimesh_1_1_multi_mesh_manager_1_1_child_data" ],
-    [ "AccessorType", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a407eca4e08804724b0c743618401d1fa", null ],
+    [ "AccessorType", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a0073dad179bdd01ad9860b8f0b605aaf", null ],
     [ "MultiMeshManager", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#ae1c9fe16ffc00b5ff61175440580b13b", null ],
     [ "~MultiMeshManager", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a1755df3c1091d9a3ffc135e8c742dc18", null ],
     [ "MultiMeshManager", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a3eff7b6a6617b93cf74fc0cbd000fde9", null ],
@@ -12,8 +12,6 @@ var classwmtk_1_1multimesh_1_1_multi_mesh_manager =
     [ "can_map_to_child", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a5aa2a506c2e7964d0a7208c707f5bfbd", null ],
     [ "can_map_to_parent", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#ac2bb7fdadc7d508884a0f30251b6328f", null ],
     [ "can_map_up", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#adc98daa47bd5d20a5fea4906d71dfbc4", null ],
-    [ "check_child_map_valid", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#ad1b3fcd12c4e092d9e92f2aa7db224bf", null ],
-    [ "check_map_valid", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a01d41f4e6fd9e1c07166ac2470068eaf", null ],
     [ "child_hashables", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a3f2ab49ec9dac2e4ee79c431847f4838", null ],
     [ "child_hashes", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#ab3eb2223fe1a835fe21994790eab83a6", null ],
     [ "child_id", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a0fdf5c6dbc3b4d5254526fc7e29e3bbd", null ],
@@ -60,6 +58,7 @@ var classwmtk_1_1multimesh_1_1_multi_mesh_manager =
     [ "map_up_to_tuples", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#ab9fa8ac677e4973c583e6a075cb93a08", null ],
     [ "map_up_to_tuples", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#aefe5179057c978e227c3349d13578c4a", null ],
     [ "map_up_to_tuples", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a71e76c5755d7a5a5aa1ae93863ac8b22", null ],
+    [ "mapped_darts", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a4af36827e5ee7bb5832a8d248b85bc2c", null ],
     [ "mapped_tuples", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#a96f18860efc9874463d5c73d6485ef89", null ],
     [ "operator=", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#aac8997e5fb066b69cf13e7af1742d644", null ],
     [ "operator=", "classwmtk_1_1multimesh_1_1_multi_mesh_manager.html#ac9af8dabf0bf3c8123ae6f09c4f5edf1", null ],

@@ -1,7 +1,5 @@
 var NAVTREEINDEX49 =
 {
-"structwmtk_1_1components_1_1procedural_1_1_triangle_fan_options_1_1_coordinates.html#ab0446d790c0d75cc0159be099abe99b8":[9,0,10,2,8,5,0,3],
-"structwmtk_1_1components_1_1procedural_1_1_triangle_fan_options_1_1_coordinates.html#ab0446d790c0d75cc0159be099abe99b8":[10,0,2,2,8,5,0,3],
 "structwmtk_1_1components_1_1procedural_1_1_triangle_fan_options_1_1_coordinates.html#adf6907d3c90746db9d86a556d679a8e1":[10,0,2,2,8,5,0,0],
 "structwmtk_1_1components_1_1procedural_1_1_triangle_fan_options_1_1_coordinates.html#adf6907d3c90746db9d86a556d679a8e1":[9,0,10,2,8,5,0,0],
 "structwmtk_1_1components_1_1shortest__edge__collapse_1_1_shortest_edge_collapse_options.html":[9,0,10,2,9,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX49 =
 "structwmtk_1_1utils_1_1metaprogramming_1_1_derived_reference_wrapper_variant_traits.html#a56b7d923e334a124cdd17b6ee7f4bfb8":[10,0,2,10,2,2,5],
 "structwmtk_1_1utils_1_1metaprogramming_1_1_derived_reference_wrapper_variant_traits.html#a56b7d923e334a124cdd17b6ee7f4bfb8":[9,0,10,14,2,2,5],
 "structwmtk_1_1utils_1_1metaprogramming_1_1_derived_reference_wrapper_variant_traits.html#a617c46da2c44c2df1e50ea70d0a3e8b4":[9,0,10,14,2,2,6],
-"structwmtk_1_1utils_1_1metaprogramming_1_1_derived_reference_wrapper_variant_traits.html#a617c46da2c44c2df1e50ea70d0a3e8b4":[10,0,2,10,2,2,6]
+"structwmtk_1_1utils_1_1metaprogramming_1_1_derived_reference_wrapper_variant_traits.html#a617c46da2c44c2df1e50ea70d0a3e8b4":[10,0,2,10,2,2,6],
+"structwmtk_1_1utils_1_1metaprogramming_1_1_derived_reference_wrapper_variant_traits.html#a81d20b5f93ae7a29ef4cd4902d9f56c6":[9,0,10,14,2,2,2],
+"structwmtk_1_1utils_1_1metaprogramming_1_1_derived_reference_wrapper_variant_traits.html#a81d20b5f93ae7a29ef4cd4902d9f56c6":[10,0,2,10,2,2,2]
 };

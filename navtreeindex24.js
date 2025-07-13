@@ -1,7 +1,5 @@
 var NAVTREEINDEX24 =
 {
-"classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_periodic.html#a2e6f26d175a3d96d78f2d7beac415b5d":[10,0,2,8,8,1],
-"classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_periodic.html#a379946cf073018d1f288030632aef71f":[9,0,10,10,8,2],
 "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_periodic.html#a379946cf073018d1f288030632aef71f":[10,0,2,8,8,2],
 "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_periodic.html#a3ec116a6b87a35cfd0c9b3e09ab34739":[9,0,10,10,8,14],
 "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_periodic.html#a3ec116a6b87a35cfd0c9b3e09ab34739":[10,0,2,8,8,14],
@@ -249,5 +247,7 @@ var NAVTREEINDEX24 =
 "classwmtk_1_1operations_1_1_edge_operation_data.html":[9,0,10,10,21],
 "classwmtk_1_1operations_1_1_edge_operation_data.html#a1702916e4993ca0bc8f8d1acc15ee292":[10,0,2,8,21,20],
 "classwmtk_1_1operations_1_1_edge_operation_data.html#a1702916e4993ca0bc8f8d1acc15ee292":[9,0,10,10,21,20],
-"classwmtk_1_1operations_1_1_edge_operation_data.html#a1d52c2ccbd45e3af8e0bd46f8ede6939":[9,0,10,10,21,8]
+"classwmtk_1_1operations_1_1_edge_operation_data.html#a1d52c2ccbd45e3af8e0bd46f8ede6939":[9,0,10,10,21,8],
+"classwmtk_1_1operations_1_1_edge_operation_data.html#a1d52c2ccbd45e3af8e0bd46f8ede6939":[10,0,2,8,21,8],
+"classwmtk_1_1operations_1_1_edge_operation_data.html#a200ff6f705563f45f1954be27caa3119":[10,0,2,8,21,5]
 };

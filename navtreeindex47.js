@@ -1,7 +1,5 @@
 var NAVTREEINDEX47 =
 {
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html":[9,0,10,2,5,1,4],
-"structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html":[10,0,2,2,5,1,4],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#a09709bab880bf4780e6112a347778670":[10,0,2,2,5,1,4,1],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#a09709bab880bf4780e6112a347778670":[9,0,10,2,5,1,4,1],
 "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html#a20c19f9d8d1b1aeb5fabc3f327aa4b50":[10,0,2,2,5,1,4,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX47 =
 "structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html#a1c70971ff6f831ff1973886d2b73ae53":[9,0,10,2,6,2,0],
 "structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html#a1c70971ff6f831ff1973886d2b73ae53":[10,0,2,2,6,1,0],
 "structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html#a51c1722e926314cd5a1ecd1f94cfb7d1":[10,0,2,2,6,1,2],
-"structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html#a51c1722e926314cd5a1ecd1f94cfb7d1":[9,0,10,2,6,2,2]
+"structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html#a51c1722e926314cd5a1ecd1f94cfb7d1":[9,0,10,2,6,2,2],
+"structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html#a631f8d1e366f6a3119c3fac8d186ed14":[9,0,10,2,6,2,1],
+"structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html#a631f8d1e366f6a3119c3fac8d186ed14":[10,0,2,2,6,1,1]
 };
