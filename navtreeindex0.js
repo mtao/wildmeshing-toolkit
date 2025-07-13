@@ -175,7 +175,8 @@ var NAVTREEINDEX0 =
 "_dart_8cpp.html":[11,0,2,0,2,2],
 "_dart_8cpp_source.html":[11,0,2,0,2,2],
 "_dart_8hpp.html":[11,0,2,0,2,3],
-"_dart_8hpp.html#abd683f07068ed5ed065a11e4a9be340c":[11,0,2,0,2,3,4],
+"_dart_8hpp.html#a750d06a2e09e17fefc2cf07559827a87":[11,0,2,0,2,3,4],
+"_dart_8hpp.html#abd683f07068ed5ed065a11e4a9be340c":[11,0,2,0,2,3,5],
 "_dart_8hpp_source.html":[11,0,2,0,2,3],
 "_dart_accessor_8hpp.html":[11,0,2,0,2,4],
 "_dart_accessor_8hpp.html#aecbda341ae89fc70a80d613a360f5a5c":[11,0,2,0,2,4,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "_eigen_matrix_writer_8cpp.html":[11,0,2,0,9,13],
 "_eigen_matrix_writer_8cpp_source.html":[11,0,2,0,9,13],
 "_eigen_matrix_writer_8hpp.html":[11,0,2,0,9,14],
-"_eigen_matrix_writer_8hpp_source.html":[11,0,2,0,9,14],
-"_energy_filter_invariant_8cpp.html":[11,0,2,0,4,11]
+"_eigen_matrix_writer_8hpp_source.html":[11,0,2,0,9,14]
 };

@@ -1,6 +1,5 @@
 var NAVTREEINDEX36 =
 {
-"from__local__vertex__permutation_8cpp.html#a064f80c8852f8641a6051ad9d65c7b1e":[11,0,2,0,2,1,5,7],
 "from__local__vertex__permutation_8cpp.html#a10c6694a0652dd219cd5e33f7e15d939":[11,0,2,0,2,1,5,8],
 "from__local__vertex__permutation_8cpp.html#a13cd76ed1efba55aad86ae9f8faee2dd":[11,0,2,0,2,1,5,4],
 "from__local__vertex__permutation_8cpp.html#aa40f35943640500fab606c0b20fd1049":[11,0,2,0,2,1,5,5],
@@ -249,5 +248,6 @@ var NAVTREEINDEX36 =
 "get__unique__types_8hpp_source.html":[11,0,2,0,9,1,0,3],
 "get__vf_8cpp.html":[11,0,0,1,0,0,0,0,4],
 "get__vf_8cpp.html#ae96e456a97cc6bb91612325fce6c6abb":[11,0,0,1,0,0,0,0,4,0],
-"get__vf_8cpp_source.html":[11,0,0,1,0,0,0,0,4]
+"get__vf_8cpp_source.html":[11,0,0,1,0,0,0,0,4],
+"get__vf_8hpp.html":[11,0,0,1,0,0,0,0,5]
 };

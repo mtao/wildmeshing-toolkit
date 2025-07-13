@@ -22,6 +22,7 @@ var namespacewmtk_1_1dart =
     [ "DartTopologyAccessor", "namespacewmtk_1_1dart.html#ad69fd7a084889b705a0c5b20b5e5fb74", null ],
     [ "find_local_dart_action", "namespacewmtk_1_1dart.html#a626f426765e240dbc25a76d9d01ec3f3", null ],
     [ "find_local_dart_left_action", "namespacewmtk_1_1dart.html#a231e35fd144459d332b37666651e7dfb", null ],
+    [ "format_as", "namespacewmtk_1_1dart.html#a750d06a2e09e17fefc2cf07559827a87", null ],
     [ "local_dart_action", "namespacewmtk_1_1dart.html#a640ca4f6e0d456292fd8aa8096c680cf", null ],
     [ "local_dart_action", "namespacewmtk_1_1dart.html#ae55ba4aa51d4821dd7c3795ae57f2aef", null ],
     [ "operator==", "namespacewmtk_1_1dart.html#abd683f07068ed5ed065a11e4a9be340c", null ],

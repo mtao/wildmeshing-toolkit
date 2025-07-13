@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"_energy_filter_invariant_8cpp.html":[11,0,2,0,4,11],
 "_energy_filter_invariant_8cpp_source.html":[11,0,2,0,4,11],
 "_energy_filter_invariant_8hpp.html":[11,0,2,0,4,12],
 "_energy_filter_invariant_8hpp_source.html":[11,0,2,0,4,12],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "_merkle_tree_interior_node_8cpp.html":[11,0,2,0,9,28],
 "_merkle_tree_interior_node_8cpp_source.html":[11,0,2,0,9,28],
 "_merkle_tree_interior_node_8hpp.html":[11,0,2,0,9,29],
-"_merkle_tree_interior_node_8hpp_source.html":[11,0,2,0,9,29],
-"_mesh_8cpp.html":[11,0,2,0,16]
+"_merkle_tree_interior_node_8hpp_source.html":[11,0,2,0,9,29]
 };

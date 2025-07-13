@@ -19,7 +19,6 @@ var classwmtk_1_1operations_1_1_edge_operation_data =
     [ "split_facet_data", "classwmtk_1_1operations_1_1_edge_operation_data.html#a3180c40246663d96856e57771893a33c", null ],
     [ "internal::CollapseAlternateFacetData", "classwmtk_1_1operations_1_1_edge_operation_data.html#af026bfad8c6f74e23e9b7d2ca61b9dd8", null ],
     [ "internal::SplitAlternateFacetData", "classwmtk_1_1operations_1_1_edge_operation_data.html#a81a7a1c16ff4f241e4f6474df6bc2674", null ],
-    [ "global_ids_to_potential_tuples", "classwmtk_1_1operations_1_1_edge_operation_data.html#a46996078702aaa4c9f74f8f4f3d7bafa", null ],
     [ "global_ids_to_update", "classwmtk_1_1operations_1_1_edge_operation_data.html#a227b86248f90a144459163c575fbb46c", null ],
     [ "m_input_edge_gid", "classwmtk_1_1operations_1_1_edge_operation_data.html#a1702916e4993ca0bc8f8d1acc15ee292", null ],
     [ "m_mesh", "classwmtk_1_1operations_1_1_edge_operation_data.html#aac5b37ea25e99f6fe2a567d38b1709db", null ],
