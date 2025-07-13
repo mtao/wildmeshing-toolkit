@@ -39,6 +39,10 @@ public:
     }
 
 };
+template <typename IndexType, typename OrientType>
+std::string format_as(const _Dart<IndexType, OrientType>& d) {
+    return fmt::format("Dart[{} {}]", d.global_id(), d.permutation());
+}
 
 
 template <int64_t Dim>

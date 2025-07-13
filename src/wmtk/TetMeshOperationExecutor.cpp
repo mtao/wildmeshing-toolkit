@@ -158,7 +158,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
         }
         hash_update_region.sort_and_clean();
 
-        global_ids_to_potential_tuples.resize(4);
         global_ids_to_update.resize(4);
         simplex::IdSimplexCollection faces(m_mesh);
         faces.reserve(hash_update_region.simplex_vector().size() * 15);
@@ -213,9 +212,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
             } else if (index == 3) {
                 continue;
             }
-            global_ids_to_potential_tuples.at(index).emplace_back(
-                id,
-                wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, m_mesh.get_simplex(s)));
             global_ids_to_update.at(index).emplace_back(id);
         }
 

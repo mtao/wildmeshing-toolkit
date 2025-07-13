@@ -71,7 +71,7 @@ CollapseAlternateFacetData::~CollapseAlternateFacetData() = default;
 auto CollapseAlternateFacetData::get_alternative_data_it(const int64_t& input_facet) const
     -> AltData::const_iterator
 {
-    spdlog::info("looking for facet {}");
+    spdlog::info("looking for facet {}", input_facet);
     for( const auto& t: m_data) {
         spdlog::info("Option: {} {}", std::string(t.input), fmt::join(t.alts,","));
     }
@@ -94,7 +94,6 @@ auto CollapseAlternateFacetData::get_alternative_data_it(const int64_t& input_fa
 auto CollapseAlternateFacetData::get_alternatives_data(const Tuple& t) const -> const Data&
 {
     auto it = get_alternative_data_it(t.global_cid());
-    assert(it != m_data.cend());
     return *it;
 }
 std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
@@ -108,7 +107,12 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
     const PrimitiveType mesh_pt,
     const Tuple& t) const
 {
-    const auto& data = get_alternatives_data(t);
+    const auto data_it = get_alternatives_data_it(t);
+    if(data_it == m_data.cend()) {
+        return {{-1,-1}};
+    }
+
+    const auto& data = *it ;
     spdlog::info(
         "internal raw alts data is {} {}",
         std::string(data.alts[0]),

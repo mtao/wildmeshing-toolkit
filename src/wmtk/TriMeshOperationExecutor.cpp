@@ -495,7 +495,6 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
     }
     hash_update_region.sort_and_clean();
 
-    global_ids_to_potential_tuples.resize(3);
     global_ids_to_update.resize(3);
     simplex::SimplexCollection faces(m_mesh);
 
@@ -545,9 +544,7 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
         //     index,
         //     m_mesh.id(s),
         //     primitive_type_name(s.primitive_type()));
-        auto cofaces = wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
-        global_ids_to_potential_tuples.at(index).emplace_back(id, std::move(cofaces));
         global_ids_to_update.at(index).emplace_back(id);
     }
 
@@ -674,7 +671,6 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
     }
 
     if (m_mesh.has_child_mesh()) {
-        global_ids_to_potential_tuples.resize(3);
         global_ids_to_update.resize(3);
 
         simplex::IdSimplexCollection faces(m_mesh);
@@ -717,9 +713,6 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
             //     index,
             //     m_mesh.id(s),
             //     primitive_type_name(s.primitive_type()));
-            global_ids_to_potential_tuples.at(index).emplace_back(
-                m_mesh.id(s),
-                wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, m_mesh.get_simplex(s)));
             global_ids_to_update.at(index).emplace_back(
                 m_mesh.id(s));
         }

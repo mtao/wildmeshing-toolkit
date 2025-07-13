@@ -33,14 +33,10 @@ EdgeMesh::EdgeMeshOperationExecutor::EdgeMeshOperationExecutor(
         m_is_self_loop = true;
     }
 
-    global_ids_to_potential_tuples.resize(2);
     global_ids_to_update.resize(2);
     if (m.has_child_mesh_in_dimension(0)) {
         auto add = [&](const Tuple& t) {
             simplex::Simplex s(PrimitiveType::Vertex, t);
-            global_ids_to_potential_tuples.at(0).emplace_back(
-                mesh().id(s),
-                wmtk::simplex::top_dimension_cofaces_tuples(mesh(), s));
             global_ids_to_update.at(0).emplace_back(mesh().id(s));
         };
         add(m_operating_tuple);

@@ -39,8 +39,6 @@ public:
     // for multimesh we need to know which global ids are modified to trigger
     // for every simplex dimension (We have 3 in trimesh):
     // a list of [simplex index, {all versions of that simplex}]
-    std::vector<std::vector<std::tuple<int64_t, std::vector<Tuple>>>>
-        global_ids_to_potential_tuples;
 
     std::vector<std::vector<int64_t>> global_ids_to_update;
 
