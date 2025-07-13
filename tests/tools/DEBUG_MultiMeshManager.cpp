@@ -4,6 +4,7 @@
 #include <wmtk/multimesh/utils/internal/print_all_mapped_tuples.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
 #include "DEBUG_Mesh.hpp"
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 
 #include <wmtk/utils/Logger.hpp>
 
@@ -11,6 +12,7 @@
 namespace wmtk::tests {
 void DEBUG_MultiMeshManager::run_checks(const Mesh& m)
 {
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(m));
     auto& mm = DEBUG_Mesh::multi_mesh_manager(m);
     mm.check_map_valid(m);
 }
@@ -28,13 +30,15 @@ void DEBUG_MultiMeshManager::check_map_valid(const Mesh& my_mesh) const
         const auto& child_data = children()[index];
         REQUIRE(bool(child_data.mesh));
         REQUIRE(child_data.mesh->absolute_multi_mesh_id().front() == index);
-        check_child_map_valid(my_mesh, child_data);
     }
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(my_mesh));
 }
 void DEBUG_MultiMeshManager::check_child_map_valid(const Mesh& my_mesh, const ChildData& child_data)
     const
 {
-    MultiMeshManager::check_child_map_valid(my_mesh, child_data);
+    // TODO: deprecate this away
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(my_mesh));
+    //MultiMeshManager::check_child_map_valid(my_mesh, child_data);
 }
 
 void DEBUG_MultiMeshManager::print(const Mesh& m) const

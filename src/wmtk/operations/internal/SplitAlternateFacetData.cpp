@@ -61,10 +61,6 @@ auto SplitAlternateFacetData::get_alternative_facets_it(const int64_t& input_cel
     } else {
         it = std::find(m_facet_maps.begin(), m_facet_maps.end(), input_cell);
     }
-    spdlog::info("Looked for {}", input_cell);
-    for (const auto& s : m_facet_maps) {
-        spdlog::info("checked {}", std::string(s.input));
-    }
     return it;
 }
 auto SplitAlternateFacetData::add_facet(wmtk::Mesh& mesh, const wmtk::Tuple& edge_tuple)
@@ -107,7 +103,6 @@ auto SplitAlternateFacetData::get_alternative(const PrimitiveType mesh_pt, const
     const auto alts_it = get_alternative_facets_it(t.global_cid());
     // assert(alts_it != m_facet_maps.end());
     if (alts_it == m_facet_maps.end()) {
-        // spdlog::info("Returning null");
         return {};
     }
 
@@ -115,11 +110,6 @@ auto SplitAlternateFacetData::get_alternative(const PrimitiveType mesh_pt, const
 
     int64_t new_global_cid = alts_it->new_gid(mesh_pt, sd.permutation_index_from_tuple(t));
 
-    spdlog::info(
-        "GID {} to {} with alts {}",
-        t.global_cid(),
-        alts_it->input.global_id(),
-        fmt::join(alts_it->new_facet_indices, ","));
 
     return {t.local_vid(), t.local_eid(), t.local_fid(), new_global_cid};
 }

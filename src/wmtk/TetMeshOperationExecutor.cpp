@@ -485,8 +485,8 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         if (t_old == m_operating_tet_id) {
             return_tid = t2;
 
-            logger().trace("split fid is {}", f_rib);
-            logger().trace("fids {} {} are joined by edge {}", f3, f4, e_rib_2);
+            //logger().trace("split fid is {}", f_rib);
+            //logger().trace("fids {} {} are joined by edge {}", f3, f4, e_rib_2);
 #ifndef NDEBUG
             return_fid = f4;
             return_split_fid = f_rib;
@@ -733,9 +733,9 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     assert(return_fid == m_mesh.id(simplex::Simplex::face(m_mesh, m_output_tuple)));
     assert(return_tid == m_mesh.id(simplex::Simplex::tetrahedron(m_mesh, m_output_tuple)));
 
-    logger().trace(
-        "split fid is {}",
-        m_mesh.id(simplex::Simplex::face(m_mesh, m_mesh.switch_tuples(m_output_tuple, {PE, PF}))));
+    //logger().trace(
+    //    "split fid is {}",
+    //    m_mesh.id(simplex::Simplex::face(m_mesh, m_mesh.switch_tuples(m_output_tuple, {PE, PF}))));
     // assert(m_mesh.id(simplex::Simplex::edge(m_mesh.switch_tuples(m_output_tuple, {PE}))) =
     // return_face_spine_eid);
     assert(
@@ -846,34 +846,6 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
         edge_replacement[e02] = e12;
         edge_replacement[e03] = e13;
 
-        /////////////////////////////////////////////////
-        // // debug code
-        // if (e13 == 2223) {
-        //     wmtk::logger().info(
-        //         "edge 2223 in tet {} is assigned to tet {} face {} as merged edge 03->13, "
-        //         "replacing edge {}, right ear is tet {} face {} edge {}",
-        //         t_old,
-        //         t_ear_1,
-        //         f_ear_1,
-        //         e03,
-        //         t_ear_2,
-        //         f_ear_2,
-        //         e13);
-        // }
-
-        // if (e12 == 2223) {
-        //     wmtk::logger().info(
-        //         "edge 2223 in tet {} is assigned to tet {} face {} as merged edge 02->12, "
-        //         "replacing edge {}, right ear is tet {} face {} edge {}",
-        //         t_old,
-        //         t_ear_1,
-        //         f_ear_1,
-        //         e02,
-        //         t_ear_2,
-        //         f_ear_2,
-        //         e12);
-        // }
-        // /////////////////////////////////////////////////
 
 
         // check by link condition

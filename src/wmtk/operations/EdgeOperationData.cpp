@@ -115,12 +115,12 @@ Tuple EdgeOperationData::get_alternative(const PrimitiveType mesh_pt, const Tupl
 void EdgeOperationData::delete_simplices()
 {
     for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-        wmtk::logger().info(
-            "{}-Mesh-Deleting {} {}-simplices [{}]",
-            m_mesh.top_simplex_type(),
-            simplex_ids_to_delete[d].size(),
-            d,
-            fmt::join(simplex_ids_to_delete[d], ","));
+        //wmtk::logger().info(
+        //    "{}-Mesh-Deleting {} {}-simplices [{}]",
+        //    m_mesh.top_simplex_type(),
+        //    simplex_ids_to_delete[d].size(),
+        //    d,
+        //    fmt::join(simplex_ids_to_delete[d], ","));
         for (const int64_t id : simplex_ids_to_delete[d]) {
             m_mesh.get_flag_accessor(get_primitive_type_from_id(d)).index_access().deactivate(id);
         }

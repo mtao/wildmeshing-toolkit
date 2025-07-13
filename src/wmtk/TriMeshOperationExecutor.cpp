@@ -300,10 +300,6 @@ void TriMesh::TriMeshOperationExecutor::connect_faces_across_spine()
 void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& face_data)
 {
     const auto& new_fids = face_data.split_f;
-    logger().trace(
-        "TriSplitreplacing topology of face {} with {}",
-        face_data.fid,
-        fmt::join(new_fids, ","));
 
     if (!m_mesh.is_free()) {
         std::vector<int64_t> splitting_edges =
@@ -353,7 +349,6 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
         fv = old_fv;
         fe = old_fe;
         ff = old_ff;
-        // spdlog::info("Old ff for {} was {}", f_old, fmt::join(ff, ","));
         //  correct old connectivity
         for (size_t i = 0; i < 3; ++i) {
             // if the original face edge was the other ear's edge then we replace it with thee
@@ -365,14 +360,14 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
                     const int64_t& split_edge_eid = face_data.new_edge_id;
                     ff[i] = other_f;
                     fe[i] = split_edge_eid;
-                    logger().trace("ff[{},{}] = {}", f, i, other_f);
-                    logger().trace("fe[{},{}] = {}", f, i, split_edge_eid);
+                    //logger().trace("ff[{},{}] = {}", f, i, other_f);
+                    //logger().trace("fe[{},{}] = {}", f, i, split_edge_eid);
                 }
             }
 
             // replace the input edge iwth the new edge for this triangle
             if (fe[i] == operating_edge_id()) {
-                logger().trace("fe[{},{}] = {}", f, i, se);
+                //logger().trace("fe[{},{}] = {}", f, i, se);
                 fe[i] = se;
             }
 
@@ -385,13 +380,13 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
                 }
             }
         }
-        logger().trace("ef[{}] = {}", ear.eid, f);
-        logger().trace("ef[{}] = {}", se, f);
+        //logger().trace("ef[{}] = {}", ear.eid, f);
+        //logger().trace("ef[{}] = {}", se, f);
         // assign each edge one face
         ef_accessor.scalar_attribute(ear.eid) = f;
         ef_accessor.scalar_attribute(se) = f;
         // assign each vertex one face
-        logger().trace("vf[{}] = {}", m_spine_vids[j], f);
+        //logger().trace("vf[{}] = {}", m_spine_vids[j], f);
         vf_accessor.scalar_attribute(m_spine_vids[j]) = f;
     }
 
@@ -407,18 +402,18 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
         auto fv = fv_accessor.vector_attribute(f);
         for (int j = 0; j < 3; ++j) {
             if (fv(j) == face_data.opposite_vid) {
-                logger().trace("fv[{},{}] = {}", f, j, split_new_vid);
+                //logger().trace("fv[{},{}] = {}", f, j, split_new_vid);
                 fv(j) = split_new_vid;
 
-                logger().trace("vf[{}] = {}", split_new_vid, new_fids[1]);
+                //logger().trace("vf[{}] = {}", split_new_vid, new_fids[1]);
                 vf_accessor.scalar_attribute(split_new_vid) = new_fids[1];
             }
         }
 
     } else {
         const int64_t& split_edge_eid = face_data.new_edge_id;
-        logger().trace("ef[{}] = {}", split_edge_eid, new_fids[0]);
-        logger().trace("vf[{}] = {}", split_new_vid, new_fids[0]);
+        //logger().trace("ef[{}] = {}", split_edge_eid, new_fids[0]);
+        //logger().trace("vf[{}] = {}", split_new_vid, new_fids[0]);
         ef_accessor.scalar_attribute(split_edge_eid) = new_fids[0];
         vf_accessor.scalar_attribute(split_new_vid) = new_fids[0];
     }

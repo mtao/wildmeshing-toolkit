@@ -1,5 +1,4 @@
 #include "AttributeTransferConfiguration.hpp"
-#include <spdlog/spdlog.h>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/EdgeSplit.hpp>
@@ -167,11 +166,6 @@ void AttributeTransferConfiguration::apply(EdgeCollapse& collapse, bool clear) c
 
     auto new_strats =
         internal::filter_to_derived<BaseCollapseNewAttributeStrategy>(linearized_strategies());
-    spdlog::info(
-        "{} {} {}",
-        linearized_strategies().size(),
-        new_strats.size(),
-        linearized_transfer_strategies().size());
 
     for (const auto& s : new_strats) {
         const auto targets = s->targets();

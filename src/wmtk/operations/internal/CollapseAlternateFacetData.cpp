@@ -71,10 +71,6 @@ CollapseAlternateFacetData::~CollapseAlternateFacetData() = default;
 auto CollapseAlternateFacetData::get_alternative_data_it(const int64_t& input_facet) const
     -> AltData::const_iterator
 {
-    spdlog::info("looking for facet {}", input_facet);
-    for( const auto& t: m_data) {
-        spdlog::info("Option: {} {}", std::string(t.input), fmt::join(t.alts,","));
-    }
     AltData::const_iterator it;
     if (std::is_sorted(m_data.begin(), m_data.end(), sort_op)) {
         it = std::lower_bound(m_data.begin(), m_data.end(), input_facet, sort_int_op);
@@ -107,16 +103,12 @@ std::array<Tuple, 2> CollapseAlternateFacetData::get_alternatives(
     const PrimitiveType mesh_pt,
     const Tuple& t) const
 {
-    const auto data_it = get_alternatives_data_it(t);
-    if(data_it == m_data.cend()) {
-        return {{-1,-1}};
+    const auto data_it = get_alternative_data_it(t.global_cid());
+    if (data_it == m_data.cend()) {
+        return {{{}, {}}};
     }
 
-    const auto& data = *it ;
-    spdlog::info(
-        "internal raw alts data is {} {}",
-        std::string(data.alts[0]),
-        std::string(data.alts[1]));
+    const auto& data = *data_it;
 
     const wmtk::dart::SimplexDart& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
     const wmtk::dart::Dart t_dart = sd.dart_from_tuple(t);
@@ -139,9 +131,13 @@ Tuple CollapseAlternateFacetData::get_alternative(const PrimitiveType mesh_pt, c
 {
     // TODO: map to a valid face
 
-    const wmtk::dart::SimplexDart& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
-    const auto& data = get_alternatives_data(t);
-    return sd.tuple_from_dart(data.map_dart_to_alt(sd, sd.dart_from_tuple(t)));
+    if (const auto data_it = get_alternative_data_it(t.global_cid()); data_it == m_data.cend()) {
+        return {};
+    } else {
+        const auto& data = *data_it;
+        const wmtk::dart::SimplexDart& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
+        return sd.tuple_from_dart(data.map_dart_to_alt(sd, sd.dart_from_tuple(t)));
+    }
 
     //
 }
