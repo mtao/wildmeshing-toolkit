@@ -1,0 +1,5 @@
+set(COMPONENT_NAME envelope)
+add_subdirectory("src/wmtk/components/envelope")
+if(WMTK_ENABLE_COMPONENT_TESTS)
+add_subdirectory("tests")
+endif()
