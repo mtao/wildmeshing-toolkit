@@ -119,7 +119,6 @@ void TetMesh::initialize(
         tf_accessor.vector_attribute<4>(i) = TF.row(i).transpose();
         tt_accessor.vector_attribute<4>(i) = TT.row(i).transpose();
         t_flag_accessor.index_access().activate(i);
-        e_flag_accessor.index_access().activate(i);
     }
     // m_vt
     for (int64_t i = 0; i < capacity(PrimitiveType::Vertex); ++i) {

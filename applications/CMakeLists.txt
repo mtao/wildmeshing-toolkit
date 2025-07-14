@@ -85,7 +85,6 @@ if(WMTK_ENABLE_INTEGRATION_TESTING)
                 -b "${CMAKE_BINARY_DIR}/applications"
                 -t "${APP_TEST}"
                 -s "${TEST_CONFIG}"
-                ${WMTK_APPLICATION_RUN_ALL_TESTS}
             )
             endforeach()
         else()
