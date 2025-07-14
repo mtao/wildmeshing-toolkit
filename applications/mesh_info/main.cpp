@@ -53,6 +53,9 @@ nlohmann::json compute(const attribute::MeshAttributeHandle& mah, std::string_vi
                 if (type == "mean") {
                     return std::accumulate(values.begin(), values.end(), Scalar(0)) / values.size();
                 }
+                if (type == "total") {
+                    return std::accumulate(values.begin(), values.end(), Scalar(0));
+                }
                 std::sort(values.begin(), values.end());
                 if (type == "min") {
                     return values.front();
@@ -134,7 +137,7 @@ int run_js(
                 values = values_.get<std::vector<std::string>>();
             }
             if (values.empty()) {
-                values = {"min", "max", "median", "mean"};
+                values = {"min", "max", "median", "mean", "total"};
             }
             for (size_t k = 0; k < attrs.size(); ++k) {
                 std::string output_tag = fmt::format(fmt::runtime(format), path, k);
