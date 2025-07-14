@@ -20,8 +20,9 @@ var searchData=
   ['eigenmatrixwriter_17',['EigenMatrixWriter',['../classwmtk_1_1utils_1_1_eigen_matrix_writer.html',1,'wmtk::utils']]],
   ['elementinqueue_18',['ElementInQueue',['../classwmtk_1_1components_1_1_element_in_queue.html',1,'wmtk::components']]],
   ['energyfilterinvariant_19',['EnergyFilterInvariant',['../classwmtk_1_1_energy_filter_invariant.html',1,'wmtk']]],
-  ['envelopeinvariant_20',['EnvelopeInvariant',['../classwmtk_1_1invariants_1_1_envelope_invariant.html',1,'wmtk::invariants']]],
-  ['envelopeoptions_21',['EnvelopeOptions',['../structwmtk_1_1components_1_1_envelope_options.html',1,'wmtk::components']]],
-  ['equal_22',['equal',['../classwmtk_1_1simplex_1_1utils_1_1_mesh_simplex_comparator_1_1_equal.html',1,'wmtk::simplex::utils::MeshSimplexComparator::Equal'],['../classwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_default_comparator_type_1_1_equal.html',1,'wmtk::utils::metaprogramming::detail::DefaultComparatorType::Equal']]],
-  ['exportcacheoptions_23',['ExportCacheOptions',['../structwmtk_1_1components_1_1internal_1_1_export_cache_options.html',1,'wmtk::components::internal']]]
+  ['envelope_20',['Envelope',['../classwmtk_1_1components_1_1envelope_1_1_envelope.html',1,'wmtk::components::envelope']]],
+  ['envelopeinvariant_21',['envelopeinvariant',['../classwmtk_1_1components_1_1envelope_1_1invariants_1_1_envelope_invariant.html',1,'wmtk::components::envelope::invariants::EnvelopeInvariant'],['../classwmtk_1_1invariants_1_1_envelope_invariant.html',1,'wmtk::invariants::EnvelopeInvariant']]],
+  ['envelopeoptions_22',['EnvelopeOptions',['../structwmtk_1_1components_1_1_envelope_options.html',1,'wmtk::components']]],
+  ['equal_23',['equal',['../classwmtk_1_1simplex_1_1utils_1_1_mesh_simplex_comparator_1_1_equal.html',1,'wmtk::simplex::utils::MeshSimplexComparator::Equal'],['../classwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_default_comparator_type_1_1_equal.html',1,'wmtk::utils::metaprogramming::detail::DefaultComparatorType::Equal']]],
+  ['exportcacheoptions_24',['ExportCacheOptions',['../structwmtk_1_1components_1_1internal_1_1_export_cache_options.html',1,'wmtk::components::internal']]]
 ];

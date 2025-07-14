@@ -143,6 +143,10 @@ var hierarchy =
         ] ]
       ] ]
     ] ],
+    [ "wmtk::components::envelope::Envelope", "classwmtk_1_1components_1_1envelope_1_1_envelope.html", [
+      [ "wmtk::components::envelope::BVHEnvelope", "classwmtk_1_1components_1_1envelope_1_1_b_v_h_envelope.html", null ],
+      [ "wmtk::components::envelope::FastEnvelope", "classwmtk_1_1components_1_1envelope_1_1_fast_envelope.html", null ]
+    ] ],
     [ "wmtk::components::EnvelopeOptions", "structwmtk_1_1components_1_1_envelope_options.html", null ],
     [ "wmtk::simplex::utils::MeshSimplexComparator::Equal", "classwmtk_1_1simplex_1_1utils_1_1_mesh_simplex_comparator_1_1_equal.html", null ],
     [ "wmtk::utils::metaprogramming::detail::DefaultComparatorType::Equal", "classwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_default_comparator_type_1_1_equal.html", null ],
@@ -237,6 +241,7 @@ var hierarchy =
       [ "wmtk::TodoInvariant", "classwmtk_1_1_todo_invariant.html", null ],
       [ "wmtk::TodoLargerInvariant", "classwmtk_1_1_todo_larger_invariant.html", null ],
       [ "wmtk::TodoSmallerInvariant", "classwmtk_1_1_todo_smaller_invariant.html", null ],
+      [ "wmtk::components::envelope::invariants::EnvelopeInvariant", "classwmtk_1_1components_1_1envelope_1_1invariants_1_1_envelope_invariant.html", null ],
       [ "wmtk::components::isotropic_remeshing::invariants::ImprovementInvariant", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_improvement_invariant.html", null ],
       [ "wmtk::components::isotropic_remeshing::invariants::PreserveTaggedSubstructureInvariant", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_preserve_tagged_substructure_invariant.html", null ],
       [ "wmtk::invariants::CannotMapSimplexInvariant", "classwmtk_1_1invariants_1_1_cannot_map_simplex_invariant.html", null ],

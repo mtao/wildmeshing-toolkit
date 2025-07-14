@@ -64,6 +64,14 @@ var annotated_dup =
             [ "SamplingImage", "classwmtk_1_1components_1_1adaptive__tessellation_1_1image_1_1_sampling_image.html", "classwmtk_1_1components_1_1adaptive__tessellation_1_1image_1_1_sampling_image" ]
           ] ]
         ] ],
+        [ "envelope", "namespacewmtk_1_1components_1_1envelope.html", [
+          [ "invariants", "namespacewmtk_1_1components_1_1envelope_1_1invariants.html", [
+            [ "EnvelopeInvariant", "classwmtk_1_1components_1_1envelope_1_1invariants_1_1_envelope_invariant.html", "classwmtk_1_1components_1_1envelope_1_1invariants_1_1_envelope_invariant" ]
+          ] ],
+          [ "BVHEnvelope", "classwmtk_1_1components_1_1envelope_1_1_b_v_h_envelope.html", "classwmtk_1_1components_1_1envelope_1_1_b_v_h_envelope" ],
+          [ "Envelope", "classwmtk_1_1components_1_1envelope_1_1_envelope.html", "classwmtk_1_1components_1_1envelope_1_1_envelope" ],
+          [ "FastEnvelope", "classwmtk_1_1components_1_1envelope_1_1_fast_envelope.html", "classwmtk_1_1components_1_1envelope_1_1_fast_envelope" ]
+        ] ],
         [ "input", "namespacewmtk_1_1components_1_1input.html", [
           [ "InputOptions", "classwmtk_1_1components_1_1input_1_1_input_options.html", "classwmtk_1_1components_1_1input_1_1_input_options" ]
         ] ],

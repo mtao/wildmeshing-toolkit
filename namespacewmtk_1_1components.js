@@ -1,6 +1,7 @@
 var namespacewmtk_1_1components =
 [
     [ "adaptive_tessellation", "namespacewmtk_1_1components_1_1adaptive__tessellation.html", "namespacewmtk_1_1components_1_1adaptive__tessellation" ],
+    [ "envelope", "namespacewmtk_1_1components_1_1envelope.html", "namespacewmtk_1_1components_1_1envelope" ],
     [ "input", "namespacewmtk_1_1components_1_1input.html", "namespacewmtk_1_1components_1_1input" ],
     [ "internal", "namespacewmtk_1_1components_1_1internal.html", "namespacewmtk_1_1components_1_1internal" ],
     [ "isotropic_remeshing", "namespacewmtk_1_1components_1_1isotropic__remeshing.html", "namespacewmtk_1_1components_1_1isotropic__remeshing" ],
