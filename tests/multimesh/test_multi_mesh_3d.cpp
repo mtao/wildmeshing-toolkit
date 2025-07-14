@@ -1,4 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/Types.hpp>
 #include <wmtk/invariants/MultiMeshLinkConditionInvariant.hpp>
 #include <wmtk/multimesh/same_simplex_dimension_surjection.hpp>
@@ -228,6 +229,11 @@ TEST_CASE("test_split_multi_mesh_1D_3D", "[multimesh][1D][3D]")
         REQUIRE(parent.is_valid(edge));
 #endif
         REQUIRE(!split(Simplex::edge(parent, edge)).empty());
+
+        REQUIRE(parent.is_connectivity_valid());
+        REQUIRE(child0.is_connectivity_valid());
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(child0));
+        REQUIRE(wmtk::multimesh::utils::check_maps_valid(parent));
 
         CHECK(parent.get_all(PT).size() == 12);
 

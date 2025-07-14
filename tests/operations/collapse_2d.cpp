@@ -352,12 +352,13 @@ TEST_CASE("get_collapse_simplices_to_delete", "[operations][collapse][2D]")
         const DEBUG_TriMesh m = edge_region();
         Tuple edge = m.edge_tuple_with_vs_and_t(4, 5, 2);
 
-        std::array<std::vector<int64_t>, 3> ids_to_delete =
+        std::array<std::vector<int64_t>, 4> ids_to_delete =
             TMOE::get_collapse_simplices_to_delete(edge, m);
 
         REQUIRE(ids_to_delete[0].size() == 1);
         REQUIRE(ids_to_delete[1].size() == 3);
         REQUIRE(ids_to_delete[2].size() == 2);
+        REQUIRE(ids_to_delete[3].size() == 0);
 
         // V
         const int64_t vertex_to_delete = ids_to_delete[0][0];
@@ -393,12 +394,13 @@ TEST_CASE("get_collapse_simplices_to_delete", "[operations][collapse][2D]")
         const DEBUG_TriMesh m = edge_region();
         Tuple edge = m.edge_tuple_with_vs_and_t(7, 8, 6);
 
-        std::array<std::vector<int64_t>, 3> ids_to_delete =
+        std::array<std::vector<int64_t>, 4> ids_to_delete =
             TMOE::get_collapse_simplices_to_delete(edge, m);
 
         REQUIRE(ids_to_delete[0].size() == 1);
         REQUIRE(ids_to_delete[1].size() == 2);
         REQUIRE(ids_to_delete[2].size() == 1);
+        REQUIRE(ids_to_delete[3].size() == 0);
 
         // V
         const int64_t vertex_to_delete = ids_to_delete[0][0];
@@ -425,12 +427,13 @@ TEST_CASE("get_collapse_simplices_to_delete", "[operations][collapse][2D]")
         const DEBUG_TriMesh m = edge_region();
         Tuple edge = m.edge_tuple_with_vs_and_t(7, 4, 5);
 
-        std::array<std::vector<int64_t>, 3> sc_to_delete =
+        std::array<std::vector<int64_t>, 4> sc_to_delete =
             TMOE::get_collapse_simplices_to_delete(edge, m);
 
         REQUIRE(sc_to_delete[0].size() == 1);
         REQUIRE(sc_to_delete[1].size() == 3);
         REQUIRE(sc_to_delete[2].size() == 2);
+        REQUIRE(sc_to_delete[3].size() == 0);
 
         // V
         const int64_t vertex_to_delete = sc_to_delete[0][0];
@@ -470,13 +473,14 @@ TEST_CASE("get_collapse_simplices_to_delete", "[operations][collapse][2D]")
         }();
         REQUIRE(m.is_free());
         for (Tuple edge : m.get_all(PrimitiveType::Edge)) {
-            std::array<std::vector<int64_t>, 3> ids_to_delete =
+            std::array<std::vector<int64_t>, 4> ids_to_delete =
                 TMOE::get_collapse_simplices_to_delete(edge, m);
 
 
             REQUIRE(ids_to_delete[0].size() == 3);
             REQUIRE(ids_to_delete[1].size() == 3);
             REQUIRE(ids_to_delete[2].size() == 1);
+            REQUIRE(ids_to_delete[3].size() == 0);
 
             // compare expected face ids with the actual ones that should be deleted
             std::set<int64_t> fid_expected;

@@ -94,7 +94,8 @@ TetMesh::TetMeshOperationExecutor::get_incident_tets_and_faces(Tuple t)
 TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
     TetMesh& m,
     const Tuple& operating_tuple)
-    : flag_accessors{{m.get_flag_accessor(PrimitiveType::Vertex), m.get_flag_accessor(PrimitiveType::Edge), m.get_flag_accessor(PrimitiveType::Triangle), m.get_flag_accessor(PrimitiveType::Tetrahedron)}}
+    : operations::tet_mesh::EdgeOperationData(m, operating_tuple)
+    , flag_accessors{{m.get_flag_accessor(PrimitiveType::Vertex), m.get_flag_accessor(PrimitiveType::Edge), m.get_flag_accessor(PrimitiveType::Triangle), m.get_flag_accessor(PrimitiveType::Tetrahedron)}}
     , tt_accessor(*m.m_tt_accessor)
     , tf_accessor(*m.m_tf_accessor)
     , te_accessor(*m.m_te_accessor)
@@ -104,11 +105,7 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
     , ft_accessor(*m.m_ft_accessor)
     , m_mesh(m)
 {
-    m_operating_tuple = operating_tuple;
     // store ids of edge and incident vertices
-    m_operating_edge_id = m_mesh.id_edge(m_operating_tuple);
-    m_spine_vids[0] = m_mesh.id_vertex(m_operating_tuple);
-    m_spine_vids[1] = m_mesh.id_vertex(m_mesh.switch_vertex(m_operating_tuple));
     m_operating_face_id = m_mesh.id_face(m_operating_tuple);
     m_operating_tet_id = m_mesh.id_tet(m_operating_tuple);
 
@@ -161,7 +158,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
         }
         hash_update_region.sort_and_clean();
 
-        global_ids_to_potential_tuples.resize(4);
         global_ids_to_update.resize(4);
         simplex::IdSimplexCollection faces(m_mesh);
         faces.reserve(hash_update_region.simplex_vector().size() * 15);
@@ -198,7 +194,7 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
             }
             int64_t id = m_mesh.id(s);
             if (index == 1) {
-                if (id == m_operating_edge_id) {
+                if (id == operating_edge_id()) {
                     // found = true;
                     continue;
                 }
@@ -216,9 +212,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
             } else if (index == 3) {
                 continue;
             }
-            global_ids_to_potential_tuples.at(index).emplace_back(
-                id,
-                wmtk::simplex::top_dimension_cofaces_tuples(m_mesh, m_mesh.get_simplex(s)));
             global_ids_to_update.at(index).emplace_back(id);
         }
 
@@ -229,15 +222,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
         //             m_mesh,
         //             simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
         // }
-    }
-}
-
-void TetMesh::TetMeshOperationExecutor::delete_simplices()
-{
-    for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-        for (const int64_t id : simplex_ids_to_delete[d]) {
-            flag_accessors[d].index_access().deactivate(id);
-        }
     }
 }
 
@@ -291,7 +275,10 @@ void TetMesh::TetMeshOperationExecutor::update_ear_connectivity(
 
 void TetMesh::TetMeshOperationExecutor::split_edge()
 {
+    // auto [incident_tets, incident_faces] = get_incident_tets_and_faces(m_operating_tuple);
+    // set_split(m_mesh, m_operating_tuple, incident_tets);
     set_split();
+    // set_split(m_mesh, m_operating_tuple);
     simplex_ids_to_delete = get_split_simplices_to_delete(m_operating_tuple, m_mesh);
 
 
@@ -334,7 +321,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
             new_face_ids.begin() + 2 * i,
             new_face_ids.begin() + 2 * (i + 1),
             fsd.fid_new.begin());
-        fsd.eid_spine_old = m_operating_edge_id;
+        fsd.eid_spine_old = operating_edge_id();
         fsd.eid_spine_new[0] = new_eids[0]; // redundant
         fsd.eid_spine_new[1] = new_eids[1]; // redundant
         fsd.eid_rib = splitting_eids[0]; // redundant
@@ -359,7 +346,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         tsd.rib_f = split_fids[0];
         tsd.new_face_id = split_fids[0];
 
-        split_facet_data().add_facet(m_mesh, m_operating_tuple, tsd.split_t);
+        split_facet_data().add_facet(m_mesh, tsd.local_operating_tuple, tsd.split_t);
 
         // get ears here
         Tuple ear1 = m_mesh.switch_face(m_mesh.switch_edge(tet_tup));
@@ -447,7 +434,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     int64_t return_local_fid = -1;
     int64_t return_tid = -1;
 
-    // these are used only for assertions
+// these are used only for assertions
 #ifndef NDEBUG
     int64_t return_fid = -1;
     int64_t return_split_fid = -1;
@@ -498,8 +485,8 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         if (t_old == m_operating_tet_id) {
             return_tid = t2;
 
-            logger().trace("split fid is {}", f_rib);
-            logger().trace("fids {} {} are joined by edge {}", f3, f4, e_rib_2);
+            //logger().trace("split fid is {}", f_rib);
+            //logger().trace("fids {} {} are joined by edge {}", f3, f4, e_rib_2);
 #ifndef NDEBUG
             return_fid = f4;
             return_split_fid = f_rib;
@@ -746,9 +733,9 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     assert(return_fid == m_mesh.id(simplex::Simplex::face(m_mesh, m_output_tuple)));
     assert(return_tid == m_mesh.id(simplex::Simplex::tetrahedron(m_mesh, m_output_tuple)));
 
-    logger().trace(
-        "split fid is {}",
-        m_mesh.id(simplex::Simplex::face(m_mesh, m_mesh.switch_tuples(m_output_tuple, {PE, PF}))));
+    //logger().trace(
+    //    "split fid is {}",
+    //    m_mesh.id(simplex::Simplex::face(m_mesh, m_mesh.switch_tuples(m_output_tuple, {PE, PF}))));
     // assert(m_mesh.id(simplex::Simplex::edge(m_mesh.switch_tuples(m_output_tuple, {PE}))) =
     // return_face_spine_eid);
     assert(
@@ -759,7 +746,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
 
 void TetMesh::TetMeshOperationExecutor::collapse_edge()
 {
-    set_collapse();
+    set_collapse(m_mesh, m_operating_tuple);
     is_collapse = true;
     simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
 
@@ -859,34 +846,6 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
         edge_replacement[e02] = e12;
         edge_replacement[e03] = e13;
 
-        /////////////////////////////////////////////////
-        // // debug code
-        // if (e13 == 2223) {
-        //     wmtk::logger().info(
-        //         "edge 2223 in tet {} is assigned to tet {} face {} as merged edge 03->13, "
-        //         "replacing edge {}, right ear is tet {} face {} edge {}",
-        //         t_old,
-        //         t_ear_1,
-        //         f_ear_1,
-        //         e03,
-        //         t_ear_2,
-        //         f_ear_2,
-        //         e13);
-        // }
-
-        // if (e12 == 2223) {
-        //     wmtk::logger().info(
-        //         "edge 2223 in tet {} is assigned to tet {} face {} as merged edge 02->12, "
-        //         "replacing edge {}, right ear is tet {} face {} edge {}",
-        //         t_old,
-        //         t_ear_1,
-        //         f_ear_1,
-        //         e02,
-        //         t_ear_2,
-        //         f_ear_2,
-        //         e12);
-        // }
-        // /////////////////////////////////////////////////
 
 
         // check by link condition

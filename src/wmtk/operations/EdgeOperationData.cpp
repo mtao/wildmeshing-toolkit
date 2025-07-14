@@ -10,10 +10,20 @@
 #include "internal/SplitAlternateFacetData.hpp"
 namespace wmtk::operations {
 
-EdgeOperationData::EdgeOperationData() = default;
+EdgeOperationData::EdgeOperationData(Mesh& m, const Tuple& operating_tuple)
+    : m_mesh(m)
+    , m_operating_tuple(operating_tuple)
+    , m_input_edge_gid(m_mesh.id(m_operating_tuple, PrimitiveType::Edge))
+    , m_spine_vids(
+          std::array<int64_t, 2>{
+              {m_mesh.id(m_operating_tuple, PrimitiveType::Vertex),
+               m_mesh.id(
+                   m_mesh.switch_tuple(m_operating_tuple, PrimitiveType::Vertex),
+                   PrimitiveType::Vertex)}})
+
+{}
 EdgeOperationData::~EdgeOperationData() = default;
 EdgeOperationData::EdgeOperationData(EdgeOperationData&&) = default;
-EdgeOperationData& EdgeOperationData::operator=(EdgeOperationData&&) = default;
 auto EdgeOperationData::tuple_from_id(const Mesh& m, const PrimitiveType type, const int64_t gid)
     -> Tuple
 {
@@ -35,13 +45,20 @@ void EdgeOperationData::set_collapse()
 
 void EdgeOperationData::set_split(const Mesh& m, const Tuple& t)
 {
-    m_input_edge_gid = m.id(t, PrimitiveType::Edge);
     m_op_data = std::make_unique<internal::SplitAlternateFacetData>(m, t);
 }
 void EdgeOperationData::set_collapse(const Mesh& m, const Tuple& t)
 {
-    m_input_edge_gid = m.id(t, PrimitiveType::Edge);
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t);
+}
+
+void EdgeOperationData::set_split(const Mesh& m, const Tuple& t, const std::vector<Tuple>& ts)
+{
+    m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t, ts);
+}
+void EdgeOperationData::set_collapse(const Mesh& m, const Tuple& t, const std::vector<Tuple>& ts)
+{
+    m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t, ts);
 }
 
 const internal::SplitAlternateFacetData& EdgeOperationData::const_split_facet_data() const
@@ -93,6 +110,21 @@ EdgeOperationData::request_simplex_indices(Mesh& mesh, const PrimitiveType type,
 Tuple EdgeOperationData::get_alternative(const PrimitiveType mesh_pt, const Tuple& t) const
 {
     return std::visit([&](const auto& m) { return m->get_alternative(mesh_pt, t); }, m_op_data);
+}
+
+void EdgeOperationData::delete_simplices()
+{
+    for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
+        //wmtk::logger().info(
+        //    "{}-Mesh-Deleting {} {}-simplices [{}]",
+        //    m_mesh.top_simplex_type(),
+        //    simplex_ids_to_delete[d].size(),
+        //    d,
+        //    fmt::join(simplex_ids_to_delete[d], ","));
+        for (const int64_t id : simplex_ids_to_delete[d]) {
+            m_mesh.get_flag_accessor(get_primitive_type_from_id(d)).index_access().deactivate(id);
+        }
+    }
 }
 
 } // namespace wmtk::operations

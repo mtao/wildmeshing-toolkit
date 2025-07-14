@@ -13,6 +13,7 @@ components::multimesh::MeshCollection read_inputs(
 {
     wmtk::components::multimesh::MeshCollection meshes;
     components::utils::PathResolver path_resolver;
+        path_resolver.add_path(".");
 
     if (js.contains(path_resolver_tag)) {
         path_resolver = js[path_resolver_tag];

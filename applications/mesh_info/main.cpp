@@ -3,7 +3,10 @@
 #include <CLI/App.hpp>
 #include <CLI/CLI.hpp>
 #include <filesystem>
+#include <iostream>
 #include <nlohmann/json.hpp>
+#include <sstream>
+#include <string>
 #include <wmtk/applications/utils/element_count_report.hpp>
 #include <wmtk/applications/utils/get_integration_test_data_root.hpp>
 #include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
@@ -84,6 +87,10 @@ int run_js(
     // }
 
 
+    // if (!j.contains("output")) {
+    //     std::cerr << "Turning off logger because we are printing to the screen";
+    // wmtk::logger().set_level(spdlog::level::off);
+    // }
     wmtk::components::multimesh::MeshCollection meshes;
     components::utils::PathResolver path_resolver;
 
@@ -205,24 +212,19 @@ int main(int argc, char* argv[])
 
     fs::path input;
     fs::path output;
-    std::string input_position;
-    std::string output_position;
-    std::string type;
+    std::string position = "vertices";
+    std::string attributes;
     CLI::App* run_cmd = app.add_subcommand("run", "Convert mesh to another type");
     run_cmd->add_option("-i, --input", input, "input file")
         ->required(true)
         ->check(CLI::ExistingFile);
 
-    run_cmd->add_option("--input-position", input_position, "input position attribute name");
+    run_cmd->add_option("--input-position", position, "input position attribute name");
 
     run_cmd->add_option("-o, --output", output, "output file");
-    run_cmd->add_option("--output-position", output_position, "output position attribute name");
-    run_cmd->add_option("-t, --type", type, "output file type, knows [vtu,hdf5]");
+    run_cmd->add_option("--attributes", attributes, "comma separated attributes");
     add_it_path(*run_cmd);
 
-
-    // json_cmd->add_option("-n, --name_spec", name_spec_file, "json specification file")
-    //     ->check(CLI::ExistingFile);
 
     CLI11_PARSE(app, argc, argv);
 
@@ -246,17 +248,30 @@ int main(int argc, char* argv[])
     } else {
         wmtk::components::input::InputOptions in;
         in.path = input;
-        wmtk::components::output::OutputOptions out;
-        out.path = output;
-        out.position_attribute = "vertices";
-        if (!type.empty() && type[0] != '.') {
-            type = '.' + type;
-        }
-        out.type = type;
 
         nlohmann::json js;
         js["input"] = in;
-        js["output"][""] = out;
+        if (!output.empty()) {
+            js["output"] = output;
+        }
+
+        std::vector<std::string> attrs;
+        std::stringstream ss(attributes);
+        std::string tok;
+        while (std::getline(ss, tok, ',')) {
+            attrs.emplace_back(tok);
+        }
+        auto& util_attr_js = js["utility_attributes"] = nlohmann::json::array();
+        auto& attr_js = js["attributes"];
+        for (const auto& attr : attrs) {
+            nlohmann::json a_js;
+            a_js["attribute_path"] = attr;
+            a_js["base_attribute_path"] = position;
+            a_js["type"] = attr;
+            util_attr_js.emplace_back(a_js);
+            attr_js[attr] = "all";
+        }
+
 
         exit_mode = run_js(argv[0], js, name_spec_file, json_integration_config_file);
     }

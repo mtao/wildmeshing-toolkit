@@ -5,9 +5,7 @@
 #include <wmtk/Tuple.hpp>
 #include <wmtk/attribute/Accessor.hpp>
 #include <wmtk/utils/MerkleTreeInteriorNode.hpp>
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
 #include <wmtk/dart/DartAccessor.hpp>
-#endif
 
 
 namespace wmtk {
@@ -51,11 +49,7 @@ class MultiMeshManager : public wmtk::utils::MerkleTreeInteriorNode
 {
 public:
     using AccessorType =
-#if defined WMTK_ENABLED_MULTIMESH_DART
         wmtk::dart::DartAccessor<1, Mesh>;
-#else
-        wmtk::attribute::Accessor<int64_t>;
-#endif
 
     // let the visitor object access the internal details
     template <int64_t cell_dimension, typename NodeFunctor>
@@ -413,19 +407,11 @@ protected: // protected to enable unit testing
 
     // utility static function for mapping a tuple between the source and target given a specified
     // map accessor
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
 
     static Tuple map_tuple_between_meshes(
         const AccessorType& source_to_target_map_accessor,
         const AccessorType& target_to_source_map_accessor,
         const Tuple& source_tuple);
-#else
-    static Tuple map_tuple_between_meshes(
-        const Mesh& source_mesh,
-        const Mesh& target_mesh,
-        const AccessorType& source_to_target_map_accessor,
-        const Tuple& source_tuple);
-#endif
 
     const std::vector<ChildData>& children() const { return m_children; }
     std::vector<ChildData>& children() { return m_children; }
@@ -527,11 +513,8 @@ protected: // protected to enable unit testing
     std::tuple<Tuple, Tuple>
     mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const;
 
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
     std::tuple<dart::Dart, dart::Dart>
     mapped_darts(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const;
-#endif
-
 
     // ===============================================================================
     // ===============================================================================
@@ -590,10 +573,5 @@ public:
      * @param hash_accessor hash accessor of m
      */
 
-public:
-    // remove after bug fix
-    void check_map_valid(const Mesh& my_mesh) const;
-
-    void check_child_map_valid(const Mesh& my_mesh, const ChildData& child_data) const;
 };
 } // namespace wmtk::multimesh

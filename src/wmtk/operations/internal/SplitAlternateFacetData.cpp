@@ -1,4 +1,5 @@
 #include "SplitAlternateFacetData.hpp"
+#include <fmt/ranges.h>
 #include <algorithm>
 #include <array>
 #include <cassert>
@@ -19,16 +20,25 @@ auto sort_int_op = [](const SplitAlternateFacetData::Data& value, const int64_t&
     return value.input.global_id() < facet_id;
 };
 } // namespace
-
-SplitAlternateFacetData::SplitAlternateFacetData(const Mesh& m, const Tuple& input_tuple)
+SplitAlternateFacetData::SplitAlternateFacetData(
+    const Mesh& m,
+    const Tuple& input_tuple,
+    const std::vector<Tuple>& local_input_tuples)
 {
-    for (const auto& s : simplex::cofaces_single_dimension_tuples(
-             m,
-             simplex::Simplex::edge(input_tuple),
-             m.top_simplex_type())) {
+    for (const auto& s : local_input_tuples) {
         add_facet(m, s, {});
     }
 }
+
+SplitAlternateFacetData::SplitAlternateFacetData(const Mesh& m, const Tuple& input_tuple)
+    : SplitAlternateFacetData(
+          m,
+          input_tuple,
+          simplex::cofaces_single_dimension_tuples(
+              m,
+              simplex::Simplex::edge(input_tuple),
+              m.top_simplex_type()))
+{}
 
 
 void SplitAlternateFacetData::sort()
@@ -86,16 +96,13 @@ auto SplitAlternateFacetData::get_alternative(
 {
     return get_alternative(mesh_pt, t);
 }
-auto SplitAlternateFacetData::get_alternative(
-    const PrimitiveType mesh_pt,
-    const Tuple& t
-    ) const -> Tuple
+auto SplitAlternateFacetData::get_alternative(const PrimitiveType mesh_pt, const Tuple& t) const
+    -> Tuple
 {
     assert(mesh_pt > PrimitiveType::Vertex);
     const auto alts_it = get_alternative_facets_it(t.global_cid());
-    //assert(alts_it != m_facet_maps.end());
-    if(alts_it == m_facet_maps.end()) {
-        //spdlog::info("Returning null");
+    // assert(alts_it != m_facet_maps.end());
+    if (alts_it == m_facet_maps.end()) {
         return {};
     }
 

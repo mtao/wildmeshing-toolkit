@@ -26,16 +26,17 @@
 
 TEST_CASE("split_facet_maps", "[operations][data]")
 {
-    // for (wmtk::PrimitiveType mesh_type : wmtk::utils::primitive_range(
-    //          wmtk::PrimitiveType::Edge,
-    //          wmtk::PrimitiveType::Tetrahedron)) {
-    for (wmtk::PrimitiveType mesh_type : {wmtk::PrimitiveType::Tetrahedron}) {
+     for (wmtk::PrimitiveType mesh_type : wmtk::utils::primitive_range(
+              wmtk::PrimitiveType::Edge,
+              wmtk::PrimitiveType::Tetrahedron)) {
+    //for (wmtk::PrimitiveType mesh_type : {wmtk::PrimitiveType::Tetrahedron}) {
         const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_type);
         wmtk::operations::internal::SplitAlternateFacetData data;
 
         auto& scm = data.m_facet_maps;
 
 
+        // add 4 "arbitrary" elements using the facet map. and neighboring facet data
         auto add = [&](int64_t index, int8_t s, const std::array<int64_t, 2>& pr) {
             scm.emplace_back(wmtk::dart::Dart(index, s % sd.size()), pr);
         };

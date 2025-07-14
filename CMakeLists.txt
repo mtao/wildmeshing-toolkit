@@ -79,6 +79,7 @@ endif()
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake/recipes/")
 
+
 include(wmtk_cpm_cache)
 include(CPM)
 include(sanitizers)
@@ -135,7 +136,7 @@ if(WMTK_USE_DEV_MODE)
     set(BUILD_SHARED_LIBS ON) # we globally want to disable this option due to use of TBB
 endif()
 # C++ standard
-option(WMTK_USE_CXX20 "Sets WMTK to use C++20, defaults to C++17" ${WMTK_USE_DEV_MODE})
+option(WMTK_USE_CXX20 "Sets WMTK to use C++20, defaults to C++17" ON)
 if(WMTK_USE_CXX20)
 target_compile_features(wildmeshing_toolkit PUBLIC cxx_std_20)
 target_compile_definitions(wildmeshing_toolkit PUBLIC -DWMTK_ENABLED_CPP20)

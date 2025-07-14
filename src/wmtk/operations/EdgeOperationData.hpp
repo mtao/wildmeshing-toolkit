@@ -21,12 +21,14 @@ class EdgeOperationData
 public:
     friend class internal::SplitAlternateFacetData;
     friend class internal::CollapseAlternateFacetData;
-    EdgeOperationData();
+    EdgeOperationData(Mesh& m, const Tuple& operating_tuple);
     ~EdgeOperationData();
     EdgeOperationData(EdgeOperationData&&);
-    EdgeOperationData& operator=(EdgeOperationData&&);
+    Mesh& m_mesh;
     Tuple m_operating_tuple;
     int64_t m_input_edge_gid;
+    int64_t operating_edge_id() const { return m_input_edge_gid; }
+    const std::array<int64_t, 2>& incident_vids() const { return m_spine_vids; }
 
     Tuple m_output_tuple;
     std::array<int64_t, 2> m_spine_vids; // two endpoints of the edge
@@ -37,10 +39,11 @@ public:
     // for multimesh we need to know which global ids are modified to trigger
     // for every simplex dimension (We have 3 in trimesh):
     // a list of [simplex index, {all versions of that simplex}]
-    std::vector<std::vector<std::tuple<int64_t, std::vector<Tuple>>>>
-        global_ids_to_potential_tuples;
 
     std::vector<std::vector<int64_t>> global_ids_to_update;
+
+    std::array<std::vector<int64_t>, 4> simplex_ids_to_delete;
+    void delete_simplices();
 
     // std::unique_ptr<internal::SplitAlternateFacetData> m_split_data;
     // std::unique_ptr<internal::CollapseAlternateFacetData> m_collapse_data;
@@ -55,6 +58,9 @@ public:
 
     void set_split(const Mesh& m, const Tuple& t);
     void set_collapse(const Mesh& m, const Tuple& t);
+
+    void set_split(const Mesh& m, const Tuple& t, const std::vector<Tuple>& ts);
+    void set_collapse(const Mesh& m, const Tuple& t, const std::vector<Tuple>& ts);
 
 
     /// Returns facet data held if the edge operation was a split - throws if data does not exist
