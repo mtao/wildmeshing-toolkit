@@ -51,6 +51,7 @@ var namespacewmtk_1_1autogen_1_1tet__mesh =
     [ "auto_valid_tuple_indices", "namespacewmtk_1_1autogen_1_1tet__mesh.html#af46ad5ecd48893e85abd9d72801f3e5b", null ],
     [ "auto_valid_tuple_switch_indices", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a959e8561bd3bb26fe25ffa0e69c591f2", null ],
     [ "auto_valid_tuples", "namespacewmtk_1_1autogen_1_1tet__mesh.html#aa75807d6fa26be68929f66c40b3d8dd4", null ],
+    [ "canonical_faces", "namespacewmtk_1_1autogen_1_1tet__mesh.html#ab8accd810a7b5388fadb27d9f75f9fdc", null ],
     [ "canonical_simplex", "namespacewmtk_1_1autogen_1_1tet__mesh.html#a907acdf42079e0371b22ee3b63b393f0", null ],
     [ "canonical_subdart", "namespacewmtk_1_1autogen_1_1tet__mesh.html#af2afb4c74d4f77176adce01462f89ad9", null ],
     [ "canonical_supdart", "namespacewmtk_1_1autogen_1_1tet__mesh.html#ac4d050872b5340ed44f5c697c34eb2fc", null ],

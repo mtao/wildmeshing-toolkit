@@ -46,7 +46,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 864;
+var viewWidth = 683;
 var viewHeight = 104;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,19 +58,19 @@ var sectionId = 'dynsection-1';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title=" ">
-<polygon fill="#999999" stroke="#666666" points="517,-96 338,-96 338,-66 517,-66 517,-96"/>
-<text text-anchor="start" x="346" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/simplex/top</text>
-<text text-anchor="middle" x="427.5" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">_dimension_cofaces_iterable.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="417,-96 238,-96 238,-66 417,-66 417,-96"/>
+<text text-anchor="start" x="246" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/simplex/top</text>
+<text text-anchor="middle" x="327.5" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">_dimension_cofaces_iterable.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="_edge_mesh_operation_executor_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="163,-30 0,-30 0,0 163,0 163,-30"/>
-<text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/EdgeMeshOperation</text>
-<text text-anchor="middle" x="81.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Executor.cpp</text>
+<g id="a_Node000002"><a xlink:href="_tet_mesh_operation_executor_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="153,-30 0,-30 0,0 153,0 153,-30"/>
+<text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/TetMeshOperation</text>
+<text text-anchor="middle" x="76.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Executor.cpp</text>
 </a>
 </g>
 </g>
@@ -78,18 +78,18 @@ var sectionId = 'dynsection-1';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M341.57,-64.11C285,-53.64 211.63,-40.07 157.25,-30.01"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="341.1,-67.58 351.57,-65.95 342.37,-60.69 341.1,-67.58"/>
+<path fill="none" stroke="#63b8ff" d="M262.6,-63.45C221.93,-53.08 170.09,-39.86 131.45,-30.01"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="261.86,-66.88 272.42,-65.95 263.59,-60.09 261.86,-66.88"/>
 </a>
 </g>
 </g>
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="_tet_mesh_operation_executor_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="334,-30 181,-30 181,0 334,0 334,-30"/>
-<text text-anchor="start" x="189" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/TetMeshOperation</text>
-<text text-anchor="middle" x="257.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Executor.cpp</text>
+<g id="a_Node000003"><a xlink:href="_tri_mesh_operation_executor_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="321.5,-30 171.5,-30 171.5,0 321.5,0 321.5,-30"/>
+<text text-anchor="start" x="179.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/TriMeshOperation</text>
+<text text-anchor="middle" x="246.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Executor.cpp</text>
 </a>
 </g>
 </g>
@@ -97,18 +97,18 @@ var sectionId = 'dynsection-1';
 <g id="edge2_Node000001_Node000003" class="edge">
 <title>Node1&#45;&gt;Node3</title>
 <g id="a_edge2_Node000001_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M380.54,-62.32C353.49,-52.14 319.95,-39.51 294.72,-30.01"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="379.6,-65.71 390.19,-65.95 382.07,-59.16 379.6,-65.71"/>
+<path fill="none" stroke="#63b8ff" d="M301.53,-59.48C289.42,-49.91 275.32,-38.77 264.43,-30.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="299.51,-62.34 309.52,-65.8 303.85,-56.85 299.51,-62.34"/>
 </a>
 </g>
 </g>
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="_tri_mesh_operation_executor_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="502.5,-30 352.5,-30 352.5,0 502.5,0 502.5,-30"/>
-<text text-anchor="start" x="360.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/TriMeshOperation</text>
-<text text-anchor="middle" x="427.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">Executor.cpp</text>
+<g id="a_Node000004"><a xlink:href="closed__star_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="477.5,-30 339.5,-30 339.5,0 477.5,0 477.5,-30"/>
+<text text-anchor="start" x="347.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/simplex/closed</text>
+<text text-anchor="middle" x="408.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">_star.cpp</text>
 </a>
 </g>
 </g>
@@ -116,18 +116,18 @@ var sectionId = 'dynsection-1';
 <g id="edge3_Node000001_Node000004" class="edge">
 <title>Node1&#45;&gt;Node4</title>
 <g id="a_edge3_Node000001_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M427.5,-55.54C427.5,-46.96 427.5,-37.61 427.5,-30.16"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="424,-55.8 427.5,-65.8 431,-55.8 424,-55.8"/>
+<path fill="none" stroke="#63b8ff" d="M353.47,-59.48C365.58,-49.91 379.68,-38.77 390.57,-30.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="351.15,-56.85 345.48,-65.8 355.49,-62.34 351.15,-56.85"/>
 </a>
 </g>
 </g>
 <!-- Node5 -->
 <g id="Node000005" class="node">
 <title>Node5</title>
-<g id="a_Node000005"><a xlink:href="closed__star_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="658.5,-30 520.5,-30 520.5,0 658.5,0 658.5,-30"/>
-<text text-anchor="start" x="528.5" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/simplex/closed</text>
-<text text-anchor="middle" x="589.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">_star.cpp</text>
+<g id="a_Node000005"><a xlink:href="top__dimension__cofaces__iterable_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="675,-30 496,-30 496,0 675,0 675,-30"/>
+<text text-anchor="start" x="504" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/simplex/top</text>
+<text text-anchor="middle" x="585.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">_dimension_cofaces_iterable.cpp</text>
 </a>
 </g>
 </g>
@@ -135,27 +135,8 @@ var sectionId = 'dynsection-1';
 <g id="edge4_Node000001_Node000005" class="edge">
 <title>Node1&#45;&gt;Node5</title>
 <g id="a_edge4_Node000001_Node000005"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M472.59,-62.19C498.31,-52.02 530.1,-39.47 554.03,-30.01"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="471.07,-59.03 463.05,-65.95 473.64,-65.54 471.07,-59.03"/>
-</a>
-</g>
-</g>
-<!-- Node6 -->
-<g id="Node000006" class="node">
-<title>Node6</title>
-<g id="a_Node000006"><a xlink:href="top__dimension__cofaces__iterable_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="856,-30 677,-30 677,0 856,0 856,-30"/>
-<text text-anchor="start" x="685" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">src/wmtk/simplex/top</text>
-<text text-anchor="middle" x="766.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">_dimension_cofaces_iterable.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node6 -->
-<g id="edge5_Node000001_Node000006" class="edge">
-<title>Node1&#45;&gt;Node6</title>
-<g id="a_edge5_Node000001_Node000006"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M512.04,-64.04C567.41,-53.59 639.11,-40.05 692.28,-30.01"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="511.07,-60.66 501.89,-65.95 512.37,-67.54 511.07,-60.66"/>
+<path fill="none" stroke="#63b8ff" d="M393.95,-63.52C435.79,-53.14 489.22,-39.88 529.01,-30.01"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="392.98,-60.15 384.12,-65.95 394.67,-66.94 392.98,-60.15"/>
 </a>
 </g>
 </g>
