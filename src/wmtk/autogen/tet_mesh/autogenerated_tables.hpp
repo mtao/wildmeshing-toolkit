@@ -71,14 +71,17 @@ extern const int8_t max_subdart_preservation_dimension_2[24][4];
 
 extern const int8_t permutations[24][4];
 
-
+// Maps a permutation to a canonical dart whose simplices <= dimension are the same
 extern const int8_t canonical_subdart[3][24];
 
-
+// Maps a permutation to a canonical dart whose simplices >= dimension are the same
 extern const int8_t canonical_supdart[3][24];
 
-
+// Maps a permutation to a canonical dart whose simplex is the same
 extern const int8_t canonical_simplex[3][24];
+
+// List of faces for a given simplex
+extern const int8_t canonical_faces[3][24];
 
 
 } // namespace wmtk::autogen::tet_mesh

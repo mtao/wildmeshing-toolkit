@@ -32,14 +32,17 @@ extern const int8_t auto_valid_switch_edge_mirror_indices[2];
 
 extern const int8_t permutations[2][2];
 
-
+// Maps a permutation to a canonical dart whose simplices <= dimension are the same
 extern const int8_t canonical_subdart[1][2];
 
-
+// Maps a permutation to a canonical dart whose simplices >= dimension are the same
 extern const int8_t canonical_supdart[1][2];
 
-
+// Maps a permutation to a canonical dart whose simplex is the same
 extern const int8_t canonical_simplex[1][2];
+
+// List of faces for a given simplex
+extern const int8_t canonical_faces[1][2];
 
 
 } // namespace wmtk::autogen::edge_mesh

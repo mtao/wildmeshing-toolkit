@@ -156,7 +156,8 @@ void MultiMeshManager::update_maps_from_edge_operation(
 
     const std::vector<int64_t>& gids = operation_data.global_ids_to_update[get_primitive_type_id(
         primitive_type)]; // get facet gids(primitive_type);
-    //spdlog::info("Updating map for {}-simplices from edge split on [{}]:{}, ids are {}", primitive_type,my_mesh.absolute_multi_mesh_id(), operation_data.m_input_edge_gid, gids);
+    // spdlog::info("Updating map for {}-simplices from edge split on [{}]:{}, ids are {}",
+    // primitive_type,my_mesh.absolute_multi_mesh_id(), operation_data.m_input_edge_gid, gids);
 
     // go over every child mesh and try to update their hashes
     for (auto& child_data : children()) {
@@ -165,11 +166,11 @@ void MultiMeshManager::update_maps_from_edge_operation(
         if (child_mesh.top_simplex_type() != primitive_type) {
             continue;
         }
-        //spdlog::info(
-        //     "[{}->{}] Doing a child mesh ({})",
-        //     fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
-        //     fmt::join(child_mesh.absolute_multi_mesh_id(), ","),child_mesh.top_simplex_type());
-        //  get accessors to the maps
+        // spdlog::info(
+        //      "[{}->{}] Doing a child mesh ({})",
+        //      fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
+        //      fmt::join(child_mesh.absolute_multi_mesh_id(), ","),child_mesh.top_simplex_type());
+        //   get accessors to the maps
         auto maps = get_map_accessors(my_mesh, child_data);
         auto& [parent_to_child_accessor, child_to_parent_accessor] = maps;
 
@@ -205,7 +206,6 @@ void MultiMeshManager::update_maps_from_edge_operation(
             }
 
 
-            
             parent_tuple = wmtk::multimesh::find_valid_tuple(
                 my_mesh,
                 parent_tuple,

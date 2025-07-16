@@ -43,11 +43,11 @@ TEST_CASE("tet_get_split_simplices_to_delete", "[operations][split][3d]")
 {
     SECTION("single_tet")
     {
-        const DEBUG_TetMesh m = single_tet();
+        DEBUG_TetMesh m = single_tet();
         const Tuple edge = m.edge_tuple_with_vs_and_t(1, 2, 0);
 
         std::array<std::vector<int64_t>, 4> ids_to_delete =
-            TMOE::get_split_simplices_to_delete(edge, m);
+            TMOE(m,edge).get_split_simplices_to_delete();
 
         // debug code
         // std::cout << "vertex: " << std::endl;
@@ -93,11 +93,11 @@ TEST_CASE("tet_get_split_simplices_to_delete", "[operations][split][3d]")
     }
     SECTION("three_incident_tets")
     {
-        const DEBUG_TetMesh m = three_incident_tets();
+        DEBUG_TetMesh m = three_incident_tets();
         const Tuple edge = m.edge_tuple_with_vs_and_t(2, 3, 1);
 
         std::array<std::vector<int64_t>, 4> ids_to_delete =
-            TMOE::get_split_simplices_to_delete(edge, m);
+            TMOE(m,edge).get_split_simplices_to_delete();
 
         std::cout << "test three incident tets" << std::endl;
 
@@ -108,11 +108,11 @@ TEST_CASE("tet_get_split_simplices_to_delete", "[operations][split][3d]")
     }
     SECTION("six_cycle_tets")
     {
-        const DEBUG_TetMesh m = six_cycle_tets();
+        DEBUG_TetMesh m = six_cycle_tets();
         const Tuple edge = m.edge_tuple_with_vs_and_t(2, 3, 5);
 
         std::array<std::vector<int64_t>, 4> ids_to_delete =
-            TMOE::get_split_simplices_to_delete(edge, m);
+            TMOE(m,edge).get_split_simplices_to_delete();
 
         std::cout << "test six cycle tets" << std::endl;
 
@@ -127,11 +127,11 @@ TEST_CASE("tet_get_collapse_simplices_to_delete", "[operations][collapse][3D]")
 {
     SECTION("single_tet")
     {
-        const DEBUG_TetMesh m = single_tet();
+        DEBUG_TetMesh m = single_tet();
         const Tuple edge = m.edge_tuple_with_vs_and_t(1, 2, 0);
 
         std::array<std::vector<int64_t>, 4> ids_to_delete =
-            TMOE::get_collapse_simplices_to_delete(edge, m);
+            TMOE(m,edge).get_collapse_simplices_to_delete();
 
         // std::cout << "face: " << std::endl;
         // for (int i = 0; i < ids_to_delete[2].size(); i++) {

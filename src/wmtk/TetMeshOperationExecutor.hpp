@@ -25,9 +25,7 @@ public:
      * The deleted simplices are the one ring tets AND the one ring faces of the edge AND the edge
      * itself. That is, the open star of the edge.
      */
-    static const std::array<std::vector<int64_t>, 4> get_split_simplices_to_delete(
-        const Tuple& tuple,
-        const TetMesh& m);
+    std::array<std::vector<int64_t>, 4> get_split_simplices_to_delete();
 
     /**
      * @brief gather all simplices that are deleted in a collapse
@@ -43,9 +41,7 @@ public:
      *
      * @return a pair of vector of ids (int64_t) and tuples(tuple)
      */
-    static const std::array<std::vector<int64_t>, 4> get_collapse_simplices_to_delete(
-        const Tuple& tuple,
-        const TetMesh& m);
+    std::array<std::vector<int64_t>, 4> get_collapse_simplices_to_delete();
 
     void update_ear_connectivity(
         const int64_t ear_tid,

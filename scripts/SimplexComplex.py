@@ -215,7 +215,7 @@ def canonical_supdart(sc, dimension):
         x =ssl[:dimension+1]
         x.sort() 
         ssl[:dimension+1] = x
-        print(f"{len(sc)}-sc got {dimension}-simplex got {ss} to {ssl}")
+        #print(f"{len(sc)}-sc got {dimension}-simplex got {ss} to {ssl}")
         ovt = sc.simplicial_set_as_valid_tuple_index(ssl)
         data.append(ovt)
     return data
@@ -240,6 +240,19 @@ def canonical_simplex(sc, dimension):
         data.append(ovt)
     return data
 
+# gets the set of dimensino-faces of the current dimension
+def canonical_faces(sc, dimension):
+    data = canonical_simplex(sc,dimension)
+    vt = sc.valid_tuples()
+    r = [0 for _ in data]
+    for v in data:
+        r[vt[v][dimension]] = v
+    data.sort()
+
+    return data
+
+
+    
 def valid_tuple_permutations(sc):
     num_valid = sc.valid_tuple_size()
 

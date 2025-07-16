@@ -21,6 +21,13 @@ set(SRC_FILES
     tuple_from_permutation_index.hpp
     tuple_from_permutation_index.cpp
 
+    get_faces.cpp
+    get_faces.hpp
+    get_canonical_faces.cpp
+    get_canonical_faces.hpp
+
+    get_canonical_cofaces.cpp
+    get_canonical_cofaces.hpp
     
     opposite.hpp
     opposite.cpp

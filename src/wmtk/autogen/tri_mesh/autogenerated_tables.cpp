@@ -54,4 +54,6 @@ const int8_t canonical_supdart[2][6] = {{0, 1, 2, 3, 4, 5}, {0, 1, 2, 1, 2, 0}};
 
 const int8_t canonical_simplex[2][6] = {{1, 1, 3, 3, 5, 5}, {0, 1, 2, 1, 2, 0}};
 
+const int8_t canonical_faces[2][6] = {{1, 1, 3, 3, 5, 5}, {0, 0, 1, 1, 2, 2}};
+
 } // namespace wmtk::autogen::tri_mesh

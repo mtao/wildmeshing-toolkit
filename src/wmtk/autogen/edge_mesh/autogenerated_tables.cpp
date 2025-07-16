@@ -27,4 +27,6 @@ const int8_t canonical_supdart[1][2] = {{0, 1}};
 
 const int8_t canonical_simplex[1][2] = {{0, 1}};
 
+const int8_t canonical_faces[1][2] = {{0, 1}};
+
 } // namespace wmtk::autogen::edge_mesh

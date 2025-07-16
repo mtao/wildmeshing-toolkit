@@ -3,8 +3,6 @@
 #include <fmt/ranges.h>
 #include <wmtk/operations/internal/SplitAlternateFacetData.hpp>
 #include <wmtk/simplex/faces.hpp>
-#include <wmtk/simplex/top_dimension_cofaces.hpp>
-#include <wmtk/simplex/top_dimension_cofaces_iterable.hpp>
 
 namespace wmtk {
 // constructor
@@ -43,13 +41,6 @@ EdgeMesh::EdgeMeshOperationExecutor::EdgeMeshOperationExecutor(
         add(mesh().switch_vertex(m_operating_tuple));
     }
 
-    // if (m.has_child_mesh_in_dimension(1)) {
-    //     global_ids_to_potential_tuples.at(1).emplace_back(
-    //         mesh().id(simplex::Simplex::edge(m_operating_tuple)),
-    //         wmtk::simplex::top_dimension_cofaces_tuples(
-    //             mesh(),
-    //             simplex::Simplex::edge(m_operating_tuple)));
-    // }
 }
 
 

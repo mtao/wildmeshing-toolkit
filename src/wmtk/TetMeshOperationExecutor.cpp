@@ -169,6 +169,13 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
                 faces.add(t);
             }
             const simplex::Simplex s = m.get_simplex(t);
+        // if (m.has_child_mesh_in_dimension(3)) {
+        //     global_ids_to_potential_tuples.at(3).emplace_back(
+        //         m_mesh.id(simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)),
+        //         wmtk::simplex::top_dimension_cofaces_tuples(
+        //             m_mesh,
+        //             simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
+        // }
             // faces.add(wmtk::simplex::faces(m, s, false));
             for (const simplex::Simplex& f : simplex::faces(m, s, false)) {
                 // if (const int64_t index = static_cast<int64_t>(s.primitive_type());
@@ -215,39 +222,29 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
             global_ids_to_update.at(index).emplace_back(id);
         }
 
-        // if (m.has_child_mesh_in_dimension(3)) {
-        //     global_ids_to_potential_tuples.at(3).emplace_back(
-        //         m_mesh.id(simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)),
-        //         wmtk::simplex::top_dimension_cofaces_tuples(
-        //             m_mesh,
-        //             simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
-        // }
     }
 }
 
 
-const std::array<std::vector<int64_t>, 4>
-TetMesh::TetMeshOperationExecutor::get_split_simplices_to_delete(
-    const Tuple& tuple,
-    const TetMesh& m)
+std::array<std::vector<int64_t>, 4>
+TetMesh::TetMeshOperationExecutor::get_split_simplices_to_delete()
 {
-    const simplex::SimplexCollection sc = simplex::open_star(m, simplex::Simplex::edge(m, tuple));
+    const simplex::SimplexCollection sc = simplex::open_star(m_mesh, simplex::Simplex::edge(m_mesh, m_operating_tuple));
     std::array<std::vector<int64_t>, 4> ids;
     for (const simplex::Simplex& s : sc) {
-        ids[get_primitive_type_id(s.primitive_type())].emplace_back(m.id(s));
+        spdlog::info("{} {}", s.primitive_type(), std::string(s.tuple()));
+        ids[get_primitive_type_id(s.primitive_type())].emplace_back(m_mesh.id(s));
     }
 
     return ids;
 }
 
-const std::array<std::vector<int64_t>, 4>
-TetMesh::TetMeshOperationExecutor::get_collapse_simplices_to_delete(
-    const Tuple& tuple,
-    const TetMesh& m)
+std::array<std::vector<int64_t>, 4>
+TetMesh::TetMeshOperationExecutor::get_collapse_simplices_to_delete()
 {
     std::array<std::vector<int64_t>, 4> ids;
-    for (const simplex::IdSimplex& s : simplex::half_closed_star_iterable(m, tuple)) {
-        ids[get_primitive_type_id(s.primitive_type())].emplace_back(m.id(s));
+    for (const simplex::IdSimplex& s : simplex::half_closed_star_iterable(m_mesh, m_operating_tuple)) {
+        ids[get_primitive_type_id(s.primitive_type())].emplace_back(m_mesh.id(s));
     }
     return ids;
 }
@@ -279,7 +276,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     // set_split(m_mesh, m_operating_tuple, incident_tets);
     set_split();
     // set_split(m_mesh, m_operating_tuple);
-    simplex_ids_to_delete = get_split_simplices_to_delete(m_operating_tuple, m_mesh);
+    simplex_ids_to_delete = get_split_simplices_to_delete();
 
 
     // create new vertex (center)
@@ -748,7 +745,7 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
 {
     set_collapse(m_mesh, m_operating_tuple);
     is_collapse = true;
-    simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
+    simplex_ids_to_delete = get_collapse_simplices_to_delete();
 
     // collect star before changing connectivity
     // update all tv's after other updates

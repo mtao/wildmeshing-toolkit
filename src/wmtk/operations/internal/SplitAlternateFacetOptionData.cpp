@@ -26,8 +26,8 @@ auto make_inds()
 
             for (int8_t k = 0; k < sd.size(); ++k) {
                 if (sd.simplex_index(k, wmtk::PrimitiveType::Edge) == edge_index) {
-                    const int8_t left = sd.act(k,left_ear_action(sd.simplex_type()));
-                    const int8_t right = sd.act(k,right_ear_action(sd.simplex_type()));
+                    const int8_t left = sd.act(k, left_ear_action(sd.simplex_type()));
+                    const int8_t right = sd.act(k, right_ear_action(sd.simplex_type()));
                     main[0] = sd.simplex_index(left, boundary_type);
                     main[1] = sd.simplex_index(right, boundary_type);
                     break;
@@ -55,8 +55,7 @@ const std::array<int8_t, 2>& boundary_indices_(
     const std::array<PairPair, ArrSize>& arr)
 {
     const int8_t edge_index = sd.simplex_index(o, wmtk::PrimitiveType::Edge);
-    const int8_t boundary_index =
-        sd.simplex_index(sd.act(o,sd.opposite()), sd.simplex_type() - 1);
+    const int8_t boundary_index = sd.simplex_index(sd.act(o, sd.opposite()), sd.simplex_type() - 1);
     const PairPair& pairpair = arr.at(edge_index);
     const Pair& pair = std::get<0>(pairpair);
     static_assert(std::tuple_size_v<Pair> == 2);
@@ -101,8 +100,7 @@ SplitAlternateFacetOptionData::SplitAlternateFacetOptionData(
     const std::array<int64_t, 2>& n)
     : input(i)
     , new_facet_indices(n)
-{
-}
+{}
 
 
 auto SplitAlternateFacetOptionData::new_gid(PrimitiveType mesh_type, int8_t orientation) const

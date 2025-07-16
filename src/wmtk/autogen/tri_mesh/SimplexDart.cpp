@@ -42,7 +42,12 @@ VectorX<int8_t>::ConstMapType SimplexDart::permutation_indices() const
 
 int8_t SimplexDart::simplex_index(int8_t permutation_index, wmtk::PrimitiveType type) const
 {
-    return tri_mesh::simplex_index(permutation_index, type);
+    if (type < PrimitiveType::Triangle) {
+        return tri_mesh::simplex_index(permutation_index, type);
+    } else {
+        assert(type == PrimitiveType::Triangle);
+        return 0;
+    }
     //
 }
 wmtk::PrimitiveType SimplexDart::simplex_type() const
