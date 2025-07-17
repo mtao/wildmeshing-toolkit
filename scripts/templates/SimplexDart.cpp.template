@@ -34,7 +34,12 @@ namespace wmtk::autogen::{{ namespace }} {
     }
 
     int8_t SimplexDart::simplex_index( int8_t permutation_index, wmtk::PrimitiveType type) const  {
+        if (type < constants::primitive_type) {
         return {{ namespace }}::simplex_index( permutation_index, type);
+        } else {
+            assert(type == constants::primitive_type);
+            return 0;
+        }
         //
     }
     wmtk::PrimitiveType SimplexDart::simplex_type() const  {

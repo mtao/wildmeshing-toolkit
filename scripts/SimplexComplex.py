@@ -2,11 +2,13 @@ from itertools import product
 
 class SimplexComplex:
     def __init__(self, simplices):
+        self.__dimension__ = len(simplices[0]) - 1
         self.__simplices__ = list(map(lambda x: list(map(frozenset,x)), simplices))
         
         self.__valid_indices__ = [self.get_index(t) for t in self.all_tuples() if self.valid_tuple(t)]
         self.__permutation_index_map__ = {k:v for v,k in enumerate(self.__valid_indices__)}
-
+    def dimension(self):
+        return self.__dimension__
     def __getitem__(self, index):
         return self.__simplices__.__getitem__(index)
 # Generates all possible tuples, note that some might not be valid
@@ -242,17 +244,21 @@ def canonical_simplex(sc, dimension):
 
 # gets the set of dimensino-faces of the current dimension
 def canonical_faces(sc, dimension):
-    data = canonical_simplex(sc,dimension)
+    data = set(canonical_simplex(sc,dimension))
     vt = sc.valid_tuples()
-    r = [0 for _ in data]
+    r = [0 for _ in set(data)]
     for v in data:
         r[vt[v][dimension]] = v
-    data.sort()
+    return r
+""" this probably doesnt makes sense without two dims
+def canonical_cofaces(sc, dimension):
+    r = canonical_faces(sc,sc.dimension() - dimension - 1)
+    opp = switches_plus_identity_and_opp(sc)[-1]
 
-    return data
-
-
-    
+    return [
+        sc.valid_tuple_index_product(sc.valid_tuple_index_product(opp,v),opp) for v in r
+    ]
+   """ 
 def valid_tuple_permutations(sc):
     num_valid = sc.valid_tuple_size()
 

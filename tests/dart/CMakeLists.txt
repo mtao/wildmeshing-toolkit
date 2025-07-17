@@ -1,6 +1,7 @@
 
 # Sources
 set(TEST_SOURCES
+    faces.cpp
     dart.cpp
     group_structure.cpp
     actions.cpp

@@ -34,7 +34,7 @@ namespace wmtk::autogen::{{ namespace }} {
     }
 
     inline int8_t simplex_index( int8_t permutation_index, wmtk::PrimitiveType type) {
-        return auto_valid_tuples[permutation_index][get_primitive_type_id(type)];
+            return auto_valid_tuples[permutation_index][get_primitive_type_id(type)];
     }
 
 

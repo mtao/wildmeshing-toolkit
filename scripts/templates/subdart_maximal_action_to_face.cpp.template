@@ -10,6 +10,7 @@ int8_t subdart_maximal_action_to_face_action(int8_t dart_index, int8_t simplex_d
         {% for dim in range( dimension - 1 ) %} 
         case {{ dim + 1 }}: return subdart_preserving_action_{{ dim + 1 }}[dart_index][simplex_index];
         {% endfor %}
+        case 0:
         case {{ dimension }}:
         return identity();
         default:
@@ -28,6 +29,7 @@ int8_t subdart_maximal_action_to_face_size(int8_t dart_index, int8_t simplex_dim
         {% endfor %}
         case {{ dimension }}:
         return {{ dimension }};
+        case 0: return permutations[dart_index][0] == simplex_index;
         default:
         break;
     }

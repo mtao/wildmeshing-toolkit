@@ -1,5 +1,6 @@
 
 #include "get_faces.hpp"
+#include "get_local_vertex_permutation.hpp"
 #include "wmtk/dart/SimplexDart.hpp"
 #include "wmtk/dart/utils/get_canonical_faces.hpp"
 namespace wmtk::dart::utils {
@@ -10,7 +11,7 @@ std::vector<int8_t> get_faces(
     int8_t permutation,
     const PrimitiveType face_pt)
 {
-    if (mesh_pt == target_pt) {
+    if (face_pt == target_pt) {
         return {permutation};
     }
     int8_t mesh_dim = get_primitive_type_id(mesh_pt);
@@ -24,7 +25,11 @@ std::vector<int8_t> get_faces(
 
     std::vector<int8_t> x(target_ids.begin(), target_ids.end());
     for (int8_t& id : x) {
-        id = mesh_sd.product(permutation, target_sd.convert(id, mesh_sd));
+        // id = mesh_sd.product(permutation, target_sd.convert(id, mesh_sd));
+        int8_t c = target_sd.convert(id, mesh_sd);
+
+
+        id = mesh_sd.product(permutation, c);
     }
 
     return x;

@@ -42,7 +42,12 @@ VectorX<int8_t>::ConstMapType SimplexDart::permutation_indices() const
 
 int8_t SimplexDart::simplex_index(int8_t permutation_index, wmtk::PrimitiveType type) const
 {
-    return edge_mesh::simplex_index(permutation_index, type);
+    if (type < constants::primitive_type) {
+        return edge_mesh::simplex_index(permutation_index, type);
+    } else {
+        assert(type == constants::primitive_type);
+        return 0;
+    }
     //
 }
 wmtk::PrimitiveType SimplexDart::simplex_type() const

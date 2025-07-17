@@ -45,6 +45,14 @@ const int8_t subdart_preserving_action_1[6][3] =
 const int8_t max_subdart_preservation_dimension_1[6][3] =
     {{0, 2, 1}, {0, 1, 2}, {2, 0, 1}, {1, 0, 2}, {2, 1, 0}, {1, 2, 0}};
 
+const int8_t canonical_faces_0[3] = {1, 3, 5};
+
+const int8_t canonical_cofaces_0[3] = {5, 3, 1};
+
+const int8_t canonical_faces_1[3] = {2, 0, 1};
+
+const int8_t canonical_cofaces_1[3] = {1, 0, 2};
+
 const int8_t permutations[6][3] =
     {{0, 2, 1}, {0, 1, 2}, {1, 2, 0}, {1, 0, 2}, {2, 1, 0}, {2, 0, 1}};
 
@@ -53,7 +61,5 @@ const int8_t canonical_subdart[2][6] = {{1, 1, 3, 3, 5, 5}, {0, 1, 2, 3, 4, 5}};
 const int8_t canonical_supdart[2][6] = {{0, 1, 2, 3, 4, 5}, {0, 1, 2, 1, 2, 0}};
 
 const int8_t canonical_simplex[2][6] = {{1, 1, 3, 3, 5, 5}, {0, 1, 2, 1, 2, 0}};
-
-const int8_t canonical_faces[2][6] = {{1, 1, 3, 3, 5, 5}, {0, 0, 1, 1, 2, 2}};
 
 } // namespace wmtk::autogen::tri_mesh

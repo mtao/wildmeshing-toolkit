@@ -12,15 +12,35 @@ std::span<const int8_t> get_canonical_faces(const SimplexDart& sd, PrimitiveType
 
     if (source_pt == PrimitiveType::Edge) {
         if (pt == PrimitiveType::Vertex) {
-            return autogen::edge_mesh::canonical_simplex[get_primitive_type_id(pt)];
+            const static std::array<std::span<const int8_t>, 1> a{
+                {std::span<const int8_t>(autogen::edge_mesh::canonical_faces_0)}};
+            return a[get_primitive_type_id(pt)];
+        } else {
+            const static int8_t b[1] = {SimplexDart::get_singleton(PrimitiveType::Edge).identity()};
+            return b;
         }
     } else if (source_pt == PrimitiveType::Triangle) {
+        const static std::array<std::span<const int8_t>, 2> a{
+            {std::span<const int8_t>(autogen::tri_mesh::canonical_faces_0),
+             std::span<const int8_t>(autogen::tri_mesh::canonical_faces_1)}};
         if (pt <= PrimitiveType::Edge) {
-            return autogen::tri_mesh::canonical_simplex[get_primitive_type_id(pt)];
+            return a[get_primitive_type_id(pt)];
+        } else {
+            const static int8_t b[1] = {
+                SimplexDart::get_singleton(PrimitiveType::Triangle).identity()};
+            return b;
         }
     } else if (source_pt == PrimitiveType::Tetrahedron) {
+        const static std::array<std::span<const int8_t>, 3> a{
+            {std::span<const int8_t>(autogen::tet_mesh::canonical_faces_0),
+             std::span<const int8_t>(autogen::tet_mesh::canonical_faces_1),
+             std::span<const int8_t>(autogen::tet_mesh::canonical_faces_2)}};
         if (pt <= PrimitiveType::Triangle) {
-            return autogen::tet_mesh::canonical_simplex[get_primitive_type_id(pt)];
+            return a[get_primitive_type_id(pt)];
+        } else {
+            const static int8_t b[1] = {
+                SimplexDart::get_singleton(PrimitiveType::Tetrahedron).identity()};
+            return b;
         }
     }
     return {};

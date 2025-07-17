@@ -14,6 +14,7 @@ int8_t subdart_maximal_action_to_face_action(
 
     case 2: return subdart_preserving_action_2[dart_index][simplex_index];
 
+    case 0:
     case 3: return identity();
     default: break;
     }
@@ -32,6 +33,7 @@ int8_t subdart_maximal_action_to_face_size(
     case 2: return max_subdart_preservation_dimension_2[dart_index][simplex_index];
 
     case 3: return 3;
+    case 0: return permutations[dart_index][0] == simplex_index;
     default: break;
     }
     return 0;
