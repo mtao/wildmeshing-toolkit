@@ -10,7 +10,7 @@
 <meta property="og:description" content="Fast robust meshing." />
 <meta property="og:url" content="https://wildmeshing.github.io" />
 <!-- END opengraph metadata -->
-<title>Wildmeshing Toolkit: src/wmtk/dart/utils/get_canonical_cofaces.hpp Source File</title>
+<title>Wildmeshing Toolkit: src/wmtk/dart/utils/get_cofaces.hpp File Reference</title>
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
@@ -80,11 +80,6 @@ $(function() {
 /* @license-end */
 </script>
 <div id="main-nav"></div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function() { init_codefold(0); });
-/* @license-end */
-</script>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -98,7 +93,7 @@ $(document).ready(function() { init_codefold(0); });
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('get__canonical__cofaces_8hpp_source.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('get__cofaces_8hpp.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -124,35 +119,50 @@ $(document).ready(function(){initNavTree('get__canonical__cofaces_8hpp_source.ht
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">get_canonical_cofaces.hpp</div></div>
+  <div class="summary">
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
+  <div class="headertitle"><div class="title">get_cofaces.hpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="get__canonical__cofaces_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#pragma once</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;span&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;<a class="code" href="dart_2_simplex_dart_8hpp.html">wmtk/dart/SimplexDart.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart.html">wmtk::dart</a> {</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    <span class="keyword">class </span>SimplexDart;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>}</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="comment">//std::span&lt;const int8_t&gt; get_canonical_cofaces(const SimplexDart&amp; sd, PrimitiveType pt);</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">// NOTE: this is slow, best to cache these values</span></div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    std::vector&lt;std::vector&lt;int8_t&gt;&gt; <a class="code hl_function" href="namespacewmtk_1_1dart_1_1utils.html#a7f351f29b6749cd64eeb06ca962b735e">get_canonical_cofaces</a>(<span class="keyword">const</span> SimplexDart&amp; sd, <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> coface_pt);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>} <span class="comment">// namespace wmtk::dart::utils</span></div>
-<div class="ttc" id="adart_2_simplex_dart_8hpp_html"><div class="ttname"><a href="dart_2_simplex_dart_8hpp.html">SimplexDart.hpp</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1dart_1_1utils_html"><div class="ttname"><a href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a></div><div class="ttdef"><b>Definition</b> <a href="apply__simplex__involution_8cpp_source.html#l00012">apply_simplex_involution.cpp:12</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1dart_1_1utils_html_a7f351f29b6749cd64eeb06ca962b735e"><div class="ttname"><a href="namespacewmtk_1_1dart_1_1utils.html#a7f351f29b6749cd64eeb06ca962b735e">wmtk::dart::utils::get_canonical_cofaces</a></div><div class="ttdeci">std::vector&lt; std::vector&lt; int8_t &gt; &gt; get_canonical_cofaces(const SimplexDart &amp;sd, PrimitiveType pt, PrimitiveType coface_pt)</div><div class="ttdef"><b>Definition</b> <a href="get__canonical__cofaces_8cpp_source.html#l00007">get_canonical_cofaces.cpp:7</a></div></div>
-<div class="ttc" id="anamespacewmtk_1_1dart_html"><div class="ttname"><a href="namespacewmtk_1_1dart.html">wmtk::dart</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00016">Accessor.hpp:16</a></div></div>
-<div class="ttc" id="anamespacewmtk_html_af11e67c10a0ab2b57b9bbc3998b62345"><div class="ttname"><a href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">wmtk::PrimitiveType</a></div><div class="ttdeci">PrimitiveType</div><div class="ttdef"><b>Definition</b> <a href="_primitive_type_8hpp_source.html#l00009">PrimitiveType.hpp:9</a></div></div>
-</div><!-- fragment --></div><!-- contents -->
+<div class="textblock"><code>#include &lt;span&gt;</code><br />
+<code>#include &quot;<a class="el" href="_primitive_type_8hpp_source.html">wmtk/PrimitiveType.hpp</a>&quot;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for get_cofaces.hpp:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="get__cofaces_8hpp__incl.svg" width="315" height="198"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="get__cofaces_8hpp__dep__incl.svg" width="155" height="139"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+</div>
+<p><a href="get__cofaces_8hpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:namespacewmtk" id="r_namespacewmtk"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk.html">wmtk</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacewmtk_1_1dart" id="r_namespacewmtk_1_1dart"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart.html">wmtk::dart</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacewmtk_1_1dart_1_1utils" id="r_namespacewmtk_1_1dart_1_1utils"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html">wmtk::dart::utils</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a3ec1f8600cffaf345ab61b3a8a1282d8" id="r_a3ec1f8600cffaf345ab61b3a8a1282d8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a3ec1f8600cffaf345ab61b3a8a1282d8">wmtk::dart::utils::get_cofaces</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> target_pt, int8_t permutation, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> coface_pt)</td></tr>
+<tr class="separator:a3ec1f8600cffaf345ab61b3a8a1282d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60a11bb311d90cdb26d2daf5b3f8c530" id="r_a60a11bb311d90cdb26d2daf5b3f8c530"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a60a11bb311d90cdb26d2daf5b3f8c530">wmtk::dart::utils::get_coface_ids</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> target_pt, int8_t permutation, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> coface_pt)</td></tr>
+<tr class="separator:a60a11bb311d90cdb26d2daf5b3f8c530"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f7a95b7257057fa18adfa4b3aabbe846.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_22f5d99172a5abbb27ead3628330a87f.html">dart</a></li><li class="navelem"><a class="el" href="dir_99bec2f75ed0941dc876d6e41197a83f.html">utils</a></li><li class="navelem"><a class="el" href="get__canonical__cofaces_8hpp.html">get_canonical_cofaces.hpp</a></li>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_f7a95b7257057fa18adfa4b3aabbe846.html">wmtk</a></li><li class="navelem"><a class="el" href="dir_22f5d99172a5abbb27ead3628330a87f.html">dart</a></li><li class="navelem"><a class="el" href="dir_99bec2f75ed0941dc876d6e41197a83f.html">utils</a></li><li class="navelem"><a class="el" href="get__cofaces_8hpp.html">get_cofaces.hpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>

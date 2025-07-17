@@ -174,8 +174,6 @@ Functions</h2></td></tr>
 <tr class="memitem:adec99f05fad7945fc15ed046e76214b4" id="r_adec99f05fad7945fc15ed046e76214b4"><td class="memTemplParams" colspan="2">template&lt;typename IntLike , size_t N&gt; </td></tr>
 <tr class="memitem:adec99f05fad7945fc15ed046e76214b4"><td class="memTemplItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#adec99f05fad7945fc15ed046e76214b4">from_vertex_permutation</a> (const std::array&lt; IntLike, N &gt; &amp;indices)</td></tr>
 <tr class="separator:adec99f05fad7945fc15ed046e76214b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f351f29b6749cd64eeb06ca962b735e" id="r_a7f351f29b6749cd64eeb06ca962b735e"><td class="memItemLeft" align="right" valign="top">std::vector&lt; std::vector&lt; int8_t &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a7f351f29b6749cd64eeb06ca962b735e">get_canonical_cofaces</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> coface_pt)</td></tr>
-<tr class="separator:a7f351f29b6749cd64eeb06ca962b735e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a62be23fd3b19b60fa0ad46c373eb215c" id="r_a62be23fd3b19b60fa0ad46c373eb215c"><td class="memItemLeft" align="right" valign="top">std::span&lt; const int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a62be23fd3b19b60fa0ad46c373eb215c">get_canonical_faces</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt)</td></tr>
 <tr class="separator:a62be23fd3b19b60fa0ad46c373eb215c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a905eb55d0aad2b68ab413be273bc7a79" id="r_a905eb55d0aad2b68ab413be273bc7a79"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a905eb55d0aad2b68ab413be273bc7a79">get_canonical_simplex</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, int8_t simplex_index)</td></tr>
@@ -192,6 +190,12 @@ Functions</h2></td></tr>
 <tr class="separator:af7d7eec8fdbddf8288064935cdd33133"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d0527148877095547bcad7f543c6840" id="r_a0d0527148877095547bcad7f543c6840"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a0d0527148877095547bcad7f543c6840">get_canonical_supdart</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, int8_t permutation)</td></tr>
 <tr class="separator:a0d0527148877095547bcad7f543c6840"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ec1f8600cffaf345ab61b3a8a1282d8" id="r_a3ec1f8600cffaf345ab61b3a8a1282d8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a3ec1f8600cffaf345ab61b3a8a1282d8">get_cofaces</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> target_pt, int8_t permutation, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> coface_pt)</td></tr>
+<tr class="separator:a3ec1f8600cffaf345ab61b3a8a1282d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a10944e1c8a23df74397c1953343770" id="r_a3a10944e1c8a23df74397c1953343770"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a3a10944e1c8a23df74397c1953343770">get_cofaces_ids</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> target_pt, int8_t permutation, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> coface_pt)</td></tr>
+<tr class="separator:a3a10944e1c8a23df74397c1953343770"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a60a11bb311d90cdb26d2daf5b3f8c530" id="r_a60a11bb311d90cdb26d2daf5b3f8c530"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a60a11bb311d90cdb26d2daf5b3f8c530">get_coface_ids</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> target_pt, int8_t permutation, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> coface_pt)</td></tr>
+<tr class="separator:a60a11bb311d90cdb26d2daf5b3f8c530"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9fc9061ede6f05c751f0fab4a498ae8" id="r_aa9fc9061ede6f05c751f0fab4a498ae8"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#aa9fc9061ede6f05c751f0fab4a498ae8">get_faces</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> target_pt, int8_t permutation, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> face_pt)</td></tr>
 <tr class="separator:aa9fc9061ede6f05c751f0fab4a498ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a92ae573c8d77186f347b33b5be8ed1af" id="r_a92ae573c8d77186f347b33b5be8ed1af"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a92ae573c8d77186f347b33b5be8ed1af">get_faces_ids</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> target_pt, int8_t permutation, const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> face_pt)</td></tr>
@@ -959,49 +963,6 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a id="a7f351f29b6749cd64eeb06ca962b735e" name="a7f351f29b6749cd64eeb06ca962b735e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f351f29b6749cd64eeb06ca962b735e">&#9670;&#160;</a></span>get_canonical_cofaces()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; std::vector&lt; int8_t &gt; &gt; wmtk::dart::utils::get_canonical_cofaces </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;&#160;</td>
-          <td class="paramname"><em>sd</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
-          <td class="paramname"><em>pt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
-          <td class="paramname"><em>coface_pt</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="get__canonical__cofaces_8cpp_source.html#l00007">7</a> of file <a class="el" href="get__canonical__cofaces_8cpp_source.html">get_canonical_cofaces.cpp</a>.</p>
-
-<p class="reference">References <a class="el" href="get__canonical__faces_8cpp_source.html#l00009">get_canonical_faces()</a>, <a class="el" href="get__faces_8cpp_source.html#l00007">get_faces()</a>, and <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a7f351f29b6749cd64eeb06ca962b735e_cgraph.svg" width="100%" height="439"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-
-</div>
-</div>
 <a id="a62be23fd3b19b60fa0ad46c373eb215c" name="a62be23fd3b19b60fa0ad46c373eb215c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a62be23fd3b19b60fa0ad46c373eb215c">&#9670;&#160;</a></span>get_canonical_faces()</h2>
 
@@ -1030,18 +991,18 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="get__canonical__faces_8cpp_source.html#l00009">9</a> of file <a class="el" href="get__canonical__faces_8cpp_source.html">get_canonical_faces.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00028">wmtk::autogen::edge_mesh::canonical_simplex</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00055">wmtk::autogen::tri_mesh::canonical_simplex</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00175">wmtk::autogen::tet_mesh::canonical_simplex</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00022">wmtk::autogen::edge_mesh::canonical_faces_0</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00048">wmtk::autogen::tri_mesh::canonical_faces_0</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00159">wmtk::autogen::tet_mesh::canonical_faces_0</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00052">wmtk::autogen::tri_mesh::canonical_faces_1</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00163">wmtk::autogen::tet_mesh::canonical_faces_1</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00167">wmtk::autogen::tet_mesh::canonical_faces_2</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="dart_2_simplex_dart_8cpp_source.html#l00023">wmtk::dart::SimplexDart::get_singleton()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a41f78914333ef35a88337d6ccf53b492">wmtk::dart::SimplexDart::identity()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="get__canonical__cofaces_8cpp_source.html#l00007">get_canonical_cofaces()</a>, and <a class="el" href="get__faces_8cpp_source.html#l00007">get_faces()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="get__cofaces_8cpp_source.html#l00010">get_cofaces()</a>, and <a class="el" href="get__faces_8cpp_source.html#l00008">get_faces()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a62be23fd3b19b60fa0ad46c373eb215c_cgraph.svg" width="396" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a62be23fd3b19b60fa0ad46c373eb215c_cgraph.svg" width="627" height="230"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a62be23fd3b19b60fa0ad46c373eb215c_icgraph.svg" width="568" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a62be23fd3b19b60fa0ad46c373eb215c_icgraph.svg" width="536" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1088,7 +1049,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="get__canonical__simplex_8hpp_source.html#l00009">9</a> of file <a class="el" href="get__canonical__simplex_8hpp_source.html">get_canonical_simplex.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00028">wmtk::autogen::edge_mesh::canonical_simplex</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00055">wmtk::autogen::tri_mesh::canonical_simplex</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00175">wmtk::autogen::tet_mesh::canonical_simplex</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a41f78914333ef35a88337d6ccf53b492">wmtk::dart::SimplexDart::identity()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00032">wmtk::autogen::edge_mesh::canonical_simplex</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00063">wmtk::autogen::tri_mesh::canonical_simplex</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00187">wmtk::autogen::tet_mesh::canonical_simplex</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a41f78914333ef35a88337d6ccf53b492">wmtk::dart::SimplexDart::identity()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1190,7 +1151,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="get__canonical__subdart_8hpp_source.html#l00012">12</a> of file <a class="el" href="get__canonical__subdart_8hpp_source.html">get_canonical_subdart.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00024">wmtk::autogen::edge_mesh::canonical_subdart</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00051">wmtk::autogen::tri_mesh::canonical_subdart</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00165">wmtk::autogen::tet_mesh::canonical_subdart</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a41f78914333ef35a88337d6ccf53b492">wmtk::dart::SimplexDart::identity()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00028">wmtk::autogen::edge_mesh::canonical_subdart</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00059">wmtk::autogen::tri_mesh::canonical_subdart</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00177">wmtk::autogen::tet_mesh::canonical_subdart</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a41f78914333ef35a88337d6ccf53b492">wmtk::dart::SimplexDart::identity()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1333,7 +1294,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="get__canonical__supdart_8hpp_source.html#l00013">13</a> of file <a class="el" href="get__canonical__supdart_8hpp_source.html">get_canonical_supdart.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00026">wmtk::autogen::edge_mesh::canonical_supdart</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00053">wmtk::autogen::tri_mesh::canonical_supdart</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00170">wmtk::autogen::tet_mesh::canonical_supdart</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a41f78914333ef35a88337d6ccf53b492">wmtk::dart::SimplexDart::identity()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00030">wmtk::autogen::edge_mesh::canonical_supdart</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00061">wmtk::autogen::tri_mesh::canonical_supdart</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00182">wmtk::autogen::tet_mesh::canonical_supdart</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a41f78914333ef35a88337d6ccf53b492">wmtk::dart::SimplexDart::identity()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="get__canonical__simplex__orientation_8hpp_source.html#l00008">get_canonical_simplex_orientation()</a>, and <a class="el" href="local__simplex__decomposition_8cpp_source.html#l00018">local_simplex_decomposition()</a>.</p>
 <div class="dynheader">
@@ -1345,6 +1306,151 @@ Here is the call graph for this function:</div>
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a0d0527148877095547bcad7f543c6840_icgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a60a11bb311d90cdb26d2daf5b3f8c530" name="a60a11bb311d90cdb26d2daf5b3f8c530"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a60a11bb311d90cdb26d2daf5b3f8c530">&#9670;&#160;</a></span>get_coface_ids()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; int8_t &gt; wmtk::dart::utils::get_coface_ids </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>mesh_pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>target_pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>permutation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>coface_pt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3ec1f8600cffaf345ab61b3a8a1282d8" name="a3ec1f8600cffaf345ab61b3a8a1282d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec1f8600cffaf345ab61b3a8a1282d8">&#9670;&#160;</a></span>get_cofaces()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; int8_t &gt; wmtk::dart::utils::get_cofaces </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>mesh_pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>target_pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>permutation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>coface_pt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="get__cofaces_8cpp_source.html#l00010">10</a> of file <a class="el" href="get__cofaces_8cpp_source.html">get_cofaces.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="get__canonical__faces_8cpp_source.html#l00009">get_canonical_faces()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00037">wmtk::get_primitive_type_from_id()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, and <a class="el" href="dart_2_simplex_dart_8cpp_source.html#l00023">wmtk::dart::SimplexDart::get_singleton()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="get__cofaces_8cpp_source.html#l00049">get_cofaces_ids()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a3ec1f8600cffaf345ab61b3a8a1282d8_cgraph.svg" width="100%" height="499"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a3ec1f8600cffaf345ab61b3a8a1282d8_icgraph.svg" width="334" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a3a10944e1c8a23df74397c1953343770" name="a3a10944e1c8a23df74397c1953343770"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a10944e1c8a23df74397c1953343770">&#9670;&#160;</a></span>get_cofaces_ids()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; int8_t &gt; wmtk::dart::utils::get_cofaces_ids </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>mesh_pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>target_pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int8_t&#160;</td>
+          <td class="paramname"><em>permutation</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>coface_pt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="get__cofaces_8cpp_source.html#l00049">49</a> of file <a class="el" href="get__cofaces_8cpp_source.html">get_cofaces.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="get__cofaces_8cpp_source.html#l00010">get_cofaces()</a>, and <a class="el" href="dart_2_simplex_dart_8cpp_source.html#l00023">wmtk::dart::SimplexDart::get_singleton()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a3a10944e1c8a23df74397c1953343770_cgraph.svg" width="100%" height="479"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1427,20 +1533,20 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="get__faces_8cpp_source.html#l00007">7</a> of file <a class="el" href="get__faces_8cpp_source.html">get_faces.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="get__faces_8cpp_source.html#l00008">8</a> of file <a class="el" href="get__faces_8cpp_source.html">get_faces.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="get__canonical__faces_8cpp_source.html#l00009">get_canonical_faces()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, and <a class="el" href="dart_2_simplex_dart_8cpp_source.html#l00023">wmtk::dart::SimplexDart::get_singleton()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="get__canonical__cofaces_8cpp_source.html#l00007">get_canonical_cofaces()</a>, and <a class="el" href="get__faces_8cpp_source.html#l00032">get_faces_ids()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="get__faces_8cpp_source.html#l00037">get_faces_ids()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_aa9fc9061ede6f05c751f0fab4a498ae8_cgraph.svg" width="610" height="143"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_aa9fc9061ede6f05c751f0fab4a498ae8_cgraph.svg" width="100%" height="472"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_aa9fc9061ede6f05c751f0fab4a498ae8_icgraph.svg" width="366" height="115"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_aa9fc9061ede6f05c751f0fab4a498ae8_icgraph.svg" width="334" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -1483,13 +1589,13 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="get__faces_8cpp_source.html#l00032">32</a> of file <a class="el" href="get__faces_8cpp_source.html">get_faces.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="get__faces_8cpp_source.html#l00037">37</a> of file <a class="el" href="get__faces_8cpp_source.html">get_faces.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="get__faces_8cpp_source.html#l00007">get_faces()</a>, and <a class="el" href="dart_2_simplex_dart_8cpp_source.html#l00023">wmtk::dart::SimplexDart::get_singleton()</a>.</p>
+<p class="reference">References <a class="el" href="get__faces_8cpp_source.html#l00008">get_faces()</a>, and <a class="el" href="dart_2_simplex_dart_8cpp_source.html#l00023">wmtk::dart::SimplexDart::get_singleton()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a92ae573c8d77186f347b33b5be8ed1af_cgraph.svg" width="100%" height="418"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_a92ae573c8d77186f347b33b5be8ed1af_cgraph.svg" width="100%" height="472"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -1580,7 +1686,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="get__local__vertex__permutation_8cpp_source.html#l00007">7</a> of file <a class="el" href="get__local__vertex__permutation_8cpp_source.html">get_local_vertex_permutation.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00159">wmtk::autogen::tet_mesh::permutations</a>, <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00022">wmtk::autogen::edge_mesh::permutations</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00048">wmtk::autogen::tri_mesh::permutations</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00171">wmtk::autogen::tet_mesh::permutations</a>, <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00026">wmtk::autogen::edge_mesh::permutations</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00056">wmtk::autogen::tri_mesh::permutations</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="get__local__vertex__permutation_8cpp_source.html#l00024">get_local_vertex_permutation()</a>, <a class="el" href="permute_8hpp_source.html#l00033">permute()</a>, and <a class="el" href="permute_8hpp_source.html#l00015">permute()</a>.</p>
 <div class="dynheader">
@@ -2271,7 +2377,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="largest__shared__subdart__size_8cpp_source.html#l00009">9</a> of file <a class="el" href="largest__shared__subdart__size_8cpp_source.html">largest_shared_subdart_size.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="autogen_2edge__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00021">wmtk::autogen::edge_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="autogen_2tet__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00024">wmtk::autogen::tet_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="autogen_2tri__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00022">wmtk::autogen::tri_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="autogen_2edge__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00021">wmtk::autogen::edge_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="autogen_2tet__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00025">wmtk::autogen::tet_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="autogen_2tri__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00023">wmtk::autogen::tri_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="largest__shared__subdart__size_8cpp_source.html#l00037">largest_shared_subdart_size()</a>, <a class="el" href="_collapse_alternate_facet_option_data_8cpp_source.html#l00114">wmtk::operations::internal::CollapseAlternateFacetOptionData::largest_subdart()</a>, and <a class="el" href="_split_alternate_facet_option_data_8cpp_source.html#l00106">wmtk::operations::internal::SplitAlternateFacetOptionData::new_gid()</a>.</p>
 <div class="dynheader">
@@ -2865,7 +2971,7 @@ Here is the caller graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="dart_2utils_2subdart__maximal__action__to__face_8cpp_source.html#l00009">9</a> of file <a class="el" href="dart_2utils_2subdart__maximal__action__to__face_8cpp_source.html">subdart_maximal_action_to_face.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="autogen_2edge__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00035">wmtk::autogen::edge_mesh::subdart_maximal_action_to_face()</a>, <a class="el" href="autogen_2tet__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00041">wmtk::autogen::tet_mesh::subdart_maximal_action_to_face()</a>, <a class="el" href="autogen_2tri__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00037">wmtk::autogen::tri_mesh::subdart_maximal_action_to_face()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="autogen_2edge__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00035">wmtk::autogen::edge_mesh::subdart_maximal_action_to_face()</a>, <a class="el" href="autogen_2tet__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00043">wmtk::autogen::tet_mesh::subdart_maximal_action_to_face()</a>, <a class="el" href="autogen_2tri__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00039">wmtk::autogen::tri_mesh::subdart_maximal_action_to_face()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dart_2utils_2subdart__maximal__action__to__face_8cpp_source.html#l00110">subdart_maximal_action_to_face()</a>.</p>
 <div class="dynheader">
@@ -3076,7 +3182,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="dart_2utils_2subdart__maximal__action__to__face_8cpp_source.html#l00064">64</a> of file <a class="el" href="dart_2utils_2subdart__maximal__action__to__face_8cpp_source.html">subdart_maximal_action_to_face.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="autogen_2edge__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00021">wmtk::autogen::edge_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="autogen_2tet__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00024">wmtk::autogen::tet_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="autogen_2tri__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00022">wmtk::autogen::tri_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="autogen_2edge__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00021">wmtk::autogen::edge_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="autogen_2tet__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00025">wmtk::autogen::tet_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="autogen_2tri__mesh_2subdart__maximal__action__to__face_8cpp_source.html#l00023">wmtk::autogen::tri_mesh::subdart_maximal_action_to_face_size()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="dart_2utils_2subdart__maximal__action__to__face_8cpp_source.html#l00101">subdart_maximal_action_to_face_size()</a>.</p>
 <div class="dynheader">

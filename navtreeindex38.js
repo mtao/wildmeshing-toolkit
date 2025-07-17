@@ -1,5 +1,8 @@
 var NAVTREEINDEX38 =
 {
+"is__manifold_8cpp.html":[11,0,2,0,9,0,7],
+"is__manifold_8cpp.html#a944ed579e6299bcf280db66f4256bd37":[11,0,2,0,9,0,7,0],
+"is__manifold_8cpp_source.html":[11,0,2,0,9,0,7],
 "is__manifold_8hpp.html":[11,0,2,0,9,0,8],
 "is__manifold_8hpp.html#a944ed579e6299bcf280db66f4256bd37":[11,0,2,0,9,0,8,0],
 "is__manifold_8hpp_source.html":[11,0,2,0,9,0,8],
@@ -246,8 +249,5 @@ var NAVTREEINDEX38 =
 "min__neighbor_8cpp.html":[11,0,0,13,0,0,0,0,2,17],
 "min__neighbor_8cpp_source.html":[11,0,0,13,0,0,0,0,2,17],
 "min__neighbor_8hpp.html":[11,0,0,13,0,0,0,0,2,18],
-"min__neighbor_8hpp.html#ae8cce62d47732b6137d6871049d73da2":[11,0,0,13,0,0,0,0,2,18,1],
-"min__neighbor_8hpp_source.html":[11,0,0,13,0,0,0,0,2,18],
-"multi__mesh__edge__collapse_8cpp.html":[11,0,2,0,7,7,0],
-"multi__mesh__edge__collapse_8cpp.html#a123e0fd8ab6a3a44b941fff19ae25834":[11,0,2,0,7,7,0,1]
+"min__neighbor_8hpp.html#ae8cce62d47732b6137d6871049d73da2":[11,0,0,13,0,0,0,0,2,18,1]
 };
