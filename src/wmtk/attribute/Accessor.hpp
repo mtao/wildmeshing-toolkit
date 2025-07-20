@@ -164,7 +164,6 @@ public:
 
     int64_t transaction_depth() const;
 
-protected:
     /**
      * @brief Retrieve the global ID of the given simplex.
      *

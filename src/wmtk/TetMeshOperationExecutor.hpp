@@ -10,13 +10,15 @@ public:
     TetMeshOperationExecutor(TetMesh& m, const Tuple& operating_tuple);
 
     std::array<attribute::FlagAccessor<TetMesh>, 4> flag_accessors;
-    attribute::Accessor<int64_t, TetMesh>& tt_accessor;
-    attribute::Accessor<int64_t, TetMesh>& tf_accessor;
-    attribute::Accessor<int64_t, TetMesh>& te_accessor;
-    attribute::Accessor<int64_t, TetMesh>& tv_accessor;
-    attribute::Accessor<int64_t, TetMesh>& vt_accessor;
-    attribute::Accessor<int64_t, TetMesh>& et_accessor;
-    attribute::Accessor<int64_t, TetMesh>& ft_accessor;
+
+    attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>& tv_accessor;
+    attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 6>& te_accessor;
+    attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>& tf_accessor;
+    attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>& tt_accessor;
+
+    attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>& vt_accessor;
+    attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>& et_accessor;
+    attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>& ft_accessor;
 
 
     /**

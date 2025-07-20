@@ -68,14 +68,35 @@ TetMesh& TetMesh::operator=(TetMesh&& o)
 
 void TetMesh::make_cached_accessors()
 {
-    m_vt_accessor = std::make_unique<attribute::Accessor<int64_t, TetMesh>>(*this, m_vt_handle);
-    m_et_accessor = std::make_unique<attribute::Accessor<int64_t, TetMesh>>(*this, m_et_handle);
-    m_ft_accessor = std::make_unique<attribute::Accessor<int64_t, TetMesh>>(*this, m_ft_handle);
+    m_vt_accessor = std::make_unique<
+        attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>>(
+        *this,
+        m_vt_handle);
+    m_et_accessor = std::make_unique<
+        attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>>(
+        *this,
+        m_et_handle);
+    m_ft_accessor = std::make_unique<
+        attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>>(
+        *this,
+        m_ft_handle);
 
-    m_tv_accessor = std::make_unique<attribute::Accessor<int64_t, TetMesh>>(*this, m_tv_handle);
-    m_te_accessor = std::make_unique<attribute::Accessor<int64_t, TetMesh>>(*this, m_te_handle);
-    m_tf_accessor = std::make_unique<attribute::Accessor<int64_t, TetMesh>>(*this, m_tf_handle);
-    m_tt_accessor = std::make_unique<attribute::Accessor<int64_t, TetMesh>>(*this, m_tt_handle);
+    m_tv_accessor = std::make_unique<
+        attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>>(
+        *this,
+        m_tv_handle);
+    m_te_accessor = std::make_unique<
+        attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 6>>(
+        *this,
+        m_te_handle);
+    m_tf_accessor = std::make_unique<
+        attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>>(
+        *this,
+        m_tf_handle);
+    m_tt_accessor = std::make_unique<
+        attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>>(
+        *this,
+        m_tt_handle);
 }
 
 

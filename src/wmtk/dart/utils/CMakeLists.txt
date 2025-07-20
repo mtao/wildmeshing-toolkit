@@ -26,6 +26,9 @@ set(SRC_FILES
     get_canonical_faces.cpp
     get_canonical_faces.hpp
 
+    get_canonical_simplices.cpp
+    get_canonical_simplices.hpp
+
     get_cofaces.cpp
     get_cofaces.hpp
     

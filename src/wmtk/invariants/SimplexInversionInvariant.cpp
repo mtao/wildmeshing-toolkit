@@ -3,6 +3,7 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/TetMesh.hpp>
 #include <wmtk/TriMesh.hpp>
+#include <wmtk/dart/utils/get_canonical_simplices.hpp>
 #include <wmtk/simplex/faces_single_dimension.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/orient.hpp>
@@ -30,13 +31,20 @@ bool SimplexInversionInvariant<T>::after(
         const auto accessor = mymesh.create_const_accessor(m_coordinate_handle);
         assert(accessor.dimension() == 3);
 
+        const auto& tv_acc = mymesh.tv_accessor();
+        const auto& tv_attr = tv_acc.attribute();
         for (const auto& t : top_dimension_tuples_after) {
             const auto tet_vertices = mymesh.orient_vertices(t);
             assert(tet_vertices.size() == 4);
-            const Eigen::Vector3<T> p0 = accessor.const_vector_attribute(tet_vertices[0]);
-            const Eigen::Vector3<T> p1 = accessor.const_vector_attribute(tet_vertices[1]);
-            const Eigen::Vector3<T> p2 = accessor.const_vector_attribute(tet_vertices[2]);
-            const Eigen::Vector3<T> p3 = accessor.const_vector_attribute(tet_vertices[3]);
+            const static auto perms = dart::utils::get_canonical_simplices(
+                PrimitiveType::Tetrahedron,
+                PrimitiveType::Vertex);
+            const int64_t gid = t.global_cid();
+            auto tv = tv_attr.const_vector_attribute(gid);
+            const Eigen::Vector3<T> p0 = accessor.const_vector_attribute(tv(0));
+            const Eigen::Vector3<T> p1 = accessor.const_vector_attribute(tv(1));
+            const Eigen::Vector3<T> p2 = accessor.const_vector_attribute(tv(2));
+            const Eigen::Vector3<T> p3 = accessor.const_vector_attribute(tv(3));
 
             if (utils::wmtk_orient3d(p0, p1, p2, p3) <= 0) {
                 wmtk::logger().debug(

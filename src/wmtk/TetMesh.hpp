@@ -2,6 +2,7 @@
 
 #include <wmtk/autogen/tet_mesh/simplex_index_from_permutation_index.hpp>
 #include "MeshCRTP.hpp"
+#include "wmtk/attribute/TypedAttributeHandle.hpp"
 
 namespace wmtk {
 namespace operations::utils {
@@ -94,20 +95,29 @@ protected:
     TypedAttributeHandle<int64_t> m_tf_handle;
     TypedAttributeHandle<int64_t> m_tt_handle;
 
-    std::unique_ptr<attribute::Accessor<int64_t, TetMesh>> m_vt_accessor;
-    std::unique_ptr<attribute::Accessor<int64_t, TetMesh>> m_et_accessor;
-    std::unique_ptr<attribute::Accessor<int64_t, TetMesh>> m_ft_accessor;
+    std::unique_ptr<attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>>
+        m_vt_accessor;
+    std::unique_ptr<attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>>
+        m_et_accessor;
+    std::unique_ptr<attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 1>>
+        m_ft_accessor;
 
-    std::unique_ptr<attribute::Accessor<int64_t, TetMesh>> m_tv_accessor;
-    std::unique_ptr<attribute::Accessor<int64_t, TetMesh>> m_te_accessor;
-    std::unique_ptr<attribute::Accessor<int64_t, TetMesh>> m_tf_accessor;
-    std::unique_ptr<attribute::Accessor<int64_t, TetMesh>> m_tt_accessor;
+    std::unique_ptr<attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>>
+        m_tv_accessor;
+    std::unique_ptr<attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 6>>
+        m_te_accessor;
+    std::unique_ptr<attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>>
+        m_tf_accessor;
+    std::unique_ptr<attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>>
+        m_tt_accessor;
 
 public:
     Tuple vertex_tuple_from_id(int64_t id) const;
     Tuple edge_tuple_from_id(int64_t id) const;
     Tuple face_tuple_from_id(int64_t id) const;
     Tuple tet_tuple_from_id(int64_t id) const;
+
+    const attribute::Accessor<int64_t, TetMesh, attribute::CachingAttribute<int64_t>, 4>& tv_accessor() const { return *m_tv_accessor; }
 };
 
 inline Tuple TetMesh::switch_vertex(const Tuple& tuple) const
@@ -160,13 +170,13 @@ inline int64_t TetMesh::id(int64_t global_id, int8_t permutation_index, Primitiv
     int8_t index = autogen::tet_mesh::simplex_index_from_permutation_index(permutation_index, pt);
     switch (pt) {
     case PrimitiveType::Vertex: {
-        return m_tv_accessor->attribute().const_vector_single_value(global_id,index);
+        return m_tv_accessor->attribute().const_vector_single_value(global_id, index);
     }
     case PrimitiveType::Edge: {
-        return m_te_accessor->attribute().const_vector_single_value(global_id,index);
+        return m_te_accessor->attribute().const_vector_single_value(global_id, index);
     }
     case PrimitiveType::Triangle: {
-        return m_tf_accessor->attribute().const_vector_single_value(global_id,index);
+        return m_tf_accessor->attribute().const_vector_single_value(global_id, index);
     }
     case PrimitiveType::Tetrahedron: {
         return global_id;
