@@ -639,20 +639,20 @@
 </a>
 </g>
 </g>
-<!-- Node32 -->
-<g id="Node000032" class="node">
-<title>Node32</title>
-<g id="a_Node000032"><a xlink:href="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor.html#afdafef0c67dc0d9b6f2aef827d638eb6" target="_top" xlink:title="split edge v1&#45;v2">
+<!-- Node33 -->
+<g id="Node000033" class="node">
+<title>Node33</title>
+<g id="a_Node000033"><a xlink:href="classwmtk_1_1_tet_mesh_1_1_tet_mesh_operation_executor.html#a01f3a3bac005c290049e69e2c5330dfb" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="#666666" points="803,-859.5 618,-859.5 618,-829.5 803,-829.5 803,-859.5"/>
 <text text-anchor="start" x="626" y="-847.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::TetMesh::TetMeshOperation</text>
-<text text-anchor="middle" x="710.5" y="-836.5" font-family="Helvetica,sans-Serif" font-size="10.00">Executor::split_edge</text>
+<text text-anchor="middle" x="710.5" y="-836.5" font-family="Helvetica,sans-Serif" font-size="10.00">Executor::split_edge_precompute</text>
 </a>
 </g>
 </g>
-<!-- Node26&#45;&gt;Node32 -->
-<g id="edge35_Node000026_Node000032" class="edge">
-<title>Node26&#45;&gt;Node32</title>
-<g id="a_edge35_Node000026_Node000032"><a xlink:title=" ">
+<!-- Node26&#45;&gt;Node33 -->
+<g id="edge36_Node000026_Node000033" class="edge">
+<title>Node26&#45;&gt;Node33</title>
+<g id="a_edge36_Node000026_Node000033"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M846.53,-808.22C820.99,-815.09 792.05,-822.86 767.54,-829.45"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="847.76,-811.52 856.51,-805.54 845.94,-804.76 847.76,-811.52"/>
 </a>
@@ -682,10 +682,10 @@
 <g id="Node000031" class="node">
 <title>Node31</title>
 <g id="a_Node000031"><a xlink:href="classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#a6d058aa5a832bcf22fd76c0762fe058a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="570,-918 424,-918 424,-877 570,-877 570,-918"/>
-<text text-anchor="start" x="432" y="-906" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::operations::internal</text>
-<text text-anchor="start" x="432" y="-895" font-family="Helvetica,sans-Serif" font-size="10.00">::SplitAlternateFacetData</text>
-<text text-anchor="middle" x="497" y="-884" font-family="Helvetica,sans-Serif" font-size="10.00">::add_facet</text>
+<polygon fill="white" stroke="#666666" points="570,-883 424,-883 424,-842 570,-842 570,-883"/>
+<text text-anchor="start" x="432" y="-871" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::operations::internal</text>
+<text text-anchor="start" x="432" y="-860" font-family="Helvetica,sans-Serif" font-size="10.00">::SplitAlternateFacetData</text>
+<text text-anchor="middle" x="497" y="-849" font-family="Helvetica,sans-Serif" font-size="10.00">::add_facet</text>
 </a>
 </g>
 </g>
@@ -693,28 +693,28 @@
 <g id="edge34_Node000030_Node000031" class="edge">
 <title>Node30&#45;&gt;Node31</title>
 <g id="a_edge34_Node000030_Node000031"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M610.18,-894.85C596.74,-895.17 583.16,-895.49 570.31,-895.79"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="610.5,-898.34 620.42,-894.61 610.34,-891.34 610.5,-898.34"/>
+<path fill="none" stroke="#63b8ff" d="M610.18,-878.41C596.74,-876.51 583.16,-874.58 570.31,-872.76"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="610.03,-881.93 620.42,-879.86 611.01,-874.99 610.03,-881.93"/>
 </a>
 </g>
 </g>
-<!-- Node33 -->
-<g id="Node000033" class="node">
-<title>Node33</title>
-<g id="a_Node000033"><a xlink:href="classwmtk_1_1operations_1_1utils_1_1_multi_mesh_edge_split_functor.html#af010a058e1bd67dbd1019342c0ac8c7d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="574.5,-859 419.5,-859 419.5,-818 574.5,-818 574.5,-859"/>
-<text text-anchor="start" x="427.5" y="-847" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::operations::utils</text>
-<text text-anchor="start" x="427.5" y="-836" font-family="Helvetica,sans-Serif" font-size="10.00">::MultiMeshEdgeSplitFunctor</text>
-<text text-anchor="middle" x="497" y="-825" font-family="Helvetica,sans-Serif" font-size="10.00">::operator()</text>
+<!-- Node32 -->
+<g id="Node000032" class="node">
+<title>Node32</title>
+<g id="a_Node000032"><a xlink:href="classwmtk_1_1operations_1_1internal_1_1_split_alternate_facet_data.html#aef8425cc038af71597ac0ff209f9afbc" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="570,-942 424,-942 424,-901 570,-901 570,-942"/>
+<text text-anchor="start" x="432" y="-930" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::operations::internal</text>
+<text text-anchor="start" x="432" y="-919" font-family="Helvetica,sans-Serif" font-size="10.00">::SplitAlternateFacetData</text>
+<text text-anchor="middle" x="497" y="-908" font-family="Helvetica,sans-Serif" font-size="10.00">::SplitAlternateFacetData</text>
 </a>
 </g>
 </g>
-<!-- Node32&#45;&gt;Node33 -->
-<g id="edge36_Node000032_Node000033" class="edge">
-<title>Node32&#45;&gt;Node33</title>
-<g id="a_edge36_Node000032_Node000033"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M607.79,-841.61C596.68,-841.3 585.51,-840.98 574.78,-840.68"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="607.87,-845.12 617.96,-841.9 608.07,-838.12 607.87,-845.12"/>
+<!-- Node30&#45;&gt;Node32 -->
+<g id="edge35_Node000030_Node000032" class="edge">
+<title>Node30&#45;&gt;Node32</title>
+<g id="a_edge35_Node000030_Node000032"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M610.18,-906.12C596.74,-907.96 583.16,-909.82 570.31,-911.59"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="610.99,-909.54 620.42,-904.71 610.04,-902.61 610.99,-909.54"/>
 </a>
 </g>
 </g>

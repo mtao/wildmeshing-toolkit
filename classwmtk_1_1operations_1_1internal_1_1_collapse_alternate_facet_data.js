@@ -13,6 +13,7 @@ var classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data =
     [ "get_alternatives", "classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html#ab1a0c0cd7b37be815821196553f3460a", null ],
     [ "get_alternatives", "classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html#ad5d625ffe8c3c7b0e62c77cd2332f053", null ],
     [ "get_alternatives_data", "classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html#a2d2b0786eed93b41e02cb5fc6b4ce52b", null ],
+    [ "get_simplices_to_delete", "classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html#a7daa0d385ff985e9790ca40d6a078559", null ],
     [ "sort", "classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html#a0ab039e7f83ad4b2784035aa76be139d", null ],
     [ "m_data", "classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html#a4bc8895a30e2c3c11051de08a2dd62a0", null ]
 ];
