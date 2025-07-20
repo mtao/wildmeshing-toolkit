@@ -42,6 +42,21 @@ void exactinit()
     };
     MySingleton::instance();
 }
+namespace {
+
+// Thread-safe initialization using Meyers' singleton
+class MySingleton
+{
+public:
+    MySingleton()
+    {
+        ::exactinit();
+
+        vol_rem::initFPU();
+    }
+};
+const static MySingleton ms;
+} // namespace
 
 namespace {
 bool is_rounded(const Eigen::Ref<const Eigen::Vector3<Rational>>& p)
@@ -53,19 +68,20 @@ bool is_rounded(const Eigen::Ref<const Eigen::Vector2<Rational>>& p)
     return p[0].is_rounded() && p[1].is_rounded();
 }
 
-template <typename T>
-T determinant(const Eigen::Matrix<T, Eigen::Dynamic, Eigen::Dynamic, 0, 3, 3>& mat)
+template <typename T, int Rows>
+T determinant(const Eigen::Matrix<T, Rows, Rows>& mat)
 {
-    assert(mat.rows() == mat.cols());
-
-    if (mat.rows() == 1)
+    if constexpr (Rows == 1) {
         return mat(0);
-    else if (mat.rows() == 2)
+    }
+    if constexpr (Rows == 2) {
         return mat(0, 0) * mat(1, 1) - mat(0, 1) * mat(1, 0);
-    else if (mat.rows() == 3)
+    }
+    if constexpr (Rows == 3) {
         return mat(0, 0) * (mat(1, 1) * mat(2, 2) - mat(1, 2) * mat(2, 1)) -
                mat(0, 1) * (mat(1, 0) * mat(2, 2) - mat(1, 2) * mat(2, 0)) +
                mat(0, 2) * (mat(1, 0) * mat(2, 1) - mat(1, 1) * mat(2, 0));
+    }
 
     assert(false);
     return T();
@@ -78,12 +94,6 @@ int wmtk_orient3d(
     const Eigen::Ref<const Eigen::Vector3<Rational>>& p2,
     const Eigen::Ref<const Eigen::Vector3<Rational>>& p3)
 {
-    static bool initialized = false;
-    if (!initialized) {
-        vol_rem::initFPU();
-        initialized = true;
-    }
-
     if (is_rounded(p0) && is_rounded(p1) && is_rounded(p2) && is_rounded(p3)) {
         return wmtk_orient3d(
             p0.cast<double>(),
@@ -92,18 +102,12 @@ int wmtk_orient3d(
             p3.cast<double>());
     } else {
         // Fast version using intervals
-        Eigen::Vector3<vol_rem::interval_number> p0r_i;
-        Eigen::Vector3<vol_rem::interval_number> p1r_i;
-        Eigen::Vector3<vol_rem::interval_number> p2r_i;
-        Eigen::Vector3<vol_rem::interval_number> p3r_i;
 
         vol_rem::setFPUModeToRoundUP();
-        for (int64_t i = 0; i < 3; ++i) {
-            p0r_i[i] = rational_to_interval(p0[i]);
-            p1r_i[i] = rational_to_interval(p1[i]);
-            p2r_i[i] = rational_to_interval(p2[i]);
-            p3r_i[i] = rational_to_interval(p3[i]);
-        }
+        Eigen::Vector3<vol_rem::interval_number> p0r_i = p0.unaryExpr(&rational_to_interval);
+        Eigen::Vector3<vol_rem::interval_number> p1r_i = p1.unaryExpr(&rational_to_interval);
+        Eigen::Vector3<vol_rem::interval_number> p2r_i = p2.unaryExpr(&rational_to_interval);
+        Eigen::Vector3<vol_rem::interval_number> p3r_i = p3.unaryExpr(&rational_to_interval);
         Eigen::Matrix3<vol_rem::interval_number> M_i;
         M_i.row(0) = p0r_i - p3r_i;
         M_i.row(1) = p1r_i - p3r_i;
@@ -120,17 +124,13 @@ int wmtk_orient3d(
         }
 
         // Slow version using rationals
-        Eigen::Vector3<Rational> p0r;
-        Eigen::Vector3<Rational> p1r;
-        Eigen::Vector3<Rational> p2r;
-        Eigen::Vector3<Rational> p3r;
 
-        for (int64_t i = 0; i < 3; ++i) {
-            p0r[i] = Rational(p0[i], false);
-            p1r[i] = Rational(p1[i], false);
-            p2r[i] = Rational(p2[i], false);
-            p3r[i] = Rational(p3[i], false);
-        }
+        auto to_rational = [](const Rational& r) -> Rational { return Rational(r, false); };
+        Eigen::Vector3<Rational> p0r = p0.unaryExpr(to_rational);
+        Eigen::Vector3<Rational> p1r = p1.unaryExpr(to_rational);
+        Eigen::Vector3<Rational> p2r = p2.unaryExpr(to_rational);
+        Eigen::Vector3<Rational> p3r = p3.unaryExpr(to_rational);
+
 
         Eigen::Matrix3<Rational> M;
         M.row(0) = p0r - p3r;
@@ -163,7 +163,6 @@ int wmtk_orient3d(
     Eigen::Vector3d p2nc = p2;
     Eigen::Vector3d p3nc = p3;
 
-    exactinit();
     const auto res = orient3d(p0nc.data(), p1nc.data(), p2nc.data(), p3nc.data());
 
     if (res > 0)
@@ -177,7 +176,6 @@ int wmtk_orient3d(
 
 int wmtk_orient2d(double p0x, double p0y, double p1x, double p1y, double p2x, double p2y)
 {
-    exactinit();
     double p0[2]{p0x, p0y};
     double p1[2]{p1x, p1y};
     double p2[2]{p2x, p2y};
@@ -199,7 +197,6 @@ int wmtk_orient2d(
     if (is_rounded(p0) && is_rounded(p1) && is_rounded(p2)) {
         return wmtk_orient2d(p0.cast<double>(), p1.cast<double>(), p2.cast<double>());
     } else {
-
         // Fast version using intervals
         Eigen::Vector2<vol_rem::interval_number> p0r_i;
         Eigen::Vector2<vol_rem::interval_number> p1r_i;
@@ -253,7 +250,6 @@ int wmtk_orient2d(
     Eigen::Vector2d p1nc = p1;
     Eigen::Vector2d p2nc = p2;
 
-    exactinit();
     const auto res = orient2d(p0nc.data(), p1nc.data(), p2nc.data());
 
     if (res > 0)

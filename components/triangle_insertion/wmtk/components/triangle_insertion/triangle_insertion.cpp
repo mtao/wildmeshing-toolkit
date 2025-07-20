@@ -68,7 +68,7 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
     /* -------------rounding------------ */
 
     if (round) {
-        spdlog::info("Entering roundering");
+        spdlog::info("Entering rounding");
         auto rounding_pt_attribute =
             tetmesh->get_attribute_handle_typed<Rational>(in_position, PrimitiveType::Vertex);
 
@@ -209,7 +209,8 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
 
             } else {
                 logger().error("Creating open boundary child mesh");
-            child_meshes.open_boundary_mesh = wmtk::components::multimesh::from_tag(open_boundary_handle, 1);
+                child_meshes.open_boundary_mesh =
+                    wmtk::components::multimesh::from_tag(open_boundary_handle, 1);
                 /*
                 internal::MultiMeshFromTag OpenBoundaryFromTag(*tetmesh, open_boundary_handle, 1);
                 OpenBoundaryFromTag.compute_substructure_mesh();
@@ -230,7 +231,8 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
             NonmanifoldEdgeFromTag.remove_soup();
             */
 
-            child_meshes.nonmanifold_edge_mesh = wmtk::components::multimesh::from_tag(nonmanifold_edge_handle, 1);
+            child_meshes.nonmanifold_edge_mesh =
+                wmtk::components::multimesh::from_tag(nonmanifold_edge_handle, 1);
         }
 
         /* ---------------------bounding box-------------------------*/
@@ -246,14 +248,14 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
         }
 
 
-            child_meshes.bbox_mesh= wmtk::components::multimesh::from_tag(bbox_handle, 1);
-            /*
-        internal::MultiMeshFromTag NonmanifoldEdgeFromTag(*tetmesh, bbox_handle, 1);
-        NonmanifoldEdgeFromTag.compute_substructure_mesh();
+        child_meshes.bbox_mesh = wmtk::components::multimesh::from_tag(bbox_handle, 1);
+        /*
+    internal::MultiMeshFromTag NonmanifoldEdgeFromTag(*tetmesh, bbox_handle, 1);
+    NonmanifoldEdgeFromTag.compute_substructure_mesh();
 
-        child_meshes.bbox_mesh = tetmesh->get_child_meshes().back();
-        NonmanifoldEdgeFromTag.remove_soup();
-        */
+    child_meshes.bbox_mesh = tetmesh->get_child_meshes().back();
+    NonmanifoldEdgeFromTag.remove_soup();
+    */
 
 
         /* -----------nonmanifold vertices in input surface--------- */
@@ -265,6 +267,43 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
             tetmesh->create_accessor<int64_t>(nonmanifold_vertex_handle);
 
         pass_through.push_back(nonmanifold_vertex_handle);
+
+#if true
+        if (has_openboundary) {
+            const Mesh& bdry_mesh = *child_meshes.open_boundary_mesh;
+            // following code depends on map to parent being stable
+            assert(&bdry_mesh.get_multi_mesh_parent_mesh() == tetmesh.get());
+            for (const auto& v : bdry_mesh.get_all(PrimitiveType::Vertex)) {
+                Tuple p = bdry_mesh.map_to_parent_tuple(simplex::Simplex::vertex(v));
+                nonmanifold_vertex_accessor.scalar_attribute(p)++;
+            }
+        }
+        if (process_nonmanifold_edges) {
+            const Mesh& bdry_mesh = *child_meshes.nonmanifold_edge_mesh;
+            // following code depends on map to parent being stable
+            assert(&bdry_mesh.get_multi_mesh_parent_mesh() == tetmesh.get());
+            for (const auto& v : bdry_mesh.get_all(PrimitiveType::Vertex)) {
+                Tuple p = bdry_mesh.map_to_parent_tuple(simplex::Simplex::vertex(v));
+                nonmanifold_vertex_accessor.scalar_attribute(p)++;
+            }
+        }
+        for (const auto& v : tetmesh->get_all(PrimitiveType::Vertex)) {
+            int64_t& value = nonmanifold_vertex_accessor.scalar_attribute(v);
+            if (value > 1) {
+                value = 1;
+                // if on the edgemeshes and more than 1 copy
+            } else if (
+                // not on the edgemeshes and more than 1 copy on the surface mesh
+                value == 0 && tetmesh->map_to_child(
+                                         *child_meshes.surface_mesh,
+                                         simplex::Simplex::vertex(*tetmesh, v))
+                                      .size() > 1) {
+                nonmanifold_vertex_accessor.scalar_attribute(v) = 1;
+            } else {
+                value = 0;
+            }
+        }
+#else
 
         for (const auto& v : tetmesh->get_all(PrimitiveType::Vertex)) {
             int64_t on_open_boundary_cnt = 0;
@@ -298,6 +337,7 @@ std::tuple<std::shared_ptr<wmtk::TetMesh>, ChildMeshes> triangle_insertion(
                 nonmanifold_vertex_accessor.scalar_attribute(v) = 1;
             }
         }
+#endif
 
         // TODO: register as child mesh
 

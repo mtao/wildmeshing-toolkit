@@ -137,12 +137,7 @@ if(WMTK_USE_DEV_MODE)
 endif()
 # C++ standard
 option(WMTK_USE_CXX20 "Sets WMTK to use C++20, defaults to C++17" ON)
-if(WMTK_USE_CXX20)
 target_compile_features(wildmeshing_toolkit PUBLIC cxx_std_20)
-target_compile_definitions(wildmeshing_toolkit PUBLIC -DWMTK_ENABLED_CPP20)
-else()
-target_compile_features(wildmeshing_toolkit PUBLIC cxx_std_17)
-endif()
 
 option(WMTK_USE_MULTIMESH_DART "Sets WMTK to use dart instead of tuple for multimesh" ON)
 if(WMTK_USE_MULTIMESH_DART)

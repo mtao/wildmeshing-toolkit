@@ -53,11 +53,7 @@ extern const wmtk::dart::Dart d3210;
 
 extern const std::array<wmtk::dart::Dart,24> D3;
 
-#if defined(WMTK_ENABLED_CPP20)
 std::span<const wmtk::dart::Dart>
-#else
-std::vector<wmtk::dart::Dart>
-#endif
     darts(int8_t dimension);
 
 } // namespace wmtk::tests::dart::utils

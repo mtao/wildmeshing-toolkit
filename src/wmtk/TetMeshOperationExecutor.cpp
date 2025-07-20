@@ -96,10 +96,10 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
     const Tuple& operating_tuple)
     : operations::tet_mesh::EdgeOperationData(m, operating_tuple)
     , flag_accessors{{m.get_flag_accessor(PrimitiveType::Vertex), m.get_flag_accessor(PrimitiveType::Edge), m.get_flag_accessor(PrimitiveType::Triangle), m.get_flag_accessor(PrimitiveType::Tetrahedron)}}
-    , tt_accessor(*m.m_tt_accessor)
-    , tf_accessor(*m.m_tf_accessor)
-    , te_accessor(*m.m_te_accessor)
     , tv_accessor(*m.m_tv_accessor)
+    , te_accessor(*m.m_te_accessor)
+    , tf_accessor(*m.m_tf_accessor)
+    , tt_accessor(*m.m_tt_accessor)
     , vt_accessor(*m.m_vt_accessor)
     , et_accessor(*m.m_et_accessor)
     , ft_accessor(*m.m_ft_accessor)

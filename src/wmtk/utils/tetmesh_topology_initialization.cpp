@@ -29,13 +29,13 @@ tetmesh_topology_initialization(Eigen::Ref<const RowVectors4l> T)
 
     //spdlog::info("Start2");
     // First pass is identifying faces, and filling VT
-    std::vector<std::vector<int64_t>> TTT;
+    std::vector<std::array<int64_t,5>> TTT;
 
-    char iv0 = 0;
-    char iv1 = 1;
-    char iv2 = 2;
-    char it = 3;
-    char ii = 4;
+    constexpr static char iv0 = 0;
+    constexpr static char iv1 = 1;
+    constexpr static char iv2 = 2;
+    constexpr static char it = 3;
+    constexpr static char ii = 4;
 
 
     int64_t vertex_count = T.maxCoeff() + 1;
@@ -54,13 +54,12 @@ tetmesh_topology_initialization(Eigen::Ref<const RowVectors4l> T)
                 if (y > z) std::swap(y, z);
                 if (x > y) std::swap(x, y);
 
-                std::vector<int64_t> r(5);
+                auto& r = TTT[t*4+i];
                 r[iv0] = x;
                 r[iv1] = y;
                 r[iv2] = z;
                 r[it] = t;
                 r[ii] = i;
-                TTT[t * 4 + i] = r;
             }
         }
         std::sort(TTT.begin(), TTT.end());
@@ -130,13 +129,12 @@ tetmesh_topology_initialization(Eigen::Ref<const RowVectors4l> T)
                 int64_t y = T(t, static_cast<int64_t>(autogen::tet_mesh::auto_3d_edges[i][1]));
                 if (x > y) std::swap(x, y);
 
-                std::vector<int64_t> r(5);
+                auto& r = TTT[t * 6 + i] ;
                 r[iv0] = x;
                 r[iv1] = y;
                 r[iv2] = 0; // unused
                 r[it] = t;
                 r[ii] = i;
-                TTT[t * 6 + i] = r;
             }
         }
         std::sort(TTT.begin(), TTT.end());
