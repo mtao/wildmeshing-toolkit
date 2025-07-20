@@ -455,45 +455,6 @@ protected: // protected to enable unit testing
         const operations::EdgeOperationData& operation_data);
 
 
-    // uses the available parameters to find a tuple that is equivalent to old_smiplex but using
-    // still-existing top level simplices. by equivalent each sub-simplex of old_simplex's tuple
-    // maps to the same thing as the returned tuple
-    std::optional<Tuple> find_valid_tuple(
-        Mesh& my_mesh,
-        const simplex::Simplex& old_simplex,
-        const int64_t old_gid,
-        const std::vector<Tuple>& tuple_alternatives,
-        const std::vector<std::tuple<int64_t, std::array<int64_t, 2>>>& split_cell_maps = {}) const;
-
-    // returns a tuple such that every subsmipelx in old_simplex's tuple maps to the same smiplex as
-    std::optional<Tuple> find_valid_tuple_from_alternatives(
-        Mesh& my_mesh,
-        PrimitiveType primitive_type,
-        const std::vector<Tuple>& tuple_alternatives) const;
-
-    // returns a tuple such that every subsmipelx in old_simplex's tuple maps to the same smiplex as
-    // before
-    std::optional<Tuple> find_valid_tuple_from_split(
-        Mesh& my_mesh,
-        const simplex::Simplex& old_simplex,
-        const int64_t old_gid,
-        const std::vector<Tuple>& tuple_alternatives,
-        const std::vector<std::tuple<int64_t, std::array<int64_t, 2>>>& split_cell_maps) const;
-
-    std::optional<Tuple> try_updating_map_tuple_from_split(
-        Mesh& my_mesh,
-        const simplex::Simplex& old_simplex, // map tuple is contained in this
-        const int64_t old_gid,
-        const std::vector<Tuple>& tuple_alternatives,
-        const std::tuple<int64_t, std::array<int64_t, 2>>& split_cell_maps) const;
-
-
-    static std::optional<Tuple> find_tuple_from_gid(
-        const Mesh& my_mesh,
-        PrimitiveType primitive_type,
-        const std::vector<Tuple>& tuples,
-        int64_t gid);
-
     // helper for updating multimap used in the update multimesh edge functor
     static int64_t child_global_cid(const AccessorType& parent_to_child, int64_t parent_gid);
     // helper for updating multimap used in the update multimesh edge functor
