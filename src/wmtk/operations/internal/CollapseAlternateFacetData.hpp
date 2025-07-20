@@ -47,5 +47,7 @@ public:
     const Data& get_alternatives_data(const Tuple& t) const;
 
     AltData::const_iterator get_alternative_data_it(const int64_t& input_facet) const;
+    std::vector<int64_t> get_simplices_to_delete(const Mesh& mesh, const PrimitiveType& simplex_dim)
+        const;
 };
 } // namespace wmtk::operations::internal

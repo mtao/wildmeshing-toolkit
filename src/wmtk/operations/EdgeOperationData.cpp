@@ -43,20 +43,20 @@ void EdgeOperationData::set_collapse()
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>();
 }
 
-void EdgeOperationData::set_split(const Mesh& m, const Tuple& t)
+void EdgeOperationData::set_split(Mesh& m, const Tuple& t)
 {
     m_op_data = std::make_unique<internal::SplitAlternateFacetData>(m, t);
 }
-void EdgeOperationData::set_collapse(const Mesh& m, const Tuple& t)
+void EdgeOperationData::set_collapse(Mesh& m, const Tuple& t)
 {
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t);
 }
 
-void EdgeOperationData::set_split(const Mesh& m, const Tuple& t, const std::vector<Tuple>& ts)
+void EdgeOperationData::set_split(Mesh& m, const Tuple& t, const std::vector<Tuple>& ts)
 {
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t, ts);
 }
-void EdgeOperationData::set_collapse(const Mesh& m, const Tuple& t, const std::vector<Tuple>& ts)
+void EdgeOperationData::set_collapse(Mesh& m, const Tuple& t, const std::vector<Tuple>& ts)
 {
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t, ts);
 }
@@ -112,15 +112,28 @@ Tuple EdgeOperationData::get_alternative(const PrimitiveType mesh_pt, const Tupl
     return std::visit([&](const auto& m) { return m->get_alternative(mesh_pt, t); }, m_op_data);
 }
 
+std::vector<int64_t> EdgeOperationData::get_simplex_ids_to_delete(const PrimitiveType pt) const
+{
+    return std::visit(
+        [&](const auto& m) { return m->get_simplices_to_delete(m_mesh, pt); },
+        m_op_data);
+}
+void EdgeOperationData::set_simplex_ids_to_delete()
+{
+    for (int8_t j = 0; j <= m_mesh.top_cell_dimension(); ++j) {
+        simplex_ids_to_delete[j] = get_simplex_ids_to_delete(get_primitive_type_from_id(j));
+    }
+}
+
 void EdgeOperationData::delete_simplices()
 {
     for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-        //wmtk::logger().info(
-        //    "{}-Mesh-Deleting {} {}-simplices [{}]",
-        //    m_mesh.top_simplex_type(),
-        //    simplex_ids_to_delete[d].size(),
-        //    d,
-        //    fmt::join(simplex_ids_to_delete[d], ","));
+         //wmtk::logger().info(
+         //    "{}-Mesh-Deleting {} {}-simplices [{}]",
+         //    m_mesh.top_simplex_type(),
+         //    simplex_ids_to_delete[d].size(),
+         //    d,
+         //    fmt::join(simplex_ids_to_delete[d], ","));
         for (const int64_t id : simplex_ids_to_delete[d]) {
             m_mesh.get_flag_accessor(get_primitive_type_from_id(d)).index_access().deactivate(id);
         }

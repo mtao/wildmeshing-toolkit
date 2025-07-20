@@ -1,4 +1,5 @@
 
+#include <spdlog/spdlog.h>
 
 #include "get_cofaces.hpp"
 #include "get_faces.hpp"
@@ -13,18 +14,19 @@ std::vector<int8_t> get_cofaces(
     int8_t permutation,
     const PrimitiveType coface_pt)
 {
-    if (coface_pt == target_pt) {
+    if (coface_pt == target_pt || mesh_pt == coface_pt) {
         return {permutation};
     }
     int8_t mesh_dim =
         get_primitive_type_id(mesh_pt); // 3-simplex <-- example numbers to verify off-by-oine
     int8_t target_dim = get_primitive_type_id(target_pt); // 1-simplex
     int8_t coface_dim = get_primitive_type_id(coface_pt); // 2-simplex
-    int8_t dual_face_dim = mesh_dim - coface_dim; // (3-2) == 1
+    int8_t dual_face_dim = mesh_dim - coface_dim - 1; // (3-2) == 1
     const PrimitiveType dual_face_pt = get_primitive_type_from_id(dual_face_dim);
-    int8_t dual_target_dim = mesh_dim - target_dim; // (3-1) == 2
+    int8_t dual_target_dim = mesh_dim - target_dim - 1; // (3-1) == 2
     const PrimitiveType dual_target_pt = get_primitive_type_from_id(dual_target_dim);
 
+    //spdlog::info("on {}, {} cofaces of {} are dual to {} faces of {}", mesh_pt, coface_pt, target_pt, dual_face_pt, dual_target_pt);
 
     const auto& mesh_sd = dart::SimplexDart::get_singleton(mesh_pt);
     const auto& target_sd = dart::SimplexDart::get_singleton(target_pt);
@@ -37,10 +39,15 @@ std::vector<int8_t> get_cofaces(
     std::vector<int8_t> x(dual_target_ids.begin(), dual_target_ids.end());
     for (int8_t& id : x) {
         // id = mesh_sd.product(permutation, target_sd.convert(id, mesh_sd));
-        int8_t c = target_sd.convert(id, mesh_sd);
+        int8_t c = dual_target_sd.convert(id, mesh_sd);
+        int8_t oldid = id;
+        int8_t a = mesh_sd.product(permutation,opp);
+        int8_t b = mesh_sd.product(c,opp);
+        int8_t d = mesh_sd.product(a,b);
 
 
         id = mesh_sd.product({permutation, opp, c, opp});
+        //spdlog::info("ID: {} converted to {} and conjugated to {} ({} ({} {}){} => {})", oldid, c, id,a,c,opp,b,d);
     }
 
     return x;

@@ -169,13 +169,13 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
                 faces.add(t);
             }
             const simplex::Simplex s = m.get_simplex(t);
-        // if (m.has_child_mesh_in_dimension(3)) {
-        //     global_ids_to_potential_tuples.at(3).emplace_back(
-        //         m_mesh.id(simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)),
-        //         wmtk::simplex::top_dimension_cofaces_tuples(
-        //             m_mesh,
-        //             simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
-        // }
+            // if (m.has_child_mesh_in_dimension(3)) {
+            //     global_ids_to_potential_tuples.at(3).emplace_back(
+            //         m_mesh.id(simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)),
+            //         wmtk::simplex::top_dimension_cofaces_tuples(
+            //             m_mesh,
+            //             simplex::Simplex(m, PrimitiveType::Tetrahedron, operating_tuple)));
+            // }
             // faces.add(wmtk::simplex::faces(m, s, false));
             for (const simplex::Simplex& f : simplex::faces(m, s, false)) {
                 // if (const int64_t index = static_cast<int64_t>(s.primitive_type());
@@ -221,7 +221,6 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
             }
             global_ids_to_update.at(index).emplace_back(id);
         }
-
     }
 }
 
@@ -229,7 +228,8 @@ TetMesh::TetMeshOperationExecutor::TetMeshOperationExecutor(
 std::array<std::vector<int64_t>, 4>
 TetMesh::TetMeshOperationExecutor::get_split_simplices_to_delete()
 {
-    const simplex::SimplexCollection sc = simplex::open_star(m_mesh, simplex::Simplex::edge(m_mesh, m_operating_tuple));
+    const simplex::SimplexCollection sc =
+        simplex::open_star(m_mesh, simplex::Simplex::edge(m_mesh, m_operating_tuple));
     std::array<std::vector<int64_t>, 4> ids;
     for (const simplex::Simplex& s : sc) {
         spdlog::info("{} {}", s.primitive_type(), std::string(s.tuple()));
@@ -243,7 +243,8 @@ std::array<std::vector<int64_t>, 4>
 TetMesh::TetMeshOperationExecutor::get_collapse_simplices_to_delete()
 {
     std::array<std::vector<int64_t>, 4> ids;
-    for (const simplex::IdSimplex& s : simplex::half_closed_star_iterable(m_mesh, m_operating_tuple)) {
+    for (const simplex::IdSimplex& s :
+         simplex::half_closed_star_iterable(m_mesh, m_operating_tuple)) {
         ids[get_primitive_type_id(s.primitive_type())].emplace_back(m_mesh.id(s));
     }
     return ids;
@@ -272,11 +273,15 @@ void TetMesh::TetMeshOperationExecutor::update_ear_connectivity(
 
 void TetMesh::TetMeshOperationExecutor::split_edge()
 {
+    split_edge_precompute();
+    split_edge_execute();
+}
+void TetMesh::TetMeshOperationExecutor::split_edge_precompute()
+{
     // auto [incident_tets, incident_faces] = get_incident_tets_and_faces(m_operating_tuple);
     // set_split(m_mesh, m_operating_tuple, incident_tets);
     set_split();
     // set_split(m_mesh, m_operating_tuple);
-    simplex_ids_to_delete = get_split_simplices_to_delete();
 
 
     // create new vertex (center)
@@ -295,7 +300,8 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     // const auto& incident_tets = incident_tets_and_faces[0];
     // const auto& incident_faces = incident_tets_and_faces[1];
 
-    // const auto [incident_tets, incident_faces] = get_incident_tets_and_faces(m_operating_tuple);
+    // const auto [incident_tets, incident_faces] =
+    // get_incident_tets_and_faces(m_operating_tuple);
     const bool loop_flag = (m_incident_tet_datas.size() == m_incident_face_datas.size());
 
     const size_t facet_size = m_incident_tet_datas.size();
@@ -423,8 +429,12 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         assert(m_incident_face_datas[i].fid == new_incident_face_data[i].fid_old);
     }
 #endif
+    // simplex_ids_to_delete = get_split_simplices_to_delete();
+    set_simplex_ids_to_delete();
+}
 
-
+void TetMesh::TetMeshOperationExecutor::split_edge_execute()
+{
     // local ids for return tuple
     int64_t return_local_vid = -1;
     int64_t return_local_eid = -1;
@@ -437,17 +447,18 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     int64_t return_split_fid = -1;
 #endif
 
+    const bool loop_flag = (m_incident_tet_datas.size() == m_incident_face_datas.size());
     // update connectivity
     for (int64_t i = 0; i < m_incident_tet_datas.size(); ++i) {
         // prepare all indices
         const auto& data = m_incident_tet_datas[i];
-        const int64_t vid_new = v_new;
+        const int64_t vid_new = m_split_new_vid;
         const int64_t v0 = data.v0; // m_operating_tuple.vid
         const int64_t v1 = data.v1; // switch_vertex(m_operating_tuple)
         const int64_t v2 = data.v2; // f_old_1 opposite v
         const int64_t v3 = data.v3; // f_old_2 opposite v
-        const int64_t e_spine_1 = new_eids[0];
-        const int64_t e_spine_2 = new_eids[1];
+        const int64_t e_spine_1 = m_split_new_spine_eids[0];
+        const int64_t e_spine_2 = m_split_new_spine_eids[1];
         const int64_t e_rib_1 = data.new_face_data[0].eid_rib;
         const int64_t e_rib_2 = data.new_face_data[1].eid_rib;
         const int64_t e01 = data.e01;
@@ -482,8 +493,8 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
         if (t_old == m_operating_tet_id) {
             return_tid = t2;
 
-            //logger().trace("split fid is {}", f_rib);
-            //logger().trace("fids {} {} are joined by edge {}", f3, f4, e_rib_2);
+            // logger().trace("split fid is {}", f_rib);
+            // logger().trace("fids {} {} are joined by edge {}", f3, f4, e_rib_2);
 #ifndef NDEBUG
             return_fid = f4;
             return_split_fid = f_rib;
@@ -730,11 +741,12 @@ void TetMesh::TetMeshOperationExecutor::split_edge()
     assert(return_fid == m_mesh.id(simplex::Simplex::face(m_mesh, m_output_tuple)));
     assert(return_tid == m_mesh.id(simplex::Simplex::tetrahedron(m_mesh, m_output_tuple)));
 
-    //logger().trace(
-    //    "split fid is {}",
-    //    m_mesh.id(simplex::Simplex::face(m_mesh, m_mesh.switch_tuples(m_output_tuple, {PE, PF}))));
-    // assert(m_mesh.id(simplex::Simplex::edge(m_mesh.switch_tuples(m_output_tuple, {PE}))) =
-    // return_face_spine_eid);
+    // logger().trace(
+    //     "split fid is {}",
+    //     m_mesh.id(simplex::Simplex::face(m_mesh, m_mesh.switch_tuples(m_output_tuple, {PE,
+    //     PF}))));
+    //  assert(m_mesh.id(simplex::Simplex::edge(m_mesh.switch_tuples(m_output_tuple, {PE}))) =
+    //  return_face_spine_eid);
     assert(
         m_mesh.id(simplex::Simplex::face(m_mesh, m_mesh.switch_tuples(m_output_tuple, {PE, PF}))) ==
         return_split_fid);
@@ -745,7 +757,8 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
 {
     set_collapse(m_mesh, m_operating_tuple);
     is_collapse = true;
-    simplex_ids_to_delete = get_collapse_simplices_to_delete();
+    // simplex_ids_to_delete = get_collapse_simplices_to_delete();
+    set_simplex_ids_to_delete();
 
     // collect star before changing connectivity
     // update all tv's after other updates
@@ -842,7 +855,6 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
 
         edge_replacement[e02] = e12;
         edge_replacement[e03] = e13;
-
 
 
         // check by link condition

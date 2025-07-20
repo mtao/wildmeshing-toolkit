@@ -9,6 +9,7 @@
 #include <wmtk/dart/find_local_dart_action.hpp>
 #include <wmtk/dart/local_dart_action.hpp>
 #include <wmtk/dart/utils/edge_mirror.hpp>
+#include <wmtk/dart/utils/get_cofaces.hpp>
 #include <wmtk/dart/utils/largest_shared_subdart_size.hpp>
 #include <wmtk/dart/utils/share_simplex.hpp>
 #include <wmtk/dart/utils/subdart_maximal_action_to_face.hpp>
@@ -140,5 +141,32 @@ Tuple CollapseAlternateFacetData::get_alternative(const PrimitiveType mesh_pt, c
     }
 
     //
+}
+std::vector<int64_t> CollapseAlternateFacetData::get_simplices_to_delete(
+    const Mesh& mesh,
+    const PrimitiveType& simplex_dim) const
+{
+    const PrimitiveType mesh_pt = mesh.top_simplex_type();
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
+    std::vector<int64_t> ret;
+    assert(m_data.size() > 0);
+    for (const auto& fm : m_data) {
+        const dart::Dart& d = fm.input;
+
+        for (const int8_t p : wmtk::dart::utils::get_cofaces(
+                 mesh_pt,
+                 PrimitiveType::Vertex,
+                 d.permutation(),
+                 simplex_dim)) {
+            const int64_t facet_id = d.global_id();
+            const auto myd = dart::Dart(facet_id, p);
+            int64_t id = mesh.id(myd, simplex_dim);
+            ret.emplace_back(id);
+        }
+    }
+
+    std::sort(ret.begin(), ret.end());
+    ret.erase(std::unique(ret.begin(), ret.end()), ret.end());
+    return ret;
 }
 } // namespace wmtk::operations::internal

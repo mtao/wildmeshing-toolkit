@@ -1,5 +1,6 @@
 #include <fmt/ranges.h>
 #include <catch2/catch_test_macros.hpp>
+#include <spdlog/spdlog.h>
 #include <set>
 #include <wmtk/dart/SimplexDart.hpp>
 #include <wmtk/dart/utils/get_canonical_faces.hpp>
@@ -24,6 +25,9 @@ int64_t factorial(int64_t n)
     } else {
         return factorial(n - 1) * n;
     }
+}
+int64_t nCr(int64_t n, int64_t r) {
+    return factorial(n) / (factorial(r) * factorial(n-r));
 }
 } // namespace
 
@@ -60,8 +64,7 @@ TEST_CASE("faces", "[tuple]")
         const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
         int8_t simplex_dim = get_primitive_type_id(simplex_pt) + 1;
         int8_t dim = get_primitive_type_id(face_pt) + 1;
-        int64_t num_faces =
-            factorial(simplex_dim) / (factorial(simplex_dim - dim) * factorial(dim));
+        int64_t num_faces = nCr(simplex_dim,dim);
         for (int8_t p = 0; p < sd.size(); ++p) {
             auto full_indices = wmtk::dart::utils::get_local_vertex_permutation(mesh_pt, p);
             std::set<int8_t> simplex_indices(
@@ -112,12 +115,16 @@ TEST_CASE("cofaces", "[tuple]")
         const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
         int8_t simplex_dim = get_primitive_type_id(simplex_pt) + 1;
         int8_t dim = get_primitive_type_id(coface_pt) + 1;
+        int64_t num_faces = nCr(simplex_dim,dim);
+        spdlog::info("{}-mesh, {}-simplex {}-cofaces", mesh_pt,coface_pt,simplex_pt);
         for (int8_t p = 0; p < sd.size(); ++p) {
             auto full_indices = wmtk::dart::utils::get_local_vertex_permutation(mesh_pt, p);
             std::set<int8_t> simplex_indices(
                 full_indices.begin(),
                 full_indices.begin() + simplex_dim);
             auto cofaces = wmtk::dart::utils::get_cofaces(mesh_pt, simplex_pt, p, coface_pt);
+            //CHECK(num_faces == cofaces.size());
+            spdlog::info("{}", cofaces);
             for (int8_t j = 0; j < cofaces.size(); ++j) {
                 auto full_coface_indices =
                     wmtk::dart::utils::get_local_vertex_permutation(mesh_pt, cofaces[j]);

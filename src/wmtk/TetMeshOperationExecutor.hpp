@@ -10,13 +10,13 @@ public:
     TetMeshOperationExecutor(TetMesh& m, const Tuple& operating_tuple);
 
     std::array<attribute::FlagAccessor<TetMesh>, 4> flag_accessors;
-    attribute::Accessor<int64_t,TetMesh>& tt_accessor;
-    attribute::Accessor<int64_t,TetMesh>& tf_accessor;
-    attribute::Accessor<int64_t,TetMesh>& te_accessor;
-    attribute::Accessor<int64_t,TetMesh>& tv_accessor;
-    attribute::Accessor<int64_t,TetMesh>& vt_accessor;
-    attribute::Accessor<int64_t,TetMesh>& et_accessor;
-    attribute::Accessor<int64_t,TetMesh>& ft_accessor;
+    attribute::Accessor<int64_t, TetMesh>& tt_accessor;
+    attribute::Accessor<int64_t, TetMesh>& tf_accessor;
+    attribute::Accessor<int64_t, TetMesh>& te_accessor;
+    attribute::Accessor<int64_t, TetMesh>& tv_accessor;
+    attribute::Accessor<int64_t, TetMesh>& vt_accessor;
+    attribute::Accessor<int64_t, TetMesh>& et_accessor;
+    attribute::Accessor<int64_t, TetMesh>& ft_accessor;
 
 
     /**
@@ -75,6 +75,8 @@ public:
      *
      */
     void split_edge();
+    void split_edge_precompute();
+    void split_edge_execute();
 
     /**
      * @brief split edge v1-v2

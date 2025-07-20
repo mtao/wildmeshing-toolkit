@@ -40,7 +40,6 @@ EdgeMesh::EdgeMeshOperationExecutor::EdgeMeshOperationExecutor(
         add(m_operating_tuple);
         add(mesh().switch_vertex(m_operating_tuple));
     }
-
 }
 
 
@@ -71,18 +70,21 @@ EdgeMesh::EdgeMeshOperationExecutor::get_collapse_simplices_to_delete(
 
 void EdgeMesh::EdgeMeshOperationExecutor::split_edge()
 {
-    set_split();
+    set_split(m_mesh, m_operating_tuple);
     m_output_tuple = split_edge_single_mesh();
     // TODO: Implement for multi_mesh in the future
 }
 
 Tuple EdgeMesh::EdgeMeshOperationExecutor::split_edge_single_mesh()
 {
-    simplex_ids_to_delete = get_split_simplices_to_delete(m_operating_tuple, mesh());
+    assert(split_facet_data().m_facet_maps.size() == 1);
 
     // create new edges (facets)
     // m_split_e[i] is connect to m_neighbor_eids[i] and m_spine_vids[i]
-    const auto& data = split_facet_data().add_facet(mesh(), m_operating_tuple);
+    const auto& data = split_facet_data().m_facet_maps[0];
+
+
+    set_simplex_ids_to_delete();// this has to be after the single facet has been created
     m_split_e = data.new_facet_indices;
 
     if (mesh().is_free()) {
@@ -185,7 +187,7 @@ Tuple EdgeMesh::EdgeMeshOperationExecutor::split_edge_single_mesh()
 
 void EdgeMesh::EdgeMeshOperationExecutor::collapse_edge()
 {
-    set_collapse();
+    set_collapse(m_mesh, m_operating_tuple);
     m_output_tuple = collapse_edge_single_mesh();
     // TODO: Implement for multi_mesh in the future
 }
@@ -204,7 +206,7 @@ Tuple EdgeMesh::EdgeMeshOperationExecutor::collapse_edge_single_mesh()
                            mesh().is_boundary_vertex(mesh().switch_vertex(m_operating_tuple)))) {
         return Tuple();
     }
-    simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, mesh());
+    set_simplex_ids_to_delete();
 
     //  update ee
     {

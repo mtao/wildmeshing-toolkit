@@ -56,11 +56,11 @@ public:
     void set_split();
     void set_collapse();
 
-    void set_split(const Mesh& m, const Tuple& t);
-    void set_collapse(const Mesh& m, const Tuple& t);
+    void set_split(Mesh& m, const Tuple& t);
+    void set_collapse(Mesh& m, const Tuple& t);
 
-    void set_split(const Mesh& m, const Tuple& t, const std::vector<Tuple>& ts);
-    void set_collapse(const Mesh& m, const Tuple& t, const std::vector<Tuple>& ts);
+    void set_split(Mesh& m, const Tuple& t, const std::vector<Tuple>& ts);
+    void set_collapse(Mesh& m, const Tuple& t, const std::vector<Tuple>& ts);
 
 
     /// Returns facet data held if the edge operation was a split - throws if data does not exist
@@ -70,8 +70,11 @@ public:
 
     Tuple get_alternative(const PrimitiveType mesh_pt, const Tuple& t) const;
 
+    std::vector<int64_t> get_simplex_ids_to_delete(const PrimitiveType pt) const;
+
 
 protected:
+    void set_simplex_ids_to_delete();
     /// Returns facet data held if the edge operation was a split - throws if data does not exist
     internal::SplitAlternateFacetData& split_facet_data();
     /// Returns facet data held if the edge operation was a collapse- throws if data does not exist

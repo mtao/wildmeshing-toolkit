@@ -444,12 +444,6 @@ protected: // protected to enable unit testing
     // consistent set of subsimplices wrt the tuple representation If the new tuple has a
     // representation
     //
-    // it cannot handle map updates of its faces?
-    void update_map_tuple_hashes(
-        Mesh& my_mesh,
-        PrimitiveType primitive_type,
-        const std::vector<std::tuple<int64_t, std::vector<Tuple>>>& simplices_to_update,
-        const std::vector<std::tuple<int64_t, std::array<int64_t, 2>>>& split_cell_maps = {});
 
     void update_maps_from_edge_operation(
         Mesh& my_mesh,

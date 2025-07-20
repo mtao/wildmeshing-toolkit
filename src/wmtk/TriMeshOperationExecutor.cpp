@@ -360,14 +360,14 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
                     const int64_t& split_edge_eid = face_data.new_edge_id;
                     ff[i] = other_f;
                     fe[i] = split_edge_eid;
-                    //logger().trace("ff[{},{}] = {}", f, i, other_f);
-                    //logger().trace("fe[{},{}] = {}", f, i, split_edge_eid);
+                    // logger().trace("ff[{},{}] = {}", f, i, other_f);
+                    // logger().trace("fe[{},{}] = {}", f, i, split_edge_eid);
                 }
             }
 
             // replace the input edge iwth the new edge for this triangle
             if (fe[i] == operating_edge_id()) {
-                //logger().trace("fe[{},{}] = {}", f, i, se);
+                // logger().trace("fe[{},{}] = {}", f, i, se);
                 fe[i] = se;
             }
 
@@ -380,13 +380,13 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
                 }
             }
         }
-        //logger().trace("ef[{}] = {}", ear.eid, f);
-        //logger().trace("ef[{}] = {}", se, f);
-        // assign each edge one face
+        // logger().trace("ef[{}] = {}", ear.eid, f);
+        // logger().trace("ef[{}] = {}", se, f);
+        //  assign each edge one face
         ef_accessor.scalar_attribute(ear.eid) = f;
         ef_accessor.scalar_attribute(se) = f;
         // assign each vertex one face
-        //logger().trace("vf[{}] = {}", m_spine_vids[j], f);
+        // logger().trace("vf[{}] = {}", m_spine_vids[j], f);
         vf_accessor.scalar_attribute(m_spine_vids[j]) = f;
     }
 
@@ -402,18 +402,18 @@ void TriMesh::TriMeshOperationExecutor::replace_incident_face(IncidentFaceData& 
         auto fv = fv_accessor.vector_attribute(f);
         for (int j = 0; j < 3; ++j) {
             if (fv(j) == face_data.opposite_vid) {
-                //logger().trace("fv[{},{}] = {}", f, j, split_new_vid);
+                // logger().trace("fv[{},{}] = {}", f, j, split_new_vid);
                 fv(j) = split_new_vid;
 
-                //logger().trace("vf[{}] = {}", split_new_vid, new_fids[1]);
+                // logger().trace("vf[{}] = {}", split_new_vid, new_fids[1]);
                 vf_accessor.scalar_attribute(split_new_vid) = new_fids[1];
             }
         }
 
     } else {
         const int64_t& split_edge_eid = face_data.new_edge_id;
-        //logger().trace("ef[{}] = {}", split_edge_eid, new_fids[0]);
-        //logger().trace("vf[{}] = {}", split_new_vid, new_fids[0]);
+        // logger().trace("ef[{}] = {}", split_edge_eid, new_fids[0]);
+        // logger().trace("vf[{}] = {}", split_new_vid, new_fids[0]);
         ef_accessor.scalar_attribute(split_edge_eid) = new_fids[0];
         vf_accessor.scalar_attribute(split_new_vid) = new_fids[0];
     }
@@ -431,7 +431,6 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
     //  * global_ids_to_potential_tuples
     //  * m_incident_face_datas
     //  * simplex_ids_to_delete
-    simplex_ids_to_delete = get_split_simplices_to_delete(m_operating_tuple, m_mesh);
 
     std::vector<Tuple> adjacent_facets = wmtk::simplex::top_dimension_cofaces_tuples(
         m_mesh,
@@ -545,6 +544,7 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
 
     create_spine_simplices();
     fill_split_facet_data();
+    set_simplex_ids_to_delete();
 }
 
 void TriMesh::TriMeshOperationExecutor::fill_split_facet_data()
@@ -708,12 +708,15 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
             //     index,
             //     m_mesh.id(s),
             //     primitive_type_name(s.primitive_type()));
-            global_ids_to_update.at(index).emplace_back(
-                m_mesh.id(s));
+            global_ids_to_update.at(index).emplace_back(m_mesh.id(s));
         }
     }
 
-    simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
+    if (m_mesh.is_free()) {
+        simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
+    } else {
+        set_simplex_ids_to_delete();
+    }
 }
 
 

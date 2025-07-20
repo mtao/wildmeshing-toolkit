@@ -24,19 +24,6 @@ constexpr static PrimitiveType PE = PrimitiveType::Edge;
 constexpr static PrimitiveType PF = PrimitiveType::Triangle;
 constexpr static PrimitiveType PT = PrimitiveType::Tetrahedron;
 } // namespace
-void UpdateEdgeOperationMultiMeshMapFunctor::update_all_hashes(
-    Mesh& m,
-    const std::vector<std::vector<std::tuple<int64_t, std::vector<Tuple>>>>& simplices_to_update,
-    const std::vector<std::tuple<int64_t, std::array<int64_t, 2>>>& split_cell_maps) const
-{
-    // assert(m.top_cell_dimension() + 1 == simplices_to_update.size());
-    constexpr static PrimitiveType PTs[] = {PV, PE, PF, PT};
-    for (size_t j = 0; j < simplices_to_update.size(); ++j) {
-        m.m_multi_mesh_manager
-            .update_map_tuple_hashes(m, PTs[j], simplices_to_update[j], split_cell_maps);
-
-    }
-}
 void UpdateEdgeOperationMultiMeshMapFunctor::update_all_maps(Mesh& m, const EdgeOperationData& eod)
     const
 {
@@ -48,87 +35,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
     const edge_mesh::EdgeOperationData& emoe) const
 {
     return;
-    /*
-    auto& parent_mmmanager = m.m_multi_mesh_manager;
-    const auto& parent_incident_vids = emoe.m_spine_Vids;
-
-
-    for (auto child_ptr : m.get_child_meshes()) {
-        // no ear replcaement required for free child meshes
-        if (child_ptr->is_free()) {
-            continue;
-        }
-
-        auto [parent_to_child_accessor, child_to_parent_accessor] =
-            parent_mmmanager.get_map_accessors(m, *child_ptr);
-        auto child_cell_flag_accessor = child_ptr->get_const_flag_accessor(PrimitiveType::Edge);
-
-        std::vector<std::pair<Tuple, Tuple>> update_pairs;
-
-        for (int ear_index = 0; ear_index < 2; ++ear_index) {
-            const int64_t parent_ear_eid_old = parent_data.ears[ear_index].eid;
-            const int64_t parent_merged_eid = parent_data.new_edge_id;
-            const int64_t parent_new_fid = parent_data.merged_edge_fid;
-
-
-            assert(parent_merged_eid != -1);
-            assert(parent_new_fid != -1);
-
-#if defined(WMTK_USE_CXX20)
-            const auto [parent_tuple, child_tuple] =
-#else
-            Tuple parent_tuple, child_tuple;
-            std::tie(parent_tuple, child_tuple) =
-#endif
-                parent_mmmanager.mapped_tuples(m, *child_ptr, parent_ear_eid_old);
-
-            if (child_tuple.is_null()) {
-                // not child_tuple on this parent edge
-                continue;
-            }
-
-
-            //  check also the flag accessor of child mesh
-            const bool child_tuple_exists = child_cell_flag_accessor.is_active(child_tuple);
-            if (!child_tuple_exists) {
-                continue;
-            }
-
-            const int64_t parent_old_vid =
-                m.parent_scope([&]() { return m.id_vertex(parent_tuple); });
-
-
-            int64_t parent_new_vid = -1;
-
-            if (parent_ear_eid_old != parent_merged_eid) {
-                // other side
-                if (parent_old_vid == parent_incident_vids[0]) {
-                    parent_new_vid = parent_incident_vids[1];
-                } else {
-                    parent_new_vid = parent_old_vid;
-                }
-            } else {
-                // same side
-                parent_new_vid = parent_old_vid;
-            }
-
-            assert(parent_new_vid != -1);
-
-            Tuple new_parent_tuple =
-                m.tuple_from_global_ids(parent_new_fid, parent_merged_eid, parent_new_vid);
-
-            update_pairs.push_back(std::make_pair(new_parent_tuple, child_tuple));
-        }
-
-        for (const auto& pair : update_pairs) {
-            wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
-                parent_to_child_accessor,
-                child_to_parent_accessor,
-                pair.first,
-                pair.second);
-        }
-    }
-        */
 }
 
 void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(

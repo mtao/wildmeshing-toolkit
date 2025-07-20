@@ -116,11 +116,6 @@ private:
     int64_t parent_local_fid(
         const multimesh::MultiMeshManager::AccessorType& parent_to_child,
         int64_t parent_gid) const;
-    void update_all_hashes(
-        Mesh& m,
-        const std::vector<std::vector<std::tuple<int64_t, std::vector<Tuple>>>>&
-            simplices_to_update,
-        const std::vector<std::tuple<int64_t, std::array<int64_t, 2>>>& split_cell_maps = {}) const;
     void update_all_maps(Mesh& m, const EdgeOperationData& eod) const;
 
     void update_ear_replacement(EdgeMesh& m, const edge_mesh::EdgeOperationData& emoe) const;
