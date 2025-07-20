@@ -180,6 +180,10 @@ Functions</h2></td></tr>
 <tr class="separator:a905eb55d0aad2b68ab413be273bc7a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc678ea868e984077e26f8b9a79e7ad9" id="r_adc678ea868e984077e26f8b9a79e7ad9"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#adc678ea868e984077e26f8b9a79e7ad9">get_canonical_simplex_orientation</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, int8_t permutation)</td></tr>
 <tr class="separator:adc678ea868e984077e26f8b9a79e7ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefcfe17a43bd159896769f76f1dcf624" id="r_aefcfe17a43bd159896769f76f1dcf624"><td class="memItemLeft" align="right" valign="top">std::span&lt; const int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#aefcfe17a43bd159896769f76f1dcf624">get_canonical_simplices</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt)</td></tr>
+<tr class="separator:aefcfe17a43bd159896769f76f1dcf624"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afd87564b86811327e9b131c55298a357" id="r_afd87564b86811327e9b131c55298a357"><td class="memItemLeft" align="right" valign="top">std::span&lt; const int8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#afd87564b86811327e9b131c55298a357">get_canonical_simplices</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> mesh_pt, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt)</td></tr>
+<tr class="separator:afd87564b86811327e9b131c55298a357"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a86c14e95de46025a49bc466bd54f704d" id="r_a86c14e95de46025a49bc466bd54f704d"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1dart_1_1utils.html#a86c14e95de46025a49bc466bd54f704d">get_canonical_subdart</a> (const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;sd, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt, int8_t permutation)</td></tr>
 <tr class="separator:a86c14e95de46025a49bc466bd54f704d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee37bccce4c2f4b7f73c83442f3f83ec" id="r_aee37bccce4c2f4b7f73c83442f3f83ec"><td class="memTemplParams" colspan="2">template&lt;typename IntLike , size_t D, size_t d&gt; </td></tr>
@@ -1105,6 +1109,95 @@ Here is the call graph for this function:</div>
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_adc678ea868e984077e26f8b9a79e7ad9_cgraph.svg" width="643" height="243"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="afd87564b86811327e9b131c55298a357" name="afd87564b86811327e9b131c55298a357"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afd87564b86811327e9b131c55298a357">&#9670;&#160;</a></span>get_canonical_simplices() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; const int8_t &gt; wmtk::dart::utils::get_canonical_simplices </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>mesh_pt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>pt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="get__canonical__simplices_8cpp_source.html#l00041">41</a> of file <a class="el" href="get__canonical__simplices_8cpp_source.html">get_canonical_simplices.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="get__canonical__simplices_8cpp_source.html#l00012">get_canonical_simplices()</a>, and <a class="el" href="dart_2_simplex_dart_8cpp_source.html#l00023">wmtk::dart::SimplexDart::get_singleton()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_afd87564b86811327e9b131c55298a357_cgraph.svg" width="654" height="307"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="aefcfe17a43bd159896769f76f1dcf624" name="aefcfe17a43bd159896769f76f1dcf624"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefcfe17a43bd159896769f76f1dcf624">&#9670;&#160;</a></span>get_canonical_simplices() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::span&lt; const int8_t &gt; wmtk::dart::utils::get_canonical_simplices </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html">SimplexDart</a> &amp;&#160;</td>
+          <td class="paramname"><em>sd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
+          <td class="paramname"><em>pt</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="get__canonical__simplices_8cpp_source.html#l00012">12</a> of file <a class="el" href="get__canonical__simplices_8cpp_source.html">get_canonical_simplices.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="edge__mesh_2autogenerated__tables_8cpp_source.html#l00032">wmtk::autogen::edge_mesh::canonical_simplex</a>, <a class="el" href="tri__mesh_2autogenerated__tables_8cpp_source.html#l00063">wmtk::autogen::tri_mesh::canonical_simplex</a>, <a class="el" href="tet__mesh_2autogenerated__tables_8cpp_source.html#l00187">wmtk::autogen::tet_mesh::canonical_simplex</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="autogen_2edge__mesh_2_simplex_dart_8hpp_source.html#l00028">wmtk::autogen::edge_mesh::identity()</a>, <a class="el" href="autogen_2tet__mesh_2_simplex_dart_8hpp_source.html#l00028">wmtk::autogen::tet_mesh::identity()</a>, <a class="el" href="autogen_2tri__mesh_2_simplex_dart_8hpp_source.html#l00028">wmtk::autogen::tri_mesh::identity()</a>, <a class="el" href="classwmtk_1_1dart_1_1_simplex_dart.html#a75defb2c9d167b36c7fc73cd7d5bba60">wmtk::dart::SimplexDart::simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_simplex_inversion_invariant_8cpp_source.html#l00025">wmtk::SimplexInversionInvariant&lt; T &gt;::after()</a>, and <a class="el" href="get__canonical__simplices_8cpp_source.html#l00041">get_canonical_simplices()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_aefcfe17a43bd159896769f76f1dcf624_cgraph.svg" width="423" height="307"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1dart_1_1utils_aefcfe17a43bd159896769f76f1dcf624_icgraph.svg" width="100%" height="400"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>

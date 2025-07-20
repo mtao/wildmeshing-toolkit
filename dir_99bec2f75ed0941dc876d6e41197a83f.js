@@ -11,6 +11,8 @@ var dir_99bec2f75ed0941dc876d6e41197a83f =
     [ "get_canonical_faces.hpp", "get__canonical__faces_8hpp.html", "get__canonical__faces_8hpp" ],
     [ "get_canonical_simplex.hpp", "get__canonical__simplex_8hpp.html", "get__canonical__simplex_8hpp" ],
     [ "get_canonical_simplex_orientation.hpp", "get__canonical__simplex__orientation_8hpp.html", "get__canonical__simplex__orientation_8hpp" ],
+    [ "get_canonical_simplices.cpp", "get__canonical__simplices_8cpp.html", "get__canonical__simplices_8cpp" ],
+    [ "get_canonical_simplices.hpp", "get__canonical__simplices_8hpp.html", "get__canonical__simplices_8hpp" ],
     [ "get_canonical_subdart.hpp", "get__canonical__subdart_8hpp.html", "get__canonical__subdart_8hpp" ],
     [ "get_canonical_subdart_permutation.hpp", "get__canonical__subdart__permutation_8hpp.html", "get__canonical__subdart__permutation_8hpp" ],
     [ "get_canonical_supdart.hpp", "get__canonical__supdart_8hpp.html", "get__canonical__supdart_8hpp" ],

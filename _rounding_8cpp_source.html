@@ -152,23 +152,23 @@ $(document).ready(function(){initNavTree('_rounding_8cpp_source.html',''); initR
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">auto</span> accessor = <a class="code hl_function" href="classwmtk_1_1operations_1_1_operation.html#a741f1c2a8065cf4542ae47f3b6e19c17">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#ad85569ecd50cc7c0b5161b1d1cd13ebb">create_accessor</a>(<a class="code hl_variable" href="classwmtk_1_1operations_1_1_rounding.html#a207156efabafea7866ac3d6aff5999ee">m_coordinate_handle</a>);</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="comment">// auto&amp; pos = accessor.vector_attribute(simplex.tuple());</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code hl_function" href="classwmtk_1_1operations_1_1_operation.html#a741f1c2a8065cf4542ae47f3b6e19c17">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#a4f546f0125de42db771686220d77ec78">get_attribute_dimension</a>(<a class="code hl_variable" href="classwmtk_1_1operations_1_1_rounding.html#a207156efabafea7866ac3d6aff5999ee">m_coordinate_handle</a>); ++i) {</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        accessor.vector_attribute(simplex.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex.html#aca78b1fb0a3c28c0036cf7919bfb0789">tuple</a>())[i].round();</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    }</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// accessor.vector_attribute(simplex.tuple()) = pos;</span></div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classwmtk_1_1operations_1_1_attributes_update.html#a7cd88fcf959543990319f8e21c95b340">AttributesUpdate::execute</a>(simplex);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>}</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; v: </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        accessor.vector_attribute(simplex.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex.html#aca78b1fb0a3c28c0036cf7919bfb0789">tuple</a>())) {</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        v.round();</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    }</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="comment">// accessor.vector_attribute(simplex.tuple()) = pos;</span></div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classwmtk_1_1operations_1_1_attributes_update.html#a7cd88fcf959543990319f8e21c95b340">AttributesUpdate::execute</a>(simplex);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>}</div>
 </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span> </div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>} <span class="comment">// namespace wmtk::operations</span></div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>} <span class="comment">// namespace wmtk::operations</span></div>
 <div class="ttc" id="a_accessor_8hpp_html"><div class="ttname"><a href="_accessor_8hpp.html">Accessor.hpp</a></div></div>
 <div class="ttc" id="a_logger_8hpp_html"><div class="ttname"><a href="_logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="a_mesh_8hpp_html"><div class="ttname"><a href="_mesh_8hpp.html">Mesh.hpp</a></div></div>
 <div class="ttc" id="a_mesh_attribute_handle_8hpp_html"><div class="ttname"><a href="_mesh_attribute_handle_8hpp.html">MeshAttributeHandle.hpp</a></div></div>
 <div class="ttc" id="a_rounding_8hpp_html"><div class="ttname"><a href="_rounding_8hpp.html">Rounding.hpp</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html"><div class="ttname"><a href="classwmtk_1_1_mesh.html">wmtk::Mesh</a></div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00102">Mesh.hpp:103</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1_mesh_html_a4f546f0125de42db771686220d77ec78"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a4f546f0125de42db771686220d77ec78">wmtk::Mesh::get_attribute_dimension</a></div><div class="ttdeci">int64_t get_attribute_dimension(const TypedAttributeHandle&lt; T &gt; &amp;handle) const</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00989">Mesh.hpp:989</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html_ad85569ecd50cc7c0b5161b1d1cd13ebb"><div class="ttname"><a href="classwmtk_1_1_mesh.html#ad85569ecd50cc7c0b5161b1d1cd13ebb">wmtk::Mesh::create_accessor</a></div><div class="ttdeci">attribute::Accessor&lt; T, Mesh, attribute::CachingAttribute&lt; T &gt;, D &gt; create_accessor(const attribute::MeshAttributeHandle &amp;handle)</div></div>
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_typed_attribute_handle_html"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_typed_attribute_handle.html">wmtk::attribute::TypedAttributeHandle</a></div><div class="ttdoc">Handle that represents attributes for some mesh.</div><div class="ttdef"><b>Definition</b> <a href="_typed_attribute_handle_8hpp_source.html#l00027">TypedAttributeHandle.hpp:28</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1operations_1_1_attributes_update_html"><div class="ttname"><a href="classwmtk_1_1operations_1_1_attributes_update.html">wmtk::operations::AttributesUpdate</a></div><div class="ttdef"><b>Definition</b> <a href="_attributes_update_8hpp_source.html#l00007">AttributesUpdate.hpp:8</a></div></div>

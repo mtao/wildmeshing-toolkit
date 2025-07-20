@@ -138,35 +138,15 @@ $(document).ready(function(){initNavTree('split__path_8hpp_source.html',''); ini
 <div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="namespacewmtk_1_1components_1_1multimesh_1_1internal.html#a3b2338b45b680494e5501c97baa6f456">    8</a></span><span class="keyword">inline</span> <span class="keyword">auto</span> <a class="code hl_function" href="namespacewmtk_1_1components_1_1multimesh_1_1internal.html#a3b2338b45b680494e5501c97baa6f456">split_path</a>(<span class="keyword">const</span> std::string_view&amp; view)</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#if defined(WMTK_ENABLED_CPP20)</span></div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacestd.html">std</a>;</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">return</span> std::ranges::views::split(view, <span class="stringliteral">&quot;.&quot;</span>sv) |</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>           std::views::transform([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; r) <span class="keyword">noexcept</span> -&gt; std::string_view {</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>               <span class="keywordflow">return</span> std::string_view(r.begin(), r.end());</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>           });</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    std::vector&lt;std::string&gt; tokens;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">if</span>(view.empty()) {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        tokens.emplace_back(<span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    std::string v = std::string(view);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    std::istringstream iss(v);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    std::string token;</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">if</span>(v.size() &gt; 0 &amp;&amp; v[0] == <span class="charliteral">&#39;.&#39;</span>) {</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        tokens.emplace_back(<span class="stringliteral">&quot;&quot;</span>);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    }</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">while</span> (std::getline(iss, token, <span class="charliteral">&#39;.&#39;</span>)) {</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">if</span> (!token.empty())</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            tokens.push_back(token);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    }</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    }</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> tokens;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>}</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacestd.html">std</a>;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">return</span> std::ranges::views::split(view, <span class="stringliteral">&quot;.&quot;</span>sv) |</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>           std::views::transform([](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; r) <span class="keyword">noexcept</span> -&gt; std::string_view {</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>               <span class="keywordflow">return</span> std::string_view(r.begin(), r.end());</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>           });</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
 </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>} <span class="comment">// namespace wmtk::components::multimesh::internal</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>} <span class="comment">// namespace wmtk::components::multimesh::internal</span></div>
 </div>
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="autodiff_8h_source.html#l00995">autodiff.h:995</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1components_1_1multimesh_1_1internal_html"><div class="ttname"><a href="namespacewmtk_1_1components_1_1multimesh_1_1internal.html">wmtk::components::multimesh::internal</a></div><div class="ttdef"><b>Definition</b> <a href="split__path_8hpp_source.html#l00006">split_path.hpp:6</a></div></div>

@@ -26,6 +26,8 @@ var namespacewmtk_1_1dart_1_1utils =
     [ "get_canonical_faces", "namespacewmtk_1_1dart_1_1utils.html#a62be23fd3b19b60fa0ad46c373eb215c", null ],
     [ "get_canonical_simplex", "namespacewmtk_1_1dart_1_1utils.html#a905eb55d0aad2b68ab413be273bc7a79", null ],
     [ "get_canonical_simplex_orientation", "namespacewmtk_1_1dart_1_1utils.html#adc678ea868e984077e26f8b9a79e7ad9", null ],
+    [ "get_canonical_simplices", "namespacewmtk_1_1dart_1_1utils.html#afd87564b86811327e9b131c55298a357", null ],
+    [ "get_canonical_simplices", "namespacewmtk_1_1dart_1_1utils.html#aefcfe17a43bd159896769f76f1dcf624", null ],
     [ "get_canonical_subdart", "namespacewmtk_1_1dart_1_1utils.html#a86c14e95de46025a49bc466bd54f704d", null ],
     [ "get_canonical_subdart_permutation", "namespacewmtk_1_1dart_1_1utils.html#af7d7eec8fdbddf8288064935cdd33133", null ],
     [ "get_canonical_subdart_permutation_indices", "namespacewmtk_1_1dart_1_1utils.html#aee37bccce4c2f4b7f73c83442f3f83ec", null ],
