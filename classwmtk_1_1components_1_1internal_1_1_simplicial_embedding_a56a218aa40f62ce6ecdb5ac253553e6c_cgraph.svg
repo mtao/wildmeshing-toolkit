@@ -603,7 +603,7 @@ var sectionId = 'dynsection-1';
 <!-- Node48 -->
 <g id="Node000048" class="node">
 <title>Node48</title>
-<g id="a_Node000048"><a xlink:href="classwmtk_1_1_tet_mesh.html#afd621933bfdf69868fc7becb36645182" target="_top" xlink:title=" ">
+<g id="a_Node000048"><a xlink:href="classwmtk_1_1_tet_mesh.html#a6d17c59308e67a1d6f81352e0d414f89" target="_top" xlink:title=" ">
 <polygon fill="#fff0f0" stroke="red" points="604.5,-1460 479.5,-1460 479.5,-1430 604.5,-1430 604.5,-1460"/>
 <text text-anchor="start" x="487.5" y="-1448" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::TetMesh::orient</text>
 <text text-anchor="middle" x="542" y="-1437" font-family="Helvetica,sans-Serif" font-size="10.00">_vertices</text>
@@ -619,6 +619,25 @@ var sectionId = 'dynsection-1';
 </a>
 </g>
 </g>
+<!-- Node49 -->
+<g id="Node000049" class="node">
+<title>Node49</title>
+<g id="a_Node000049"><a xlink:href="classwmtk_1_1_edge_mesh.html#a53b117c8c28b8196408c540e6d9878c5" target="_top" xlink:title="switch the orientation of the Tuple of the given dimension">
+<polygon fill="#fff0f0" stroke="red" points="611,-1412 473,-1412 473,-1382 611,-1382 611,-1412"/>
+<text text-anchor="start" x="481" y="-1400" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::switch</text>
+<text text-anchor="middle" x="542" y="-1389" font-family="Helvetica,sans-Serif" font-size="10.00">_tuple</text>
+</a>
+</g>
+</g>
+<!-- Node4&#45;&gt;Node49 -->
+<g id="edge14_Node000004_Node000049" class="edge">
+<title>Node4&#45;&gt;Node49</title>
+<g id="a_edge14_Node000004_Node000049"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M397.9,-1429.94C419.54,-1424.96 443.78,-1419.38 466.08,-1414.25"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="466.87,-1417.66 475.83,-1412 465.3,-1410.84 466.87,-1417.66"/>
+</a>
+</g>
+</g>
 <!-- Node39 -->
 <g id="Node000039" class="node">
 <title>Node39</title>
@@ -630,30 +649,11 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node4&#45;&gt;Node39 -->
-<g id="edge14_Node000004_Node000039" class="edge">
+<g id="edge15_Node000004_Node000039" class="edge">
 <title>Node4&#45;&gt;Node39</title>
-<g id="a_edge14_Node000004_Node000039"><a xlink:title=" ">
+<g id="a_edge15_Node000004_Node000039"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M354.58,-1460.02C378.81,-1475.95 419.3,-1501 457,-1517 461.68,-1518.99 466.57,-1520.86 471.55,-1522.63"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="470.57,-1525.99 481.17,-1525.87 472.81,-1519.36 470.57,-1525.99"/>
-</a>
-</g>
-</g>
-<!-- Node49 -->
-<g id="Node000049" class="node">
-<title>Node49</title>
-<g id="a_Node000049"><a xlink:href="classwmtk_1_1_edge_mesh.html#a46725851b572b51a356450adc30c14ed" target="_top" xlink:title="switch the orientation of the Tuple of the given dimension">
-<polygon fill="#fff0f0" stroke="red" points="611,-1412 473,-1412 473,-1382 611,-1382 611,-1412"/>
-<text text-anchor="start" x="481" y="-1400" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::switch</text>
-<text text-anchor="middle" x="542" y="-1389" font-family="Helvetica,sans-Serif" font-size="10.00">_tuple</text>
-</a>
-</g>
-</g>
-<!-- Node4&#45;&gt;Node49 -->
-<g id="edge16_Node000004_Node000049" class="edge">
-<title>Node4&#45;&gt;Node49</title>
-<g id="a_edge16_Node000004_Node000049"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M397.9,-1429.94C419.54,-1424.96 443.78,-1419.38 466.08,-1414.25"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="466.87,-1417.66 475.83,-1412 465.3,-1410.84 466.87,-1417.66"/>
 </a>
 </g>
 </g>
@@ -796,9 +796,9 @@ var sectionId = 'dynsection-1';
 </g>
 </g>
 <!-- Node39&#45;&gt;Node13 -->
-<g id="edge15_Node000039_Node000013" class="edge">
+<g id="edge16_Node000039_Node000013" class="edge">
 <title>Node39&#45;&gt;Node13</title>
-<g id="a_edge15_Node000039_Node000013"><a xlink:title=" ">
+<g id="a_edge16_Node000039_Node000013"><a xlink:title=" ">
 <path fill="none" stroke="#63b8ff" d="M604.75,-1542.94C622.86,-1543.51 642.84,-1544.14 661.56,-1544.72"/>
 <polygon fill="#63b8ff" stroke="#63b8ff" points="661.7,-1548.23 671.81,-1545.05 661.92,-1541.23 661.7,-1548.23"/>
 </a>

@@ -1,5 +1,8 @@
 var NAVTREEINDEX37 =
 {
+"get__attribute__handles_8cpp.html#a26aec3b0e1e24ca0f206dd1ecd9adf28":[11,0,2,0,5,0,0,0],
+"get__attribute__handles_8cpp.html#a966d3626530d9e1a88483b7c2a88f060":[11,0,2,0,5,0,0,2],
+"get__attribute__handles_8cpp.html#aa48eae897d8019910cba88f769c3c0f9":[11,0,2,0,5,0,0,3],
 "get__attribute__handles_8cpp_source.html":[11,0,2,0,5,0,0],
 "get__attribute__handles_8hpp.html":[11,0,2,0,5,0,1],
 "get__attribute__handles_8hpp.html#a26aec3b0e1e24ca0f206dd1ecd9adf28":[11,0,2,0,5,0,1,0],
@@ -166,8 +169,8 @@ var NAVTREEINDEX37 =
 "import__cache_8hpp.html":[11,0,0,7,0,0,0,1],
 "import__cache_8hpp.html#a0cdf23b4ed7ff0a739f4e29a086b7ae3":[11,0,0,7,0,0,0,1,0],
 "import__cache_8hpp_source.html":[11,0,0,7,0,0,0,1],
-"index.html":[],
 "index.html":[0],
+"index.html":[],
 "index.html#autotoc_md1":[0,0],
 "index.html#autotoc_md10":[0,2,3],
 "index.html#autotoc_md11":[0,2,4],
@@ -246,8 +249,5 @@ var NAVTREEINDEX37 =
 "internal_2periodic__optimization_8hpp_source.html":[11,0,0,9,0,0,0,2,0,1],
 "internal_2winding__number_8cpp.html":[11,0,0,28,0,0,0,0,0],
 "internal_2winding__number_8cpp.html#a18a56f1ee7f5d72c7557922789a96802":[11,0,0,28,0,0,0,0,0,0],
-"internal_2winding__number_8cpp.html#afb68ce2cd6102c4f403bb39329da8a02":[11,0,0,28,0,0,0,0,0,1],
-"internal_2winding__number_8cpp_source.html":[11,0,0,28,0,0,0,0,0],
-"internal_2winding__number_8hpp.html":[11,0,0,28,0,0,0,0,1],
-"internal_2winding__number_8hpp.html#a18a56f1ee7f5d72c7557922789a96802":[11,0,0,28,0,0,0,0,1,0]
+"internal_2winding__number_8cpp.html#afb68ce2cd6102c4f403bb39329da8a02":[11,0,0,28,0,0,0,0,0,1]
 };

@@ -29,7 +29,7 @@ var classwmtk_1_1_tet_mesh =
     [ "make_cached_accessors", "classwmtk_1_1_tet_mesh.html#a3ec8c827ae2a00cea402eb21cc5be56b", null ],
     [ "operator=", "classwmtk_1_1_tet_mesh.html#a6b07522034464f765e661dc73a4d0ee7", null ],
     [ "operator=", "classwmtk_1_1_tet_mesh.html#a77bee9cf6bbb549d3d1e245816443794", null ],
-    [ "orient_vertices", "classwmtk_1_1_tet_mesh.html#afd621933bfdf69868fc7becb36645182", null ],
+    [ "orient_vertices", "classwmtk_1_1_tet_mesh.html#a6d17c59308e67a1d6f81352e0d414f89", null ],
     [ "switch_edge", "classwmtk_1_1_tet_mesh.html#a1ff7ac5989c664b7754dd699fa1e9b1a", null ],
     [ "switch_face", "classwmtk_1_1_tet_mesh.html#a6c405e0d239a6ec627a6b50963c52ea5", null ],
     [ "switch_tetrahedron", "classwmtk_1_1_tet_mesh.html#ac89db402ec507958c553e5ed0a26c774", null ],

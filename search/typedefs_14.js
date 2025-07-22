@@ -8,7 +8,7 @@ var searchData=
   ['vector2_5',['Vector2',['../namespacewmtk.html#aa8602f5df2ebb323b2d2ad01b466eb90',1,'wmtk']]],
   ['vector2l_6',['Vector2l',['../namespacewmtk.html#a30c6efa3ff491450e712bffb6d7345c4',1,'wmtk']]],
   ['vector2r_7',['Vector2r',['../namespacewmtk.html#ae5436e9784ad52a9866cbc0d54c1d0a2',1,'wmtk']]],
-  ['vector3_8',['vector3',['../namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b',1,'wmtk::Vector3'],['../namespacewmtk_1_1components.html#ac70c00ff28dd31bb7109e7da8c89860f',1,'wmtk::components::Vector3']]],
+  ['vector3_8',['vector3',['../namespacewmtk_1_1components.html#ac70c00ff28dd31bb7109e7da8c89860f',1,'wmtk::components::Vector3'],['../namespacewmtk.html#a3855b2c13dbe4ac1cf2a204649eee13b',1,'wmtk::Vector3']]],
   ['vector3d_9',['Vector3d',['../namespacewmtk.html#a8f74118e77f6f9bce5ebc12a1be515f3',1,'wmtk']]],
   ['vector3i_10',['Vector3i',['../namespacewmtk_1_1components.html#a2f21785e2086fb657f13f7e68bcbe9d1',1,'wmtk::components']]],
   ['vector3l_11',['Vector3l',['../namespacewmtk.html#a0266b59714942ac7443d6514b4ef9113',1,'wmtk']]],
@@ -19,7 +19,8 @@ var searchData=
   ['vectortype_16',['VectorType',['../namespacewmtk_1_1attribute_1_1internal.html#a9cff5b38a2e7d8c0d4092acaa51397e2',1,'wmtk::attribute::internal']]],
   ['vectorx_17',['VectorX',['../namespacewmtk.html#a9cd7285cb03e74d8aa2609646ea0308f',1,'wmtk']]],
   ['vectorxl_18',['VectorXl',['../namespacewmtk.html#a9ffbe91b53ca4eabba746d863aeb9f99',1,'wmtk']]],
-  ['vectype_19',['vectype',['../classwmtk_1_1operations_1_1_split_new_attribute_strategy.html#adedb1ac492ba8ba5dc4a627cfea42d62',1,'wmtk::operations::SplitNewAttributeStrategy::VecType'],['../classwmtk_1_1operations_1_1_collapse_new_attribute_strategy.html#ac4b92227168056a38191ce4e236578bc',1,'wmtk::operations::CollapseNewAttributeStrategy::VecType']]],
-  ['visitortype_20',['VisitorType',['../classwmtk_1_1multimesh_1_1_multi_mesh_simplex_event_visitor.html#a44d89c390e87b135b8cb9f26f8e0144e',1,'wmtk::multimesh::MultiMeshSimplexEventVisitor']]],
-  ['volume_21',['Volume',['../namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#ab17397b50bbf719e3e398287295bc996',1,'wmtk::components::mesh_info::transfer']]]
+  ['vectorxmax_19',['VectorXMax',['../namespacewmtk.html#ad69aeb7145cc65a13d66edbdea0ca89b',1,'wmtk']]],
+  ['vectype_20',['vectype',['../classwmtk_1_1operations_1_1_split_new_attribute_strategy.html#adedb1ac492ba8ba5dc4a627cfea42d62',1,'wmtk::operations::SplitNewAttributeStrategy::VecType'],['../classwmtk_1_1operations_1_1_collapse_new_attribute_strategy.html#ac4b92227168056a38191ce4e236578bc',1,'wmtk::operations::CollapseNewAttributeStrategy::VecType']]],
+  ['visitortype_21',['VisitorType',['../classwmtk_1_1multimesh_1_1_multi_mesh_simplex_event_visitor.html#a44d89c390e87b135b8cb9f26f8e0144e',1,'wmtk::multimesh::MultiMeshSimplexEventVisitor']]],
+  ['volume_22',['Volume',['../namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#ab17397b50bbf719e3e398287295bc996',1,'wmtk::components::mesh_info::transfer']]]
 ];

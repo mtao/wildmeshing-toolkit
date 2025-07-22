@@ -98,6 +98,7 @@ var namespacewmtk =
     [ "Vector5l", "namespacewmtk.html#ac21e37ae980bd4ee4a281a29da5ebb18", null ],
     [ "VectorX", "namespacewmtk.html#a9cd7285cb03e74d8aa2609646ea0308f", null ],
     [ "VectorXl", "namespacewmtk.html#a9ffbe91b53ca4eabba746d863aeb9f99", null ],
+    [ "VectorXMax", "namespacewmtk.html#ad69aeb7145cc65a13d66edbdea0ca89b", null ],
     [ "PrimitiveType", "namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345", [
       [ "Vertex", "namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6", null ],
       [ "Edge", "namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e", null ],

@@ -29,7 +29,7 @@ var classwmtk_1_1_tri_mesh =
     [ "make_cached_accessors", "classwmtk_1_1_tri_mesh.html#a6844917af29492582c929e6b53b462f8", null ],
     [ "operator=", "classwmtk_1_1_tri_mesh.html#a97ad266cba9c14ff1c4d559f9cbc7630", null ],
     [ "operator=", "classwmtk_1_1_tri_mesh.html#a3ad1e1da89aec444a4c0b7f2f9efdd0c", null ],
-    [ "orient_vertices", "classwmtk_1_1_tri_mesh.html#aea93da7ab690e97ca11e9d5068a942b4", null ],
+    [ "orient_vertices", "classwmtk_1_1_tri_mesh.html#a22b2707a2e0d9f8d83c6cbcaab9246f5", null ],
     [ "switch_edge", "classwmtk_1_1_tri_mesh.html#a79010f8baac63245558c846aafea10d0", null ],
     [ "switch_face", "classwmtk_1_1_tri_mesh.html#a0ecb0fd199e840ff9f3d206abc10a64b", null ],
     [ "switch_tuple", "classwmtk_1_1_tri_mesh.html#a17b808a46d1a31efc12d555e6721bd02", null ],
