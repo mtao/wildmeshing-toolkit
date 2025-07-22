@@ -21,6 +21,9 @@ using Vector = Eigen::Matrix<T, R, 1>;
 template <typename T>
 using VectorX = Vector<T, Eigen::Dynamic>;
 
+template <typename T, int MaxR>
+using VectorXMax = Eigen::Matrix<T, Eigen::Dynamic, 1,0,  MaxR>;
+
 template <typename T>
 using Vector1 = Vector<T, 1>;
 template <typename T>

@@ -28,12 +28,13 @@ public:
     EdgeMesh& operator=(const EdgeMesh& o) = delete;
     EdgeMesh& operator=(EdgeMesh&& o) = default;
 
-    Tuple switch_tuple(const Tuple& tuple, PrimitiveType type) const override;
+    Tuple switch_tuple(const Tuple& tuple, PrimitiveType type) const final override;
 
-    bool is_ccw(const Tuple& tuple) const override;
+    bool is_ccw(const Tuple& tuple) const final override;
     using Mesh::is_boundary;
-    bool is_boundary(PrimitiveType, const Tuple& tuple) const override;
+    bool is_boundary(PrimitiveType, const Tuple& tuple) const final override;
     bool is_boundary_vertex(const Tuple& tuple) const;
+    bool is_boundary_vertex(const int64_t index) const;
 
 
     void initialize(Eigen::Ref<const RowVectors2l> E, bool is_free = false);
@@ -46,7 +47,7 @@ public:
 
     bool is_valid(const Tuple& tuple) const final override;
 
-    bool is_connectivity_valid() const override;
+    bool is_connectivity_valid() const final override;
 
     std::vector<std::vector<TypedAttributeHandle<int64_t>>> connectivity_attributes()
         const override;
@@ -55,7 +56,7 @@ public:
     Tuple switch_vertex(const Tuple& tuple) const;
     Tuple switch_edge(const Tuple& tuple) const;
 
-    std::vector<Tuple> orient_vertices(const Tuple& tuple) const override;
+    std::vector<Tuple> orient_vertices(const Tuple& tuple) const final override;
     int64_t id(const Tuple& tuple, PrimitiveType type) const;
     int64_t id(int64_t global_id, int8_t permutation_index, PrimitiveType pt) const;
     using MeshCRTP<EdgeMesh>::id; // getting the (simplex) prototype
@@ -71,7 +72,7 @@ protected:
      * @param gid
      * @return Tuple
      */
-    Tuple tuple_from_id(const PrimitiveType type, const int64_t gid) const override;
+    Tuple tuple_from_id(const PrimitiveType type, const int64_t gid) const final override;
 
     Tuple tuple_from_global_ids(int64_t eid, int64_t vid) const;
 

@@ -58,7 +58,7 @@ public:
     Tuple switch_tetrahedron(const Tuple& tuple) const;
 
     // get the four vertex tuples in the tv matrix with the same order
-    std::vector<Tuple> orient_vertices(const Tuple& t) const override;
+    std::vector<Tuple> orient_vertices(const Tuple& t) const final override;
 
 
     int64_t id(const Tuple& tuple, PrimitiveType type) const;

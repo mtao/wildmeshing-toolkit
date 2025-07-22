@@ -25,10 +25,10 @@ public:
     PointMesh& operator=(const PointMesh& o) = delete;
     PointMesh& operator=(PointMesh&& o) = default;
 
-    [[noreturn]] Tuple switch_tuple(const Tuple& tuple, PrimitiveType type) const override;
-    bool is_ccw(const Tuple& tuple) const override;
+    [[noreturn]] Tuple switch_tuple(const Tuple& tuple, PrimitiveType type) const final override;
+    bool is_ccw(const Tuple& tuple) const final override;
     using Mesh::is_boundary;
-    bool is_boundary(PrimitiveType pt, const Tuple& tuple) const override;
+    bool is_boundary(PrimitiveType pt, const Tuple& tuple) const final override;
     bool is_boundary_vertex(const Tuple& tuple) const;
 
     void initialize(int64_t count);
@@ -41,7 +41,7 @@ public:
     std::vector<std::vector<TypedAttributeHandle<int64_t>>> connectivity_attributes()
         const override;
 
-    std::vector<Tuple> orient_vertices(const Tuple& tuple) const override;
+    std::vector<Tuple> orient_vertices(const Tuple& tuple) const final override;
 
     using MeshCRTP<PointMesh>::id; // getting the (simplex) prototype
     int64_t id(const Tuple& tuple, PrimitiveType type) const;
@@ -59,7 +59,7 @@ protected:
      * @param gid
      * @return Tuple
      */
-    Tuple tuple_from_id(const PrimitiveType type, const int64_t gid) const override;
+    Tuple tuple_from_id(const PrimitiveType type, const int64_t gid) const final override;
 };
 
 inline int64_t PointMesh::id(const Tuple& tuple, PrimitiveType type) const
