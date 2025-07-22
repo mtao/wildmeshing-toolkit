@@ -62,7 +62,7 @@ class Converter:
 
 
     def __get_topologies_obj__(self, input_filename):
-        v,tc,n,f,ftc,fn = igl.read_obj(input_filename)
+        v,tc,n,f,ftc,fn = igl.readOBJ(input_filename)
 
         topologies = dict()
         igl_topologies = [
