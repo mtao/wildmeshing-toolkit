@@ -96,6 +96,7 @@ int main(int argc, char* argv[])
             argv[0]);
         path_resolver.add_path(path);
     }
+    path_resolver.add_path(json_input_file.parent_path());
 
     // =====================
     // Parse input path json

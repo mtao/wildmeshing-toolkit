@@ -20,7 +20,7 @@ struct PriorityOptions
 {
     std::string type;
     std::string attribute_path; // TODO move this into a child
-    bool minimize = false;
+    bool minimize = false;// if true prioritizes teh largest priority operations first
     static PriorityOptions create(const nlohmann::json& js);
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(PriorityOptions)
 

@@ -18,7 +18,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshFromAttributeOptions)
 {
 
     nlohmann_json_t.creation_attributes = nlohmann_json_j["creation_attributes"];
-    nlohmann_json_t.from_tag_options = nlohmann_json_j["from_tag_options"];
+    nlohmann_json_t.from_tag_options = nlohmann_json_j["from_tag_options"].get<multimesh::MultimeshTagOptions>();
 }
 void MultimeshFromAttributeOptions::run(multimesh::MeshCollection& mc) const
 {

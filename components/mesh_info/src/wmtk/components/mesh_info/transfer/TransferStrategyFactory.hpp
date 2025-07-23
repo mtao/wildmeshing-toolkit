@@ -1,5 +1,7 @@
 #pragma once
 #include <nlohmann/json_fwd.hpp>
+#include <wmtk/attribute/MeshAttributeHandle.hpp>
+#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "TransferStrategyFactoryRegistry.hpp"
 namespace wmtk {
@@ -28,6 +30,20 @@ struct TransferStrategyFactory
     virtual std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create(
         wmtk::components::multimesh::MeshCollection& mc,
         bool populate = true) const;
+
+    // runs the transfer operation / populates the data
+    // calls create internally and tosses the resulting transfer, better to just call that if you
+    // want to actually get the transfer
+    wmtk::attribute::MeshAttributeHandle populate_attribute(
+        wmtk::components::multimesh::MeshCollection&) const;
+    wmtk::attribute::MeshAttributeHandle get_output_attribute(
+        wmtk::components::multimesh::MeshCollection&) const;
+
+    virtual components::multimesh::utils::AttributeDescription get_output_attribute_description(
+        const wmtk::components::multimesh::MeshCollection&) const = 0;
+
+    attribute::MeshAttributeHandle get_output_attribute_handle(
+        const wmtk::components::multimesh::MeshCollection&) const;
 
     // virtual int output_dimension(int input_dim) const = 0;
 

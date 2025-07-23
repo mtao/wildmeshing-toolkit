@@ -83,11 +83,9 @@ public:
     static wmtk::attribute::TypedAttributeHandle<int64_t>
     register_attribute(MeshType& m, const std::string_view& name, PrimitiveType pt)
     {
-        spdlog::info("Creating attr on {} size {}",primitive_type_name(pt), Dim);
         // add one for the orientation pack
         auto handle =
             m.template register_attribute_typed<int64_t>(std::string(name), pt, Dim + 1, false, -1);
-        spdlog::info("Creating attr had size {}",m.get_attribute_dimension(handle));
         return handle;
     }
 

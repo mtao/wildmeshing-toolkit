@@ -35,8 +35,9 @@ struct SingleAttributeTransferStrategyFactory : public SingleAttributeTransferSt
     SingleAttributeTransferStrategyFactory();
     ~SingleAttributeTransferStrategyFactory();
 
-    std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_transfer(
-        wmtk::components::multimesh::MeshCollection& mc) const final;
+
+    components::multimesh::utils::AttributeDescription get_output_attribute_description(
+        const wmtk::components::multimesh::MeshCollection&) const final;
     // std::unique_ptr<TransferStrategyFactory> clone() const final;
     // pass in the dimension of hte input vector, gets output vector
     // int output_dimension(int input_attribute_dimension) const final;
@@ -47,6 +48,8 @@ struct SingleAttributeTransferStrategyFactory : public SingleAttributeTransferSt
         const attribute::MeshAttributeHandle& to,
         const attribute::MeshAttributeHandle& from) const;
 
+    std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_transfer(
+        wmtk::components::multimesh::MeshCollection& mc) const final;
     template <int ToDim, int FromDim, typename ToT, typename FromT>
     using FunctorType = Functor<FromT, FromDim, ToT, ToDim>;
 };
@@ -84,18 +87,27 @@ SingleAttributeTransferStrategyFactory<Functor>::create_T(
 //     return TransferFunctorTraits<Functor>::simplex_dimension(base_);
 // }
 template <template <typename, int, typename, int> typename Functor>
+components::multimesh::utils::AttributeDescription
+SingleAttributeTransferStrategyFactory<Functor>::get_output_attribute_description(
+    const wmtk::components::multimesh::MeshCollection& mc) const
+{
+    auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, {base_attribute_path});
+    using Traits = TransferFunctorTraits<Functor>;
+    return {
+        attribute_path,
+        Traits::simplex_dimension(from_attr, parameters),
+        Traits::output_type(from_attr, parameters),
+        Traits::output_dimension(from_attr)};
+}
+template <template <typename, int, typename, int> typename Functor>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
 SingleAttributeTransferStrategyFactory<Functor>::create_transfer(
     wmtk::components::multimesh::MeshCollection& mc) const
 {
     auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, {base_attribute_path});
-    using Traits = TransferFunctorTraits<Functor>;
-    auto to_attr = wmtk::components::multimesh::utils::create_attribute(
-        mc,
-        {attribute_path,
-         Traits::simplex_dimension(from_attr, parameters),
-         Traits::output_type(from_attr, parameters),
-         Traits::output_dimension(from_attr)});
+    auto to_attr_d = get_output_attribute_description(mc);
+
+    auto to_attr = wmtk::components::multimesh::utils::create_attribute(mc, to_attr_d);
 
 
     return std::visit(

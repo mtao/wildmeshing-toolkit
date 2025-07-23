@@ -1,5 +1,7 @@
 #include "TransferStrategyFactory.hpp"
+#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategyBase.hpp>
 #include "init.hpp"
@@ -31,6 +33,22 @@ std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> TransferStrateg
         t->run_on_all();
     }
     return t;
+}
+
+auto TransferStrategyFactory::get_output_attribute_handle(
+    const wmtk::components::multimesh::MeshCollection& mc) const -> attribute::MeshAttributeHandle
+{
+    auto to_attr_d = get_output_attribute_description(mc);
+
+    return wmtk::components::multimesh::utils::get_attribute(mc, to_attr_d);
+}
+
+auto TransferStrategyFactory::populate_attribute(
+    wmtk::components::multimesh::MeshCollection& mc) const -> attribute::MeshAttributeHandle
+{
+    auto t = create_transfer(mc);
+    t->run_on_all();
+    return t->handle();
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(TransferStrategyFactory)
