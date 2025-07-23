@@ -32,5 +32,6 @@ var structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_tran
     [ "SingleAttributeTransferStrategyFactory", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html#af1ec62d9002c45b618f50ba78eb06c66", null ],
     [ "~SingleAttributeTransferStrategyFactory", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html#a8c88f43bb786462bd714eaae4b48c8f5", null ],
     [ "create_T", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html#a2d45c26426bc2686f84d4286521f68c5", null ],
-    [ "create_transfer", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html#ad8f92a461ac6219350959e4ec470b7fc", null ]
+    [ "create_transfer", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html#ad8f92a461ac6219350959e4ec470b7fc", null ],
+    [ "get_output_attribute_description", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html#a02a64e86fffa3eab0eb0b6069f10707c", null ]
 ];

@@ -17,7 +17,7 @@ var searchData=
   ['wildmeshing_5fold_2ehpp_14',['wildmeshing_old.hpp',['../wildmeshing__old_8hpp.html',1,'']]],
   ['wildmeshing_5futils_2ecpp_15',['wildmeshing_utils.cpp',['../wildmeshing__utils_8cpp.html',1,'']]],
   ['wildmeshing_5futils_2ehpp_16',['wildmeshing_utils.hpp',['../wildmeshing__utils_8hpp.html',1,'']]],
-  ['wildmeshingoptions_17',['wildmeshingoptions',['../structwmtk_1_1components_1_1_wild_meshing_options.html',1,'wmtk::components::WildMeshingOptions'],['../structwmtk_1_1components_1_1_wildmeshing_options.html',1,'wmtk::components::WildmeshingOptions']]],
+  ['wildmeshingoptions_17',['wildmeshingoptions',['../structwmtk_1_1components_1_1_wildmeshing_options.html',1,'wmtk::components::WildmeshingOptions'],['../structwmtk_1_1components_1_1_wild_meshing_options.html',1,'wmtk::components::WildMeshingOptions']]],
   ['wildmeshingoptions_2ehpp_18',['WildmeshingOptions.hpp',['../_wildmeshing_options_8hpp.html',1,'']]],
   ['wildmeshingoptions_5fold_2ehpp_19',['WildmeshingOptions_old.hpp',['../_wildmeshing_options__old_8hpp.html',1,'']]],
   ['wildmeshingoptionsattributes_20',['WildmeshingOptionsAttributes',['../structwmtk_1_1components_1_1_wildmeshing_options_attributes.html',1,'wmtk::components']]],

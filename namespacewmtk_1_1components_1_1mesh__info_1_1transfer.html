@@ -165,6 +165,8 @@ Classes</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory.html">TransferStrategyFactory</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_collection.html">TransferStrategyFactoryCollection</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_registry.html">TransferStrategyFactoryRegistry</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor.html">VolumeFunctor</a></td></tr>
@@ -198,8 +200,6 @@ Typedefs</h2></td></tr>
 <tr class="separator:ae73c447bd8db6089134f836aad0c15d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:affbf8bb5c36370caf7e02255cb820811" id="r_affbf8bb5c36370caf7e02255cb820811"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#affbf8bb5c36370caf7e02255cb820811">Threshold</a> = <a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html">SingleAttributeTransferStrategyFactory</a>&lt; <a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_threshold_functor.html">ThresholdFunctor</a> &gt;</td></tr>
 <tr class="separator:affbf8bb5c36370caf7e02255cb820811"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b9d200b1679c4afa864e175f98df433" id="r_a5b9d200b1679c4afa864e175f98df433"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a5b9d200b1679c4afa864e175f98df433">TransferStrategyFactoryCollection</a> = std::vector&lt; std::shared_ptr&lt; <a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory.html">mesh_info::transfer::TransferStrategyFactory</a> &gt; &gt;</td></tr>
-<tr class="separator:a5b9d200b1679c4afa864e175f98df433"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab17397b50bbf719e3e398287295bc996" id="r_ab17397b50bbf719e3e398287295bc996"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#ab17397b50bbf719e3e398287295bc996">Volume</a> = <a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html">SingleAttributeTransferStrategyFactory</a>&lt; <a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor.html">VolumeFunctor</a> &gt;</td></tr>
 <tr class="separator:ab17397b50bbf719e3e398287295bc996"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -217,9 +217,9 @@ Functions</h2></td></tr>
 <tr class="separator:a7493e4ad9b89b3b7af4e2fffda48d7fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cb2184b5296228e87b2635e05c84b64" id="r_a6cb2184b5296228e87b2635e05c84b64"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a6cb2184b5296228e87b2635e05c84b64">from_json</a> (const nlohmann::json &amp;, <a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory.html">TransferStrategyFactory</a> &amp;)</td></tr>
 <tr class="separator:a6cb2184b5296228e87b2635e05c84b64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a49f34174b4b9d8dfacc90e4606b539" id="r_a4a49f34174b4b9d8dfacc90e4606b539"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a4a49f34174b4b9d8dfacc90e4606b539">to_json</a> (nlohmann::json &amp;j, const <a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a5b9d200b1679c4afa864e175f98df433">TransferStrategyFactoryCollection</a> &amp;value)</td></tr>
+<tr class="memitem:a4a49f34174b4b9d8dfacc90e4606b539" id="r_a4a49f34174b4b9d8dfacc90e4606b539"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a4a49f34174b4b9d8dfacc90e4606b539">to_json</a> (nlohmann::json &amp;j, const <a class="el" href="classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_collection.html">TransferStrategyFactoryCollection</a> &amp;value)</td></tr>
 <tr class="separator:a4a49f34174b4b9d8dfacc90e4606b539"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f350330281ed517be3876e30b99ec3e" id="r_a4f350330281ed517be3876e30b99ec3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a4f350330281ed517be3876e30b99ec3e">from_json</a> (const nlohmann::json &amp;j, <a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a5b9d200b1679c4afa864e175f98df433">TransferStrategyFactoryCollection</a> &amp;value)</td></tr>
+<tr class="memitem:a4f350330281ed517be3876e30b99ec3e" id="r_a4f350330281ed517be3876e30b99ec3e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a4f350330281ed517be3876e30b99ec3e">from_json</a> (const nlohmann::json &amp;j, <a class="el" href="classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_collection.html">TransferStrategyFactoryCollection</a> &amp;value)</td></tr>
 <tr class="separator:a4f350330281ed517be3876e30b99ec3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
@@ -431,22 +431,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5b9d200b1679c4afa864e175f98df433" name="a5b9d200b1679c4afa864e175f98df433"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b9d200b1679c4afa864e175f98df433">&#9670;&#160;</a></span>TransferStrategyFactoryCollection</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a5b9d200b1679c4afa864e175f98df433">wmtk::components::mesh_info::transfer::TransferStrategyFactoryCollection</a> = typedef std::vector&lt;std::shared_ptr&lt;<a class="el" href="structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory.html">mesh_info::transfer::TransferStrategyFactory</a>&gt; &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_transfer_strategy_factory_collection_8hpp_source.html#l00008">8</a> of file <a class="el" href="_transfer_strategy_factory_collection_8hpp_source.html">TransferStrategyFactoryCollection.hpp</a>.</p>
-
-</div>
-</div>
 <a id="ab17397b50bbf719e3e398287295bc996" name="ab17397b50bbf719e3e398287295bc996"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab17397b50bbf719e3e398287295bc996">&#9670;&#160;</a></span>Volume</h2>
 
@@ -533,7 +517,7 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a5b9d200b1679c4afa864e175f98df433">TransferStrategyFactoryCollection</a> &amp;&#160;</td>
+          <td class="paramtype"><a class="el" href="classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_collection.html">TransferStrategyFactoryCollection</a> &amp;&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -546,7 +530,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_transfer_strategy_factory_collection_8cpp_source.html#l00017">17</a> of file <a class="el" href="_transfer_strategy_factory_collection_8cpp_source.html">TransferStrategyFactoryCollection.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_transfer_strategy_factory_8hpp_source.html#l00034">wmtk::components::mesh_info::transfer::TransferStrategyFactory::transfer_registry()</a>.</p>
+<p class="reference">References <a class="el" href="_transfer_strategy_factory_8hpp_source.html#l00050">wmtk::components::mesh_info::transfer::TransferStrategyFactory::transfer_registry()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -624,7 +608,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a5b9d200b1679c4afa864e175f98df433">TransferStrategyFactoryCollection</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_collection.html">TransferStrategyFactoryCollection</a> &amp;&#160;</td>
           <td class="paramname"><em>value</em>&#160;</td>
         </tr>
         <tr>
@@ -655,7 +639,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transfer_strategy_factory_8cpp_source.html#l00042">42</a> of file <a class="el" href="_transfer_strategy_factory_8cpp_source.html">TransferStrategyFactory.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transfer_strategy_factory_8cpp_source.html#l00060">60</a> of file <a class="el" href="_transfer_strategy_factory_8cpp_source.html">TransferStrategyFactory.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="json__macros_8hpp_source.html#l00026">WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON</a>.</p>
 
@@ -677,7 +661,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_transfer_strategy_factory_8cpp_source.html#l00036">36</a> of file <a class="el" href="_transfer_strategy_factory_8cpp_source.html">TransferStrategyFactory.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_transfer_strategy_factory_8cpp_source.html#l00054">54</a> of file <a class="el" href="_transfer_strategy_factory_8cpp_source.html">TransferStrategyFactory.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="json__macros_8hpp_source.html#l00023">WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON</a>.</p>
 

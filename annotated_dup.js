@@ -140,6 +140,7 @@ var annotated_dup =
             [ "ThresholdFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_threshold_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_threshold_functor" ],
             [ "TransferFunctorTraits", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits" ],
             [ "TransferStrategyFactory", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory" ],
+            [ "TransferStrategyFactoryCollection", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_collection.html", null ],
             [ "TransferStrategyFactoryRegistry", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_registry.html", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_registry" ],
             [ "VolumeFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor" ]
           ] ],
