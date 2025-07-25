@@ -11,6 +11,7 @@ var classwmtk_1_1operations_1_1_edge_operation_data =
     [ "get_simplex_ids_to_delete", "classwmtk_1_1operations_1_1_edge_operation_data.html#ae70459b52034bed04619bf223ef7a085", null ],
     [ "incident_vids", "classwmtk_1_1operations_1_1_edge_operation_data.html#a1d52c2ccbd45e3af8e0bd46f8ede6939", null ],
     [ "operating_edge_id", "classwmtk_1_1operations_1_1_edge_operation_data.html#a34aa633de8c755a7cbaa95204591dd06", null ],
+    [ "request_simplex_indices", "classwmtk_1_1operations_1_1_edge_operation_data.html#aba216dcd149818ee0a06ae8254b2370a", null ],
     [ "set_collapse", "classwmtk_1_1operations_1_1_edge_operation_data.html#a206614aefc56f3438ade92860efc4f3c", null ],
     [ "set_collapse", "classwmtk_1_1operations_1_1_edge_operation_data.html#ac0ffaf2692816b18a78dbad709fc32fe", null ],
     [ "set_collapse", "classwmtk_1_1operations_1_1_edge_operation_data.html#a5675081be7d3db1104a2f8822f521453", null ],

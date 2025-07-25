@@ -10,6 +10,7 @@ var classwmtk_1_1operations_1_1_operation =
     [ "clear_attribute_transfer_strategies", "classwmtk_1_1operations_1_1_operation.html#a5ed26b8a3586a5753f6a731432bcbae3", null ],
     [ "execute", "classwmtk_1_1operations_1_1_operation.html#a4a781f7e3d2ef423f7531f0f513a0c0f", null ],
     [ "get_transfer_strategy", "classwmtk_1_1operations_1_1_operation.html#a77e9f9dbe72647e6c5246ad765fd4938", null ],
+    [ "invariants", "classwmtk_1_1operations_1_1_operation.html#ae67bbc2e6823b4c0b81c2086466b100b", null ],
     [ "mesh", "classwmtk_1_1operations_1_1_operation.html#a50078d3afa4046c7d394af9eb9ffd06f", null ],
     [ "mesh", "classwmtk_1_1operations_1_1_operation.html#a741f1c2a8065cf4542ae47f3b6e19c17", null ],
     [ "operator()", "classwmtk_1_1operations_1_1_operation.html#a9c6426d34b54642aacb28e7cf93e328f", null ],

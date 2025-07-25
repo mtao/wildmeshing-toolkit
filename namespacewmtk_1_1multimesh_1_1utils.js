@@ -2,8 +2,6 @@ var namespacewmtk_1_1multimesh_1_1utils =
 [
     [ "internal", "namespacewmtk_1_1multimesh_1_1utils_1_1internal.html", "namespacewmtk_1_1multimesh_1_1utils_1_1internal" ],
     [ "MapValidator", "classwmtk_1_1multimesh_1_1utils_1_1_map_validator.html", "classwmtk_1_1multimesh_1_1utils_1_1_map_validator" ],
-    [ "TupleVector", "namespacewmtk_1_1multimesh_1_1utils.html#abe1bb2be3cf7cec23a07aa160ff41f82", null ],
-    [ "TwoTupleVector", "namespacewmtk_1_1multimesh_1_1utils.html#acff53209923ca86be1f06d03944ee942", null ],
     [ "check_child_maps_valid", "namespacewmtk_1_1multimesh_1_1utils.html#a317686a1574920c114f02dac79146d5b", null ],
     [ "check_maps_valid", "namespacewmtk_1_1multimesh_1_1utils.html#abcc3f7f7a25879455cafc8a8f4304c4c", null ],
     [ "check_parent_map_valid", "namespacewmtk_1_1multimesh_1_1utils.html#a72d2a49b74701d0d60edfe4408f4b5a0", null ],
@@ -28,7 +26,8 @@ var namespacewmtk_1_1multimesh_1_1utils =
     [ "read_tuple_map_attribute", "namespacewmtk_1_1multimesh_1_1utils.html#a096ae0d4d33607ed98e2848c471511ad", null ],
     [ "read_tuple_map_attribute", "namespacewmtk_1_1multimesh_1_1utils.html#ab9334d6fcaa058f89248493da3b467c2", null ],
     [ "read_tuple_map_attribute_slow", "namespacewmtk_1_1multimesh_1_1utils.html#a3378cfa3a16e6e1ac3cd9e1300d8d217", null ],
-    [ "symmetric_write_tuple_map_attributes", "namespacewmtk_1_1multimesh_1_1utils.html#ab19d57f46b80f20b1b4685ed83e305d5", null ],
+    [ "symmetric_write_tuple_map_attributes", "namespacewmtk_1_1multimesh_1_1utils.html#aa69cf0f02a02a6088e26eee272bb490a", null ],
+    [ "symmetric_write_tuple_map_attributes", "namespacewmtk_1_1multimesh_1_1utils.html#abf535fe0916039397c9d87648303316c", null ],
     [ "tagged_tuples", "namespacewmtk_1_1multimesh_1_1utils.html#a761bd441cb741a1ee78c06ace5883872", null ],
     [ "tagged_tuples< char >", "namespacewmtk_1_1multimesh_1_1utils.html#a483379b79f23b1f449f7aaf3bb49e0fa", null ],
     [ "tagged_tuples< double >", "namespacewmtk_1_1multimesh_1_1utils.html#a8ca70f25fc3649edd8ba3e6e1672ad5f", null ],

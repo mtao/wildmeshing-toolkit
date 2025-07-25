@@ -171,8 +171,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3df1e4a6e6de766e419522774d6463d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac345870292a6f98fe63dcbdffe56bae9" id="r_ac345870292a6f98fe63dcbdffe56bae9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ac345870292a6f98fe63dcbdffe56bae9">connect_faces_across_spine</a> ()</td></tr>
 <tr class="separator:ac345870292a6f98fe63dcbdffe56bae9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a49846c8a03b7ccae44fd042ee5ba18d4" id="r_a49846c8a03b7ccae44fd042ee5ba18d4"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a49846c8a03b7ccae44fd042ee5ba18d4">request_simplex_indices</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> type, int64_t count)</td></tr>
-<tr class="separator:a49846c8a03b7ccae44fd042ee5ba18d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a15a37c1d8c6556c11d387fbf78060f4e" id="r_a15a37c1d8c6556c11d387fbf78060f4e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_incident_face_data.html">IncidentFaceData</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a15a37c1d8c6556c11d387fbf78060f4e">get_incident_face_data</a> (<a class="el" href="classwmtk_1_1_tuple.html">Tuple</a> t)</td></tr>
 <tr class="separator:a15a37c1d8c6556c11d387fbf78060f4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html">wmtk::operations::tri_mesh::EdgeOperationData</a></td></tr>
@@ -235,6 +233,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3fdda0729fd9d5cf9b8015105e262031 inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae70459b52034bed04619bf223ef7a085 inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data" id="r_ae70459b52034bed04619bf223ef7a085"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#ae70459b52034bed04619bf223ef7a085">get_simplex_ids_to_delete</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt) const</td></tr>
 <tr class="separator:ae70459b52034bed04619bf223ef7a085 inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba216dcd149818ee0a06ae8254b2370a inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data" id="r_aba216dcd149818ee0a06ae8254b2370a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; int64_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1operations_1_1_edge_operation_data.html#aba216dcd149818ee0a06ae8254b2370a">request_simplex_indices</a> (const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> type, int64_t count)</td></tr>
+<tr class="separator:aba216dcd149818ee0a06ae8254b2370a inherit pub_methods_classwmtk_1_1operations_1_1_edge_operation_data"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -551,7 +551,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_tri_mesh_operation_executor_8cpp_source.html#l00139">139</a> of file <a class="el" href="_tri_mesh_operation_executor_8cpp_source.html">TriMeshOperationExecutor.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_simplex_collection_8cpp_source.html#l00043">wmtk::simplex::SimplexCollection::add()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="faces_8cpp_source.html#l00010">wmtk::simplex::faces()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="_tri_mesh_8hpp_source.html#l00130">wmtk::TriMesh::id()</a>, <a class="el" href="_mesh_8hpp_source.html#l01033">wmtk::Mesh::is_free()</a>, <a class="el" href="_tri_mesh_8hpp_source.html#l00122">wmtk::TriMesh::switch_edge()</a>, <a class="el" href="top__dimension__cofaces__iterable_8cpp_source.html#l00005">wmtk::simplex::top_dimension_cofaces_iterable()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
+<p class="reference">References <a class="el" href="_simplex_collection_8cpp_source.html#l00043">wmtk::simplex::SimplexCollection::add()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="faces_8cpp_source.html#l00010">wmtk::simplex::faces()</a>, <a class="el" href="_primitive_type_8hpp_source.html#l00018">wmtk::get_primitive_type_id()</a>, <a class="el" href="_tri_mesh_8hpp_source.html#l00130">wmtk::TriMesh::id()</a>, <a class="el" href="_mesh_8hpp_source.html#l01043">wmtk::Mesh::is_free()</a>, <a class="el" href="_tri_mesh_8hpp_source.html#l00122">wmtk::TriMesh::switch_edge()</a>, <a class="el" href="top__dimension__cofaces__iterable_8cpp_source.html#l00005">wmtk::simplex::top_dimension_cofaces_iterable()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -655,7 +655,7 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_tri_mesh_operation_executor_8cpp_source.html#l00035">35</a> of file <a class="el" href="_tri_mesh_operation_executor_8cpp_source.html">TriMeshOperationExecutor.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_tri_mesh_operation_executor_8hpp_source.html#l00075">m_mesh</a>, <a class="el" href="src_2wmtk_2invariants_2_envelope_invariant_8cpp_source.html#l00025">wmtk::PE</a>, <a class="el" href="src_2wmtk_2invariants_2_envelope_invariant_8cpp_source.html#l00024">wmtk::PV</a>, and <a class="el" href="_mesh_c_r_t_p_8hpp_source.html#l00144">wmtk::MeshCRTP&lt; Derived &gt;::switch_tuples()</a>.</p>
+<p class="reference">References <a class="el" href="_tri_mesh_operation_executor_8hpp_source.html#l00074">m_mesh</a>, <a class="el" href="src_2wmtk_2invariants_2_envelope_invariant_8cpp_source.html#l00025">wmtk::PE</a>, <a class="el" href="src_2wmtk_2invariants_2_envelope_invariant_8cpp_source.html#l00024">wmtk::PV</a>, and <a class="el" href="_mesh_c_r_t_p_8hpp_source.html#l00144">wmtk::MeshCRTP&lt; Derived &gt;::switch_tuples()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -719,36 +719,6 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor_a998d9ebaf1507d842fb01db91e044644_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
-
-</div>
-</div>
-<a id="a49846c8a03b7ccae44fd042ee5ba18d4" name="a49846c8a03b7ccae44fd042ee5ba18d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a49846c8a03b7ccae44fd042ee5ba18d4">&#9670;&#160;</a></span>request_simplex_indices()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt; int64_t &gt; wmtk::TriMesh::TriMeshOperationExecutor::request_simplex_indices </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int64_t&#160;</td>
-          <td class="paramname"><em>count</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="_tri_mesh_operation_executor_8cpp_source.html#l00799">799</a> of file <a class="el" href="_tri_mesh_operation_executor_8cpp_source.html">TriMeshOperationExecutor.cpp</a>.</p>
 
 </div>
 </div>
@@ -946,7 +916,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_tri_mesh_operation_executor_8hpp_source.html#l00075">75</a> of file <a class="el" href="_tri_mesh_operation_executor_8hpp_source.html">TriMeshOperationExecutor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_tri_mesh_operation_executor_8hpp_source.html#l00074">74</a> of file <a class="el" href="_tri_mesh_operation_executor_8hpp_source.html">TriMeshOperationExecutor.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_tri_mesh_operation_executor_8cpp_source.html#l00035">next_edge()</a>.</p>
 

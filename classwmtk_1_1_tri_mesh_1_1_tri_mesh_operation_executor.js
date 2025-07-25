@@ -11,7 +11,6 @@ var classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor =
     [ "next_edge", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a400efff4f802a87f2e32914190ec7b3b", null ],
     [ "prev_edge", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a8aaccd059935a5ec25b0680df485da96", null ],
     [ "replace_incident_face", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a998d9ebaf1507d842fb01db91e044644", null ],
-    [ "request_simplex_indices", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#a49846c8a03b7ccae44fd042ee5ba18d4", null ],
     [ "split_edge", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab634365fab3fdd82e567cb433b54ed33", null ],
     [ "split_edge_precompute", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ab7c2e31aeac6b8b9c55475675497ae77", null ],
     [ "update_ids_in_ear", "classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#ae53961f6be232903d726c95345ada815", null ],
