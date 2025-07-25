@@ -1,11 +1,7 @@
 #pragma once
 
 #include <wmtk/dart/Dart.hpp>
-#if defined(WMTK_ENABLED_CPP20)
 #include <span>
-#else
-#include <vector>
-#endif
 #include <array>
 namespace wmtk::tests::dart::utils {
 

@@ -15,7 +15,7 @@ public:
     // EdgeOperationData() = default;
     using wmtk::operations::EdgeOperationData::EdgeOperationData;
     EdgeOperationData(EdgeOperationData&&) = default;
-    EdgeOperationData& operator=(EdgeOperationData&&) = default;
+    //EdgeOperationData& operator=(EdgeOperationData&&) = default;
     //
     // E --------------- C --------------- F
     //   \-_           / | \           _-/

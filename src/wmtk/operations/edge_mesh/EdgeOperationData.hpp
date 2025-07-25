@@ -15,7 +15,7 @@ public:
     // EdgeOperationData() = default;
     using wmtk::operations::EdgeOperationData::EdgeOperationData;
     EdgeOperationData(EdgeOperationData&&) = default;
-    EdgeOperationData& operator=(EdgeOperationData&&) = default;
+    //EdgeOperationData& operator=(EdgeOperationData&&) = default;
     std::vector<int64_t> cell_ids_to_update_hash;
 
 
