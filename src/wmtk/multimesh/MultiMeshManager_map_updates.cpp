@@ -35,7 +35,6 @@ Tuple find_valid_tuple(
 
 } // namespace
 
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
 std::tuple<dart::Dart, dart::Dart>
 MultiMeshManager::mapped_darts(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const
 {
@@ -75,12 +74,10 @@ MultiMeshManager::mapped_darts(const Mesh& my_mesh, const Mesh& child_mesh, int6
 
 #endif
 }
-#endif
 
 std::tuple<Tuple, Tuple>
 MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int64_t index) const
 {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
     auto [parent_dart, child_dart] = mapped_darts(my_mesh, child_mesh, index);
 
     const PrimitiveType parent_pt = my_mesh.top_simplex_type();
@@ -92,15 +89,6 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
 
     return {parent_tuple, child_tuple};
 
-#else
-    assert(&my_mesh.m_multi_mesh_manager == this);
-    auto [parent_to_child_accessor, child_to_parent_accessor] =
-        get_map_const_accessors(my_mesh, child_mesh);
-    auto parent_to_child_data =
-        Mesh::get_index_access(parent_to_child_accessor).const_vector_attribute(index);
-
-    return wmtk::multimesh::utils::vectors_to_tuples(parent_to_child_data);
-#endif
 }
 
 // TODO: verify why these names are necessary
@@ -177,10 +165,10 @@ void MultiMeshManager::update_maps_from_edge_operation(
         // auto child_flag_accessor = child_mesh.get_const_flag_accessor(primitive_type);
 
 
+        spdlog::info("Checking for updating {}-simplices with gids {}", primitive_type, fmt::join(gids,","));
         for (const auto& gid : gids) {
             const bool parent_exists = !my_mesh.is_removed(gid, primitive_type);
             if (!parent_exists) {
-                logger().debug("parent doesnt exist, skip!");
                 continue;
             }
 
@@ -191,7 +179,6 @@ void MultiMeshManager::update_maps_from_edge_operation(
             // handled, so we can skip it
             // If the parent tuple is invalid then there was no map so we can try the next cell
             if (parent_tuple.is_null()) {
-                logger().debug("parent in map null, skip!");
                 continue;
             }
 
@@ -201,20 +188,22 @@ void MultiMeshManager::update_maps_from_edge_operation(
             // it's still there
             const bool child_exists = !child_mesh.is_removed(child_tuple);
             if (!child_exists) {
-                logger().debug("child doesnt exist, skip!");
                 continue;
             }
 
+            Tuple old_parent_tuple = parent_tuple;
 
             parent_tuple = wmtk::multimesh::find_valid_tuple(
                 my_mesh,
                 parent_tuple,
                 primitive_type,
                 operation_data);
+            spdlog::warn("Parent {} moved to {} to map to child {}", std::string(old_parent_tuple), std::string(parent_tuple), std::string(child_tuple));
 
             if (parent_tuple.is_null()) {
                 continue;
             }
+            assert(my_mesh.is_valid(parent_tuple));
 
             assert(!parent_tuple.is_null());
             wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
@@ -228,54 +217,19 @@ void MultiMeshManager::update_maps_from_edge_operation(
 
 int64_t MultiMeshManager::child_global_cid(const AccessorType& parent_to_child, int64_t parent_gid)
 {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
     return parent_to_child.IndexBaseType::operator[](parent_gid)[0].global_id();
-#else
-    // look at src/wmtk/multimesh/utils/tuple_map_attribute_io.cpp to see what index global_cid gets mapped to)
-    // 2 is the size of a tuple is 2 longs, global_cid currently gets written to position 3
-    // 5 is the size of a tuple is 5 longs, global_cid currently gets written to position 3
-    return Mesh::get_index_access(parent_to_child)
-        .const_vector_attribute(parent_gid)(
-            wmtk::multimesh::utils::TUPLE_SIZE + wmtk::multimesh::utils::GLOBAL_ID_INDEX);
-#endif
 }
 int64_t MultiMeshManager::parent_global_cid(const AccessorType& child_to_parent, int64_t child_gid)
 {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
     return child_to_parent.IndexBaseType::operator[](child_gid)[0].global_id();
-#else
-    // look at src/wmtk/multimesh/utils/tuple_map_attribute_io.cpp to see what index global_cid gets mapped to)
-    // 2 is the size of a tuple is 2 longs, global_cid currently gets written to position 3
-    // 5 is the size of a tuple is 5 longs, global_cid currently gets written to position 2
-    return Mesh::get_index_access(child_to_parent)
-        .const_vector_attribute(child_gid)(
-            wmtk::multimesh::utils::TUPLE_SIZE + wmtk::multimesh::utils::GLOBAL_ID_INDEX);
-#endif
 }
 
 int64_t MultiMeshManager::parent_local_fid(const AccessorType& child_to_parent, int64_t child_gid)
 {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
     // only works on tets
     auto o = child_to_parent.IndexBaseType::operator[](child_gid)[0].permutation();
     return wmtk::dart::SimplexDart::get_singleton(PrimitiveType::Tetrahedron)
         .simplex_index(o, PrimitiveType::Triangle);
-#else
-    // look at src/wmtk/multimesh/utils/tuple_map_attribute_io.cpp to see what index global_cid gets mapped to)
-#if defined(WMTK_DISABLE_COMPRESSED_MULTIMESH_TUPLE)
-    // 5 is the size of a tuple is 5 longs, global_cid currently gets written to position 3
-    return Mesh::get_index_access(child_to_parent)
-        .const_vector_attribute(child_gid)(wmtk::multimesh::utils::TUPLE_SIZE + 2);
-#else
-    // pick hte index that isn't teh global id index
-    const int64_t v =
-        Mesh::get_index_access(child_to_parent)
-            .const_vector_attribute(child_gid)(
-                wmtk::multimesh::utils::TUPLE_SIZE + (1 - wmtk::multimesh::utils::GLOBAL_ID_INDEX));
-    auto vptr = reinterpret_cast<const int8_t*>(&v);
-    return vptr[2];
-#endif
-#endif
 }
 
 

@@ -95,16 +95,19 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
         }
 #endif
         auto mods = execute(simplex);
-        // #ifndef NDEBUG
-        //         if (!mesh().is_free()) {
-        //             spdlog::error("CHECKING TUPLE VALIDITY!");
-        //             for (const auto& s : mods) {
-        //                 assert(mesh().is_valid(s));
-        //                 spdlog::info("direct mods valid: {} {}", std::string(s.tuple()),
-        //                 mesh().id(s));
-        //             }
-        //         }
-        // #endif
+        // if (!wmtk::multimesh::utils::check_maps_valid(mesh())) {
+        //     spdlog::warn("Map valid fail {}", simplex.tuple().as_string());
+        // }
+        //  #ifndef NDEBUG
+        //          if (!mesh().is_free()) {
+        //              spdlog::error("CHECKING TUPLE VALIDITY!");
+        //              for (const auto& s : mods) {
+        //                  assert(mesh().is_valid(s));
+        //                  spdlog::info("direct mods valid: {} {}", std::string(s.tuple()),
+        //                  mesh().id(s));
+        //              }
+        //          }
+        //  #endif
 
         if (!mods.empty()) { // success should be marked here
             apply_attribute_transfer(mods);

@@ -42,6 +42,7 @@ void IsotropicRemeshing::configure_split()
                 child));
     }
     for (const auto& transfer : m_operation_transfers) {
+        spdlog::info("Adding split transfer for {}", transfer->handle().name());
         op->set_new_attribute_strategy(transfer->handle());
         op->add_transfer_strategy(transfer);
     }

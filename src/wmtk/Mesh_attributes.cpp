@@ -206,7 +206,8 @@ attribute::AttributeScopeHandle Mesh::create_single_mesh_scope()
     return m_attribute_manager.create_scope(*this);
 }
 
-std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>> Mesh::consolidate()
+std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
+Mesh::consolidate_update_data() const
 {
     // Number of dimensions
     int64_t tcp = top_cell_dimension() + 1;
@@ -218,9 +219,12 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
 
     // Initialize both maps
     for (int64_t d = 0; d < tcp; d++) {
+        size_t capacity = this->capacity(wmtk::get_primitive_type_from_id(d));
+        old2new[d].reserve(capacity);
+        new2old[d].reserve(capacity);
         attribute::FlagAccessor<Mesh> flag_accessor =
             get_flag_accessor(wmtk::get_primitive_type_from_id(d));
-        for (int64_t i = 0; i < capacity(wmtk::get_primitive_type_from_id(d)); ++i) {
+        for (int64_t i = 0; i < capacity; ++i) {
             if (flag_accessor.index_access().is_active(i)) {
                 old2new[d].push_back(new2old[d].size());
                 new2old[d].push_back(old2new[d].size() - 1); // -1 since we just pushed into it
@@ -229,6 +233,76 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
             }
         }
     }
+    /*
+    for (int64_t d = 0; d < tcp; d++) {
+        size_t capacity = this->capacity(wmtk::get_primitive_type_from_id(d));
+        old2new[d].resize(capacity, -1);
+        new2old[d].reserve(capacity);
+        attribute::FlagAccessor<Mesh> flag_accessor =
+            get_flag_accessor(wmtk::get_primitive_type_from_id(d));
+        for (int64_t i = 0; i < capacity; ++i) {
+            if (flag_accessor.index_access().is_active(i)) {
+                size_t n2o = new2old[d].size();
+                size_t o2n = old2new[d].size();
+                old2new[d][i] = (n2o);
+                new2old[d].emplace_back(o2n);
+            }
+        }
+    }
+    */
+    return {new2old, old2new};
+}
+std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>> Mesh::consolidate()
+{
+    auto pr = consolidate_update_data();
+    {
+        for (const auto& child_data : m_multi_mesh_manager.m_children) {
+            auto& child_mesh = *child_data.mesh;
+            auto [me_to_child, child_to_me] =
+                m_multi_mesh_manager.get_map_accessors(*this, child_mesh);
+
+            const auto& child_sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
+            for (const auto& t : child_mesh.get_all(child_to_me.handle().primitive_type())) {
+                dart::DartWrap d = child_to_me[child_sd.dart_from_tuple(t)];
+                int64_t old_gid = d.global_id();
+                if (is_removed(old_gid)) {
+                    spdlog::warn("map wasnt valid for {}", old_gid);
+                }
+            }
+        }
+        if (auto parent_ptr = m_multi_mesh_manager.m_parent; parent_ptr != nullptr) {
+            auto [parent_to_me, me_to_parent] =
+                parent_ptr->m_multi_mesh_manager.get_map_accessors(*parent_ptr, *this);
+
+
+            const auto& p_sd = dart::SimplexDart::get_singleton(parent_ptr->top_simplex_type());
+            for (const auto& t : parent_ptr->get_all(parent_to_me.handle().primitive_type())) {
+                dart::DartWrap d = parent_to_me[p_sd.dart_from_tuple(t)];
+                if (!d.is_null()) {
+                    int64_t old_gid = d.global_id();
+                    if (is_removed(old_gid)) {
+                        spdlog::warn("map wasnt valid for {}", old_gid);
+                    }
+                }
+            }
+        }
+    }
+
+    consolidate_maps(pr);
+    consolidate_attributes(pr);
+    consolidate_connectivity(pr);
+    return pr;
+}
+void Mesh::consolidate_attributes(
+    const std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>&
+        new2old_old2new)
+{
+    // Number of dimensions
+    int64_t tcp = top_cell_dimension() + 1;
+    const auto& [new2old, old2new] = new2old_old2new;
+    size_t dim = get_primitive_type_id(top_simplex_type());
+    const auto& top_map = old2new[dim];
+
 
     // Use new2oldmap to compact all attributes
     auto run = [&](auto&& mesh_attrs) {
@@ -248,6 +322,15 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
     run(m_attribute_manager.m_double_attributes);
 
     run(m_attribute_manager.m_rational_attributes);
+}
+void Mesh::consolidate_connectivity(
+    const std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>&
+        new2old_old2new)
+{
+    // Number of dimensions
+    int64_t tcp = top_cell_dimension() + 1;
+    const auto& [new2old, old2new] = new2old_old2new;
+    size_t dim = get_primitive_type_id(top_simplex_type());
 
     // Update the attribute size in the manager
     for (int64_t d = 0; d < tcp; d++) {
@@ -264,80 +347,86 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
             accessor.attribute().index_remap(old2new[d]);
         }
     }
+}
 
-    {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
+void Mesh::consolidate_maps(
+    const std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>&
+        new2old_old2new)
+{
+    // Number of dimensions
+    int64_t tcp = top_cell_dimension() + 1;
+    const auto& [new2old, old2new] = new2old_old2new;
+    size_t dim = get_primitive_type_id(top_simplex_type());
+    const auto& top_map = old2new[dim];
 
-#else
-        constexpr static int64_t TUPLE_SIZE = multimesh::utils::TUPLE_SIZE; // in terms of int64_t
-        constexpr static int64_t GLOBAL_ID_INDEX = multimesh::utils::GLOBAL_ID_INDEX;
-        const static std::vector<Eigen::Index> image_map_offsets{
-            Eigen::Index(TUPLE_SIZE + GLOBAL_ID_INDEX)};
-        const static std::vector<Eigen::Index> domain_map_offsets{Eigen::Index(GLOBAL_ID_INDEX)};
-#endif
-        size_t dim = get_primitive_type_id(top_simplex_type());
-        const auto& top_map = old2new[dim];
-        if (auto parent_ptr = m_multi_mesh_manager.m_parent; parent_ptr != nullptr) {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
-            auto [parent_to_me, me_to_parent] =
-                parent_ptr->m_multi_mesh_manager.get_map_accessors(*parent_ptr, *this);
+    for (const auto& child_data : m_multi_mesh_manager.m_children) {
+        auto& child_mesh = *child_data.mesh;
+        auto [me_to_child, child_to_me] = m_multi_mesh_manager.get_map_accessors(*this, child_mesh);
 
-
-            const auto& sd = dart::SimplexDart::get_singleton(top_simplex_type());
-            for (const auto& t : get_all(top_simplex_type())) {
-                dart::Dart d = me_to_parent[sd.dart_from_tuple(t)];
-                dart::DartWrap dw = parent_to_me[d];
-                dw = dart::Dart{top_map[dw.global_id()], dw.permutation()};
+        const auto& child_sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
+        for (const auto& t : child_mesh.get_all(child_to_me.handle().primitive_type())) {
+            dart::DartWrap d = child_to_me[child_sd.dart_from_tuple(t)];
+            int64_t old_gid = d.global_id();
+            if (is_removed(old_gid)) {
+                spdlog::warn("map wasnt valid for {}", old_gid);
             }
-#else
-            {
-                int64_t child_id = m_multi_mesh_manager.m_child_id;
-                const auto& child_data = parent_ptr->m_multi_mesh_manager.m_children[child_id];
-                const auto handle = child_data.map_handle;
-                auto acc = parent_ptr->create_accessor(handle);
-                auto& attr = acc.attribute();
-                attr.index_remap(top_map, image_map_offsets);
+            int64_t new_gid = top_map[old_gid];
+            if (new_gid == -1) {
+                spdlog::warn("Bad gid");
             }
+            continue;
+            d = dart::Dart{new_gid, d.permutation()};
+            simplex::Simplex v =
+                child_mesh.map_to_parent(simplex::Simplex(child_mesh.top_simplex_type(), t));
+            // spdlog::info(
+            //     "{} 2c[{}]: {} {} {}",
 
-            {
-                const auto handle = m_multi_mesh_manager.map_to_parent_handle;
-                auto acc = create_accessor(handle);
-                auto& attr = acc.attribute();
-                attr.index_remap(top_map, domain_map_offsets);
+            //    child_mesh.id(t, child_mesh.top_simplex_type()),
+            //    fmt::join(absolute_multi_mesh_id(), ","),
+            //    d,
+            //    old_gid,
+            //    top_map[old_gid]);
+            if (v.tuple().is_null()) {
+                spdlog::warn("Error");
             }
-#endif
-        }
-
-        for (const auto& child_data : m_multi_mesh_manager.m_children) {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
-            auto& child_mesh = *child_data.mesh;
-            auto [me_to_child, child_to_me] =
-                m_multi_mesh_manager.get_map_accessors(*this, child_mesh);
-
-            const auto& sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
-            for (const auto& t : child_mesh.get_all(child_mesh.top_simplex_type())) {
-                dart::DartWrap d = child_to_me[sd.dart_from_tuple(t)];
-                d = dart::Dart{top_map[d.global_id()], d.permutation()};
-            }
-#else
-            {
-                const auto handle = child_data.map_handle;
-                auto acc = create_accessor(handle);
-                auto& attr = acc.attribute();
-                attr.index_remap(top_map, domain_map_offsets);
-            }
-            {
-                const auto handle = child_data.mesh->m_multi_mesh_manager.map_to_parent_handle;
-                auto acc = child_data.mesh->create_accessor(handle);
-                auto& attr = acc.attribute();
-                attr.index_remap(top_map, image_map_offsets);
-            }
-#endif
         }
     }
+    if (auto parent_ptr = m_multi_mesh_manager.m_parent; parent_ptr != nullptr) {
+        auto [parent_to_me, me_to_parent] =
+            parent_ptr->m_multi_mesh_manager.get_map_accessors(*parent_ptr, *this);
 
-    // Return both maps for custom attribute remapping
-    return {new2old, old2new};
+
+        const auto& p_sd = dart::SimplexDart::get_singleton(parent_ptr->top_simplex_type());
+        for (const auto& t : parent_ptr->get_all(parent_to_me.handle().primitive_type())) {
+            dart::DartWrap d = parent_to_me[p_sd.dart_from_tuple(t)];
+            if (!d.is_null()) {
+                int64_t old_gid = d.global_id();
+                if (is_removed(old_gid)) {
+                    spdlog::warn("map wasnt valid for {}", old_gid);
+                }
+                int64_t new_gid = top_map[old_gid];
+                if (new_gid == -1) {
+                    spdlog::warn("Bad gid");
+                }
+                continue;
+                d = dart::Dart{new_gid, d.permutation()};
+                // spdlog::info(
+                //     "{} 2p[{}]: {} {} {}",
+                //     parent_ptr->id(t, top_simplex_type()),
+                //     fmt::join(absolute_multi_mesh_id(), ","),
+                //     d,
+                //     old_gid,
+                //     top_map[old_gid]);
+                std::vector<simplex::Simplex> vs =
+                    parent_ptr->map_to_child(*this, simplex::Simplex(top_simplex_type(), t));
+                for (const auto& v : vs) {
+                    if (v.tuple().is_null()) {
+                        spdlog::warn("Error");
+                    }
+                }
+            }
+        }
+    }
 }
 std::vector<attribute::MeshAttributeHandle::HandleVariant> Mesh::builtin_attributes() const
 {

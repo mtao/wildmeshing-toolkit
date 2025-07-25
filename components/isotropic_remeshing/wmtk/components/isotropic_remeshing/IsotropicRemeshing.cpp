@@ -101,8 +101,9 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
         assert(bool(m_swap));
         m_operations.emplace("swap", m_swap);
     } else if (m_options.swap.mode != EdgeSwapMode::Skip) {
-        wmtk::logger().info("Running Isotropic Remeshing without a swap configured despite being "
-                            "supposed to use them");
+        wmtk::logger().info(
+            "Running Isotropic Remeshing without a swap configured despite being "
+            "supposed to use them");
     }
 
     //////////////////////////////////////////
@@ -116,16 +117,18 @@ IsotropicRemeshing::IsotropicRemeshing(const IsotropicRemeshingOptions& opts)
     }
 
     if (m_options.passes.empty() && m_options.mesh_collection != nullptr) {
-        m_options.passes.emplace_back(Pass{
-            m_options.mesh_collection->get_mesh_path(m_options.position_attribute.mesh()),
-            1,
-            {"split", "collapse", "swap", "smooth"}});
+        m_options.passes.emplace_back(
+            Pass{
+                m_options.mesh_collection->get_mesh_path(m_options.position_attribute.mesh()),
+                1,
+                {"split", "collapse", "swap", "smooth"}});
     }
     for (size_t j = 0; j < m_options.passes.size(); ++j) {
         auto& pass = m_options.passes[j];
         if (pass.operations.empty()) {
-            wmtk::logger().info("Pass of isotropic remeshing didn't specify any operations, "
-                                "assuming it's a split,collapse,swap,smooth");
+            wmtk::logger().info(
+                "Pass of isotropic remeshing didn't specify any operations, "
+                "assuming it's a split,collapse,swap,smooth");
             pass.operations = {"split", "collapse", "swap", "smooth"};
         }
         for (const auto& op_name : pass.operations) {
@@ -189,6 +192,29 @@ void IsotropicRemeshing::run()
         m_options.passes.size(),
         m_options.iterations);
 
+    if (m_split) {
+        wmtk::logger().debug(
+            "Isotropic Remeshing split has invariant [{}]",
+            m_split->invariants().name());
+    }
+    if (m_collapse) {
+        wmtk::logger().debug(
+            "Isotropic Remeshing collapse has invariant [{}]",
+            m_collapse->invariants().name());
+    }
+    if (m_swap) {
+        wmtk::logger().debug(
+            "Isotropic Remeshing swap has invariant [{}], and its split has [{}], collapse has "
+            "[{}]",
+            m_swap->invariants().name(),
+            m_swap->split().invariants().name(),
+            m_swap->collapse().invariants().name());
+    }
+    if (m_smooth) {
+        wmtk::logger().debug(
+            "Isotropic Remeshing smooth has invariant [{}]",
+            m_smooth->invariants().name());
+    }
 
     auto log_mesh = [&](int64_t index) {
         if (m_options.mesh_collection) {
@@ -201,8 +227,9 @@ void IsotropicRemeshing::run()
             }
         }
         if (m_options.intermediate_output_format.empty() && m_options.mesh_collection == nullptr) {
-            wmtk::logger().error("Failed to log using intermediate_output_format because "
-                                 "no MeshCollection was attached");
+            wmtk::logger().error(
+                "Failed to log using intermediate_output_format because "
+                "no MeshCollection was attached");
             return;
         }
         for (const auto& [name, opts] : m_options.intermediate_output_format) {
@@ -258,8 +285,19 @@ void IsotropicRemeshing::run(const Pass& pass, size_t pass_index)
 
     auto run_opo = [&](wmtk::operations::Operation& op, std::string_view op_name) {
         auto& run_mesh = op.mesh();
+        for (const auto& m : run_mesh.get_multi_mesh_root().get_all_meshes()) {
+            if (!wmtk::multimesh::utils::check_maps_valid(*m)) {
+                throw std::runtime_error("map was corrupted before op!");
+            }
+        }
+
         SchedulerStats stats = scheduler.run_operation_on_all(op, mesh);
 
+        for (const auto& m : run_mesh.get_multi_mesh_root().get_all_meshes()) {
+            if (!wmtk::multimesh::utils::check_maps_valid(*m)) {
+                throw std::runtime_error("map was corrupted!");
+            }
+        }
 
         logger().info(
             "Executed {} {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
@@ -301,17 +339,19 @@ void IsotropicRemeshing::run(const Pass& pass, size_t pass_index)
             }
             const auto stats = run_opo(*opptr, name);
             pass_stats += stats;
-
-            /*
-            for (const auto& m : m_options.position_attribute.mesh().get_all_meshes()) {
-                if (!wmtk::multimesh::utils::check_maps_valid(*m)) {
-                    throw std::runtime_error("map was corrupted!");
-                }
-            }
-            */
         }
 
+        for (const auto& m : mesh.get_multi_mesh_root().get_all_meshes()) {
+            if (!wmtk::multimesh::utils::check_maps_valid(*m)) {
+                throw std::runtime_error("map was corrupted before consolidate!");
+            }
+        }
         wmtk::multimesh::consolidate(mesh);
+        for (const auto& m : mesh.get_multi_mesh_root().get_all_meshes()) {
+            if (!wmtk::multimesh::utils::check_maps_valid(*m)) {
+                throw std::runtime_error("map was corrupted by consolidate!");
+            }
+        }
 
         logger().info(
             "Executed {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",

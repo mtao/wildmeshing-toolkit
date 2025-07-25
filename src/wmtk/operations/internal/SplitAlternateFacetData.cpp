@@ -122,6 +122,7 @@ std::vector<int64_t> SplitAlternateFacetData::get_simplices_to_delete(
     const Mesh& mesh,
     const PrimitiveType& simplex_dim) const
 {
+    spdlog::info("Collectiong {}-simplices to delete from a {}-mesh", simplex_dim,mesh.top_cell_dimension());
     if(simplex_dim < PrimitiveType::Edge) {
         return {};
     }

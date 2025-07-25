@@ -100,7 +100,6 @@ public:
      */
     void collapse_edge();
 
-    std::vector<int64_t> request_simplex_indices(const PrimitiveType type, int64_t count);
 
 
     TetMesh& m_mesh;

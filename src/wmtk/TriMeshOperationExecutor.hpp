@@ -70,7 +70,6 @@ public:
     void create_spine_simplices();
     void fill_split_facet_data();
     void connect_faces_across_spine();
-    std::vector<int64_t> request_simplex_indices(const PrimitiveType type, int64_t count);
 
     TriMesh& m_mesh;
 

@@ -796,11 +796,5 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge()
     // return m_mesh.tuple_from_id(PrimitiveType::Vertex, v1);
 }
 
-std::vector<int64_t> TriMesh::TriMeshOperationExecutor::request_simplex_indices(
-    const PrimitiveType type,
-    int64_t count)
-{
-    return EdgeOperationData::request_simplex_indices(m_mesh, type, count);
-}
 
 } // namespace wmtk

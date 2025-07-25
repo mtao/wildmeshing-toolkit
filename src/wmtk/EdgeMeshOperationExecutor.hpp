@@ -43,7 +43,6 @@ public:
     Tuple split_edge_single_mesh();
     Tuple collapse_edge_single_mesh();
 
-    std::vector<int64_t> request_simplex_indices(const PrimitiveType type, int64_t count);
 
     EdgeMesh& mesh() { return static_cast<EdgeMesh&>(m_mesh); }
     const EdgeMesh& mesh() const { return static_cast<EdgeMesh&>(m_mesh); }

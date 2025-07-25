@@ -67,6 +67,8 @@ public:
 
     virtual void reserve_enough_simplices();
 
+    const invariants::InvariantCollection invariants() const { return m_invariants; }
+
 protected:
     /**
      * @brief returns an empty vector in case of failure

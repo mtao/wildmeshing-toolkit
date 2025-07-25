@@ -5,6 +5,7 @@
 #include <wmtk/dart/Dart.hpp>
 #include <wmtk/dart/SimplexAdjacency.hpp>
 #include <wmtk/dart/SimplexDart.hpp>
+#include "wmtk/attribute/TypedAttributeHandle.hpp"
 
 namespace wmtk {
 class PointMesh;
@@ -23,7 +24,8 @@ class DartIndexAccessor
 {
 public:
     static_assert(sizeof(int64_t) * (Dim + 1) >= sizeof(dart::SimplexAdjacency<Dim>));
-    using BaseAccessor = wmtk::attribute::Accessor<int64_t, MeshType, attribute::CachingAttribute<int64_t>, Dim + 1>;
+    using BaseAccessor =
+        wmtk::attribute::Accessor<int64_t, MeshType, attribute::CachingAttribute<int64_t>, Dim + 1>;
 
     DartIndexAccessor(BaseAccessor acc)
         : m_base_accessor{std::move(acc)}
@@ -40,6 +42,8 @@ public:
         : m_base_accessor{o.m_base_accessor}
     {}
 
+    wmtk::attribute::MeshAttributeHandle handle() const { return m_base_accessor.handle(); }
+
     dart::SimplexAdjacency<Dim>& operator[](int64_t index)
     {
         return *reinterpret_cast<dart::SimplexAdjacency<Dim>*>(
@@ -53,9 +57,7 @@ public:
 
     const MeshType& mesh() const { return m_base_accessor.mesh(); }
 
-    size_t size() const { 
-        return m_base_accessor.reserved_size();
-    }
+    size_t size() const { return m_base_accessor.reserved_size(); }
 
 
 protected:
@@ -76,6 +78,7 @@ public:
     using IndexBaseType::size;
     using IndexBaseType::operator[];
 
+    using IndexBaseType::handle;
     using IndexBaseType::mesh;
     friend class wmtk::operations::utils::UpdateEdgeOperationMultiMeshMapFunctor;
 

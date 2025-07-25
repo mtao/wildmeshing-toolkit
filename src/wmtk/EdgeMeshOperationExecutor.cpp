@@ -254,12 +254,4 @@ Tuple EdgeMesh::EdgeMeshOperationExecutor::collapse_edge_single_mesh()
     return ret_tuple;
 }
 
-std::vector<int64_t> EdgeMesh::EdgeMeshOperationExecutor::request_simplex_indices(
-    const PrimitiveType type,
-    int64_t count)
-{
-    mesh().guarantee_more_attributes(type, count);
-    return mesh().request_simplex_indices(type, count);
-}
-
 } // namespace wmtk

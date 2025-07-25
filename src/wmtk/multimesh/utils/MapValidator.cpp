@@ -17,8 +17,24 @@ bool MapValidator::check_all() const
 {
     logger().info("Checking all map validitiy checks");
     bool ok = true;
-    ok &= check_parent_map_attribute_valid();
-    ok &= check_child_map_attributes_valid();
+    {
+        bool r = check_parent_map_attribute_valid();
+        if (!r) {
+            logger().warn(
+                "Testing [{}] parent attributes failed",
+                fmt::join(m_mesh.absolute_multi_mesh_id(), ","));
+        }
+        ok &= r;
+    }
+    {
+        bool r = check_child_map_attributes_valid();
+        if (!r) {
+            logger().warn(
+                "Testing [{}] child attributes failed",
+                fmt::join(m_mesh.absolute_multi_mesh_id(), ","));
+        }
+        ok &= r;
+    }
     if (!ok) {
         return ok;
     }
@@ -31,9 +47,6 @@ bool MapValidator::check_all() const
 bool MapValidator::check_child_map_attributes_valid() const
 {
     logger().debug("Checking child map attributes are valid");
-#if defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
-    // return true;
-#endif
     bool ok = true;
     for (const auto& [cptr, attr] : m_mesh.m_multi_mesh_manager.m_children) {
         const auto& child = *cptr;
@@ -45,9 +58,6 @@ bool MapValidator::check_child_map_attributes_valid() const
         // auto [me_to_child, child_to_me] =
         // m_mesh.m_multi_mesh_manager.get_map_const_accessors(m_mesh, child);
         // wmtk::multimesh::utils::internal::print_all_mapped_tuples(me_to_child, child_to_me);
-#if !defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
-        auto map_accessor = m_mesh.create_const_accessor(attr);
-#endif
 
         for (int64_t j = 0; j < child.top_cell_dimension(); ++j) {
             wmtk::PrimitiveType prim_type = wmtk::PrimitiveType(j);
@@ -58,41 +68,6 @@ bool MapValidator::check_child_map_attributes_valid() const
                 auto tups = simplex::top_dimension_cofaces_tuples(m_mesh, s);
 
                 for (const auto& source_tuple : tups) {
-#if !defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
-                    const auto [source_mesh_base_tuple, target_mesh_base_tuple] =
-                        multimesh::utils::read_tuple_map_attribute(map_accessor, source_tuple);
-                    if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
-                        if (!(source_mesh_base_tuple.is_null() &&
-                              target_mesh_base_tuple.is_null())) {
-                            ok = false;
-                            wmtk::logger().error(
-                                "Map from parent {} to child {} on tuple {} (dim {}) fails on  {} "
-                                "or "
-                                "{} null",
-                                fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
-                                fmt::join(child.absolute_multi_mesh_id(), ","),
-                                j,
-                                pt.as_string(),
-                                source_mesh_base_tuple.as_string(),
-                                target_mesh_base_tuple.as_string()
-
-                            );
-                        }
-                    } else if (!child.is_valid(target_mesh_base_tuple)) {
-                        wmtk::logger().error(
-                            "Map from parent {} to child {} on tuple {} (dim {}) fails on  {} -> "
-                            "{}",
-                            fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
-                            fmt::join(child.absolute_multi_mesh_id(), ","),
-                            j,
-                            pt.as_string(),
-                            source_mesh_base_tuple.as_string(),
-                            target_mesh_base_tuple.as_string()
-
-                        );
-                        ok = false;
-                    }
-#endif
                 }
             }
         }
@@ -115,7 +90,6 @@ bool MapValidator::check_parent_map_attribute_valid() const
 
     wmtk::PrimitiveType prim_type = m_mesh.top_simplex_type();
 
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
     auto [parent_to_me, me_to_parent] =
         parent.m_multi_mesh_manager.get_map_const_accessors(parent, m_mesh);
 
@@ -125,68 +99,65 @@ bool MapValidator::check_parent_map_attribute_valid() const
         fmt::join(m_mesh.absolute_multi_mesh_id(), ","));
     // wmtk::multimesh::utils::internal::print_all_mapped_tuples(parent_to_me, me_to_parent);
     const auto& sd = dart::SimplexDart::get_singleton(m_mesh.top_simplex_type());
-#else
-    auto map_accessor = m_mesh.create_const_accessor(attr);
-#endif
     for (const auto& source_tuple : m_mesh.get_all(prim_type)) {
-#if defined(WMTK_ENABLED_MULTIMESH_DART)
-
+        assert(m_mesh.is_valid(source_tuple)); // paranoia check
         dart::Dart d = me_to_parent[sd.dart_from_tuple(source_tuple)];
         if (d.is_null()) {
             ok = false;
             wmtk::logger().error(
-                "Map from child {} to parent {} on tuple {} (dim {}) has null entry {},{}",
+                "Map from child [{}] to parent [{}] on tuple {} (dim {}, id {}, simplex_index {}) "
+                "has null entry {}",
                 fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
                 fmt::join(parent.absolute_multi_mesh_id(), ","),
-                m_mesh.top_cell_dimension(),
                 std::string(source_tuple),
-                d.global_id(),
-                d.permutation());
+                m_mesh.top_cell_dimension(),
+                m_mesh.id(source_tuple, prim_type),
+                sd.simplex_index(d, prim_type),
+                d);
+        }
+        if (parent.is_removed(d.global_id(), prim_type)) {
+            ok = false;
+            wmtk::logger().error(
+                "Map from child [{}] to parent [{}] on tuple {} (dim {}, id {}, simplex_index {}) "
+                "has removed facet "
+                "{}",
+                fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
+                fmt::join(parent.absolute_multi_mesh_id(), ","),
+                std::string(source_tuple),
+                m_mesh.top_cell_dimension(),
+                m_mesh.id(source_tuple, prim_type),
+                sd.simplex_index(d, prim_type),
+                d);
         }
         dart::ConstDartWrap dw = parent_to_me[d];
 
         if (dw.is_null()) {
             ok = false;
             wmtk::logger().error(
-                "Map from child {} to parent {} on tuple {} (dim {}) has null entry {},{}",
+                "Map from child [{}] to parent [{}] on tuple {} (dim {}, id {}, simplex_index {}) "
+                "has null entry {}",
                 fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
                 fmt::join(parent.absolute_multi_mesh_id(), ","),
-                m_mesh.top_cell_dimension(),
                 std::string(source_tuple),
-                d.global_id(),
-                d.permutation());
+                m_mesh.top_cell_dimension(),
+                m_mesh.id(source_tuple, prim_type),
+                sd.simplex_index(d, prim_type),
+                d);
         }
-#else
-        const auto [source_mesh_base_tuple, target_mesh_base_tuple] =
-            multimesh::utils::read_tuple_map_attribute(map_accessor, source_tuple);
-        if (source_mesh_base_tuple.is_null() || target_mesh_base_tuple.is_null()) {
+        if (m_mesh.is_removed(dw.global_id(), prim_type)) {
+            ok = false;
             wmtk::logger().error(
-                "Map from child {} to parent {} on tuple {} (dim {}) has null entry {} -> "
+                "Map from child [{}] to parent [{}] on tuple {} (dim {}, id {}, simplex_index {}) "
+                "has removed facet "
                 "{}",
                 fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
                 fmt::join(parent.absolute_multi_mesh_id(), ","),
+                std::string(source_tuple),
                 m_mesh.top_cell_dimension(),
-                source_tuple.as_string(),
-                source_mesh_base_tuple.as_string(),
-                target_mesh_base_tuple.as_string()
-
-            );
-            ok = false;
-        } else if (!parent.is_valid(target_mesh_base_tuple)) {
-            wmtk::logger().error(
-                "Map from child {} to parent {} on tuple {} (dim {}) fails on  {} -> "
-                "{}",
-                fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
-                fmt::join(parent.absolute_multi_mesh_id(), ","),
-                m_mesh.top_cell_dimension(),
-                source_tuple.as_string(),
-                source_mesh_base_tuple.as_string(),
-                target_mesh_base_tuple.as_string()
-
-            );
-            ok = false;
+                m_mesh.id(source_tuple, prim_type),
+                sd.simplex_index(d, prim_type),
+                dw);
         }
-#endif
     }
     return ok;
 }
@@ -225,11 +196,10 @@ bool MapValidator::check_child_facet_uniqueness(const Mesh& child) const
         auto child_ss = m_mesh.map_to_child(child, s);
         for (const auto& child_s : child_ss) {
             auto child_id = child.id(child_s);
-            if(child_id >= children_mapped.size()) {
+            if (child_id >= children_mapped.size()) {
                 children_mapped.resize(child_id + 1);
             }
             children_mapped.at(child_id).emplace_back(child_s);
-
         }
     }
     for (size_t j = 0; j < children_mapped.size(); ++j) {
@@ -292,7 +262,7 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
                         map_switch);
                     if (!worked) {
                         wmtk::logger().error(
-                            "Map from child {0} to parent {1} on tuple {2} (dim {3}) fails on  "
+                            "Map from child [{0}] to parent [{1}] on tuple {2} (dim {3}) fails on  "
                             "switch(map({2}),{4}) = {5} !=  "
                             "map(switch({2},{4})) = {6} (dim {7} id {8} != {9})",
                             fmt::join(child.absolute_multi_mesh_id(), ","), // 0
@@ -318,7 +288,6 @@ bool MapValidator::check_child_switch_homomorphism(const Mesh& child) const
 
 void MapValidator::print()
 {
-#if defined(WMTK_ENABLED_MULTIMESH_DART) // tuple idempotence is optimized out in new impl
     for (const auto& [cptr, attr] : m_mesh.m_multi_mesh_manager.m_children) {
         const auto& child = *cptr;
         auto [me_to_child, child_to_me] =
@@ -326,7 +295,6 @@ void MapValidator::print()
 
         internal::print_all_mapped_tuples(me_to_child, child_to_me);
     }
-#endif
 }
 
 } // namespace wmtk::multimesh::utils

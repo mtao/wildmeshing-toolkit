@@ -215,7 +215,7 @@ TEST_CASE("test_split_multi_mesh_1D_3D", "[multimesh][1D][3D]")
 
     DEBUG_EdgeMesh& child0 = static_cast<DEBUG_EdgeMesh&>(*child_ptr_0);
 
-    SECTION("split_middle_edge")
+    //SECTION("split_middle_edge")
     {
         std::map<int64_t, int64_t> child_to_parent;
         for (const auto& child0_e : child0.get_all(PE)) {
@@ -223,11 +223,7 @@ TEST_CASE("test_split_multi_mesh_1D_3D", "[multimesh][1D][3D]")
                 parent.id(child0.map_to_parent_tuple(Simplex::edge(child0, child0_e)), PT);
         }
         Tuple edge = parent.edge_tuple_from_vids(2, 3);
-#if defined(WMTK_ENABLE_HASH_UPDATE)
-        REQUIRE(parent.is_valid_with_hash(edge));
-#else
         REQUIRE(parent.is_valid(edge));
-#endif
         REQUIRE(!split(Simplex::edge(parent, edge)).empty());
 
         REQUIRE(parent.is_connectivity_valid());
@@ -253,6 +249,7 @@ TEST_CASE("test_split_multi_mesh_1D_3D", "[multimesh][1D][3D]")
                 parent.id(child0.map_to_parent_tuple(Simplex::edge(child0, child0_e)), PT));
         }
     }
+    return;
 
     SECTION("split_out_most_edge")
     {

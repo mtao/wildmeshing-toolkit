@@ -1,6 +1,7 @@
 #include "from_tag.hpp"
 #include <wmtk/Mesh.hpp>
 #include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/multimesh/utils/extract_child_mesh_from_tag.hpp>
 #include <wmtk/multimesh/utils/transfer_attribute.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
@@ -58,6 +59,7 @@ std::shared_ptr<Mesh> from_tag(
     FromTagOptions opts;
     opts.mesh = {handle, tag_value};
     opts.passed_attributes = passed_attributes;
+    opts.manifold_decomposition = manifold_decomposition;
     return from_tag(opts);
 }
 
@@ -90,6 +92,16 @@ void MultimeshTagOptions::run(MeshCollection& mc) const
         for (const auto& attr : *creation_attributes) {
             creation_attr_handles.emplace_back(attr->populate_attribute(mc));
         }
+        auto mah = utils::get_attribute(mc, tag_attribute);
+        if (delete_tag_attribute) {
+            for (auto& h : creation_attr_handles) {
+                if (mah == h) {
+                    continue;
+                }
+                assert(h.exists());
+                h.mesh().delete_attribute(h);
+            }
+        }
     }
     auto tag_opts = toTagOptions(mc);
     auto mptr = from_tag(tag_opts);
@@ -99,12 +111,6 @@ void MultimeshTagOptions::run(MeshCollection& mc) const
     if (delete_tag_attribute) {
         if (tag_opts.mesh.handle.exists()) {
             tag_opts.mesh.handle.mesh().delete_attribute(tag_opts.mesh.handle);
-        }
-        for (auto& h : creation_attr_handles) {
-            if (tag_opts.mesh.handle == h) {
-                continue;
-            }
-            h.mesh().delete_attribute(h);
         }
     }
 }

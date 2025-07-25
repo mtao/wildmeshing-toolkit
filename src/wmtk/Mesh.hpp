@@ -65,7 +65,7 @@ class EdgeOperationData;
 namespace internal {
 class CollapseAlternateFacetData;
 class SplitAlternateFacetData;
-}
+} // namespace internal
 namespace utils {
 class UpdateEdgeOperationMultiMeshMapFunctor;
 }
@@ -182,8 +182,18 @@ public:
      * Consolidate the attributes, moving all valid simplexes at the beginning of the corresponding
      * vector
      */
-    virtual std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
-    consolidate();
+    std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
+    consolidate_update_data() const;
+    std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>> consolidate();
+    void consolidate_maps(
+        const std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>&
+            new2old_old2new);
+    void consolidate_attributes(
+        const std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>&
+            new2old_old2new);
+    void consolidate_connectivity(
+        const std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>&
+            new2old_old2new);
 
     /**
      * Returns a vector of vectors of attribute handles. The first index denotes the type of simplex

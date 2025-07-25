@@ -72,6 +72,8 @@ public:
 
     std::vector<int64_t> get_simplex_ids_to_delete(const PrimitiveType pt) const;
 
+    std::vector<int64_t>
+    request_simplex_indices(const PrimitiveType type, int64_t count);
 
 protected:
     void set_simplex_ids_to_delete();

@@ -628,6 +628,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge_execute()
                     te(k) = e_spine_1;
                 }
             }
+            spdlog::info("Tet split new gid {} got edge indices {}", t1, fmt::join(te,"<"));
         }
 
         // t2
@@ -691,6 +692,7 @@ void TetMesh::TetMeshOperationExecutor::split_edge_execute()
                     te(k) = e_spine_2;
                 }
             }
+            spdlog::info("Tet split new gid {} got edge indices {}", t2, fmt::join(te,">"));
         }
 
         // assign each face one tet
@@ -1022,14 +1024,6 @@ void TetMesh::TetMeshOperationExecutor::collapse_edge()
     assert(m_mesh.id_vertex(m_output_tuple) == v1);
 }
 
-std::vector<int64_t> TetMesh::TetMeshOperationExecutor::request_simplex_indices(
-    const PrimitiveType type,
-    int64_t count)
-{
-    m_mesh.guarantee_more_attributes(type, count);
-
-    return m_mesh.request_simplex_indices(type, count);
-}
 
 
 } // namespace wmtk
