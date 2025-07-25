@@ -1,11 +1,5 @@
 var NAVTREEINDEX44 =
 {
-"namespacewmtk_1_1utils_1_1metaprogramming.html#ac1fdb62c5fe7d08f71e0846a8099b2f5":[9,0,10,14,2,11],
-"namespacewmtk_1_1utils_1_1metaprogramming.html#ac3d938798f1517d594b9c6fe5a4bcecf":[9,0,10,14,2,8],
-"namespacewmtk_1_1utils_1_1metaprogramming.html#adf089393c6525dbba180ff6e677ce971":[9,0,10,14,2,13],
-"namespacewmtk_1_1utils_1_1metaprogramming_1_1detail.html":[9,0,10,14,2,0],
-"namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html":[9,0,10,14,2,1],
-"namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html#a62f058494c4fe90491c7baa0ebb3e172":[9,0,10,14,2,1,4],
 "namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html#a8e9bde7f74ae72dda89821b14b0e7474":[9,0,10,14,2,1,5],
 "namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html#adae9ac59a6b1b5534ed26d80df6f8cdb":[9,0,10,14,2,1,7],
 "namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html#aed928f563edd01ef89007d83829cc7b4":[9,0,10,14,2,1,3],
@@ -249,5 +243,11 @@ var NAVTREEINDEX44 =
 "simplex__index__from__permutation__index_8cpp_source.html":[11,0,2,0,2,1,44],
 "simplicial__embedding_8cpp.html":[11,0,0,20,0,0,0,1],
 "simplicial__embedding_8cpp.html#abab23cfb68442b5652e27826a47ba553":[11,0,0,20,0,0,0,1,0],
-"simplicial__embedding_8cpp_source.html":[11,0,0,20,0,0,0,1]
+"simplicial__embedding_8cpp_source.html":[11,0,0,20,0,0,0,1],
+"simplicial__embedding_8hpp.html":[11,0,0,20,0,0,0,2],
+"simplicial__embedding_8hpp.html#abab23cfb68442b5652e27826a47ba553":[11,0,0,20,0,0,0,2,0],
+"simplicial__embedding_8hpp_source.html":[11,0,0,20,0,0,0,2],
+"split__path_8hpp.html":[11,0,0,14,0,0,0,0,1,0],
+"split__path_8hpp.html#a3b2338b45b680494e5501c97baa6f456":[11,0,0,14,0,0,0,0,1,0,0],
+"split__path_8hpp_source.html":[11,0,0,14,0,0,0,0,1,0]
 };

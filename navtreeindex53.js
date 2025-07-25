@@ -1,11 +1,5 @@
 var NAVTREEINDEX53 =
 {
-"triangle__areas_8cpp.html":[11,0,2,0,9,45],
-"triangle__areas_8cpp_source.html":[11,0,2,0,9,45],
-"triangle__areas_8hpp.html":[11,0,2,0,9,46],
-"triangle__areas_8hpp.html#a3a3101c20564f1d5aecba3ab668e3c28":[11,0,2,0,9,46,2],
-"triangle__areas_8hpp.html#a8f0aa51f02854bf0163c6baa0301f576":[11,0,2,0,9,46,0],
-"triangle__areas_8hpp.html#ac944349a1bb3d0459995baad96b9c1d4":[11,0,2,0,9,46,1],
 "triangle__areas_8hpp_source.html":[11,0,2,0,9,46],
 "triangle__insertion_8cpp.html":[11,0,0,25,0,0,0,0],
 "triangle__insertion_8cpp.html#a23509bfe845d018ac65e2759fb77c608":[11,0,0,25,0,0,0,0,0],

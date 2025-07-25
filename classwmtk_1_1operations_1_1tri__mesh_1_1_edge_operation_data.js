@@ -10,7 +10,6 @@ var classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data =
     [ "input_endpoints", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#abde449107fdbb8d53b331d0071109a33", null ],
     [ "input_faces", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a0f5a5db2ec38cf6bdb447cd475104e22", null ],
     [ "new_vertices", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a38257053d489d0dd4fdb6fccaa9569bb", null ],
-    [ "operator=", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a4feb0800c171c52998675ee76d613e82", null ],
     [ "split_new_rib_edges", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a8af96f573f1a561ab9dda9375c2a2a4c", null ],
     [ "split_output_edges", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#afb2540171ed00a0002c0cc164f44cf4f", null ],
     [ "split_output_faces", "classwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data.html#a3557aa84cf5634d2c476861d838ac4e0", null ],
