@@ -1,18 +1,14 @@
 #include "PrimitiveType.hpp"
-#include <string>
 #include <array>
+#include <string>
 
 
 namespace wmtk {
 namespace {
 // NOTE: The order of these entries must be aligned with the order of enum values in PrimitiveType.
 // Invalid must be the last string here for primitive_type_name to work
-const static std::array<std::string,5> names = {{
-    "Vertex",
-    "Edge",
-    "Face",
-    "Tetrahedron"
-    "Invalid"}};
+const static std::array<std::string, 5> names = {
+    {"Vertex", "Edge", "Face", "Tetrahedron", "Invalid"}};
 } // namespace
 
 int8_t get_max_primitive_type_id(const std::vector<PrimitiveType>& primitive_types)
@@ -42,14 +38,15 @@ int8_t get_max_primitive_type_id(const std::vector<PrimitiveType>& primitive_typ
 std::string_view primitive_type_name(PrimitiveType t)
 {
     int64_t id = get_primitive_type_id(t);
-    if(id >= names.size()) {
+    if (id >= names.size()) {
         return names.back();
     } else {
         return names[id];
     }
 }
 
-std::string_view format_as(PrimitiveType t) {
+std::string_view format_as(PrimitiveType t)
+{
     return primitive_type_name(t);
 }
 } // namespace wmtk
