@@ -16,9 +16,9 @@ void symmetric_write_tuple_map_attributes(
     const dart::Dart& a,
     const dart::Dart& b)
 {
-#if !defined(NDEBUG)
     const PrimitiveType apt = a_to_b.mesh().top_simplex_type();
     const PrimitiveType bpt = b_to_a.mesh().top_simplex_type();
+#if !defined(NDEBUG)
     const dart::SimplexDart& sd = dart::SimplexDart::get_singleton(apt);
     const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(bpt);
     assert(sd.is_valid(a));
