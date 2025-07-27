@@ -75,7 +75,7 @@ var searchData=
   ['edgevalenceinvariant_2ecpp_72',['EdgeValenceInvariant.cpp',['../_edge_valence_invariant_8cpp.html',1,'']]],
   ['edgevalenceinvariant_2ehpp_73',['EdgeValenceInvariant.hpp',['../_edge_valence_invariant_8hpp.html',1,'']]],
   ['ee_5faccessor_74',['ee_accessor',['../classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#afc67be72547a5a2bbebbc54bf7248992',1,'wmtk::EdgeMesh::EdgeMeshOperationExecutor']]],
-  ['ef_5faccessor_75',['ef_accessor',['../classwmtk_1_1utils_1_1_tri_mesh_inspector.html#a745cbf8e584ca31a49cb413940210f69',1,'wmtk::utils::TriMeshInspector::ef_accessor()'],['../classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#aff20db5c0cc16e1fb38699f4473b2ea4',1,'wmtk::TriMesh::TriMeshOperationExecutor::ef_accessor']]],
+  ['ef_5faccessor_75',['ef_accessor',['../classwmtk_1_1utils_1_1_tri_mesh_inspector.html#a745cbf8e584ca31a49cb413940210f69',1,'wmtk::utils::TriMeshInspector::ef_accessor()'],['../classwmtk_1_1_tri_mesh_1_1_tri_mesh_operation_executor.html#accbd4b02d365a5ff61262bc12c5f7e20',1,'wmtk::TriMesh::TriMeshOperationExecutor::ef_accessor']]],
   ['eid_76',['eid',['../structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_ear_data.html#af77e42c34551442e8bbf4b7d3903fa2e',1,'wmtk::operations::tri_mesh::EdgeOperationData::EarData']]],
   ['eid_5frib_77',['eid_rib',['../structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_face_split_data.html#a969bbd04e973590feb576738b4bb93c8',1,'wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData']]],
   ['eid_5fspine_5fnew_78',['eid_spine_new',['../structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_face_split_data.html#aab71f274c8dbd4b1e094045ea61e48a1',1,'wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData']]],

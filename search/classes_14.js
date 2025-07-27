@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['wildmeshingoptions_0',['wildmeshingoptions',['../structwmtk_1_1components_1_1_wild_meshing_options.html',1,'wmtk::components::WildMeshingOptions'],['../structwmtk_1_1components_1_1_wildmeshing_options.html',1,'wmtk::components::WildmeshingOptions']]],
+  ['wildmeshingoptions_0',['wildmeshingoptions',['../structwmtk_1_1components_1_1_wildmeshing_options.html',1,'wmtk::components::WildmeshingOptions'],['../structwmtk_1_1components_1_1_wild_meshing_options.html',1,'wmtk::components::WildMeshingOptions']]],
   ['wildmeshingoptionsattributes_1',['WildmeshingOptionsAttributes',['../structwmtk_1_1components_1_1_wildmeshing_options_attributes.html',1,'wmtk::components']]],
   ['wildmeshingoptionsenvelope_2',['WildmeshingOptionsEnvelope',['../structwmtk_1_1components_1_1_wildmeshing_options_envelope.html',1,'wmtk::components']]],
   ['wildmeshingoptionsenvelopemesh_3',['WildmeshingOptionsEnvelopeMesh',['../structwmtk_1_1components_1_1_wildmeshing_options_envelope_mesh.html',1,'wmtk::components']]],

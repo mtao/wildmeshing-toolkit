@@ -1,5 +1,7 @@
 var NAVTREEINDEX46 =
 {
+"structwmtk_1_1components_1_1_fusion_options.html#a3d8f8e4b67c540c4db131258100ce6e0":[10,0,2,2,19,4],
+"structwmtk_1_1components_1_1_fusion_options.html#a7d4a78176930d9fa7e622ca87175b5a8":[9,0,10,2,19,1],
 "structwmtk_1_1components_1_1_fusion_options.html#a7d4a78176930d9fa7e622ca87175b5a8":[10,0,2,2,19,1],
 "structwmtk_1_1components_1_1_fusion_options.html#ac9098426598a59860c1a431611abac90":[10,0,2,2,19,0],
 "structwmtk_1_1components_1_1_fusion_options.html#ac9098426598a59860c1a431611abac90":[9,0,10,2,19,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX46 =
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html#abf839ea8a3f0934d1d05952f83c496d0":[10,0,2,2,4,5,1],
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html#ac2dd771026823c8c351cbc5d2cd1243e":[9,0,10,2,4,6,0],
 "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html#ac2dd771026823c8c351cbc5d2cd1243e":[10,0,2,2,4,5,0],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html":[10,0,2,2,4,6],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html":[9,0,10,2,4,7],
-"structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html":[10,0,2,2,4,8]
+"structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html":[10,0,2,2,4,6]
 };

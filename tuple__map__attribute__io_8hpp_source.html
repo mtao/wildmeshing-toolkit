@@ -155,13 +155,13 @@ $(document).ready(function(){initNavTree('tuple__map__attribute__io_8hpp_source.
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    assert(osd.<a class="code hl_function" href="classwmtk_1_1dart_1_1_simplex_dart.html#a0ba31a7c8f5b6fa62e4f64da7fef5120">is_valid</a>(b));</div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <a class="code hl_enumeration" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345">PrimitiveType</a> pt = std::min(apt, bpt);</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    spdlog::warn(</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="stringliteral">&quot;UPdating {}-mesh to {}-mesh darts {} =&gt; {} (gids were {} =&gt; {})&quot;</span>,</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        <span class="stringliteral">&quot;symmetric_write_tuple_map_attributes {}-mesh to {}-mesh darts {} =&gt; {} (gids were {} =&gt; {})&quot;</span>,</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        apt,</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        bpt,</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        a,</div>
 <div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        b,</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        a_to_b.<a class="code hl_function" href="classwmtk_1_1dart_1_1_dart_accessor.html#abe133ce32adc52abfc8632338d3e1be9">mesh</a>().id(a, pt),</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        b_to_a.<a class="code hl_function" href="classwmtk_1_1dart_1_1_dart_accessor.html#abe133ce32adc52abfc8632338d3e1be9">mesh</a>().id(b, pt));</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        a_to_b.<a class="code hl_function" href="classwmtk_1_1dart_1_1_dart_accessor.html#abe133ce32adc52abfc8632338d3e1be9">mesh</a>().id(a, apt),</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        b_to_a.<a class="code hl_function" href="classwmtk_1_1dart_1_1_dart_accessor.html#abe133ce32adc52abfc8632338d3e1be9">mesh</a>().id(b, bpt));</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="preprocessor">#endif</span></div>
 <div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    std::tie(a_to_b[a], b_to_a[b]) = <a class="code hl_function" href="namespacewmtk_1_1dart_1_1utils.html#a065ebaae25bcab945f1dd46a8a744db7">wmtk::dart::utils::get_simplex_involution_pair</a>(apt, a, bpt, b);</div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>}</div>

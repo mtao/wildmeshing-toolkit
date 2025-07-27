@@ -1,5 +1,7 @@
 var NAVTREEINDEX38 =
 {
+"internal_2periodic__optimization_8cpp_source.html":[11,0,0,9,0,0,0,2,0,0],
+"internal_2periodic__optimization_8hpp.html":[11,0,0,9,0,0,0,2,0,1],
 "internal_2periodic__optimization_8hpp.html#a8890d5e5bb5f11779d4e40e07882253a":[11,0,0,9,0,0,0,2,0,1,0],
 "internal_2periodic__optimization_8hpp_source.html":[11,0,0,9,0,0,0,2,0,1],
 "internal_2winding__number_8cpp.html":[11,0,0,28,0,0,0,0,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX38 =
 "mesh__utils_8cpp.html":[11,0,2,0,9,31],
 "mesh__utils_8cpp.html#a05b2e8377c52bd2da29a3b2c38bef90d":[11,0,2,0,9,31,0],
 "mesh__utils_8cpp.html#a07c6f8b4fe4d3bf868a521ac66aee027":[11,0,2,0,9,31,1],
-"mesh__utils_8cpp.html#ace9d707a188783f870a878d0623418d0":[11,0,2,0,9,31,2],
-"mesh__utils_8cpp_source.html":[11,0,2,0,9,31],
-"mesh__utils_8hpp.html":[11,0,2,0,9,32]
+"mesh__utils_8cpp.html#ace9d707a188783f870a878d0623418d0":[11,0,2,0,9,31,2]
 };
