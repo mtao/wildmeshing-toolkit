@@ -61,7 +61,6 @@ MultiMeshManager::mapped_darts(const Mesh& my_mesh, const Mesh& child_mesh, int6
 
     dart::Dart parent_dart = dart::Dart(child_to_parent_dart.global_id(), parent_permutation);
     dart::Dart child_dart = dart::Dart(parent_to_child_dart.global_id(), child_permutation);
-    return {parent_dart, child_dart};
 
 #if !defined(NDEBUG)
     const dart::SimplexDart& parent_sd = dart::SimplexDart::get_singleton(parent_pt);
@@ -73,6 +72,7 @@ MultiMeshManager::mapped_darts(const Mesh& my_mesh, const Mesh& child_mesh, int6
             parent_dart) == child_dart);
 
 #endif
+    return {parent_dart, child_dart};
 }
 
 std::tuple<Tuple, Tuple>
@@ -168,19 +168,23 @@ void MultiMeshManager::update_maps_from_edge_operation(
         spdlog::info("Checking for updating {}-simplices with gids {}", primitive_type, fmt::join(gids,","));
         for (const auto& gid : gids) {
             const bool parent_exists = !my_mesh.is_removed(gid, primitive_type);
+            spdlog::info("Trying to update {}", gid);
             if (!parent_exists) {
                 continue;
             }
+            spdlog::info("Parent existed, hadnt been updated yet");
 
             auto [parent_tuple, child_tuple] = mapped_tuples(my_mesh, *child_data.mesh, gid);
 
 
+            spdlog::info("Got {} {}", parent_tuple.as_string(), child_tuple.as_string());
             // If the parent tuple is valid, it means this parent-child pair has already been
             // handled, so we can skip it
             // If the parent tuple is invalid then there was no map so we can try the next cell
             if (parent_tuple.is_null()) {
                 continue;
             }
+            spdlog::info("Parent wasnt null");
 
 
             // it is not this function's responsibility to handle cases where
@@ -190,6 +194,7 @@ void MultiMeshManager::update_maps_from_edge_operation(
             if (!child_exists) {
                 continue;
             }
+            spdlog::info("child wasnt null");
 
             Tuple old_parent_tuple = parent_tuple;
 

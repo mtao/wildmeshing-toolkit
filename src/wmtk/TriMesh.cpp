@@ -23,11 +23,11 @@ TriMesh::TriMesh()
 
 void TriMesh::make_cached_accessors()
 {
-    m_vf_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh>>(*this, m_vf_handle);
-    m_ef_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh>>(*this, m_ef_handle);
-    m_fv_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh>>(*this, m_fv_handle);
-    m_fe_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh>>(*this, m_fe_handle);
-    m_ff_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh>>(*this, m_ff_handle);
+    m_vf_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 1>>(*this, m_vf_handle);
+    m_ef_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 1>>(*this, m_ef_handle);
+    m_fv_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>>(*this, m_fv_handle);
+    m_fe_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>>(*this, m_fe_handle);
+    m_ff_accessor = std::make_unique<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>>(*this, m_ff_handle);
 }
 
 TriMesh::TriMesh(TriMesh&& o)

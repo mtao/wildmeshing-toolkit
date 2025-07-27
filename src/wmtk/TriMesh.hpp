@@ -99,11 +99,11 @@ protected:
     attribute::TypedAttributeHandle<int64_t> m_fe_handle;
     attribute::TypedAttributeHandle<int64_t> m_ff_handle;
 
-    std::unique_ptr<attribute::Accessor<int64_t, TriMesh>> m_vf_accessor = nullptr;
-    std::unique_ptr<attribute::Accessor<int64_t, TriMesh>> m_ef_accessor = nullptr;
-    std::unique_ptr<attribute::Accessor<int64_t, TriMesh>> m_fv_accessor = nullptr;
-    std::unique_ptr<attribute::Accessor<int64_t, TriMesh>> m_fe_accessor = nullptr;
-    std::unique_ptr<attribute::Accessor<int64_t, TriMesh>> m_ff_accessor = nullptr;
+    std::unique_ptr<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 1>> m_vf_accessor = nullptr;
+    std::unique_ptr<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 1>> m_ef_accessor = nullptr;
+    std::unique_ptr<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>> m_fv_accessor = nullptr;
+    std::unique_ptr<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>> m_fe_accessor = nullptr;
+    std::unique_ptr<attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>> m_ff_accessor = nullptr;
 
 
     Tuple vertex_tuple_from_id(int64_t id) const;

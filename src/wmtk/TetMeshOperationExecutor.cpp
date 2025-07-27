@@ -629,6 +629,15 @@ void TetMesh::TetMeshOperationExecutor::split_edge_execute()
                 }
             }
             spdlog::info("Tet split new gid {} got edge indices {}", t1, fmt::join(te,"<"));
+            for(const auto& e: te) {
+                assert(!m_mesh.is_removed(e,PrimitiveType::Edge));
+            }
+            for(const auto& f: tf) {
+                assert(!m_mesh.is_removed(f,PrimitiveType::Triangle));
+            }
+            for(const auto& v: tv) {
+                assert(!m_mesh.is_removed(v,PrimitiveType::Vertex));
+            }
         }
 
         // t2
@@ -693,6 +702,15 @@ void TetMesh::TetMeshOperationExecutor::split_edge_execute()
                 }
             }
             spdlog::info("Tet split new gid {} got edge indices {}", t2, fmt::join(te,">"));
+            for(const auto& e: te) {
+                assert(!m_mesh.is_removed(e,PrimitiveType::Edge));
+            }
+            for(const auto& f: tf) {
+                assert(!m_mesh.is_removed(f,PrimitiveType::Triangle));
+            }
+            for(const auto& v: tv) {
+                assert(!m_mesh.is_removed(v,PrimitiveType::Vertex));
+            }
         }
 
         // assign each face one tet

@@ -115,7 +115,7 @@ bool MapValidator::check_parent_map_attribute_valid() const
                 sd.simplex_index(d, prim_type),
                 d);
         }
-        if (parent.is_removed(d.global_id(), prim_type)) {
+        if (parent.is_removed(d, prim_type)) {
             ok = false;
             wmtk::logger().error(
                 "Map from child [{}] to parent [{}] on tuple {} (dim {}, id {}, simplex_index {}) "
@@ -148,15 +148,16 @@ bool MapValidator::check_parent_map_attribute_valid() const
             ok = false;
             wmtk::logger().error(
                 "Map from child [{}] to parent [{}] on tuple {} (dim {}, id {}, simplex_index {}) "
-                "has removed facet "
-                "{}",
+                "has removed {}-simplex "
+                "{} (id = {})",
                 fmt::join(m_mesh.absolute_multi_mesh_id(), ","),
                 fmt::join(parent.absolute_multi_mesh_id(), ","),
                 std::string(source_tuple),
                 m_mesh.top_cell_dimension(),
                 m_mesh.id(source_tuple, prim_type),
                 sd.simplex_index(d, prim_type),
-                dw);
+                prim_type,
+                dw, m_mesh.id(dw,prim_type));
         }
     }
     return ok;

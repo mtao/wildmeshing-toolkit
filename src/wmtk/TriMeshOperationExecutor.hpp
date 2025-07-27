@@ -12,11 +12,11 @@ public:
     TriMeshOperationExecutor(TriMesh& m, const Tuple& operating_tuple);
 
     std::array<attribute::FlagAccessor<TriMesh>, 3> flag_accessors;
-    attribute::Accessor<int64_t, TriMesh>& ff_accessor;
-    attribute::Accessor<int64_t, TriMesh>& fe_accessor;
-    attribute::Accessor<int64_t, TriMesh>& fv_accessor;
-    attribute::Accessor<int64_t, TriMesh>& vf_accessor;
-    attribute::Accessor<int64_t, TriMesh>& ef_accessor;
+    attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>& ff_accessor;
+    attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>& fe_accessor;
+    attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 3>& fv_accessor;
+    attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 1>& vf_accessor;
+    attribute::Accessor<int64_t, TriMesh, attribute::CachingAttribute<int64_t>, 1>& ef_accessor;
 
     /**
      * @brief jump to the next edge

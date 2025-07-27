@@ -118,6 +118,37 @@ TriMesh::TriMeshOperationExecutor::TriMeshOperationExecutor(
     assert(m.is_connectivity_valid());
 #endif
     // store ids of edge and incident vertices
+    if (m_mesh.has_child_mesh()) {
+        global_ids_to_update.resize(3);
+
+        bool is_boundary = m_mesh.is_boundary_edge(m_operating_tuple);
+        if (is_boundary) {
+            global_ids_to_update[0].reserve(1);
+            global_ids_to_update[1].reserve(2);
+        } else {
+            global_ids_to_update[0].reserve(4);
+            global_ids_to_update[1].reserve(4);
+        }
+        const Tuple& v0 = m_operating_tuple;
+        Tuple v1 = m_mesh.switch_vertex(m_operating_tuple);
+        global_ids_to_update[0].emplace_back(m_mesh.id(v0, PrimitiveType::Vertex));
+        global_ids_to_update[0].emplace_back(m_mesh.id(v1, PrimitiveType::Vertex));
+
+        auto add_ears_and_opp = [&](Tuple tup) {
+            tup = m_mesh.switch_edge(tup);
+            global_ids_to_update[1].emplace_back(m_mesh.id(tup, PrimitiveType::Edge));
+            tup = m_mesh.switch_vertex(tup);
+            global_ids_to_update[0].emplace_back(m_mesh.id(tup, PrimitiveType::Vertex));
+            tup = m_mesh.switch_edge(tup);
+            global_ids_to_update[1].emplace_back(m_mesh.id(tup, PrimitiveType::Edge));
+            global_ids_to_update[2].emplace_back(m_mesh.id(tup, PrimitiveType::Triangle));
+        };
+
+        add_ears_and_opp(v0);
+        if (!is_boundary) {
+            add_ears_and_opp(m_mesh.switch_face(v0));
+        }
+    }
 }
 
 
@@ -174,8 +205,8 @@ TriMesh::TriMeshOperationExecutor::get_collapse_simplices_to_delete(
 }
 
 /**
- * @brief handling the topology glueing of ear to non-ear face, transfering data from ear-oldface to
- * ear-newface
+ * @brief handling the topology glueing of ear to non-ear face, transfering data from
+ * ear-oldface to ear-newface
  *
  * @param ear_fid the ear that will be glued
  * @param new_face_fid
@@ -481,67 +512,6 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
         simplex::closed_star(m_mesh, simplex::Simplex::edge(m_mesh, m_operating_tuple));
 
 
-    // update hash on all faces in the two-ring neighborhood
-    simplex::SimplexCollection hash_update_region(m_mesh);
-    for (const simplex::Simplex& v : edge_closed_star.simplex_vector(PrimitiveType::Vertex)) {
-        const simplex::SimplexCollection v_closed_star = simplex::top_dimension_cofaces(m_mesh, v);
-        hash_update_region.add(v_closed_star);
-    }
-    hash_update_region.sort_and_clean();
-
-    global_ids_to_update.resize(3);
-    simplex::SimplexCollection faces(m_mesh);
-
-    for (const simplex::Simplex& f : hash_update_region.simplex_vector(PrimitiveType::Triangle)) {
-        faces.add(wmtk::simplex::faces(m_mesh, f, false));
-        faces.add(f);
-    }
-
-    faces.sort_and_clean();
-    for (const auto& s : faces) {
-        const int64_t index = static_cast<int64_t>(s.primitive_type());
-        if (!m_mesh.has_child_mesh_in_dimension(index)) {
-            continue;
-        }
-
-        int64_t id = m_mesh.id(s);
-        bool found = false;
-        if (index == 1) {
-            /*
-            for (const auto& eid : split_spine_eids) {
-                if (eid == id) {
-                    found = true;
-                    break;
-                }
-            }
-            if (found) {
-                continue;
-            }
-            if (id == spine_eid) {
-                found = true;
-                continue;
-            }
-            */
-            if (id == operating_edge_id()) {
-                // found = true;
-                continue;
-            }
-        } else if (index == 0) {
-            if (id == split_new_vid) {
-                continue;
-            }
-        } else if (index == 2) {
-            continue;
-        }
-        // spdlog::info(
-        //     "Want to check {}-simplex {} index {}",
-        //     index,
-        //     m_mesh.id(s),
-        //     primitive_type_name(s.primitive_type()));
-
-        global_ids_to_update.at(index).emplace_back(id);
-    }
-
     create_spine_simplices();
     fill_split_facet_data();
     set_simplex_ids_to_delete();
@@ -665,52 +635,6 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge_precompute()
         std::swap(m_incident_face_datas[0], m_incident_face_datas[1]);
     }
 
-    if (m_mesh.has_child_mesh()) {
-        global_ids_to_update.resize(3);
-
-        simplex::IdSimplexCollection faces(m_mesh);
-        {
-            const simplex::Simplex v0(m_mesh, PrimitiveType::Vertex, m_operating_tuple);
-            const simplex::Simplex v1(
-                m_mesh,
-                PrimitiveType::Vertex,
-                m_mesh.switch_vertex(m_operating_tuple));
-            std::array<simplex::internal::VisitedArray<wmtk::simplex::IdSimplex>, 3> visited;
-
-            for (const simplex::IdSimplex& s : simplex::closed_star_iterable(m_mesh, v0)) {
-                visited[get_primitive_type_id(s.primitive_type())].is_visited(s);
-            }
-            for (const simplex::IdSimplex& s : simplex::closed_star_iterable(m_mesh, v1)) {
-                visited[get_primitive_type_id(s.primitive_type())].is_visited(s);
-            }
-            faces.reserve(
-                visited[0].visited_array().size() + visited[1].visited_array().size() +
-                visited[2].visited_array().size());
-            for (size_t j = 0; j < visited.size(); ++j) {
-                // if (!m_mesh.has_child_mesh_in_dimension(j)) {
-                //     continue;
-                // }
-                const auto& arr = visited[j];
-                for (size_t i = 0; i < arr.visited_array().size(); ++i) {
-                    faces.add(arr.visited_array()[i]);
-                }
-            }
-        }
-
-        for (const simplex::IdSimplex& s : faces) {
-            const int64_t index = static_cast<int64_t>(s.primitive_type());
-            if (!m_mesh.has_child_mesh_in_dimension(index)) {
-                continue;
-            }
-
-            // spdlog::info(
-            //     "Want to check {}-simplex {} index {}",
-            //     index,
-            //     m_mesh.id(s),
-            //     primitive_type_name(s.primitive_type()));
-            global_ids_to_update.at(index).emplace_back(m_mesh.id(s));
-        }
-    }
 
     if (m_mesh.is_free()) {
         simplex_ids_to_delete = get_collapse_simplices_to_delete(m_operating_tuple, m_mesh);
@@ -792,8 +716,8 @@ void TriMesh::TriMeshOperationExecutor::collapse_edge()
     assert(m_mesh.is_connectivity_valid());
 #endif
 
-    // return a ccw tuple from left ear if it exists, otherwise return a ccw tuple from right ear
-    // return m_mesh.tuple_from_id(PrimitiveType::Vertex, v1);
+    // return a ccw tuple from left ear if it exists, otherwise return a ccw tuple from right
+    // ear return m_mesh.tuple_from_id(PrimitiveType::Vertex, v1);
 }
 
 

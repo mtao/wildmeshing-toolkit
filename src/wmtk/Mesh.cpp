@@ -150,6 +150,14 @@ bool Mesh::is_removed(const Tuple& t, PrimitiveType pt) const
         return false;
     }
 }
+bool Mesh::is_removed(const dart::Dart& t, PrimitiveType pt) const
+{
+    if (!is_removed(t.global_id())) {
+        return is_removed(id(t, pt), pt);
+    } else {
+        return false;
+    }
+}
 simplex::NavigatableSimplex Mesh::simplex_from_id(const PrimitiveType pt, const int64_t gid) const
 {
     return simplex::NavigatableSimplex(pt, tuple_from_id(pt, gid), gid);

@@ -7,6 +7,10 @@
 #include <functional>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/attribute/internal/hash.hpp>
+#include <wmtk/dart/DartAccessor.hpp>
+#include <wmtk/dart/SimplexDart.hpp>
+#include <wmtk/dart/utils/apply_simplex_involution.hpp>
+#include <wmtk/dart/utils/get_simplex_involution.hpp>
 #include <wmtk/simplex/closed_star.hpp>
 #include <wmtk/simplex/cofaces_single_dimension.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
@@ -17,10 +21,6 @@
 #include "utils/local_switch_tuple.hpp"
 #include "utils/transport_tuple.hpp"
 #include "utils/tuple_map_attribute_io.hpp"
-#include <wmtk/dart/DartAccessor.hpp>
-#include <wmtk/dart/SimplexDart.hpp>
-#include <wmtk/dart/utils/apply_simplex_involution.hpp>
-#include <wmtk/dart/utils/get_simplex_involution.hpp>
 
 namespace wmtk::multimesh {
 
@@ -63,16 +63,58 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     const int64_t target_global_id = involution.global_id();
 
 #if !defined(NDEBUG)
-    if (false) {
-        const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
-        const int64_t desired_source_gid = inverse_involution.global_id();
-        logger().warn(
-            "cid:{}={},{}={} (source gid was {})",
-            desired_source_gid,
-            source_to_target_map_accessor.mesh().is_removed(desired_source_gid),
-            target_global_id,
-            target_to_source_map_accessor.mesh().is_removed(target_global_id),
-            id);
+    if (true) {
+        const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(target_pt);
+        if (target_pt == min_pt) {
+            const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
+            assert(!inverse_involution.is_null());
+            const int64_t desired_source_gid = inverse_involution.global_id();
+            logger().warn(
+                "Mapping {}->{}: {}(gid: {}, removed: g{},s{}) to {}(gid: {}, removed: g{},s{}) "
+                "inverse involution {}(gid: {}, removed: g{},s{})",
+                pt,
+                target_pt,
+                source_tuple,
+                source_to_target_map_accessor.mesh().id(source_dart, min_pt),
+                source_to_target_map_accessor.mesh().is_removed(source_dart, pt),
+                source_to_target_map_accessor.mesh().is_removed(source_dart, min_pt),
+                osd.tuple_from_dart(involution),
+                target_to_source_map_accessor.mesh().id(involution, min_pt),
+                target_to_source_map_accessor.mesh().is_removed(involution, target_pt),
+                target_to_source_map_accessor.mesh().is_removed(involution, min_pt),
+                sd.tuple_from_dart(inverse_involution),
+                source_to_target_map_accessor.mesh().id(inverse_involution, min_pt),
+                source_to_target_map_accessor.mesh().is_removed(inverse_involution, pt),
+                source_to_target_map_accessor.mesh().is_removed(inverse_involution, min_pt));
+        } else { // target_pt > min_pt
+            logger().warn(
+                "Mapping {}->{}: {}(gid: {}, removed: g{},s{}) to {}(gid: {}, removed: g{},s{})",
+                pt,
+                target_pt,
+                source_dart,
+                source_to_target_map_accessor.mesh().id(source_dart, min_pt),
+                source_to_target_map_accessor.mesh().is_removed(source_dart, pt),
+                source_to_target_map_accessor.mesh().is_removed(source_dart, min_pt),
+                involution,
+                target_to_source_map_accessor.mesh().id(involution, min_pt),
+                target_to_source_map_accessor.mesh().is_removed(involution, target_pt),
+                target_to_source_map_accessor.mesh().is_removed(involution, min_pt));
+        }
+
+
+        // logger().warn(
+        //     "cid:{}={},target_gid{}={} (source gid was {}) source dart: {}, involution dart: {},
+        //     ({}:{} -> {}:{})", desired_source_gid,
+        //     source_to_target_map_accessor.mesh().is_removed(desired_source_gid),
+        //     target_global_id,
+        //     target_to_source_map_accessor.mesh().is_removed(target_global_id),
+        //     id,
+        //     source_dart, involution,
+        //     pt,
+        //     source_to_target_map_accessor.mesh().id(source_tuple, min_pt),
+        //     target_pt,
+        //     target_to_source_map_accessor.mesh().id(involution, min_pt)
+        //     );
 
         // logger().warn(
         //     "cid:{},id:{} {}",
@@ -82,9 +124,11 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     }
 #endif
 
-    assert(!target_to_source_map_accessor.mesh().is_removed(target_global_id));
 
     if (pt > target_pt) {
+        assert(!target_to_source_map_accessor.mesh().is_removed(target_global_id));
+        // because target_pt is smaller than pt we know that target_to_source_map a facet-level
+        // attribute, and therefore is indexed by target_global_id
         const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
         const int64_t desired_source_gid = inverse_involution.global_id();
         assert(!source_to_target_map_accessor.mesh().is_removed(desired_source_gid));
@@ -98,6 +142,10 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
                 simplex::Simplex(target_pt, source_tuple));
             for (const auto& t : equivalent_tuples) {
                 if (t.global_cid() == source_tuple.global_cid()) {
+                    spdlog::info(
+                        "Updating source from {} to {}",
+                        source_tuple.as_string(),
+                        t.as_string());
                     source_dart = sd.dart_from_tuple(t);
 
                     break;
@@ -653,7 +701,6 @@ Tuple MultiMeshManager::map_tuple_to_parent_tuple(const Mesh& my_mesh, const Tup
     auto cur_tup = map_tuple_between_meshes(parent_map_accessor, child_map_accessor, my_tuple);
     assert(!cur_tup.is_null());
     return cur_tup;
-
 }
 
 
@@ -820,8 +867,6 @@ std::string MultiMeshManager::child_to_parent_map_attribute_name()
 {
     return "map_to_parent";
 }
-
-
 
 
 std::vector<int64_t> MultiMeshManager::least_upper_bound_id(

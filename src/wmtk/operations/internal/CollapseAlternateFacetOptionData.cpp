@@ -22,7 +22,10 @@ CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
     const Tuple& input_tuple)
     : input(sd.dart_from_tuple(input_tuple))
     , alts({{left_switches(m, input_tuple), right_switches(m, input_tuple)}})
-{}
+{
+    spdlog::info("CollapseAltFacetOptionData mapping {} to alts {}", input, fmt::join(alts,","));
+
+}
 
 
 CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(

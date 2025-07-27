@@ -75,6 +75,7 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
 
     assert(mesh().is_valid(simplex.tuple()));
 
+    spdlog::warn("Starting op on {} gid {}", simplex.tuple().as_string(), mesh().id(simplex));
     auto scope = mesh().create_scope();
     assert(simplex.primitive_type() == primitive_type());
 
@@ -112,6 +113,7 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
         if (!mods.empty()) { // success should be marked here
             apply_attribute_transfer(mods);
             if (after(unmods, mods)) {
+                spdlog::info("Finished op successfully");
                 return mods; // scope destructor is called
             }
         }
@@ -122,6 +124,7 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
     }
 #endif
     scope.mark_failed();
+    spdlog::info("Finished op fail");
     return {}; // scope destructor is called
 }
 

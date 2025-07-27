@@ -462,6 +462,7 @@ public:
     // whether the tuple refers to a removed / invalid simplex in the mesh
     bool is_removed(const Tuple& tuple, PrimitiveType pt) const;
     bool is_removed(const simplex::IdSimplex& s) const;
+    bool is_removed(const dart::Dart& tuple, PrimitiveType pt) const;
 
 public:
     // whether the tuple refers to a removed / invalid facet

@@ -74,7 +74,7 @@ std::vector<int64_t> Mesh::request_simplex_indices(PrimitiveType type, int64_t c
     attribute::IndexFlagAccessor<Mesh>& flag_accessor_indices = flag_accessor.index_access();
 
     for (const int64_t simplex_index : ret) {
-        // wmtk::logger().trace("Activating {}-simplex {}", primitive_id, simplex_index);
+        wmtk::logger().warn("Activating {}-simplex {}", primitive_id, simplex_index);
         flag_accessor_indices.activate(simplex_index);
     }
 
@@ -255,6 +255,7 @@ Mesh::consolidate_update_data() const
 std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>> Mesh::consolidate()
 {
     auto pr = consolidate_update_data();
+    const auto& [n2o, o2n] = pr;
     {
         for (const auto& child_data : m_multi_mesh_manager.m_children) {
             auto& child_mesh = *child_data.mesh;
@@ -268,6 +269,7 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
                 if (is_removed(old_gid)) {
                     spdlog::warn("map wasnt valid for {}", old_gid);
                 }
+                assert(o2n[top_cell_dimension()][old_gid] != -1);
             }
         }
         if (auto parent_ptr = m_multi_mesh_manager.m_parent; parent_ptr != nullptr) {
@@ -283,6 +285,7 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
                     if (is_removed(old_gid)) {
                         spdlog::warn("map wasnt valid for {}", old_gid);
                     }
+                    assert(o2n[top_cell_dimension()][old_gid] != -1);
                 }
             }
         }
@@ -291,6 +294,40 @@ std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>
     consolidate_maps(pr);
     consolidate_attributes(pr);
     consolidate_connectivity(pr);
+
+    size_t dim = get_primitive_type_id(top_simplex_type());
+
+    for (const auto& child_data : m_multi_mesh_manager.m_children) {
+        auto& child_mesh = *child_data.mesh;
+        auto [me_to_child, child_to_me] = m_multi_mesh_manager.get_map_accessors(*this, child_mesh);
+
+        const auto& child_sd = dart::SimplexDart::get_singleton(child_mesh.top_simplex_type());
+        for (const auto& t : child_mesh.get_all(child_to_me.handle().primitive_type())) {
+            dart::DartWrap d = child_to_me[child_sd.dart_from_tuple(t)];
+            int64_t old_gid = d.global_id();
+            if (is_removed(old_gid)) {
+                spdlog::warn("After map wasnt valid for {}", old_gid);
+                    assert(false);
+            }
+        }
+    }
+    if (auto parent_ptr = m_multi_mesh_manager.m_parent; parent_ptr != nullptr) {
+        auto [parent_to_me, me_to_parent] =
+            parent_ptr->m_multi_mesh_manager.get_map_accessors(*parent_ptr, *this);
+
+
+        const auto& p_sd = dart::SimplexDart::get_singleton(parent_ptr->top_simplex_type());
+        for (const auto& t : parent_ptr->get_all(parent_to_me.handle().primitive_type())) {
+            dart::DartWrap d = parent_to_me[p_sd.dart_from_tuple(t)];
+            if (!d.is_null()) {
+                int64_t old_gid = d.global_id();
+                if (is_removed(old_gid)) {
+                    spdlog::warn("After map wasnt valid for {}", old_gid);
+                    assert(false);
+                }
+            }
+        }
+    }
     return pr;
 }
 void Mesh::consolidate_attributes(
@@ -374,8 +411,8 @@ void Mesh::consolidate_maps(
             if (new_gid == -1) {
                 spdlog::warn("Bad gid");
             }
-            continue;
             d = dart::Dart{new_gid, d.permutation()};
+            continue;
             simplex::Simplex v =
                 child_mesh.map_to_parent(simplex::Simplex(child_mesh.top_simplex_type(), t));
             // spdlog::info(
@@ -408,8 +445,8 @@ void Mesh::consolidate_maps(
                 if (new_gid == -1) {
                     spdlog::warn("Bad gid");
                 }
-                continue;
                 d = dart::Dart{new_gid, d.permutation()};
+                continue;
                 // spdlog::info(
                 //     "{} 2p[{}]: {} {} {}",
                 //     parent_ptr->id(t, top_simplex_type()),
