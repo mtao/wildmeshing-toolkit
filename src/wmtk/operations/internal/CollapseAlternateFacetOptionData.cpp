@@ -23,8 +23,13 @@ CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
     : input(sd.dart_from_tuple(input_tuple))
     , alts({{left_switches(m, input_tuple), right_switches(m, input_tuple)}})
 {
-    spdlog::info("CollapseAltFacetOptionData mapping {} to alts {}", input, fmt::join(alts,","));
-
+    spdlog::info(
+        "CollapseAltFacetOptionData mapping {}{} to alts {} {} {}",
+        input,
+        sd.tuple_from_dart(input).as_string(),
+        fmt::join(alts, ","),
+        sd.tuple_from_dart(alts[0]).as_string(),
+        sd.tuple_from_dart(alts[1]).as_string());
 }
 
 

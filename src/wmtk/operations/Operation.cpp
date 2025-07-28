@@ -75,7 +75,7 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
 
     assert(mesh().is_valid(simplex.tuple()));
 
-    spdlog::warn("Starting op on {} gid {}", simplex.tuple().as_string(), mesh().id(simplex));
+    spdlog::warn("Starting op on {} gid {} with names {}", simplex.tuple().as_string(), mesh().id(simplex), m_invariants.name());
     auto scope = mesh().create_scope();
     assert(simplex.primitive_type() == primitive_type());
 

@@ -25,13 +25,16 @@ void symmetric_write_tuple_map_attributes(
     assert(osd.is_valid(b));
     PrimitiveType pt = std::min(apt, bpt);
     spdlog::warn(
-        "symmetric_write_tuple_map_attributes {}-mesh to {}-mesh darts {} => {} (gids were {} => {})",
+        "symmetric_write_tuple_map_attributes {}-mesh to {}-mesh darts {} => {} (gids were {} => "
+        "{})",
         apt,
         bpt,
         a,
+        sd.tuple_from_dart(a).as_string(),
         b,
-        a_to_b.mesh().id(a, apt),
-        b_to_a.mesh().id(b, bpt));
+        osd.tuple_from_dart(b).as_string(),
+        a_to_b.mesh().id(a, pt),
+        b_to_a.mesh().id(b, pt));
 #endif
     std::tie(a_to_b[a], b_to_a[b]) = wmtk::dart::utils::get_simplex_involution_pair(apt, a, bpt, b);
 }

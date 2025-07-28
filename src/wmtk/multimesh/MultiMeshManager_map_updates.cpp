@@ -88,7 +88,6 @@ MultiMeshManager::mapped_tuples(const Mesh& my_mesh, const Mesh& child_mesh, int
     Tuple child_tuple = child_sd.tuple_from_dart(child_dart);
 
     return {parent_tuple, child_tuple};
-
 }
 
 // TODO: verify why these names are necessary
@@ -137,6 +136,8 @@ void MultiMeshManager::update_maps_from_edge_operation(
     if (children().empty()) {
         return;
     }
+    const dart::SimplexDart& parent_sd =
+        dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
     // auto parent_flag_accessor = my_mesh.get_const_flag_accessor(primitive_type);
     //  auto& update_tuple = [&](const auto& flag_accessor, Tuple& t) -> bool {
     //      if(acc.index_access().
@@ -165,7 +166,10 @@ void MultiMeshManager::update_maps_from_edge_operation(
         // auto child_flag_accessor = child_mesh.get_const_flag_accessor(primitive_type);
 
 
-        spdlog::info("Checking for updating {}-simplices with gids {}", primitive_type, fmt::join(gids,","));
+        spdlog::info(
+            "Checking for updating {}-simplices with gids {}",
+            primitive_type,
+            fmt::join(gids, ","));
         for (const auto& gid : gids) {
             const bool parent_exists = !my_mesh.is_removed(gid, primitive_type);
             spdlog::info("Trying to update {}", gid);
@@ -197,13 +201,20 @@ void MultiMeshManager::update_maps_from_edge_operation(
             spdlog::info("child wasnt null");
 
             Tuple old_parent_tuple = parent_tuple;
+            dart::Dart old_child_dart =
+                parent_to_child_accessor[parent_sd.dart_from_tuple(old_parent_tuple)];
 
             parent_tuple = wmtk::multimesh::find_valid_tuple(
                 my_mesh,
                 parent_tuple,
                 primitive_type,
                 operation_data);
-            spdlog::warn("Parent {} moved to {} to map to child {}", std::string(old_parent_tuple), std::string(parent_tuple), std::string(child_tuple));
+            spdlog::warn(
+                "Parent {} => old_child_dart moved to {} to map to child {}",
+                std::string(old_parent_tuple),
+                std::string(old_child_dart),
+                std::string(parent_tuple),
+                std::string(child_tuple));
 
             if (parent_tuple.is_null()) {
                 continue;
