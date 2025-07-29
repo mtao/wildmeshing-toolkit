@@ -796,6 +796,10 @@ public:
      */
     bool can_map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) const;
 
+
+    bool can_map_child(const Mesh& child_mesh, const simplex::Simplex& my_simplex) const;
+    bool can_map_child(const Mesh& child_mesh, const dart::Dart&, PrimitiveType pt) const;
+
     /*
      * @brief identifies if the simplices of this mesh can be mapped to other
      *

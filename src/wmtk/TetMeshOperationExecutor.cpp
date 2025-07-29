@@ -628,7 +628,6 @@ void TetMesh::TetMeshOperationExecutor::split_edge_execute()
                     te(k) = e_spine_1;
                 }
             }
-            spdlog::info("Tet split new gid {} got edge indices {}", t1, fmt::join(te,"<"));
             for(const auto& e: te) {
                 assert(!m_mesh.is_removed(e,PrimitiveType::Edge));
             }
@@ -701,7 +700,6 @@ void TetMesh::TetMeshOperationExecutor::split_edge_execute()
                     te(k) = e_spine_2;
                 }
             }
-            spdlog::info("Tet split new gid {} got edge indices {}", t2, fmt::join(te,">"));
             for(const auto& e: te) {
                 assert(!m_mesh.is_removed(e,PrimitiveType::Edge));
             }

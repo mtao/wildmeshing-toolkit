@@ -44,6 +44,7 @@ struct MultimeshTagOptions : public MultimeshRunnableOptions
     ~MultimeshTagOptions() override;
     utils::AttributeDescription tag_attribute;
     wmtk::attribute::MeshAttributeHandle::ValueVariant value;
+    std::vector<utils::AttributeDescription> passed_attributes;
     std::string output_mesh_name;
     bool delete_tag_attribute = true;
     bool manifold_decomposition = true;

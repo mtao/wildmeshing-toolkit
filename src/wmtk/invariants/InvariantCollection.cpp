@@ -1,5 +1,6 @@
 #include "InvariantCollection.hpp"
 #include <fmt/ranges.h>
+#include <memory>
 #include <type_traits>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/simplex/Simplex.hpp>
@@ -34,7 +35,8 @@ bool InvariantCollection::before(const simplex::Simplex& t) const
 {
     for (const auto& invariant : m_invariants) {
         if (&mesh() != &invariant->mesh()) {
-            for (const Tuple& ct : mesh().map_tuples(invariant->mesh(), t)) {
+            for (const Tuple& ct : m_use_map_to_child ? mesh().lub_map_tuples(invariant->mesh(), t)
+                                                      : mesh().map_tuples(invariant->mesh(), t)) {
                 if (!invariant->before(
                         simplex::Simplex(invariant->mesh(), t.primitive_type(), ct))) {
 #if defined(WMTK_ENABLED_DEV_MODE)
@@ -71,8 +73,15 @@ bool InvariantCollection::after(
             if (!(invariant_uses_old_state || invariant_uses_new_state)) {
                 continue;
             }
-            auto map = [&](const auto& tuples) {
-                return mesh().map_tuples(invariant->mesh(), mesh().top_simplex_type(), tuples);
+            auto map = [&](const auto& tuples) -> std::vector<Tuple> {
+                return m_use_map_to_child ? mesh().lub_map_tuples(
+                                                invariant->mesh(),
+                                                mesh().top_simplex_type(),
+                                                tuples)
+                                          : mesh().map_tuples(
+                                                invariant->mesh(),
+                                                mesh().top_simplex_type(),
+                                                tuples);
             };
             const std::vector<Tuple> mapped_tuples_after =
                 invariant_uses_new_state ? map(top_dimension_tuples_after) : std::vector<Tuple>{};
@@ -166,18 +175,17 @@ const std::vector<std::shared_ptr<Invariant>>& InvariantCollection::invariants()
 }
 
 std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>>
-InvariantCollection::get_map_mesh_to_invariants()
+InvariantCollection::get_map_mesh_to_invariants() const
 {
-    decltype(get_map_mesh_to_invariants()) mesh_invariants_map;
+    std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>> mesh_invariants_map;
 
     throw std::runtime_error("Untested code. Potentially wrong.");
 
     for (std::shared_ptr<Invariant> inv : m_invariants) {
         // TODO check if that if statement is correct
-        if (std::is_base_of<InvariantCollection, decltype(inv)::element_type>()) {
-            // go through invariant collections
-            InvariantCollection& sub_ic = static_cast<InvariantCollection&>(*inv);
-            decltype(mesh_invariants_map) sub_map = sub_ic.get_map_mesh_to_invariants();
+        auto invc = std::dynamic_pointer_cast<InvariantCollection>(inv);
+        if (bool(invc)) {
+            auto sub_map = invc->get_map_mesh_to_invariants();
 
             for (const auto& [mptr, i] : sub_map) {
                 auto& vec = mesh_invariants_map[mptr];
@@ -187,7 +195,46 @@ InvariantCollection::get_map_mesh_to_invariants()
             mesh_invariants_map[&(inv->mesh())].push_back(inv);
         }
     }
-    //
+    return mesh_invariants_map;
+}
+std::shared_ptr<InvariantCollection> InvariantCollection::children_reorganized_by_mesh() const
+{
+    std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>> mesh_invariants_map =
+        get_map_mesh_to_invariants();
+
+    std::map<Mesh const*, std::shared_ptr<InvariantCollection>> collections;
+    std::map<std::vector<int64_t>, Mesh const*> ids;
+    for (const auto& [key, value] : mesh_invariants_map) {
+        auto ic = std::make_shared<InvariantCollection>(*key, true);
+        for (const auto& i : value) {
+            ic->add(i);
+        }
+
+        collections[key] = ic;
+        ids[key->absolute_multi_mesh_id()] = key;
+    }
+
+    if (ids.find(std::vector<int64_t>{}) == ids.end()) {
+        const auto& root = mesh().get_multi_mesh_root();
+        ids[root.absolute_multi_mesh_id()] = &root;
+
+        collections[&root] = std::make_shared<InvariantCollection>(root, true);
+    }
+
+
+    for (const auto& [id, meshptr] : ids) {
+        const auto& ic = collections[meshptr];
+        std::vector<int64_t> parent_id = id;
+        while (!parent_id.empty()) {
+            parent_id.pop_back();
+            if (auto it = ids.find(parent_id); it != ids.end()) {
+                collections.at(it->second)->add(ic);
+                break;
+            }
+        }
+    }
+    // return the root
+    return collections[{}];
 }
 
 std::string InvariantCollection::name() const

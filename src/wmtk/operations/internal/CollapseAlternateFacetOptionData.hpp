@@ -62,11 +62,16 @@ public:
     Dart map_permutation_to_alt(const wmtk::dart::SimplexDart& sd, int8_t permutation) const;
 
 
+    static auto get_left_face(const Mesh& m, const Tuple& t) -> Tuple;
+    static auto get_right_face(const Mesh& m, const Tuple& t) -> Tuple;
+    // static Dart::
+
 private:
+    static auto get_face_from_action(const Mesh& m, const Tuple& t, int8_t local_action) -> Tuple;
     Dart left_switches(const Mesh& m, const Tuple& t) const;
     Dart right_switches(const Mesh& m, const Tuple& t) const;
     // given an ear tuple reports the relative orientation across the edge
-    Dart get_neighbor_action(const Mesh& m, const Tuple& t, int8_t local_action) const;
+    Dart get_action(const Mesh& m, const Tuple& t) const;
 };
 inline bool operator==(const CollapseAlternateFacetOptionData& a, int64_t b)
 {

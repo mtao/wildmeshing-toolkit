@@ -63,7 +63,7 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     const int64_t target_global_id = involution.global_id();
 
 #if !defined(NDEBUG)
-    if (true) {
+    if (false) {
         const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(target_pt);
         if (target_pt == min_pt) {
             const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
@@ -142,10 +142,6 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
                 simplex::Simplex(target_pt, source_tuple));
             for (const auto& t : equivalent_tuples) {
                 if (t.global_cid() == source_tuple.global_cid()) {
-                    spdlog::info(
-                        "Updating source from {} to {}",
-                        source_tuple.as_string(),
-                        t.as_string());
                     source_dart = sd.dart_from_tuple(t);
 
                     break;
@@ -936,9 +932,41 @@ bool MultiMeshManager::can_map(
         root,
         my_simplex.primitive_type(),
         map_to_root_tuple(my_mesh, my_simplex));
-    return root.m_multi_mesh_manager.can_map_child(root, other_mesh, root_simplex);
+    return root.m_multi_mesh_manager.can_map_subtree(root, other_mesh, root_simplex);
 }
 bool MultiMeshManager::can_map_child(
+    const Mesh& my_mesh,
+    const Mesh& other_mesh,
+    const dart::Dart& my_dart,
+    PrimitiveType pt) const
+{
+    const auto& sd = dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
+    return can_map_child(my_mesh, other_mesh, simplex::Simplex(pt, sd.tuple_from_dart(my_dart)));
+}
+bool MultiMeshManager::can_map_child(
+    const Mesh& my_mesh,
+    const Mesh& other_mesh,
+    const simplex::Simplex& my_simplex) const
+{
+    if (my_simplex.primitive_type() > other_mesh.top_simplex_type()) {
+        return false;
+    }
+    const auto& sd = dart::SimplexDart::get_singleton(my_mesh.top_simplex_type());
+    int64_t child_id = other_mesh.m_multi_mesh_manager.child_id();
+    assert(other_mesh.m_multi_mesh_manager.m_parent == &my_mesh);
+    const ChildData& cd = m_children.at(child_id);
+    const auto& parent_to_child_handle = cd.map_handle;
+
+    AccessorType m_acc{my_mesh, parent_to_child_handle};
+    for (const Tuple& t : simplex::top_dimension_cofaces_tuples(my_mesh, my_simplex)) {
+        const dart::Dart d = sd.dart_from_tuple(t);
+        if (!m_acc[d][0].is_null()) {
+            return true;
+        }
+    }
+    return false;
+}
+bool MultiMeshManager::can_map_subtree(
     const Mesh& my_mesh,
     const Mesh& other_mesh,
     const simplex::Simplex& my_simplex) const

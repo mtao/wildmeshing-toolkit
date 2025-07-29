@@ -4,6 +4,9 @@
 
 namespace wmtk {
 namespace invariants {
+
+    // invokes the link condition on each mesh in a multimesh
+    // only works for edge meshes
 class MultiMeshLinkConditionInvariant : public Invariant
 {
 public:

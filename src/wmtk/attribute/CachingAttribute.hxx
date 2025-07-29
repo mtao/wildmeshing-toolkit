@@ -5,7 +5,7 @@
 
 #if defined(WMTK_ENABLED_DEV_MODE)
 #include <fmt/ranges.h>
-#include <spdlog/spdlog.h>
+#include <wmtk/utils/Logger.hpp>
 #include <ranges>
 #include <span>
 #define WMTK_CACHING_ATTRIBUTE_INLINE
@@ -23,13 +23,13 @@ void CachingAttribute<T>::print_state(std::string_view prefix) const
     if constexpr (std::is_same_v<T, Rational>) {
     } else if constexpr (std::is_same_v<T, char>) {
         auto toint = [](auto&& v) noexcept -> int64_t { return v; };
-        spdlog::warn(
+        logger().warn(
             "Attribute {}: [{}] on transaction {} of {}",
             BaseType::m_name,
             prefix,
             m_current_transaction_index,
             m_transaction_starts.size());
-        spdlog::info("Data: {}", fmt::join(std::views::transform(BaseType::m_data, toint), ","));
+        logger().info("Data: {}", fmt::join(std::views::transform(BaseType::m_data, toint), ","));
         for (size_t j = 0; j < m_transaction_starts.size(); ++j) {
             size_t start = m_transaction_starts[j];
             size_t end;
@@ -38,11 +38,11 @@ void CachingAttribute<T>::print_state(std::string_view prefix) const
             } else {
                 end = m_transaction_starts[j + 1];
             }
-            spdlog::info("Detailing transaction {} with value indices {}->{}", j, start, end);
+            logger().info("Detailing transaction {} with value indices {}->{}", j, start, end);
 
             for (size_t k = start; k < end; ++k) {
                 const auto& [attr_index, table_index] = m_indices[k];
-                spdlog::info(
+                logger().info(
                     "attr index {} has table index {} and value {}",
                     attr_index,
                     table_index,

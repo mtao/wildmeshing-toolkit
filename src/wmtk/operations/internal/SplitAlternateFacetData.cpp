@@ -114,7 +114,6 @@ auto SplitAlternateFacetData::get_alternative(const PrimitiveType mesh_pt, const
     const auto& sd = wmtk::dart::SimplexDart::get_singleton(mesh_pt);
 
     int64_t new_global_cid = alts_it->new_gid(mesh_pt, sd.permutation_index_from_tuple(t));
-    spdlog::info("Old GID {} got mapped to {} among {}", t.global_cid(), new_global_cid, fmt::join(alts_it->new_facet_indices,","));
 
 
     return {t.local_vid(), t.local_eid(), t.local_fid(), new_global_cid};
@@ -123,7 +122,6 @@ std::vector<int64_t> SplitAlternateFacetData::get_simplices_to_delete(
     const Mesh& mesh,
     const PrimitiveType& simplex_dim) const
 {
-    spdlog::info("Collectiong {}-simplices to delete from a {}-mesh", simplex_dim,mesh.top_cell_dimension());
     if(simplex_dim < PrimitiveType::Edge) {
         return {};
     }

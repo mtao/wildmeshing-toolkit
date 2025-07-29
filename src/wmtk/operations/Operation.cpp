@@ -75,7 +75,6 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
 
     assert(mesh().is_valid(simplex.tuple()));
 
-    spdlog::warn("Starting op on {} gid {} with names {}", simplex.tuple().as_string(), mesh().id(simplex), m_invariants.name());
     auto scope = mesh().create_scope();
     assert(simplex.primitive_type() == primitive_type());
 
@@ -96,24 +95,10 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
         }
 #endif
         auto mods = execute(simplex);
-        // if (!wmtk::multimesh::utils::check_maps_valid(mesh())) {
-        //     spdlog::warn("Map valid fail {}", simplex.tuple().as_string());
-        // }
-        //  #ifndef NDEBUG
-        //          if (!mesh().is_free()) {
-        //              spdlog::error("CHECKING TUPLE VALIDITY!");
-        //              for (const auto& s : mods) {
-        //                  assert(mesh().is_valid(s));
-        //                  spdlog::info("direct mods valid: {} {}", std::string(s.tuple()),
-        //                  mesh().id(s));
-        //              }
-        //          }
-        //  #endif
 
         if (!mods.empty()) { // success should be marked here
             apply_attribute_transfer(mods);
             if (after(unmods, mods)) {
-                spdlog::info("Finished op successfully");
                 return mods; // scope destructor is called
             }
         }
@@ -124,7 +109,6 @@ std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simp
     }
 #endif
     scope.mark_failed();
-    spdlog::info("Finished op fail");
     return {}; // scope destructor is called
 }
 
@@ -241,29 +225,10 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
             simplex::IdSimplexCollection at_mesh_all(at_mesh);
             // try {
             for (const simplex::Simplex& s : at_mesh_simplices) {
-                if (!at_mesh.is_valid(s)) {
-                    spdlog::warn(
-                        "Error: {}",
-                        fmt::format(
-                            "Operation::apply_attribute_transfer: Invalid simplex {} on "
-                            "{}-mesh",
-                            std::string(s.tuple()),
-                            primitive_type_name(at_mesh.top_simplex_type())));
-                    assert(false);
-                }
+                assert(at_mesh.is_valid(s));
                 for (const simplex::IdSimplex& ss : simplex::closed_star_iterable(at_mesh, s)) {
-                    if (at_mesh.is_removed(ss)) {
-                        spdlog::warn(
-                            "Error: {}",
-                            fmt::format(
-                                "Operation::apply_attribute_transfer: Invalid simplex {} on "
-                                "{}-mesh",
-                                std::string(s.tuple()),
-                                primitive_type_name(at_mesh.top_simplex_type())));
-                        assert(false);
-                    } else {
-                        at_mesh_all.add(ss);
-                    }
+                    assert(!at_mesh.is_removed(ss));
+                    at_mesh_all.add(ss);
                 }
             }
 

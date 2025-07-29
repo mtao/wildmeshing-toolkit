@@ -145,8 +145,6 @@ void MultiMeshManager::update_maps_from_edge_operation(
 
     const std::vector<int64_t>& gids = operation_data.global_ids_to_update[get_primitive_type_id(
         primitive_type)]; // get facet gids(primitive_type);
-    // spdlog::info("Updating map for {}-simplices from edge split on [{}]:{}, ids are {}",
-    // primitive_type,my_mesh.absolute_multi_mesh_id(), operation_data.m_input_edge_gid, gids);
 
     // go over every child mesh and try to update their hashes
     for (auto& child_data : children()) {
@@ -155,40 +153,26 @@ void MultiMeshManager::update_maps_from_edge_operation(
         if (child_mesh.top_simplex_type() != primitive_type) {
             continue;
         }
-        // spdlog::info(
-        //      "[{}->{}] Doing a child mesh ({})",
-        //      fmt::join(my_mesh.absolute_multi_mesh_id(), ","),
-        //      fmt::join(child_mesh.absolute_multi_mesh_id(), ","),child_mesh.top_simplex_type());
-        //   get accessors to the maps
         auto maps = get_map_accessors(my_mesh, child_data);
         auto& [parent_to_child_accessor, child_to_parent_accessor] = maps;
 
         // auto child_flag_accessor = child_mesh.get_const_flag_accessor(primitive_type);
 
-
-        spdlog::info(
-            "Checking for updating {}-simplices with gids {}",
-            primitive_type,
-            fmt::join(gids, ","));
         for (const auto& gid : gids) {
             const bool parent_exists = !my_mesh.is_removed(gid, primitive_type);
-            spdlog::info("Trying to update {}", gid);
             if (!parent_exists) {
                 continue;
             }
-            spdlog::info("Parent existed, hadnt been updated yet");
 
             auto [parent_tuple, child_tuple] = mapped_tuples(my_mesh, *child_data.mesh, gid);
 
 
-            spdlog::info("Got {} {}", parent_tuple.as_string(), child_tuple.as_string());
             // If the parent tuple is valid, it means this parent-child pair has already been
             // handled, so we can skip it
             // If the parent tuple is invalid then there was no map so we can try the next cell
             if (parent_tuple.is_null()) {
                 continue;
             }
-            spdlog::info("Parent wasnt null");
 
 
             // it is not this function's responsibility to handle cases where
@@ -198,24 +182,13 @@ void MultiMeshManager::update_maps_from_edge_operation(
             if (!child_exists) {
                 continue;
             }
-            spdlog::info("child wasnt null");
 
-            Tuple old_parent_tuple = parent_tuple;
-            dart::Dart old_child_dart =
-                parent_to_child_accessor[parent_sd.dart_from_tuple(old_parent_tuple)];
 
             parent_tuple = wmtk::multimesh::find_valid_tuple(
                 my_mesh,
                 parent_tuple,
                 primitive_type,
                 operation_data);
-            spdlog::warn(
-                "Parent {} => old_child_dart moved to {} to map to child {}",
-                std::string(old_parent_tuple),
-                std::string(old_child_dart),
-                std::string(parent_tuple),
-                std::string(child_tuple));
-
             if (parent_tuple.is_null()) {
                 continue;
             }

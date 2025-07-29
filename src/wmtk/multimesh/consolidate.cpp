@@ -13,21 +13,6 @@
 namespace wmtk::multimesh {
 void consolidate(Mesh& mesh)
 {
-    return;
-    // auto run = [&](auto&& m) {
-    //     if constexpr (!std::is_const_v<std::remove_reference_t<decltype(m)>>) {
-    //         m.consolidate();
-    //     }
-    // };
-    // multimesh::MultiMeshVisitor visitor(run);
-    // visitor.execute_from_root(mesh);
-    for (const auto& m : mesh.get_multi_mesh_root().get_all_meshes()) {
-        if (!wmtk::multimesh::utils::check_maps_valid(*m)) {
-            throw std::runtime_error("map corrupted before consolidate!");
-        } else {
-            spdlog::info("was ok");
-        }
-    }
     std::map<
         std::vector<int64_t>,
         std::tuple<std::vector<std::vector<int64_t>>, std::vector<std::vector<int64_t>>>>
@@ -52,7 +37,6 @@ void consolidate(Mesh& mesh)
         multimesh::MultiMeshVisitor visitor(run);
         visitor.execute_from_root(mesh);
     }
-    return;
     {
         auto run = [&](auto&& m) {
             if constexpr (!std::is_const_v<std::remove_reference_t<decltype(m)>>) {

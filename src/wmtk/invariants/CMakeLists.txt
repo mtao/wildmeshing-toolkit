@@ -25,8 +25,6 @@ set(SRC_FILES
     MinEdgeLengthInvariant.hpp
     MinEdgeLengthInvariant.cpp
 
-    MultiMeshTopologyInvariant.hpp
-    MultiMeshTopologyInvariant.cpp
     MinIncidentValenceInvariant.hpp
     MinIncidentValenceInvariant.cpp
     TriMeshSubstructureTopologyPreservingInvariant.hpp

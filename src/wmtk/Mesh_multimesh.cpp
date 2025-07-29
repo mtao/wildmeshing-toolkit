@@ -55,6 +55,14 @@ bool Mesh::can_map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) c
     }
     return m_multi_mesh_manager.can_map(*this, other_mesh, my_simplex);
 }
+bool Mesh::can_map_child(const Mesh& child_mesh, const dart::Dart& d, PrimitiveType pt) const
+{
+    return m_multi_mesh_manager.can_map_child(*this, child_mesh, d, pt);
+}
+bool Mesh::can_map_child(const Mesh& child_mesh, const simplex::Simplex& d) const
+{
+    return m_multi_mesh_manager.can_map_child(*this, child_mesh, d);
+}
 
 std::vector<simplex::Simplex> Mesh::map(const Mesh& other_mesh, const simplex::Simplex& my_simplex)
     const
@@ -334,10 +342,10 @@ std::vector<std::shared_ptr<Mesh>> Mesh::get_all_child_meshes() const
     return children;
 }
 
-std::vector<std::shared_ptr<Mesh>> Mesh::get_all_meshes() 
+std::vector<std::shared_ptr<Mesh>> Mesh::get_all_meshes()
 {
     auto meshes2 = get_all_child_meshes();
-    std::vector<std::shared_ptr<Mesh >> meshes;
+    std::vector<std::shared_ptr<Mesh>> meshes;
     meshes.emplace_back(shared_from_this());
     for (const auto& m : meshes2) {
         meshes.emplace_back(m);

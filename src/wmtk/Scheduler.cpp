@@ -46,7 +46,6 @@ SchedulerStats Scheduler::run_operation_on_all(operations::Operation& op, const 
         auto& run_mesh = op.mesh();
         auto tups = m.get_all(type);
         if (&run_mesh != &m) {
-            spdlog::info("Converting {} tuples", tups.size());
             tups = m.map_tuples(run_mesh, op.primitive_type(), tups);
         }
         simplices =
@@ -101,9 +100,6 @@ SchedulerStats Scheduler::run_operation_on_all(operations::Operation& op, std::v
         } else {
             for (const auto& o : order) {
                 log(res, total_simplices);
-                //if(!op.mesh().is_connectivity_valid()) {
-                //    spdlog::warn("Broke mesh1");
-                //}
                 auto mods = op(simplices[o.first]);
                 if (mods.empty())
                     res.fail();

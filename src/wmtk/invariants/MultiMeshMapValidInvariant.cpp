@@ -1,4 +1,6 @@
 #include "MultiMeshMapValidInvariant.hpp"
+#include "wmtk/dart/SimplexDart.hpp"
+#include "wmtk/dart/utils/get_canonical_faces.hpp"
 
 #include <stdexcept>
 #include <wmtk/EdgeMesh.hpp>
@@ -7,77 +9,46 @@
 #include <wmtk/TetMesh.hpp>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/multimesh/MultiMeshSimplexVisitor.hpp>
+#include <wmtk/operations/internal/CollapseAlternateFacetOptionData.hpp>
 #include <wmtk/simplex/cofaces_single_dimension_iterable.hpp>
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
+
 #include "wmtk/simplex/cofaces_single_dimension.hpp"
 
 namespace wmtk {
 namespace {
 
-// checks if two simplices both are mappable
+
 bool both_map_to_child(
     const Mesh& parent,
     const Mesh& child,
-    const simplex::Simplex& left,
-    const simplex::Simplex& right)
+    const dart::Dart& left,
+    const dart::Dart& right)
 {
-    // spdlog::info("{} {}", parent.can_map(child, left), parent.can_map(child, right));
-
-    const bool r = parent.can_map(child, left) && parent.can_map(child, right);
-
-#if !defined(NDEBUG)
-    if (r) {
-        for (const auto& t : parent.map_tuples(child, left)) {
-            assert(child.is_valid(t));
-            //spdlog::info("Left {}", std::string(t));
-        }
-        for (const auto& t : parent.map_tuples(child, right)) {
-            assert(child.is_valid(t));
-            //spdlog::info("right {}", std::string(t));
-        }
-    }
-#endif
-
-    return r;
+    const PrimitiveType child_type = child.top_simplex_type();
+    int64_t left_id = parent.id(left, child_type);
+    int64_t right_id = parent.id(right, child_type);
+    return left_id != right_id && (parent.can_map_child(child, left, child_type) &&
+                                   parent.can_map_child(child, right, child_type));
 }
-
 
 // computes teh two ears in a K+1 simplex over the input edge to see if their facets will be mapped
 // into one another
-bool both_map_to_child(const Mesh& parent, const Mesh& child, const Tuple& input)
+bool both_map_to_child(const Mesh& parent, const Mesh& child, const Tuple& input, int8_t p)
 {
     const PrimitiveType child_type = child.top_simplex_type();
     const PrimitiveType parent_type = parent.top_simplex_type();
     assert(parent_type > child_type);
     const PrimitiveType collapsed_simplex_type = std::min(child_type + 1, parent_type);
-    auto opposite = [&parent, collapsed_simplex_type](Tuple t) {
-        // switch(collapsed_simplex_type) {
-        //     case PrimitiveType::Tetrahedron:
-        //     t = parent.switch_tuples(t, {PrimitiveType::Vertex, PrimitiveType::Edge,
-        //     PrimitiveType::Triangle}); case PrimitiveType::Triangle: t = parent.switch_tuples(t,
-        //     {PrimitiveType::Vertex, PrimitiveType::Edge}); case PrimitiveType::Edge: t =
-        //     parent.switch_tuple(t, PrimitiveType::Vertex);
+    Tuple left_t =
+        operations::internal::CollapseAlternateFacetOptionData::get_left_face(parent, input);
+    Tuple right_t =
+        operations::internal::CollapseAlternateFacetOptionData::get_right_face(parent, input);
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(parent_type);
 
-        //    default:
-        //    case PrimitiveType::Vertex:
-        //        break;
-        //}
-        for (PrimitiveType pt = PrimitiveType::Vertex; pt < collapsed_simplex_type; pt = pt + 1) {
-            assert(pt < parent.top_simplex_type());
-            t = parent.switch_tuple(t, pt);
-        }
-        return t;
-    };
-    // spdlog::info("{}", primitive_type_name(child_type));
-    const simplex::Simplex left(child_type, opposite(input));
-    const simplex::Simplex right(
-        child_type,
-        opposite(parent.switch_tuple(input, PrimitiveType::Vertex)));
-    // spdlog::info(
-    //     "Input tuple {}, left right are {} {}",
-    //     std::string(input),
-    //     std::string(left.tuple()),
-    //     std::string(right.tuple()));
+    dart::Dart left = sd.dart_from_tuple(left_t);
+    dart::Dart right = sd.dart_from_tuple(right_t);
+
     return both_map_to_child(parent, child, left, right);
 }
 
@@ -85,32 +56,25 @@ bool both_map_to_child(const Mesh& parent, const Mesh& child, const Tuple& input
 // two child  K-facets will merge into one another if they are the ears of a K+1 simplex whose
 // "input edge" is the input edge. This function iterates through those K+1 simplices and lets
 // both_map_to_child check for if both ears are mapped
-bool any_pairs_both_map_to_child(
-    const Mesh& parent,
-    const Mesh& child,
-    const simplex::Simplex& edge)
+bool any_pairs_both_map_to_child(const Mesh& parent, const Mesh& child, const Tuple& edge)
 {
-    if (parent.can_map(child, edge)) {
-        return false;
-    }
-    assert(edge.primitive_type() == PrimitiveType::Edge);
     const PrimitiveType parent_type = parent.top_simplex_type();
+    const PrimitiveType parent_face_type = parent_type - 1;
     const PrimitiveType child_type = child.top_simplex_type();
+    const auto& sd = wmtk::dart::SimplexDart::get_singleton(parent_type);
+    const auto& parent_face_sd = wmtk::dart::SimplexDart::get_singleton(parent_face_type);
+    const auto& child_sd = wmtk::dart::SimplexDart::get_singleton(child_type);
     assert(parent_type > child_type);
-    // spdlog::info("{} {}", primitive_type_name(parent_type), primitive_type_name(child_type));
     if (parent_type == child_type) {
         // if the meshes are the same dimension then there isn't a pair, so this function returns
         // false
         return false;
     } else if (parent_type == child_type + 1) {
-        return both_map_to_child(parent, child, edge.tuple());
+        return both_map_to_child(parent, child, edge, sd.identity());
     } else {
-        for (const Tuple& tuple : simplex::cofaces_single_dimension_iterable(
-                 parent,
-                 edge,
-                 child.top_simplex_type() + 1)) {
-            if (both_map_to_child(parent, child, tuple)) {
-                // spdlog::info("Could map!");
+        for (const int8_t f : dart::utils::get_canonical_faces(parent_face_sd, child_type)) {
+            int8_t p = parent_face_sd.convert(f, sd);
+            if (both_map_to_child(parent, child, edge, p)) {
                 return true;
             }
         }
@@ -128,9 +92,12 @@ struct MultiMeshMapValidFunctor
     }
     bool operator()(const Mesh& m, const simplex::Simplex& s) const
     {
+        auto cofaces = wmtk::simplex::top_dimension_cofaces_tuples(m, s);
         for (auto child_ptr : m.get_child_meshes()) {
-            if (any_pairs_both_map_to_child(m, *child_ptr, s)) {
-                return false;
+            for (const auto& t : cofaces) {
+                if (any_pairs_both_map_to_child(m, *child_ptr, t)) {
+                    return false;
+                }
             }
         }
         return true;

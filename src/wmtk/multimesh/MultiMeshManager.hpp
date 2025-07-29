@@ -4,8 +4,8 @@
 #include <tuple>
 #include <wmtk/Tuple.hpp>
 #include <wmtk/attribute/Accessor.hpp>
-#include <wmtk/utils/MerkleTreeInteriorNode.hpp>
 #include <wmtk/dart/DartAccessor.hpp>
+#include <wmtk/utils/MerkleTreeInteriorNode.hpp>
 
 
 namespace wmtk {
@@ -48,8 +48,7 @@ namespace wmtk::multimesh {
 class MultiMeshManager : public wmtk::utils::MerkleTreeInteriorNode
 {
 public:
-    using AccessorType =
-        wmtk::dart::DartAccessor<1, Mesh>;
+    using AccessorType = wmtk::dart::DartAccessor<1, Mesh>;
 
     // let the visitor object access the internal details
     template <int64_t cell_dimension, typename NodeFunctor>
@@ -320,10 +319,20 @@ public:
 
     bool can_map(const Mesh& my_mesh, const Mesh& other_mesh, const simplex::Simplex& my_simplex)
         const;
+    bool can_map_subtree(
+        const Mesh& my_mesh,
+        const Mesh& other_mesh,
+        const simplex::Simplex& my_simplex) const;
     bool can_map_child(
         const Mesh& my_mesh,
         const Mesh& other_mesh,
         const simplex::Simplex& my_simplex) const;
+
+    bool can_map_child(
+        const Mesh& my_mesh,
+        const Mesh& other_mesh,
+        const dart::Dart& dart,
+        PrimitiveType pt) const;
 
     bool can_map_up(const Mesh& my_mesh, const Mesh& other_mesh) const;
 
@@ -527,6 +536,5 @@ public:
      * @param vertex operating vertex tuple
      * @param hash_accessor hash accessor of m
      */
-
 };
 } // namespace wmtk::multimesh

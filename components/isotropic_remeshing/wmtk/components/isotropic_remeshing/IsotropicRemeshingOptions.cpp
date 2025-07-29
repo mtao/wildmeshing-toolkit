@@ -55,14 +55,15 @@ double relative_to_absolute_length(
 }
 } // namespace
 
-double IsotropicRemeshingOptions::get_absolute_length() const
+double IsotropicRemeshingOptions::get_absolute_length(const multimesh::MeshCollection& mc) const
 {
     double length = length_abs;
     if (length_abs <= 0) {
         if (length_rel <= 0) {
             throw std::runtime_error("Either absolute or relative length must be set!");
         }
-        length = relative_to_absolute_length(position_attribute, length_rel);
+        auto position_attr = multimesh::utils::get_attribute(mc,position_attribute);
+        length = relative_to_absolute_length(position_attr, length_rel);
     } else {
         wmtk::logger().debug(
             "get_absolute_length using absolute length value {} {}",

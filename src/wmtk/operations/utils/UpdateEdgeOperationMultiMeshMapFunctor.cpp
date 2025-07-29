@@ -34,7 +34,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
     EdgeMesh& m,
     const edge_mesh::EdgeOperationData& emoe) const
 {
-    spdlog::warn("Updating ears of a {}-mesh", m.top_cell_dimension());
     return;
 }
 
@@ -42,7 +41,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
     TriMesh& m,
     const tri_mesh::EdgeOperationData& fmoe) const
 {
-    spdlog::warn("Updating ears of a {}-mesh", m.top_cell_dimension());
     const auto& parent_incident_datas = fmoe.incident_face_datas();
     auto& parent_mmmanager = m.m_multi_mesh_manager;
     const auto& parent_incident_vids = fmoe.incident_vids();
@@ -66,6 +64,15 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
 
             std::vector<std::pair<Tuple, Tuple>> update_pairs;
 
+#if !defined(NDEBUG)
+            {
+                const int64_t e0 = parent_data.ears[0].eid;
+                const int64_t e1 = parent_data.ears[1].eid;
+                assert(
+                    parent_to_child_accessor[e0][0].is_null() ||
+                    parent_to_child_accessor[e1][0].is_null());
+            }
+#endif
             for (int ear_index = 0; ear_index < 2; ++ear_index) {
                 const int64_t parent_ear_eid_old = parent_data.ears[ear_index].eid;
                 const int64_t parent_merged_eid = parent_data.new_edge_id;
@@ -75,12 +82,7 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
                 assert(parent_merged_eid != -1);
                 assert(parent_new_fid != -1);
 
-#if defined(WMTK_USE_CXX20)
                 const auto [parent_tuple, child_tuple] =
-#else
-                Tuple parent_tuple, child_tuple;
-                std::tie(parent_tuple, child_tuple) =
-#endif
                     parent_mmmanager.mapped_tuples(m, *child_ptr, parent_ear_eid_old);
 
                 if (parent_tuple.is_null()) {
@@ -143,7 +145,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::update_ear_replacement(
     TetMesh& m,
     const tet_mesh::EdgeOperationData& tmoe) const
 {
-    spdlog::warn("Updating ears of a {}-mesh", m.top_cell_dimension());
     const auto& parent_incident_tet_datas = tmoe.incident_tet_datas();
     const auto& parent_incident_face_datas = tmoe.incident_face_datas();
     auto& parent_mmmanager = m.m_multi_mesh_manager;
@@ -343,10 +344,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const edge_mesh::EdgeOperationData& child_emoe) const
 {
-    spdlog::warn(
-        "Updating inner simplices of a {}-mesh to {}-mesh",
-        parent_mesh.top_cell_dimension(),
-        child_mesh.top_cell_dimension());
     auto& parent_mmmanager = parent_mesh.m_multi_mesh_manager;
     auto [parent_to_child_accessor, child_to_parent_accessor] =
         parent_mmmanager.get_map_accessors(parent_mesh, child_mesh);
@@ -384,10 +381,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex& cs,
     const edge_mesh::EdgeOperationData& child_emoe) const
 {
-    spdlog::warn(
-        "Updating inner simplices of a {}-mesh to {}-mesh",
-        parent_mesh.top_cell_dimension(),
-        child_mesh.top_cell_dimension());
     const auto& parent_incident_datas = parent_tmoe.incident_face_datas();
     const auto& parent_spine_v = parent_tmoe.incident_vids();
 
@@ -433,10 +426,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const tri_mesh::EdgeOperationData& child_tmoe) const
 {
-    spdlog::warn(
-        "Updating inner simplices of a {}-mesh to {}-mesh",
-        parent_mesh.top_cell_dimension(),
-        child_mesh.top_cell_dimension());
     const auto& parent_incident_datas = parent_tmoe.incident_face_datas();
     const auto& child_incident_datas = child_tmoe.incident_face_datas();
 
@@ -538,10 +527,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const edge_mesh::EdgeOperationData& child_emoe) const
 {
-    spdlog::warn(
-        "Updating inner simplices of a {}-mesh to {}-mesh",
-        parent_mesh.top_cell_dimension(),
-        child_mesh.top_cell_dimension());
     const auto& parent_incident_tet_datas = parent_tmoe.incident_tet_datas();
     const auto& parent_incident_face_datas = parent_tmoe.incident_face_datas();
 
@@ -554,13 +539,9 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
         parent_global_cid(child_to_parent_accessor, child_emoe.operating_edge_id());
     int64_t target_parent_local_fid =
         parent_local_fid(child_to_parent_accessor, child_emoe.operating_edge_id());
-    // spdlog::info("Managing a parent to child relationship {}", target_parent_tid);
     for (const auto& parent_data : parent_incident_tet_datas) {
-        // spdlog::info("parent data tid: {}", parent_data.tid);
         if (parent_data.tid != target_parent_tid) continue;
 
-        // spdlog::info("At parent tid {}, incident faces were {}", target_parent_tid,
-        // fmt::join(parent_data.incident_face_local_fid,","));
         int64_t face_index = -1; // shoule be 0 or 1 after if
         for (int i = 0; i < 2; ++i) {
             if (parent_data.incident_face_local_fid[i] == target_parent_local_fid) {
@@ -614,10 +595,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const tri_mesh::EdgeOperationData& child_fmoe) const
 {
-    spdlog::warn(
-        "Updating inner simplices of a {}-mesh to {}-mesh",
-        parent_mesh.top_cell_dimension(),
-        child_mesh.top_cell_dimension());
     const auto& parent_incident_tet_datas = parent_tmoe.incident_tet_datas();
     const auto& parent_incident_face_datas = parent_tmoe.incident_face_datas();
 
@@ -699,10 +676,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const tet_mesh::EdgeOperationData& child_tmoe) const
 {
-    spdlog::warn(
-        "Updating inner simplices of a {}-mesh to {}-mesh",
-        parent_mesh.top_cell_dimension(),
-        child_mesh.top_cell_dimension());
     const auto& parent_incident_tet_datas = parent_tmoe.incident_tet_datas();
     const auto& child_incident_tet_datas = child_tmoe.incident_tet_datas();
 
@@ -771,7 +744,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const edge_mesh::EdgeOperationData& parent_emoe)
 {
-    spdlog::warn("Updating periphery simplices of a {}-meshh", parent_mesh.top_cell_dimension());
     if (parent_emoe.m_split_v == -1) {
         update_ear_replacement(parent_mesh, parent_emoe);
     }
@@ -784,7 +756,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const tri_mesh::EdgeOperationData& parent_fmoe)
 {
-    spdlog::warn("Updating periphery simplices of a {}-meshh", parent_mesh.top_cell_dimension());
 
     if (parent_fmoe.is_collapse) {
         update_ear_replacement(parent_mesh, parent_fmoe);
@@ -798,7 +769,6 @@ void UpdateEdgeOperationMultiMeshMapFunctor::operator()(
     const simplex::Simplex&,
     const tet_mesh::EdgeOperationData& parent_tmoe)
 {
-    spdlog::warn("Updating periphery simplices of a {}-meshh", parent_mesh.top_cell_dimension());
 
     if (parent_tmoe.is_collapse) {
         update_ear_replacement(parent_mesh, parent_tmoe);

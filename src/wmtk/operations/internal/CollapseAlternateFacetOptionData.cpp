@@ -23,13 +23,6 @@ CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
     : input(sd.dart_from_tuple(input_tuple))
     , alts({{left_switches(m, input_tuple), right_switches(m, input_tuple)}})
 {
-    spdlog::info(
-        "CollapseAltFacetOptionData mapping {}{} to alts {} {} {}",
-        input,
-        sd.tuple_from_dart(input).as_string(),
-        fmt::join(alts, ","),
-        sd.tuple_from_dart(alts[0]).as_string(),
-        sd.tuple_from_dart(alts[1]).as_string());
 }
 
 
@@ -45,22 +38,39 @@ CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
 auto CollapseAlternateFacetOptionData::left_switches(const Mesh& m, const Tuple& t) const -> Dart
 {
     const PrimitiveType mesh_type = m.top_simplex_type();
-    return get_neighbor_action(m, t, left_ear_action(mesh_type));
+    return get_action(m, get_left_face(m, t));
 }
 auto CollapseAlternateFacetOptionData::right_switches(const Mesh& m, const Tuple& t) const -> Dart
 {
     const PrimitiveType mesh_type = m.top_simplex_type();
-    return get_neighbor_action(m, t, right_ear_action(mesh_type));
+    return get_action(m, get_right_face(m, t));
+}
+auto CollapseAlternateFacetOptionData::get_left_face(const Mesh& m, const Tuple& t) -> Tuple
+{
+    const PrimitiveType mesh_type = m.top_simplex_type();
+    return get_face_from_action(m, t, left_ear_action(mesh_type));
+}
+auto CollapseAlternateFacetOptionData::get_right_face(const Mesh& m, const Tuple& t) -> Tuple
+{
+    const PrimitiveType mesh_type = m.top_simplex_type();
+    return get_face_from_action(m, t, right_ear_action(mesh_type));
+}
+auto CollapseAlternateFacetOptionData::get_face_from_action(
+    const Mesh& m,
+    const Tuple& t,
+    int8_t local_action) -> Tuple
+{
+    const PrimitiveType mesh_type = m.top_simplex_type();
+    auto r = wmtk::autogen::local_switch_tuple(mesh_type, t, local_action);
+    return r;
 }
 
-auto CollapseAlternateFacetOptionData::get_neighbor_action(
-    const Mesh& m,
-    const Tuple& edge_tuple,
-    int8_t local_action) const -> Dart
+
+auto CollapseAlternateFacetOptionData::get_action(const Mesh& m, const Tuple& tuple) const -> Dart
 {
     const PrimitiveType mesh_type = m.top_simplex_type();
     const PrimitiveType boundary_type = mesh_type - 1;
-    Tuple r = wmtk::autogen::local_switch_tuple(mesh_type, edge_tuple, local_action);
+    Tuple r = tuple;
     Dart d;
     if (!m.is_boundary(boundary_type, r)) {
         const auto& sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
@@ -79,39 +89,6 @@ auto CollapseAlternateFacetOptionData::get_neighbor_action(
     return d;
 }
 
-/*
-auto CollapseAlternateFacetOptionData::best_alt(
-    const wmtk::dart::SimplexDart& sd,
-    int8_t permutation) const -> const Dart&
-{
-    const bool left_is_boundary = alts[0].is_null();
-    const bool right_is_boundary = alts[1].is_null();
-    spdlog::info("Perm {} got {} {}", permutation, left_is_boundary, right_is_boundary);
-
-    int8_t index;
-
-
-    auto largest_subdarts = this->largest_subdarts(sd, permutation);
-    if (!left_is_boundary && !right_is_boundary) {
-        if (largest_subdarts[0] >= largest_subdarts[1]) {
-            index = 1;
-        } else {
-            index = 0;
-        }
-
-    } else {
-        assert(left_is_boundary || right_is_boundary);
-        // pick the one that isn't bad
-        index = alts[0].is_null() ? 1 : 0;
-        if (largest_subdarts[index] >= largest_subdarts[1 - index]) {
-            spdlog::info("Swapping subdarts");
-            permutation = wmtk::dart::utils::edge_mirror(sd, input.permutation(), permutation);
-        }
-    }
-    assert(!alts[index].is_null());
-    return alts[index];
-}
-*/
 std::array<int8_t, 2> CollapseAlternateFacetOptionData::largest_subdarts(
     const wmtk::dart::SimplexDart& sd,
     int8_t permutation) const
@@ -172,7 +149,7 @@ auto CollapseAlternateFacetOptionData::map_permutation_to_alt(
 
     {
         auto ls = largest_subdarts(sd, p);
-        // auto lb = local_boundary_indices(sd);
+        // pick the subface that can support the largest subdart
         if (ls[index] < ls[1 - index]) {
             int8_t p2 = wmtk::dart::utils::edge_mirror(sd, input.permutation(), p);
 

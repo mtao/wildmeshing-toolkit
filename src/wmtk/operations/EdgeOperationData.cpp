@@ -36,23 +36,19 @@ EdgeOperationData::simplex_from_id(const Mesh& m, const PrimitiveType type, cons
 }
 void EdgeOperationData::set_split()
 {
-    wmtk::logger().warn("Setting {}-split without populating internal data", m_mesh.top_cell_dimension());
     m_op_data = std::make_unique<internal::SplitAlternateFacetData>();
 }
 void EdgeOperationData::set_collapse()
 {
-    wmtk::logger().warn("Setting {}-collapse without populating internal data", m_mesh.top_cell_dimension());
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>();
 }
 
 void EdgeOperationData::set_split(Mesh& m, const Tuple& t)
 {
-    wmtk::logger().warn("Setting {}-split", m_mesh.top_cell_dimension());
     m_op_data = std::make_unique<internal::SplitAlternateFacetData>(m, t);
 }
 void EdgeOperationData::set_collapse(Mesh& m, const Tuple& t)
 {
-    wmtk::logger().warn("Setting {}-collapse ", m_mesh.top_cell_dimension());
     m_op_data = std::make_unique<internal::CollapseAlternateFacetData>(m, t);
 }
 
@@ -108,7 +104,7 @@ EdgeOperationData::request_simplex_indices(Mesh& mesh, const PrimitiveType type,
 
     auto ret = mesh.request_simplex_indices(type, count);
      wmtk::logger()
-         .warn("{}-Mesh requesting {} {}-simplices. got [{}]", mesh.top_cell_dimension(), count, int(type), fmt::join(ret, ","));
+         .trace("{}-Mesh requesting {} {}-simplices. got [{}]", mesh.top_cell_dimension(), count, int(type), fmt::join(ret, ","));
     return ret;
 }
 std::vector<int64_t>
@@ -137,7 +133,7 @@ void EdgeOperationData::set_simplex_ids_to_delete()
 void EdgeOperationData::delete_simplices()
 {
     for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
-         wmtk::logger().warn(
+         wmtk::logger().trace(
              "{}-Mesh-Deleting {} {}-simplices [{}]",
              m_mesh.top_cell_dimension(),
              simplex_ids_to_delete[d].size(),

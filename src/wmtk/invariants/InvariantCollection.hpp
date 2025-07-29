@@ -15,7 +15,7 @@ namespace invariants {
 class InvariantCollection : public Invariant
 {
 public:
-    InvariantCollection(const Mesh& m);
+    InvariantCollection(const Mesh& m, bool all_children_below = false);
     InvariantCollection(const InvariantCollection&);
     InvariantCollection(InvariantCollection&&);
     InvariantCollection& operator=(const InvariantCollection&);
@@ -39,8 +39,13 @@ public:
     bool empty() const;
     const std::vector<std::shared_ptr<Invariant>>& invariants() const;
 
-    [[noreturn]] std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>>
-    get_map_mesh_to_invariants();
+    // finds all invariants held into itself or invariant collectiosn under it
+    std::vector<std::shared_ptr<Invariant>> all_child_invariants() const;
+
+    std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>> get_map_mesh_to_invariants()
+        const;
+
+    std::shared_ptr<InvariantCollection> children_reorganized_by_mesh() const;
 
     void setName(std::string name) { m_name = std::move(name); }
 
@@ -49,6 +54,8 @@ public:
 private:
     std::string m_name;
     std::vector<std::shared_ptr<Invariant>> m_invariants;
+    // set true if every invariant under is a child
+    bool m_use_map_to_child = false;
 };
 
 } // namespace invariants

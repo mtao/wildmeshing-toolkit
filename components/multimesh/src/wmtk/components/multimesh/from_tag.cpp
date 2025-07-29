@@ -82,6 +82,9 @@ FromTagOptions MultimeshTagOptions::toTagOptions(const MeshCollection& mc) const
     }
     opts.mesh = TaggedRegion{mah, value};
     opts.manifold_decomposition = manifold_decomposition;
+    for(const auto& ad: passed_attributes) {
+        opts.passed_attributes.emplace_back(utils::get_attribute(mc,tag_attribute));
+    }
 
     return opts;
 }
