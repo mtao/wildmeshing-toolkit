@@ -46,30 +46,13 @@ auto IsotropicRemeshing::get_attribute(const multimesh::utils::AttributeDescript
     return multimesh::utils::get_attribute(m_meshes, ad);
 }
 
-IsotropicRemeshing::~IsotropicRemeshing() = default;
-IsotropicRemeshing::IsotropicRemeshing(
-    multimesh::MeshCollection& mc,
-    const IsotropicRemeshingOptions& opts)
-    : m_meshes(mc)
+void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions& opts)
 {
-    passes = opts.passes;
-    iterations = opts.iterations;
-    start_with_collapse = opts.start_with_collapse;
     auto position_attr = get_attribute(opts.position_attribute);
 
     if (!position_attr.is_valid()) {
         throw std::runtime_error("Isotropic remeshing run without a valid position attribute");
     }
-    for (const auto& [child, parent] : opts.copied_attributes) {
-        m_operation_transfers.emplace_back(
-            wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
-                get_attribute(parent),
-                get_attribute(child)));
-    }
-    for (const auto& transfer : opts.utility_attributes) {
-        m_operation_transfers.emplace_back(transfer->create(mc));
-    }
-
     m_universal_invariants =
         std::make_shared<wmtk::invariants::InvariantCollection>(position_attr.mesh());
     for (const auto& attr : opts.improvement_attributes) {
@@ -79,10 +62,37 @@ IsotropicRemeshing::IsotropicRemeshing(
 
 
     if (opts.envelope_size.has_value()) {
-        make_envelopes();
+        make_envelopes(opts);
     }
 
-    make_interior_invariants();
+    make_interior_invariants(opts);
+}
+void IsotropicRemeshing::load_transfers(const IsotropicRemeshingOptions& opts)
+{
+    for (const auto& [child, parent] : opts.copied_attributes) {
+        m_operation_transfers.emplace_back(
+            wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
+                get_attribute(parent),
+                get_attribute(child)));
+    }
+    for (const auto& transfer : opts.utility_attributes) {
+        m_operation_transfers.emplace_back(transfer->create(m_meshes));
+    }
+}
+
+IsotropicRemeshing::~IsotropicRemeshing() = default;
+IsotropicRemeshing::IsotropicRemeshing(
+    multimesh::MeshCollection& mc,
+    const IsotropicRemeshingOptions& opts)
+    : m_meshes(mc)
+{
+    passes = opts.passes;
+    iterations = opts.iterations;
+    start_with_collapse = opts.start_with_collapse;
+
+
+    load_shared_invariants(opts);
+    load_transfers(opts);
 
 
     // split
@@ -131,6 +141,11 @@ IsotropicRemeshing::IsotropicRemeshing(
     }
 
     if (opts.passes.empty()) {
+        auto position_attr = get_attribute(opts.position_attribute);
+
+        if (!position_attr.is_valid()) {
+            throw std::runtime_error("Isotropic remeshing run without a valid position attribute");
+        }
         passes.emplace_back(
             Pass{
                 m_meshes.get_mesh_path(position_attr.mesh()),
@@ -168,7 +183,7 @@ std::vector<wmtk::attribute::MeshAttributeHandle> IsotropicRemeshing::all_envelo
         };
 
         for (const auto& h : opts.all_positions()) {
-            try_add(get_attribute((h));
+            try_add(get_attribute(h));
         }
     }
     return handles;
@@ -182,7 +197,7 @@ bool IsotropicRemeshing::is_envelope_position(const wmtk::attribute::MeshAttribu
 
 void IsotropicRemeshing::make_interior_invariants(const IsotropicRemeshingOptions& opts)
 {
-    auto position = opts.position_attribute;
+    auto position = get_attribute(opts.position_attribute);
     Mesh& mesh = position.mesh();
     auto invariant_interior_vertex = std::make_shared<wmtk::invariants::InvariantCollection>(mesh);
     m_interior_edge_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(mesh);
@@ -206,8 +221,8 @@ void IsotropicRemeshing::run()
 {
     wmtk::logger().info(
         "Running {} different types of passes for {} iterations",
-        opts.passes.size(),
-        opts.iterations);
+        passes.size(),
+        iterations);
 
     if (m_split) {
         wmtk::logger().debug(
@@ -247,10 +262,10 @@ void IsotropicRemeshing::run()
                 "no MeshCollection was attached");
             return;
         }
-        for (const auto& [name, opts] : opts.intermediate_output_format) {
+        for (const auto& [name, opts] : intermediate_output_format) {
             auto opt = wmtk::components::output::utils::format(opts, index);
             spdlog::info("Temp logging {} as {}", name, opt.path.string());
-            wmtk::components::output::output(opts.mesh_collection->get_mesh(name), opt);
+            wmtk::components::output::output(m_meshes.get_mesh(name), opt);
         }
     };
 
@@ -262,9 +277,9 @@ void IsotropicRemeshing::run()
             wmtk::logger().info(
                 "Running pass {}/{} of iteration {}/{}. Has {} sub-iterations on {})",
                 j,
-                opts.passes.size(),
+                passes.size(),
                 k,
-                opts.iterations,
+                iterations,
                 p.iterations,
                 p.mesh_path);
             run(p, j);
@@ -339,7 +354,8 @@ void IsotropicRemeshing::run(const Pass& pass, size_t pass_index)
             pass_stats += stats;
         }
 
-        wmtk::multimesh::consolidate(mesh);
+        // TODO: find a better canonical way to do this
+        wmtk::multimesh::consolidate(m_operations.begin()->second->mesh());
 
         logger().info(
             "Executed {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",

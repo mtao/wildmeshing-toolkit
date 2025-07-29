@@ -243,6 +243,11 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
     }
 }
 
+bool Operation::attribute_new_all_configured() const
+{
+    throw std::runtime_error("attribute new check for this op is not implemented");
+    return false;
+}
 
 void Operation::reserve_enough_simplices()
 {

@@ -69,6 +69,8 @@ public:
 
     const invariants::InvariantCollection invariants() const { return m_invariants; }
 
+    virtual bool attribute_new_all_configured() const;
+
 protected:
     /**
      * @brief returns an empty vector in case of failure

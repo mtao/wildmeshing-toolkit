@@ -30,8 +30,8 @@ std::vector<simplex::Simplex> CollapseAndUpdateVertex::execute(const simplex::Si
 {
     assert(simplex.primitive_type() == PrimitiveType::Edge);
     assert(bool(m_vertex_update));
-    //assert(wmtk::multimesh::utils::check_maps_valid(mesh()));
-    // switch edge - switch face
+    // assert(wmtk::multimesh::utils::check_maps_valid(mesh()));
+    //  switch edge - switch face
     //    /|\ .
     //   / ^ \ .
     //  /f |  \ .
@@ -43,7 +43,7 @@ std::vector<simplex::Simplex> CollapseAndUpdateVertex::execute(const simplex::Si
     if (collapse_simplices.empty()) return {};
     assert(collapse_simplices.size() == 1);
 
-    //assert(wmtk::multimesh::utils::check_maps_valid(mesh()));
+    // assert(wmtk::multimesh::utils::check_maps_valid(mesh()));
     simplex::Simplex s = simplex::Simplex::vertex(collapse_simplices[0].tuple());
     assert(mesh().is_valid(s));
 
@@ -55,5 +55,9 @@ std::vector<simplex::Simplex> CollapseAndUpdateVertex::unmodified_primitives(
     const simplex::Simplex& simplex) const
 {
     return {simplex};
+}
+bool CollapseAndUpdateVertex::attribute_new_all_configured() const
+{
+    return m_collapse->attribute_new_all_configured();
 }
 } // namespace wmtk::operations::composite

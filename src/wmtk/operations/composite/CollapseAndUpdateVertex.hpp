@@ -25,6 +25,7 @@ public:
     std::vector<simplex::Simplex> unmodified_primitives(
         const simplex::Simplex& simplex) const override;
     std::vector<simplex::Simplex> execute(const simplex::Simplex& simplex) override;
+    bool attribute_new_all_configured() const final;
 
 
 protected:

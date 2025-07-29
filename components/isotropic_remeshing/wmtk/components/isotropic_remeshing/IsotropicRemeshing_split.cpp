@@ -16,21 +16,23 @@
 #include "internal/configure_split.hpp"
 
 namespace wmtk::components::isotropic_remeshing {
-void IsotropicRemeshing::configure_split()
+void IsotropicRemeshing::configure_split(const IsotropicRemeshingOptions& opts)
 {
     wmtk::logger().debug("Configure isotropic remeshing split");
-    wmtk::Mesh& mesh = m_options.position_attribute.mesh();
+    wmtk::Mesh& mesh = get_attribute(opts.position_attribute).mesh();
     auto& op = m_split = std::make_shared<operations::EdgeSplit>(mesh);
-    internal::configure_split(*op, mesh, m_options);
+    internal::configure_split(*op, mesh, opts);
 
-    if (m_options.lock_boundary && !m_options.use_for_periodic) {
+    if (opts.lock_boundary) {
         op->add_invariant(m_interior_position_invariants);
     }
 
     if (m_envelope_invariants) {
         op->add_invariant(m_envelope_invariants);
     }
-    for (const auto& [child, parent] : m_options.copied_attributes) {
+    for (const auto& [c, p] : opts.copied_attributes) {
+        auto parent = get_attribute(p);
+        auto child = get_attribute(c);
         op->set_new_attribute_strategy(
             child,
             operations::SplitBasicStrategy::None,
@@ -46,8 +48,8 @@ void IsotropicRemeshing::configure_split()
         op->set_new_attribute_strategy(transfer->handle());
         op->add_transfer_strategy(transfer);
     }
-    if (m_options.split.priority) {
-        m_options.split.priority->assign_to(*m_options.mesh_collection, *op);
+    if (opts.split.priority) {
+        opts.split.priority->assign_to(m_meshes, *op);
     }
 
 

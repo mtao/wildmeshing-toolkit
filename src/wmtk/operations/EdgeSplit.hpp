@@ -40,7 +40,7 @@ public:
     void clear_attribute_new_strategies();
 
     // checks through attribute new for throws, prints to the logger if so
-    bool attribute_new_all_configured() const;
+    bool attribute_new_all_configured() const final;
 
 private:
     std::vector<std::shared_ptr<const operations::BaseSplitNewAttributeStrategy>>

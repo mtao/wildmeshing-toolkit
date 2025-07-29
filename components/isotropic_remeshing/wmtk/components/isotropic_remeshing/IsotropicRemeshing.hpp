@@ -42,6 +42,9 @@ private:
     void make_envelope_invariants(const IsotropicRemeshingOptions& opts);
     void make_interior_invariants(const IsotropicRemeshingOptions& opts);
 
+    void load_shared_invariants(const IsotropicRemeshingOptions& opts);
+    void load_transfers(const IsotropicRemeshingOptions& opts);
+
 private:
     multimesh::MeshCollection& m_meshes;
 

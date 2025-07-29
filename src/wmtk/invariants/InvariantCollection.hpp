@@ -15,6 +15,7 @@ namespace invariants {
 class InvariantCollection : public Invariant
 {
 public:
+    // all children below indicates that every mesh in this invariant collection is below it (so we don't need to map up and then down)
     InvariantCollection(const Mesh& m, bool all_children_below = false);
     InvariantCollection(const InvariantCollection&);
     InvariantCollection(InvariantCollection&&);

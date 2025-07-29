@@ -37,7 +37,7 @@ public:
         const std::vector<simplex::Simplex>& mods) const final override;
 
     // checks through attribute new for throws, prints to the logger if so
-    bool attribute_new_all_configured() const;
+    bool attribute_new_all_configured() const final ;
 
 private:
     std::vector<std::shared_ptr<const operations::BaseCollapseNewAttributeStrategy>>

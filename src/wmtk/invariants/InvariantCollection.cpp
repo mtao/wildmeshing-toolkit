@@ -8,8 +8,8 @@
 
 namespace wmtk::invariants {
 
-InvariantCollection::InvariantCollection(const Mesh& m)
-    : Invariant(m, true, true, true)
+InvariantCollection::InvariantCollection(const Mesh& m, bool all_children_below)
+    : Invariant(m, true, true, true), m_use_map_to_child(all_children_below)
 {}
 InvariantCollection::~InvariantCollection() = default;
 InvariantCollection::InvariantCollection(const InvariantCollection&) = default;
@@ -179,7 +179,6 @@ InvariantCollection::get_map_mesh_to_invariants() const
 {
     std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>> mesh_invariants_map;
 
-    throw std::runtime_error("Untested code. Potentially wrong.");
 
     for (std::shared_ptr<Invariant> inv : m_invariants) {
         // TODO check if that if statement is correct

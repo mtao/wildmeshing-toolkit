@@ -1,8 +1,8 @@
 #include <nlohmann/json_fwd.hpp>
-#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
-#include "OperationOptions.hpp"
 #include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
+#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
+#include "OperationOptions.hpp"
 
 namespace wmtk::components::isotropic_remeshing {
 
@@ -14,19 +14,18 @@ struct IsotropicRemeshingOptions
 
 
     AttributeDescription position_attribute;
-    //AttributeDescription inversion_position_attribute;
-    //AttributeDescription other_position_attributes;
+    // AttributeDescription inversion_position_attribute;
+    // AttributeDescription other_position_attributes;
 
-    // attributes that will just be copied from some other attribute; deprecated by utility_attributes
-    std::vector<
-        std::pair<AttributeDescription, AttributeDescription>>
-        copied_attributes;
+    // attributes that will just be copied from some other attribute; deprecated by
+    // utility_attributes
+    std::vector<std::pair<AttributeDescription, AttributeDescription>> copied_attributes;
     // attributes that we will ignore transferring; deprecated because this isn't useful
     std::vector<AttributeDescription> pass_through_attributes;
 
-    //AttributeDescription sizing_field_attribute;
-    //AttributeDescription visited_edge_flag;
-    //AttributeDescription target_edge_length;
+    // AttributeDescription sizing_field_attribute;
+    // AttributeDescription visited_edge_flag;
+    // AttributeDescription target_edge_length;
 
     // meshes that should not be geometrically changed by operations of dimension higher than it
     std::vector<std::string> static_meshes;
@@ -36,10 +35,11 @@ struct IsotropicRemeshingOptions
     // attributes that need to be improved for an operation to be accepted
     std::vector<AttributeDescription> improvement_attributes;
 
-    
+
     std::vector<Pass> passes;
     int64_t iterations = 10;
 
+    bool lock_boundary = true;
 
     double length_abs = 0;
     double length_rel = 0;
@@ -52,9 +52,7 @@ struct IsotropicRemeshingOptions
     EdgeSwapOptions swap;
 
 
-
     std::optional<double> envelope_size; // 1e-3
-
 
 
     // transforms the absoltue or relative length paramters into an absolute length parameter
@@ -75,8 +73,6 @@ struct IsotropicRemeshingOptions
     // like format("path_{}.hdf5",0) to generate path_0.hdf5
     std::vector<std::pair<std::string, wmtk::components::output::OutputOptions>>
         intermediate_output_format;
-
-
 };
 
 

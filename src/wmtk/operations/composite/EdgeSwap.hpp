@@ -14,6 +14,7 @@ public:
     EdgeCollapse& collapse() { return *m_collapse; }
     const EdgeSplit& split() const { return *m_split; }
     const EdgeCollapse& collapse() const { return *m_collapse; }
+    bool attribute_new_all_configured() const final;
 
 protected:
     std::shared_ptr<EdgeSplit> m_split;
