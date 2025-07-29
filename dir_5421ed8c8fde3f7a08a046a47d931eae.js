@@ -44,8 +44,6 @@ var dir_5421ed8c8fde3f7a08a046a47d931eae =
     [ "MultiMeshLinkConditionInvariant.hpp", "_multi_mesh_link_condition_invariant_8hpp.html", "_multi_mesh_link_condition_invariant_8hpp" ],
     [ "MultiMeshMapValidInvariant.cpp", "_multi_mesh_map_valid_invariant_8cpp.html", null ],
     [ "MultiMeshMapValidInvariant.hpp", "_multi_mesh_map_valid_invariant_8hpp.html", "_multi_mesh_map_valid_invariant_8hpp" ],
-    [ "MultiMeshTopologyInvariant.cpp", "_multi_mesh_topology_invariant_8cpp.html", null ],
-    [ "MultiMeshTopologyInvariant.hpp", "_multi_mesh_topology_invariant_8hpp.html", "_multi_mesh_topology_invariant_8hpp" ],
     [ "NoBoundaryCollapseToInteriorInvariant.cpp", "_no_boundary_collapse_to_interior_invariant_8cpp.html", null ],
     [ "NoBoundaryCollapseToInteriorInvariant.hpp", "_no_boundary_collapse_to_interior_invariant_8hpp.html", "_no_boundary_collapse_to_interior_invariant_8hpp" ],
     [ "NoChildMeshAttachingInvariant.cpp", "_no_child_mesh_attaching_invariant_8cpp.html", null ],

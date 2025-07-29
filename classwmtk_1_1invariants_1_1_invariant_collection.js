@@ -1,16 +1,18 @@
 var classwmtk_1_1invariants_1_1_invariant_collection =
 [
-    [ "InvariantCollection", "classwmtk_1_1invariants_1_1_invariant_collection.html#a8b8e97ca81607b44a31b6c424e3cceb9", null ],
+    [ "InvariantCollection", "classwmtk_1_1invariants_1_1_invariant_collection.html#acf67e0725a8983a113bbdb1d84991a0f", null ],
     [ "InvariantCollection", "classwmtk_1_1invariants_1_1_invariant_collection.html#afc3710014076665a62027f6d241e71e0", null ],
     [ "InvariantCollection", "classwmtk_1_1invariants_1_1_invariant_collection.html#a24ad44e5b9bc30d25cce717afe63a5e8", null ],
     [ "~InvariantCollection", "classwmtk_1_1invariants_1_1_invariant_collection.html#a56511836f67071beff87425edd3bdb59", null ],
     [ "add", "classwmtk_1_1invariants_1_1_invariant_collection.html#a17c51789c88fea75126d3d35ac1421ab", null ],
     [ "after", "classwmtk_1_1invariants_1_1_invariant_collection.html#a8ca33e950e39423425248ba8d25b3dca", null ],
+    [ "all_child_invariants", "classwmtk_1_1invariants_1_1_invariant_collection.html#ad4db4fd3f500fdce1517c2058e3cfecc", null ],
     [ "before", "classwmtk_1_1invariants_1_1_invariant_collection.html#a77e630210caf679f60aaf91a27813dbd", null ],
+    [ "children_reorganized_by_mesh", "classwmtk_1_1invariants_1_1_invariant_collection.html#af2db61d158143e86926a3b7ec5739fef", null ],
     [ "directly_modified_after", "classwmtk_1_1invariants_1_1_invariant_collection.html#a120325711274b7754c4b6ae6b12151c9", null ],
     [ "empty", "classwmtk_1_1invariants_1_1_invariant_collection.html#a498fb14cde31b7caa8d8cb448ac60e96", null ],
     [ "get", "classwmtk_1_1invariants_1_1_invariant_collection.html#acdb78cb2cfaa27a33224dcadd43da36e", null ],
-    [ "get_map_mesh_to_invariants", "classwmtk_1_1invariants_1_1_invariant_collection.html#a70e3988ee53dcda8629f27d6b043f57a", null ],
+    [ "get_map_mesh_to_invariants", "classwmtk_1_1invariants_1_1_invariant_collection.html#ac34e5808a31ba319ae24acf8fe244862", null ],
     [ "invariants", "classwmtk_1_1invariants_1_1_invariant_collection.html#ad43b796163f94fb4563c8100ac69849e", null ],
     [ "name", "classwmtk_1_1invariants_1_1_invariant_collection.html#a8768dcade3726f770ecc44b8d70126df", null ],
     [ "operator=", "classwmtk_1_1invariants_1_1_invariant_collection.html#af8f60b12b10459cec405d2aee1310481", null ],
@@ -18,5 +20,6 @@ var classwmtk_1_1invariants_1_1_invariant_collection =
     [ "setName", "classwmtk_1_1invariants_1_1_invariant_collection.html#ac22fa5648bb6e14a393f76c4ea7d9db8", null ],
     [ "size", "classwmtk_1_1invariants_1_1_invariant_collection.html#ad170522939dad1903745e7217f280fb8", null ],
     [ "m_invariants", "classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9", null ],
-    [ "m_name", "classwmtk_1_1invariants_1_1_invariant_collection.html#a56d08e0f9a9e12b04d48496885b2b73c", null ]
+    [ "m_name", "classwmtk_1_1invariants_1_1_invariant_collection.html#a56d08e0f9a9e12b04d48496885b2b73c", null ],
+    [ "m_use_map_to_child", "classwmtk_1_1invariants_1_1_invariant_collection.html#a86f639b1f3b7b7f0c9293883cacc69f6", null ]
 ];

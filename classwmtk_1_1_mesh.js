@@ -9,6 +9,8 @@ var classwmtk_1_1_mesh =
     [ "assert_capacity_valid", "classwmtk_1_1_mesh.html#a61f2bd1d14343c57b62082ae877abde3", null ],
     [ "builtin_attributes", "classwmtk_1_1_mesh.html#a1c0d9a42a56f5532b6f278f93560ca5a", null ],
     [ "can_map", "classwmtk_1_1_mesh.html#ac57c4894358e3857c09dfb00eb934c1f", null ],
+    [ "can_map_child", "classwmtk_1_1_mesh.html#a9aafb74139eb7d807f9aff1c4d6a39c3", null ],
+    [ "can_map_child", "classwmtk_1_1_mesh.html#ad95ce7580fb1680a189cff7428964f68", null ],
     [ "can_map_up_to", "classwmtk_1_1_mesh.html#a9c658cba791f2b16134021ab3e39510e", null ],
     [ "capacity", "classwmtk_1_1_mesh.html#a3e8ff83c4a5526a40d18bb9883c6c6c9", null ],
     [ "child_hashables", "classwmtk_1_1_mesh.html#a8b247a8c27eecfc68b7bbbddc0972ca8", null ],

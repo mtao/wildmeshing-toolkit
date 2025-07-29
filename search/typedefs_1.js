@@ -9,6 +9,7 @@ var searchData=
   ['amips_6',['AMIPS',['../namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#a43d8e3745997a2fc799db6997d0d6d41',1,'wmtk::components::mesh_info::transfer']]],
   ['as_5fvariant_5ftype_5ft_7',['as_variant_type_t',['../namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html#aed928f563edd01ef89007d83829cc7b4',1,'wmtk::utils::metaprogramming::tuple']]],
   ['at_8',['at',['../multimesh_2tests_2get__attributes_8cpp.html#a6602b581202f6fdc213509e339090a8f',1,'AT:&#160;get_attributes.cpp'],['../json_8cpp.html#a6602b581202f6fdc213509e339090a8f',1,'AT:&#160;json.cpp']]],
-  ['attributehandle_9',['AttributeHandle',['../namespacewmtk.html#a7a8dda70f25e9761964aadcefbbd88a9',1,'wmtk']]],
-  ['attributetype_10',['AttributeType',['../classwmtk_1_1attribute_1_1_accessor.html#a10b17a198e754bcc38412be36c5bfede',1,'wmtk::attribute::Accessor']]]
+  ['attributedescription_9',['AttributeDescription',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a6f67d56070e661496ac8f6e31e9059b9',1,'wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions']]],
+  ['attributehandle_10',['AttributeHandle',['../namespacewmtk.html#a7a8dda70f25e9761964aadcefbbd88a9',1,'wmtk']]],
+  ['attributetype_11',['AttributeType',['../classwmtk_1_1attribute_1_1_accessor.html#a10b17a198e754bcc38412be36c5bfede',1,'wmtk::attribute::Accessor']]]
 ];

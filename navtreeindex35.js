@@ -1,5 +1,15 @@
 var NAVTREEINDEX35 =
 {
+"dir_5f5962d46c0c2d5a2dbf0efb09269d04.html":[11,0,2,0,5],
+"dir_60a375ec7c92fdb3eb0236cd36baeb0b.html":[11,0,0,9,0,0,0,2],
+"dir_61aafb5e47f2fd92360369156fa8df8a.html":[11,0,0,13,0,0,0,0,2],
+"dir_634c5db33ca32adab866802ab229e8cc.html":[11,0,0,13,0],
+"dir_649f962aebf642c4b5c0393896e565e1.html":[11,0,0,6],
+"dir_667f484269a706bdfedaceac6b9e3e52.html":[11,0,0,8],
+"dir_678829a65ba8f0405277c8fa0c1711be.html":[11,0,0,9,0],
+"dir_68267d1309a1af8e8297ef4c3efbcdba.html":[11,0,2],
+"dir_6abf6f13df217c782767f6a0a9ff14a8.html":[11,0,0,14,0],
+"dir_6c0d53053764f9386c40e2a233dac766.html":[11,0,2,0,7,2],
 "dir_6dbeb5c6eeff6f587e26fd57c67fa935.html":[11,0,0,23,0],
 "dir_7057a5d5067640845599d73d19096dd2.html":[11,0,0,13,0,0,0,0,0],
 "dir_7094acbd2526777900e9c94c9c26ba58.html":[11,0,2,0,9,1],
@@ -239,15 +249,5 @@ var NAVTREEINDEX35 =
 "extract__child__simplices__and__map__from__tag_8cpp.html#a573085b9742cdef912f82e63eeeef86e":[11,0,2,0,6,2,7,1],
 "extract__child__simplices__and__map__from__tag_8cpp.html#a7008c72209af5c29c66868dd95eef945":[11,0,2,0,6,2,7,0],
 "extract__child__simplices__and__map__from__tag_8cpp.html#a761bd441cb741a1ee78c06ace5883872":[11,0,2,0,6,2,7,2],
-"extract__child__simplices__and__map__from__tag_8cpp.html#a8ca70f25fc3649edd8ba3e6e1672ad5f":[11,0,2,0,6,2,7,4],
-"extract__child__simplices__and__map__from__tag_8cpp_source.html":[11,0,2,0,6,2,7],
-"extract__child__simplices__and__map__from__tag_8hpp.html":[11,0,2,0,6,2,8],
-"extract__child__simplices__and__map__from__tag_8hpp.html#a573085b9742cdef912f82e63eeeef86e":[11,0,2,0,6,2,8,1],
-"extract__child__simplices__and__map__from__tag_8hpp.html#a7008c72209af5c29c66868dd95eef945":[11,0,2,0,6,2,8,0],
-"extract__child__simplices__and__map__from__tag_8hpp.html#a761bd441cb741a1ee78c06ace5883872":[11,0,2,0,6,2,8,2],
-"extract__child__simplices__and__map__from__tag_8hpp_source.html":[11,0,2,0,6,2,8],
-"extract__operation__tuples_8cpp.html":[11,0,2,0,6,1,1],
-"extract__operation__tuples_8cpp.html#a081a57c4ca754769d7673bff8cd97eb9":[11,0,2,0,6,1,1,2],
-"extract__operation__tuples_8cpp.html#a4159fb3c246083ee6248bb8c0d22f067":[11,0,2,0,6,1,1,0],
-"extract__operation__tuples_8cpp.html#a84de33f6768ece7cd80fb26fa8194488":[11,0,2,0,6,1,1,3]
+"extract__child__simplices__and__map__from__tag_8cpp.html#a8ca70f25fc3649edd8ba3e6e1672ad5f":[11,0,2,0,6,2,7,4]
 };

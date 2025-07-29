@@ -228,7 +228,6 @@ var hierarchy =
     [ "wmtk::invariants::Invariant", "classwmtk_1_1invariants_1_1_invariant.html", [
       [ "wmtk::EnergyFilterInvariant", "classwmtk_1_1_energy_filter_invariant.html", null ],
       [ "wmtk::MaxEdgeLengthInvariant", "classwmtk_1_1_max_edge_length_invariant.html", null ],
-      [ "wmtk::MultiMeshEdgeTopologyInvariant", "classwmtk_1_1_multi_mesh_edge_topology_invariant.html", null ],
       [ "wmtk::MultiMeshMapValidInvariant", "classwmtk_1_1_multi_mesh_map_valid_invariant.html", null ],
       [ "wmtk::RoundedInvariant", "classwmtk_1_1_rounded_invariant.html", null ],
       [ "wmtk::SimplexInversionInvariant< T >", "classwmtk_1_1_simplex_inversion_invariant.html", null ],

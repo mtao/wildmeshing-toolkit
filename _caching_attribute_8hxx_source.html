@@ -134,7 +134,7 @@ $(document).ready(function(){initNavTree('_caching_attribute_8hxx_source.html','
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;fmt/ranges.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;spdlog/spdlog.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="_logger_8hpp.html">wmtk/utils/Logger.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;ranges&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;span&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><span class="preprocessor">#define WMTK_CACHING_ATTRIBUTE_INLINE</span></div>
@@ -152,13 +152,13 @@ $(document).ready(function(){initNavTree('_caching_attribute_8hxx_source.html','
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_same_v&lt;T, Rational&gt;) {</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> <span class="keyword">constexpr</span> (std::is_same_v&lt;T, char&gt;) {</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keyword">auto</span> toint = [](<span class="keyword">auto</span>&amp;&amp; v) <span class="keyword">noexcept</span> -&gt; int64_t { <span class="keywordflow">return</span> v; };</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        spdlog::warn(</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().warn(</div>
 <div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="stringliteral">&quot;Attribute {}: [{}] on transaction {} of {}&quot;</span>,</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>            BaseType::m_name,</div>
 <div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>            prefix,</div>
 <div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>            m_current_transaction_index,</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>            m_transaction_starts.size());</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        spdlog::info(<span class="stringliteral">&quot;Data: {}&quot;</span>, fmt::join(std::views::transform(BaseType::m_data, toint), <span class="stringliteral">&quot;,&quot;</span>));</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().info(<span class="stringliteral">&quot;Data: {}&quot;</span>, fmt::join(std::views::transform(BaseType::m_data, toint), <span class="stringliteral">&quot;,&quot;</span>));</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> j = 0; j &lt; m_transaction_starts.size(); ++j) {</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>            <span class="keywordtype">size_t</span> start = m_transaction_starts[j];</div>
 <div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>            <span class="keywordtype">size_t</span> end;</div>
@@ -167,11 +167,11 @@ $(document).ready(function(){initNavTree('_caching_attribute_8hxx_source.html','
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            } <span class="keywordflow">else</span> {</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                end = m_transaction_starts[j + 1];</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>            }</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            spdlog::info(<span class="stringliteral">&quot;Detailing transaction {} with value indices {}-&gt;{}&quot;</span>, j, start, end);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>            <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().info(<span class="stringliteral">&quot;Detailing transaction {} with value indices {}-&gt;{}&quot;</span>, j, start, end);</div>
 <div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
 <div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> k = start; k &lt; end; ++k) {</div>
 <div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                <span class="keyword">const</span> <span class="keyword">auto</span>&amp; [attr_index, table_index] = m_indices[k];</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                spdlog::info(</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">logger</a>().info(</div>
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                    <span class="stringliteral">&quot;attr index {} has table index {} and value {}&quot;</span>,</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>                    attr_index,</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    table_index,</div>
@@ -572,6 +572,7 @@ $(document).ready(function(){initNavTree('_caching_attribute_8hxx_source.html','
 <div class="line"><a id="l00385" name="l00385"></a><span class="lineno">  385</span><span class="preprocessor">#undef WMTK_CACHING_ATTRIBUTE_INLINE</span></div>
 <div class="ttc" id="a_caching_attribute_8hpp_html"><div class="ttname"><a href="_caching_attribute_8hpp.html">CachingAttribute.hpp</a></div></div>
 <div class="ttc" id="a_caching_attribute_8hxx_html_a526083dd4c2783e60c2ff0d79703b883"><div class="ttname"><a href="_caching_attribute_8hxx.html#a526083dd4c2783e60c2ff0d79703b883">WMTK_CACHING_ATTRIBUTE_INLINE</a></div><div class="ttdeci">#define WMTK_CACHING_ATTRIBUTE_INLINE</div><div class="ttdef"><b>Definition</b> <a href="_caching_attribute_8hxx_source.html#l00015">CachingAttribute.hxx:15</a></div></div>
+<div class="ttc" id="a_logger_8hpp_html"><div class="ttname"><a href="_logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="a_rational_8hpp_html"><div class="ttname"><a href="_rational_8hpp.html">Rational.hpp</a></div></div>
 <div class="ttc" id="a_types_8hpp_html"><div class="ttname"><a href="_types_8hpp.html">Types.hpp</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_caching_attribute_html_a10c798ca76858f2cbce316f034eaca99"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_caching_attribute.html#a10c798ca76858f2cbce316f034eaca99">wmtk::attribute::CachingAttribute::const_vector_attribute</a></div><div class="ttdeci">ConstMapResult&lt; D &gt; const_vector_attribute(int64_t index) const</div><div class="ttdoc">default immutable vector access</div></div>
@@ -605,6 +606,7 @@ $(document).ready(function(){initNavTree('_caching_attribute_8hxx_source.html','
 <div class="ttc" id="aclasswmtk_1_1attribute_1_1_caching_attribute_html_afc6f6379f6b989c13a0d0e4cb3e473de"><div class="ttname"><a href="classwmtk_1_1attribute_1_1_caching_attribute.html#afc6f6379f6b989c13a0d0e4cb3e473de">wmtk::attribute::CachingAttribute::update_buffer_sizes_for_add</a></div><div class="ttdeci">void update_buffer_sizes_for_add(size_t data_size)</div><div class="ttdef"><b>Definition</b> <a href="_caching_attribute_8hxx_source.html#l00216">CachingAttribute.hxx:216</a></div></div>
 <div class="ttc" id="anamespacestd_html"><div class="ttname"><a href="namespacestd.html">std</a></div><div class="ttdef"><b>Definition</b> <a href="autodiff_8h_source.html#l00995">autodiff.h:995</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1attribute_html"><div class="ttname"><a href="namespacewmtk_1_1attribute.html">wmtk::attribute</a></div><div class="ttdef"><b>Definition</b> <a href="_accessor_8hpp_source.html#l00034">Accessor.hpp:34</a></div></div>
+<div class="ttc" id="anamespacewmtk_html_a6a35f11c12436093d26fdd8be6fecc06"><div class="ttname"><a href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a></div><div class="ttdeci">spdlog::logger &amp; logger()</div><div class="ttdoc">Retrieves the current logger.</div><div class="ttdef"><b>Definition</b> <a href="_logger_8cpp_source.html#l00060">Logger.cpp:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->

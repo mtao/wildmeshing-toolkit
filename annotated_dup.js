@@ -485,7 +485,6 @@ var annotated_dup =
       [ "Mesh", "classwmtk_1_1_mesh.html", "classwmtk_1_1_mesh" ],
       [ "MeshCRTP", "classwmtk_1_1_mesh_c_r_t_p.html", "classwmtk_1_1_mesh_c_r_t_p" ],
       [ "MeshWriter", "classwmtk_1_1_mesh_writer.html", null ],
-      [ "MultiMeshEdgeTopologyInvariant", "classwmtk_1_1_multi_mesh_edge_topology_invariant.html", "classwmtk_1_1_multi_mesh_edge_topology_invariant" ],
       [ "MultiMeshMapValidInvariant", "classwmtk_1_1_multi_mesh_map_valid_invariant.html", "classwmtk_1_1_multi_mesh_map_valid_invariant" ],
       [ "PointMesh", "classwmtk_1_1_point_mesh.html", "classwmtk_1_1_point_mesh" ],
       [ "Primitive", "classwmtk_1_1_primitive.html", "classwmtk_1_1_primitive" ],

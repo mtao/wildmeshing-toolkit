@@ -1,5 +1,15 @@
 var NAVTREEINDEX44 =
 {
+"namespacewmtk_1_1utils_1_1metaprogramming.html#a9074a4467d8441d98089111970ecae12":[9,0,10,14,2,9],
+"namespacewmtk_1_1utils_1_1metaprogramming.html#a960863b4ff77683286c7b21062aeab8d":[9,0,10,14,2,14],
+"namespacewmtk_1_1utils_1_1metaprogramming.html#a97f0566787764f25e1c654dc79f59320":[9,0,10,14,2,7],
+"namespacewmtk_1_1utils_1_1metaprogramming.html#aa5a891c5f82fc2a28e4fbdfc325b46f0":[9,0,10,14,2,16],
+"namespacewmtk_1_1utils_1_1metaprogramming.html#aaa890d0d4c247bf30f3dbd55747e667e":[9,0,10,14,2,10],
+"namespacewmtk_1_1utils_1_1metaprogramming.html#ab18df618f964d4cb34717b41fa760069":[9,0,10,14,2,15],
+"namespacewmtk_1_1utils_1_1metaprogramming.html#ac1fdb62c5fe7d08f71e0846a8099b2f5":[9,0,10,14,2,11],
+"namespacewmtk_1_1utils_1_1metaprogramming.html#ac3d938798f1517d594b9c6fe5a4bcecf":[9,0,10,14,2,8],
+"namespacewmtk_1_1utils_1_1metaprogramming.html#adf089393c6525dbba180ff6e677ce971":[9,0,10,14,2,13],
+"namespacewmtk_1_1utils_1_1metaprogramming_1_1detail.html":[9,0,10,14,2,0],
 "namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html":[9,0,10,14,2,1],
 "namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html#a62f058494c4fe90491c7baa0ebb3e172":[9,0,10,14,2,1,4],
 "namespacewmtk_1_1utils_1_1metaprogramming_1_1tuple.html#a8e9bde7f74ae72dda89821b14b0e7474":[9,0,10,14,2,1,5],
@@ -239,15 +249,5 @@ var NAVTREEINDEX44 =
 "shortest__edge__collapse_8hpp.html":[11,0,0,19,0,0,0,1],
 "shortest__edge__collapse_8hpp.html#a13c53b8b70fc1b63e7bdb22318139dd9":[11,0,0,19,0,0,0,1,1],
 "shortest__edge__collapse_8hpp.html#a1be5a09251cc55d3030f671a39c7ed47":[11,0,0,19,0,0,0,1,0],
-"shortest__edge__collapse_8hpp_source.html":[11,0,0,19,0,0,0,1],
-"simplex__index__from__permutation__index_8cpp.html":[11,0,2,0,2,1,44],
-"simplex__index__from__permutation__index_8cpp.html#a372b3dc51045664821dc4d31392c4e29":[11,0,2,0,2,1,44,0],
-"simplex__index__from__permutation__index_8cpp_source.html":[11,0,2,0,2,1,44],
-"simplicial__embedding_8cpp.html":[11,0,0,20,0,0,0,1],
-"simplicial__embedding_8cpp.html#abab23cfb68442b5652e27826a47ba553":[11,0,0,20,0,0,0,1,0],
-"simplicial__embedding_8cpp_source.html":[11,0,0,20,0,0,0,1],
-"simplicial__embedding_8hpp.html":[11,0,0,20,0,0,0,2],
-"simplicial__embedding_8hpp.html#abab23cfb68442b5652e27826a47ba553":[11,0,0,20,0,0,0,2,0],
-"simplicial__embedding_8hpp_source.html":[11,0,0,20,0,0,0,2],
-"split__path_8hpp.html":[11,0,0,14,0,0,0,0,1,0]
+"shortest__edge__collapse_8hpp_source.html":[11,0,0,19,0,0,0,1]
 };
