@@ -128,7 +128,7 @@ $(document).ready(function(){initNavTree('src_2wmtk_2components_2input_2input_8c
 </div><!--header-->
 <div class="contents">
 <a href="src_2wmtk_2components_2input_2input_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="input_8hpp.html">input.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;wmtk/utils/validate.hpp&gt;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;<a class="code" href="validate_8hpp.html">wmtk/utils/validate.hpp</a>&gt;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;fstream&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="_path_resolver_8hpp.html">wmtk/components/utils/PathResolver.hpp</a>&gt;</span></div>
@@ -232,7 +232,7 @@ $(document).ready(function(){initNavTree('src_2wmtk_2components_2input_2input_8c
 <div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="comment">// }</span></div>
 <div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
 <div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">if</span> (options.<a class="code hl_variable" href="classwmtk_1_1components_1_1input_1_1_input_options.html#ab303ecbaa29e4eb311a478ebb19c7895">validate</a>) {</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        wmtk::utils::validate(mm.<a class="code hl_function" href="classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#a357d4893beb2c66bb60ec7312a97c36f">root</a>());</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <a class="code hl_function" href="namespacewmtk_1_1utils.html#ae46f37201ea819ec64d9371ee03d7138">wmtk::utils::validate</a>(mm.<a class="code hl_function" href="classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#a357d4893beb2c66bb60ec7312a97c36f">root</a>());</div>
 <div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    }</div>
 <div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keywordflow">return</span> mm;</div>
@@ -264,8 +264,10 @@ $(document).ready(function(){initNavTree('src_2wmtk_2components_2input_2input_8c
 <div class="ttc" id="anamespacewmtk_1_1components_1_1input_html"><div class="ttname"><a href="namespacewmtk_1_1components_1_1input.html">wmtk::components::input</a></div><div class="ttdef"><b>Definition</b> <a href="src_2wmtk_2components_2input_2input_8cpp_source.html#l00013">input.cpp:13</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1components_1_1input_html_a324e10679ed262426e707cacb92aaf01"><div class="ttname"><a href="namespacewmtk_1_1components_1_1input.html#a324e10679ed262426e707cacb92aaf01">wmtk::components::input::input</a></div><div class="ttdeci">std::shared_ptr&lt; Mesh &gt; input(const std::filesystem::path &amp;file, const bool ignore_z_if_zero, const std::vector&lt; std::string &gt; &amp;tetrahedron_attributes)</div><div class="ttdef"><b>Definition</b> <a href="src_2wmtk_2components_2input_2input_8cpp_source.html#l00015">input.cpp:15</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1io_html_a821417f1256959629cd64a293f5fcac0"><div class="ttname"><a href="namespacewmtk_1_1io.html#a821417f1256959629cd64a293f5fcac0">wmtk::io::read_mesh</a></div><div class="ttdeci">std::shared_ptr&lt; Mesh &gt; read_mesh(const std::filesystem::path &amp;filename, FileType file_type)</div><div class="ttdef"><b>Definition</b> <a href="read__mesh_8cpp_source.html#l00035">read_mesh.cpp:35</a></div></div>
+<div class="ttc" id="anamespacewmtk_1_1utils_html_ae46f37201ea819ec64d9371ee03d7138"><div class="ttname"><a href="namespacewmtk_1_1utils.html#ae46f37201ea819ec64d9371ee03d7138">wmtk::utils::validate</a></div><div class="ttdeci">bool validate(const Mesh &amp;m)</div><div class="ttdef"><b>Definition</b> <a href="validate_8cpp_source.html#l00010">validate.cpp:10</a></div></div>
 <div class="ttc" id="anamespacewmtk_html_a441d6ad4f19569c7d4946e743da1a925"><div class="ttname"><a href="namespacewmtk.html#a441d6ad4f19569c7d4946e743da1a925">wmtk::log_and_throw_error</a></div><div class="ttdeci">void log_and_throw_error(const std::string &amp;msg)</div><div class="ttdef"><b>Definition</b> <a href="_logger_8cpp_source.html#l00127">Logger.cpp:127</a></div></div>
 <div class="ttc" id="aread__mesh_8hpp_html"><div class="ttname"><a href="read__mesh_8hpp.html">read_mesh.hpp</a></div></div>
+<div class="ttc" id="avalidate_8hpp_html"><div class="ttname"><a href="validate_8hpp.html">validate.hpp</a></div></div>
 <div class="ttc" id="averify__simplex__index__valences_8hpp_html"><div class="ttname"><a href="verify__simplex__index__valences_8hpp.html">verify_simplex_index_valences.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

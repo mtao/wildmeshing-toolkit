@@ -263,6 +263,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a3a3101c20564f1d5aecba3ab668e3c28" id="r_a3a3101c20564f1d5aecba3ab668e3c28"><td class="memTemplParams" colspan="2">template&lt;typename ADerived , typename BDerived , typename CDerived &gt; </td></tr>
 <tr class="memitem:a3a3101c20564f1d5aecba3ab668e3c28"><td class="memTemplItemLeft" align="right" valign="top">auto&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1utils.html#a3a3101c20564f1d5aecba3ab668e3c28">triangle_unsigned_2d_area</a> (const Eigen::MatrixBase&lt; ADerived &gt; &amp;a, const Eigen::MatrixBase&lt; BDerived &gt; &amp;b, const Eigen::MatrixBase&lt; CDerived &gt; &amp;c) -&gt; typename ADerived::Scalar</td></tr>
 <tr class="separator:a3a3101c20564f1d5aecba3ab668e3c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae46f37201ea819ec64d9371ee03d7138" id="r_ae46f37201ea819ec64d9371ee03d7138"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1utils.html#ae46f37201ea819ec64d9371ee03d7138">validate</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m)</td></tr>
+<tr class="separator:ae46f37201ea819ec64d9371ee03d7138"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9921982a676a496296f2d90452ddede" id="r_aa9921982a676a496296f2d90452ddede"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1utils.html#aa9921982a676a496296f2d90452ddede">vector_hash</a> (const std::vector&lt; size_t &gt; &amp;data)</td></tr>
 <tr class="separator:aa9921982a676a496296f2d90452ddede"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2cc039a4328550c4ace64c3d1718036" id="r_ad2cc039a4328550c4ace64c3d1718036"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1utils.html#ad2cc039a4328550c4ace64c3d1718036">vector_hash</a> (const std::vector&lt; int64_t &gt; &amp;data)</td></tr>
@@ -1445,6 +1447,40 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
+<a id="ae46f37201ea819ec64d9371ee03d7138" name="ae46f37201ea819ec64d9371ee03d7138"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae46f37201ea819ec64d9371ee03d7138">&#9670;&#160;</a></span>validate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmtk::utils::validate </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>m</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="validate_8cpp_source.html#l00010">10</a> of file <a class="el" href="validate_8cpp_source.html">validate.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="check__map__valid_8cpp_source.html#l00007">wmtk::multimesh::utils::check_maps_valid()</a>, <a class="el" href="_mesh__multimesh_8cpp_source.html#l00368">wmtk::Mesh::get_all_meshes()</a>, <a class="el" href="_mesh__multimesh_8cpp_source.html#l00288">wmtk::Mesh::get_multi_mesh_root()</a>, <a class="el" href="_mesh__multimesh_8cpp_source.html#l00284">wmtk::Mesh::is_multi_mesh_root()</a>, <a class="el" href="_logger_8cpp_source.html#l00060">wmtk::logger()</a>, <a class="el" href="validate_8cpp_source.html#l00010">validate()</a>, and <a class="el" href="verify__simplex__index__valences_8cpp_source.html#l00116">verify_simplex_index_valences()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="src_2wmtk_2components_2input_2input_8cpp_source.html#l00035">wmtk::components::input::input()</a>, and <a class="el" href="validate_8cpp_source.html#l00010">validate()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1utils_ae46f37201ea819ec64d9371ee03d7138_cgraph.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1utils_ae46f37201ea819ec64d9371ee03d7138_icgraph.svg" width="403" height="68"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a7d89b3a11163a2c07d601f86b7815085" name="a7d89b3a11163a2c07d601f86b7815085"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7d89b3a11163a2c07d601f86b7815085">&#9670;&#160;</a></span>vector_hash() <span class="overload">[1/6]</span></h2>
 
@@ -1632,7 +1668,7 @@ Here is the call graph for this function:</div>
 
 <p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae029cf63d8d01a489974f9289b50dc80">wmtk::Tetrahedron</a>, <a class="el" href="_mesh_8hpp_source.html#l01057">wmtk::Mesh::top_simplex_type()</a>, <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345a5e5500cb2b82eb72d550de644bd1b64b">wmtk::Triangle</a>, <a class="el" href="verify__simplex__index__valences_8cpp_source.html#l00116">verify_simplex_index_valences()</a>, and <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::Vertex</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="verify__simplex__index__valences_8cpp_source.html#l00116">verify_simplex_index_valences()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="validate_8cpp_source.html#l00010">validate()</a>, and <a class="el" href="verify__simplex__index__valences_8cpp_source.html#l00116">verify_simplex_index_valences()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1641,7 +1677,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1utils_af155d905d3fdbcdfe5d3512f3d9c365a_icgraph.svg" width="200" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="namespacewmtk_1_1utils_af155d905d3fdbcdfe5d3512f3d9c365a_icgraph.svg" width="640" height="75"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>

@@ -51,6 +51,8 @@ var dir_9f42d488f21f30bdc75c62948fa574ea =
     [ "trimesh_topology_initialization.h", "trimesh__topology__initialization_8h.html", "trimesh__topology__initialization_8h" ],
     [ "TriMeshInspector.hpp", "_tri_mesh_inspector_8hpp.html", "_tri_mesh_inspector_8hpp" ],
     [ "TupleCellLessThanFunctor.hpp", "_tuple_cell_less_than_functor_8hpp.html", "_tuple_cell_less_than_functor_8hpp" ],
+    [ "validate.cpp", "validate_8cpp.html", "validate_8cpp" ],
+    [ "validate.hpp", "validate_8hpp.html", "validate_8hpp" ],
     [ "vector_hash.cpp", "vector__hash_8cpp.html", "vector__hash_8cpp" ],
     [ "vector_hash.hpp", "vector__hash_8hpp.html", "vector__hash_8hpp" ],
     [ "verify_simplex_index_valences.cpp", "verify__simplex__index__valences_8cpp.html", "verify__simplex__index__valences_8cpp" ],
