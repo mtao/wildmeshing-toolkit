@@ -218,50 +218,49 @@ $(document).ready(function(){initNavTree('_isotropic_remeshing__smooth_8cpp_sour
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="comment">// std::vector&lt;std::shared_ptr&lt;Mesh&gt;&gt; static_meshes;</span></div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; mesh_name : opts.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a9e5bf61a5f891b0ff11afd1fbbcff5c5">static_meshes</a>) {</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keyword">auto</span>&amp; mesh2 = <a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a6aa83ff70f3150000eaf8409b633737a">m_meshes</a>.<a class="code hl_function" href="classwmtk_1_1components_1_1multimesh_1_1_mesh_collection.html#a3cc1949bb7772a2a6b0ea752c0d3e330">get_mesh</a>(mesh_name);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="comment">// static_meshes.emplace_back(mesh2.shared_from_this());</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            op_smooth-&gt;add_invariant(</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                std::make_shared&lt;invariants::CannotMapSimplexInvariant&gt;(</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                    mesh,</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                    mesh2,</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                    <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::PrimitiveType::Vertex</a>));</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">// op_smooth-&gt;add_invariant(</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="comment">//     std::make_shared&lt;invariants::CannotMapSimplexInvariant&gt;(mesh,</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">//     *static_meshes[0]));</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="comment">// op_smooth-&gt;add_invariant(std::make_shared&lt;invariants::CannotMapSimplexInvariant&gt;(</span></div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="comment">//     mesh,</span></div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="comment">//     *static_meshes[1],</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        <span class="comment">//     wmtk::PrimitiveType::Vertex));</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    }</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">// if (position_for_inversion) {</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="comment">//     m_smooth-&gt;add_invariant(</span></div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="comment">//         std::make_shared&lt;SimplexInversionInvariant&lt;double&gt;&gt;(</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">//             position_for_inversion.value().mesh(),</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="comment">//             position_for_inversion.value().as&lt;double&gt;()));</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="comment">// }</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#aa9498181277209d133fed53d1c88bd65">m_envelope_invariants</a>) {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        op_smooth-&gt;add_invariant(<a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#aa9498181277209d133fed53d1c88bd65">m_envelope_invariants</a>);</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>    }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keywordflow">if</span> (update_position) {</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#ac297c5551cda1761418ee3b3b5f7ef9f">m_smooth</a>-&gt;add_transfer_strategy(update_position);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    }</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span> </div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; transfer : <a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a6b3f5677f63eef92772d0c831dc50892">m_operation_transfers</a>) {</div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#ac297c5551cda1761418ee3b3b5f7ef9f">m_smooth</a>-&gt;add_transfer_strategy(transfer);</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    }</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">if</span> (opts.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#ad92bd847b6d05ce80f716a563330c01b">smooth</a>.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html#a6d40482ec12e6f12acca4e36081e9bbd">priority</a>) {</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        opts.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#ad92bd847b6d05ce80f716a563330c01b">smooth</a>.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html#a6d40482ec12e6f12acca4e36081e9bbd">priority</a>-&gt;assign_to(<a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a6aa83ff70f3150000eaf8409b633737a">m_meshes</a>, *<a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#ac297c5551cda1761418ee3b3b5f7ef9f">m_smooth</a>);</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    }</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="comment">// if (m_universal_invariants) {</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="comment">//     proj_op-&gt;add_invariant(m_universal_invariants);</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="comment">// }</span></div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            op_smooth-&gt;add_invariant(</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                std::make_shared&lt;invariants::CannotMapSimplexInvariant&gt;(</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                    mesh,</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                    mesh2,</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                    <a class="code hl_enumvalue" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ab22b929ba52471a02d18bb3a4e4472e6">wmtk::PrimitiveType::Vertex</a>));</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        }</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        <span class="comment">// op_smooth-&gt;add_invariant(</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="comment">//     std::make_shared&lt;invariants::CannotMapSimplexInvariant&gt;(mesh,</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="comment">//     *static_meshes[0]));</span></div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="comment">// op_smooth-&gt;add_invariant(std::make_shared&lt;invariants::CannotMapSimplexInvariant&gt;(</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        <span class="comment">//     mesh,</span></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        <span class="comment">//     *static_meshes[1],</span></div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        <span class="comment">//     wmtk::PrimitiveType::Vertex));</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    }</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span> </div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    <span class="comment">// if (position_for_inversion) {</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="comment">//     m_smooth-&gt;add_invariant(</span></div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="comment">//         std::make_shared&lt;SimplexInversionInvariant&lt;double&gt;&gt;(</span></div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="comment">//             position_for_inversion.value().mesh(),</span></div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    <span class="comment">//             position_for_inversion.value().as&lt;double&gt;()));</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="comment">// }</span></div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">if</span> (<a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#aa9498181277209d133fed53d1c88bd65">m_envelope_invariants</a>) {</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        op_smooth-&gt;add_invariant(<a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#aa9498181277209d133fed53d1c88bd65">m_envelope_invariants</a>);</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span> </div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keywordflow">if</span> (update_position) {</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#ac297c5551cda1761418ee3b3b5f7ef9f">m_smooth</a>-&gt;add_transfer_strategy(update_position);</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; transfer : <a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a6b3f5677f63eef92772d0c831dc50892">m_operation_transfers</a>) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#ac297c5551cda1761418ee3b3b5f7ef9f">m_smooth</a>-&gt;add_transfer_strategy(transfer);</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    }</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">if</span> (opts.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#ad92bd847b6d05ce80f716a563330c01b">smooth</a>.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html#a6d40482ec12e6f12acca4e36081e9bbd">priority</a>) {</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        opts.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#ad92bd847b6d05ce80f716a563330c01b">smooth</a>.<a class="code hl_variable" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html#a6d40482ec12e6f12acca4e36081e9bbd">priority</a>-&gt;assign_to(<a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a6aa83ff70f3150000eaf8409b633737a">m_meshes</a>, *<a class="code hl_variable" href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#ac297c5551cda1761418ee3b3b5f7ef9f">m_smooth</a>);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    }</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span> </div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="comment">// if (m_universal_invariants) {</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="comment">//     proj_op-&gt;add_invariant(m_universal_invariants);</span></div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="comment">// }</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>}</div>
 </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>} <span class="comment">// namespace wmtk::components::isotropic_remeshing</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>} <span class="comment">// namespace wmtk::components::isotropic_remeshing</span></div>
 <div class="ttc" id="a_attribute_transfer_strategy_8hpp_html"><div class="ttname"><a href="_attribute_transfer_strategy_8hpp.html">AttributeTransferStrategy.hpp</a></div></div>
 <div class="ttc" id="a_attributes_update_8hpp_html"><div class="ttname"><a href="_attributes_update_8hpp.html">AttributesUpdate.hpp</a></div></div>
 <div class="ttc" id="a_cannot_map_simplex_invariant_8hpp_html"><div class="ttname"><a href="_cannot_map_simplex_invariant_8hpp.html">CannotMapSimplexInvariant.hpp</a></div></div>
