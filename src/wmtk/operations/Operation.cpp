@@ -42,10 +42,23 @@ void Operation::add_invariant(std::shared_ptr<Invariant> invariant)
 
 void Operation::optimize_invariants()
 {
-    m_before_invariants = *m_invariants.children_reorganized_by_mesh(true, false, false);
-    m_after_invariants = *m_invariants.children_reorganized_by_mesh(false, true, true);
+    auto before_tmp = m_invariants.children_reorganized_by_mesh(true, false, false);
+    auto after_tmp = m_invariants.children_reorganized_by_mesh(false, true, true);
 
+    if (&before_tmp->mesh() != &mesh()) {
+        m_before_invariants = {mesh()};
+        m_before_invariants.add(before_tmp);
+    } else {
+        m_before_invariants = *std::move(before_tmp);
+    }
+    if (&after_tmp->mesh() != &mesh()) {
+        m_after_invariants = {mesh()};
+        m_after_invariants.add(after_tmp);
+    } else {
+        m_after_invariants = *std::move(after_tmp);
+    }
 }
+
 
 std::shared_ptr<const operations::AttributeTransferStrategyBase> Operation::get_transfer_strategy(
     const attribute::MeshAttributeHandle& attribute)
@@ -150,32 +163,13 @@ bool Operation::before(const simplex::Simplex& simplex) const
     const auto simplex_resurrect = simplex;
 
     // map simplex to the invariant mesh
-    const Mesh& invariant_mesh = m_invariants.mesh();
+#if !defined(NDEBUG)
+    const Mesh& invariant_mesh = m_before_invariants.mesh();
 
-    if (&invariant_mesh == &mesh()) {
-        if (!m_invariants.before(simplex_resurrect)) {
-#if defined(WMTK_ENABLED_DEV_MODE)
-            wmtk::logger().debug(
-                "Operation::before false because {} was false",
-                m_invariants.name());
+    assert(&invariant_mesh == &mesh());
 #endif
-            return false;
-        }
-    } else {
-        // TODO check if this is correct
-        const std::vector<simplex::Simplex> invariant_simplices =
-            m_mesh.map(invariant_mesh, simplex_resurrect);
-
-        for (const simplex::Simplex& s : invariant_simplices) {
-            if (!m_invariants.before(s)) {
-#if defined(WMTK_ENABLED_DEV_MODE)
-                wmtk::logger().debug(
-                    "Operation::before false because {} was false",
-                    m_invariants.name());
-#endif
-                return false;
-            }
-        }
+    if (!m_before_invariants.before(simplex_resurrect)) {
+        return false;
     }
 
     return true;
@@ -185,11 +179,18 @@ bool Operation::after(
     const std::vector<simplex::Simplex>& unmods,
     const std::vector<simplex::Simplex>& mods) const
 {
-    if (m_invariants.directly_modified_after(unmods, mods)) {
+#if !defined(NDEBUG)
+    const Mesh& invariant_mesh = m_after_invariants.mesh();
+
+    assert(&invariant_mesh == &mesh());
+#endif
+    if (m_after_invariants.directly_modified_after(unmods, mods)) {
         return true;
     } else {
 #if defined(WMTK_ENABLED_DEV_MODE)
-        wmtk::logger().debug("Operation::after false because {} was false", m_invariants.name());
+        wmtk::logger().debug(
+            "Operation::after false because {} was false",
+            m_after_invariants.name());
 #endif
         return false;
     }

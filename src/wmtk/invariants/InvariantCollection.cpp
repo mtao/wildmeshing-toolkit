@@ -249,10 +249,10 @@ std::shared_ptr<InvariantCollection> InvariantCollection::children_reorganized_b
             }
         }
     }
-    for(auto& [id,ic]: collections) {
+    for (auto& [id, ic] : collections) {
         auto& v = ic->m_invariants;
-        std::sort(v.begin(),v.end());
-        v.erase(std::unique(v.begin(),v.end()),v.end());
+        std::sort(v.begin(), v.end());
+        v.erase(std::unique(v.begin(), v.end()), v.end());
     }
     // return the root
     return collections.at(ids.at({}));
