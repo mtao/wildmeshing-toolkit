@@ -1,54 +1,19 @@
 <map id="wmtk::TriMesh::TriMeshOperationExecutor::split_edge_precompute" name="wmtk::TriMesh::TriMeshOperationExecutor::split_edge_precompute">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,307,244,347"/>
-<area shape="rect" id="Node000002" href="$namespacewmtk_1_1simplex.html#a2ed8f83fbda4dc05306bfe8d2ce7ab94" title="The closed star contains the input simplex, all its top dimension cofaces, and their faces." alt="" coords="292,315,493,340"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,325,278,325,278,330,244,330"/>
-<area shape="rect" id="Node000017" href="$namespacewmtk_1_1simplex.html#a0101f27eb2ad82814390b92ab1a4d1a0" title=" " alt="" coords="857,151,1058,191"/>
-<area shape="poly" id="edge29_Node000001_Node000017" title=" " alt="" coords="147,305,210,254,303,187,358,153,417,122,478,94,541,73,610,54,667,43,694,44,723,48,753,58,788,73,806,88,814,105,821,122,836,137,846,143,843,148,833,141,817,125,809,107,801,91,785,78,751,63,721,53,694,49,667,49,611,59,542,78,480,99,419,126,361,158,306,192,213,258,150,309"/>
-<area shape="rect" id="Node000022" href="$classwmtk_1_1simplex_1_1_simplex.html#a753a9245716f207b57cd92fcab5936e7" title=" " alt="" coords="303,475,483,515"/>
-<area shape="poly" id="edge27_Node000001_Node000022" title=" " alt="" coords="159,345,350,466,347,470,157,350"/>
-<area shape="rect" id="Node000003" href="$classwmtk_1_1simplex_1_1_simplex_collection.html#a1e7079b3b75f70dd28c524556cab76cf" title="Add simplex to the collection." alt="" coords="1128,69,1405,95"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="394,313,408,265,435,198,455,162,478,128,507,97,540,73,583,51,628,34,675,21,722,12,819,4,915,6,1006,16,1089,30,1215,63,1214,68,1088,36,1005,21,914,11,819,9,723,17,676,26,630,39,585,56,543,78,510,101,482,131,459,165,440,200,413,267,399,315"/>
-<area shape="rect" id="Node000004" href="$namespacewmtk_1_1simplex.html#aee89641a0de7b5ddf8d15bf376f9d33b" title="Returns all faces of a simplex." alt="" coords="583,161,745,187"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="403,313,457,256,496,224,540,197,568,186,570,191,543,202,500,228,461,260,407,316"/>
-<area shape="rect" id="Node000005" href="$classwmtk_1_1_mesh.html#a8cc8686f0688613806f43720b6db49e7" title="check validity of tuple including its hash" alt="" coords="584,569,744,595"/>
-<area shape="poly" id="edge5_Node000002_Node000005" title=" " alt="" coords="406,338,447,391,496,462,508,488,516,509,525,529,543,548,572,564,570,569,540,552,520,532,511,511,503,490,491,465,442,395,402,342"/>
-<area shape="rect" id="Node000011" href="$namespacewmtk.html#a441d6ad4f19569c7d4946e743da1a925" title=" " alt="" coords="1185,511,1348,551"/>
-<area shape="poly" id="edge12_Node000002_Node000011" title=" " alt="" coords="404,339,424,370,455,409,495,449,542,480,593,496,662,509,744,519,834,525,1017,531,1172,531,1172,536,1017,536,834,530,744,524,662,515,592,502,540,484,492,453,451,413,420,373,399,342"/>
-<area shape="rect" id="Node000012" href="$classwmtk_1_1simplex_1_1_simplex_collection.html#a1973c83eede96b64f422049c6fc52976" title=" " alt="" coords="541,275,787,315"/>
-<area shape="poly" id="edge14_Node000002_Node000012" title=" " alt="" coords="493,313,528,309,528,314,494,318"/>
-<area shape="rect" id="Node000013" href="$classwmtk_1_1simplex_1_1_simplex_collection.html#a3c5684abe23553010bb7f87840e9518d" title="Return const reference to the simplex vector." alt="" coords="541,339,787,379"/>
-<area shape="poly" id="edge15_Node000002_Node000013" title=" " alt="" coords="494,337,528,341,528,346,493,342"/>
-<area shape="rect" id="Node000014" href="$classwmtk_1_1simplex_1_1_simplex_collection.html#ab318c99d54327383ff1b985bed043f3a" title="Sort simplex vector and remove duplicates." alt="" coords="835,366,1080,406"/>
-<area shape="poly" id="edge16_Node000002_Node000014" title=" " alt="" coords="405,338,427,365,458,397,498,429,542,453,608,472,662,475,717,467,786,453,849,434,906,410,908,415,851,439,787,458,718,472,662,480,607,477,540,458,495,433,455,401,423,368,401,342"/>
-<area shape="rect" id="Node000015" href="$namespacewmtk_1_1simplex.html#a87de7137d8d21f1643dd604d73e8f765" title="Get all top dimension cofaces of the given simplex." alt="" coords="587,211,741,251"/>
-<area shape="poly" id="edge17_Node000002_Node000015" title=" " alt="" coords="419,312,474,287,540,261,572,251,574,256,542,266,476,292,421,317"/>
-<area shape="rect" id="Node000019" href="$classwmtk_1_1_mesh.html#abaf00438d0700358b160e310d69725c9" title=" " alt="" coords="551,88,777,113"/>
-<area shape="poly" id="edge24_Node000002_Node000019" title=" " alt="" coords="397,313,415,275,445,223,487,168,512,143,540,122,550,117,553,121,543,127,516,147,491,172,450,226,420,277,402,315"/>
-<area shape="rect" id="Node000021" href="$classwmtk_1_1simplex_1_1_simplex.html#aca78b1fb0a3c28c0036cf7919bfb0789" title=" " alt="" coords="574,403,754,443"/>
-<area shape="poly" id="edge26_Node000002_Node000021" title=" " alt="" coords="421,338,476,363,542,389,568,397,566,402,540,394,474,368,419,343"/>
-<area shape="poly" id="edge4_Node000004_Node000004" title=" " alt="" coords="621,163,611,153,616,143,634,137,664,135,703,139,713,144,717,150,712,152,710,148,701,144,664,140,635,142,619,147,616,152,624,159"/>
-<area shape="rect" id="Node000006" href="$classwmtk_1_1_tuple.html#a0023f575be92cd5ceeeaaaa3762ea06d" title="Checks if a tuple is &quot;null&quot;. This merely implies the global index is &#45;1." alt="" coords="882,569,1033,595"/>
-<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="744,579,868,579,868,585,744,585"/>
-<area shape="rect" id="Node000007" href="$classwmtk_1_1_mesh.html#ade176d345902d97af8c5da04aa3a095b" title=" " alt="" coords="864,695,1051,720"/>
-<area shape="poly" id="edge7_Node000005_Node000007" title=" " alt="" coords="745,590,788,605,803,616,813,627,823,638,836,649,873,670,910,687,908,692,870,675,833,654,819,641,809,630,800,620,785,610,744,595"/>
-<area shape="rect" id="Node000009" href="$namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06" title="Retrieves the current logger." alt="" coords="1453,569,1561,595"/>
-<area shape="poly" id="edge10_Node000005_Node000009" title=" " alt="" coords="735,592,835,605,1006,611,1175,607,1326,597,1440,587,1440,592,1326,602,1175,612,1006,616,834,610,734,597"/>
-<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="910,697,900,686,905,676,925,670,957,668,1000,672,1011,677,1015,684,1010,686,1008,681,998,677,957,673,926,675,909,680,905,686,914,693"/>
-<area shape="rect" id="Node000008" href="$classwmtk_1_1_tuple.html#aef64a43ff5f5617dbc99d865356bbc25" title=" " alt="" coords="1179,695,1354,720"/>
-<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="1051,705,1166,705,1166,710,1051,710"/>
-<area shape="rect" id="Node000010" href="$namespacewmtk.html#a3daa7951a5f8b78cf4600dc047fcc180" title="Setup a logger object to be used by WildmeshToolkit." alt="" coords="1609,569,1744,595"/>
-<area shape="poly" id="edge11_Node000009_Node000010" title=" " alt="" coords="1561,579,1595,579,1595,585,1561,585"/>
-<area shape="poly" id="edge13_Node000011_Node000009" title=" " alt="" coords="1349,546,1441,565,1440,571,1348,551"/>
-<area shape="poly" id="edge19_Node000015_Node000014" title=" " alt="" coords="743,244,788,261,827,282,864,307,925,355,922,359,861,311,824,287,786,266,741,249"/>
-<area shape="rect" id="Node000016" href="$classwmtk_1_1simplex_1_1_simplex_collection.html#a0d0c1765c4ed8ffd0f163661111bfb08" title=" " alt="" coords="835,215,1080,255"/>
-<area shape="poly" id="edge18_Node000015_Node000016" title=" " alt="" coords="742,230,821,231,821,236,742,235"/>
-<area shape="poly" id="edge20_Node000015_Node000017" title=" " alt="" coords="741,213,845,192,846,197,742,218"/>
-<area shape="poly" id="edge21_Node000017_Node000003" title=" " alt="" coords="1036,149,1079,137,1212,96,1214,101,1081,142,1037,154"/>
-<area shape="poly" id="edge22_Node000017_Node000011" title=" " alt="" coords="1060,188,1082,201,1118,234,1150,271,1177,312,1201,354,1237,434,1259,497,1254,499,1232,436,1196,356,1173,315,1145,275,1114,238,1078,206,1057,193"/>
-<area shape="rect" id="Node000018" href="$classwmtk_1_1simplex_1_1_simplex.html#ad2cc0340a0772b7d6f03ba7a781d1163" title=" " alt="" coords="1177,151,1357,191"/>
-<area shape="poly" id="edge23_Node000017_Node000018" title=" " alt="" coords="1058,169,1163,169,1163,174,1058,174"/>
-<area shape="rect" id="Node000020" href="$classwmtk_1_1_mesh.html#a933f681cf24a63b155c9462280385200" title=" " alt="" coords="877,87,1038,127"/>
-<area shape="poly" id="edge25_Node000019_Node000020" title=" " alt="" coords="778,101,863,103,863,108,778,106"/>
-<area shape="rect" id="Node000023" href="$classwmtk_1_1simplex_1_1_simplex.html#ab6d51ca0c220792c1c09824d152bb53a" title=" " alt="" coords="574,619,754,659"/>
-<area shape="poly" id="edge28_Node000022_Node000023" title=" " alt="" coords="417,514,471,560,506,584,543,605,562,613,560,618,540,610,503,589,468,564,413,518"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,63,244,103"/>
+<area shape="rect" id="Node000002" href="$classwmtk_1_1simplex_1_1_simplex.html#a753a9245716f207b57cd92fcab5936e7" title=" " alt="" coords="303,19,483,59"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="244,60,289,53,289,58,245,66"/>
+<area shape="rect" id="Node000004" href="$namespacewmtk_1_1simplex.html#a0101f27eb2ad82814390b92ab1a4d1a0" title=" " alt="" coords="292,95,493,135"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="245,94,279,98,278,104,244,100"/>
+<area shape="rect" id="Node000003" href="$classwmtk_1_1simplex_1_1_simplex.html#ab6d51ca0c220792c1c09824d152bb53a" title=" " alt="" coords="590,5,770,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="483,32,576,27,577,33,483,37"/>
+<area shape="rect" id="Node000005" href="$classwmtk_1_1simplex_1_1_simplex_collection.html#a1e7079b3b75f70dd28c524556cab76cf" title="Add simplex to the collection." alt="" coords="541,70,819,95"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="493,101,552,94,552,100,494,106"/>
+<area shape="rect" id="Node000006" href="$namespacewmtk.html#a441d6ad4f19569c7d4946e743da1a925" title=" " alt="" coords="599,120,761,160"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="494,121,585,129,585,134,493,126"/>
+<area shape="rect" id="Node000009" href="$classwmtk_1_1simplex_1_1_simplex.html#ad2cc0340a0772b7d6f03ba7a781d1163" title=" " alt="" coords="590,184,770,224"/>
+<area shape="poly" id="edge8_Node000004_Node000009" title=" " alt="" coords="441,132,542,169,578,179,576,185,541,175,440,137"/>
+<area shape="rect" id="Node000007" href="$namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06" title="Retrieves the current logger." alt="" coords="867,127,975,153"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="762,137,853,137,853,143,762,143"/>
+<area shape="rect" id="Node000008" href="$namespacewmtk.html#a3daa7951a5f8b78cf4600dc047fcc180" title="Setup a logger object to be used by WildmeshToolkit." alt="" coords="1023,127,1157,153"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="975,137,1009,137,1009,143,975,143"/>
 </map>
