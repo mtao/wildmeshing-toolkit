@@ -103,8 +103,10 @@ EdgeOperationData::request_simplex_indices(Mesh& mesh, const PrimitiveType type,
     mesh.guarantee_more_attributes(type, count);
 
     auto ret = mesh.request_simplex_indices(type, count);
+#if !defined(NDEBUG)
      wmtk::logger()
          .trace("{}-Mesh requesting {} {}-simplices. got [{}]", mesh.top_cell_dimension(), count, int(type), fmt::join(ret, ","));
+#endif
     return ret;
 }
 std::vector<int64_t>
@@ -133,12 +135,14 @@ void EdgeOperationData::set_simplex_ids_to_delete()
 void EdgeOperationData::delete_simplices()
 {
     for (size_t d = 0; d < simplex_ids_to_delete.size(); ++d) {
+#if !defined(NDEBUG)
          wmtk::logger().trace(
              "{}-Mesh-Deleting {} {}-simplices [{}]",
              m_mesh.top_cell_dimension(),
              simplex_ids_to_delete[d].size(),
              d,
              fmt::join(simplex_ids_to_delete[d], ","));
+#endif
         for (const int64_t id : simplex_ids_to_delete[d]) {
             m_mesh.get_flag_accessor(get_primitive_type_from_id(d)).index_access().deactivate(id);
         }

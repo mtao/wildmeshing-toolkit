@@ -20,7 +20,7 @@ struct PriorityOptions
 {
     std::string type;
     std::string attribute_path; // TODO move this into a child
-    bool minimize = false;// if true prioritizes teh largest priority operations first
+    bool minimize = false; // if true prioritizes teh largest priority operations first
     static PriorityOptions create(const nlohmann::json& js);
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(PriorityOptions)
 
@@ -32,6 +32,10 @@ struct PriorityOptions
 
 struct InvariantParameters
 {
+    InvariantParameters();
+    virtual ~InvariantParameters();
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantParameters)
+    virtual void to_json(nlohmann::json& j) const = 0;
 };
 
 struct InvariantOptions
@@ -46,7 +50,29 @@ struct InvariantOptions
 struct AttributeInvariantParameters : public InvariantParameters
 {
     std::string attribute_path;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeInvariantParameters)
+    void to_json(nlohmann::json& j) const override;
+};
+struct EnvelopeInvariantParameters : public AttributeInvariantParameters
+{
+    double size;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantParameters)
+    void to_json(nlohmann::json& j) const override;
+};
+
+struct InvariantCollectionParameters : public InvariantParameters
+{
+    std::vector<InvariantOptions> invariants;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantCollectionParameters)
+    void to_json(nlohmann::json& j) const override;
+};
+
+// special invariant for referring to invariants from a cache
+struct AliasInvariantParameters : public InvariantParameters
+{
+    std::string invariant_name;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AliasInvariantParameters)
+    void to_json(nlohmann::json& j) const override;
 };
 
 struct OperationOptions

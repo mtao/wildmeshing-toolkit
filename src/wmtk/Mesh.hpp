@@ -516,12 +516,12 @@ public:
     std::vector<std::shared_ptr<Mesh>> get_child_meshes() const;
 
     /**
-     * @brief returns all multimesh child meshes
+     * @brief returns all multimesh child meshes in the "subtree" under this mesh, not including itself
      */
     std::vector<std::shared_ptr<Mesh>> get_all_child_meshes() const;
 
     /**
-     * @brief returns all meshes in multimesh
+     * @brief returns all meshes under the mesh, including itself
      */
     std::vector<std::shared_ptr<const Mesh>> get_all_meshes() const;
     std::vector<std::shared_ptr<Mesh>> get_all_meshes();

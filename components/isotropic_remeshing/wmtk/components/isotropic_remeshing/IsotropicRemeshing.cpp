@@ -169,6 +169,11 @@ IsotropicRemeshing::IsotropicRemeshing(
             }
         }
     }
+    for (const auto& [name, op] : m_operations) {
+        if (!op->attribute_new_all_configured()) {
+            wmtk::log_and_throw_error("Not every attribute in {} was configured", name);
+        }
+    }
 }
 
 std::vector<wmtk::attribute::MeshAttributeHandle> IsotropicRemeshing::all_envelope_positions(

@@ -10,10 +10,12 @@ namespace invariants {
 class MultiMeshLinkConditionInvariant : public Invariant
 {
 public:
-    MultiMeshLinkConditionInvariant(const Mesh& m);
+    MultiMeshLinkConditionInvariant(const Mesh& m, bool single_mesh_mode = false);
     bool before(const simplex::Simplex& t) const override;
 
     std::string name() const override;
+private:
+    bool m_single_mesh_mode;
 };
 } // namespace invariants
 using MultiMeshLinkConditionInvariant = invariants::MultiMeshLinkConditionInvariant;

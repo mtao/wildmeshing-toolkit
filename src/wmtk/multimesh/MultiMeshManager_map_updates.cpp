@@ -48,6 +48,7 @@ MultiMeshManager::mapped_darts(const Mesh& my_mesh, const Mesh& child_mesh, int6
     if (parent_to_child_dart.is_null()) {
         return {};
     }
+    assert(!child_mesh.is_removed(parent_to_child_dart.global_id()));
     // the child to parent is always the global id
     wmtk::dart::Dart child_to_parent_dart =
         child_to_parent_accessor.IndexBaseType::operator[](parent_to_child_dart.global_id());

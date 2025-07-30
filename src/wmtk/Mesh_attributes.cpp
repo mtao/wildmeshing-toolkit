@@ -74,7 +74,9 @@ std::vector<int64_t> Mesh::request_simplex_indices(PrimitiveType type, int64_t c
     attribute::IndexFlagAccessor<Mesh>& flag_accessor_indices = flag_accessor.index_access();
 
     for (const int64_t simplex_index : ret) {
+#if !defined(NDEBUG)
         wmtk::logger().trace("Activating {}-simplex {}", primitive_id, simplex_index);
+#endif
         flag_accessor_indices.activate(simplex_index);
     }
 

@@ -43,11 +43,11 @@ EdgeCollapse::EdgeCollapse(Mesh& m)
                         if constexpr (attribute::MeshAttributeHandle::template handle_type_is_basic<
                                           HandleType>()) {
                             using T = typename HandleType::Type;
-                            if (mesh.top_simplex_type() >= wmtk::PrimitiveType::Edge) {
+                            //if (mesh.top_simplex_type() >= wmtk::PrimitiveType::Edge) {
                                 m_new_attr_strategies.emplace_back(
                                     std::make_shared<operations::CollapseNewAttributeStrategy<T>>(
                                         attribute::MeshAttributeHandle(mesh, attr)));
-                            }
+                            //}
                         }
                     },
                     attr);

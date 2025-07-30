@@ -15,6 +15,10 @@ std::vector<simplex::Simplex> AttributesUpdate::unmodified_primitives(
     return {simplex};
 }
 
+bool AttributesUpdate::attribute_new_all_configured() const
+{
+    return true;
+}
 
 std::vector<simplex::Simplex> AttributesUpdate::execute(const simplex::Simplex& simplex)
 {

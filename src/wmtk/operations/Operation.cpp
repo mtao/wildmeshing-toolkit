@@ -23,10 +23,29 @@ namespace wmtk::operations {
 Operation::Operation(Mesh& mesh)
     : m_mesh(mesh)
     , m_invariants(mesh)
+    , m_before_invariants(mesh)
+    , m_after_invariants(mesh)
 {}
 
 Operation::~Operation() = default;
 
+void Operation::add_invariant(std::shared_ptr<Invariant> invariant)
+{
+    m_invariants.add(invariant);
+    if (invariant->use_before()) {
+        m_before_invariants.add(invariant);
+    }
+    if (invariant->use_after()) {
+        m_after_invariants.add(invariant);
+    }
+}
+
+void Operation::optimize_invariants()
+{
+    m_before_invariants = *m_invariants.children_reorganized_by_mesh(true, false, false);
+    m_after_invariants = *m_invariants.children_reorganized_by_mesh(false, true, true);
+
+}
 
 std::shared_ptr<const operations::AttributeTransferStrategyBase> Operation::get_transfer_strategy(
     const attribute::MeshAttributeHandle& attribute)
@@ -211,10 +230,6 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
             }
         } else {
             auto& at_mesh = at_ptr->mesh();
-#if defined(MTAO_CONSTANTLY_VERIFY_MESH)
-            assert(at_mesh.is_connectivity_valid());
-            assert(wmtk::multimesh::utils::check_maps_valid(at_mesh));
-#endif
             for (const auto& s : direct_mods) {
                 assert(m_mesh.is_valid(s));
             }
@@ -245,7 +260,7 @@ void Operation::apply_attribute_transfer(const std::vector<simplex::Simplex>& di
 
 bool Operation::attribute_new_all_configured() const
 {
-    throw std::runtime_error("attribute new check for this op is not implemented");
+    spdlog::error("attribute new check for this op is not implemented");
     return false;
 }
 

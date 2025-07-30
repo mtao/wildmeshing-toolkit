@@ -16,7 +16,7 @@ class InvariantCollection : public Invariant
 {
 public:
     // all children below indicates that every mesh in this invariant collection is below it (so we don't need to map up and then down)
-    InvariantCollection(const Mesh& m, bool all_children_below = false);
+    InvariantCollection(const Mesh& m, bool all_children_below = false, bool use_before = true, bool use_old_state_after = true, bool use_new_state_after = true);
     InvariantCollection(const InvariantCollection&);
     InvariantCollection(InvariantCollection&&);
     InvariantCollection& operator=(const InvariantCollection&);
@@ -46,7 +46,7 @@ public:
     std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>> get_map_mesh_to_invariants()
         const;
 
-    std::shared_ptr<InvariantCollection> children_reorganized_by_mesh() const;
+    std::shared_ptr<InvariantCollection> children_reorganized_by_mesh(bool use_before = true, bool use_old_state_in_after = true, bool use_new_state_in_after = true) const;
 
     void setName(std::string name) { m_name = std::move(name); }
 

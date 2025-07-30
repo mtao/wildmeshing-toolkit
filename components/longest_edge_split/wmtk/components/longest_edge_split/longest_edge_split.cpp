@@ -166,6 +166,7 @@ void longest_edge_split(Mesh& mesh_in, const LongestEdgeSplitOptions& options)
         split->add_transfer_strategy(transfer_position);
     }
 
+    split->optimize_invariants();
 
     //////////////////////////////////////////
     Scheduler scheduler;

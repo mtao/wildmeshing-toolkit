@@ -45,7 +45,7 @@ public:
     const Mesh& mesh() const { return m_mesh; }
     Mesh& mesh() { return m_mesh; }
 
-    void add_invariant(std::shared_ptr<Invariant> invariant) { m_invariants.add(invariant); }
+    void add_invariant(std::shared_ptr<Invariant> invariant);
 
     void set_priority(const std::function<double(const simplex::Simplex&)>& func)
     {
@@ -70,6 +70,9 @@ public:
     const invariants::InvariantCollection invariants() const { return m_invariants; }
 
     virtual bool attribute_new_all_configured() const;
+
+    // NOTE: this primarily works if this is a root node
+    void optimize_invariants();
 
 protected:
     /**
@@ -103,6 +106,8 @@ protected:
     std::function<double(const simplex::Simplex&)> m_priority = nullptr;
 
     invariants::InvariantCollection m_invariants;
+    invariants::InvariantCollection m_before_invariants;
+    invariants::InvariantCollection m_after_invariants;
 
     std::vector<std::shared_ptr<const operations::AttributeTransferStrategyBase>>
         m_attr_transfer_strategies;

@@ -13,13 +13,14 @@ struct IsotropicRemeshingOptions
     IsotropicRemeshingOptions();
 
 
+    bool separate_substructures = false;
     AttributeDescription position_attribute;
     // AttributeDescription inversion_position_attribute;
     // AttributeDescription other_position_attributes;
 
     // attributes that will just be copied from some other attribute; deprecated by
     // utility_attributes
-    std::vector<std::pair<AttributeDescription, AttributeDescription>> copied_attributes;
+    std::map<AttributeDescription, AttributeDescription> copied_attributes;
     // attributes that we will ignore transferring; deprecated because this isn't useful
     std::vector<AttributeDescription> pass_through_attributes;
 

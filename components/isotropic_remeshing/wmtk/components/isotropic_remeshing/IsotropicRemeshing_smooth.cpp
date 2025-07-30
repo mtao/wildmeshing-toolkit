@@ -18,16 +18,13 @@
 
 
 namespace wmtk::components::isotropic_remeshing {
-void IsotropicRemeshing::configure_smooth()
+void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
 {
-    auto position = m_options.position_attribute;
+    auto position = get_attribute(opts.position_attribute);
     Mesh& mesh = position.mesh();
-    auto pass_through_attributes = m_options.pass_through_attributes;
-    auto other_positions = m_options.other_position_attributes;
     assert(mesh.is_connectivity_valid());
 
-    std::vector<attribute::MeshAttributeHandle> positions = other_positions;
-    positions.push_back(position);
+    std::vector<attribute::MeshAttributeHandle> positions; // = other_positions;
     // if (position.mesh().top_simplex_type() != PrimitiveType::Triangle) {
     //     log_and_throw_error(
     //         "isotropic remeshing works only for triangle meshes: {}",
@@ -36,9 +33,7 @@ void IsotropicRemeshing::configure_smooth()
 
 
     // clear attributes
-    std::vector<attribute::MeshAttributeHandle> keeps = pass_through_attributes;
-    keeps.emplace_back(position);
-    keeps.insert(keeps.end(), other_positions.begin(), other_positions.end());
+    //keeps.emplace_back(position);
 
     auto op_smooth = std::make_shared<operations::AttributesUpdateWithFunction>(mesh);
 
@@ -56,16 +51,16 @@ void IsotropicRemeshing::configure_smooth()
     };
     std::shared_ptr<wmtk::operations::SingleAttributeTransferStrategy<double, double>>
         update_position;
-    std::optional<attribute::MeshAttributeHandle> position_for_inversion =
-        m_options.inversion_position_attribute;
+    // std::optional<attribute::MeshAttributeHandle> position_for_inversion =
+    //     opts.inversion_position_attribute;
 
-    if (!m_options.other_position_attributes.empty() && !m_options.fix_uv_seam) {
-        update_position =
-            std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<double, double>>(
-                other_positions.front(),
-                position,
-                update_position_func);
-    }
+    // if (!opts.other_position_attributes.empty() && !opts.fix_uv_seam) {
+    //     update_position =
+    //         std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<double, double>>(
+    //             other_positions.front(),
+    //             position,
+    //             update_position_func);
+    // }
 
     if (position.dimension() == 3 && mesh.top_simplex_type() == PrimitiveType::Triangle) {
         op_smooth->set_function(operations::VertexTangentialLaplacianSmooth(position));
@@ -73,48 +68,50 @@ void IsotropicRemeshing::configure_smooth()
         op_smooth->set_function(operations::VertexLaplacianSmooth(position));
     }
 
-    if (m_options.lock_boundary) {
+    if (opts.lock_boundary) {
         if (!bool(m_interior_position_invariants)) {
-            throw std::runtime_error("Interior position invariants were not set despite boundary "
-                                     "locking being requested");
+            throw std::runtime_error(
+                "Interior position invariants were not set despite boundary "
+                "locking being requested");
         }
         op_smooth->add_invariant(m_interior_position_invariants);
     }
 
     // hack for uv
-    if (m_options.fix_uv_seam) {
-        m_smooth->add_invariant(std::make_shared<wmtk::invariants::uvEdgeInvariant>(
-            mesh,
-            other_positions.front().mesh()));
-    }
-    if (m_options.mesh_collection != nullptr) {
-        if (!m_options.static_meshes.empty()) {
-            // std::vector<std::shared_ptr<Mesh>> static_meshes;
-            for (const auto& mesh_name : m_options.static_meshes) {
-                auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
-                // static_meshes.emplace_back(mesh2.shared_from_this());
-                op_smooth->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+    // if (opts.fix_uv_seam) {
+    //    m_smooth->add_invariant(
+    //        std::make_shared<wmtk::invariants::uvEdgeInvariant>(
+    //            mesh,
+    //            other_positions.front().mesh()));
+    //}
+    if (!opts.static_meshes.empty()) {
+        // std::vector<std::shared_ptr<Mesh>> static_meshes;
+        for (const auto& mesh_name : opts.static_meshes) {
+            auto& mesh2 = m_meshes.get_mesh(mesh_name);
+            // static_meshes.emplace_back(mesh2.shared_from_this());
+            op_smooth->add_invariant(
+                std::make_shared<invariants::CannotMapSimplexInvariant>(
                     mesh,
                     mesh2,
                     wmtk::PrimitiveType::Vertex));
-            }
-            // op_smooth->add_invariant(
-            //     std::make_shared<invariants::CannotMapSimplexInvariant>(mesh,
-            //     *static_meshes[0]));
-
-            //// TODO: try to enable sliding along axis?
-            // op_smooth->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
-            //     mesh,
-            //     *static_meshes[1],
-            //     wmtk::PrimitiveType::Vertex));
         }
+        // op_smooth->add_invariant(
+        //     std::make_shared<invariants::CannotMapSimplexInvariant>(mesh,
+        //     *static_meshes[0]));
+
+        //// TODO: try to enable sliding along axis?
+        // op_smooth->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
+        //     mesh,
+        //     *static_meshes[1],
+        //     wmtk::PrimitiveType::Vertex));
     }
 
-    if (position_for_inversion) {
-        m_smooth->add_invariant(std::make_shared<SimplexInversionInvariant<double>>(
-            position_for_inversion.value().mesh(),
-            position_for_inversion.value().as<double>()));
-    }
+    // if (position_for_inversion) {
+    //     m_smooth->add_invariant(
+    //         std::make_shared<SimplexInversionInvariant<double>>(
+    //             position_for_inversion.value().mesh(),
+    //             position_for_inversion.value().as<double>()));
+    // }
     if (m_envelope_invariants) {
         op_smooth->add_invariant(m_envelope_invariants);
     }
@@ -126,8 +123,8 @@ void IsotropicRemeshing::configure_smooth()
     for (const auto& transfer : m_operation_transfers) {
         m_smooth->add_transfer_strategy(transfer);
     }
-    if (m_options.smooth.priority) {
-        m_options.smooth.priority->assign_to(*m_options.mesh_collection, *m_smooth);
+    if (opts.smooth.priority) {
+        opts.smooth.priority->assign_to(m_meshes, *m_smooth);
     }
 
     // if (m_universal_invariants) {

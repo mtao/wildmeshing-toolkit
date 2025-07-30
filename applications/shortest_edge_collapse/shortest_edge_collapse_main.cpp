@@ -9,6 +9,7 @@
 #include <wmtk/components/input/input.hpp>
 #include <wmtk/components/multimesh/multimesh.hpp>
 #include <wmtk/components/output/output.hpp>
+#include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/shortest_edge_collapse/shortest_edge_collapse.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 

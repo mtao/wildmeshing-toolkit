@@ -47,7 +47,10 @@ int main(int argc, char* argv[])
         ->required(true)
         ->check(CLI::ExistingFile);
     app.add_option("-l, --log_file", log_file, "log path");
-    app.add_option("--no-console-logging", no_console_logging, "whether the logger should output to the screen");
+    app.add_option(
+        "--no-console-logging",
+        no_console_logging,
+        "whether the logger should output to the screen");
     app.add_option(
            "-i, --integration-test-config",
            json_integration_config_file,
@@ -62,7 +65,6 @@ int main(int argc, char* argv[])
     spdlog::warn("File is {}", json_input_file.string());
 
 
-
     // =====================
     // Parse input json file
     // =====================
@@ -73,14 +75,14 @@ int main(int argc, char* argv[])
     // =====================
     // Parse base settings
     // =====================
-    if(!log_file.empty()) {
-        wmtk::add_file_sink(log_file, /*keep_console_log \equiv*/!no_console_logging);
+    if (!log_file.empty()) {
+        wmtk::add_file_sink(log_file, /*keep_console_log \equiv*/ !no_console_logging);
     } else {
-        if(no_console_logging) {
+        if (no_console_logging) {
             logger().sinks().clear();
         }
     }
-    
+
 
     // =====================
     // Parse input path util
@@ -130,15 +132,15 @@ int main(int argc, char* argv[])
 
 
     if (!mc.is_valid()) {
-        wmtk::logger().error("Input mesh did not match the name specification, going to throw an "
-                             "exception to help debugging");
+        wmtk::logger().error(
+            "Input mesh did not match the name specification, going to throw an "
+            "exception to help debugging");
         mc.is_valid(true);
     }
     spdlog::info("Parsing isotropic params");
 
-    wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions options;
+    wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions options = j;
 
-    options.load_json(j, mc);
     spdlog::info("filling in mesh attributes");
     if (input_js.contains("improvement_attributes")) {
         for (const auto& attribute : input_js["improvement_attributes"]) {
@@ -147,9 +149,9 @@ int main(int argc, char* argv[])
         }
     }
 
-    spdlog::info("{}",mc.get_named_multimesh("").get_names_json()->dump(2));
+    spdlog::info("{}", mc.get_named_multimesh("").get_names_json()->dump(2));
 
-    wmtk::components::isotropic_remeshing::isotropic_remeshing(options);
+    wmtk::components::isotropic_remeshing::isotropic_remeshing(mc, options);
 
     // input uv mesh
 

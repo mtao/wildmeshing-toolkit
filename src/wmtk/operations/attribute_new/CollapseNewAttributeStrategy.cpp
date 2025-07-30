@@ -1,6 +1,7 @@
 #include "CollapseNewAttributeStrategy.hpp"
 #include <fmt/format.h>
 #include <wmtk/utils/primitive_range.hpp>
+#include <wmtk/utils/Logger.hpp>
 
 #include <wmtk/operations/edge_mesh/CollapseNewAttributeTopoInfo.hpp>
 #include <wmtk/operations/tet_mesh/CollapseNewAttributeTopoInfo.hpp>
@@ -117,6 +118,7 @@ CollapseNewAttributeStrategy<T>::CollapseNewAttributeStrategy(
     : m_handle(h)
     , m_collapse_op(nullptr)
 {
+    spdlog::info("Configuring {}", h.name());
     assert(h.holds<T>());
 
     auto& mesh = m_handle.mesh();
@@ -136,7 +138,8 @@ CollapseNewAttributeStrategy<T>::CollapseNewAttributeStrategy(
         m_topo_info =
             std::make_unique<tet_mesh::CollapseNewAttributeTopoInfo>(static_cast<TetMesh&>(mesh));
     } else {
-        throw std::runtime_error("Invalid mesh");
+        set_strategy(CollapseBasicStrategy::None);
+        logger().debug("PointMesh can only be set to no collapse strategy {}", invalid_state());
     }
 }
 

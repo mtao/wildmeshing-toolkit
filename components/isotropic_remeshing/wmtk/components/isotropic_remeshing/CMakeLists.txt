@@ -19,11 +19,11 @@ set(SRC_FILES
 	isotropic_remeshing.hpp
     isotropic_remeshing.cpp
 
-    internal/configure_collapse.hpp
-    internal/configure_collapse.cpp
+    #internal/configure_collapse.hpp
+    #internal/configure_collapse.cpp
 
-    internal/configure_split.hpp
-    internal/configure_split.cpp
+    #internal/configure_split.hpp
+    #internal/configure_split.cpp
 
     OperationOptions.hpp
     OperationOptions.cpp

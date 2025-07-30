@@ -10,6 +10,7 @@
 #include <wmtk/components/marching/internal/Marching.hpp>
 #include <wmtk/components/marching/marching.hpp>
 #include <wmtk/components/output/output.hpp>
+#include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/utils/get_attributes.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 

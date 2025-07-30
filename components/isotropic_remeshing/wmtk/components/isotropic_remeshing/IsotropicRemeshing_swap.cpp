@@ -14,7 +14,6 @@
 #include <wmtk/operations/composite/TriEdgeSwap.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include "IsotropicRemeshing.hpp"
-#include "internal/configure_collapse.hpp"
 namespace wmtk::components::isotropic_remeshing {
 namespace internal {
 namespace {
@@ -45,14 +44,14 @@ void configure_swap_transfer(
 } // namespace
 } // namespace internal
 
-void IsotropicRemeshing::configure_swap()
+void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
 {
     // adds common invariants like inversion check and asserts taht the swap is ready for prime time
     wmtk::logger().debug("Configure isotropic remeshing swap");
-    if (m_options.swap.mode == EdgeSwapMode::Skip) {
+    if (opts.swap.mode == EdgeSwapMode::Skip) {
         return;
     }
-    wmtk::Mesh& mesh = m_options.position_attribute.mesh();
+    wmtk::Mesh& mesh = get_attribute(opts.position_attribute).mesh();
     switch (mesh.top_simplex_type()) {
     case PrimitiveType::Triangle:
         m_swap = std::make_shared<operations::composite::TriEdgeSwap>(static_cast<TriMesh&>(mesh));
@@ -66,10 +65,10 @@ void IsotropicRemeshing::configure_swap()
     }
 
 
-    const std::optional<attribute::MeshAttributeHandle>& position_for_inversion =
-        m_options.inversion_position_attribute;
+    // const std::optional<attribute::MeshAttributeHandle>& position_for_inversion =
+    //     opts.inversion_position_attribute;
 
-    switch (m_options.swap.mode) {
+    switch (opts.swap.mode) {
     case EdgeSwapMode::Valence: {
         auto tri = dynamic_cast<TriMesh*>(&mesh);
         if (tri == nullptr) {
@@ -95,10 +94,10 @@ void IsotropicRemeshing::configure_swap()
     // }
     //  m_swap->add_invariant(m_interior_edge_invariants);
 
-    // internal::configure_split(m_swap->split(), mesh, m_options);
-    // internal::configure_collapse(m_swap->collapse(), mesh, m_options);
-    m_swap->collapse().add_invariant(internal::collapse_core_invariants(mesh, m_options));
+    // internal::configure_split(m_swap->split(), mesh, opts);
+    // internal::configure_collapse(m_swap->collapse(), mesh, opts);
 
+    add_core_collapse_invariants(m_swap->collapse(), opts);
 
     if (m_envelope_invariants) {
         // m_swap->add_invariant(m_envelope_invariants);
@@ -107,15 +106,18 @@ void IsotropicRemeshing::configure_swap()
     }
 
 
-    for (const auto& p : m_options.all_positions()) {
-        internal::configure_swap_transfer(*m_swap, p);
+    for (const auto& p : opts.all_positions()) {
+        internal::configure_swap_transfer(*m_swap, get_attribute(p));
     }
     // clear out all the pass through attributes
-    for (const auto& attr : m_options.pass_through_attributes) {
+    for (const auto& ad : opts.pass_through_attributes) {
+        auto attr = get_attribute(ad);
         m_swap->split().set_new_attribute_strategy(attr);
         m_swap->collapse().set_new_attribute_strategy(attr);
     }
-    for (const auto& [child, parent] : m_options.copied_attributes) {
+    for (const auto& [c, p] : opts.copied_attributes) {
+        auto parent = get_attribute(p);
+        auto child = get_attribute(c);
         m_swap->split().set_new_attribute_strategy(child);
         m_swap->collapse().set_new_attribute_strategy(child);
         m_swap->add_transfer_strategy(
@@ -123,76 +125,44 @@ void IsotropicRemeshing::configure_swap()
                 parent,
                 child));
     }
-    if (m_options.mesh_collection != nullptr) {
-        if (!m_options.static_meshes.empty()) {
-            std::vector<std::shared_ptr<Mesh>> static_meshes;
-            for (const auto& mptr : m_options.position_attribute.mesh().get_all_child_meshes()) {
-                // for (const auto& mesh_name : m_options.static_meshes) {
-                // auto& mesh2 = m_options.mesh_collection->get_mesh(mesh_name);
-                auto& mesh2 = *mptr;
-                // static_meshes.emplace_back(mesh2.shared_from_this());
-                if (mesh2.top_cell_dimension() == 1) {
-                    m_swap->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
-                        mesh,
-                        mesh2,
-                        wmtk::PrimitiveType::Edge,
-                        false));
-                    m_swap->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
-                        mesh,
-                        mesh2,
-                        wmtk::PrimitiveType::Vertex,
-                        false));
-                } else if (mesh2.top_cell_dimension() == 0) {
-                    m_swap->add_invariant(std::make_shared<invariants::CannotMapSimplexInvariant>(
-                        mesh,
-                        mesh2,
-                        wmtk::PrimitiveType::Vertex,
-                        false));
-                }
-            }
-            /*
-            m_swap->add_invariant(std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
-                mesh,
-                *static_meshes[1],
-                wmtk::PrimitiveType::Edge,
-                false));
-                */
-            /*
-            for (const auto& mptr : static_meshes) {
-                auto& mesh2 = *mptr;
-                m_swap->collapse().add_invariant(
-                    std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(mesh, mesh2));
-                switch (mesh2.top_simplex_type()) {
-                case wmtk::PrimitiveType::Triangle:
-                    m_swap->add_invariant(
-                        std::make_shared<wmtk::invariants::InteriorSimplexInvariant>(
-                            mesh2,
-                            wmtk::PrimitiveType::Edge));
-                    break;
-                case wmtk::PrimitiveType::Edge:
-                    m_swap->add_invariant(
-                        std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
-                            mesh,
-                            mesh2,
-                            wmtk::PrimitiveType::Edge,
-                            false));
-                    break;
-                case wmtk::PrimitiveType::Vertex: break;
-                case wmtk::PrimitiveType::Tetrahedron:
-                default: assert(false);
-                }
-            }
-            */
-        }
-    }
+    // if (!opts.static_meshes.empty()) {
+    //     std::vector<std::shared_ptr<Mesh>> static_meshes;
+    //     for (const auto& mptr : opts.position_attribute.mesh().get_all_child_meshes()) {
+    //        // for (const auto& mesh_name : opts.static_meshes) {
+    //        // auto& mesh2 = opts.mesh_collection->get_mesh(mesh_name);
+    //        auto& mesh2 = *mptr;
+    //        // static_meshes.emplace_back(mesh2.shared_from_this());
+    //        if (mesh2.top_cell_dimension() == 1) {
+    //            m_swap->add_invariant(
+    //                std::make_shared<invariants::CannotMapSimplexInvariant>(
+    //                    mesh,
+    //                    mesh2,
+    //                    wmtk::PrimitiveType::Edge,
+    //                    false));
+    //            m_swap->add_invariant(
+    //                std::make_shared<invariants::CannotMapSimplexInvariant>(
+    //                    mesh,
+    //                    mesh2,
+    //                    wmtk::PrimitiveType::Vertex,
+    //                    false));
+    //        } else if (mesh2.top_cell_dimension() == 0) {
+    //            m_swap->add_invariant(
+    //                std::make_shared<invariants::CannotMapSimplexInvariant>(
+    //                    mesh,
+    //                    mesh2,
+    //                    wmtk::PrimitiveType::Vertex,
+    //                    false));
+    //        }
+    //    }
+    //}
     for (const auto& transfer : m_operation_transfers) {
         m_swap->split().set_new_attribute_strategy(transfer->handle());
         m_swap->split().add_transfer_strategy(transfer);
         m_swap->collapse().set_new_attribute_strategy(transfer->handle());
         m_swap->collapse().add_transfer_strategy(transfer);
     }
-    if (m_options.swap.priority) {
-        m_options.swap.priority->assign_to(*m_options.mesh_collection, *m_swap);
+    if (opts.swap.priority) {
+        opts.swap.priority->assign_to(m_meshes, *m_swap);
     }
     if (m_universal_invariants) {
         m_swap->add_invariant(m_universal_invariants);

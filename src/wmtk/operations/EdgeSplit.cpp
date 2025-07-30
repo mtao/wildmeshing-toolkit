@@ -43,11 +43,11 @@ EdgeSplit::EdgeSplit(Mesh& m)
                         if constexpr (attribute::MeshAttributeHandle::template handle_type_is_basic<
                                           HandleType>()) {
                             using T = typename HandleType::Type;
-                            if (mesh.top_simplex_type() >= wmtk::PrimitiveType::Edge) {
+                            //if (mesh.top_simplex_type() >= wmtk::PrimitiveType::Edge) {
                                 m_new_attr_strategies.emplace_back(
                                     std::make_shared<operations::SplitNewAttributeStrategy<T>>(
                                         attribute::MeshAttributeHandle(mesh, attr)));
-                            }
+                            //}
                         }
                     },
                     attr);
@@ -109,7 +109,7 @@ void EdgeSplit::set_new_attribute_strategy(
         return;
     }
 
-    throw std::runtime_error("unable to find attribute in set_new_attribute_strategy");
+    log_and_throw_error("unable to find attribute in set_new_attribute_strategy [{}] on ", attribute.name());
 }
 
 void EdgeSplit::set_new_attribute_strategy(

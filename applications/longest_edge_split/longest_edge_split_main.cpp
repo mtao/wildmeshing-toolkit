@@ -15,6 +15,7 @@
 #include <wmtk/components/longest_edge_split/longest_edge_split.hpp>
 #include <wmtk/components/multimesh/multimesh.hpp>
 #include <wmtk/components/output/output.hpp>
+#include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 
 #include "longest_edge_split_spec.hpp"

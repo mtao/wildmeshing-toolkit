@@ -11,6 +11,7 @@
 #include "../tools/DEBUG_EdgeMesh.hpp"
 #include "../tools/DEBUG_TetMesh.hpp"
 #include "../tools/DEBUG_TriMesh.hpp"
+#include "../tools/DEBUG_PointMesh.hpp"
 #include "../tools/EdgeMesh_examples.hpp"
 #include "../tools/TetMesh_examples.hpp"
 #include "../tools/TriMesh_examples.hpp"
@@ -178,6 +179,40 @@ TEST_CASE("test_split_multi_mesh_2D_3D", "[multimesh][2D][3D]")
                 parent.id(child0.map_to_parent_tuple(Simplex::face(child0, child0_f)), PT));
         }
     }
+}
+TEST_CASE("test_split_multi_mesh_0D_3D", "[multimesh][3D]")
+{
+    std::shared_ptr<DEBUG_TetMesh> tetmesh0_ptr =
+        std::make_shared<DEBUG_TetMesh>(wmtk::tests_3d::single_tet());
+    std::shared_ptr<DEBUG_PointMesh> pointmesh_ptr = std::make_shared<DEBUG_PointMesh>(4);
+
+    auto& tetmesh0 = *tetmesh0_ptr;
+    auto& pointmesh = *pointmesh_ptr;
+
+    std::vector<std::array<Tuple, 2>> tetmesh0_map(4);
+
+
+    tetmesh0_map[0] = {Tuple(-1, -1, -1, 0), tetmesh0.tuple_from_id(PV, 0)};
+    tetmesh0_map[1] = {Tuple(-1, -1, -1, 1), tetmesh0.tuple_from_id(PV, 1)};
+    tetmesh0_map[2] = {Tuple(-1, -1, -1, 2), tetmesh0.tuple_from_id(PV, 2)};
+    tetmesh0_map[3] = {Tuple(-1, -1, -1, 3), tetmesh0.tuple_from_id(PV, 3)};
+
+    tetmesh0.register_child_mesh(pointmesh.shared_from_this(), tetmesh0_map);
+    REQUIRE(tetmesh0.is_connectivity_valid());
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(tetmesh0));
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(pointmesh));
+
+    const auto& tetmesh0_mul_manager = tetmesh0.multi_mesh_manager();
+    // const auto& c0_mul_manager = edgemesh0.multi_mesh_manager();
+    // const auto& c1_mul_manager = edgemesh1.multi_mesh_manager();
+
+    {
+        Tuple edge = tetmesh0.edge_tuple_from_vids(0, 1);
+        operations::EdgeSplit op(tetmesh0);
+        REQUIRE(!op(Simplex::edge(edge)).empty());
+    }
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(tetmesh0));
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(pointmesh));
 }
 
 TEST_CASE("test_split_multi_mesh_1D_3D", "[multimesh][1D][3D]")

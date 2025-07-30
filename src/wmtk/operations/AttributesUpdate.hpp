@@ -10,6 +10,7 @@ public:
     AttributesUpdate(Mesh& m);
 
     virtual PrimitiveType primitive_type() const override { return PrimitiveType::Vertex; }
+    bool attribute_new_all_configured() const final;
 
 protected:
     virtual std::vector<simplex::Simplex> unmodified_primitives(

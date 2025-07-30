@@ -45,6 +45,8 @@ private:
     void load_shared_invariants(const IsotropicRemeshingOptions& opts);
     void load_transfers(const IsotropicRemeshingOptions& opts);
 
+    void add_core_collapse_invariants(operations::EdgeCollapse&, const IsotropicRemeshingOptions& opts);
+
 private:
     multimesh::MeshCollection& m_meshes;
 

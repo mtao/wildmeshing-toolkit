@@ -122,8 +122,8 @@ int main(int argc, char* argv[])
             nmm.set_name(*subcomplexes[0], "feature_edges");
             auto epos_attr =
                 wmtk::utils::cast_attribute<double>(position_attr, *subcomplexes[0], "vertices");
-            opts.copied_attributes.emplace_back(epos_attr, position_attr);
-            opts.other_position_attributes.emplace_back(epos_attr);
+            opts.copied_attributes[epos_attr] = position_attr;
+            //opts.other_position_attributes.emplace_back(epos_attr);
 
             if (subcomplexes.size() >= 2) {
                 nmm.set_name(*subcomplexes[1], "critical_points");
@@ -186,7 +186,6 @@ int main(int argc, char* argv[])
             opts.utility_attributes.emplace_back(mrm);
             opts.utility_attributes.emplace_back(min_mrm);
         }
-        opts.mesh_collection = &mc;
 
         {
             {
@@ -202,7 +201,7 @@ int main(int argc, char* argv[])
                 pass.operations = {"swap", "collapse"};
             }
             opts.iterations = 2;
-            wmtk::components::isotropic_remeshing::isotropic_remeshing(opts);
+            wmtk::components::isotropic_remeshing::isotropic_remeshing(mc,opts);
         }
 
         opts.passes = j["passes"];
@@ -222,7 +221,7 @@ int main(int argc, char* argv[])
             opts.intermediate_output_format.emplace_back("fused.feature_edges", iopts);
         }
 
-        wmtk::components::isotropic_remeshing::isotropic_remeshing(opts);
+        wmtk::components::isotropic_remeshing::isotropic_remeshing(mc,opts);
     }
 
 

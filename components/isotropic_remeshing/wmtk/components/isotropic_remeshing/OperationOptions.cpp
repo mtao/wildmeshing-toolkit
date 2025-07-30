@@ -65,17 +65,100 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(InvariantOptions)
     //
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type)
 
-    auto ap = static_cast<const AttributeInvariantParameters*>(nlohmann_json_t.parameters.get())
-                  ->attribute_path;
-    nlohmann_json_j["attribute_path"] = ap;
+
+    nlohmann_json_t.parameters->to_json(nlohmann_json_j["parameters"]);
+
+    //
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(InvariantOptions)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(type)
-    auto p = std::make_unique<AttributeInvariantParameters>();
-    p->attribute_path = nlohmann_json_j["attribute_path"];
-    nlohmann_json_t.parameters = std::move(p);
+    auto& p = nlohmann_json_t.parameters;
+    if (nlohmann_json_t.type == "envelope") {
+        p = std::make_unique<EnvelopeInvariantParameters>(
+            nlohmann_json_j.get<EnvelopeInvariantParameters>());
+    } else if (nlohmann_json_t.type == "collection") {
+        p = std::make_unique<InvariantCollectionParameters>(
+            nlohmann_json_j.get<InvariantCollectionParameters>());
+    } else {
+        p = std::make_unique<AttributeInvariantParameters>(
+            nlohmann_json_j.get<AttributeInvariantParameters>());
+    }
+}
+
+InvariantParameters::InvariantParameters() = default;
+InvariantParameters::~InvariantParameters() = default;
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(InvariantParameters) {}
+
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(InvariantParameters) {}
+
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(AttributeInvariantParameters)
+{
+    //
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute_path)
+    to_json(nlohmann_json_j, static_cast<const InvariantParameters&>(nlohmann_json_t));
+}
+
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeInvariantParameters)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute_path)
+
+    from_json(nlohmann_json_j, static_cast<InvariantParameters&>(nlohmann_json_t));
+}
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(AliasInvariantParameters)
+{
+    //
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(invariant_name)
+    to_json(nlohmann_json_j, static_cast<const InvariantParameters&>(nlohmann_json_t));
+}
+
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AliasInvariantParameters)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(invariant_name)
+
+    from_json(nlohmann_json_j, static_cast<InvariantParameters&>(nlohmann_json_t));
+}
+void AttributeInvariantParameters::to_json(nlohmann::json& j) const
+{
+    isotropic_remeshing::to_json(j, *this);
+}
+void InvariantCollectionParameters::to_json(nlohmann::json& j) const
+{
+    isotropic_remeshing::to_json(j, *this);
+}
+void EnvelopeInvariantParameters::to_json(nlohmann::json& j) const
+{
+    isotropic_remeshing::to_json(j, *this);
+}
+void AliasInvariantParameters::to_json(nlohmann::json& j) const
+{
+    isotropic_remeshing::to_json(j, *this);
+}
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(InvariantCollectionParameters)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(invariants)
+    to_json(nlohmann_json_j, static_cast<const InvariantParameters&>(nlohmann_json_t));
+}
+
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(InvariantCollectionParameters)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(invariants)
+
+    from_json(nlohmann_json_j, static_cast<InvariantParameters&>(nlohmann_json_t));
+}
+
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EnvelopeInvariantParameters)
+{
+    //
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(size)
+    to_json(nlohmann_json_j, static_cast<const AttributeInvariantParameters&>(nlohmann_json_t));
+}
+
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EnvelopeInvariantParameters)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(size)
+    from_json(nlohmann_json_j, static_cast<AttributeInvariantParameters&>(nlohmann_json_t));
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
@@ -142,9 +225,10 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeSwapOptions)
     } else if (swap_name == "skip") {
         nlohmann_json_t.mode = EdgeSwapMode::Skip;
     } else {
-        throw std::runtime_error(fmt::format(
-            "Expected edge_swap_mode to be one of [amips,valence,skip], got [{}]",
-            swap_name));
+        throw std::runtime_error(
+            fmt::format(
+                "Expected edge_swap_mode to be one of [amips,valence,skip], got [{}]",
+                swap_name));
     }
 }
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(VertexSmoothOptions)

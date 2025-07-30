@@ -1,4 +1,5 @@
 #include "MultiMeshMapValidInvariant.hpp"
+#include <wmtk/utils/Logger.hpp>
 #include "wmtk/dart/SimplexDart.hpp"
 #include "wmtk/dart/utils/get_canonical_faces.hpp"
 
@@ -105,26 +106,42 @@ struct MultiMeshMapValidFunctor
 };
 } // namespace
 
-MultiMeshMapValidInvariant::MultiMeshMapValidInvariant(const Mesh& m)
+MultiMeshMapValidInvariant::MultiMeshMapValidInvariant(const Mesh& m, bool single_mesh_mode)
     : Invariant(m, true, false, false)
-{}
+    , m_single_mesh_mode((single_mesh_mode))
+{
+    if (m.is_multi_mesh_root() && !m.has_child_mesh()) {
+        if (!m_single_mesh_mode) {
+            wmtk::logger().debug(
+                "Link condition is automatically being set to single mesh mode beacuse mesh does "
+                "not have a multimesh");
+        }
+        m_single_mesh_mode = true;
+    }
+}
 bool MultiMeshMapValidInvariant::before(const simplex::Simplex& t) const
 {
     assert(t.primitive_type() == PrimitiveType::Edge);
-    multimesh::MultiMeshSimplexVisitor visitor(
-        std::integral_constant<int64_t, 1>{}, // specify that this runs on edges
-        MultiMeshMapValidFunctor{});
-    // TODO: fix visitor to work for const data
-    visitor.execute_from_root(const_cast<Mesh&>(mesh()), simplex::NavigatableSimplex(mesh(), t));
-    const auto& data = visitor.cache();
+    if (m_single_mesh_mode) {
+        return MultiMeshMapValidFunctor{}(mesh(), t);
+    } else {
+        multimesh::MultiMeshSimplexVisitor visitor(
+            std::integral_constant<int64_t, 1>{}, // specify that this runs on edges
+            MultiMeshMapValidFunctor{});
+        // TODO: fix visitor to work for const data
+        visitor.execute_from_root(
+            const_cast<Mesh&>(mesh()),
+            simplex::NavigatableSimplex(mesh(), t));
+        const auto& data = visitor.cache();
 
-    for (const auto& [key, value_var] : data) {
-        const bool valid = std::get<bool>(value_var);
-        if (!valid) {
-            return false;
+        for (const auto& [key, value_var] : data) {
+            const bool valid = std::get<bool>(value_var);
+            if (!valid) {
+                return false;
+            }
         }
+        return true;
     }
-    return true;
 }
 std::string MultiMeshMapValidInvariant::name() const
 {

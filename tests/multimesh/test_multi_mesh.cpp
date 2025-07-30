@@ -9,9 +9,10 @@
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
 #include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/EdgeSplit.hpp>
-#include <wmtk/utils/as_eigen_matrices.hpp>
 #include <wmtk/simplex/utils/SimplexComparisons.hpp>
+#include <wmtk/utils/as_eigen_matrices.hpp>
 #include "../tools/DEBUG_EdgeMesh.hpp"
+#include "../tools/DEBUG_PointMesh.hpp"
 #include "../tools/DEBUG_TriMesh.hpp"
 #include "../tools/EdgeMesh_examples.hpp"
 #include "../tools/TriMesh_examples.hpp"
@@ -821,6 +822,71 @@ TEST_CASE("multi_mesh_register_between_2D_and_1D_one_ear", "[multimesh][1D][2D]"
 
     p_mul_manager.check_map_valid(parent);
 }
+TEST_CASE("test_split_multi_mesh_0D_1D", "[multimesh][1D]")
+{
+    std::shared_ptr<DEBUG_EdgeMesh> edgemesh0_ptr =
+        std::make_shared<DEBUG_EdgeMesh>(two_segments());
+    std::shared_ptr<DEBUG_PointMesh> pointmesh_ptr = std::make_shared<DEBUG_PointMesh>(2);
+
+    auto& edgemesh0 = *edgemesh0_ptr;
+    auto& pointmesh = *pointmesh_ptr;
+
+    std::vector<std::array<Tuple, 2>> edgemesh0_map(2);
+
+    edgemesh0_map[0] = {Tuple(-1, -1, -1, 0), Tuple(0, -1, -1, 0)};
+    edgemesh0_map[1] = {Tuple(-1, -1, -1, 1), Tuple(0, -1, -1, 1)};
+
+    edgemesh0.register_child_mesh(pointmesh.shared_from_this(), edgemesh0_map);
+    REQUIRE(edgemesh0.is_connectivity_valid());
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(edgemesh0));
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(pointmesh));
+
+    const auto& edgemesh0_mul_manager = edgemesh0.multi_mesh_manager();
+    // const auto& c0_mul_manager = edgemesh0.multi_mesh_manager();
+    // const auto& c1_mul_manager = edgemesh1.multi_mesh_manager();
+
+    {
+        Tuple edge = edgemesh0.edge_tuple_from_vids(0, 1);
+        operations::EdgeSplit op(edgemesh0);
+        REQUIRE(!op(Simplex::edge(edge)).empty());
+    }
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(edgemesh0));
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(pointmesh));
+}
+TEST_CASE("test_split_multi_mesh_0D_2D", "[multimesh][2D]")
+{
+    std::shared_ptr<DEBUG_TriMesh> trimesh0_ptr =
+        std::make_shared<DEBUG_TriMesh>(single_triangle());
+    std::shared_ptr<DEBUG_PointMesh> pointmesh_ptr = std::make_shared<DEBUG_PointMesh>(3);
+
+    auto& trimesh0 = *trimesh0_ptr;
+    auto& pointmesh = *pointmesh_ptr;
+
+    std::vector<std::array<Tuple, 2>> trimesh0_map(3);
+
+
+    trimesh0_map[0] = {Tuple(-1, -1, -1, 0), trimesh0.tuple_from_id(PV, 0)};
+    trimesh0_map[1] = {Tuple(-1, -1, -1, 1), trimesh0.tuple_from_id(PV, 1)};
+    trimesh0_map[2] = {Tuple(-1, -1, -1, 2), trimesh0.tuple_from_id(PV, 2)};
+
+    trimesh0.register_child_mesh(pointmesh.shared_from_this(), trimesh0_map);
+    REQUIRE(trimesh0.is_connectivity_valid());
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(trimesh0));
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(pointmesh));
+
+    const auto& trimesh0_mul_manager = trimesh0.multi_mesh_manager();
+    // const auto& c0_mul_manager = edgemesh0.multi_mesh_manager();
+    // const auto& c1_mul_manager = edgemesh1.multi_mesh_manager();
+
+    {
+        Tuple edge = trimesh0.edge_tuple_from_vids(0, 1);
+        operations::EdgeSplit op(trimesh0);
+        REQUIRE(!op(Simplex::edge(edge)).empty());
+    }
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(trimesh0));
+    REQUIRE(wmtk::multimesh::utils::check_maps_valid(pointmesh));
+}
+
 
 TEST_CASE("test_split_multi_mesh_1D_1D", "[multimesh][1D]")
 {
@@ -1023,20 +1089,20 @@ TEST_CASE("test_split_multi_mesh_1D_2D", "[multimesh][1D][2D]")
     p_mul_manager.check_map_valid(parent);
 
     {
-    auto F = wmtk::utils::as_eigen_matrices(parent);
-    spdlog::info("Parent mesh:");
-    std::cout << F << std::endl;
+        auto F = wmtk::utils::as_eigen_matrices(parent);
+        spdlog::info("Parent mesh:");
+        std::cout << F << std::endl;
     }
     {
-    auto E = wmtk::utils::as_eigen_matrices(child0);
-    spdlog::info("Child0:");
-    std::cout << E << std::endl;
+        auto E = wmtk::utils::as_eigen_matrices(child0);
+        spdlog::info("Child0:");
+        std::cout << E << std::endl;
     }
 
     {
-    auto E = wmtk::utils::as_eigen_matrices(child1);
-    spdlog::info("Child1:");
-    std::cout << E << std::endl;
+        auto E = wmtk::utils::as_eigen_matrices(child1);
+        spdlog::info("Child1:");
+        std::cout << E << std::endl;
     }
     print_tuple_map(parent, p_mul_manager);
     CHECK(wmtk::multimesh::utils::check_maps_valid(parent));
@@ -1086,8 +1152,8 @@ TEST_CASE("test_collapse_multi_mesh_1D_2D", "[multimesh][1D][2D]")
     std::vector<std::array<Tuple, 2>> child2_map(1);
     child2_map[0] = {child2.tuple_from_edge_id(0), parent.edge_tuple_with_vs_and_t(0, 4, 2)};
 
-     parent.register_child_mesh(child0_ptr, child0_map);
-     parent.register_child_mesh(child1_ptr, child1_map);
+    parent.register_child_mesh(child0_ptr, child0_map);
+    parent.register_child_mesh(child1_ptr, child1_map);
     parent.register_child_mesh(child2_ptr, child2_map);
 
     const auto& p_mul_manager = parent.multi_mesh_manager();

@@ -112,7 +112,7 @@ typename SplitNewAttributeStrategy<T>::SplitRibFuncType SplitNewAttributeStrateg
     case SplitRibBasicStrategy::Min:
         return [](const VT& a, const VT& b, const std::bitset<2>& bs) -> VT {
             if (bs[0] == bs[1]) {
-                return (a.array() < b.array()).select(a,b);
+                return (a.array() < b.array()).select(a, b);
 
             } else if (bs[0]) {
                 return a;
@@ -175,9 +175,9 @@ SplitNewAttributeStrategy<Rational>::standard_split_rib_strategy(
     case SplitRibBasicStrategy::Min:
         return [](const VT& a, const VT& b, const std::bitset<2>& bs) -> VT {
             if (bs[0] == bs[1]) {
-                return VT::Constant(a.rows(),0);
-                //return (a.array() < b.array()).select(a,b);
-                //return (a.array() == b.array()).select(a, VT::Constant(a.rows(),0));
+                return VT::Constant(a.rows(), 0);
+                // return (a.array() < b.array()).select(a,b);
+                // return (a.array() == b.array()).select(a, VT::Constant(a.rows(),0));
 
             } else if (bs[0]) {
                 return a;
@@ -221,10 +221,10 @@ SplitNewAttributeStrategy<T>::SplitNewAttributeStrategy(
     set_strategy(SplitBasicStrategy::Throw);
 
     auto& mesh = m_handle.mesh();
-    assert(
-        !mesh.is_free() || m_handle.primitive_type() ==
-                               PrimitiveType::Vertex); // attribute new is not valid on free meshes
-
+    if (mesh.is_free()) {
+        set_rib_strategy(SplitRibBasicStrategy::None);
+        set_strategy(SplitBasicStrategy::None);
+    }
     if (mesh.top_simplex_type() == PrimitiveType::Edge) {
         m_topo_info =
             std::make_unique<edge_mesh::SplitNewAttributeTopoInfo>(static_cast<EdgeMesh&>(mesh));
@@ -235,7 +235,9 @@ SplitNewAttributeStrategy<T>::SplitNewAttributeStrategy(
         m_topo_info =
             std::make_unique<tet_mesh::SplitNewAttributeTopoInfo>(static_cast<TetMesh&>(mesh));
     } else {
-        log_and_throw_error("Invalid mesh");
+        logger().debug("PointMesh can only be set to no split strategy");
+        set_rib_strategy(SplitRibBasicStrategy::None);
+        set_strategy(SplitBasicStrategy::None);
     }
 }
 

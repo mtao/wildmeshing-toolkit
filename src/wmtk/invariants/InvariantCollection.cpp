@@ -1,5 +1,4 @@
 #include "InvariantCollection.hpp"
-#include <fmt/ranges.h>
 #include <memory>
 #include <type_traits>
 #include <wmtk/Mesh.hpp>
@@ -8,8 +7,14 @@
 
 namespace wmtk::invariants {
 
-InvariantCollection::InvariantCollection(const Mesh& m, bool all_children_below)
-    : Invariant(m, true, true, true), m_use_map_to_child(all_children_below)
+InvariantCollection::InvariantCollection(
+    const Mesh& m,
+    bool all_children_below,
+    bool use_before,
+    bool use_old_state_in_after,
+    bool use_new_state_in_after)
+    : Invariant(m, use_before, use_old_state_in_after, use_new_state_in_after)
+    , m_use_map_to_child(all_children_below)
 {}
 InvariantCollection::~InvariantCollection() = default;
 InvariantCollection::InvariantCollection(const InvariantCollection&) = default;
@@ -196,7 +201,10 @@ InvariantCollection::get_map_mesh_to_invariants() const
     }
     return mesh_invariants_map;
 }
-std::shared_ptr<InvariantCollection> InvariantCollection::children_reorganized_by_mesh() const
+std::shared_ptr<InvariantCollection> InvariantCollection::children_reorganized_by_mesh(
+    bool use_before,
+    bool use_old_state_in_after,
+    bool use_new_state_in_after) const
 {
     std::map<Mesh const*, std::vector<std::shared_ptr<Invariant>>> mesh_invariants_map =
         get_map_mesh_to_invariants();
@@ -204,9 +212,18 @@ std::shared_ptr<InvariantCollection> InvariantCollection::children_reorganized_b
     std::map<Mesh const*, std::shared_ptr<InvariantCollection>> collections;
     std::map<std::vector<int64_t>, Mesh const*> ids;
     for (const auto& [key, value] : mesh_invariants_map) {
-        auto ic = std::make_shared<InvariantCollection>(*key, true);
+        auto ic = std::make_shared<InvariantCollection>(
+            *key,
+            true,
+            use_before,
+            use_old_state_in_after,
+            use_new_state_in_after);
         for (const auto& i : value) {
-            ic->add(i);
+            if ((i->use_before() && use_before) ||
+                (i->use_old_state_in_after() && use_old_state_in_after) ||
+                (i->use_new_state_in_after() && use_new_state_in_after)) {
+                ic->add(i);
+            }
         }
 
         collections[key] = ic;
@@ -232,8 +249,13 @@ std::shared_ptr<InvariantCollection> InvariantCollection::children_reorganized_b
             }
         }
     }
+    for(auto& [id,ic]: collections) {
+        auto& v = ic->m_invariants;
+        std::sort(v.begin(),v.end());
+        v.erase(std::unique(v.begin(),v.end()),v.end());
+    }
     // return the root
-    return collections[{}];
+    return collections.at(ids.at({}));
 }
 
 std::string InvariantCollection::name() const

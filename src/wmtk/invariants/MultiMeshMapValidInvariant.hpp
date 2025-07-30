@@ -15,8 +15,11 @@ public:
      * @return True if the MultiMeshMap will still be valid after collapse operation
      */
 
-    MultiMeshMapValidInvariant(const Mesh& m);
+    MultiMeshMapValidInvariant(const Mesh& m, bool single_mesh_mode = false);
     bool before(const simplex::Simplex& t) const override;
     std::string name() const override;
+private:
+    bool m_single_mesh_mode;
+    
 };
 } // namespace wmtk

@@ -21,7 +21,10 @@ class NamedMultiMesh
 {
 public:
     NamedMultiMesh();
-    NamedMultiMesh(Mesh& m, const std::string_view& root_name, bool do_populate_child_names = true);
+    NamedMultiMesh(
+        Mesh& m,
+        const std::string_view& root_name = "",
+        bool do_populate_child_names = true);
     explicit NamedMultiMesh(
         Mesh& m,
         const nlohmann::ordered_json& root_name,
@@ -42,19 +45,21 @@ public:
     // auto operator=(NamedMultiMesh&&) -> NamedMultiMesh&;
     auto operator=(const NamedMultiMesh&) -> NamedMultiMesh&;
 
-    operator bool() const { return bool(m_root);}
+    operator bool() const { return bool(m_root); }
 
     /// sets just the name of the root mesh, keeping child names the same
     void set_name(const std::string_view& root_name = "");
     void set_names(const nlohmann::ordered_json& js);
     void populate_default_names();
     void set_root(Mesh& m, bool do_populate_unnamed = true);
-    // assuming the root of child_mesh is a child of parent, populates the name structure under parent with the child's data
+    // assuming the root of child_mesh is a child of parent, populates the name structure under
+    // parent with the child's data
     void append_child_mesh_names(const Mesh& parent, const NamedMultiMesh& child_mesh);
-    // set the name of a particular mesh (i.e "foo.bar" passed new name "baz" would have its name set to "foo.baz"
+    // set the name of a particular mesh (i.e "foo.bar" passed new name "baz" would have its name
+    // set to "foo.baz"
     void set_name(const Mesh& m, const std::string_view& name);
     // updates the entire path to a mesh according to names provided
-    //void set_path(const Mesh& m, const std::string_view& path);
+    // void set_path(const Mesh& m, const std::string_view& path);
 
     std::unique_ptr<nlohmann::ordered_json> get_names_json(const std::string_view& path = "") const;
 
