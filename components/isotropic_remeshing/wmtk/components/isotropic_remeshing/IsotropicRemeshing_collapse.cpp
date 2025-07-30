@@ -82,6 +82,17 @@ void IsotropicRemeshing::configure_collapse(const IsotropicRemeshingOptions& opt
         length_min * length_min);
     op->add_invariant(invariant_max_edge_length);
 
+    if (!opts.static_meshes.empty()) {
+        for (const auto& mesh_name : opts.static_meshes) {
+            auto& mesh2 = m_meshes.get_mesh(mesh_name);
+            op->add_invariant(
+                std::make_shared<invariants::CannotMapSimplexInvariant>(
+                    mesh,
+                    mesh2,
+                    wmtk::PrimitiveType::Vertex));
+        }
+    }
+
     if (m_envelope_invariants) {
         spdlog::info("Attaching envelope invariants");
         op->add_invariant(m_envelope_invariants);

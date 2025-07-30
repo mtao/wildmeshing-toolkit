@@ -16,7 +16,7 @@ namespace wmtk::components::output {
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OutputOptions)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(path, type)
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(path, type, position_attribute)
     if (nlohmann_json_t.mesh_name_path.has_value()) {
         nlohmann_json_j["mesh_name_path"] = nlohmann_json_t.mesh_name_path.value();
     }
@@ -25,16 +25,6 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OutputOptions)
 
     // nlohmann_json_j["type"] = nlohmann_json_t.type;
 
-    nlohmann_json_j["position_attribute"] = std::visit(
-        [](const auto& attr) -> std::string {
-            using T = std::decay_t<decltype(attr)>;
-            if constexpr (std::is_same_v<std::string, T>) {
-                return attr;
-            } else {
-                return attr.mesh().get_attribute_name(attr.handle());
-            }
-        },
-        nlohmann_json_t.position_attribute);
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(OutputOptions)
 {

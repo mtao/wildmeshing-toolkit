@@ -330,10 +330,12 @@ void IsotropicRemeshing::run(const Pass& pass, size_t pass_index)
 
     //////////////////////////////////////////
     Scheduler scheduler;
+    auto& pass_mesh = m_meshes.get_mesh(pass.mesh_path);
 
     auto run_opo = [&](wmtk::operations::Operation& op, std::string_view op_name) {
-        auto& run_mesh = op.mesh();
+        //auto& run_mesh = op.mesh();
 
+        auto& run_mesh = pass_mesh;
         SchedulerStats stats = scheduler.run_operation_on_all(op, run_mesh);
 
         logger().info(

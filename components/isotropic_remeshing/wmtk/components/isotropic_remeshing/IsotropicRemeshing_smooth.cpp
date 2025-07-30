@@ -88,7 +88,6 @@ void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
         // std::vector<std::shared_ptr<Mesh>> static_meshes;
         for (const auto& mesh_name : opts.static_meshes) {
             auto& mesh2 = m_meshes.get_mesh(mesh_name);
-            // static_meshes.emplace_back(mesh2.shared_from_this());
             op_smooth->add_invariant(
                 std::make_shared<invariants::CannotMapSimplexInvariant>(
                     mesh,

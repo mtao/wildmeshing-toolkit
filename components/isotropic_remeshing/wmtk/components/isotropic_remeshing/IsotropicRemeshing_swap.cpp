@@ -125,36 +125,37 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
                 parent,
                 child));
     }
-    // if (!opts.static_meshes.empty()) {
-    //     std::vector<std::shared_ptr<Mesh>> static_meshes;
-    //     for (const auto& mptr : opts.position_attribute.mesh().get_all_child_meshes()) {
-    //        // for (const auto& mesh_name : opts.static_meshes) {
-    //        // auto& mesh2 = opts.mesh_collection->get_mesh(mesh_name);
-    //        auto& mesh2 = *mptr;
-    //        // static_meshes.emplace_back(mesh2.shared_from_this());
-    //        if (mesh2.top_cell_dimension() == 1) {
-    //            m_swap->add_invariant(
-    //                std::make_shared<invariants::CannotMapSimplexInvariant>(
-    //                    mesh,
-    //                    mesh2,
-    //                    wmtk::PrimitiveType::Edge,
-    //                    false));
-    //            m_swap->add_invariant(
-    //                std::make_shared<invariants::CannotMapSimplexInvariant>(
-    //                    mesh,
-    //                    mesh2,
-    //                    wmtk::PrimitiveType::Vertex,
-    //                    false));
-    //        } else if (mesh2.top_cell_dimension() == 0) {
-    //            m_swap->add_invariant(
-    //                std::make_shared<invariants::CannotMapSimplexInvariant>(
-    //                    mesh,
-    //                    mesh2,
-    //                    wmtk::PrimitiveType::Vertex,
-    //                    false));
-    //        }
-    //    }
-    //}
+    if (!opts.static_meshes.empty()) {
+        std::vector<std::shared_ptr<Mesh>> static_meshes;
+        for (const auto& mptr :
+             get_attribute(opts.position_attribute).mesh().get_all_child_meshes()) {
+            // for (const auto& mesh_name : opts.static_meshes) {
+            // auto& mesh2 = opts.mesh_collection->get_mesh(mesh_name);
+            auto& mesh2 = *mptr;
+            // static_meshes.emplace_back(mesh2.shared_from_this());
+            if (mesh2.top_cell_dimension() == 1) {
+                m_swap->add_invariant(
+                    std::make_shared<invariants::CannotMapSimplexInvariant>(
+                        mesh,
+                        mesh2,
+                        wmtk::PrimitiveType::Edge,
+                        false));
+                m_swap->add_invariant(
+                    std::make_shared<invariants::CannotMapSimplexInvariant>(
+                        mesh,
+                        mesh2,
+                        wmtk::PrimitiveType::Vertex,
+                        false));
+            } else if (mesh2.top_cell_dimension() == 0) {
+                m_swap->add_invariant(
+                    std::make_shared<invariants::CannotMapSimplexInvariant>(
+                        mesh,
+                        mesh2,
+                        wmtk::PrimitiveType::Vertex,
+                        false));
+            }
+        }
+    }
     for (const auto& transfer : m_operation_transfers) {
         m_swap->split().set_new_attribute_strategy(transfer->handle());
         m_swap->split().add_transfer_strategy(transfer);

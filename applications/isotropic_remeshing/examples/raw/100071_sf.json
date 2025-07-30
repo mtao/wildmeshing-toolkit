@@ -41,6 +41,19 @@
         "main.creases/vertices": "main/vertices"
     },
     "iterations": 10,
+    "passes":
+    [
+        {
+            "mesh_path": "main",
+            "iterations": 1,
+            "operations": ["split", "collapse", "swap", "smooth"]
+        },
+        {
+            "mesh_path": "main.creases",
+            "iterations": 1,
+            "operations": ["split", "collapse", "swap", "smooth"]
+        }
+    ],
     "length_rel": 0.01,
     "use_for_periodic": false,
     "swap": {
@@ -52,14 +65,6 @@
             "type": "edge_length",
             "attribute_path": "main/edge_length",
             "base_attribute_path": "main/vertices"
-        },
-        {
-            "type": "neighbor_count",
-            "base_attribute_path": "main.creases/m_ve",
-            "attribute_path": "main/mapped_child_vertices",
-            "parameters": {
-                "dimension": 0
-            }
         }
     ],
     "collapse": {
@@ -78,10 +83,18 @@
     "fix_uv_seam": false,
     "lock_boundary": false,
     "output": {
+        "main": {
     "path": "100071_sf",
     "position_attribute": "main/vertices",
     "type": ".vtu"
     },
+        "main.creases": {
+    "path": "100071_sf_creases",
+    "position_attribute": "main.creases/vertices",
+    "type": ".vtu"
+    }
+    },
+    "static_meshes": ["main.creases"],
 
     "intermediate_output_format": {
         "main": {
@@ -92,7 +105,7 @@
         "main.creases": {
             "path": "10071_sf_creases_{:04}",
             "type": ".vtu",
-            "position_attribute": "vertices"
+            "position_attribute": "main.creases/vertices"
         }
     }
 }

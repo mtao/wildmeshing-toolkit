@@ -217,7 +217,7 @@ int main(int argc, char* argv[])
             wmtk::components::output::OutputOptions iopts;
             iopts.path = std::string(argv[3]) + "_seams_{:04}";
             iopts.type = ".vtu";
-            iopts.position_attribute = "vertices";
+            iopts.position_attribute = {"vertices"};
             opts.intermediate_output_format.emplace_back("fused.feature_edges", iopts);
         }
 

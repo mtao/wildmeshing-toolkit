@@ -274,7 +274,7 @@ int main(int argc, char* argv[])
         in.path = input;
         wmtk::components::output::OutputOptions out;
         out.path = output;
-        out.position_attribute = "vertices";
+        out.position_attribute = {"vertices"};
         if (!type.empty() && type[0] != '.') {
             type = '.' + type;
         }
