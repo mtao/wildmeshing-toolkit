@@ -2,6 +2,10 @@
 set(SRC_FILES
     Logger.cpp
     Logger.hpp
+
+    validate.hpp
+    validate.cpp
+
     edgemesh_topology_initialization.h
     edgemesh_topology_initialization.cpp
     trimesh_topology_initialization.h

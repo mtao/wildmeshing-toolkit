@@ -480,36 +480,6 @@ void TriMesh::TriMeshOperationExecutor::split_edge_precompute()
     assert(m_incident_face_datas[0].fid == m_mesh.id_face(m_operating_tuple));
     assert(m_incident_face_datas[0].local_operating_tuple == m_operating_tuple);
 
-    std::vector<std::vector<Tuple>> bsc(2);
-    if (m_mesh.has_child_mesh_in_dimension(0)) {
-        auto& this_bsc = bsc[0];
-        this_bsc.reserve(m_incident_face_datas.size() + 2);
-
-        this_bsc.emplace_back(m_operating_tuple);
-        this_bsc.emplace_back(m_mesh.switch_vertex(m_operating_tuple));
-        for (const auto& data : m_incident_face_datas) {
-            this_bsc.emplace_back(m_mesh.switch_tuples(
-                data.local_operating_tuple,
-                {PrimitiveType::Edge, PrimitiveType::Vertex}));
-        }
-    }
-    if (m_mesh.has_child_mesh_in_dimension(1)) {
-        auto& this_bsc = bsc[1];
-        /*
-        this_bsc.reserve(3 * m_incident_face_datas.size());
-            for(const auto& facet: m_incident_face_datas) {
-                        auto f = wmtk::simplex::faces(m_mesh, f, false);
-                        std::copy(f.begin(),f.end(), std::back_inserter(this_bsc));
-            }
-            std::sort(this_bsc.begin(),this_bsc.end());
-            this_bsc.erase(std::unique(this_bsc.begin(),this_bsc.end()),this_bsc.end());
-        }
-        */
-    }
-
-
-    const simplex::SimplexCollection edge_closed_star =
-        simplex::closed_star(m_mesh, simplex::Simplex::edge(m_mesh, m_operating_tuple));
 
 
     create_spine_simplices();

@@ -1,8 +1,10 @@
 #include "input.hpp"
+#include <wmtk/utils/validate.hpp>
 
 #include <fstream>
 #include <wmtk/components/utils/PathResolver.hpp>
 #include <wmtk/io/read_mesh.hpp>
+#include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/mesh_utils.hpp>
 #include <wmtk/utils/verify_simplex_index_valences.hpp>
@@ -86,29 +88,16 @@ multimesh::NamedMultiMesh input(
         mm.set_names(js);
     }
 
-    if (options.validate) {
-        for (auto& mptr : mm.root().get_all_meshes()) {
-            if (!mm.has_name(*mptr) && !mptr->is_multi_mesh_root()) {
-                mptr->get_multi_mesh_parent_mesh().deregister_child_mesh(mptr);
-            }
-        }
-    }
+    // if (options.validate) {
+    //     for (auto& mptr : mm.root().get_all_meshes()) {
+    //         if (!mm.has_name(*mptr) && !mptr->is_multi_mesh_root()) {
+    //             mptr->get_multi_mesh_parent_mesh().deregister_child_mesh(mptr);
+    //         }
+    //     }
+    // }
 
     if (options.validate) {
-        for (const auto& mptr : mm.root().get_all_meshes()) {
-            if (!mptr->is_connectivity_valid()) {
-                throw std::runtime_error(fmt::format(
-                    "Mesh {} connectivity was not valid, check env WMTK_LOGGER_LEVEL=debug for more info",
-                    mm.get_name(*mptr)));
-            }
-
-
-            if (!wmtk::utils::verify_simplex_index_valences(*mptr)) {
-                throw std::runtime_error(fmt::format(
-                    "Mesh {} was not valid, check env WMTK_LOGGER_LEVEL=debug for more info",
-                    mm.get_name(*mptr)));
-            }
-        }
+        wmtk::utils::validate(mm.root());
     }
 
     return mm;

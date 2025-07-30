@@ -21,6 +21,7 @@
 #include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/utils/cast_attribute.hpp>
 #include <wmtk/utils/internal/manifold_decomposition.hpp>
+#include <wmtk/utils/validate.hpp>
 #include "wmtk/components/utils/PathResolver.hpp"
 
 
@@ -53,20 +54,12 @@ constexpr static std::string root_attribute_name = "root";
 
 int main(int argc, char* argv[])
 {
-    std::ifstream ifs(argv[1]);
-    nlohmann::ordered_json j = nlohmann::ordered_json::parse(ifs);
-
-
-    int64_t iterations = j["iterations"];
-    double length_relative = j["length_rel"];
-    double envelope_size = j["envelope_size"];
-
-
     h5pp::File file(argv[2], h5pp::FileAccess::READONLY);
 
     FusedOutput fo;
     fo.load(file, "/");
     auto trimesh = fo.mesh.create();
+    assert(wmtk::utils::validate(*trimesh));
 
 
     // auto edge_MD = wmtk::components::multimesh::from_manifold_decomposition(*trimesh);
@@ -113,17 +106,15 @@ int main(int argc, char* argv[])
     // }
     // return 0;
 
+    wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions opts;
+    opts.position_attribute = position_attr;
     {
-        wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions opts;
-        opts.position_attribute = position_attr;
-
-
         if (subcomplexes.size() >= 1) {
             nmm.set_name(*subcomplexes[0], "feature_edges");
             auto epos_attr =
                 wmtk::utils::cast_attribute<double>(position_attr, *subcomplexes[0], "vertices");
             opts.copied_attributes[epos_attr] = position_attr;
-            //opts.other_position_attributes.emplace_back(epos_attr);
+            // opts.other_position_attributes.emplace_back(epos_attr);
 
             if (subcomplexes.size() >= 2) {
                 nmm.set_name(*subcomplexes[1], "critical_points");
@@ -136,13 +127,30 @@ int main(int argc, char* argv[])
                 opts.static_meshes.emplace_back("fused.feature_edges.critical_points");
             }
         }
+        {
+            wmtk::components::output::OutputOptions oopts;
+            oopts.path = argv[3];
+            oopts.type = ".hdf5";
+            oopts.position_attribute = {"vertices"};
+            oopts.mesh_name_path = "names.json";
+            wmtk::components::output::output(nmm, oopts);
+            return 0;
+        }
+        std::ifstream ifs(argv[1]);
+        nlohmann::ordered_json j = nlohmann::ordered_json::parse(ifs);
+
+
+        int64_t iterations = j["iterations"];
+        double length_relative = j["length_rel"];
+        double envelope_size = j["envelope_size"];
+
 
         opts.iterations = iterations;
         opts.length_rel = length_relative;
-        if(envelope_size < 0) {
+        if (envelope_size < 0) {
             opts.envelope_size = {};
         } else {
-        opts.envelope_size = envelope_size;
+            opts.envelope_size = envelope_size;
         }
         // opts.start_with_collapse = true;
 
@@ -201,7 +209,7 @@ int main(int argc, char* argv[])
                 pass.operations = {"swap", "collapse"};
             }
             opts.iterations = 2;
-            wmtk::components::isotropic_remeshing::isotropic_remeshing(mc,opts);
+            wmtk::components::isotropic_remeshing::isotropic_remeshing(mc, opts);
         }
 
         opts.passes = j["passes"];
@@ -221,7 +229,7 @@ int main(int argc, char* argv[])
             opts.intermediate_output_format.emplace_back("fused.feature_edges", iopts);
         }
 
-        wmtk::components::isotropic_remeshing::isotropic_remeshing(mc,opts);
+        wmtk::components::isotropic_remeshing::isotropic_remeshing(mc, opts);
     }
 
 

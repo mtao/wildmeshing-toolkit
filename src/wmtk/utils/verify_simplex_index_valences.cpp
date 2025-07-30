@@ -115,6 +115,9 @@ bool verify_simplex_index_valences(const Mesh& m, const internal::IndexSimplexMa
 
 bool verify_simplex_index_valences(const Mesh& m)
 {
+    if(m.top_simplex_type() == PrimitiveType::Vertex) {
+        return true;
+    }
     internal::IndexSimplexMapper mapper(m);
 
 
