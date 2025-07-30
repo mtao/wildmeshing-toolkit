@@ -87,6 +87,7 @@ multimesh::NamedMultiMesh input(
         ifs >> js;
         mm.set_names(js);
     }
+    mm.populate_default_names();
 
     // if (options.validate) {
     //     for (auto& mptr : mm.root().get_all_meshes()) {
