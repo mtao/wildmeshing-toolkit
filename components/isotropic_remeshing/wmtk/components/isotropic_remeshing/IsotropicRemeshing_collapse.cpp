@@ -33,14 +33,25 @@ void IsotropicRemeshing::add_core_collapse_invariants(
 {
     Mesh& mesh = op.mesh();
     // core invariants
+#define NO_MULTIMESH_INVARIANTS
+#if defined(NO_MULTIMESH_INVARIANTS)
     for (auto& m : op.mesh().get_multi_mesh_root().get_all_meshes()) {
         auto invariant_link_condition =
-            std::make_shared<wmtk::invariants::MultiMeshLinkConditionInvariant>(mesh, true);
+            std::make_shared<wmtk::invariants::MultiMeshLinkConditionInvariant>(*m, true);
 
-        auto invariant_mm_map = std::make_shared<MultiMeshMapValidInvariant>(mesh, true);
+        auto invariant_mm_map = std::make_shared<MultiMeshMapValidInvariant>(*m, true);
         op.add_invariant(invariant_link_condition);
         op.add_invariant(invariant_mm_map);
     }
+#else
+        auto invariant_link_condition =
+            std::make_shared<wmtk::invariants::MultiMeshLinkConditionInvariant>(mesh);
+
+        auto invariant_mm_map = std::make_shared<MultiMeshMapValidInvariant>(mesh);
+        op.add_invariant(invariant_link_condition);
+        op.add_invariant(invariant_mm_map);
+#endif
+
 }
 void IsotropicRemeshing::configure_collapse(const IsotropicRemeshingOptions& opts)
 {

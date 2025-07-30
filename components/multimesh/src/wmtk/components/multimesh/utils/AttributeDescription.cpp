@@ -86,6 +86,7 @@ AttributeDescription::AttributeDescription(
 AttributeDescription::AttributeDescription(const wmtk::attribute::MeshAttributeHandle& mah)
     : AttributeDescription(fmt::format("/{}", mah.name()), mah)
 {}
+
 // AttributeDescription::AttributeDescription(const MeshCollection& mc, const
 // wmtk::attribute::MeshAttributeHandle&mah): AttributeDescription(mc.get_path(mah), mah) {}
 AttributeDescription::AttributeDescription(
@@ -128,5 +129,13 @@ bool AttributeDescription::empty() const
 {
     return path.empty() && !simplex_dimension.has_value() && !type.has_value() &&
            !dimension.has_value();
+}
+bool AttributeDescription::compatible(const AttributeDescription& o) const
+{
+    return path == o.path &&
+           (!simplex_dimension.has_value() || !o.simplex_dimension.has_value() ||
+            simplex_dimension == o.simplex_dimension) &&
+           (!type.has_value() || !o.type.has_value() || type == o.type) &&
+           (!dimension.has_value() || !o.dimension.has_value() || dimension == o.dimension);
 }
 } // namespace wmtk::components::multimesh::utils

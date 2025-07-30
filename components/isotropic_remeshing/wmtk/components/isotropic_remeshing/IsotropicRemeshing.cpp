@@ -1,6 +1,8 @@
 
 #include "IsotropicRemeshing.hpp"
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
+#include <wmtk/components/multimesh/utils/create_attribute.hpp>
+#include <wmtk/components/multimesh/utils/detail/attribute_missing_error.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 #include <wmtk/simplex/utils/tuple_vector_to_homogeneous_simplex_vector.hpp>
@@ -70,10 +72,25 @@ void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions&
 void IsotropicRemeshing::load_transfers(const IsotropicRemeshingOptions& opts)
 {
     for (const auto& [child, parent] : opts.copied_attributes) {
-        m_operation_transfers.emplace_back(
-            wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
-                get_attribute(parent),
-                get_attribute(child)));
+        auto parent_attr = get_attribute(parent);
+        try {
+            auto child_attr = get_attribute(child);
+            m_operation_transfers.emplace_back(
+                wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
+                    parent_attr,
+                    child_attr));
+        } catch (const components::multimesh::utils::detail::attribute_missing_error& e) {
+            // find the parent attribute in the mesh collection to flush out its full description
+            multimesh::utils::AttributeDescription child2(child.path, parent_attr);
+
+            assert(child.compatible(child2));
+
+            auto child_attr = multimesh::utils::create_attribute(m_meshes, child2);
+            m_operation_transfers.emplace_back(
+                wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
+                    parent_attr,
+                    child_attr));
+        }
     }
     for (const auto& transfer : opts.utility_attributes) {
         m_operation_transfers.emplace_back(transfer->create(m_meshes));
@@ -89,6 +106,8 @@ IsotropicRemeshing::IsotropicRemeshing(
     passes = opts.passes;
     iterations = opts.iterations;
     start_with_collapse = opts.start_with_collapse;
+
+    intermediate_output_format = opts.intermediate_output_format;
 
 
     load_shared_invariants(opts);

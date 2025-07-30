@@ -5,6 +5,7 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/NamedMultiMesh.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 #include <wmtk/io/HDF5Writer.hpp>
 #include <wmtk/io/ParaviewWriter.hpp>
@@ -54,24 +55,12 @@ void output_hdf5(const Mesh& mesh, const std::filesystem::path& file)
 void output(const Mesh& mesh, const OutputOptions& opts)
 {
     if (opts.type == ".vtu") {
-        assert(opts.position_attribute.index() != std::variant_npos);
-        std::string name = std::visit(
-            [](const auto& v) -> std::string {
-                using T = std::decay_t<decltype(v)>;
-                if constexpr (std::is_same_v<T, std::string>) {
-                    return v;
-                } else if constexpr (std::is_same_v<T, wmtk::attribute::MeshAttributeHandle>) {
-                    assert(v.is_valid());
-                    return v.name();
-                }
-            },
-            opts.position_attribute);
-        assert(mesh.has_attribute<double>(name, PrimitiveType::Vertex));
+        auto pa = components::multimesh::utils::get_attribute(mesh, opts.position_attribute);
         std::array<bool, 4> out = {{false, false, false, false}};
         for (int64_t d = 0; d <= mesh.top_cell_dimension(); ++d) {
             out[d] = true;
         }
-        ParaviewWriter writer(opts.path, name, mesh, out[0], out[1], out[2], out[3]);
+        ParaviewWriter writer(opts.path, pa.name(), mesh, out[0], out[1], out[2], out[3]);
         mesh.serialize(writer);
     } else if (opts.type == ".hdf5") {
         output_hdf5(mesh, opts.path);

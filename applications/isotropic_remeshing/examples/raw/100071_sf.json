@@ -37,6 +37,9 @@
         ]
     },
     "position_attribute": "main/vertices",
+    "copied_attributes": {
+        "main.creases/vertices": "main/vertices"
+    },
     "iterations": 10,
     "length_rel": 0.01,
     "use_for_periodic": false,
@@ -83,6 +86,11 @@
     "intermediate_output_format": {
         "main": {
             "path": "10071_sf_{:04}",
+            "type": ".vtu",
+            "position_attribute": "vertices"
+        },
+        "main.creases": {
+            "path": "10071_sf_creases_{:04}",
             "type": ".vtu",
             "position_attribute": "vertices"
         }

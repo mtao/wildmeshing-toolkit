@@ -57,14 +57,14 @@ Tuple MultiMeshManager::map_tuple_between_meshes(
     wmtk::dart::Dart source_dart = sd.dart_from_tuple(source_tuple);
     assert(sd.is_valid(source_dart));
     const auto involution = source_to_target_map_accessor[id][0];
-    spdlog::info("source {}, {}", pt, involution);
+    //spdlog::info("source {}, {}", pt, involution);
     if (involution.is_null()) {
         return {};
     }
     const int64_t target_global_id = involution.global_id();
 
 #if !defined(NDEBUG)
-    if (true) {
+    if (false) {
         const dart::SimplexDart& osd = dart::SimplexDart::get_singleton(target_pt);
         if (target_pt == min_pt) {
             const auto inverse_involution = target_to_source_map_accessor[target_global_id][0];
@@ -319,12 +319,12 @@ void MultiMeshManager::register_child_mesh(
     for (const auto& [child_tuple, my_tuple] : child_tuple_my_tuple_map) {
         assert(my_mesh.is_valid(my_tuple));
         assert(child_mesh_ptr->is_valid(child_tuple));
-        spdlog::info(
-            "Writing {} {} to {} {}",
-            my_tuple.as_string(),
-            child_tuple.as_string(),
-            my_mesh.top_simplex_type(),
-            child_mesh.top_simplex_type());
+        //spdlog::info(
+        //    "Writing {} {} to {} {}",
+        //    my_tuple.as_string(),
+        //    child_tuple.as_string(),
+        //    my_mesh.top_simplex_type(),
+        //    child_mesh.top_simplex_type());
         wmtk::multimesh::utils::symmetric_write_tuple_map_attributes(
             parent_to_child_accessor,
             child_to_parent_accessor,

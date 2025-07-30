@@ -79,9 +79,9 @@ struct AttributeDescription
     auto operator==(const AttributeDescription&) const -> bool;
     operator std::string() const;
 
+    bool compatible(const AttributeDescription& o) const;
 
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeDescription)
-private:
     // helper constructor so we can override the path while still reading off other properties from
     // the MAH
     AttributeDescription(const std::string_view& p, const wmtk::attribute::MeshAttributeHandle&);

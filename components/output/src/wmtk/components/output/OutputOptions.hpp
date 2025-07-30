@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
+#include "wmtk/components/multimesh/utils/AttributeDescription.hpp"
 
 
 namespace wmtk::components::output {
@@ -13,7 +14,8 @@ struct OutputOptions
     std::string type;
 
     // some formats (?msh?) have a dedicated slot for positions
-    std::variant<wmtk::attribute::MeshAttributeHandle, std::string> position_attribute;
+    //std::variant<wmtk::attribute::MeshAttributeHandle, std::string> position_attribute;
+    components::multimesh::utils::AttributeDescription position_attribute;
 
     // mesh name info will be serialized to a json file if available
     std::optional<std::filesystem::path> mesh_name_path;
