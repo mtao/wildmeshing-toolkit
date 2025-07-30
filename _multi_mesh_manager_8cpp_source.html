@@ -189,14 +189,14 @@ $(document).ready(function(){initNavTree('_multi_mesh_manager_8cpp_source.html',
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <a class="code hl_class" href="classwmtk_1_1dart_1_1_dart.html">wmtk::dart::Dart</a> source_dart = sd.<a class="code hl_function" href="classwmtk_1_1dart_1_1_simplex_dart.html#a123cd955047d071c16eb48528dc318d5">dart_from_tuple</a>(source_tuple);</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    assert(sd.<a class="code hl_function" href="classwmtk_1_1dart_1_1_simplex_dart.html#a0ba31a7c8f5b6fa62e4f64da7fef5120">is_valid</a>(source_dart));</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keyword">const</span> <span class="keyword">auto</span> involution = source_to_target_map_accessor[id][0];</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    spdlog::info(<span class="stringliteral">&quot;source {}, {}&quot;</span>, pt, involution);</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    <span class="comment">//spdlog::info(&quot;source {}, {}&quot;, pt, involution);</span></div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    <span class="keywordflow">if</span> (involution.is_null()) {</div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="keywordflow">return</span> {};</div>
 <div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    }</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keyword">const</span> int64_t target_global_id = involution.global_id();</div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span><span class="preprocessor">#if !defined(NDEBUG)</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">if</span> (<span class="keyword">true</span>) {</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">if</span> (<span class="keyword">false</span>) {</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1dart_1_1_simplex_dart.html">dart::SimplexDart</a>&amp; osd = <a class="code hl_function" href="classwmtk_1_1dart_1_1_simplex_dart.html#a3949350f736cbf567bf566fd7565e6e8">dart::SimplexDart::get_singleton</a>(target_pt);</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span> (target_pt == min_pt) {</div>
 <div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>            <span class="keyword">const</span> <span class="keyword">auto</span> inverse_involution = target_to_source_map_accessor[target_global_id][0];</div>
@@ -469,12 +469,12 @@ $(document).ready(function(){initNavTree('_multi_mesh_manager_8cpp_source.html',
 <div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [child_tuple, my_tuple] : child_tuple_my_tuple_map) {</div>
 <div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span>        assert(my_mesh.<a class="code hl_function" href="classwmtk_1_1_mesh.html#a8cc8686f0688613806f43720b6db49e7">is_valid</a>(my_tuple));</div>
 <div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>        assert(child_mesh_ptr-&gt;is_valid(child_tuple));</div>
-<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        spdlog::info(</div>
-<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>            <span class="stringliteral">&quot;Writing {} {} to {} {}&quot;</span>,</div>
-<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>            my_tuple.as_string(),</div>
-<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>            child_tuple.as_string(),</div>
-<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>            my_mesh.<a class="code hl_function" href="classwmtk_1_1_mesh.html#abaf00438d0700358b160e310d69725c9">top_simplex_type</a>(),</div>
-<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>            child_mesh.<a class="code hl_function" href="classwmtk_1_1_mesh.html#abaf00438d0700358b160e310d69725c9">top_simplex_type</a>());</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>        <span class="comment">//spdlog::info(</span></div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>        <span class="comment">//    &quot;Writing {} {} to {} {}&quot;,</span></div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="comment">//    my_tuple.as_string(),</span></div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>        <span class="comment">//    child_tuple.as_string(),</span></div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="comment">//    my_mesh.top_simplex_type(),</span></div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span>        <span class="comment">//    child_mesh.top_simplex_type());</span></div>
 <div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span>        <a class="code hl_function" href="namespacewmtk_1_1multimesh_1_1utils.html#aa69cf0f02a02a6088e26eee272bb490a">wmtk::multimesh::utils::symmetric_write_tuple_map_attributes</a>(</div>
 <div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>            parent_to_child_accessor,</div>
 <div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>            child_to_parent_accessor,</div>

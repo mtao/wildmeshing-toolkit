@@ -1,5 +1,6 @@
 var NAVTREEINDEX36 =
 {
+"edgemesh__topology__initialization_8h_source.html":[11,0,2,0,9,12],
 "element__count__report_8cpp.html":[11,0,0,13,0,0,0,0,3],
 "element__count__report_8cpp.html#a82ef6344f66cec4d1e52990d148fcd36":[11,0,0,13,0,0,0,0,3,2],
 "element__count__report_8cpp.html#a8f229511b461d208dddaf617ba616f7f":[11,0,0,13,0,0,0,0,3,1],
@@ -184,8 +185,8 @@ var NAVTREEINDEX36 =
 "from__vertex__simplices_8hpp.html#ac07baa000804aae7fb0fe7321d452394":[11,0,0,14,0,0,0,0,16,1],
 "from__vertex__simplices_8hpp.html#af788a1e34ada6ee56f00f90c733b9dc3":[11,0,0,14,0,0,0,0,16,0],
 "from__vertex__simplices_8hpp_source.html":[11,0,0,14,0,0,0,0,16],
-"functions.html":[10,3,0,0],
 "functions.html":[10,3,0],
+"functions.html":[10,3,0,0],
 "functions_a.html":[10,3,0,1],
 "functions_b.html":[10,3,0,2],
 "functions_c.html":[10,3,0,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX36 =
 "functions_vars_h.html":[10,3,2,8],
 "functions_vars_i.html":[10,3,2,9],
 "functions_vars_l.html":[10,3,2,10],
-"functions_vars_m.html":[10,3,2,11],
-"functions_vars_n.html":[10,3,2,12]
+"functions_vars_m.html":[10,3,2,11]
 };

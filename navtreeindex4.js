@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"_top_dimension_cofaces_iterable_8hpp.html":[11,0,2,0,8,1,17],
 "_top_dimension_cofaces_iterable_8hpp_source.html":[11,0,2,0,8,1,17],
 "_transfer_functor_traits_8hpp.html":[11,0,0,13,0,0,0,0,2,31],
 "_transfer_functor_traits_8hpp_source.html":[11,0,0,13,0,0,0,0,2,31],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "autogen_2edge__mesh_2_simplex_dart_8cpp.html":[11,0,2,0,1,0,13],
 "autogen_2edge__mesh_2_simplex_dart_8cpp_source.html":[11,0,2,0,1,0,13],
 "autogen_2edge__mesh_2_simplex_dart_8hpp.html":[11,0,2,0,1,0,14],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a20008bea7b56c942f5691e327ba65abe":[11,0,2,0,1,0,14,4],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a395b5e96425bd24681a9a0bc084dd1ee":[11,0,2,0,1,0,14,5]
+"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a20008bea7b56c942f5691e327ba65abe":[11,0,2,0,1,0,14,4]
 };

@@ -1,5 +1,6 @@
 var NAVTREEINDEX39 =
 {
+"max__neighbor_8hpp_source.html":[11,0,0,13,0,0,0,0,2,12],
 "md_components_2_r_e_a_d_m_e.html":[7],
 "md_components_2_r_e_a_d_m_e.html#autotoc_md33":[7,0],
 "md_components_2mesh__info_2src_2wmtk_2components_2mesh__info_2simplex_2_r_e_a_d_m_e.html":[5],
@@ -165,8 +166,8 @@ var NAVTREEINDEX39 =
 "namespaceinternal.html":[9,0,4],
 "namespaceinternal.html#a3fa61cd9a5bc07d701326b589bafc9ad":[9,0,4,0],
 "namespaceinternal.html#ac7d044af3e6028ae2a916de6fa9c05ef":[9,0,4,1],
-"namespacemembers.html":[9,1,0],
 "namespacemembers.html":[9,1,0,0],
+"namespacemembers.html":[9,1,0],
 "namespacemembers_a.html":[9,1,0,1],
 "namespacemembers_b.html":[9,1,0,2],
 "namespacemembers_c.html":[9,1,0,3],
@@ -175,8 +176,8 @@ var NAVTREEINDEX39 =
 "namespacemembers_enum.html":[9,1,4],
 "namespacemembers_eval.html":[9,1,5],
 "namespacemembers_f.html":[9,1,0,6],
-"namespacemembers_func.html":[9,1,1,0],
 "namespacemembers_func.html":[9,1,1],
+"namespacemembers_func.html":[9,1,1,0],
 "namespacemembers_func_b.html":[9,1,1,1],
 "namespacemembers_func_c.html":[9,1,1,2],
 "namespacemembers_func_d.html":[9,1,1,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX39 =
 "namespacewmtk.html#a3daa7951a5f8b78cf4600dc047fcc180":[9,0,10,128],
 "namespacewmtk.html#a403f1b687924c16d9871fd3e1445ca57":[9,0,10,100],
 "namespacewmtk.html#a415d7a83177f8770f317416478c57cae":[9,0,10,93],
-"namespacewmtk.html#a42709cf1304e1f43a82e056f09f02146":[9,0,10,65],
-"namespacewmtk.html#a441d6ad4f19569c7d4946e743da1a925":[9,0,10,108]
+"namespacewmtk.html#a42709cf1304e1f43a82e056f09f02146":[9,0,10,65]
 };

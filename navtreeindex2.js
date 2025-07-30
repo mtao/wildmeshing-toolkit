@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"_max_edge_length_invariant_8hpp_source.html":[11,0,2,0,4,33],
 "_max_function_invariant_8cpp.html":[11,0,2,0,4,34],
 "_max_function_invariant_8cpp_source.html":[11,0,2,0,4,34],
 "_max_function_invariant_8hpp.html":[11,0,2,0,4,35],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "_primitive_8hpp.html":[11,0,2,0,26],
 "_primitive_8hpp_source.html":[11,0,2,0,26],
 "_primitive_type_8cpp.html":[11,0,2,0,27],
-"_primitive_type_8cpp.html#a339897f6efeb23a997750141f12892ee":[11,0,2,0,27,2],
-"_primitive_type_8cpp.html#a403f1b687924c16d9871fd3e1445ca57":[11,0,2,0,27,0]
+"_primitive_type_8cpp.html#a339897f6efeb23a997750141f12892ee":[11,0,2,0,27,2]
 };

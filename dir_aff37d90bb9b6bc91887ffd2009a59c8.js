@@ -8,7 +8,7 @@ var dir_aff37d90bb9b6bc91887ffd2009a59c8 =
     [ "isotropic_remeshing.hpp", "isotropic__remeshing_8hpp.html", "isotropic__remeshing_8hpp" ],
     [ "IsotropicRemeshing.cpp", "_isotropic_remeshing_8cpp.html", null ],
     [ "IsotropicRemeshing.hpp", "_isotropic_remeshing_8hpp.html", "_isotropic_remeshing_8hpp" ],
-    [ "IsotropicRemeshing_collapse.cpp", "_isotropic_remeshing__collapse_8cpp.html", null ],
+    [ "IsotropicRemeshing_collapse.cpp", "_isotropic_remeshing__collapse_8cpp.html", "_isotropic_remeshing__collapse_8cpp" ],
     [ "IsotropicRemeshing_smooth.cpp", "_isotropic_remeshing__smooth_8cpp.html", null ],
     [ "IsotropicRemeshing_split.cpp", "_isotropic_remeshing__split_8cpp.html", null ],
     [ "IsotropicRemeshing_swap.cpp", "_isotropic_remeshing__swap_8cpp.html", null ],

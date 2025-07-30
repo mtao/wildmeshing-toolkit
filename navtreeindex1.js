@@ -180,6 +180,7 @@ var NAVTREEINDEX1 =
 "_isotropic_remeshing_8hpp.html":[11,0,0,9,0,0,0,7],
 "_isotropic_remeshing_8hpp_source.html":[11,0,0,9,0,0,0,7],
 "_isotropic_remeshing__collapse_8cpp.html":[11,0,0,9,0,0,0,8],
+"_isotropic_remeshing__collapse_8cpp.html#a611c3dda65ac9278de7627803ec9d2e3":[11,0,0,9,0,0,0,8,0],
 "_isotropic_remeshing__collapse_8cpp_source.html":[11,0,0,9,0,0,0,8],
 "_isotropic_remeshing__smooth_8cpp.html":[11,0,0,9,0,0,0,9],
 "_isotropic_remeshing__smooth_8cpp_source.html":[11,0,0,9,0,0,0,9],
@@ -248,6 +249,5 @@ var NAVTREEINDEX1 =
 "_marching_options_8hpp_source.html":[11,0,0,12,0,0,0,4],
 "_max_edge_length_invariant_8cpp.html":[11,0,2,0,4,32],
 "_max_edge_length_invariant_8cpp_source.html":[11,0,2,0,4,32],
-"_max_edge_length_invariant_8hpp.html":[11,0,2,0,4,33],
-"_max_edge_length_invariant_8hpp_source.html":[11,0,2,0,4,33]
+"_max_edge_length_invariant_8hpp.html":[11,0,2,0,4,33]
 };

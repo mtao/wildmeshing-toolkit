@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['stb_5fimage_5fimplementation_0',['STB_IMAGE_IMPLEMENTATION',['../mesh__with__tag__from__image_8cpp.html#a18372412ad2fc3ce1e3240b3cf0efe78',1,'mesh_with_tag_from_image.cpp']]]
+  ['no_5fmultimesh_5finvariants_0',['NO_MULTIMESH_INVARIANTS',['../_isotropic_remeshing__collapse_8cpp.html#a611c3dda65ac9278de7627803ec9d2e3',1,'IsotropicRemeshing_collapse.cpp']]]
 ];

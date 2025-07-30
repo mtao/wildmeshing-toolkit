@@ -10,6 +10,7 @@ var structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description =
     [ "AttributeDescription", "structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description.html#a4efd9c11a55d96f63723645a628859f2", null ],
     [ "AttributeDescription", "structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description.html#a378abebd879e418419864cde85630e25", null ],
     [ "AttributeDescription", "structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description.html#a7271d30a3c3b401c45f56681d08031db", null ],
+    [ "compatible", "structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description.html#a584f939e7c691ebed6254d32a53d11f9", null ],
     [ "empty", "structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description.html#ac4ad4a43df6d6e2a30506cf684e02002", null ],
     [ "fully_specified", "structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description.html#afdb831cdcc1cdc4238a963d0d0ff1fad", null ],
     [ "operator std::string", "structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description.html#af3d8d4541230dabee1a0e695e84c332f", null ],
