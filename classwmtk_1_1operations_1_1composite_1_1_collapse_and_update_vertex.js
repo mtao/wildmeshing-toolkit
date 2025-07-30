@@ -2,6 +2,7 @@ var classwmtk_1_1operations_1_1composite_1_1_collapse_and_update_vertex =
 [
     [ "CollapseAndUpdateVertex", "classwmtk_1_1operations_1_1composite_1_1_collapse_and_update_vertex.html#a45ab5ebe83e5031591cb5036d34c62d1", null ],
     [ "CollapseAndUpdateVertex", "classwmtk_1_1operations_1_1composite_1_1_collapse_and_update_vertex.html#a55a85598cb65eaa6ff5e57999dac8c0c", null ],
+    [ "attribute_new_all_configured", "classwmtk_1_1operations_1_1composite_1_1_collapse_and_update_vertex.html#afe50e4107424d94baa29dce3aebf720e", null ],
     [ "collapse", "classwmtk_1_1operations_1_1composite_1_1_collapse_and_update_vertex.html#a91c658a13afde852e827e19539b23978", null ],
     [ "collapse", "classwmtk_1_1operations_1_1composite_1_1_collapse_and_update_vertex.html#ab17cc43631f89ada4c0370a212572fda", null ],
     [ "execute", "classwmtk_1_1operations_1_1composite_1_1_collapse_and_update_vertex.html#a8cc10265bc5d7192b42ed9949046a24f", null ],

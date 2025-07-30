@@ -276,7 +276,11 @@ var hierarchy =
     ] ],
     [ "wmtk::components::isotropic_remeshing::InvariantOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html", null ],
     [ "wmtk::components::isotropic_remeshing::InvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html", [
-      [ "wmtk::components::isotropic_remeshing::AttributeInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_attribute_invariant_parameters.html", null ]
+      [ "wmtk::components::isotropic_remeshing::AliasInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_alias_invariant_parameters.html", null ],
+      [ "wmtk::components::isotropic_remeshing::AttributeInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_attribute_invariant_parameters.html", [
+        [ "wmtk::components::isotropic_remeshing::EnvelopeInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_envelope_invariant_parameters.html", null ]
+      ] ],
+      [ "wmtk::components::isotropic_remeshing::InvariantCollectionParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_collection_parameters.html", null ]
     ] ],
     [ "wmtk::dart::Involution", "classwmtk_1_1dart_1_1_involution.html", null ],
     [ "wmtk::attribute::internal::is_typed_attribute_handle< T >", "structwmtk_1_1attribute_1_1internal_1_1is__typed__attribute__handle.html", null ],

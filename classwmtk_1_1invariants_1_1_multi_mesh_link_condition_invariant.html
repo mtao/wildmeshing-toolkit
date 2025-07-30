@@ -121,6 +121,7 @@ $(document).ready(function(){initNavTree('classwmtk_1_1invariants_1_1_multi_mesh
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pri-attribs">Private Attributes</a> &#124;
 <a href="classwmtk_1_1invariants_1_1_multi_mesh_link_condition_invariant-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">wmtk::invariants::MultiMeshLinkConditionInvariant Class Reference</div></div>
 </div><!--header-->
@@ -140,8 +141,8 @@ Collaboration diagram for wmtk::invariants::MultiMeshLinkConditionInvariant:</di
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:af564777da9bf12ccd4de8d8c1b240d81" id="r_af564777da9bf12ccd4de8d8c1b240d81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_multi_mesh_link_condition_invariant.html#af564777da9bf12ccd4de8d8c1b240d81">MultiMeshLinkConditionInvariant</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m)</td></tr>
-<tr class="separator:af564777da9bf12ccd4de8d8c1b240d81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd41a5341ee3ac7f9b681b009cd3652" id="r_affd41a5341ee3ac7f9b681b009cd3652"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_multi_mesh_link_condition_invariant.html#affd41a5341ee3ac7f9b681b009cd3652">MultiMeshLinkConditionInvariant</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m, bool single_mesh_mode=false)</td></tr>
+<tr class="separator:affd41a5341ee3ac7f9b681b009cd3652"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a616eeecbe8a37dc5c0d1f6978cf20a" id="r_a0a616eeecbe8a37dc5c0d1f6978cf20a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_multi_mesh_link_condition_invariant.html#a0a616eeecbe8a37dc5c0d1f6978cf20a">before</a> (const <a class="el" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a> &amp;t) const override</td></tr>
 <tr class="separator:a0a616eeecbe8a37dc5c0d1f6978cf20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9ff6d682c819c7f3b53e35b3a8a11560" id="r_a9ff6d682c819c7f3b53e35b3a8a11560"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_multi_mesh_link_condition_invariant.html#a9ff6d682c819c7f3b53e35b3a8a11560">name</a> () const override</td></tr>
@@ -167,13 +168,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a364df47f8d70f0e89149d56db8963461 inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a497379c6c71970345a2d3e28ec90c8db inherit pub_methods_classwmtk_1_1invariants_1_1_invariant" id="r_a497379c6c71970345a2d3e28ec90c8db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db">use_new_state_in_after</a> () const</td></tr>
 <tr class="separator:a497379c6c71970345a2d3e28ec90c8db inherit pub_methods_classwmtk_1_1invariants_1_1_invariant"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
+Private Attributes</h2></td></tr>
+<tr class="memitem:a08c503c451a538fca045587306a3b9df" id="r_a08c503c451a538fca045587306a3b9df"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1invariants_1_1_multi_mesh_link_condition_invariant.html#a08c503c451a538fca045587306a3b9df">m_single_mesh_mode</a></td></tr>
+<tr class="separator:a08c503c451a538fca045587306a3b9df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="_multi_mesh_link_condition_invariant_8hpp_source.html#l00010">10</a> of file <a class="el" href="_multi_mesh_link_condition_invariant_8hpp_source.html">MultiMeshLinkConditionInvariant.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="af564777da9bf12ccd4de8d8c1b240d81" name="af564777da9bf12ccd4de8d8c1b240d81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af564777da9bf12ccd4de8d8c1b240d81">&#9670;&#160;</a></span>MultiMeshLinkConditionInvariant()</h2>
+<a id="affd41a5341ee3ac7f9b681b009cd3652" name="affd41a5341ee3ac7f9b681b009cd3652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd41a5341ee3ac7f9b681b009cd3652">&#9670;&#160;</a></span>MultiMeshLinkConditionInvariant()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -182,13 +188,30 @@ Public Member Functions</h2></td></tr>
           <td class="memname">wmtk::invariants::MultiMeshLinkConditionInvariant::MultiMeshLinkConditionInvariant </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;&#160;</td>
-          <td class="paramname"><em>m</em></td><td>)</td>
+          <td class="paramname"><em>m</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>single_mesh_mode</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html#l00031">31</a> of file <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html">MultiMeshLinkConditionInvariant.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html#l00032">32</a> of file <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html">MultiMeshLinkConditionInvariant.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_mesh_8hpp_source.html#l00833">wmtk::Mesh::has_child_mesh()</a>, <a class="el" href="_mesh__multimesh_8cpp_source.html#l00284">wmtk::Mesh::is_multi_mesh_root()</a>, <a class="el" href="_logger_8cpp_source.html#l00060">wmtk::logger()</a>, and <a class="el" href="_multi_mesh_link_condition_invariant_8hpp_source.html#l00018">m_single_mesh_mode</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1invariants_1_1_multi_mesh_link_condition_invariant_affd41a5341ee3ac7f9b681b009cd3652_cgraph.svg" width="100%" height="424"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -219,9 +242,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#ae43f95bda332585aa73a8fd0624a39d3">wmtk::invariants::Invariant</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html#l00034">34</a> of file <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html">MultiMeshLinkConditionInvariant.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html#l00045">45</a> of file <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html">MultiMeshLinkConditionInvariant.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_multi_mesh_simplex_visitor_8hpp_source.html#l00114">wmtk::multimesh::MultiMeshSimplexVisitor&lt; cell_dimension_, NodeFunctor_ &gt;::execute_from_root()</a>, <a class="el" href="_invariant_8cpp_source.html#l00049">wmtk::invariants::Invariant::mesh()</a>, and <a class="el" href="_simplex_8hpp_source.html#l00051">wmtk::simplex::Simplex::primitive_type()</a>.</p>
+<p class="reference">References <a class="el" href="namespacewmtk.html#af11e67c10a0ab2b57b9bbc3998b62345ae4a297a0f76119a442c2595ac040673e">wmtk::Edge</a>, <a class="el" href="_multi_mesh_simplex_visitor_8hpp_source.html#l00114">wmtk::multimesh::MultiMeshSimplexVisitor&lt; cell_dimension_, NodeFunctor_ &gt;::execute_from_root()</a>, <a class="el" href="_multi_mesh_link_condition_invariant_8hpp_source.html#l00018">m_single_mesh_mode</a>, <a class="el" href="_invariant_8cpp_source.html#l00049">wmtk::invariants::Invariant::mesh()</a>, and <a class="el" href="_simplex_8hpp_source.html#l00051">wmtk::simplex::Simplex::primitive_type()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -255,7 +278,34 @@ Here is the call graph for this function:</div>
 
 <p>Reimplemented from <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html#a71d5d449aff6bcc9e4c274b3edc003d2">wmtk::invariants::Invariant</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html#l00054">54</a> of file <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html">MultiMeshLinkConditionInvariant.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html#l00072">72</a> of file <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html">MultiMeshLinkConditionInvariant.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a08c503c451a538fca045587306a3b9df" name="a08c503c451a538fca045587306a3b9df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08c503c451a538fca045587306a3b9df">&#9670;&#160;</a></span>m_single_mesh_mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool wmtk::invariants::MultiMeshLinkConditionInvariant::m_single_mesh_mode</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_multi_mesh_link_condition_invariant_8hpp_source.html#l00018">18</a> of file <a class="el" href="_multi_mesh_link_condition_invariant_8hpp_source.html">MultiMeshLinkConditionInvariant.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html#l00045">before()</a>, and <a class="el" href="_multi_mesh_link_condition_invariant_8cpp_source.html#l00032">MultiMeshLinkConditionInvariant()</a>.</p>
 
 </div>
 </div>

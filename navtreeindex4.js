@@ -1,5 +1,15 @@
 var NAVTREEINDEX4 =
 {
+"_top_dimension_cofaces_iterable_8hpp_source.html":[11,0,2,0,8,1,17],
+"_transfer_functor_traits_8hpp.html":[11,0,0,13,0,0,0,0,2,31],
+"_transfer_functor_traits_8hpp_source.html":[11,0,0,13,0,0,0,0,2,31],
+"_transfer_strategy__macros_8hpp.html":[11,0,0,13,0,0,0,0,2,32],
+"_transfer_strategy__macros_8hpp.html#a1f55cd159ae62aad845826d0d4493c03":[11,0,0,13,0,0,0,0,2,32,1],
+"_transfer_strategy__macros_8hpp.html#a23a192567706abe658a5f21ff336d7c1":[11,0,0,13,0,0,0,0,2,32,2],
+"_transfer_strategy__macros_8hpp.html#a4c42a8d8d65f112b31931b17312883b5":[11,0,0,13,0,0,0,0,2,32,4],
+"_transfer_strategy__macros_8hpp.html#ab039b8ba88d07ca1a00158434a892164":[11,0,0,13,0,0,0,0,2,32,0],
+"_transfer_strategy__macros_8hpp.html#ac151c89fd16da71d6ac085c43dcbb040":[11,0,0,13,0,0,0,0,2,32,3],
+"_transfer_strategy__macros_8hpp_source.html":[11,0,0,13,0,0,0,0,2,32],
 "_transfer_strategy_factory_8cpp.html":[11,0,0,13,0,0,0,0,2,33],
 "_transfer_strategy_factory_8cpp.html#ab72e5cdeb3f0b25598c82873b103ede9":[11,0,0,13,0,0,0,0,2,33,1],
 "_transfer_strategy_factory_8cpp.html#ae09d87b5fae1f20a046210c379da8992":[11,0,0,13,0,0,0,0,2,33,0],
@@ -239,15 +249,5 @@ var NAVTREEINDEX4 =
 "autogen_2edge__mesh_2_simplex_dart_8cpp_source.html":[11,0,2,0,1,0,13],
 "autogen_2edge__mesh_2_simplex_dart_8hpp.html":[11,0,2,0,1,0,14],
 "autogen_2edge__mesh_2_simplex_dart_8hpp.html#a20008bea7b56c942f5691e327ba65abe":[11,0,2,0,1,0,14,4],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a395b5e96425bd24681a9a0bc084dd1ee":[11,0,2,0,1,0,14,5],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a6b514c39fad486f80d707beecaf4811c":[11,0,2,0,1,0,14,9],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a6d25b3100bd8183c146861612c77c946":[11,0,2,0,1,0,14,6],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a862d6fd15e017518a2bd19cb8d0344e0":[11,0,2,0,1,0,14,10],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a91a1a62b30152d9cb73aafac5c7fdb58":[11,0,2,0,1,0,14,1],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#ab7d7699afc176b42a3f72ffef6902710":[11,0,2,0,1,0,14,2],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#acbecc02b5c0dc4e41832dd3710629fd6":[11,0,2,0,1,0,14,8],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#ad36305c43b31af387201b299ad0b74ac":[11,0,2,0,1,0,14,7],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#ae892a9b4af9600c121795c218f493f35":[11,0,2,0,1,0,14,11],
-"autogen_2edge__mesh_2_simplex_dart_8hpp.html#af3165f0aff67a7efc02d776b9f6a24f0":[11,0,2,0,1,0,14,3],
-"autogen_2edge__mesh_2_simplex_dart_8hpp_source.html":[11,0,2,0,1,0,14]
+"autogen_2edge__mesh_2_simplex_dart_8hpp.html#a395b5e96425bd24681a9a0bc084dd1ee":[11,0,2,0,1,0,14,5]
 };

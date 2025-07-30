@@ -128,299 +128,343 @@ $(document).ready(function(){initNavTree('_invariant_collection_8cpp_source.html
 </div><!--header-->
 <div class="contents">
 <a href="_invariant_collection_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="_invariant_collection_8hpp.html">InvariantCollection.hpp</a>&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;fmt/ranges.h&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="_mesh_8hpp.html">wmtk/Mesh.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="_simplex_8hpp.html">wmtk/simplex/Simplex.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;<a class="code" href="_logger_8hpp.html">wmtk/utils/Logger.hpp</a>&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1invariants.html">wmtk::invariants</a> {</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span><a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#acf67e0725a8983a113bbdb1d84991a0f">InvariantCollection::InvariantCollection</a>(<span class="keyword">const</span> Mesh&amp; m)</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    : <a class="code hl_typedef" href="namespacewmtk.html#aedc5944c76b67357bbdf8174977cf37c">Invariant</a>(m, true, true, true)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{}</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>InvariantCollection::~InvariantCollection() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>InvariantCollection::InvariantCollection(<span class="keyword">const</span> InvariantCollection&amp;) = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>InvariantCollection::InvariantCollection(InvariantCollection&amp;&amp;) = <span class="keywordflow">default</span>;</div>
-<div class="foldopen" id="foldopen00017" data-start="{" data-end="}">
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#af8f60b12b10459cec405d2aee1310481">   17</a></span><a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp; InvariantCollection::operator=(<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp; o)</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    assert(o.<a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>() == mesh());</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    m_invariants = o.<a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;type_traits&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;<a class="code" href="_mesh_8hpp.html">wmtk/Mesh.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="_simplex_8hpp.html">wmtk/simplex/Simplex.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="_logger_8hpp.html">wmtk/utils/Logger.hpp</a>&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacewmtk_1_1invariants.html">wmtk::invariants</a> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a0331da74d63ba195868ca7773bb7a989">   10</a></span><a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a0331da74d63ba195868ca7773bb7a989">InvariantCollection::InvariantCollection</a>(</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a>&amp; m,</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordtype">bool</span> all_children_below,</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordtype">bool</span> use_before,</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">bool</span> use_old_state_in_after,</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordtype">bool</span> use_new_state_in_after)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    : <a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant.html">Invariant</a>(m, use_before, use_old_state_in_after, use_new_state_in_after)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    , m_use_map_to_child(all_children_below)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>{}</div>
 </div>
-<div class="foldopen" id="foldopen00023" data-start="{" data-end="}">
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ae6dc738fa69d122cb277733f3668b72f">   23</a></span><a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp; InvariantCollection::operator=(<a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp;&amp; o)</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>{</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    assert(o.mesh() == mesh());</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    m_invariants = std::move(o.m_invariants);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>}</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a56511836f67071beff87425edd3bdb59">InvariantCollection::~InvariantCollection</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span><a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a0331da74d63ba195868ca7773bb7a989">InvariantCollection::InvariantCollection</a>(<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span><a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a0331da74d63ba195868ca7773bb7a989">InvariantCollection::InvariantCollection</a>(<a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp;&amp;) = <span class="keywordflow">default</span>;</div>
+<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#af8f60b12b10459cec405d2aee1310481">   22</a></span><a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp; <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#af8f60b12b10459cec405d2aee1310481">InvariantCollection::operator=</a>(<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp; o)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>{</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    assert(o.<a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>() == <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>());</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a> = o.<a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>}</div>
 </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="foldopen" id="foldopen00030" data-start="{" data-end="}">
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a17c51789c88fea75126d3d35ac1421ab">   30</a></span><span class="keywordtype">void</span> InvariantCollection::add(std::shared_ptr&lt;Invariant&gt; invariant)</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>{</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    m_invariants.emplace_back(std::move(invariant));</div>
+<div class="foldopen" id="foldopen00028" data-start="{" data-end="}">
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ae6dc738fa69d122cb277733f3668b72f">   28</a></span><a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp; <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#af8f60b12b10459cec405d2aee1310481">InvariantCollection::operator=</a>(<a class="code hl_class" href="classwmtk_1_1invariants_1_1_invariant_collection.html">InvariantCollection</a>&amp;&amp; o)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    assert(o.mesh() == <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>());</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a> = std::move(o.m_invariants);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>}</div>
 </div>
-<div class="foldopen" id="foldopen00034" data-start="{" data-end="}">
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a77e630210caf679f60aaf91a27813dbd">   34</a></span><span class="keywordtype">bool</span> InvariantCollection::before(<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a>&amp; t)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; invariant : m_invariants) {</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">if</span> (&amp;mesh() != &amp;invariant-&gt;mesh()) {</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; ct : m_use_map_to_child ? mesh().lub_map_tuples(invariant-&gt;mesh(), t)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                                                      : mesh().map_tuples(invariant-&gt;mesh(), t)) {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                <span class="keywordflow">if</span> (!invariant-&gt;before(</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>                        <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a>(invariant-&gt;mesh(), t.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex.html#ad2cc0340a0772b7d6f03ba7a781d1163">primitive_type</a>(), ct))) {</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>                    <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                        <span class="stringliteral">&quot;{}::before false because {} was false&quot;</span>,</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                        name(),</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                        invariant-&gt;name());</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                }</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            }</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>            <span class="keywordflow">if</span> (!invariant-&gt;before(t)) {</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                    <span class="stringliteral">&quot;{}::before false because {} was false&quot;</span>,</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                    name(),</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                    invariant-&gt;name());</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            }</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        }</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>}</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
+<div class="foldopen" id="foldopen00035" data-start="{" data-end="}">
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a17c51789c88fea75126d3d35ac1421ab">   35</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a17c51789c88fea75126d3d35ac1421ab">InvariantCollection::add</a>(std::shared_ptr&lt;Invariant&gt; invariant)</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>.emplace_back(std::move(invariant));</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>}</div>
 </div>
-<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8ca33e950e39423425248ba8d25b3dca">   65</a></span><span class="keywordtype">bool</span> InvariantCollection::after(</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>    <span class="keyword">const</span> std::vector&lt;Tuple&gt;&amp; top_dimension_tuples_before,</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keyword">const</span> std::vector&lt;Tuple&gt;&amp; top_dimension_tuples_after)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; invariant : m_invariants) {</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordflow">if</span> (&amp;mesh() != &amp;invariant-&gt;mesh()) {</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span> invariant_uses_old_state = invariant-&gt;use_old_state_in_after();</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span> invariant_uses_new_state = invariant-&gt;use_new_state_in_after();</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>            <span class="keywordflow">if</span> (!(invariant_uses_old_state || invariant_uses_new_state)) {</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>            }</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keyword">auto</span> map = [&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; tuples) -&gt; std::vector&lt;Tuple&gt; {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>                <span class="keywordflow">return</span> m_use_map_to_child ? mesh().lub_map_tuples(</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>                                                invariant-&gt;mesh(),</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                                                mesh().top_simplex_type(),</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                                                tuples)</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>                                          : mesh().map_tuples(</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                                                invariant-&gt;mesh(),</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                                                mesh().top_simplex_type(),</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                                                tuples);</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            };</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keyword">const</span> std::vector&lt;Tuple&gt; mapped_tuples_after =</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                invariant_uses_new_state ? map(top_dimension_tuples_after) : std::vector&lt;Tuple&gt;{};</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>            <span class="keyword">const</span> std::vector&lt;Tuple&gt; mapped_tuples_before =</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                invariant_uses_old_state ? mesh().parent_scope(map, top_dimension_tuples_before)</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>                                         : std::vector&lt;Tuple&gt;{};</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keywordflow">if</span> (!invariant-&gt;after(mapped_tuples_before, mapped_tuples_after)) {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                    <span class="stringliteral">&quot;{}::after false because {} was false&quot;</span>,</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                    name(),</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>                    invariant-&gt;name());</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>            }</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>            <span class="keywordflow">if</span> (!invariant-&gt;after(top_dimension_tuples_before, top_dimension_tuples_after)) {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>                    <span class="stringliteral">&quot;{}::after false because {} was false&quot;</span>,</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>                    name(),</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>                    invariant-&gt;name());</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>            }</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        }</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="comment">// assert(&amp;mesh() != &amp;invariant-&gt;mesh());</span></div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>        <span class="comment">// if (!invariant-&gt;after(type, tuples)) {</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="comment">//     return false;</span></div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="comment">// }</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    }</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+<div class="foldopen" id="foldopen00039" data-start="{" data-end="}">
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a77e630210caf679f60aaf91a27813dbd">   39</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a77e630210caf679f60aaf91a27813dbd">InvariantCollection::before</a>(<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a>&amp; t)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; invariant : <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>) {</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">if</span> (&amp;<a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>() != &amp;invariant-&gt;mesh()) {</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code hl_class" href="classwmtk_1_1_tuple.html">Tuple</a>&amp; ct : <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a86f639b1f3b7b7f0c9293883cacc69f6">m_use_map_to_child</a> ? <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#afca213673a7f569665d73353eae95ccc">lub_map_tuples</a>(invariant-&gt;mesh(), t)</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                                                      : <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#a82637d24776e0e06e2124ce914c4b40f">map_tuples</a>(invariant-&gt;mesh(), t)) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>                <span class="keywordflow">if</span> (!invariant-&gt;before(</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                        <a class="code hl_class" href="classwmtk_1_1simplex_1_1_simplex.html">simplex::Simplex</a>(invariant-&gt;mesh(), t.<a class="code hl_function" href="classwmtk_1_1simplex_1_1_simplex.html#ad2cc0340a0772b7d6f03ba7a781d1163">primitive_type</a>(), ct))) {</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                        <span class="stringliteral">&quot;{}::before false because {} was false&quot;</span>,</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                        <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8768dcade3726f770ecc44b8d70126df">name</a>(),</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                        invariant-&gt;name());</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                }</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            <span class="keywordflow">if</span> (!invariant-&gt;before(t)) {</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                    <span class="stringliteral">&quot;{}::before false because {} was false&quot;</span>,</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                    <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8768dcade3726f770ecc44b8d70126df">name</a>(),</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                    invariant-&gt;name());</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            }</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    }</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
 </div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a120325711274b7754c4b6ae6b12151c9">  119</a></span><span class="keywordtype">bool</span> InvariantCollection::directly_modified_after(</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="keyword">const</span> std::vector&lt;simplex::Simplex&gt;&amp; simplices_before,</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keyword">const</span> std::vector&lt;simplex::Simplex&gt;&amp; simplices_after)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span><span class="preprocessor">#ifndef NDEBUG</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : simplices_before) {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>        mesh().parent_scope([&amp;]() { assert(mesh().is_valid(s.tuple())); });</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : simplices_after) {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        assert(mesh().is_valid(s.tuple()));</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; invariant : m_invariants) {</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">if</span> (&amp;mesh() != &amp;invariant-&gt;mesh()) {</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>            <span class="keyword">auto</span> mapped_simplices_after = mesh().map(invariant-&gt;mesh(), simplices_after);</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>            <span class="keyword">auto</span> mapped_simplices_before = mesh().parent_scope(</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>                [&amp;]() { <span class="keywordflow">return</span> mesh().map(invariant-&gt;mesh(), simplices_before); });</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="preprocessor">#ifndef NDEBUG</span></div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : mapped_simplices_before) {</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>                mesh().parent_scope([&amp;]() { assert(invariant-&gt;mesh().is_valid(s.tuple())); });</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            }</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : mapped_simplices_after) {</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>                assert(invariant-&gt;mesh().is_valid(s.tuple()));</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            }</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>            assert(mesh().is_from_same_multi_mesh_structure(invariant-&gt;mesh()));</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">if</span> (!invariant-&gt;directly_modified_after(</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                    mapped_simplices_before,</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>                    mapped_simplices_after)) {</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>            }</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>            <span class="keywordflow">if</span> (!invariant-&gt;directly_modified_after(simplices_before, simplices_after)) {</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>            }</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>        }</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    }</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>}</div>
+<div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8ca33e950e39423425248ba8d25b3dca">   70</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8ca33e950e39423425248ba8d25b3dca">InvariantCollection::after</a>(</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">const</span> std::vector&lt;Tuple&gt;&amp; top_dimension_tuples_before,</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keyword">const</span> std::vector&lt;Tuple&gt;&amp; top_dimension_tuples_after)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; invariant : <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>) {</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keywordflow">if</span> (&amp;<a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>() != &amp;invariant-&gt;mesh()) {</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span> invariant_uses_old_state = invariant-&gt;use_old_state_in_after();</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>            <span class="keyword">const</span> <span class="keywordtype">bool</span> invariant_uses_new_state = invariant-&gt;use_new_state_in_after();</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>            <span class="keywordflow">if</span> (!(invariant_uses_old_state || invariant_uses_new_state)) {</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>            }</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>            <span class="keyword">auto</span> map = [&amp;](<span class="keyword">const</span> <span class="keyword">auto</span>&amp; tuples) -&gt; std::vector&lt;Tuple&gt; {</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>                <span class="keywordflow">return</span> <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a86f639b1f3b7b7f0c9293883cacc69f6">m_use_map_to_child</a> ? <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#afca213673a7f569665d73353eae95ccc">lub_map_tuples</a>(</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>                                                invariant-&gt;mesh(),</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>                                                <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().top_simplex_type(),</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>                                                tuples)</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>                                          : <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#a82637d24776e0e06e2124ce914c4b40f">map_tuples</a>(</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>                                                invariant-&gt;mesh(),</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>                                                <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().top_simplex_type(),</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                                                tuples);</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            };</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>            <span class="keyword">const</span> std::vector&lt;Tuple&gt; mapped_tuples_after =</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>                invariant_uses_new_state ? map(top_dimension_tuples_after) : std::vector&lt;Tuple&gt;{};</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            <span class="keyword">const</span> std::vector&lt;Tuple&gt; mapped_tuples_before =</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                invariant_uses_old_state ? <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac5778c1f8afef3a2b1b1c33a140b3166">parent_scope</a>(map, top_dimension_tuples_before)</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                                         : std::vector&lt;Tuple&gt;{};</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            <span class="keywordflow">if</span> (!invariant-&gt;after(mapped_tuples_before, mapped_tuples_after)) {</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>                    <span class="stringliteral">&quot;{}::after false because {} was false&quot;</span>,</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>                    <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8768dcade3726f770ecc44b8d70126df">name</a>(),</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>                    invariant-&gt;name());</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            }</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>            <span class="keywordflow">if</span> (!invariant-&gt;after(top_dimension_tuples_before, top_dimension_tuples_after)) {</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span><span class="preprocessor">#if defined(WMTK_ENABLED_DEV_MODE)</span></div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>                <a class="code hl_function" href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a>().debug(</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>                    <span class="stringliteral">&quot;{}::after false because {} was false&quot;</span>,</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>                    <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8768dcade3726f770ecc44b8d70126df">name</a>(),</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>                    invariant-&gt;name());</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>            }</div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>        }</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="comment">// assert(&amp;mesh() != &amp;invariant-&gt;mesh());</span></div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="comment">// if (!invariant-&gt;after(type, tuples)) {</span></div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        <span class="comment">//     return false;</span></div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="comment">// }</span></div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>}</div>
 </div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span> </div>
-<div class="foldopen" id="foldopen00160" data-start="{" data-end="}">
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#acdb78cb2cfaa27a33224dcadd43da36e">  160</a></span><span class="keyword">const</span> std::shared_ptr&lt;Invariant&gt;&amp; InvariantCollection::get(int64_t index)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">return</span> m_invariants.at(index);</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
+<div class="foldopen" id="foldopen00124" data-start="{" data-end="}">
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a120325711274b7754c4b6ae6b12151c9">  124</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a120325711274b7754c4b6ae6b12151c9">InvariantCollection::directly_modified_after</a>(</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keyword">const</span> std::vector&lt;simplex::Simplex&gt;&amp; simplices_before,</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keyword">const</span> std::vector&lt;simplex::Simplex&gt;&amp; simplices_after)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span><span class="preprocessor">#ifndef NDEBUG</span></div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : simplices_before) {</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac5778c1f8afef3a2b1b1c33a140b3166">parent_scope</a>([&amp;]() { assert(<a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().is_valid(s.tuple())); });</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    }</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : simplices_after) {</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        assert(<a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().is_valid(s.tuple()));</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; invariant : <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>) {</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        <span class="keywordflow">if</span> (&amp;<a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>() != &amp;invariant-&gt;mesh()) {</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>            <span class="keyword">auto</span> mapped_simplices_after = <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#abe23d31a7ad54af38da1bf7b6e232cab">map</a>(invariant-&gt;mesh(), simplices_after);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>            <span class="keyword">auto</span> mapped_simplices_before = <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac5778c1f8afef3a2b1b1c33a140b3166">parent_scope</a>(</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>                [&amp;]() { <span class="keywordflow">return</span> <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#abe23d31a7ad54af38da1bf7b6e232cab">map</a>(invariant-&gt;mesh(), simplices_before); });</div>
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span><span class="preprocessor">#ifndef NDEBUG</span></div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : mapped_simplices_before) {</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>                <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().<a class="code hl_function" href="classwmtk_1_1_mesh.html#ac5778c1f8afef3a2b1b1c33a140b3166">parent_scope</a>([&amp;]() { assert(invariant-&gt;mesh().is_valid(s.tuple())); });</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>            }</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; s : mapped_simplices_after) {</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>                assert(invariant-&gt;mesh().is_valid(s.tuple()));</div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            }</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>            assert(<a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">mesh</a>().is_from_same_multi_mesh_structure(invariant-&gt;mesh()));</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>            <span class="keywordflow">if</span> (!invariant-&gt;directly_modified_after(</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>                    mapped_simplices_before,</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>                    mapped_simplices_after)) {</div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>            }</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <span class="keywordflow">if</span> (!invariant-&gt;directly_modified_after(simplices_before, simplices_after)) {</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>                <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>            }</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        }</div>
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    }</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>}</div>
 </div>
-<div class="foldopen" id="foldopen00164" data-start="{" data-end="}">
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ad170522939dad1903745e7217f280fb8">  164</a></span>int64_t InvariantCollection::size()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">return</span> m_invariants.size();</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>}</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span> </div>
+<div class="foldopen" id="foldopen00165" data-start="{" data-end="}">
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#acdb78cb2cfaa27a33224dcadd43da36e">  165</a></span><span class="keyword">const</span> std::shared_ptr&lt;Invariant&gt;&amp; <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#acdb78cb2cfaa27a33224dcadd43da36e">InvariantCollection::get</a>(int64_t index)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>.at(index);</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>}</div>
 </div>
-<div class="foldopen" id="foldopen00168" data-start="{" data-end="}">
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a498fb14cde31b7caa8d8cb448ac60e96">  168</a></span><span class="keywordtype">bool</span> InvariantCollection::empty()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>    <span class="keywordflow">return</span> m_invariants.empty();</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>}</div>
+<div class="foldopen" id="foldopen00169" data-start="{" data-end="}">
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ad170522939dad1903745e7217f280fb8">  169</a></span>int64_t <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ad170522939dad1903745e7217f280fb8">InvariantCollection::size</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>.size();</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>}</div>
 </div>
-<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ad43b796163f94fb4563c8100ac69849e">  172</a></span><span class="keyword">const</span> std::vector&lt;std::shared_ptr&lt;Invariant&gt;&gt;&amp; InvariantCollection::invariants()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordflow">return</span> m_invariants;</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>}</div>
+<div class="foldopen" id="foldopen00173" data-start="{" data-end="}">
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a498fb14cde31b7caa8d8cb448ac60e96">  173</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a498fb14cde31b7caa8d8cb448ac60e96">InvariantCollection::empty</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>.empty();</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>}</div>
 </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span> </div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>std::map&lt;Mesh const*, std::vector&lt;std::shared_ptr&lt;Invariant&gt;&gt;&gt;</div>
-<div class="foldopen" id="foldopen00178" data-start="{" data-end="}">
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ac34e5808a31ba319ae24acf8fe244862">  178</a></span>InvariantCollection::get_map_mesh_to_invariants()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    std::map&lt;Mesh const*, std::vector&lt;std::shared_ptr&lt;Invariant&gt;&gt;&gt; mesh_invariants_map;</div>
+<div class="foldopen" id="foldopen00177" data-start="{" data-end="}">
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ad43b796163f94fb4563c8100ac69849e">  177</a></span><span class="keyword">const</span> std::vector&lt;std::shared_ptr&lt;Invariant&gt;&gt;&amp; <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ad43b796163f94fb4563c8100ac69849e">InvariantCollection::invariants</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>;</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>}</div>
+</div>
 <div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;Untested code. Potentially wrong.&quot;</span>);</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    <span class="keywordflow">for</span> (std::shared_ptr&lt;Invariant&gt; inv : m_invariants) {</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        <span class="comment">// TODO check if that if statement is correct</span></div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>        <span class="keyword">auto</span> invc = std::dynamic_pointer_cast&lt;InvariantCollection&gt;(inv);</div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="keywordflow">if</span> (<span class="keywordtype">bool</span>(invc)) {</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>            <span class="keyword">auto</span> sub_map = invc-&gt;get_map_mesh_to_invariants();</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [mptr, i] : sub_map) {</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>                <span class="keyword">auto</span>&amp; vec = mesh_invariants_map[mptr];</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>                vec.insert(vec.end(), i.begin(), i.end());</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>            }</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>            mesh_invariants_map[&amp;(inv-&gt;mesh())].push_back(inv);</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>        }</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    }</div>
-<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>    <span class="keywordflow">return</span> mesh_invariants_map;</div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>}</div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>std::map&lt;Mesh const*, std::vector&lt;std::shared_ptr&lt;Invariant&gt;&gt;&gt;</div>
+<div class="foldopen" id="foldopen00183" data-start="{" data-end="}">
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ac34e5808a31ba319ae24acf8fe244862">  183</a></span><a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ac34e5808a31ba319ae24acf8fe244862">InvariantCollection::get_map_mesh_to_invariants</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    std::map&lt;Mesh const*, std::vector&lt;std::shared_ptr&lt;Invariant&gt;&gt;&gt; mesh_invariants_map;</div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
+<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span> </div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>    <span class="keywordflow">for</span> (std::shared_ptr&lt;Invariant&gt; inv : <a class="code hl_variable" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">m_invariants</a>) {</div>
+<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span>        <span class="comment">// TODO check if that if statement is correct</span></div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keyword">auto</span> invc = std::dynamic_pointer_cast&lt;InvariantCollection&gt;(inv);</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keywordflow">if</span> (<span class="keywordtype">bool</span>(invc)) {</div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>            <span class="keyword">auto</span> sub_map = invc-&gt;get_map_mesh_to_invariants();</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span> </div>
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>            <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [mptr, i] : sub_map) {</div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>                <span class="keyword">auto</span>&amp; vec = mesh_invariants_map[mptr];</div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>                vec.insert(vec.end(), i.begin(), i.end());</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>            }</div>
+<div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span>        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>            mesh_invariants_map[&amp;(inv-&gt;mesh())].push_back(inv);</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>        }</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    }</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordflow">return</span> mesh_invariants_map;</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>}</div>
 </div>
-<div class="foldopen" id="foldopen00200" data-start="{" data-end="}">
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#af2db61d158143e86926a3b7ec5739fef">  200</a></span>std::shared_ptr&lt;InvariantCollection&gt; InvariantCollection::children_reorganized_by_mesh()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    std::map&lt;Mesh const*, std::vector&lt;std::shared_ptr&lt;Invariant&gt;&gt;&gt; mesh_invariants_map =</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        get_map_mesh_to_invariants();</div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span> </div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    std::map&lt;Mesh const*, std::shared_ptr&lt;InvariantCollection&gt;&gt; collections;</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    std::map&lt;std::vector&lt;int64_t&gt;, <a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a> <span class="keyword">const</span>*&gt; ids;</div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : mesh_invariants_map) {</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>        <span class="keyword">auto</span> ic = std::make_shared&lt;InvariantCollection&gt;(*key, <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : value) {</div>
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>            ic-&gt;add(i);</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>        }</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span> </div>
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>        collections[key] = ic;</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>        ids[key-&gt;absolute_multi_mesh_id()] = key;</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>    }</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span> </div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>    <span class="keywordflow">if</span> (ids.find(std::vector&lt;int64_t&gt;{}) == ids.end()) {</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; root = mesh().get_multi_mesh_root();</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>        ids[root.absolute_multi_mesh_id()] = &amp;root;</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span> </div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        collections[&amp;root] = std::make_shared&lt;InvariantCollection&gt;(root, <span class="keyword">true</span>);</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>    }</div>
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span> </div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [<span class="keywordtype">id</span>, meshptr] : ids) {</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ic = collections[meshptr];</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        std::vector&lt;int64_t&gt; parent_id = id;</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="keywordflow">while</span> (!parent_id.empty()) {</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>            parent_id.pop_back();</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> it = ids.find(parent_id); it != ids.end()) {</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>                collections.at(it-&gt;second)-&gt;add(ic);</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>                <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>            }</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        }</div>
-<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    }</div>
-<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span>    <span class="comment">// return the root</span></div>
-<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordflow">return</span> collections[{}];</div>
-<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>}</div>
-</div>
+<div class="foldopen" id="foldopen00204" data-start="{" data-end="}">
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a5a4272ba33c490f1dde8fc15ffd80f11">  204</a></span>std::shared_ptr&lt;InvariantCollection&gt; <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a5a4272ba33c490f1dde8fc15ffd80f11">InvariantCollection::children_reorganized_by_mesh</a>(</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>    <span class="keywordtype">bool</span> use_before,</div>
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span>    <span class="keywordtype">bool</span> use_old_state_in_after,</div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordtype">bool</span> use_new_state_in_after)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    std::map&lt;Mesh const*, std::vector&lt;std::shared_ptr&lt;Invariant&gt;&gt;&gt; mesh_invariants_map =</div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>        <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant_collection.html#ac34e5808a31ba319ae24acf8fe244862">get_map_mesh_to_invariants</a>();</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span> </div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    std::map&lt;Mesh const*, std::shared_ptr&lt;InvariantCollection&gt;&gt; collections;</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span>    std::map&lt;std::vector&lt;int64_t&gt;, <a class="code hl_class" href="classwmtk_1_1_mesh.html">Mesh</a> <span class="keyword">const</span>*&gt; ids;</div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [key, value] : mesh_invariants_map) {</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keyword">auto</span> ic = std::make_shared&lt;InvariantCollection&gt;(</div>
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>            *key,</div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>            <span class="keyword">true</span>,</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>            <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#a8465f181dd9bbbe21856ecf3dcaa1124">use_before</a>,</div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>            <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#a364df47f8d70f0e89149d56db8963461">use_old_state_in_after</a>,</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>            <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db">use_new_state_in_after</a>);</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : value) {</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>            <span class="keywordflow">if</span> ((i-&gt;use_before() &amp;&amp; <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#a8465f181dd9bbbe21856ecf3dcaa1124">use_before</a>) ||</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span>                (i-&gt;use_old_state_in_after() &amp;&amp; <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#a364df47f8d70f0e89149d56db8963461">use_old_state_in_after</a>) ||</div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>                (i-&gt;use_new_state_in_after() &amp;&amp; <a class="code hl_function" href="classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db">use_new_state_in_after</a>)) {</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>                ic-&gt;add(i);</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            }</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>        }</div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span> </div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        collections[key] = ic;</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        ids[key-&gt;absolute_multi_mesh_id()] = key;</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>    }</div>
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span> </div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span>    <span class="keywordflow">if</span> (ids.find(std::vector&lt;int64_t&gt;{}) == ids.end()) {</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; root = mesh().get_multi_mesh_root();</div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>        ids[root.absolute_multi_mesh_id()] = &amp;root;</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>        collections[&amp;root] = std::make_shared&lt;InvariantCollection&gt;(root, <span class="keyword">true</span>);</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    }</div>
 <div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span> </div>
-<div class="foldopen" id="foldopen00240" data-start="{" data-end="}">
-<div class="line"><a id="l00240" name="l00240"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8768dcade3726f770ecc44b8d70126df">  240</a></span>std::string InvariantCollection::name()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">if</span> (m_name.empty()) {</div>
-<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        std::vector&lt;std::string&gt; names;</div>
-<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : m_invariants) {</div>
-<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            names.emplace_back(i-&gt;name());</div>
-<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        }</div>
-<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordflow">return</span> fmt::format(<span class="stringliteral">&quot;InvariantCollection[{}]&quot;</span>, fmt::join(names, <span class="stringliteral">&quot;,&quot;</span>));</div>
-<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>        <span class="keywordflow">return</span> m_name;</div>
-<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>    }</div>
-<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>}</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span> </div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; [<span class="keywordtype">id</span>, meshptr] : ids) {</div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; ic = collections[meshptr];</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>        std::vector&lt;int64_t&gt; parent_id = id;</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        <span class="keywordflow">while</span> (!parent_id.empty()) {</div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>            parent_id.pop_back();</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>            <span class="keywordflow">if</span> (<span class="keyword">auto</span> it = ids.find(parent_id); it != ids.end()) {</div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>                collections.at(it-&gt;second)-&gt;add(ic);</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>                <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span>            }</div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        }</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>    }</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span>    <span class="keywordflow">for</span>(<span class="keyword">auto</span>&amp; [<span class="keywordtype">id</span>,ic]: collections) {</div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        <span class="keyword">auto</span>&amp; v = ic-&gt;m_invariants;</div>
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno">  254</span>        std::sort(v.begin(),v.end());</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        v.erase(std::unique(v.begin(),v.end()),v.end());</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span>    }</div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>    <span class="comment">// return the root</span></div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>    <span class="keywordflow">return</span> collections.at(ids.at({}));</div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>}</div>
 </div>
-<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
-<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>} <span class="comment">// namespace wmtk::invariants</span></div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span> </div>
+<div class="foldopen" id="foldopen00261" data-start="{" data-end="}">
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno"><a class="line" href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8768dcade3726f770ecc44b8d70126df">  261</a></span>std::string InvariantCollection::name()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>    <span class="keywordflow">if</span> (m_name.empty()) {</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span>        std::vector&lt;std::string&gt; names;</div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; i : m_invariants) {</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            names.emplace_back(i-&gt;name());</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span>        }</div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="keywordflow">return</span> fmt::format(<span class="stringliteral">&quot;InvariantCollection[{}]&quot;</span>, fmt::join(names, <span class="stringliteral">&quot;,&quot;</span>));</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>        <span class="keywordflow">return</span> m_name;</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>    }</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span>}</div>
+</div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span> </div>
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno">  274</span>} <span class="comment">// namespace wmtk::invariants</span></div>
 <div class="ttc" id="a_invariant_collection_8hpp_html"><div class="ttname"><a href="_invariant_collection_8hpp.html">InvariantCollection.hpp</a></div></div>
 <div class="ttc" id="a_logger_8hpp_html"><div class="ttname"><a href="_logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="a_mesh_8hpp_html"><div class="ttname"><a href="_mesh_8hpp.html">Mesh.hpp</a></div></div>
 <div class="ttc" id="a_simplex_8hpp_html"><div class="ttname"><a href="_simplex_8hpp.html">Simplex.hpp</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_mesh_html"><div class="ttname"><a href="classwmtk_1_1_mesh.html">wmtk::Mesh</a></div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l00102">Mesh.hpp:103</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_a82637d24776e0e06e2124ce914c4b40f"><div class="ttname"><a href="classwmtk_1_1_mesh.html#a82637d24776e0e06e2124ce914c4b40f">wmtk::Mesh::map_tuples</a></div><div class="ttdeci">std::vector&lt; Tuple &gt; map_tuples(const Mesh &amp;other_mesh, const simplex::Simplex &amp;my_simplex) const</div><div class="ttdoc">maps a simplex from this mesh to any other mesh</div><div class="ttdef"><b>Definition</b> <a href="_mesh__multimesh_8cpp_source.html#l00215">Mesh_multimesh.cpp:215</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_abe23d31a7ad54af38da1bf7b6e232cab"><div class="ttname"><a href="classwmtk_1_1_mesh.html#abe23d31a7ad54af38da1bf7b6e232cab">wmtk::Mesh::map</a></div><div class="ttdeci">std::vector&lt; simplex::Simplex &gt; map(const Mesh &amp;other_mesh, const simplex::Simplex &amp;my_simplex) const</div><div class="ttdoc">maps a simplex from this mesh to any other mesh</div><div class="ttdef"><b>Definition</b> <a href="_mesh__multimesh_8cpp_source.html#l00067">Mesh_multimesh.cpp:67</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_ac5778c1f8afef3a2b1b1c33a140b3166"><div class="ttname"><a href="classwmtk_1_1_mesh.html#ac5778c1f8afef3a2b1b1c33a140b3166">wmtk::Mesh::parent_scope</a></div><div class="ttdeci">decltype(auto) parent_scope(Functor &amp;&amp;f, Args &amp;&amp;... args) const</div><div class="ttdoc">Evaluate the passed in function inside the parent scope.</div><div class="ttdef"><b>Definition</b> <a href="_mesh_8hpp_source.html#l01016">Mesh.hpp:1016</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1_mesh_html_afca213673a7f569665d73353eae95ccc"><div class="ttname"><a href="classwmtk_1_1_mesh.html#afca213673a7f569665d73353eae95ccc">wmtk::Mesh::lub_map_tuples</a></div><div class="ttdeci">std::vector&lt; Tuple &gt; lub_map_tuples(const Mesh &amp;other_mesh, const simplex::Simplex &amp;my_simplex) const</div><div class="ttdoc">maps a simplex from this mesh to any other mesh using LUB mesh as root</div><div class="ttdef"><b>Definition</b> <a href="_mesh__multimesh_8cpp_source.html#l00237">Mesh_multimesh.cpp:237</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1_tuple_html"><div class="ttname"><a href="classwmtk_1_1_tuple.html">wmtk::Tuple</a></div><div class="ttdoc">The Tuple is the basic navigation tool in our mesh data structure.</div><div class="ttdef"><b>Definition</b> <a href="_tuple_8hpp_source.html#l00018">Tuple.hpp:19</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html">wmtk::invariants::InvariantCollection</a></div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8hpp_source.html#l00015">InvariantCollection.hpp:16</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a98ba79e572f3d495c7a6dd2a0f4009e9"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">wmtk::invariants::InvariantCollection::m_invariants</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; Invariant &gt; &gt; m_invariants</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8hpp_source.html#l00056">InvariantCollection.hpp:56</a></div></div>
-<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_acf67e0725a8983a113bbdb1d84991a0f"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#acf67e0725a8983a113bbdb1d84991a0f">wmtk::invariants::InvariantCollection::InvariantCollection</a></div><div class="ttdeci">InvariantCollection(const Mesh &amp;m, bool all_children_below=false)</div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a0331da74d63ba195868ca7773bb7a989"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a0331da74d63ba195868ca7773bb7a989">wmtk::invariants::InvariantCollection::InvariantCollection</a></div><div class="ttdeci">InvariantCollection(const Mesh &amp;m, bool all_children_below=false, bool use_before=true, bool use_old_state_after=true, bool use_new_state_after=true)</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00010">InvariantCollection.cpp:10</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a120325711274b7754c4b6ae6b12151c9"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a120325711274b7754c4b6ae6b12151c9">wmtk::invariants::InvariantCollection::directly_modified_after</a></div><div class="ttdeci">bool directly_modified_after(const std::vector&lt; simplex::Simplex &gt; &amp;simplices_before, const std::vector&lt; simplex::Simplex &gt; &amp;simplices_after) const override</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00124">InvariantCollection.cpp:124</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a17c51789c88fea75126d3d35ac1421ab"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a17c51789c88fea75126d3d35ac1421ab">wmtk::invariants::InvariantCollection::add</a></div><div class="ttdeci">void add(std::shared_ptr&lt; Invariant &gt; invariant)</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00035">InvariantCollection.cpp:35</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a498fb14cde31b7caa8d8cb448ac60e96"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a498fb14cde31b7caa8d8cb448ac60e96">wmtk::invariants::InvariantCollection::empty</a></div><div class="ttdeci">bool empty() const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00173">InvariantCollection.cpp:173</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a56511836f67071beff87425edd3bdb59"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a56511836f67071beff87425edd3bdb59">wmtk::invariants::InvariantCollection::~InvariantCollection</a></div><div class="ttdeci">~InvariantCollection()</div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a5a4272ba33c490f1dde8fc15ffd80f11"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a5a4272ba33c490f1dde8fc15ffd80f11">wmtk::invariants::InvariantCollection::children_reorganized_by_mesh</a></div><div class="ttdeci">std::shared_ptr&lt; InvariantCollection &gt; children_reorganized_by_mesh(bool use_before=true, bool use_old_state_in_after=true, bool use_new_state_in_after=true) const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00204">InvariantCollection.cpp:204</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a77e630210caf679f60aaf91a27813dbd"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a77e630210caf679f60aaf91a27813dbd">wmtk::invariants::InvariantCollection::before</a></div><div class="ttdeci">bool before(const simplex::Simplex &amp;t) const override</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00039">InvariantCollection.cpp:39</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a86f639b1f3b7b7f0c9293883cacc69f6"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a86f639b1f3b7b7f0c9293883cacc69f6">wmtk::invariants::InvariantCollection::m_use_map_to_child</a></div><div class="ttdeci">bool m_use_map_to_child</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8hpp_source.html#l00059">InvariantCollection.hpp:59</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a8768dcade3726f770ecc44b8d70126df"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8768dcade3726f770ecc44b8d70126df">wmtk::invariants::InvariantCollection::name</a></div><div class="ttdeci">std::string name() const override</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00261">InvariantCollection.cpp:261</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a8ca33e950e39423425248ba8d25b3dca"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a8ca33e950e39423425248ba8d25b3dca">wmtk::invariants::InvariantCollection::after</a></div><div class="ttdeci">bool after(const std::vector&lt; Tuple &gt; &amp;top_dimension_tuples_before, const std::vector&lt; Tuple &gt; &amp;top_dimension_tuples_after) const override</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00070">InvariantCollection.cpp:70</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_a98ba79e572f3d495c7a6dd2a0f4009e9"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#a98ba79e572f3d495c7a6dd2a0f4009e9">wmtk::invariants::InvariantCollection::m_invariants</a></div><div class="ttdeci">std::vector&lt; std::shared_ptr&lt; Invariant &gt; &gt; m_invariants</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8hpp_source.html#l00057">InvariantCollection.hpp:57</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_ac34e5808a31ba319ae24acf8fe244862"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#ac34e5808a31ba319ae24acf8fe244862">wmtk::invariants::InvariantCollection::get_map_mesh_to_invariants</a></div><div class="ttdeci">std::map&lt; Mesh const *, std::vector&lt; std::shared_ptr&lt; Invariant &gt; &gt; &gt; get_map_mesh_to_invariants() const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00183">InvariantCollection.cpp:183</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_acdb78cb2cfaa27a33224dcadd43da36e"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#acdb78cb2cfaa27a33224dcadd43da36e">wmtk::invariants::InvariantCollection::get</a></div><div class="ttdeci">const std::shared_ptr&lt; Invariant &gt; &amp; get(int64_t index) const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00165">InvariantCollection.cpp:165</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_ad170522939dad1903745e7217f280fb8"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#ad170522939dad1903745e7217f280fb8">wmtk::invariants::InvariantCollection::size</a></div><div class="ttdeci">int64_t size() const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00169">InvariantCollection.cpp:169</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_ad43b796163f94fb4563c8100ac69849e"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#ad43b796163f94fb4563c8100ac69849e">wmtk::invariants::InvariantCollection::invariants</a></div><div class="ttdeci">const std::vector&lt; std::shared_ptr&lt; Invariant &gt; &gt; &amp; invariants() const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00177">InvariantCollection.cpp:177</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_collection_html_af8f60b12b10459cec405d2aee1310481"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant_collection.html#af8f60b12b10459cec405d2aee1310481">wmtk::invariants::InvariantCollection::operator=</a></div><div class="ttdeci">InvariantCollection &amp; operator=(const InvariantCollection &amp;)</div><div class="ttdef"><b>Definition</b> <a href="_invariant_collection_8cpp_source.html#l00022">InvariantCollection.cpp:22</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_html"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a></div><div class="ttdef"><b>Definition</b> <a href="_invariant_8hpp_source.html#l00011">Invariant.hpp:12</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_html_a364df47f8d70f0e89149d56db8963461"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant.html#a364df47f8d70f0e89149d56db8963461">wmtk::invariants::Invariant::use_old_state_in_after</a></div><div class="ttdeci">bool use_old_state_in_after() const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_8cpp_source.html#l00075">Invariant.cpp:75</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_html_a497379c6c71970345a2d3e28ec90c8db"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant.html#a497379c6c71970345a2d3e28ec90c8db">wmtk::invariants::Invariant::use_new_state_in_after</a></div><div class="ttdeci">bool use_new_state_in_after() const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_8cpp_source.html#l00079">Invariant.cpp:79</a></div></div>
+<div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_html_a8465f181dd9bbbe21856ecf3dcaa1124"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant.html#a8465f181dd9bbbe21856ecf3dcaa1124">wmtk::invariants::Invariant::use_before</a></div><div class="ttdeci">bool use_before() const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_8cpp_source.html#l00087">Invariant.cpp:87</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1invariants_1_1_invariant_html_ac97548bf5f1167cd85081d1bde011139"><div class="ttname"><a href="classwmtk_1_1invariants_1_1_invariant.html#ac97548bf5f1167cd85081d1bde011139">wmtk::invariants::Invariant::mesh</a></div><div class="ttdeci">const Mesh &amp; mesh() const</div><div class="ttdef"><b>Definition</b> <a href="_invariant_8cpp_source.html#l00049">Invariant.cpp:49</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1simplex_1_1_simplex_html"><div class="ttname"><a href="classwmtk_1_1simplex_1_1_simplex.html">wmtk::simplex::Simplex</a></div><div class="ttdef"><b>Definition</b> <a href="_simplex_8hpp_source.html#l00021">Simplex.hpp:22</a></div></div>
 <div class="ttc" id="aclasswmtk_1_1simplex_1_1_simplex_html_ad2cc0340a0772b7d6f03ba7a781d1163"><div class="ttname"><a href="classwmtk_1_1simplex_1_1_simplex.html#ad2cc0340a0772b7d6f03ba7a781d1163">wmtk::simplex::Simplex::primitive_type</a></div><div class="ttdeci">PrimitiveType primitive_type() const</div><div class="ttdef"><b>Definition</b> <a href="_simplex_8hpp_source.html#l00051">Simplex.hpp:51</a></div></div>
 <div class="ttc" id="anamespacewmtk_1_1invariants_html"><div class="ttname"><a href="namespacewmtk_1_1invariants.html">wmtk::invariants</a></div><div class="ttdef"><b>Definition</b> <a href="_cannot_map_simplex_invariant_8cpp_source.html#l00006">CannotMapSimplexInvariant.cpp:6</a></div></div>
 <div class="ttc" id="anamespacewmtk_html_a6a35f11c12436093d26fdd8be6fecc06"><div class="ttname"><a href="namespacewmtk.html#a6a35f11c12436093d26fdd8be6fecc06">wmtk::logger</a></div><div class="ttdeci">spdlog::logger &amp; logger()</div><div class="ttdoc">Retrieves the current logger.</div><div class="ttdef"><b>Definition</b> <a href="_logger_8cpp_source.html#l00060">Logger.cpp:60</a></div></div>
-<div class="ttc" id="anamespacewmtk_html_aedc5944c76b67357bbdf8174977cf37c"><div class="ttname"><a href="namespacewmtk.html#aedc5944c76b67357bbdf8174977cf37c">wmtk::Invariant</a></div><div class="ttdeci">invariants::Invariant Invariant</div><div class="ttdef"><b>Definition</b> <a href="_invariant_8hpp_source.html#l00056">Invariant.hpp:56</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- HTML footer for doxygen 1.9.1-->

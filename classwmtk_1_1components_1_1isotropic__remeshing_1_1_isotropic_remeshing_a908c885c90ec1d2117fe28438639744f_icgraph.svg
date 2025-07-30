@@ -46,9 +46,9 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 608;
+var viewWidth = 820;
 var viewHeight = 108;
-var sectionId = 'dynsection-3';
+var sectionId = 'dynsection-5';
 </script>
 <script type="application/ecmascript" xlink:href="svg.min.js"/>
 <svg id="graph" class="graph">
@@ -58,10 +58,10 @@ var sectionId = 'dynsection-3';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title=" ">
-<polygon fill="#999999" stroke="#666666" points="600,-70 424,-70 424,-29 600,-29 600,-70"/>
-<text text-anchor="start" x="432" y="-58" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
-<text text-anchor="start" x="432" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
-<text text-anchor="middle" x="512" y="-36" font-family="Helvetica,sans-Serif" font-size="10.00">::all_envelope_positions</text>
+<polygon fill="#999999" stroke="#666666" points="812,-70 636,-70 636,-29 812,-29 812,-70"/>
+<text text-anchor="start" x="644" y="-58" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
+<text text-anchor="start" x="644" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
+<text text-anchor="middle" x="724" y="-36" font-family="Helvetica,sans-Serif" font-size="10.00">::all_envelope_positions</text>
 </a>
 </g>
 </g>
@@ -69,10 +69,10 @@ var sectionId = 'dynsection-3';
 <g id="Node000002" class="node">
 <title>Node2</title>
 <g id="a_Node000002"><a xlink:href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#acfec4d484d48b22125364adef857f804" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="388,-70 212,-70 212,-29 388,-29 388,-70"/>
-<text text-anchor="start" x="220" y="-58" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
-<text text-anchor="start" x="220" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
-<text text-anchor="middle" x="300" y="-36" font-family="Helvetica,sans-Serif" font-size="10.00">::make_envelopes</text>
+<polygon fill="white" stroke="#666666" points="600,-70 424,-70 424,-29 600,-29 600,-70"/>
+<text text-anchor="start" x="432" y="-58" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
+<text text-anchor="start" x="432" y="-47" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
+<text text-anchor="middle" x="512" y="-36" font-family="Helvetica,sans-Serif" font-size="10.00">::make_envelopes</text>
 </a>
 </g>
 </g>
@@ -80,19 +80,19 @@ var sectionId = 'dynsection-3';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M413.54,-49.5C405.12,-49.5 396.63,-49.5 388.3,-49.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="413.77,-53 423.77,-49.5 413.77,-46 413.77,-53"/>
+<path fill="none" stroke="#63b8ff" d="M625.54,-49.5C617.12,-49.5 608.63,-49.5 600.3,-49.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="625.77,-53 635.77,-49.5 625.77,-46 625.77,-53"/>
 </a>
 </g>
 </g>
 <!-- Node3 -->
 <g id="Node000003" class="node">
 <title>Node3</title>
-<g id="a_Node000003"><a xlink:href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a31844ec38531cdf196cd22bc57ca2dba" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="176,-100 0,-100 0,-59 176,-59 176,-100"/>
-<text text-anchor="start" x="8" y="-88" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
-<text text-anchor="start" x="8" y="-77" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
-<text text-anchor="middle" x="88" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">::IsotropicRemeshing</text>
+<g id="a_Node000003"><a xlink:href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a4201a22bb922c311924990b8d4738837" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="388,-100 212,-100 212,-59 388,-59 388,-100"/>
+<text text-anchor="start" x="220" y="-88" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
+<text text-anchor="start" x="220" y="-77" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
+<text text-anchor="middle" x="300" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">::load_shared_invariants</text>
 </a>
 </g>
 </g>
@@ -100,28 +100,48 @@ var sectionId = 'dynsection-3';
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M201.82,-63.38C193.31,-64.6 184.73,-65.82 176.3,-67.03"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="202.36,-66.84 211.77,-61.96 201.37,-59.91 202.36,-66.84"/>
+<path fill="none" stroke="#63b8ff" d="M413.82,-63.38C405.31,-64.6 396.73,-65.82 388.3,-67.03"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="414.36,-66.84 423.77,-61.96 413.37,-59.91 414.36,-66.84"/>
+</a>
+</g>
+</g>
+<!-- Node5 -->
+<g id="Node000005" class="node">
+<title>Node5</title>
+<g id="a_Node000005"><a xlink:href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#aefd40b6c02e33452551477eb1c6371ce" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="388,-41 212,-41 212,0 388,0 388,-41"/>
+<text text-anchor="start" x="220" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
+<text text-anchor="start" x="220" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
+<text text-anchor="middle" x="300" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">::make_envelope_invariants</text>
+</a>
+</g>
+</g>
+<!-- Node2&#45;&gt;Node5 -->
+<g id="edge4_Node000002_Node000005" class="edge">
+<title>Node2&#45;&gt;Node5</title>
+<g id="a_edge4_Node000002_Node000005"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M413.82,-36.08C405.31,-34.9 396.73,-33.72 388.3,-32.56"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="413.38,-39.55 423.77,-37.45 414.34,-32.62 413.38,-39.55"/>
 </a>
 </g>
 </g>
 <!-- Node4 -->
 <g id="Node000004" class="node">
 <title>Node4</title>
-<g id="a_Node000004"><a xlink:href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#aefd40b6c02e33452551477eb1c6371ce" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="176,-41 0,-41 0,0 176,0 176,-41"/>
-<text text-anchor="start" x="8" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
-<text text-anchor="start" x="8" y="-18" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
-<text text-anchor="middle" x="88" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">::make_envelope_invariants</text>
+<g id="a_Node000004"><a xlink:href="classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a31844ec38531cdf196cd22bc57ca2dba" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="176,-100 0,-100 0,-59 176,-59 176,-100"/>
+<text text-anchor="start" x="8" y="-88" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::components::isotropic</text>
+<text text-anchor="start" x="8" y="-77" font-family="Helvetica,sans-Serif" font-size="10.00">_remeshing::IsotropicRemeshing</text>
+<text text-anchor="middle" x="88" y="-66" font-family="Helvetica,sans-Serif" font-size="10.00">::IsotropicRemeshing</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node4 -->
-<g id="edge3_Node000002_Node000004" class="edge">
-<title>Node2&#45;&gt;Node4</title>
-<g id="a_edge3_Node000002_Node000004"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M201.82,-36.08C193.31,-34.9 184.73,-33.72 176.3,-32.56"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="201.38,-39.55 211.77,-37.45 202.34,-32.62 201.38,-39.55"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3_Node000003_Node000004" class="edge">
+<title>Node3&#45;&gt;Node4</title>
+<g id="a_edge3_Node000003_Node000004"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M201.54,-79.5C193.12,-79.5 184.63,-79.5 176.3,-79.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="201.77,-83 211.77,-79.5 201.77,-76 201.77,-83"/>
 </a>
 </g>
 </g>

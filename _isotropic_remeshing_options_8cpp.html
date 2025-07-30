@@ -128,9 +128,9 @@ $(document).ready(function(){initNavTree('_isotropic_remeshing_options_8cpp.html
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="_isotropic_remeshing_options_8hpp_source.html">IsotropicRemeshingOptions.hpp</a>&quot;</code><br />
 <code>#include &lt;fmt/format.h&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;Eigen/Dense&gt;</code><br />
 <code>#include &lt;Eigen/Geometry&gt;</code><br />
+<code>#include &lt;algorithm&gt;</code><br />
 <code>#include &lt;nlohmann/json.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="_transfer_strategy_factory_8hpp_source.html">wmtk/components/mesh_info/transfer/TransferStrategyFactory.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="init_8hpp_source.html">wmtk/components/mesh_info/transfer/init.hpp</a>&gt;</code><br />
@@ -183,8 +183,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">    iterations, lock_boundary, use_for_periodic, fix_uv_seam, intermediate_output_format, split, \</div>
-<div class="line">        swap, collapse, smooth, start_with_collapse, passes</div>
+<b>Value:</b><div class="fragment"><div class="line">    iterations, lock_boundary, intermediate_output_format, split, swap, collapse, smooth, \</div>
+<div class="line">        start_with_collapse, passes, position_attribute, copied_attributes,              \</div>
+<div class="line">        pass_through_attributes, static_meshes, improvement_attributes</div>
 </div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="_isotropic_remeshing_options_8cpp_source.html#l00018">18</a> of file <a class="el" href="_isotropic_remeshing_options_8cpp_source.html">IsotropicRemeshingOptions.cpp</a>.</p>
 

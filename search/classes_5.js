@@ -22,7 +22,8 @@ var searchData=
   ['energyfilterinvariant_19',['EnergyFilterInvariant',['../classwmtk_1_1_energy_filter_invariant.html',1,'wmtk']]],
   ['envelope_20',['Envelope',['../classwmtk_1_1components_1_1envelope_1_1_envelope.html',1,'wmtk::components::envelope']]],
   ['envelopeinvariant_21',['envelopeinvariant',['../classwmtk_1_1components_1_1envelope_1_1invariants_1_1_envelope_invariant.html',1,'wmtk::components::envelope::invariants::EnvelopeInvariant'],['../classwmtk_1_1invariants_1_1_envelope_invariant.html',1,'wmtk::invariants::EnvelopeInvariant']]],
-  ['envelopeoptions_22',['EnvelopeOptions',['../structwmtk_1_1components_1_1_envelope_options.html',1,'wmtk::components']]],
-  ['equal_23',['equal',['../classwmtk_1_1simplex_1_1utils_1_1_mesh_simplex_comparator_1_1_equal.html',1,'wmtk::simplex::utils::MeshSimplexComparator::Equal'],['../classwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_default_comparator_type_1_1_equal.html',1,'wmtk::utils::metaprogramming::detail::DefaultComparatorType::Equal']]],
-  ['exportcacheoptions_24',['ExportCacheOptions',['../structwmtk_1_1components_1_1internal_1_1_export_cache_options.html',1,'wmtk::components::internal']]]
+  ['envelopeinvariantparameters_22',['EnvelopeInvariantParameters',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_envelope_invariant_parameters.html',1,'wmtk::components::isotropic_remeshing']]],
+  ['envelopeoptions_23',['EnvelopeOptions',['../structwmtk_1_1components_1_1_envelope_options.html',1,'wmtk::components']]],
+  ['equal_24',['equal',['../classwmtk_1_1simplex_1_1utils_1_1_mesh_simplex_comparator_1_1_equal.html',1,'wmtk::simplex::utils::MeshSimplexComparator::Equal'],['../classwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1_default_comparator_type_1_1_equal.html',1,'wmtk::utils::metaprogramming::detail::DefaultComparatorType::Equal']]],
+  ['exportcacheoptions_25',['ExportCacheOptions',['../structwmtk_1_1components_1_1internal_1_1_export_cache_options.html',1,'wmtk::components::internal']]]
 ];
