@@ -1,5 +1,5 @@
-set(COMPONENT_NAME input)
+set(COMPONENT_NAME configurator)
 add_subdirectory("src/wmtk/components/${COMPONENT_NAME}")
 if(WMTK_ENABLE_COMPONENT_TESTS)
-add_subdirectory("tests")
+    #add_subdirectory("tests")
 endif()

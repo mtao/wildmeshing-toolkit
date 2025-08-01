@@ -26,6 +26,5 @@ target_compile_features(wmtk_${COMPONENT_NAME} PUBLIC cxx_std_20)
 
 target_sources(wmtk_${COMPONENT_NAME} PRIVATE ${SRC_FILES})
 target_link_libraries(wmtk_${COMPONENT_NAME} PRIVATE nlohmann_json)
-target_link_libraries(wmtk_${COMPONENT_NAME} PUBLIC wmtk::multimesh)
+target_link_libraries(wmtk_${COMPONENT_NAME} PUBLIC wmtk::multimesh wmtk::configurator)
 
-add_subdirectory(transfer)

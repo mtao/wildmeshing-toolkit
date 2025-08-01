@@ -4,8 +4,8 @@
 #include <Eigen/Geometry>
 #include <algorithm>
 #include <nlohmann/json.hpp>
-#include <wmtk/components/mesh_info/transfer/TransferStrategyFactory.hpp>
-#include <wmtk/components/mesh_info/transfer/init.hpp>
+#include <wmtk/components/configurator/transfer/TransferStrategyFactory.hpp>
+#include <wmtk/components/configurator/transfer/init.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
@@ -13,7 +13,7 @@
 
 
 #include <wmtk/Mesh.hpp>
-#include "wmtk/components/mesh_info/transfer/TransferStrategyFactoryRegistry.hpp"
+#include "wmtk/components/configurator/transfer/TransferStrategyFactoryRegistry.hpp"
 
 #define DEFAULT_PARSABLE_ARGS                                                             \
     iterations, lock_boundary, intermediate_output_format, split, swap, collapse, smooth, \
@@ -24,7 +24,7 @@ namespace wmtk::components::isotropic_remeshing {
 
 IsotropicRemeshingOptions::IsotropicRemeshingOptions()
 {
-    wmtk::components::mesh_info::transfer::init();
+    wmtk::components::configurator::transfer::init();
 }
 namespace {
 

@@ -1,12 +1,12 @@
 #pragma once
-#include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
+#include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
 #include <wmtk/components/multimesh/from_tag.hpp>
 
 
 namespace wmtk::components::mesh_info {
 struct MultimeshFromAttributeOptions
 {
-    transfer::TransferStrategyFactoryCollection creation_attributes;
+    wmtk::components::configurator::transfer::TransferStrategyFactoryCollection creation_attributes;
     multimesh::MultimeshTagOptions from_tag_options;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MultimeshFromAttributeOptions)
 

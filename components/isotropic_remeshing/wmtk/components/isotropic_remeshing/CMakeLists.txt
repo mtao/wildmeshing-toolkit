@@ -25,8 +25,6 @@ set(SRC_FILES
     #internal/configure_split.hpp
     #internal/configure_split.cpp
 
-    OperationOptions.hpp
-    OperationOptions.cpp
 
 
     invariants/ImprovementInvariant.hpp
@@ -40,4 +38,4 @@ set(SRC_FILES
 
 #CURRENT_COMPONENT_LIB_NAME is set from the main cmake
 target_sources(wmtk_${COMPONENT_NAME} PRIVATE ${SRC_FILES})
-target_link_libraries(wmtk_${COMPONENT_NAME} PRIVATE nlohmann_json wmtk::output wmtk::mesh_info)
+target_link_libraries(wmtk_${COMPONENT_NAME} PRIVATE nlohmann_json wmtk::output wmtk::configurator)

@@ -1,5 +1,5 @@
 #include <nlohmann/json_fwd.hpp>
-#include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
+#include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include "OperationOptions.hpp"
@@ -31,7 +31,7 @@ struct IsotropicRemeshingOptions
     // meshes that should not be geometrically changed by operations of dimension higher than it
     std::vector<std::string> static_meshes;
 
-    mesh_info::transfer::TransferStrategyFactoryCollection utility_attributes;
+    configurator::transfer::TransferStrategyFactoryCollection utility_attributes;
 
     // attributes that need to be improved for an operation to be accepted
     std::vector<AttributeDescription> improvement_attributes;
