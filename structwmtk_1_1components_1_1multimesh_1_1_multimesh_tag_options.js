@@ -9,7 +9,6 @@ var structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options =
     [ "run", "structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html#aeb7e15d246e7c81f4d68755424ac1af1", null ],
     [ "to_json", "structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html#a6eb47b446bfe4f1ccc511e66de109f6d", null ],
     [ "toTagOptions", "structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html#ad7b5283419a95b771641147819b1f078", null ],
-    [ "creation_attributes", "structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html#af3f68cbd114cfab62c4971c4844ae3f3", null ],
     [ "delete_tag_attribute", "structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html#ad699fae73859aa031ab1b65d8ea424d6", null ],
     [ "manifold_decomposition", "structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html#a25ac0ccf2d479ef834bcd9ce5bfff207", null ],
     [ "output_mesh_name", "structwmtk_1_1components_1_1multimesh_1_1_multimesh_tag_options.html#a0462ba331272500d7a4980e1c57ba68f", null ],

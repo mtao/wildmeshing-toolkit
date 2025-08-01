@@ -22,5 +22,5 @@ var searchData=
   ['vectorxmax_19',['VectorXMax',['../namespacewmtk.html#ad69aeb7145cc65a13d66edbdea0ca89b',1,'wmtk']]],
   ['vectype_20',['vectype',['../classwmtk_1_1operations_1_1_split_new_attribute_strategy.html#adedb1ac492ba8ba5dc4a627cfea42d62',1,'wmtk::operations::SplitNewAttributeStrategy::VecType'],['../classwmtk_1_1operations_1_1_collapse_new_attribute_strategy.html#ac4b92227168056a38191ce4e236578bc',1,'wmtk::operations::CollapseNewAttributeStrategy::VecType']]],
   ['visitortype_21',['VisitorType',['../classwmtk_1_1multimesh_1_1_multi_mesh_simplex_event_visitor.html#a44d89c390e87b135b8cb9f26f8e0144e',1,'wmtk::multimesh::MultiMeshSimplexEventVisitor']]],
-  ['volume_22',['Volume',['../namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html#ab17397b50bbf719e3e398287295bc996',1,'wmtk::components::mesh_info::transfer']]]
+  ['volume_22',['Volume',['../namespacewmtk_1_1components_1_1configurator_1_1transfer.html#ab54cc160503fb32494b0456b2c30f15b',1,'wmtk::components::configurator::transfer']]]
 ];

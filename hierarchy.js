@@ -17,7 +17,7 @@ var hierarchy =
     [ "nlohmann::adl_serializer< std::filesystem::path >", "structnlohmann_1_1adl__serializer_3_01std_1_1filesystem_1_1path_01_4.html", null ],
     [ "nlohmann::adl_serializer< wmtk::components::input::InputOptions >", "structnlohmann_1_1adl__serializer_3_01wmtk_1_1components_1_1input_1_1_input_options_01_4.html", null ],
     [ "nlohmann::adl_serializer< wmtk::components::output::OutputOptionsCollection >", "structnlohmann_1_1adl__serializer_3_01wmtk_1_1components_1_1output_1_1_output_options_collection_01_4.html", null ],
-    [ "wmtk::components::mesh_info::transfer::AMIPSFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::AMIPSFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor.html", null ],
     [ "wmtk::utils::metaprogramming::detail::as_variant_impl< BaseVariantTraitsType, IsConst, TupleType, Index >", "structwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1as__variant__impl.html", null ],
     [ "wmtk::utils::metaprogramming::detail::as_variant_impl< BaseVariantTraitsType, IsConst, std::tuple< DerivedTypes... >, Index >", "structwmtk_1_1utils_1_1metaprogramming_1_1detail_1_1as__variant__impl_3_01_base_variant_traits_t6a1192944e90055aac8867a18a15c7a4.html", null ],
     [ "wmtk::utils::metaprogramming::tuple::detail::as_variant_type< T >", "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1detail_1_1as__variant__type.html", null ],
@@ -91,10 +91,10 @@ var hierarchy =
     [ "wmtk::utils::DynamicArray< wmtk::Tuple >", "classwmtk_1_1utils_1_1_dynamic_array.html", null ],
     [ "wmtk::operations::tri_mesh::EdgeOperationData::EarData", "structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_ear_data.html", null ],
     [ "wmtk::operations::tet_mesh::EdgeOperationData::EarTet", "structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_ear_tet.html", null ],
-    [ "wmtk::components::mesh_info::transfer::EdgeAngleFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_angle_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::EdgeAngleFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_edge_angle_functor.html", null ],
     [ "wmtk::components::EdgeInsertionMeshes", "structwmtk_1_1components_1_1_edge_insertion_meshes.html", null ],
     [ "wmtk::components::internal::EdgeInsOptions", "structwmtk_1_1components_1_1internal_1_1_edge_ins_options.html", null ],
-    [ "wmtk::components::mesh_info::transfer::EdgeLengthFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::EdgeLengthFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_edge_length_functor.html", null ],
     [ "wmtk::operations::EdgeOperationData", "classwmtk_1_1operations_1_1_edge_operation_data.html", [
       [ "wmtk::operations::edge_mesh::EdgeOperationData", "classwmtk_1_1operations_1_1edge__mesh_1_1_edge_operation_data.html", [
         [ "wmtk::EdgeMesh::EdgeMeshOperationExecutor", "classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html", null ]
@@ -157,7 +157,7 @@ var hierarchy =
     [ "wmtk::operations::tet_mesh::EdgeOperationData::FaceCollapseData", "structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_face_collapse_data.html", null ],
     [ "wmtk::simplex::FacesIterable", "classwmtk_1_1simplex_1_1_faces_iterable.html", null ],
     [ "wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData", "structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_face_split_data.html", null ],
-    [ "wmtk::components::mesh_info::transfer::FilteredNeighborCountFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::FilteredNeighborCountFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_filtered_neighbor_count_functor.html", null ],
     [ "wmtk::components::multimesh::FromTagOptions", "structwmtk_1_1components_1_1multimesh_1_1_from_tag_options.html", null ],
     [ "wmtk::function::Function", "classwmtk_1_1function_1_1_function.html", [
       [ "wmtk::function::LocalNeighborsSumFunction", "classwmtk_1_1function_1_1_local_neighbors_sum_function.html", null ]
@@ -310,9 +310,9 @@ var hierarchy =
     [ "wmtk::multimesh::utils::MapValidator", "classwmtk_1_1multimesh_1_1utils_1_1_map_validator.html", null ],
     [ "wmtk::components::Marching", "classwmtk_1_1components_1_1_marching.html", null ],
     [ "wmtk::components::MarchingOptions", "structwmtk_1_1components_1_1_marching_options.html", null ],
-    [ "wmtk::components::mesh_info::transfer::MaxNeighborFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_max_neighbor_functor.html", null ],
-    [ "wmtk::components::mesh_info::transfer::MeanNeighborFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_mean_neighbor_functor.html", null ],
-    [ "wmtk::components::mesh_info::transfer::MeanRatioMeasureFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_mean_ratio_measure_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::MaxNeighborFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_max_neighbor_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::MeanNeighborFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_mean_neighbor_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::MeanRatioMeasureFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_mean_ratio_measure_functor.html", null ],
     [ "wmtk::utils::mesh_type_from_dimension< DIM >", "structwmtk_1_1utils_1_1mesh__type__from__dimension.html", null ],
     [ "wmtk::utils::mesh_type_from_primitive_type< pt >", "structwmtk_1_1utils_1_1mesh__type__from__primitive__type.html", null ],
     [ "wmtk::utils::mesh_type_from_primitive_type< PrimitiveType::Edge >", "structwmtk_1_1utils_1_1mesh__type__from__primitive__type_3_01_primitive_type_1_1_edge_01_4.html", null ],
@@ -330,7 +330,7 @@ var hierarchy =
       ] ],
       [ "wmtk::io::ParaviewWriter", "classwmtk_1_1io_1_1_paraview_writer.html", null ]
     ] ],
-    [ "wmtk::components::mesh_info::transfer::MinNeighborFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_min_neighbor_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::MinNeighborFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_min_neighbor_functor.html", null ],
     [ "wmtk::io::MshReader", "classwmtk_1_1io_1_1_msh_reader.html", null ],
     [ "wmtk::operations::utils::MultiMeshEdgeCollapseFunctor", "classwmtk_1_1operations_1_1utils_1_1_multi_mesh_edge_collapse_functor.html", null ],
     [ "wmtk::operations::utils::MultiMeshEdgeSplitFunctor", "classwmtk_1_1operations_1_1utils_1_1_multi_mesh_edge_split_functor.html", null ],
@@ -349,12 +349,12 @@ var hierarchy =
     [ "wmtk::multimesh::MultiMeshVisitor< NodeFunctor_ >", "classwmtk_1_1multimesh_1_1_multi_mesh_visitor.html", null ],
     [ "wmtk::multimesh::MultiMeshVisitorExecutor< MMVisitor >", "classwmtk_1_1multimesh_1_1_multi_mesh_visitor_executor.html", null ],
     [ "wmtk::components::multimesh::NamedMultiMesh", "classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html", null ],
-    [ "wmtk::components::mesh_info::transfer::NegateFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_negate_functor.html", null ],
-    [ "wmtk::components::mesh_info::transfer::NeighborCountFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_neighbor_count_functor.html", null ],
-    [ "wmtk::components::mesh_info::transfer::NeighborSumFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_neighbor_sum_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::NegateFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_negate_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::NeighborCountFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_neighbor_count_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::NeighborSumFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_neighbor_sum_functor.html", null ],
     [ "wmtk::components::multimesh::NamedMultiMesh::Node", "structwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh_1_1_node.html", null ],
     [ "wmtk::components::multimesh::NonManifoldCascade", "structwmtk_1_1components_1_1multimesh_1_1_non_manifold_cascade.html", null ],
-    [ "wmtk::components::mesh_info::transfer::NormalFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_normal_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::NormalFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_normal_functor.html", null ],
     [ "std::numeric_limits< DScalar1< _Scalar, _Gradient > >", "classstd_1_1numeric__limits_3_01_d_scalar1_3_01___scalar_00_01___gradient_01_4_01_4.html", null ],
     [ "std::numeric_limits< DScalar2< _Scalar, _Gradient, _Hessian > >", "classstd_1_1numeric__limits_3_01_d_scalar2_3_01___scalar_00_01___gradient_00_01___hessian_01_4_01_4.html", null ],
     [ "wmtk::simplex::OpenStarIterable", "classwmtk_1_1simplex_1_1_open_star_iterable.html", null ],
@@ -487,20 +487,20 @@ var hierarchy =
     [ "wmtk::components::internal::TagIntersectionAttributes", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_attributes.html", null ],
     [ "wmtk::components::internal::TagIntersectionOptions", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_options.html", null ],
     [ "wmtk::components::internal::TagIntersectionValues", "structwmtk_1_1components_1_1internal_1_1_tag_intersection_values.html", null ],
-    [ "wmtk::components::mesh_info::transfer::ThresholdFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_threshold_functor.html", null ],
-    [ "wmtk::components::mesh_info::transfer::ThresholdFunctor< InT, InDim, char, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_threshold_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::ThresholdFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_threshold_functor.html", null ],
+    [ "wmtk::components::configurator::transfer::ThresholdFunctor< InT, InDim, char, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_threshold_functor.html", null ],
     [ "wmtk::simplex::TopDimensionCofacesIterable", "classwmtk_1_1simplex_1_1_top_dimension_cofaces_iterable.html", null ],
     [ "wmtk::components::ToPtsOptions", "classwmtk_1_1components_1_1_to_pts_options.html", null ],
-    [ "wmtk::components::mesh_info::transfer::TransferFunctorTraits< Functor >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html", null ],
+    [ "wmtk::components::configurator::transfer::TransferFunctorTraits< Functor >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_functor_traits.html", null ],
     [ "TransferStrategy", null, [
-      [ "wmtk::components::mesh_info::transfer::CoeffWiseTransfer", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_coeff_wise_transfer.html", null ]
+      [ "wmtk::components::configurator::transfer::CoeffWiseTransfer", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_coeff_wise_transfer.html", null ]
     ] ],
-    [ "wmtk::components::mesh_info::transfer::TransferStrategyFactory", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory.html", [
-      [ "wmtk::components::mesh_info::transfer::SingleAttributeTransferStrategyFactoryBase", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory_base.html", [
-        [ "wmtk::components::mesh_info::transfer::SingleAttributeTransferStrategyFactory< Functor >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html", null ]
+    [ "wmtk::components::configurator::transfer::TransferStrategyFactory", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory.html", [
+      [ "wmtk::components::configurator::transfer::SingleAttributeTransferStrategyFactoryBase", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_single_attribute_transfer_strategy_factory_base.html", [
+        [ "wmtk::components::configurator::transfer::SingleAttributeTransferStrategyFactory< Functor >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html", null ]
       ] ]
     ] ],
-    [ "wmtk::components::mesh_info::transfer::TransferStrategyFactoryRegistry", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_registry.html", null ],
+    [ "wmtk::components::configurator::transfer::TransferStrategyFactoryRegistry", "classwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory_registry.html", null ],
     [ "wmtk::components::procedural::TriangleFanOptions", "classwmtk_1_1components_1_1procedural_1_1_triangle_fan_options.html", null ],
     [ "wmtk::utils::TriMeshInspector", "classwmtk_1_1utils_1_1_tri_mesh_inspector.html", null ],
     [ "std::tuple", null, [
@@ -533,7 +533,7 @@ var hierarchy =
     [ "wmtk::multimesh::attribute::UpdateStrategyCollection", "classwmtk_1_1multimesh_1_1attribute_1_1_update_strategy_collection.html", null ],
     [ "wmtk::multimesh::attribute::UseParentScopeRAII", "classwmtk_1_1multimesh_1_1attribute_1_1_use_parent_scope_r_a_i_i.html", null ],
     [ "std::vector", null, [
-      [ "wmtk::components::mesh_info::transfer::TransferStrategyFactoryCollection", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_collection.html", null ]
+      [ "wmtk::components::configurator::transfer::TransferStrategyFactoryCollection", "classwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory_collection.html", null ]
     ] ],
     [ "wmtk::operations::VertexLaplacianSmooth", "classwmtk_1_1operations_1_1_vertex_laplacian_smooth.html", [
       [ "wmtk::operations::VertexTangentialLaplacianSmooth", "classwmtk_1_1operations_1_1_vertex_tangential_laplacian_smooth.html", null ]
@@ -541,9 +541,9 @@ var hierarchy =
     [ "wmtk::simplex::internal::VisitedArray< T, ArraySize >", "classwmtk_1_1simplex_1_1internal_1_1_visited_array.html", null ],
     [ "wmtk::simplex::internal::VisitedArray< int64_t >", "classwmtk_1_1simplex_1_1internal_1_1_visited_array.html", null ],
     [ "wmtk::simplex::internal::VisitedArray< wmtk::simplex::IdSimplex >", "classwmtk_1_1simplex_1_1internal_1_1_visited_array.html", null ],
-    [ "wmtk::components::mesh_info::transfer::VolumeFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor.html", null ],
-    [ "wmtk::components::WildmeshingOptions", "structwmtk_1_1components_1_1_wildmeshing_options.html", null ],
+    [ "wmtk::components::configurator::transfer::VolumeFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_volume_functor.html", null ],
     [ "wmtk::components::WildMeshingOptions", "structwmtk_1_1components_1_1_wild_meshing_options.html", null ],
+    [ "wmtk::components::WildmeshingOptions", "structwmtk_1_1components_1_1_wildmeshing_options.html", null ],
     [ "wmtk::components::WildmeshingOptionsAttributes", "structwmtk_1_1components_1_1_wildmeshing_options_attributes.html", null ],
     [ "wmtk::components::WildmeshingOptionsEnvelope", "structwmtk_1_1components_1_1_wildmeshing_options_envelope.html", null ],
     [ "wmtk::components::WildmeshingOptionsEnvelopeMesh", "structwmtk_1_1components_1_1_wildmeshing_options_envelope_mesh.html", null ],

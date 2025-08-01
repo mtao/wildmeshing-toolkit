@@ -1,7 +1,6 @@
 var namespacewmtk_1_1components_1_1mesh__info =
 [
     [ "simplex", "namespacewmtk_1_1components_1_1mesh__info_1_1simplex.html", "namespacewmtk_1_1components_1_1mesh__info_1_1simplex" ],
-    [ "transfer", "namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html", "namespacewmtk_1_1components_1_1mesh__info_1_1transfer" ],
     [ "MultimeshFromAttributeOptions", "structwmtk_1_1components_1_1mesh__info_1_1_multimesh_from_attribute_options.html", "structwmtk_1_1components_1_1mesh__info_1_1_multimesh_from_attribute_options" ],
     [ "element_count_report", "namespacewmtk_1_1components_1_1mesh__info.html#af65d0cb4616e7ca0e8fcd482362c9692", null ],
     [ "element_count_report_named", "namespacewmtk_1_1components_1_1mesh__info.html#a8f229511b461d208dddaf617ba616f7f", null ],

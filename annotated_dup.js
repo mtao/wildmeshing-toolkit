@@ -64,6 +64,31 @@ var annotated_dup =
             [ "SamplingImage", "classwmtk_1_1components_1_1adaptive__tessellation_1_1image_1_1_sampling_image.html", "classwmtk_1_1components_1_1adaptive__tessellation_1_1image_1_1_sampling_image" ]
           ] ]
         ] ],
+        [ "configurator", "namespacewmtk_1_1components_1_1configurator.html", [
+          [ "transfer", "namespacewmtk_1_1components_1_1configurator_1_1transfer.html", [
+            [ "AMIPSFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor" ],
+            [ "CoeffWiseTransfer", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_coeff_wise_transfer.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_coeff_wise_transfer" ],
+            [ "EdgeAngleFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_edge_angle_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_edge_angle_functor" ],
+            [ "EdgeLengthFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_edge_length_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_edge_length_functor" ],
+            [ "FilteredNeighborCountFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_filtered_neighbor_count_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_filtered_neighbor_count_functor" ],
+            [ "MaxNeighborFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_max_neighbor_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_max_neighbor_functor" ],
+            [ "MeanNeighborFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_mean_neighbor_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_mean_neighbor_functor" ],
+            [ "MeanRatioMeasureFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_mean_ratio_measure_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_mean_ratio_measure_functor" ],
+            [ "MinNeighborFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_min_neighbor_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_min_neighbor_functor" ],
+            [ "NegateFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_negate_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_negate_functor" ],
+            [ "NeighborCountFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_neighbor_count_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_neighbor_count_functor" ],
+            [ "NeighborSumFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_neighbor_sum_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_neighbor_sum_functor" ],
+            [ "NormalFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_normal_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_normal_functor" ],
+            [ "SingleAttributeTransferStrategyFactory", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_single_attribute_transfer_strategy_factory" ],
+            [ "SingleAttributeTransferStrategyFactoryBase", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_single_attribute_transfer_strategy_factory_base.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_single_attribute_transfer_strategy_factory_base" ],
+            [ "ThresholdFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_threshold_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_threshold_functor" ],
+            [ "TransferFunctorTraits", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_functor_traits.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_functor_traits" ],
+            [ "TransferStrategyFactory", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory" ],
+            [ "TransferStrategyFactoryCollection", "classwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory_collection.html", null ],
+            [ "TransferStrategyFactoryRegistry", "classwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory_registry.html", "classwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory_registry" ],
+            [ "VolumeFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_volume_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_volume_functor" ]
+          ] ]
+        ] ],
         [ "envelope", "namespacewmtk_1_1components_1_1envelope.html", [
           [ "invariants", "namespacewmtk_1_1components_1_1envelope_1_1invariants.html", [
             [ "EnvelopeInvariant", "classwmtk_1_1components_1_1envelope_1_1invariants_1_1_envelope_invariant.html", "classwmtk_1_1components_1_1envelope_1_1invariants_1_1_envelope_invariant" ]
@@ -123,29 +148,6 @@ var annotated_dup =
               [ "DihedralAngleOperator", "classwmtk_1_1components_1_1mesh__info_1_1simplex_1_1operators_1_1_dihedral_angle_operator.html", "classwmtk_1_1components_1_1mesh__info_1_1simplex_1_1operators_1_1_dihedral_angle_operator" ],
               [ "VolumeOperator", "classwmtk_1_1components_1_1mesh__info_1_1simplex_1_1operators_1_1_volume_operator.html", "classwmtk_1_1components_1_1mesh__info_1_1simplex_1_1operators_1_1_volume_operator" ]
             ] ]
-          ] ],
-          [ "transfer", "namespacewmtk_1_1components_1_1mesh__info_1_1transfer.html", [
-            [ "AMIPSFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor" ],
-            [ "CoeffWiseTransfer", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_coeff_wise_transfer.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_coeff_wise_transfer" ],
-            [ "EdgeAngleFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_angle_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_angle_functor" ],
-            [ "EdgeLengthFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_edge_length_functor" ],
-            [ "FilteredNeighborCountFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_filtered_neighbor_count_functor" ],
-            [ "MaxNeighborFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_max_neighbor_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_max_neighbor_functor" ],
-            [ "MeanNeighborFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_mean_neighbor_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_mean_neighbor_functor" ],
-            [ "MeanRatioMeasureFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_mean_ratio_measure_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_mean_ratio_measure_functor" ],
-            [ "MinNeighborFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_min_neighbor_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_min_neighbor_functor" ],
-            [ "NegateFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_negate_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_negate_functor" ],
-            [ "NeighborCountFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_neighbor_count_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_neighbor_count_functor" ],
-            [ "NeighborSumFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_neighbor_sum_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_neighbor_sum_functor" ],
-            [ "NormalFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_normal_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_normal_functor" ],
-            [ "SingleAttributeTransferStrategyFactory", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory" ],
-            [ "SingleAttributeTransferStrategyFactoryBase", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory_base.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_single_attribute_transfer_strategy_factory_base" ],
-            [ "ThresholdFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_threshold_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_threshold_functor" ],
-            [ "TransferFunctorTraits", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_functor_traits" ],
-            [ "TransferStrategyFactory", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory" ],
-            [ "TransferStrategyFactoryCollection", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_collection.html", null ],
-            [ "TransferStrategyFactoryRegistry", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_registry.html", "classwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_transfer_strategy_factory_registry" ],
-            [ "VolumeFunctor", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor" ]
           ] ],
           [ "MultimeshFromAttributeOptions", "structwmtk_1_1components_1_1mesh__info_1_1_multimesh_from_attribute_options.html", "structwmtk_1_1components_1_1mesh__info_1_1_multimesh_from_attribute_options" ]
         ] ],

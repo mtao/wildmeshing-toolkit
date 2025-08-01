@@ -1,5 +1,5 @@
 var volume_8hpp =
 [
-    [ "wmtk::components::mesh_info::transfer::VolumeFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor.html", "structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_volume_functor" ],
-    [ "Volume", "volume_8hpp.html#ab17397b50bbf719e3e398287295bc996", null ]
+    [ "wmtk::components::configurator::transfer::VolumeFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_volume_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_volume_functor" ],
+    [ "Volume", "volume_8hpp.html#ab54cc160503fb32494b0456b2c30f15b", null ]
 ];

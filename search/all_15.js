@@ -47,7 +47,7 @@ var searchData=
   ['useparentscoperaii_2ehpp_44',['UseParentScopeRAII.hpp',['../_use_parent_scope_r_a_i_i_8hpp.html',1,'']]],
   ['uses_5fvector_45',['uses_vector',['../classwmtk_1_1utils_1_1_dynamic_array.html#a33b1a373f619867e93ab68182a038668',1,'wmtk::utils::DynamicArray']]],
   ['using_20integration_20test_46',['Guide for Using Integration Test',['../md_components_2tests_2integration__guide.html',1,'']]],
-  ['utility_5fattributes_47',['utility_attributes',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a5314df1794910fe0def582adf60b963e',1,'wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions']]],
+  ['utility_5fattributes_47',['utility_attributes',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a83793fa446548f3adcc842563a728a21',1,'wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions']]],
   ['utils_48',['utils',['../index.html#autotoc_md16',1,'']]],
   ['utils_2ecpp_49',['utils.cpp',['../utils_8cpp.html',1,'']]],
   ['utils_2ehpp_50',['utils.hpp',['../utils_8hpp.html',1,'']]],

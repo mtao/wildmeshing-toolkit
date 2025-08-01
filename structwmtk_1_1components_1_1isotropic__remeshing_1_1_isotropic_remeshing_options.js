@@ -24,5 +24,5 @@ var structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_opt
     [ "start_with_collapse", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a2d35b397c20989a2a2c774bc769094a9", null ],
     [ "static_meshes", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a9e5bf61a5f891b0ff11afd1fbbcff5c5", null ],
     [ "swap", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#ac09a27daf3ddb5696b7ad0534b9b4429", null ],
-    [ "utility_attributes", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a5314df1794910fe0def582adf60b963e", null ]
+    [ "utility_attributes", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a83793fa446548f3adcc842563a728a21", null ]
 ];

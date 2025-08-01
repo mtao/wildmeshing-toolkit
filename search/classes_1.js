@@ -19,7 +19,7 @@ var searchData=
   ['adl_5fserializer_3c_20wmtk_3a_3acomponents_3a_3aoutput_3a_3aoutputoptionscollection_20_3e_16',['adl_serializer&lt; wmtk::components::output::OutputOptionsCollection &gt;',['../structnlohmann_1_1adl__serializer_3_01wmtk_1_1components_1_1output_1_1_output_options_collection_01_4.html',1,'nlohmann']]],
   ['aliasinvariantparameters_17',['AliasInvariantParameters',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_alias_invariant_parameters.html',1,'wmtk::components::isotropic_remeshing']]],
   ['amips_18',['AMIPS',['../classwmtk_1_1function_1_1_a_m_i_p_s.html',1,'wmtk::function']]],
-  ['amipsfunctor_19',['AMIPSFunctor',['../structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_a_m_i_p_s_functor.html',1,'wmtk::components::mesh_info::transfer']]],
+  ['amipsfunctor_19',['AMIPSFunctor',['../structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor.html',1,'wmtk::components::configurator::transfer']]],
   ['amipsoptimizationsmoothing_20',['AMIPSOptimizationSmoothing',['../classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing.html',1,'wmtk::operations']]],
   ['amipsoptimizationsmoothingperiodic_21',['AMIPSOptimizationSmoothingPeriodic',['../classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_periodic.html',1,'wmtk::operations']]],
   ['andoperationsequence_22',['AndOperationSequence',['../classwmtk_1_1operations_1_1_and_operation_sequence.html',1,'wmtk::operations']]],

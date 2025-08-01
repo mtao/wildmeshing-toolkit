@@ -1,5 +1,5 @@
 var _transfer_strategy_factory_collection_8cpp =
 [
-    [ "from_json", "_transfer_strategy_factory_collection_8cpp.html#a4f350330281ed517be3876e30b99ec3e", null ],
-    [ "to_json", "_transfer_strategy_factory_collection_8cpp.html#a4a49f34174b4b9d8dfacc90e4606b539", null ]
+    [ "from_json", "_transfer_strategy_factory_collection_8cpp.html#ab5de0437df803e7bcf065ee1d159a2b1", null ],
+    [ "to_json", "_transfer_strategy_factory_collection_8cpp.html#a6bda1d28bfd70602dd8ffa8c77d7675f", null ]
 ];

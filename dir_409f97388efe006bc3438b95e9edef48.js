@@ -2,6 +2,7 @@ var dir_409f97388efe006bc3438b95e9edef48 =
 [
     [ "adaptive_tessellation", "dir_8be48b94ac140819cb7268696c7cfa83.html", "dir_8be48b94ac140819cb7268696c7cfa83" ],
     [ "CDT", "dir_04c3f8ab7ab475a477f8552015f278e7.html", "dir_04c3f8ab7ab475a477f8552015f278e7" ],
+    [ "configurator", "dir_10f385d13035695aa112bba73082f842.html", "dir_10f385d13035695aa112bba73082f842" ],
     [ "delaunay", "dir_55d85f035c5a01e8a30523454f322589.html", "dir_55d85f035c5a01e8a30523454f322589" ],
     [ "edge_insertion", "dir_7a87a97c8b01b526a0ba21a3feeab1ac.html", "dir_7a87a97c8b01b526a0ba21a3feeab1ac" ],
     [ "envelope", "dir_3386012f12ec95e7bed3f38a6eca3fa1.html", "dir_3386012f12ec95e7bed3f38a6eca3fa1" ],

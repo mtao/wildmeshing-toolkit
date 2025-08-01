@@ -17,7 +17,7 @@ var searchData=
   ['closedstariterable_14',['ClosedStarIterable',['../classwmtk_1_1simplex_1_1_closed_star_iterable.html',1,'wmtk::simplex']]],
   ['cmp_5fl_15',['cmp_l',['../structwmtk_1_1components_1_1cmp__l.html',1,'wmtk::components']]],
   ['cmp_5fs_16',['cmp_s',['../structwmtk_1_1components_1_1cmp__s.html',1,'wmtk::components']]],
-  ['coeffwisetransfer_17',['CoeffWiseTransfer',['../structwmtk_1_1components_1_1mesh__info_1_1transfer_1_1_coeff_wise_transfer.html',1,'wmtk::components::mesh_info::transfer']]],
+  ['coeffwisetransfer_17',['CoeffWiseTransfer',['../structwmtk_1_1components_1_1configurator_1_1transfer_1_1_coeff_wise_transfer.html',1,'wmtk::components::configurator::transfer']]],
   ['cofacesinsimplexiterable_18',['CofacesInSimplexIterable',['../classwmtk_1_1simplex_1_1_cofaces_in_simplex_iterable.html',1,'wmtk::simplex']]],
   ['cofacessingledimensioniterable_19',['CofacesSingleDimensionIterable',['../classwmtk_1_1simplex_1_1_cofaces_single_dimension_iterable.html',1,'wmtk::simplex']]],
   ['collapsealternatefacetdata_20',['CollapseAlternateFacetData',['../classwmtk_1_1operations_1_1internal_1_1_collapse_alternate_facet_data.html',1,'wmtk::operations::internal']]],
