@@ -110,7 +110,7 @@ int run_js(
 
 
     if (j.contains("utility_attributes")) {
-        wmtk::components::mesh_info::transfer::TransferStrategyFactoryCollection transfers =
+        wmtk::components::configurator::transfer::TransferStrategyFactoryCollection transfers =
             j["utility_attributes"];
         for (const auto& transfer_ptr : transfers) {
             transfer_ptr->create(meshes, true);

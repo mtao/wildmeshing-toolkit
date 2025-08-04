@@ -25,9 +25,9 @@
 #include "wmtk/components/utils/PathResolver.hpp"
 
 
-#include <wmtk/components/mesh_info/transfer/edge_length.hpp>
-#include <wmtk/components/mesh_info/transfer/mean_ratio_measure.hpp>
-#include <wmtk/components/mesh_info/transfer/min_neighbor.hpp>
+#include <wmtk/components/configurator/transfer/edge_length.hpp>
+#include <wmtk/components/configurator/transfer/mean_ratio_measure.hpp>
+#include <wmtk/components/configurator/transfer/min_neighbor.hpp>
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
@@ -176,16 +176,16 @@ int main(int argc, char* argv[])
 
 
         {
-            auto el = std::make_shared<wmtk::components::mesh_info::transfer::EdgeLength>();
+            auto el = std::make_shared<wmtk::components::configurator::transfer::EdgeLength>();
             el->type = "edge_length";
             el->attribute_path = "fused/edge_length";
             el->base_attribute_path = "fused/vertices";
 
-            auto mrm = std::make_shared<wmtk::components::mesh_info::transfer::MeanRatioMeasure>();
+            auto mrm = std::make_shared<wmtk::components::configurator::transfer::MeanRatioMeasure>();
             mrm->type = "mean_ratio_transfer";
             mrm->attribute_path = "fused/mean_area_measure";
             mrm->base_attribute_path = "fused/vertices";
-            auto min_mrm = std::make_shared<wmtk::components::mesh_info::transfer::MinNeighbor>();
+            auto min_mrm = std::make_shared<wmtk::components::configurator::transfer::MinNeighbor>();
             min_mrm->type = "min";
             min_mrm->attribute_path = "fused/min_mean_area_measure";
             min_mrm->parameters["simplex_dimension"] = 1;

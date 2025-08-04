@@ -6,7 +6,7 @@
 #include <nlohmann/json.hpp>
 #include <wmtk/applications/utils/element_count_report.hpp>
 #include <wmtk/applications/utils/get_integration_test_data_root.hpp>
-#include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
+#include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
@@ -146,7 +146,7 @@ int run_js(
     }
 
     if (j.contains("utility_attributes")) {
-        wmtk::components::mesh_info::transfer::TransferStrategyFactoryCollection transfers =
+        wmtk::components::configurator::transfer::TransferStrategyFactoryCollection transfers =
             j["utility_attributes"];
         for (const auto& transfer_ptr : transfers) {
             transfer_ptr->create(meshes, true);

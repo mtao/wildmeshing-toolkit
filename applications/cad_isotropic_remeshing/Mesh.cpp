@@ -5,7 +5,7 @@
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/PointMesh.hpp>
 #include <wmtk/TriMesh.hpp>
-#include <wmtk/components/mesh_info/transfer/filtered_neighbor_count.hpp>
+#include <wmtk/components/configurator/transfer/filtered_neighbor_count.hpp>
 #include <wmtk/components/multimesh/from_manifold_decomposition.hpp>
 #include <wmtk/components/multimesh/from_tag.hpp>
 #include <wmtk/multimesh/utils/extract_child_mesh_from_tag.hpp>
@@ -157,13 +157,13 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(
 
     // check for tags with more than N attributes with the value
     {
-        wmtk::components::mesh_info::transfer::FilteredNeighborCount factory;
+        wmtk::components::configurator::transfer::FilteredNeighborCount factory;
         factory.parameters = {{"simplex_dimension", 0}, {"under", 1}, {"over", 1}};
         auto attr = mah2.mesh().register_attribute<int64_t>(std::string(tag_name2), pt, 1);
         auto acc = attr.create_accessor<char, 1>();
 
         // using FT =
-        // wmtk::components::mesh_info::transfer::FilteredNeighborCount::FunctorType<1,1,int64_t,int64_t>;
+        // wmtk::components::configurator::transfer::FilteredNeighborCount::FunctorType<1,1,int64_t,int64_t>;
         // static_assert(FT::validInDim());
         // static_assert(FT::validOutDim());
         // static_assert(FT::validType());
@@ -173,7 +173,7 @@ std::shared_ptr<wmtk::PointMesh> Topology::corner_mesh(
     }
 
     {
-        wmtk::components::mesh_info::transfer::Threshold factory;
+        wmtk::components::configurator::transfer::Threshold factory;
         factory.parameters = {{"simplex_dimension", 0}, {"over", 2}};
         auto attr = mah2.mesh().register_attribute<int64_t>(std::string(tag_name), pt, 1);
         auto acc = attr.create_accessor<char, 1>();
