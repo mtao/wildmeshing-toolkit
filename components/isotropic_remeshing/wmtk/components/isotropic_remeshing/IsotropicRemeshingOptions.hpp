@@ -2,7 +2,7 @@
 #include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
-#include "OperationOptions.hpp"
+#include "wmtk/components/configurator/operations/OperationOptions.hpp"
 
 namespace wmtk::components::isotropic_remeshing {
 

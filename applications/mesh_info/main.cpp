@@ -9,7 +9,7 @@
 #include <string>
 #include <wmtk/applications/utils/element_count_report.hpp>
 #include <wmtk/applications/utils/get_integration_test_data_root.hpp>
-#include <wmtk/components/mesh_info/transfer/TransferStrategyFactoryCollection.hpp>
+#include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
