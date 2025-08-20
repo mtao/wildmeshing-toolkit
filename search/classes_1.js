@@ -17,7 +17,7 @@ var searchData=
   ['adl_5fserializer_3c_20std_3a_3afilesystem_3a_3apath_20_3e_14',['adl_serializer&lt; std::filesystem::path &gt;',['../structnlohmann_1_1adl__serializer_3_01std_1_1filesystem_1_1path_01_4.html',1,'nlohmann']]],
   ['adl_5fserializer_3c_20wmtk_3a_3acomponents_3a_3ainput_3a_3ainputoptions_20_3e_15',['adl_serializer&lt; wmtk::components::input::InputOptions &gt;',['../structnlohmann_1_1adl__serializer_3_01wmtk_1_1components_1_1input_1_1_input_options_01_4.html',1,'nlohmann']]],
   ['adl_5fserializer_3c_20wmtk_3a_3acomponents_3a_3aoutput_3a_3aoutputoptionscollection_20_3e_16',['adl_serializer&lt; wmtk::components::output::OutputOptionsCollection &gt;',['../structnlohmann_1_1adl__serializer_3_01wmtk_1_1components_1_1output_1_1_output_options_collection_01_4.html',1,'nlohmann']]],
-  ['aliasinvariantparameters_17',['AliasInvariantParameters',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_alias_invariant_parameters.html',1,'wmtk::components::isotropic_remeshing']]],
+  ['aliasinvariantoptions_17',['AliasInvariantOptions',['../structwmtk_1_1components_1_1configurator_1_1invariants_1_1_alias_invariant_options.html',1,'wmtk::components::configurator::invariants']]],
   ['amips_18',['AMIPS',['../classwmtk_1_1function_1_1_a_m_i_p_s.html',1,'wmtk::function']]],
   ['amipsfunctor_19',['AMIPSFunctor',['../structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor.html',1,'wmtk::components::configurator::transfer']]],
   ['amipsoptimizationsmoothing_20',['AMIPSOptimizationSmoothing',['../classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing.html',1,'wmtk::operations']]],
@@ -38,7 +38,7 @@ var searchData=
   ['attribute_5ftype_5ftraits_3c_20attributetype_3a_3arational_20_3e_35',['attribute_type_traits&lt; AttributeType::Rational &gt;',['../structwmtk_1_1attribute_1_1attribute__type__traits_3_01_attribute_type_1_1_rational_01_4.html',1,'wmtk::attribute']]],
   ['attributedescription_36',['AttributeDescription',['../structwmtk_1_1components_1_1multimesh_1_1utils_1_1_attribute_description.html',1,'wmtk::components::multimesh::utils']]],
   ['attributehandle_37',['AttributeHandle',['../classwmtk_1_1attribute_1_1_attribute_handle.html',1,'wmtk::attribute']]],
-  ['attributeinvariantparameters_38',['AttributeInvariantParameters',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_attribute_invariant_parameters.html',1,'wmtk::components::isotropic_remeshing']]],
+  ['attributeinvariantoptions_38',['AttributeInvariantOptions',['../structwmtk_1_1components_1_1configurator_1_1invariants_1_1_attribute_invariant_options.html',1,'wmtk::components::configurator::invariants']]],
   ['attributemanager_39',['AttributeManager',['../classwmtk_1_1attribute_1_1_attribute_manager.html',1,'wmtk::attribute']]],
   ['attributescopehandle_40',['attributescopehandle',['../classwmtk_1_1attribute_1_1_attribute_scope_handle.html',1,'wmtk::attribute::AttributeScopeHandle'],['../classwmtk_1_1multimesh_1_1attribute_1_1_attribute_scope_handle.html',1,'wmtk::multimesh::attribute::AttributeScopeHandle']]],
   ['attributesupdate_41',['AttributesUpdate',['../classwmtk_1_1operations_1_1_attributes_update.html',1,'wmtk::operations']]],
@@ -48,5 +48,6 @@ var searchData=
   ['attributetransferedge_45',['AttributeTransferEdge',['../classwmtk_1_1operations_1_1_attribute_transfer_edge.html',1,'wmtk::operations']]],
   ['attributetransferstrategy_46',['AttributeTransferStrategy',['../classwmtk_1_1operations_1_1_attribute_transfer_strategy.html',1,'wmtk::operations']]],
   ['attributetransferstrategybase_47',['AttributeTransferStrategyBase',['../classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html',1,'wmtk::operations']]],
-  ['autodiffraii_48',['AutoDiffRAII',['../classwmtk_1_1function_1_1utils_1_1_auto_diff_r_a_i_i.html',1,'wmtk::function::utils']]]
+  ['attributeupdateoperation_48',['AttributeUpdateOperation',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_operation.html',1,'wmtk::components::configurator::operations']]],
+  ['autodiffraii_49',['AutoDiffRAII',['../classwmtk_1_1function_1_1utils_1_1_auto_diff_r_a_i_i.html',1,'wmtk::function::utils']]]
 ];

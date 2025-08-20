@@ -46,7 +46,7 @@
   </g>
 </defs>
 <script type="application/ecmascript">
-var viewWidth = 925;
+var viewWidth = 913;
 var viewHeight = 717;
 var sectionId = 'dynsection-29';
 </script>
@@ -58,19 +58,19 @@ var sectionId = 'dynsection-29';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="switch the orientation of the Tuple of the given dimension">
-<polygon fill="#999999" stroke="#666666" points="917,-461.5 779,-461.5 779,-431.5 917,-431.5 917,-461.5"/>
-<text text-anchor="start" x="787" y="-449.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::switch</text>
-<text text-anchor="middle" x="848" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00">_tuple</text>
+<polygon fill="#999999" stroke="#666666" points="905,-461.5 767,-461.5 767,-431.5 905,-431.5 905,-461.5"/>
+<text text-anchor="start" x="775" y="-449.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::switch</text>
+<text text-anchor="middle" x="836" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00">_tuple</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classwmtk_1_1_simplex_inversion_invariant.html#a1163728175bfbd4dc26f4861019ee591" target="_top" xlink:title="we assume with local vid order (v0,v1,v2,v3) has positive volume (orient3d(v0,v1,v2,...">
-<polygon fill="white" stroke="#666666" points="743,-682.5 564,-682.5 564,-652.5 743,-652.5 743,-682.5"/>
-<text text-anchor="start" x="572" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::SimplexInversionInvariant</text>
-<text text-anchor="middle" x="653.5" y="-659.5" font-family="Helvetica,sans-Serif" font-size="10.00">::after</text>
+<g id="a_Node000002"><a xlink:href="classwmtk_1_1invariants_1_1_simplex_inversion_invariant.html#a111931cb322b71357008f2344db35451" target="_top" xlink:title="we assume with local vid order (v0,v1,v2,v3) has positive volume (orient3d(v0,v1,v2,...">
+<polygon fill="white" stroke="#666666" points="720,-682.5 575,-682.5 575,-652.5 720,-652.5 720,-682.5"/>
+<text text-anchor="start" x="583" y="-670.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::invariants::Simplex</text>
+<text text-anchor="middle" x="647.5" y="-659.5" font-family="Helvetica,sans-Serif" font-size="10.00">InversionInvariant::after</text>
 </a>
 </g>
 </g>
@@ -78,8 +78,8 @@ var sectionId = 'dynsection-29';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M836.76,-471.02C820.93,-506.6 787.63,-573.03 743,-616.5 727.63,-631.47 707.02,-643.68 689.55,-652.4"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="839.97,-472.41 840.75,-461.85 833.55,-469.62 839.97,-472.41"/>
+<path fill="none" stroke="#63b8ff" d="M824.37,-471.3C808.24,-506.76 774.76,-572.53 731,-616.5 716.39,-631.18 696.77,-643.53 680.33,-652.39"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="827.76,-472.29 828.64,-461.73 821.37,-469.44 827.76,-472.29"/>
 </a>
 </g>
 </g>
@@ -87,10 +87,10 @@ var sectionId = 'dynsection-29';
 <g id="Node000007" class="node">
 <title>Node7</title>
 <g id="a_Node000007"><a xlink:href="classwmtk_1_1_edge_mesh_1_1_edge_mesh_operation_executor.html#aa0a0ed4ce113896af08498dcc23b43e0" target="_top" xlink:title="gather all simplices that are deleted in a collapse">
-<polygon fill="white" stroke="#666666" points="736,-607 571,-607 571,-566 736,-566 736,-607"/>
-<text text-anchor="start" x="579" y="-595" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::EdgeMesh</text>
-<text text-anchor="start" x="579" y="-584" font-family="Helvetica,sans-Serif" font-size="10.00">OperationExecutor::get</text>
-<text text-anchor="middle" x="653.5" y="-573" font-family="Helvetica,sans-Serif" font-size="10.00">_collapse_simplices_to_delete</text>
+<polygon fill="white" stroke="#666666" points="730,-607 565,-607 565,-566 730,-566 730,-607"/>
+<text text-anchor="start" x="573" y="-595" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::EdgeMesh</text>
+<text text-anchor="start" x="573" y="-584" font-family="Helvetica,sans-Serif" font-size="10.00">OperationExecutor::get</text>
+<text text-anchor="middle" x="647.5" y="-573" font-family="Helvetica,sans-Serif" font-size="10.00">_collapse_simplices_to_delete</text>
 </a>
 </g>
 </g>
@@ -98,8 +98,8 @@ var sectionId = 'dynsection-29';
 <g id="edge6_Node000001_Node000007" class="edge">
 <title>Node1&#45;&gt;Node7</title>
 <g id="a_edge6_Node000001_Node000007"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M830.71,-469.92C812.17,-494.94 779.66,-534.14 743,-557.5 738.09,-560.63 732.81,-563.45 727.37,-565.99"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="833.63,-471.85 836.67,-461.71 827.96,-467.74 833.63,-471.85"/>
+<path fill="none" stroke="#63b8ff" d="M818.62,-469.77C799.99,-494.66 767.41,-533.75 731,-557.5 726.3,-560.57 721.23,-563.36 716,-565.88"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="821.51,-471.74 824.61,-461.6 815.87,-467.59 821.51,-471.74"/>
 </a>
 </g>
 </g>
@@ -107,10 +107,10 @@ var sectionId = 'dynsection-29';
 <g id="Node000008" class="node">
 <title>Node8</title>
 <g id="a_Node000008"><a xlink:href="classwmtk_1_1operations_1_1edge__mesh_1_1_edge_operation_data.html#a1953b7fc9b69dc5fb1adaac297a8b7d7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="728.5,-548 578.5,-548 578.5,-507 728.5,-507 728.5,-548"/>
-<text text-anchor="start" x="586.5" y="-536" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::operations::edge</text>
-<text text-anchor="start" x="586.5" y="-525" font-family="Helvetica,sans-Serif" font-size="10.00">_mesh::EdgeOperationData</text>
-<text text-anchor="middle" x="653.5" y="-514" font-family="Helvetica,sans-Serif" font-size="10.00">::input_endpoints</text>
+<polygon fill="white" stroke="#666666" points="722.5,-548 572.5,-548 572.5,-507 722.5,-507 722.5,-548"/>
+<text text-anchor="start" x="580.5" y="-536" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::operations::edge</text>
+<text text-anchor="start" x="580.5" y="-525" font-family="Helvetica,sans-Serif" font-size="10.00">_mesh::EdgeOperationData</text>
+<text text-anchor="middle" x="647.5" y="-514" font-family="Helvetica,sans-Serif" font-size="10.00">::input_endpoints</text>
 </a>
 </g>
 </g>
@@ -118,8 +118,8 @@ var sectionId = 'dynsection-29';
 <g id="edge7_Node000001_Node000008" class="edge">
 <title>Node1&#45;&gt;Node8</title>
 <g id="a_edge7_Node000001_Node000008"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M801.99,-465.44C772.45,-477.87 733.81,-494.13 703.49,-506.89"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="803.38,-468.65 811.24,-461.55 800.67,-462.2 803.38,-468.65"/>
+<path fill="none" stroke="#63b8ff" d="M791.02,-465.6C762.45,-478.01 725.21,-494.18 695.96,-506.89"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="792.58,-468.74 800.36,-461.55 789.79,-462.32 792.58,-468.74"/>
 </a>
 </g>
 </g>
@@ -127,9 +127,9 @@ var sectionId = 'dynsection-29';
 <g id="Node000011" class="node">
 <title>Node11</title>
 <g id="a_Node000011"><a xlink:href="namespacewmtk_1_1simplex.html#a0ca1602c328b51a103411fcac3d70ebe" target="_top" xlink:title="Check if the edge to collapse satisfying the link condition.">
-<polygon fill="white" stroke="#666666" points="710,-434.5 597,-434.5 597,-404.5 710,-404.5 710,-434.5"/>
-<text text-anchor="start" x="605" y="-422.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::simplex::link</text>
-<text text-anchor="middle" x="653.5" y="-411.5" font-family="Helvetica,sans-Serif" font-size="10.00">_condition</text>
+<polygon fill="white" stroke="#666666" points="704,-434.5 591,-434.5 591,-404.5 704,-404.5 704,-434.5"/>
+<text text-anchor="start" x="599" y="-422.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::simplex::link</text>
+<text text-anchor="middle" x="647.5" y="-411.5" font-family="Helvetica,sans-Serif" font-size="10.00">_condition</text>
 </a>
 </g>
 </g>
@@ -137,8 +137,8 @@ var sectionId = 'dynsection-29';
 <g id="edge10_Node000001_Node000011" class="edge">
 <title>Node1&#45;&gt;Node11</title>
 <g id="a_edge10_Node000001_Node000011"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M768.71,-435.52C749.09,-432.77 728.44,-429.87 710.17,-427.31"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="768.47,-439.02 778.86,-436.94 769.44,-432.09 768.47,-439.02"/>
+<path fill="none" stroke="#63b8ff" d="M756.61,-435.15C739.01,-432.6 720.67,-429.95 704.21,-427.57"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="756.48,-438.67 766.88,-436.64 757.48,-431.74 756.48,-438.67"/>
 </a>
 </g>
 </g>
@@ -146,8 +146,8 @@ var sectionId = 'dynsection-29';
 <g id="Node000019" class="node">
 <title>Node19</title>
 <g id="a_Node000019"><a xlink:href="classwmtk_1_1_edge_mesh.html#a04f6595fe85e52dc6bf1e02512120100" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="737,-240 570,-240 570,-221 737,-221 737,-240"/>
-<text text-anchor="middle" x="653.5" y="-228" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::switch_edge</text>
+<polygon fill="white" stroke="#666666" points="731,-240 564,-240 564,-221 731,-221 731,-240"/>
+<text text-anchor="middle" x="647.5" y="-228" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::switch_edge</text>
 </a>
 </g>
 </g>
@@ -155,8 +155,8 @@ var sectionId = 'dynsection-29';
 <g id="edge22_Node000001_Node000019" class="edge">
 <title>Node1&#45;&gt;Node19</title>
 <g id="a_edge22_Node000001_Node000019"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M826.8,-423.84C785.3,-377.27 691.89,-272.46 663.11,-240.16"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="824.2,-426.17 833.46,-431.31 829.42,-421.52 824.2,-426.17"/>
+<path fill="none" stroke="#63b8ff" d="M815.18,-423.55C774.85,-376.83 684.67,-272.39 656.84,-240.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="812.7,-426.03 821.89,-431.31 818,-421.45 812.7,-426.03"/>
 </a>
 </g>
 </g>
@@ -164,9 +164,9 @@ var sectionId = 'dynsection-29';
 <g id="Node000022" class="node">
 <title>Node22</title>
 <g id="a_Node000022"><a xlink:href="classwmtk_1_1_edge_mesh.html#a20b926a28b5f5e906085c2ac84e706f5" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="722.5,-116.5 584.5,-116.5 584.5,-86.5 722.5,-86.5 722.5,-116.5"/>
-<text text-anchor="start" x="592.5" y="-104.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::switch</text>
-<text text-anchor="middle" x="653.5" y="-93.5" font-family="Helvetica,sans-Serif" font-size="10.00">_vertex</text>
+<polygon fill="white" stroke="#666666" points="716.5,-116.5 578.5,-116.5 578.5,-86.5 716.5,-86.5 716.5,-116.5"/>
+<text text-anchor="start" x="586.5" y="-104.5" font-family="Helvetica,sans-Serif" font-size="10.00">wmtk::EdgeMesh::switch</text>
+<text text-anchor="middle" x="647.5" y="-93.5" font-family="Helvetica,sans-Serif" font-size="10.00">_vertex</text>
 </a>
 </g>
 </g>
@@ -174,8 +174,8 @@ var sectionId = 'dynsection-29';
 <g id="edge25_Node000001_Node000022" class="edge">
 <title>Node1&#45;&gt;Node22</title>
 <g id="a_edge25_Node000001_Node000022"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M838.4,-421.79C822.63,-377.96 786.68,-284.44 743,-212.5 720.62,-175.63 687.48,-137.3 668.75,-116.73"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="835.15,-423.09 841.8,-431.34 841.74,-420.74 835.15,-423.09"/>
+<path fill="none" stroke="#63b8ff" d="M826.15,-421.94C809.99,-378.34 773.45,-285.17 731,-212.5 709.68,-176.01 678.68,-137.23 661.39,-116.55"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="822.9,-423.25 829.63,-431.43 829.47,-420.84 822.9,-423.25"/>
 </a>
 </g>
 </g>
@@ -193,8 +193,8 @@ var sectionId = 'dynsection-29';
 <g id="edge2_Node000002_Node000003" class="edge">
 <title>Node2&#45;&gt;Node3</title>
 <g id="a_edge2_Node000002_Node000003"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M553.93,-673.59C545.34,-674.12 536.63,-674.66 528.01,-675.19"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="554.19,-677.08 563.96,-672.97 553.76,-670.1 554.19,-677.08"/>
+<path fill="none" stroke="#63b8ff" d="M564.59,-672.7C552.68,-673.46 540.31,-674.24 528.07,-675.02"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="565.15,-676.17 574.91,-672.05 564.71,-669.19 565.15,-676.17"/>
 </a>
 </g>
 </g>
@@ -268,8 +268,8 @@ var sectionId = 'dynsection-29';
 <g id="edge8_Node000008_Node000009" class="edge">
 <title>Node8&#45;&gt;Node9</title>
 <g id="a_edge8_Node000008_Node000009"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M571.93,-552.66C569.2,-554.19 566.55,-555.8 564,-557.5 543.83,-570.96 548.5,-585.54 528,-598.5 521.54,-602.58 514.5,-606.1 507.22,-609.14"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="573.59,-555.74 580.88,-548.05 570.39,-549.52 573.59,-555.74"/>
+<path fill="none" stroke="#63b8ff" d="M571.09,-553.03C568.65,-554.45 566.28,-555.94 564,-557.5 543.98,-571.18 548.5,-585.54 528,-598.5 521.54,-602.58 514.5,-606.1 507.22,-609.14"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="572.99,-555.98 580.16,-548.19 569.69,-549.81 572.99,-555.98"/>
 </a>
 </g>
 </g>
@@ -288,8 +288,8 @@ var sectionId = 'dynsection-29';
 <g id="edge9_Node000008_Node000010" class="edge">
 <title>Node8&#45;&gt;Node10</title>
 <g id="a_edge9_Node000008_Node000010"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M568.15,-542.77C551.58,-545.77 534.13,-548.93 517.35,-551.96"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="569.12,-546.15 578.34,-540.92 567.87,-539.26 569.12,-546.15"/>
+<path fill="none" stroke="#63b8ff" d="M562.34,-543.15C547.53,-545.9 532.06,-548.78 517.08,-551.56"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="563.27,-546.54 572.46,-541.27 561.99,-539.65 563.27,-546.54"/>
 </a>
 </g>
 </g>
@@ -307,8 +307,8 @@ var sectionId = 'dynsection-29';
 <g id="edge11_Node000011_Node000012" class="edge">
 <title>Node11&#45;&gt;Node12</title>
 <g id="a_edge11_Node000011_Node000012"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M622.05,-440.18C597.58,-455.96 561.82,-477.2 528,-490.5 513.36,-496.26 496.96,-500.87 481.67,-504.44"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="624.08,-443.03 630.53,-434.63 620.25,-437.17 624.08,-443.03"/>
+<path fill="none" stroke="#63b8ff" d="M617.36,-440.46C594.16,-456.26 560.32,-477.39 528,-490.5 513.42,-496.42 497.05,-501.07 481.76,-504.65"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="619.47,-443.25 625.71,-434.69 615.49,-437.49 619.47,-443.25"/>
 </a>
 </g>
 </g>
@@ -326,8 +326,8 @@ var sectionId = 'dynsection-29';
 <g id="edge12_Node000011_Node000013" class="edge">
 <title>Node11&#45;&gt;Node13</title>
 <g id="a_edge12_Node000011_Node000013"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M586.86,-427.9C560.33,-431.3 529.53,-435.24 502.03,-438.77"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="587.33,-431.37 596.8,-426.63 586.44,-424.43 587.33,-431.37"/>
+<path fill="none" stroke="#63b8ff" d="M580.84,-428.14C556.06,-431.39 527.67,-435.13 502.03,-438.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="581.4,-431.59 590.86,-426.82 580.49,-424.65 581.4,-431.59"/>
 </a>
 </g>
 </g>
@@ -344,8 +344,8 @@ var sectionId = 'dynsection-29';
 <g id="edge15_Node000011_Node000015" class="edge">
 <title>Node11&#45;&gt;Node15</title>
 <g id="a_edge15_Node000011_Node000015"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M586.69,-415.43C564.18,-414.04 538.61,-412.46 514.6,-410.98"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="586.6,-418.93 596.8,-416.06 587.04,-411.95 586.6,-418.93"/>
+<path fill="none" stroke="#63b8ff" d="M580.6,-415.32C559.89,-414 536.68,-412.53 514.66,-411.13"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="580.66,-418.83 590.86,-415.97 581.1,-411.84 580.66,-418.83"/>
 </a>
 </g>
 </g>
@@ -363,8 +363,8 @@ var sectionId = 'dynsection-29';
 <g id="edge16_Node000011_Node000016" class="edge">
 <title>Node11&#45;&gt;Node16</title>
 <g id="a_edge16_Node000011_Node000016"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M597.4,-401.26C558.79,-388.47 507.79,-371.58 471.49,-359.56"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="596.34,-404.59 606.94,-404.41 598.54,-397.95 596.34,-404.59"/>
+<path fill="none" stroke="#63b8ff" d="M592.38,-401.09C554.85,-388.33 505.48,-371.53 470.29,-359.56"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="591.55,-404.51 602.14,-404.41 593.8,-397.88 591.55,-404.51"/>
 </a>
 </g>
 </g>
@@ -382,8 +382,8 @@ var sectionId = 'dynsection-29';
 <g id="edge19_Node000011_Node000018" class="edge">
 <title>Node11&#45;&gt;Node18</title>
 <g id="a_edge19_Node000011_Node000018"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M629.14,-397.59C605.17,-375.93 566.08,-342.87 528,-320.5 509.92,-309.88 488.64,-300.66 470.22,-293.58"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="626.93,-400.3 636.67,-404.46 631.65,-395.14 626.93,-400.3"/>
+<path fill="none" stroke="#63b8ff" d="M624.17,-397.21C601.47,-375.48 564.54,-342.57 528,-320.5 510.21,-309.76 489.18,-300.58 470.85,-293.56"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="621.96,-399.95 631.58,-404.4 626.83,-394.93 621.96,-399.95"/>
 </a>
 </g>
 </g>
@@ -391,8 +391,8 @@ var sectionId = 'dynsection-29';
 <g id="edge14_Node000013_Node000013" class="edge">
 <title>Node13&#45;&gt;Node13</title>
 <g id="a_edge14_Node000013_Node000013"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M464.91,-474.1C459.46,-478.47 446.15,-481.5 425,-481.5 389.38,-481.5 376.02,-472.91 384.92,-463.78"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="468.41,-473.83 465.08,-463.78 461.41,-473.72 468.41,-473.83"/>
+<path fill="none" stroke="#63b8ff" d="M463.86,-474.1C458.55,-478.47 445.6,-481.5 425,-481.5 390.31,-481.5 377.3,-472.91 385.98,-463.78"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="467.36,-473.83 464.02,-463.78 460.36,-473.72 467.36,-473.83"/>
 </a>
 </g>
 </g>
@@ -419,8 +419,8 @@ var sectionId = 'dynsection-29';
 <g id="edge18_Node000016_Node000016" class="edge">
 <title>Node16&#45;&gt;Node16</title>
 <g id="a_edge18_Node000016_Node000016"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M464.91,-370.1C459.46,-374.47 446.15,-377.5 425,-377.5 389.38,-377.5 376.02,-368.91 384.92,-359.78"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="468.41,-369.83 465.08,-359.78 461.41,-369.72 468.41,-369.83"/>
+<path fill="none" stroke="#63b8ff" d="M463.86,-370.1C458.55,-374.47 445.6,-377.5 425,-377.5 390.31,-377.5 377.3,-368.91 385.98,-359.78"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="467.36,-369.83 464.02,-359.78 460.36,-369.72 467.36,-369.83"/>
 </a>
 </g>
 </g>
@@ -455,8 +455,8 @@ var sectionId = 'dynsection-29';
 <g id="edge21_Node000018_Node000018" class="edge">
 <title>Node18&#45;&gt;Node18</title>
 <g id="a_edge21_Node000018_Node000018"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M464.91,-304.1C459.46,-308.47 446.15,-311.5 425,-311.5 389.38,-311.5 376.02,-302.91 384.92,-293.78"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="468.41,-303.83 465.08,-293.78 461.41,-303.72 468.41,-303.83"/>
+<path fill="none" stroke="#63b8ff" d="M463.86,-304.1C458.55,-308.47 445.6,-311.5 425,-311.5 390.31,-311.5 377.3,-302.91 385.98,-293.78"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="467.36,-303.83 464.02,-293.78 460.36,-303.72 467.36,-303.83"/>
 </a>
 </g>
 </g>
@@ -474,8 +474,8 @@ var sectionId = 'dynsection-29';
 <g id="edge23_Node000019_Node000020" class="edge">
 <title>Node19&#45;&gt;Node20</title>
 <g id="a_edge23_Node000019_Node000020"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M559.59,-230.5C539.96,-230.5 519.48,-230.5 500.63,-230.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="559.77,-234 569.77,-230.5 559.77,-227 559.77,-234"/>
+<path fill="none" stroke="#63b8ff" d="M553.5,-230.5C535.93,-230.5 517.76,-230.5 500.84,-230.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="553.77,-234 563.77,-230.5 553.77,-227 553.77,-234"/>
 </a>
 </g>
 </g>
@@ -493,8 +493,8 @@ var sectionId = 'dynsection-29';
 <g id="edge24_Node000019_Node000021" class="edge">
 <title>Node19&#45;&gt;Node21</title>
 <g id="a_edge24_Node000019_Node000021"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M597.52,-218.85C567.23,-212.43 529.29,-204.39 496.8,-197.5"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="596.97,-222.31 607.48,-220.96 598.42,-215.46 596.97,-222.31"/>
+<path fill="none" stroke="#63b8ff" d="M592.59,-218.76C563.16,-212.36 526.41,-204.36 494.92,-197.5"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="592.16,-222.25 602.67,-220.96 593.65,-215.41 592.16,-222.25"/>
 </a>
 </g>
 </g>
@@ -513,8 +513,8 @@ var sectionId = 'dynsection-29';
 <g id="edge26_Node000022_Node000023" class="edge">
 <title>Node22&#45;&gt;Node23</title>
 <g id="a_edge26_Node000022_Node000023"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M574.25,-110.83C551.4,-113.55 526.46,-116.53 503.65,-119.24"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="574.72,-114.3 584.24,-109.64 573.89,-107.35 574.72,-114.3"/>
+<path fill="none" stroke="#63b8ff" d="M568.1,-111.1C547.13,-113.67 524.48,-116.44 503.56,-119"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="568.74,-114.55 578.24,-109.86 567.89,-107.6 568.74,-114.55"/>
 </a>
 </g>
 </g>
@@ -532,8 +532,8 @@ var sectionId = 'dynsection-29';
 <g id="edge27_Node000022_Node000024" class="edge">
 <title>Node22&#45;&gt;Node24</title>
 <g id="a_edge27_Node000022_Node000024"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M574.19,-92.16C544.1,-88.58 510.36,-84.56 482.69,-81.26"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="573.89,-95.65 584.24,-93.36 574.72,-88.7 573.89,-95.65"/>
+<path fill="none" stroke="#63b8ff" d="M568.03,-91.89C539.91,-88.45 508.76,-84.63 482.82,-81.46"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="567.89,-95.4 578.24,-93.14 568.74,-88.45 567.89,-95.4"/>
 </a>
 </g>
 </g>
@@ -552,8 +552,8 @@ var sectionId = 'dynsection-29';
 <g id="edge28_Node000022_Node000025" class="edge">
 <title>Node22&#45;&gt;Node25</title>
 <g id="a_edge28_Node000022_Node000025"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M609.09,-82.43C585.36,-72.34 555.31,-60.08 528,-50.5 518.77,-47.26 508.99,-44.08 499.28,-41.07"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="607.94,-85.75 618.51,-86.47 610.7,-79.32 607.94,-85.75"/>
+<path fill="none" stroke="#63b8ff" d="M605.21,-82.28C582.66,-72.15 554.09,-59.91 528,-50.5 518.97,-47.24 509.4,-44.07 499.88,-41.08"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="603.93,-85.54 614.48,-86.47 606.81,-79.16 603.93,-85.54"/>
 </a>
 </g>
 </g>

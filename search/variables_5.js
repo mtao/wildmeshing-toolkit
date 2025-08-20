@@ -20,7 +20,7 @@ var searchData=
   ['eid_5fspine_5fnew_17',['eid_spine_new',['../structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_face_split_data.html#aab71f274c8dbd4b1e094045ea61e48a1',1,'wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData']]],
   ['eid_5fspine_5fold_18',['eid_spine_old',['../structwmtk_1_1operations_1_1tet__mesh_1_1_edge_operation_data_1_1_face_split_data.html#a5512f51bd6ec1869b054bd6333d5a410',1,'wmtk::operations::tet_mesh::EdgeOperationData::FaceSplitData']]],
   ['else_19',['else',['../_b_v_h_envelope_8cpp.html#a0544c3fe466e421738dae463968b70ba',1,'BVHEnvelope.cpp']]],
-  ['enabled_20',['enabled',['../structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html#a918d5311d2834138f087dbe9e22061c2',1,'wmtk::components::isotropic_remeshing::OperationOptions']]],
+  ['enabled_20',['enabled',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html#af7df81cd658849b032f2b4fab0b02bc5',1,'wmtk::components::configurator::operations::OperationOptions']]],
   ['envelope_5fconstrained_5fmesh_21',['envelope_constrained_mesh',['../structwmtk_1_1components_1_1_envelope_options.html#ad8bb07887acaab5780205d3af7838ca1',1,'wmtk::components::EnvelopeOptions']]],
   ['envelope_5fgeometry_5fmesh_22',['envelope_geometry_mesh',['../structwmtk_1_1components_1_1_envelope_options.html#a3d4648d9ddadfc0dde5dcd5d77b168e8',1,'wmtk::components::EnvelopeOptions']]],
   ['envelope_5fname_23',['envelope_name',['../structwmtk_1_1components_1_1_envelope_options.html#a4e5cebb6e78dff3c699dedf89d3941d5',1,'wmtk::components::EnvelopeOptions']]],

@@ -21,7 +21,7 @@ var searchData=
   ['simplexcomparisons_18',['SimplexComparisons',['../classwmtk_1_1simplex_1_1utils_1_1_simplex_comparisons.html',1,'wmtk::simplex::utils']]],
   ['simplexdart_19',['simplexdart',['../classwmtk_1_1autogen_1_1edge__mesh_1_1_simplex_dart.html',1,'wmtk::autogen::edge_mesh::SimplexDart'],['../classwmtk_1_1autogen_1_1point__mesh_1_1_simplex_dart.html',1,'wmtk::autogen::point_mesh::SimplexDart'],['../classwmtk_1_1autogen_1_1tet__mesh_1_1_simplex_dart.html',1,'wmtk::autogen::tet_mesh::SimplexDart'],['../classwmtk_1_1autogen_1_1tri__mesh_1_1_simplex_dart.html',1,'wmtk::autogen::tri_mesh::SimplexDart'],['../classwmtk_1_1dart_1_1_simplex_dart.html',1,'wmtk::dart::SimplexDart']]],
   ['simplexequalfunctor_20',['SimplexEqualFunctor',['../structwmtk_1_1simplex_1_1internal_1_1_simplex_equal_functor.html',1,'wmtk::simplex::internal']]],
-  ['simplexinversioninvariant_21',['SimplexInversionInvariant',['../classwmtk_1_1_simplex_inversion_invariant.html',1,'wmtk']]],
+  ['simplexinversioninvariant_21',['SimplexInversionInvariant',['../classwmtk_1_1invariants_1_1_simplex_inversion_invariant.html',1,'wmtk::invariants']]],
   ['simplexlessfunctor_22',['SimplexLessFunctor',['../structwmtk_1_1simplex_1_1internal_1_1_simplex_less_functor.html',1,'wmtk::simplex::internal']]],
   ['simplicialembedding_23',['SimplicialEmbedding',['../classwmtk_1_1components_1_1internal_1_1_simplicial_embedding.html',1,'wmtk::components::internal']]],
   ['simplicialembeddingoptions_24',['SimplicialEmbeddingOptions',['../structwmtk_1_1components_1_1_simplicial_embedding_options.html',1,'wmtk::components']]],

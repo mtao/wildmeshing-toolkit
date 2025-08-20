@@ -65,6 +65,27 @@ var annotated_dup =
           ] ]
         ] ],
         [ "configurator", "namespacewmtk_1_1components_1_1configurator.html", [
+          [ "invariants", "namespacewmtk_1_1components_1_1configurator_1_1invariants.html", [
+            [ "AliasInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_alias_invariant_options.html", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_alias_invariant_options" ],
+            [ "AttributeInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_attribute_invariant_options.html", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_attribute_invariant_options" ],
+            [ "EnvelopeInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_envelope_invariant_options.html", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_envelope_invariant_options" ],
+            [ "InvariantCollectionOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_collection_options.html", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_collection_options" ],
+            [ "InvariantFactory", "classwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_factory.html", "classwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_factory" ],
+            [ "InvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_options.html", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_options" ],
+            [ "MeshInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_mesh_invariant_options.html", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_mesh_invariant_options" ]
+          ] ],
+          [ "operations", "namespacewmtk_1_1components_1_1configurator_1_1operations.html", [
+            [ "AttributeUpdateOperation", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_operation.html", null ],
+            [ "EdgeCollapseOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_collapse_options.html", null ],
+            [ "EdgeSplitOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_split_options.html", null ],
+            [ "EdgeSwapOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_swap_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_swap_options" ],
+            [ "OperationFactory", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory" ],
+            [ "OperationOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options" ],
+            [ "Pass", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass" ],
+            [ "PriorityOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options" ],
+            [ "ProjectedAttributeUpdateOperation", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_operation.html", null ],
+            [ "VertexSmoothOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options.html", null ]
+          ] ],
           [ "transfer", "namespacewmtk_1_1components_1_1configurator_1_1transfer.html", [
             [ "AMIPSFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor" ],
             [ "CoeffWiseTransfer", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_coeff_wise_transfer.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_coeff_wise_transfer" ],
@@ -87,7 +108,12 @@ var annotated_dup =
             [ "TransferStrategyFactoryCollection", "classwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory_collection.html", null ],
             [ "TransferStrategyFactoryRegistry", "classwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory_registry.html", "classwmtk_1_1components_1_1configurator_1_1transfer_1_1_transfer_strategy_factory_registry" ],
             [ "VolumeFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_volume_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_volume_functor" ]
-          ] ]
+          ] ],
+          [ "Configuration", "structwmtk_1_1components_1_1configurator_1_1_configuration.html", "structwmtk_1_1components_1_1configurator_1_1_configuration" ],
+          [ "Configurator", "classwmtk_1_1components_1_1configurator_1_1_configurator.html", "classwmtk_1_1components_1_1configurator_1_1_configurator" ],
+          [ "Pass", "classwmtk_1_1components_1_1configurator_1_1_pass.html", "classwmtk_1_1components_1_1configurator_1_1_pass" ],
+          [ "PassConfiguration", "structwmtk_1_1components_1_1configurator_1_1_pass_configuration.html", "structwmtk_1_1components_1_1configurator_1_1_pass_configuration" ],
+          [ "PassOptions", "structwmtk_1_1components_1_1configurator_1_1_pass_options.html", "structwmtk_1_1components_1_1configurator_1_1_pass_options" ]
         ] ],
         [ "envelope", "namespacewmtk_1_1components_1_1envelope.html", [
           [ "invariants", "namespacewmtk_1_1components_1_1envelope_1_1invariants.html", [
@@ -123,21 +149,8 @@ var annotated_dup =
             [ "ImprovementInvariant", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_improvement_invariant.html", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_improvement_invariant" ],
             [ "PreserveTaggedSubstructureInvariant", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_preserve_tagged_substructure_invariant.html", "classwmtk_1_1components_1_1isotropic__remeshing_1_1invariants_1_1_preserve_tagged_substructure_invariant" ]
           ] ],
-          [ "AliasInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_alias_invariant_parameters.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_alias_invariant_parameters" ],
-          [ "AttributeInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_attribute_invariant_parameters.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_attribute_invariant_parameters" ],
-          [ "EdgeCollapseOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_collapse_options.html", null ],
-          [ "EdgeSplitOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_split_options.html", null ],
-          [ "EdgeSwapOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options" ],
-          [ "EnvelopeInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_envelope_invariant_parameters.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_envelope_invariant_parameters" ],
-          [ "InvariantCollectionParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_collection_parameters.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_collection_parameters" ],
-          [ "InvariantOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options" ],
-          [ "InvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters" ],
           [ "IsotropicRemeshing", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing" ],
-          [ "IsotropicRemeshingOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options" ],
-          [ "OperationOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options" ],
-          [ "Pass", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_pass.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_pass" ],
-          [ "PriorityOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_priority_options.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_priority_options" ],
-          [ "VertexSmoothOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_vertex_smooth_options.html", null ]
+          [ "IsotropicRemeshingOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options" ]
         ] ],
         [ "longest_edge_split", "namespacewmtk_1_1components_1_1longest__edge__split.html", [
           [ "LongestEdgeSplitOptions", "structwmtk_1_1components_1_1longest__edge__split_1_1_longest_edge_split_options.html", "structwmtk_1_1components_1_1longest__edge__split_1_1_longest_edge_split_options" ]
@@ -275,6 +288,7 @@ var annotated_dup =
         [ "NoBoundaryCollapseToInteriorInvariant", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant.html", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant" ],
         [ "NoChildMeshAttachingInvariant", "classwmtk_1_1invariants_1_1_no_child_mesh_attaching_invariant.html", "classwmtk_1_1invariants_1_1_no_child_mesh_attaching_invariant" ],
         [ "SeparateSubstructuresInvariant", "classwmtk_1_1invariants_1_1_separate_substructures_invariant.html", "classwmtk_1_1invariants_1_1_separate_substructures_invariant" ],
+        [ "SimplexInversionInvariant", "classwmtk_1_1invariants_1_1_simplex_inversion_invariant.html", "classwmtk_1_1invariants_1_1_simplex_inversion_invariant" ],
         [ "TetMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant.html", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant" ],
         [ "TriMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant.html", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant" ],
         [ "uvEdgeInvariant", "classwmtk_1_1invariants_1_1uv_edge_invariant.html", "classwmtk_1_1invariants_1_1uv_edge_invariant" ],
@@ -497,7 +511,6 @@ var annotated_dup =
       [ "RoundedInvariant", "classwmtk_1_1_rounded_invariant.html", "classwmtk_1_1_rounded_invariant" ],
       [ "Scheduler", "classwmtk_1_1_scheduler.html", "classwmtk_1_1_scheduler" ],
       [ "SchedulerStats", "classwmtk_1_1_scheduler_stats.html", "classwmtk_1_1_scheduler_stats" ],
-      [ "SimplexInversionInvariant", "classwmtk_1_1_simplex_inversion_invariant.html", "classwmtk_1_1_simplex_inversion_invariant" ],
       [ "Swap23EnergyBeforeInvariant", "classwmtk_1_1_swap23_energy_before_invariant.html", "classwmtk_1_1_swap23_energy_before_invariant" ],
       [ "Swap2dEdgeLengthInvariant", "classwmtk_1_1_swap2d_edge_length_invariant.html", "classwmtk_1_1_swap2d_edge_length_invariant" ],
       [ "Swap2dUnroundedVertexInvariant", "classwmtk_1_1_swap2d_unrounded_vertex_invariant.html", "classwmtk_1_1_swap2d_unrounded_vertex_invariant" ],

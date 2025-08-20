@@ -126,14 +126,16 @@ $(document).ready(function(){initNavTree('_operation_options_8hpp.html',''); ini
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;memory&gt;</code><br />
-<code>#include &lt;nlohmann/json_fwd.hpp&gt;</code><br />
+<code>#include &lt;nlohmann/json.hpp&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
 <code>#include &lt;<a class="el" href="json__macros_8hpp_source.html">wmtk/components/utils/json_macros.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="_invariant_options_8hpp_source.html">../invariants/InvariantOptions.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_edge_swap_mode_8hpp_source.html">EdgeSwapMode.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="_priority_options_8hpp_source.html">PriorityOptions.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for OperationOptions.hpp:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="_operation_options_8hpp__incl.svg" width="599" height="227"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="_operation_options_8hpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div><div class="textblock"><div class="dynheader">
 This graph shows which files directly or indirectly include this file:</div>
@@ -145,31 +147,21 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_priority_options.html">wmtk::components::isotropic_remeshing::PriorityOptions</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html">wmtk::components::configurator::operations::OperationOptions</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html">wmtk::components::isotropic_remeshing::InvariantParameters</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_split_options.html">wmtk::components::configurator::operations::EdgeSplitOptions</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html">wmtk::components::isotropic_remeshing::InvariantOptions</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_collapse_options.html">wmtk::components::configurator::operations::EdgeCollapseOptions</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_attribute_invariant_parameters.html">wmtk::components::isotropic_remeshing::AttributeInvariantParameters</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_swap_options.html">wmtk::components::configurator::operations::EdgeSwapOptions</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_envelope_invariant_parameters.html">wmtk::components::isotropic_remeshing::EnvelopeInvariantParameters</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options.html">wmtk::components::configurator::operations::VertexSmoothOptions</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_collection_parameters.html">wmtk::components::isotropic_remeshing::InvariantCollectionParameters</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_operation.html">wmtk::components::configurator::operations::AttributeUpdateOperation</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_alias_invariant_parameters.html">wmtk::components::isotropic_remeshing::AliasInvariantParameters</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_operation.html">wmtk::components::configurator::operations::ProjectedAttributeUpdateOperation</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html">wmtk::components::isotropic_remeshing::OperationOptions</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_split_options.html">wmtk::components::isotropic_remeshing::EdgeSplitOptions</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_collapse_options.html">wmtk::components::isotropic_remeshing::EdgeCollapseOptions</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options.html">wmtk::components::isotropic_remeshing::EdgeSwapOptions</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_vertex_smooth_options.html">wmtk::components::isotropic_remeshing::VertexSmoothOptions</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_pass.html">wmtk::components::isotropic_remeshing::Pass</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass.html">wmtk::components::configurator::operations::Pass</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
@@ -182,7 +174,9 @@ Namespaces</h2></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:namespacewmtk_1_1components_1_1multimesh" id="r_namespacewmtk_1_1components_1_1multimesh"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1multimesh.html">wmtk::components::multimesh</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacewmtk_1_1components_1_1isotropic__remeshing" id="r_namespacewmtk_1_1components_1_1isotropic__remeshing"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html">wmtk::components::isotropic_remeshing</a></td></tr>
+<tr class="memitem:namespacewmtk_1_1components_1_1configurator" id="r_namespacewmtk_1_1components_1_1configurator"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1configurator.html">wmtk::components::configurator</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:namespacewmtk_1_1components_1_1configurator_1_1operations" id="r_namespacewmtk_1_1components_1_1configurator_1_1operations"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1configurator_1_1operations.html">wmtk::components::configurator::operations</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->

@@ -6,5 +6,6 @@ var searchData=
   ['interioredgeinvariant_3',['InteriorEdgeInvariant',['../namespacewmtk.html#a1edbf1970c8b923ad3c4605c56dc5e5c',1,'wmtk']]],
   ['interiorvertexinvariant_4',['InteriorVertexInvariant',['../namespacewmtk.html#a8a324830ad93e04cf8cc5eeabceb23f5',1,'wmtk']]],
   ['invariant_5',['Invariant',['../namespacewmtk.html#aedc5944c76b67357bbdf8174977cf37c',1,'wmtk']]],
-  ['iterator_5ftype_6',['iterator_type',['../classwmtk_1_1dart_1_1_simplex_adjacency.html#a8bf39a6f00900310696b9cac909c74ee',1,'wmtk::dart::SimplexAdjacency::iterator_type'],['../classwmtk_1_1utils_1_1_dynamic_array.html#af844bc167804c8509e2cf36a3270ca28',1,'wmtk::utils::DynamicArray::iterator_type']]]
+  ['invariantcreatorfunc_6',['InvariantCreatorFunc',['../classwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_factory.html#a95bcdf62fd6535d2219a1293ebb829a9',1,'wmtk::components::configurator::invariants::InvariantFactory']]],
+  ['iterator_5ftype_7',['iterator_type',['../classwmtk_1_1dart_1_1_simplex_adjacency.html#a8bf39a6f00900310696b9cac909c74ee',1,'wmtk::dart::SimplexAdjacency::iterator_type'],['../classwmtk_1_1utils_1_1_dynamic_array.html#af844bc167804c8509e2cf36a3270ca28',1,'wmtk::utils::DynamicArray::iterator_type']]]
 ];

@@ -66,6 +66,7 @@ var hierarchy =
     [ "wmtk::components::utils::ComponentOptionsBase", "structwmtk_1_1components_1_1utils_1_1_component_options_base.html", null ],
     [ "wmtk::utils::metaprogramming::tuple::concatenate_types< T, U >", "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1concatenate__types.html", null ],
     [ "wmtk::utils::metaprogramming::tuple::concatenate_types< std::tuple< Ts... >, std::tuple< Us... > >", "structwmtk_1_1utils_1_1metaprogramming_1_1tuple_1_1concatenate__types_3_01std_1_1tuple_3_01_ts_86d0a69fecfbdc8ad2729d5312a1839cd.html", null ],
+    [ "wmtk::components::configurator::Configurator", "classwmtk_1_1components_1_1configurator_1_1_configurator.html", null ],
     [ "wmtk::components::procedural::DiskOptions::Coordinates", "structwmtk_1_1components_1_1procedural_1_1_disk_options_1_1_coordinates.html", null ],
     [ "wmtk::components::procedural::Grid2Options::Coordinates", "structwmtk_1_1components_1_1procedural_1_1_grid2_options_1_1_coordinates.html", null ],
     [ "wmtk::components::procedural::Grid3Options::Coordinates", "structwmtk_1_1components_1_1procedural_1_1_grid3_options_1_1_coordinates.html", null ],
@@ -230,7 +231,6 @@ var hierarchy =
       [ "wmtk::MaxEdgeLengthInvariant", "classwmtk_1_1_max_edge_length_invariant.html", null ],
       [ "wmtk::MultiMeshMapValidInvariant", "classwmtk_1_1_multi_mesh_map_valid_invariant.html", null ],
       [ "wmtk::RoundedInvariant", "classwmtk_1_1_rounded_invariant.html", null ],
-      [ "wmtk::SimplexInversionInvariant< T >", "classwmtk_1_1_simplex_inversion_invariant.html", null ],
       [ "wmtk::Swap23EnergyBeforeInvariant", "classwmtk_1_1_swap23_energy_before_invariant.html", null ],
       [ "wmtk::Swap2dEdgeLengthInvariant", "classwmtk_1_1_swap2d_edge_length_invariant.html", null ],
       [ "wmtk::Swap2dUnroundedVertexInvariant", "classwmtk_1_1_swap2d_unrounded_vertex_invariant.html", null ],
@@ -268,25 +268,26 @@ var hierarchy =
       [ "wmtk::invariants::NoBoundaryCollapseToInteriorInvariant", "classwmtk_1_1invariants_1_1_no_boundary_collapse_to_interior_invariant.html", null ],
       [ "wmtk::invariants::NoChildMeshAttachingInvariant", "classwmtk_1_1invariants_1_1_no_child_mesh_attaching_invariant.html", null ],
       [ "wmtk::invariants::SeparateSubstructuresInvariant", "classwmtk_1_1invariants_1_1_separate_substructures_invariant.html", null ],
+      [ "wmtk::invariants::SimplexInversionInvariant< T >", "classwmtk_1_1invariants_1_1_simplex_inversion_invariant.html", null ],
       [ "wmtk::invariants::TetMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tet_mesh_substructure_topology_preserving_invariant.html", null ],
       [ "wmtk::invariants::TriMeshSubstructureTopologyPreservingInvariant", "classwmtk_1_1invariants_1_1_tri_mesh_substructure_topology_preserving_invariant.html", null ],
       [ "wmtk::invariants::ValenceImprovementInvariant", "classwmtk_1_1invariants_1_1_valence_improvement_invariant.html", null ],
       [ "wmtk::invariants::internal::ConstantInvariant", "classwmtk_1_1invariants_1_1internal_1_1_constant_invariant.html", null ],
       [ "wmtk::invariants::uvEdgeInvariant", "classwmtk_1_1invariants_1_1uv_edge_invariant.html", null ]
     ] ],
-    [ "wmtk::components::isotropic_remeshing::InvariantOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_options.html", null ],
-    [ "wmtk::components::isotropic_remeshing::InvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_parameters.html", [
-      [ "wmtk::components::isotropic_remeshing::AliasInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_alias_invariant_parameters.html", null ],
-      [ "wmtk::components::isotropic_remeshing::AttributeInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_attribute_invariant_parameters.html", [
-        [ "wmtk::components::isotropic_remeshing::EnvelopeInvariantParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_envelope_invariant_parameters.html", null ]
+    [ "wmtk::components::configurator::invariants::InvariantFactory", "classwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_factory.html", null ],
+    [ "wmtk::components::configurator::invariants::InvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_options.html", [
+      [ "wmtk::components::configurator::invariants::AliasInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_alias_invariant_options.html", null ],
+      [ "wmtk::components::configurator::invariants::AttributeInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_attribute_invariant_options.html", [
+        [ "wmtk::components::configurator::invariants::EnvelopeInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_envelope_invariant_options.html", null ]
       ] ],
-      [ "wmtk::components::isotropic_remeshing::InvariantCollectionParameters", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_invariant_collection_parameters.html", null ]
+      [ "wmtk::components::configurator::invariants::InvariantCollectionOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_collection_options.html", null ],
+      [ "wmtk::components::configurator::invariants::MeshInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_mesh_invariant_options.html", null ]
     ] ],
     [ "wmtk::dart::Involution", "classwmtk_1_1dart_1_1_involution.html", null ],
     [ "wmtk::attribute::internal::is_typed_attribute_handle< T >", "structwmtk_1_1attribute_1_1internal_1_1is__typed__attribute__handle.html", null ],
     [ "wmtk::attribute::internal::is_typed_attribute_handle< TypedAttributeHandle< T > >", "structwmtk_1_1attribute_1_1internal_1_1is__typed__attribute__handle_3_01_typed_attribute_handle_3_01_t_01_4_01_4.html", null ],
     [ "wmtk::components::isotropic_remeshing::IsotropicRemeshing", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html", null ],
-    [ "wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html", null ],
     [ "wmtk::dart::SimplexAdjacency< Dim >::Iterator< IsConst >", "classwmtk_1_1dart_1_1_simplex_adjacency_1_1_iterator.html", null ],
     [ "wmtk::simplex::ClosedStarIterable::Iterator", "classwmtk_1_1simplex_1_1_closed_star_iterable_1_1_iterator.html", null ],
     [ "wmtk::simplex::CofacesInSimplexIterable::Iterator", "classwmtk_1_1simplex_1_1_cofaces_in_simplex_iterable_1_1_iterator.html", null ],
@@ -384,15 +385,25 @@ var hierarchy =
       [ "wmtk::operations::composite::TetFaceSwap", "classwmtk_1_1operations_1_1composite_1_1_tet_face_swap.html", null ],
       [ "wmtk::operations::composite::TriFaceSplit", "classwmtk_1_1operations_1_1composite_1_1_tri_face_split.html", null ]
     ] ],
-    [ "wmtk::components::isotropic_remeshing::OperationOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_operation_options.html", [
-      [ "wmtk::components::isotropic_remeshing::EdgeCollapseOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_collapse_options.html", null ],
-      [ "wmtk::components::isotropic_remeshing::EdgeSplitOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_split_options.html", null ],
-      [ "wmtk::components::isotropic_remeshing::EdgeSwapOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_edge_swap_options.html", null ],
-      [ "wmtk::components::isotropic_remeshing::VertexSmoothOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_vertex_smooth_options.html", null ]
+    [ "wmtk::components::configurator::operations::OperationFactory", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html", null ],
+    [ "wmtk::components::configurator::operations::OperationOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html", [
+      [ "wmtk::components::configurator::operations::AttributeUpdateOperation", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_operation.html", [
+        [ "wmtk::components::configurator::operations::ProjectedAttributeUpdateOperation", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_operation.html", null ]
+      ] ],
+      [ "wmtk::components::configurator::operations::EdgeCollapseOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_collapse_options.html", null ],
+      [ "wmtk::components::configurator::operations::EdgeSplitOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_split_options.html", null ],
+      [ "wmtk::components::configurator::operations::EdgeSwapOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_swap_options.html", null ],
+      [ "wmtk::components::configurator::operations::VertexSmoothOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options.html", null ]
     ] ],
     [ "wmtk::components::output::OutputOptions", "structwmtk_1_1components_1_1output_1_1_output_options.html", null ],
     [ "wmtk::io::ParaviewWriter::ParaviewInternalWriter", "classwmtk_1_1io_1_1_paraview_writer_1_1_paraview_internal_writer.html", null ],
-    [ "wmtk::components::isotropic_remeshing::Pass", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_pass.html", null ],
+    [ "wmtk::components::configurator::operations::Pass", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass.html", null ],
+    [ "wmtk::components::configurator::Pass", "classwmtk_1_1components_1_1configurator_1_1_pass.html", null ],
+    [ "wmtk::components::configurator::PassConfiguration", "structwmtk_1_1components_1_1configurator_1_1_pass_configuration.html", [
+      [ "wmtk::components::configurator::Configuration", "structwmtk_1_1components_1_1configurator_1_1_configuration.html", null ],
+      [ "wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html", null ]
+    ] ],
+    [ "wmtk::components::configurator::PassOptions", "structwmtk_1_1components_1_1configurator_1_1_pass_options.html", null ],
     [ "wmtk::components::utils::PathResolver", "classwmtk_1_1components_1_1utils_1_1_path_resolver.html", null ],
     [ "wmtk::components::PeriodicOptimizationOptions", "structwmtk_1_1components_1_1_periodic_optimization_options.html", null ],
     [ "wmtk::function::PerSimplexFunction", "classwmtk_1_1function_1_1_per_simplex_function.html", [
@@ -407,7 +418,7 @@ var hierarchy =
     [ "wmtk::function::utils::PositionMapEvaluator", "classwmtk_1_1function_1_1utils_1_1_position_map_evaluator.html", null ],
     [ "wmtk::Primitive", "classwmtk_1_1_primitive.html", null ],
     [ "wmtk::utils::detail::PrimitiveTypeRange< Start, End, Inverted >", "classwmtk_1_1utils_1_1detail_1_1_primitive_type_range.html", null ],
-    [ "wmtk::components::isotropic_remeshing::PriorityOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_priority_options.html", null ],
+    [ "wmtk::components::configurator::operations::PriorityOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options.html", null ],
     [ "polysolve::nonlinear::Problem", null, [
       [ "wmtk::operations::AMIPSOptimizationSmoothing::WMTKAMIPSProblem< S >", "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_1_1_w_m_t_k_a_m_i_p_s_problem.html", null ],
       [ "wmtk::operations::AMIPSOptimizationSmoothingPeriodic::WMTKAMIPSProblem< S >", "classwmtk_1_1operations_1_1_a_m_i_p_s_optimization_smoothing_periodic_1_1_w_m_t_k_a_m_i_p_s_problem.html", null ],
