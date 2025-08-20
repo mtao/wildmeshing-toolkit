@@ -17,6 +17,7 @@ wmtk_add_application(cad_isotropic_remeshing_app
 target_link_libraries(cad_isotropic_remeshing_app PRIVATE
 wmtk::input
 wmtk::isotropic_remeshing
+wmtk::configurator
 wmtk::multimesh
 wmtk::output
 wmtk::application_utils

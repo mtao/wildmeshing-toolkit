@@ -2,10 +2,12 @@
 
 #include <Eigen/Core>
 #include <wmtk/Types.hpp>
+#include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/attribute/TypedAttributeHandle.hpp>
 #include "Invariant.hpp"
 
 namespace wmtk {
+namespace invariants {
 template <typename T>
 class SimplexInversionInvariant : public Invariant
 {
@@ -13,6 +15,9 @@ public:
     SimplexInversionInvariant(
         const Mesh& m,
         const TypedAttributeHandle<T>& coordinate,
+        bool inverted = false);
+    SimplexInversionInvariant(
+        const wmtk::attribute::MeshAttributeHandle& coordinate,
         bool inverted = false);
     using Invariant::Invariant;
     std::string name() const final override;
@@ -41,5 +46,16 @@ private:
     const TypedAttributeHandle<T> m_coordinate_handle;
     bool m_inverted = false;
 };
+
+template <typename T>
+SimplexInversionInvariant<T>::SimplexInversionInvariant(
+    const wmtk::attribute::MeshAttributeHandle& coordinate,
+    bool inverted)
+    : SimplexInversionInvariant(coordinate.mesh(), coordinate.template as<T>(), inverted)
+{}
+} // namespace invariants
+
+template <typename T>
+using SimplexInversionInvariant = invariants::SimplexInversionInvariant<T>;
 
 } // namespace wmtk

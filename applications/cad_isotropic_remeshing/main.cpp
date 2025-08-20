@@ -39,6 +39,7 @@
 #include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/output/output.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
+#include <wmtk/components/configurator/operations/OperationOptions.hpp>
 
 #include <h5pp/h5pp.h>
 #include <wmtk/components/output/output.hpp>
@@ -160,19 +161,23 @@ int main(int argc, char* argv[])
         ////  opts.collapse.enabled = false;
         // opts.smooth.enabled = false;
 
-        opts.swap.mode = components::isotropic_remeshing::EdgeSwapMode::Valence;
+        wmtk::components::configurator::operations::EdgeCollapseOptions collapse_opts;
+        wmtk::components::configurator::operations::EdgeSwapOptions swap_opts;
+        swap_opts.mode = components::configurator::operations::EdgeSwapMode::Valence;
 
         auto mean_error =
-            std::make_shared<wmtk::components::isotropic_remeshing::PriorityOptions>();
+            std::make_shared<wmtk::components::configurator::operations::PriorityOptions>();
         mean_error->type = "attribute";
         mean_error->attribute_path = "fused/min_mean_area_measure";
 
         auto edge_length =
-            std::make_shared<wmtk::components::isotropic_remeshing::PriorityOptions>();
+            std::make_shared<wmtk::components::configurator::operations::PriorityOptions>();
         edge_length->type = "attribute";
         edge_length->attribute_path = "fused/edge_length";
-        opts.collapse.priority = edge_length;
-        opts.swap.priority = mean_error;
+
+        //collapse_opts.priority = edge_length;
+        //swap_opts.priority = mean_error;
+        swap_opts.mode = wmtk::components::configurator::operations::EdgeSwapMode::Valence;
 
 
         {
@@ -195,15 +200,17 @@ int main(int argc, char* argv[])
             opts.utility_attributes.emplace_back(min_mrm);
         }
 
+        using namespace wmtk::components::configurator;
+        std::vector<PassOptions> passes;
         {
             {
-                auto& pass = opts.passes.emplace_back();
+                auto& pass = passes.emplace_back();
                 pass.mesh_path = "fused.feature_edges";
                 pass.iterations = 2;
                 pass.operations = {"collapse", "smooth"};
             }
             {
-                auto& pass = opts.passes.emplace_back();
+                auto& pass = passes.emplace_back();
                 pass.mesh_path = "fused";
                 pass.iterations = 1;
                 pass.operations = {"swap", "collapse"};

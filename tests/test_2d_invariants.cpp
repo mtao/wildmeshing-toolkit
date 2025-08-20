@@ -756,8 +756,8 @@ TEST_CASE("tri_rational_inversion_invariant", "[invariants][2D]")
     dposition_accessor.vector_attribute(v1) = Eigen::Vector2<double>(1, 1);
     dposition_accessor.vector_attribute(v2) = Eigen::Vector2<double>(1, -1);
 
-    const SimplexInversionInvariant inv(m, position_handle.as<Rational>());
-    const SimplexInversionInvariant dinv(m, dposition_handle.as<double>());
+    const invariants::SimplexInversionInvariant inv(m, position_handle.as<Rational>());
+    const invariants::SimplexInversionInvariant dinv(m, dposition_handle.as<double>());
     Tuple t = v0;
 
     for (const auto& t : m.get_all(PrimitiveType::Edge)) {

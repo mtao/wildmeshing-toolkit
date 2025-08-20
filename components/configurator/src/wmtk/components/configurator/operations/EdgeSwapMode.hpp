@@ -1,9 +1,8 @@
 #pragma once
 
-namespace wmtk::components::isotropic_remeshing {
+namespace wmtk::components::configurator::operations {
     enum class EdgeSwapMode {
         AMIPS,
-        Valence,
-        Skip
+        Valence
     };
 }

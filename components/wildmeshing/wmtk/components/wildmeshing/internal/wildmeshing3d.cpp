@@ -360,7 +360,7 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing3d(
 
     wmtk::logger().trace("Going through invariants");
     auto inversion_invariant =
-        std::make_shared<SimplexInversionInvariant<Rational>>(*mesh, pt_attribute.as<Rational>());
+        std::make_shared<invariants::SimplexInversionInvariant<Rational>>(*mesh, pt_attribute.as<Rational>());
 
     std::shared_ptr<function::PerSimplexFunction> amips =
         std::make_shared<AMIPS>(*mesh, pt_attribute);

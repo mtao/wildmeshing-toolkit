@@ -6,6 +6,7 @@
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/operations/attribute_update/make_cast_attribute_transfer_strategy.hpp>
 #include <wmtk/simplex/utils/tuple_vector_to_homogeneous_simplex_vector.hpp>
+#include <wmtk/utils/Logger.hpp>
 #include "invariants/ImprovementInvariant.hpp"
 
 // main execution tools
@@ -98,6 +99,7 @@ void IsotropicRemeshing::load_transfers(const IsotropicRemeshingOptions& opts)
 }
 
 IsotropicRemeshing::~IsotropicRemeshing() = default;
+/*
 IsotropicRemeshing::IsotropicRemeshing(
     multimesh::MeshCollection& mc,
     const IsotropicRemeshingOptions& opts)
@@ -191,6 +193,106 @@ IsotropicRemeshing::IsotropicRemeshing(
     for (const auto& [name, op] : m_operations) {
         if (!op->attribute_new_all_configured()) {
             wmtk::log_and_throw_error("Not every attribute in {} was configured", name);
+        }
+    }
+}
+*/
+IsotropicRemeshing::IsotropicRemeshing(IsotropicRemeshingOptions& opts)
+    : m_meshes(opts.configurator.meshes())
+{
+    auto& configurator = opts.configurator;
+    m_configurator = &configurator;
+    passes = opts.configurator.get_passes();
+    iterations = opts.iterations;
+    start_with_collapse = opts.start_with_collapse;
+
+    intermediate_output_format = opts.intermediate_output_format;
+
+
+    load_shared_invariants(opts);
+    load_transfers(opts);
+
+
+    // split
+    m_split = configurator.get_operation<wmtk::operations::EdgeSplit>("split");
+    if (m_split) {
+        configure_split(opts);
+        assert(bool(m_split));
+    } else {
+        wmtk::logger().info("Running Isotropic Remeshing without a split configured");
+    }
+
+
+    //////////////////////////////////////////
+    // collapse
+
+    m_collapse = configurator.get_operation<wmtk::operations::EdgeCollapse>("collapse");
+    if (m_collapse) {
+        configure_collapse(opts);
+        assert(bool(m_collapse));
+    } else {
+        wmtk::logger().info("Running Isotropic Remeshing without a collapse configured");
+    }
+
+
+    //////////////////////////////////////////
+    // swap
+
+    m_swap = configurator.get_operation<wmtk::operations::composite::EdgeSwap>("swap");
+    if (m_swap) {
+        configure_swap(opts);
+        assert(bool(m_swap));
+    }
+
+    //////////////////////////////////////////
+    // smooth
+    m_smooth = configurator.get_operation("smooth");
+    if (m_smooth) {
+        configure_smooth(opts);
+        assert(bool(m_smooth));
+    } else {
+        wmtk::logger().info("Running Isotropic Remeshing without a smooth configured");
+    }
+
+    if (passes.empty()) {
+        wmtk::logger().debug("No passes given assuming a default of split");
+        using PassOptions = wmtk::components::configurator::PassOptions;
+        PassOptions pass_opts;
+        pass_opts.mesh_path = opts.position_attribute;
+        pass_opts.iterations = 1;
+
+        pass_opts.operations = {"split", "collapse", "swap", "smooth"};
+        passes.emplace_back(configurator, pass_opts);
+    } else {
+        passes = configurator.get_passes();
+    }
+    /*
+    for (size_t j = 0; j < passes.size(); ++j) {
+        auto& pass = passes[j];
+        if (pass.operations.empty()) {
+            wmtk::logger().info(
+                "Pass of isotropic remeshing didn't specify any operations, "
+                "assuming it's a split,collapse,swap,smooth");
+            pass.operations = {"split", "collapse", "swap", "smooth"};
+        }
+        for (const auto& op_name : pass.operations) {
+            if (m_operations.find(op_name) == m_operations.end()) {
+                throw std::runtime_error(
+                    fmt::format("was unable to find operation {} in pass {}", op_name, j));
+            }
+        }
+    }
+    */
+    if (m_configurator != nullptr) {
+        for (const auto& p : passes) {
+            for (const auto& op : p.operations()) {
+                if (!op->attribute_new_all_configured()) {
+                    const auto& c = *m_configurator;
+                    wmtk::log_and_throw_error(
+                        "Not every attribute in {} was configured",
+                        c.get_operation_name(*op));
+                }
+            }
         }
     }
 }
@@ -295,23 +397,26 @@ void IsotropicRemeshing::run()
 
     log_mesh(0);
     size_t index = 0;
-    for (size_t k = 1; k <= iterations; ++k) {
-        for (size_t j = 0; j < passes.size(); ++j) {
-            Pass& p = passes[j];
-            wmtk::logger().info(
-                "Running pass {}/{} of iteration {}/{}. Has {} sub-iterations on {})",
-                j,
-                passes.size(),
-                k,
-                iterations,
-                p.iterations,
-                p.mesh_path);
-            run(p, j);
+    if (m_configurator) {
+        auto& configurator = *m_configurator;
+        for (size_t k = 1; k <= iterations; ++k) {
+            for (size_t j = 0; j < passes.size(); ++j) {
+                Pass& p = passes[j];
+                wmtk::logger().info(
+                    "Running pass {}/{} of iteration {}/{}. Has {} sub-iterations on {})",
+                    j,
+                    passes.size(),
+                    k,
+                    iterations,
+                    p.iterations(),
+                    configurator.get_mesh_name(p.mesh()));
+                run(p, j);
+            }
+            log_mesh(k);
         }
-        log_mesh(k);
     }
 }
-void IsotropicRemeshing::run(const Pass& pass, size_t pass_index)
+void IsotropicRemeshing::run(Pass& pass, size_t pass_index)
 {
     // TODO: brig me back!
     // mesh_in->clear_attributes(keeps);
@@ -327,71 +432,7 @@ void IsotropicRemeshing::run(const Pass& pass, size_t pass_index)
 
     // TriMesh& mesh = static_cast<TriMesh&>(position.mesh());
 
-
-    //////////////////////////////////////////
-    Scheduler scheduler;
-    auto& pass_mesh = m_meshes.get_mesh(pass.mesh_path);
-
-    auto run_opo = [&](wmtk::operations::Operation& op, std::string_view op_name) {
-        //auto& run_mesh = op.mesh();
-
-        auto& run_mesh = pass_mesh;
-        SchedulerStats stats = scheduler.run_operation_on_all(op, run_mesh);
-
-        logger().info(
-            "Executed {} {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
-            stats.number_of_performed_operations(),
-            op_name,
-            stats.number_of_successful_operations(),
-            stats.number_of_failed_operations(),
-            stats.collecting_time,
-            stats.sorting_time,
-            stats.executing_time);
-        return stats;
-    };
-
-    // scheduler.set_update_frequency(1000);
-    if (start_with_collapse) {
-        if (bool(m_swap)) {
-            spdlog::info("Doing an initial pass of swaps");
-            run_opo(*m_swap, "initial swap");
-            wmtk::multimesh::consolidate(m_swap->mesh());
-        }
-        if (bool(m_collapse)) {
-            spdlog::info("Doing an initial pass of collapses");
-            run_opo(*m_collapse, "initial collapse");
-            wmtk::multimesh::consolidate(m_collapse->mesh());
-        }
-    }
-
-
-    for (long i = 0; i < pass.iterations; ++i) {
-        wmtk::logger().info("Pass {}, Sub-Iteration {}", pass_index, i);
-
-        SchedulerStats pass_stats;
-        for (const auto& name : pass.operations) {
-            // for (const auto& [name, opptr] : m_operations) {
-            auto& opptr = m_operations.at(name);
-            if (!bool(opptr)) {
-                spdlog::warn("op {} is empty", name);
-                continue;
-            }
-            const auto stats = run_opo(*opptr, name);
-            pass_stats += stats;
-        }
-
-        // TODO: find a better canonical way to do this
-        wmtk::multimesh::consolidate(m_operations.begin()->second->mesh());
-
-        logger().info(
-            "Executed {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
-            pass_stats.number_of_performed_operations(),
-            pass_stats.number_of_successful_operations(),
-            pass_stats.number_of_failed_operations(),
-            pass_stats.collecting_time,
-            pass_stats.sorting_time,
-            pass_stats.executing_time);
-    }
+    pass.run(fmt::format("Pass {}", pass_index));
 }
 
 void IsotropicRemeshing::make_envelope_invariants(const IsotropicRemeshingOptions& opts)

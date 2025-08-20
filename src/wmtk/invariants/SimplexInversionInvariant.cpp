@@ -9,7 +9,7 @@
 #include <wmtk/utils/orient.hpp>
 #include <wmtk/utils/triangle_areas.hpp>
 
-namespace wmtk {
+namespace wmtk::invariants {
 
 template <typename T>
 SimplexInversionInvariant<T>::SimplexInversionInvariant(
@@ -151,4 +151,4 @@ std::string SimplexInversionInvariant<T>::name() const
 
 template class SimplexInversionInvariant<double>;
 template class SimplexInversionInvariant<Rational>;
-} // namespace wmtk
+} // namespace wmtk::invariants

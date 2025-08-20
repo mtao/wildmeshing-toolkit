@@ -13,24 +13,36 @@ class EdgeSwap;
 }
 class Operation;
 class AttributesUpdateWithFunction;
+class AttributeTransferStsrategyBase;
 } // namespace operations
 namespace invariants {
 class EnvelopeInvariant;
 class InteriorSimplexInvariant;
 class InvariantCollection;
 } // namespace invariants
+namespace components {
+namespace multimesh {
+class MeshCollection;
+}
+namespace configurator {
+class Pass;
+}
+} // namespace components
 } // namespace wmtk
+  //
 namespace wmtk::components::isotropic_remeshing {
 
 class IsotropicRemeshing
 {
 public:
+    using Pass = wmtk::components::configurator::Pass;
     IsotropicRemeshing(multimesh::MeshCollection& mc, const IsotropicRemeshingOptions& opts);
+    IsotropicRemeshing(IsotropicRemeshingOptions& opts);
     ~IsotropicRemeshing();
 
 
     void run();
-    void run(const Pass& pass, size_t pass_index);
+    void run(Pass& pass, size_t pass_index);
     attribute::MeshAttributeHandle get_attribute(
         const multimesh::utils::AttributeDescription& ad) const;
 
@@ -45,9 +57,12 @@ private:
     void load_shared_invariants(const IsotropicRemeshingOptions& opts);
     void load_transfers(const IsotropicRemeshingOptions& opts);
 
-    void add_core_collapse_invariants(operations::EdgeCollapse&, const IsotropicRemeshingOptions& opts);
+    void add_core_collapse_invariants(
+        wmtk::operations::EdgeCollapse&,
+        const IsotropicRemeshingOptions& opts);
 
 private:
+    components::configurator::Configurator const* m_configurator = nullptr;
     multimesh::MeshCollection& m_meshes;
 
     bool start_with_collapse = false;
@@ -63,16 +78,16 @@ private:
         intermediate_output_format;
     ///---------------------
 
-    std::shared_ptr<operations::EdgeSplit> m_split;
-    std::shared_ptr<operations::EdgeCollapse> m_collapse;
-    std::shared_ptr<operations::composite::EdgeSwap> m_swap;
-    std::shared_ptr<operations::Operation> m_smooth;
+    std::shared_ptr<wmtk::operations::EdgeSplit> m_split;
+    std::shared_ptr<wmtk::operations::EdgeCollapse> m_collapse;
+    std::shared_ptr<wmtk::operations::composite::EdgeSwap> m_swap;
+    std::shared_ptr<wmtk::operations::Operation> m_smooth;
 
     std::vector<std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>>
         m_operation_transfers;
 
-    std::map<std::string, std::shared_ptr<operations::Operation>> m_operations;
-    // std::vector<std::shared_ptr<wmtk::invariants::EnvelopeInvariant>> m_envelope_invariants;
+    // std::map<std::string, std::shared_ptr<operations::Operation>> m_operations;
+    //  std::vector<std::shared_ptr<wmtk::invariants::EnvelopeInvariant>> m_envelope_invariants;
     std::shared_ptr<wmtk::invariants::InvariantCollection> m_envelope_invariants;
 
     std::shared_ptr<wmtk::invariants::InvariantCollection> m_interior_position_invariants;

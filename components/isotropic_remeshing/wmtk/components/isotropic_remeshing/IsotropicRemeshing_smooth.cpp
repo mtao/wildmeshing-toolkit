@@ -33,14 +33,15 @@ void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
 
 
     // clear attributes
-    //keeps.emplace_back(position);
+    // keeps.emplace_back(position);
 
-    auto op_smooth = std::make_shared<operations::AttributesUpdateWithFunction>(mesh);
+    auto op_smooth = m_smooth;
+    std::make_shared<operations::AttributesUpdateWithFunction>(mesh);
 
     std::shared_ptr<wmtk::operations::composite::ProjectOperation> proj_op;
 
     if (position.dimension() == 3 && mesh.top_simplex_type() == PrimitiveType::Triangle) {
-        proj_op = std::make_shared<operations::composite::ProjectOperation>(op_smooth);
+        proj_op = std::make_shared<wmtk::operations::composite::ProjectOperation>(op_smooth);
         proj_op->add_constraint(position, position);
         m_smooth = proj_op;
     } else {

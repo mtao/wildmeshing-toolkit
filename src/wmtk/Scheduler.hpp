@@ -2,9 +2,20 @@
 
 #include <spdlog/common.h>
 #include <optional>
-#include <wmtk/operations/Operation.hpp>
+#include "wmtk/attribute/TypedAttributeHandle.hpp"
 
 namespace wmtk {
+class Mesh;
+namespace simplex {
+class Simplex;
+}
+namespace operations {
+class Operation;
+}
+namespace attribute {
+template <typename T>
+class TypedAttributeHandle;
+}
 
 class SchedulerStats
 {
@@ -93,7 +104,9 @@ public:
     ~Scheduler();
 
     // runs operation on the specified simplices
-    SchedulerStats run_operation_on_all(operations::Operation& op, std::vector<simplex::Simplex>&& m);
+    SchedulerStats run_operation_on_all(
+        operations::Operation& op,
+        std::vector<simplex::Simplex>&& m);
     // runs on all all k-simplices on the mesh (where k is the op's simplex type)
     SchedulerStats run_operation_on_all(operations::Operation& op, const Mesh& m);
     // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)

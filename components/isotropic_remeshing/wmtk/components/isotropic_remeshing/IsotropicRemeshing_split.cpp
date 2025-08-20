@@ -1,8 +1,8 @@
 #include <wmtk/EdgeMesh.hpp>
 #include <wmtk/Scheduler.hpp>
-#include <wmtk/invariants/MinEdgeLengthInvariant.hpp>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
+#include <wmtk/invariants/MinEdgeLengthInvariant.hpp>
 #include <wmtk/invariants/SimplexInversionInvariant.hpp>
 #include <wmtk/operations/EdgeSplit.hpp>
 #include <wmtk/utils/Logger.hpp>
@@ -20,7 +20,8 @@ void IsotropicRemeshing::configure_split(const IsotropicRemeshingOptions& opts)
 {
     wmtk::logger().debug("Configure isotropic remeshing split");
     wmtk::Mesh& mesh = get_attribute(opts.position_attribute).mesh();
-    auto& op = m_split = std::make_shared<operations::EdgeSplit>(mesh);
+    auto& op = m_split;
+    // std::make_shared<operations::EdgeSplit>(mesh);
 
 
     const double length_max = (4. / 3.) * opts.get_absolute_length(m_meshes);
@@ -35,10 +36,10 @@ void IsotropicRemeshing::configure_split(const IsotropicRemeshingOptions& opts)
     for (auto& p : opts.all_positions()) {
         op->set_new_attribute_strategy(
             get_attribute(p),
-            operations::SplitBasicStrategy::None,
-            operations::SplitRibBasicStrategy::Mean);
+            wmtk::operations::SplitBasicStrategy::None,
+            wmtk::operations::SplitRibBasicStrategy::Mean);
     }
-    for (const auto& attr :opts.pass_through_attributes) {
+    for (const auto& attr : opts.pass_through_attributes) {
         op->set_new_attribute_strategy(get_attribute(attr));
     }
 
@@ -55,8 +56,8 @@ void IsotropicRemeshing::configure_split(const IsotropicRemeshingOptions& opts)
         auto child = get_attribute(c);
         op->set_new_attribute_strategy(
             child,
-            operations::SplitBasicStrategy::None,
-            operations::SplitRibBasicStrategy::None);
+            wmtk::operations::SplitBasicStrategy::None,
+            wmtk::operations::SplitRibBasicStrategy::None);
 
         op->add_transfer_strategy(
             wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
@@ -68,9 +69,9 @@ void IsotropicRemeshing::configure_split(const IsotropicRemeshingOptions& opts)
         op->set_new_attribute_strategy(transfer->handle());
         op->add_transfer_strategy(transfer);
     }
-    if (opts.split.priority) {
-        opts.split.priority->assign_to(m_meshes, *op);
-    }
+    // if (opts.split.priority) {
+    //     opts.split.priority->assign_to(m_meshes, *op);
+    // }
 
 
     // if (m_universal_invariants) {

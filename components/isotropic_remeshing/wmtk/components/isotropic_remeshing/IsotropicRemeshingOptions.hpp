@@ -2,12 +2,15 @@
 #include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
+#include "wmtk/components/configurator/Configurator.hpp"
+#include "wmtk/components/configurator/PassConfiguration.hpp"
 #include "wmtk/components/configurator/operations/OperationOptions.hpp"
 
 namespace wmtk::components::isotropic_remeshing {
 
 
-struct IsotropicRemeshingOptions
+// using namespace wmtk::components::configurator;
+struct IsotropicRemeshingOptions : public wmtk::components::configurator::PassConfiguration
 {
     using AttributeDescription = components::multimesh::utils::AttributeDescription;
     IsotropicRemeshingOptions();
@@ -37,7 +40,6 @@ struct IsotropicRemeshingOptions
     std::vector<AttributeDescription> improvement_attributes;
 
 
-    std::vector<Pass> passes;
     int64_t iterations = 10;
 
     bool lock_boundary = true;
@@ -47,10 +49,17 @@ struct IsotropicRemeshingOptions
 
     bool start_with_collapse = false;
 
-    EdgeSplitOptions split;
-    EdgeCollapseOptions collapse;
-    VertexSmoothOptions smooth;
-    EdgeSwapOptions swap;
+    wmtk::components::configurator::operations::EdgeSplitOptions get_split() const;
+    wmtk::components::configurator::operations::EdgeCollapseOptions get_collapse() const;
+    wmtk::components::configurator::operations::VertexSmoothOptions get_smooth() const;
+    wmtk::components::configurator::operations::EdgeSwapOptions get_swap() const;
+    void set_split(const wmtk::components::configurator::operations::EdgeSplitOptions& split);
+    void set_collapse(
+        const wmtk::components::configurator::operations::EdgeCollapseOptions& collapse);
+    void set_smooth(const wmtk::components::configurator::operations::VertexSmoothOptions& smooth);
+    void set_swap(const wmtk::components::configurator::operations::EdgeSwapOptions& swap);
+
+    // wmtk::components::configurator::Configuration make_pass_configuration() const;
 
 
     std::optional<double> envelope_size; // 1e-3
