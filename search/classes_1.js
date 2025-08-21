@@ -48,6 +48,6 @@ var searchData=
   ['attributetransferedge_45',['AttributeTransferEdge',['../classwmtk_1_1operations_1_1_attribute_transfer_edge.html',1,'wmtk::operations']]],
   ['attributetransferstrategy_46',['AttributeTransferStrategy',['../classwmtk_1_1operations_1_1_attribute_transfer_strategy.html',1,'wmtk::operations']]],
   ['attributetransferstrategybase_47',['AttributeTransferStrategyBase',['../classwmtk_1_1operations_1_1_attribute_transfer_strategy_base.html',1,'wmtk::operations']]],
-  ['attributeupdateoperation_48',['AttributeUpdateOperation',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_operation.html',1,'wmtk::components::configurator::operations']]],
+  ['attributeupdateoptions_48',['AttributeUpdateOptions',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_options.html',1,'wmtk::components::configurator::operations']]],
   ['autodiffraii_49',['AutoDiffRAII',['../classwmtk_1_1function_1_1utils_1_1_auto_diff_r_a_i_i.html',1,'wmtk::function::utils']]]
 ];

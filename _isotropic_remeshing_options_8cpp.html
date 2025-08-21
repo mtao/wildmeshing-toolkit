@@ -139,6 +139,7 @@ $(document).ready(function(){initNavTree('_isotropic_remeshing_options_8cpp.html
 <code>#include &lt;<a class="el" href="parse__output_8hpp_source.html">wmtk/components/output/parse_output.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_logger_8hpp_source.html">wmtk/utils/Logger.hpp</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="_mesh_8hpp_source.html">wmtk/Mesh.hpp</a>&gt;</code><br />
+<code>#include &quot;<a class="el" href="_pass_configuration_8hpp_source.html">wmtk/components/configurator/PassConfiguration.hpp</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="_transfer_strategy_factory_registry_8hpp_source.html">wmtk/components/configurator/transfer/TransferStrategyFactoryRegistry.hpp</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for IsotropicRemeshingOptions.cpp:</div>
@@ -164,10 +165,10 @@ Macros</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad7f4b1a975120aad4ccb0026757412ef" id="r_ad7f4b1a975120aad4ccb0026757412ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html#ad7f4b1a975120aad4ccb0026757412ef">wmtk::components::isotropic_remeshing::to_json</a> (nlohmann::json &amp;nlohmann_json_j, const <a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html">IsotropicRemeshingOptions</a> &amp;nlohmann_json_t)</td></tr>
-<tr class="separator:ad7f4b1a975120aad4ccb0026757412ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acab5635f28a1bfc9d621bb88bdf97d02" id="r_acab5635f28a1bfc9d621bb88bdf97d02"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html#acab5635f28a1bfc9d621bb88bdf97d02">wmtk::components::isotropic_remeshing::from_json</a> (const nlohmann::json &amp;nlohmann_json_j, <a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html">IsotropicRemeshingOptions</a> &amp;nlohmann_json_t)</td></tr>
-<tr class="separator:acab5635f28a1bfc9d621bb88bdf97d02"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24e40e2d253b894316adbfed9d83ef7b" id="r_a24e40e2d253b894316adbfed9d83ef7b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html#a24e40e2d253b894316adbfed9d83ef7b">wmtk::components::isotropic_remeshing::WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE</a> (<a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html">IsotropicRemeshingOptions</a>)</td></tr>
+<tr class="separator:a24e40e2d253b894316adbfed9d83ef7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a939a1f87e5c7b2a7673c504a2147df0e" id="r_a939a1f87e5c7b2a7673c504a2147df0e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html#a939a1f87e5c7b2a7673c504a2147df0e">wmtk::components::isotropic_remeshing::WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE</a> (<a class="el" href="structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html">IsotropicRemeshingOptions</a>)</td></tr>
+<tr class="separator:a939a1f87e5c7b2a7673c504a2147df0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4e4ae6d836a38c5e8cc8544564dc5bd1" id="r_a4e4ae6d836a38c5e8cc8544564dc5bd1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacewmtk_1_1components_1_1isotropic__remeshing.html#a4e4ae6d836a38c5e8cc8544564dc5bd1">wmtk::components::isotropic_remeshing::fill_operation_parameters</a> ()</td></tr>
 <tr class="separator:a4e4ae6d836a38c5e8cc8544564dc5bd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -187,7 +188,7 @@ Functions</h2></td></tr>
 <div class="line">        start_with_collapse, passes, position_attribute, copied_attributes,               \</div>
 <div class="line">        pass_through_attributes, static_meshes, improvement_attributes</div>
 </div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="_isotropic_remeshing_options_8cpp_source.html#l00018">18</a> of file <a class="el" href="_isotropic_remeshing_options_8cpp_source.html">IsotropicRemeshingOptions.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_isotropic_remeshing_options_8cpp_source.html#l00019">19</a> of file <a class="el" href="_isotropic_remeshing_options_8cpp_source.html">IsotropicRemeshingOptions.cpp</a>.</p>
 
 </div>
 </div>

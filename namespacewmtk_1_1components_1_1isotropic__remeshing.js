@@ -18,8 +18,8 @@ var namespacewmtk_1_1components_1_1isotropic__remeshing =
     [ "IsotropicRemeshing", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing" ],
     [ "IsotropicRemeshingOptions", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options" ],
     [ "fill_operation_parameters", "namespacewmtk_1_1components_1_1isotropic__remeshing.html#a4e4ae6d836a38c5e8cc8544564dc5bd1", null ],
-    [ "from_json", "namespacewmtk_1_1components_1_1isotropic__remeshing.html#acab5635f28a1bfc9d621bb88bdf97d02", null ],
     [ "isotropic_remeshing", "namespacewmtk_1_1components_1_1isotropic__remeshing.html#a42d2f6f1884627d01eec8e7808a0ef87", null ],
     [ "isotropic_remeshing", "namespacewmtk_1_1components_1_1isotropic__remeshing.html#a6c5116a5b782ad1b3ed38e205c5ab8bb", null ],
-    [ "to_json", "namespacewmtk_1_1components_1_1isotropic__remeshing.html#ad7f4b1a975120aad4ccb0026757412ef", null ]
+    [ "WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE", "namespacewmtk_1_1components_1_1isotropic__remeshing.html#a939a1f87e5c7b2a7673c504a2147df0e", null ],
+    [ "WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE", "namespacewmtk_1_1components_1_1isotropic__remeshing.html#a24e40e2d253b894316adbfed9d83ef7b", null ]
 ];

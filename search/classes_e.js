@@ -17,6 +17,6 @@ var searchData=
   ['primitivetyperange_14',['PrimitiveTypeRange',['../classwmtk_1_1utils_1_1detail_1_1_primitive_type_range.html',1,'wmtk::utils::detail']]],
   ['priorityoptions_15',['PriorityOptions',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options.html',1,'wmtk::components::configurator::operations']]],
   ['proceduraloptions_16',['ProceduralOptions',['../structwmtk_1_1components_1_1procedural_1_1_procedural_options.html',1,'wmtk::components::procedural']]],
-  ['projectedattributeupdateoperation_17',['ProjectedAttributeUpdateOperation',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_operation.html',1,'wmtk::components::configurator::operations']]],
+  ['projectedattributeupdateoptions_17',['ProjectedAttributeUpdateOptions',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_options.html',1,'wmtk::components::configurator::operations']]],
   ['projectoperation_18',['ProjectOperation',['../classwmtk_1_1operations_1_1composite_1_1_project_operation.html',1,'wmtk::operations::composite']]]
 ];

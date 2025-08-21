@@ -75,16 +75,16 @@ var annotated_dup =
             [ "MeshInvariantOptions", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_mesh_invariant_options.html", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_mesh_invariant_options" ]
           ] ],
           [ "operations", "namespacewmtk_1_1components_1_1configurator_1_1operations.html", [
-            [ "AttributeUpdateOperation", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_operation.html", null ],
-            [ "EdgeCollapseOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_collapse_options.html", null ],
-            [ "EdgeSplitOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_split_options.html", null ],
+            [ "AttributeUpdateOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_options" ],
+            [ "EdgeCollapseOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_collapse_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_collapse_options" ],
+            [ "EdgeSplitOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_split_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_split_options" ],
             [ "EdgeSwapOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_swap_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_swap_options" ],
             [ "OperationFactory", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory" ],
             [ "OperationOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options" ],
             [ "Pass", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass" ],
             [ "PriorityOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options" ],
-            [ "ProjectedAttributeUpdateOperation", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_operation.html", null ],
-            [ "VertexSmoothOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options.html", null ]
+            [ "ProjectedAttributeUpdateOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_options" ],
+            [ "VertexSmoothOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options" ]
           ] ],
           [ "transfer", "namespacewmtk_1_1components_1_1configurator_1_1transfer.html", [
             [ "AMIPSFunctor", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor.html", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_a_m_i_p_s_functor" ],

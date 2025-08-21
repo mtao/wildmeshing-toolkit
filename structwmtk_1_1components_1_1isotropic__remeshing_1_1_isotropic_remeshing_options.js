@@ -12,8 +12,6 @@ var structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_opt
     [ "set_smooth", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a0fcda60d5624077679af3773cab737ad", null ],
     [ "set_split", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#aa0968413ad3c2ca63b0cf315f9486325", null ],
     [ "set_swap", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a16fe7a748fa2a1c06139a7ef390ca33e", null ],
-    [ "from_json", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a4afed7109c11e72d7b6569ba90c890ed", null ],
-    [ "to_json", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#ace067059ec0ac0429f8b3bb2e87c4b05", null ],
     [ "copied_attributes", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a198065336d0b5e61a863a0f84777526d", null ],
     [ "envelope_size", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#aacf2c03abc06dba06e9b5b645c90c393", null ],
     [ "improvement_attributes", "structwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing_options.html#a802a46594cf2ad7267a8fb79730cea75", null ],
