@@ -1,4 +1,5 @@
 #pragma once
+#include <wmtk/components/configurator/Configurator.hpp>
 #include <wmtk/invariants/Invariant.hpp>
 #include "IsotropicRemeshingOptions.hpp"
 #include "wmtk/attribute/MeshAttributeHandle.hpp"
@@ -8,6 +9,7 @@ namespace wmtk {
 namespace operations {
 class EdgeCollapse;
 class EdgeSplit;
+class AttributesUpdate;
 namespace composite {
 class EdgeSwap;
 }
@@ -37,7 +39,7 @@ class IsotropicRemeshing
 public:
     using Pass = wmtk::components::configurator::Pass;
     IsotropicRemeshing(multimesh::MeshCollection& mc, const IsotropicRemeshingOptions& opts);
-    IsotropicRemeshing(IsotropicRemeshingOptions& opts);
+    // IsotropicRemeshing(IsotropicRemeshingOptions& opts);
     ~IsotropicRemeshing();
 
 
@@ -61,9 +63,13 @@ private:
         wmtk::operations::EdgeCollapse&,
         const IsotropicRemeshingOptions& opts);
 
+
 private:
-    components::configurator::Configurator const* m_configurator = nullptr;
-    multimesh::MeshCollection& m_meshes;
+    components::configurator::Configurator m_configurator;
+    multimesh::MeshCollection& mesh_collection();
+    const multimesh::MeshCollection& mesh_collection() const;
+    wmtk::components::configurator::Configurator& configurator();
+    const wmtk::components::configurator::Configurator& configurator() const;
 
     bool start_with_collapse = false;
 
@@ -81,7 +87,7 @@ private:
     std::shared_ptr<wmtk::operations::EdgeSplit> m_split;
     std::shared_ptr<wmtk::operations::EdgeCollapse> m_collapse;
     std::shared_ptr<wmtk::operations::composite::EdgeSwap> m_swap;
-    std::shared_ptr<wmtk::operations::Operation> m_smooth;
+    std::shared_ptr<wmtk::operations::AttributesUpdate> m_smooth;
 
     std::vector<std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>>
         m_operation_transfers;

@@ -37,16 +37,34 @@
 
 
 // op types
+#include <wmtk/operations/AttributesUpdate.hpp>
 #include <wmtk/operations/composite/EdgeSwap.hpp>
 //
 #include <Eigen/Geometry>
 
 
 namespace wmtk::components::isotropic_remeshing {
+wmtk::components::configurator::Configurator& IsotropicRemeshing::configurator()
+{
+    return m_configurator;
+}
+const wmtk::components::configurator::Configurator& IsotropicRemeshing::configurator() const
+{
+    return m_configurator;
+}
+multimesh::MeshCollection& IsotropicRemeshing::mesh_collection()
+{
+    return configurator().meshes();
+}
+const multimesh::MeshCollection& IsotropicRemeshing::mesh_collection() const
+{
+    return configurator().meshes();
+}
+
 auto IsotropicRemeshing::get_attribute(const multimesh::utils::AttributeDescription& ad) const
     -> attribute::MeshAttributeHandle
 {
-    return multimesh::utils::get_attribute(m_meshes, ad);
+    return multimesh::utils::get_attribute(mesh_collection(), ad);
 }
 
 void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions& opts)
@@ -86,7 +104,7 @@ void IsotropicRemeshing::load_transfers(const IsotropicRemeshingOptions& opts)
 
             assert(child.compatible(child2));
 
-            auto child_attr = multimesh::utils::create_attribute(m_meshes, child2);
+            auto child_attr = multimesh::utils::create_attribute(mesh_collection(), child2);
             m_operation_transfers.emplace_back(
                 wmtk::operations::attribute_update::make_cast_attribute_transfer_strategy(
                     parent_attr,
@@ -94,7 +112,7 @@ void IsotropicRemeshing::load_transfers(const IsotropicRemeshingOptions& opts)
         }
     }
     for (const auto& transfer : opts.utility_attributes) {
-        m_operation_transfers.emplace_back(transfer->create(m_meshes));
+        m_operation_transfers.emplace_back(transfer->create(mesh_collection()));
     }
 }
 
@@ -103,7 +121,7 @@ IsotropicRemeshing::~IsotropicRemeshing() = default;
 IsotropicRemeshing::IsotropicRemeshing(
     multimesh::MeshCollection& mc,
     const IsotropicRemeshingOptions& opts)
-    : m_meshes(mc)
+    : mesh_collection()(mc)
 {
     passes = opts.passes;
     iterations = opts.iterations;
@@ -169,7 +187,7 @@ IsotropicRemeshing::IsotropicRemeshing(
         }
         passes.emplace_back(
             Pass{
-                m_meshes.get_mesh_path(position_attr.mesh()),
+                mesh_collection().get_mesh_path(position_attr.mesh()),
                 1,
                 {"split", "collapse", "swap", "smooth"}});
     } else {
@@ -197,12 +215,16 @@ IsotropicRemeshing::IsotropicRemeshing(
     }
 }
 */
-IsotropicRemeshing::IsotropicRemeshing(IsotropicRemeshingOptions& opts)
-    : m_meshes(opts.configurator.meshes())
+// IsotropicRemeshing::IsotropicRemeshing(IsotropicRemeshingOptions& opts)
+//     : m_configurator(opts)
+//{}
+IsotropicRemeshing::IsotropicRemeshing(
+    multimesh::MeshCollection& mesh_collection,
+    const IsotropicRemeshingOptions& opts)
+    : m_configurator(mesh_collection, opts)
 {
-    auto& configurator = opts.configurator;
-    m_configurator = &configurator;
-    passes = opts.configurator.get_passes();
+    auto& configurator = this->configurator();
+    passes = configurator.get_passes();
     iterations = opts.iterations;
     start_with_collapse = opts.start_with_collapse;
 
@@ -246,7 +268,7 @@ IsotropicRemeshing::IsotropicRemeshing(IsotropicRemeshingOptions& opts)
 
     //////////////////////////////////////////
     // smooth
-    m_smooth = configurator.get_operation("smooth");
+    m_smooth = configurator.get_operation<wmtk::operations::AttributesUpdate>("smooth");
     if (m_smooth) {
         configure_smooth(opts);
         assert(bool(m_smooth));
@@ -283,15 +305,13 @@ IsotropicRemeshing::IsotropicRemeshing(IsotropicRemeshingOptions& opts)
         }
     }
     */
-    if (m_configurator != nullptr) {
-        for (const auto& p : passes) {
-            for (const auto& op : p.operations()) {
-                if (!op->attribute_new_all_configured()) {
-                    const auto& c = *m_configurator;
-                    wmtk::log_and_throw_error(
-                        "Not every attribute in {} was configured",
-                        c.get_operation_name(*op));
-                }
+    for (const auto& p : passes) {
+        for (const auto& op : p.operations()) {
+            if (!op->attribute_new_all_configured()) {
+                const auto& c = m_configurator;
+                wmtk::log_and_throw_error(
+                    "Not every attribute in {} was configured",
+                    c.get_operation_name(*op));
             }
         }
     }
@@ -375,7 +395,7 @@ void IsotropicRemeshing::run()
     }
 
     auto log_mesh = [&](int64_t index) {
-        for (const auto& [name, mesh] : m_meshes.all_meshes()) {
+        for (const auto& [name, mesh] : mesh_collection().all_meshes()) {
             spdlog::info(
                 "Mesh [{}] has {} {}-facets",
                 name,
@@ -391,29 +411,27 @@ void IsotropicRemeshing::run()
         for (const auto& [name, opts] : intermediate_output_format) {
             auto opt = wmtk::components::output::utils::format(opts, index);
             spdlog::info("Temp logging {} as {}", name, opt.path.string());
-            wmtk::components::output::output(m_meshes.get_mesh(name), opt);
+            wmtk::components::output::output(mesh_collection().get_mesh(name), opt);
         }
     };
 
     log_mesh(0);
     size_t index = 0;
-    if (m_configurator) {
-        auto& configurator = *m_configurator;
-        for (size_t k = 1; k <= iterations; ++k) {
-            for (size_t j = 0; j < passes.size(); ++j) {
-                Pass& p = passes[j];
-                wmtk::logger().info(
-                    "Running pass {}/{} of iteration {}/{}. Has {} sub-iterations on {})",
-                    j,
-                    passes.size(),
-                    k,
-                    iterations,
-                    p.iterations(),
-                    configurator.get_mesh_name(p.mesh()));
-                run(p, j);
-            }
-            log_mesh(k);
+    auto& configurator = m_configurator;
+    for (size_t k = 1; k <= iterations; ++k) {
+        for (size_t j = 0; j < passes.size(); ++j) {
+            Pass& p = passes[j];
+            wmtk::logger().info(
+                "Running pass {}/{} of iteration {}/{}. Has {} sub-iterations on {})",
+                j,
+                passes.size(),
+                k,
+                iterations,
+                p.iterations(),
+                configurator.get_mesh_name(p.mesh()));
+            run(p, j);
         }
+        log_mesh(k);
     }
 }
 void IsotropicRemeshing::run(Pass& pass, size_t pass_index)

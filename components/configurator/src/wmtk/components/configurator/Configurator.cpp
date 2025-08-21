@@ -16,22 +16,22 @@ auto Configurator::get_operation_internal(std::string_view op_name)
     return m_operations.get(op_name);
 }
 
-Configurator::Configurator()
-    : m_meshes(std::make_shared<wmtk::components::multimesh::MeshCollection>())
-{}
-Configurator::Configurator(const nlohmann::json& js)
-    : Configurator()
+Configurator::Configurator(multimesh::MeshCollection& mc, const nlohmann::json& js)
+    : Configurator(mc)
 {
     from_json(js);
 }
 
-// call default constructor
-Configurator::Configurator(const PassConfiguration& config)
-    : Configurator()
+Configurator::Configurator(multimesh::MeshCollection& mc)
+    : m_meshes(mc)
+{}
+Configurator::Configurator(multimesh::MeshCollection& mc, const PassConfiguration& config)
+    : Configurator(mc)
 {
     load(config);
 }
-Configurator::Configurator(const Configuration& config)
+Configurator::Configurator(multimesh::MeshCollection& mc, const Configuration& config)
+    : Configurator(mc)
 {
     load(config);
 }
@@ -54,7 +54,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(Configurator)
 
 void Configurator::load(const Configuration& config)
 {
-    m_meshes->emplace_mesh(wmtk::components::input::input(config.input));
+    m_meshes.emplace_mesh(wmtk::components::input::input(config.input));
     load(static_cast<const PassConfiguration&>(config));
 }
 void Configurator::load(const PassConfiguration& config)
@@ -75,6 +75,20 @@ void Configurator::load(const PassConfiguration& config)
 void Configurator::from_json(const nlohmann::json& js)
 {
     load(js.get<Configuration>());
+}
+
+std::shared_ptr<wmtk::invariants::Invariant> Configurator::create_invariant(
+    std::string_view name,
+    const nlohmann::json& js)
+{
+    return m_invariants.create(*this, name, js);
+}
+
+std::shared_ptr<wmtk::invariants::Invariant> Configurator::create_invariant(
+    std::string_view name,
+    const invariants::InvariantOptions& opts)
+{
+    return m_invariants.create(*this, name, opts);
 }
 
 std::shared_ptr<wmtk::operations::Operation> Configurator::create_operation(
@@ -101,11 +115,11 @@ auto Configurator::get_mesh_internal(std::string_view name) const -> const wmtk:
 
 wmtk::components::multimesh::MeshCollection& Configurator::meshes()
 {
-    return *m_meshes;
+    return m_meshes;
 }
 const wmtk::components::multimesh::MeshCollection& Configurator::meshes() const
 {
-    return *m_meshes;
+    return m_meshes;
 }
 auto Configurator::get_attribute(
     const wmtk::components::multimesh::utils::AttributeDescription& attr) const

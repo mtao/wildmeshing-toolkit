@@ -18,8 +18,9 @@ namespace wmtk::components::isotropic_remeshing {
 namespace internal {
 namespace {
 
+using namespace wmtk::components::configurator::operations;
 void configure_swap_transfer(
-    operations::composite::EdgeSwap& swap,
+    wmtk::operations::composite::EdgeSwap& swap,
     const attribute::MeshAttributeHandle& handle)
 {
     switch (handle.primitive_type()) {
@@ -48,9 +49,6 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
 {
     // adds common invariants like inversion check and asserts taht the swap is ready for prime time
     wmtk::logger().debug("Configure isotropic remeshing swap");
-    if (opts.swap.mode == EdgeSwapMode::Skip) {
-        return;
-    }
     wmtk::Mesh& mesh = get_attribute(opts.position_attribute).mesh();
     switch (mesh.top_simplex_type()) {
     case PrimitiveType::Triangle:
@@ -68,8 +66,8 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
     // const std::optional<attribute::MeshAttributeHandle>& position_for_inversion =
     //     opts.inversion_position_attribute;
 
-    switch (opts.swap.mode) {
-    case EdgeSwapMode::Valence: {
+    switch (opts.get_swap().mode()) {
+    case configurator::operations::EdgeSwapMode::Valence: {
         auto tri = dynamic_cast<TriMesh*>(&mesh);
         if (tri == nullptr) {
             throw std::runtime_error(
@@ -80,12 +78,9 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
         m_swap->add_invariant(invariant_valence_improve);
         break;
     }
-    case EdgeSwapMode::AMIPS: {
+    case configurator::operations::EdgeSwapMode::AMIPS: {
     }
-    default:
-    case EdgeSwapMode::Skip: {
-        assert(false);
-    }
+    default: assert(false);
     }
     // if (position_for_inversion) {
     //     m_swap->collapse().add_invariant(std::make_shared<SimplexInversionInvariant<double>>(
@@ -162,8 +157,8 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
         m_swap->collapse().set_new_attribute_strategy(transfer->handle());
         m_swap->collapse().add_transfer_strategy(transfer);
     }
-    if (opts.swap.priority) {
-        opts.swap.priority->assign_to(m_meshes, *m_swap);
+    if (opts.get_swap().priority) {
+        opts.get_swap().priority.assign_to(mesh_collection(), *m_swap);
     }
     if (m_universal_invariants) {
         m_swap->add_invariant(m_universal_invariants);

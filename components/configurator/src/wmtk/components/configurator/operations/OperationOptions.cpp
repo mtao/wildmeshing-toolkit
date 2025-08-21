@@ -56,6 +56,17 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EdgeSwapOptions)
     to_json(nlohmann_json_j, static_cast<const OperationOptions&>(nlohmann_json_t));
 }
 
+void EdgeSwapOptions::set_mode(EdgeSwapMode mode)
+{
+    std::string r;
+    switch (mode) {
+    case EdgeSwapMode::AMIPS: r = "amips"; break;
+    case EdgeSwapMode::Valence: r = "valence"; break;
+    default: break;
+    }
+
+    parameters["mode"] = r;
+}
 EdgeSwapMode EdgeSwapOptions::mode() const
 {
     if (!parameters.contains("mode")) {

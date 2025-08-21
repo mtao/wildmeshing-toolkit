@@ -24,7 +24,7 @@ void IsotropicRemeshing::configure_split(const IsotropicRemeshingOptions& opts)
     // std::make_shared<operations::EdgeSplit>(mesh);
 
 
-    const double length_max = (4. / 3.) * opts.get_absolute_length(m_meshes);
+    const double length_max = (4. / 3.) * opts.get_absolute_length(mesh_collection());
     auto pos_attr = get_attribute(opts.position_attribute);
     auto invariant_min_edge_length = std::make_shared<MinEdgeLengthInvariant>(
         pos_attr.mesh(),
@@ -69,9 +69,9 @@ void IsotropicRemeshing::configure_split(const IsotropicRemeshingOptions& opts)
         op->set_new_attribute_strategy(transfer->handle());
         op->add_transfer_strategy(transfer);
     }
-    // if (opts.split.priority) {
-    //     opts.split.priority->assign_to(m_meshes, *op);
-    // }
+    if (opts.get_split().priority) {
+        opts.get_split().priority.assign_to(mesh_collection(), *op);
+    }
 
 
     // if (m_universal_invariants) {

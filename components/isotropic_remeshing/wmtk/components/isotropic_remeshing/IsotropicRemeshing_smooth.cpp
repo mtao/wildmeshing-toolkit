@@ -36,7 +36,7 @@ void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
     // keeps.emplace_back(position);
 
     auto op_smooth = m_smooth;
-    std::make_shared<operations::AttributesUpdateWithFunction>(mesh);
+    // std::make_shared<operations::AttributesUpdateWithFunction>(mesh);
 
     std::shared_ptr<wmtk::operations::composite::ProjectOperation> proj_op;
 
@@ -63,10 +63,14 @@ void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
     //             update_position_func);
     // }
 
-    if (position.dimension() == 3 && mesh.top_simplex_type() == PrimitiveType::Triangle) {
-        op_smooth->set_function(operations::VertexTangentialLaplacianSmooth(position));
-    } else {
-        op_smooth->set_function(operations::VertexLaplacianSmooth(position));
+    if (auto with_func =
+            std::dynamic_pointer_cast<wmtk::operations::AttributesUpdateWithFunction>(op_smooth);
+        bool(with_func)) {
+        if (position.dimension() == 3 && mesh.top_simplex_type() == PrimitiveType::Triangle) {
+            with_func->set_function(operations::VertexTangentialLaplacianSmooth(position));
+        } else {
+            with_func->set_function(operations::VertexLaplacianSmooth(position));
+        }
     }
 
     if (opts.lock_boundary) {
@@ -88,7 +92,7 @@ void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
     if (!opts.static_meshes.empty()) {
         // std::vector<std::shared_ptr<Mesh>> static_meshes;
         for (const auto& mesh_name : opts.static_meshes) {
-            auto& mesh2 = m_meshes.get_mesh(mesh_name);
+            auto& mesh2 = mesh_collection().get_mesh(mesh_name);
             op_smooth->add_invariant(
                 std::make_shared<invariants::CannotMapSimplexInvariant>(
                     mesh,
@@ -123,8 +127,8 @@ void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
     for (const auto& transfer : m_operation_transfers) {
         m_smooth->add_transfer_strategy(transfer);
     }
-    if (opts.smooth.priority) {
-        opts.smooth.priority->assign_to(m_meshes, *m_smooth);
+    if (opts.get_smooth().priority) {
+        opts.get_smooth().priority.assign_to(mesh_collection(), *m_smooth);
     }
 
     // if (m_universal_invariants) {

@@ -67,7 +67,7 @@ void IsotropicRemeshing::configure_collapse(const IsotropicRemeshingOptions& opt
     }
 
 
-    const double length_min = (4. / 5.) * opts.get_absolute_length(m_meshes);
+    const double length_min = (4. / 5.) * opts.get_absolute_length(mesh_collection());
     auto pos_attr = get_attribute(opts.position_attribute);
 
     auto tmp = std::make_shared<wmtk::operations::CollapseNewAttributeStrategy<double>>(pos_attr);
@@ -83,7 +83,7 @@ void IsotropicRemeshing::configure_collapse(const IsotropicRemeshingOptions& opt
 
     if (!opts.static_meshes.empty()) {
         for (const auto& mesh_name : opts.static_meshes) {
-            auto& mesh2 = m_meshes.get_mesh(mesh_name);
+            auto& mesh2 = mesh_collection().get_mesh(mesh_name);
             op->add_invariant(
                 std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
                     mesh,
@@ -119,9 +119,9 @@ void IsotropicRemeshing::configure_collapse(const IsotropicRemeshingOptions& opt
     }
 
 
-    // if (opts.collapse.priority) {
-    //     opts.collapse.priority->assign_to(m_meshes, *op);
-    // }
+    if (opts.get_collapse().priority) {
+        opts.get_collapse().priority.assign_to(mesh_collection(), *m_collapse);
+    }
 
     if (m_universal_invariants) {
         op->add_invariant(m_universal_invariants);

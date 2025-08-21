@@ -69,12 +69,13 @@ struct IsotropicRemeshingOptions : public wmtk::components::configurator::PassCo
     double get_absolute_length(const multimesh::MeshCollection& mesh) const;
 
 
-    friend void to_json(
-        nlohmann::json& nlohmann_json_j,
-        const IsotropicRemeshingOptions& nlohmann_json_t);
-    friend void from_json(
-        const nlohmann::json& nlohmann_json_j,
-        IsotropicRemeshingOptions& nlohmann_json_t);
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(IsotropicRemeshingOptions)
+    //friend void to_json(
+    //    nlohmann::json& nlohmann_json_j,
+    //    const IsotropicRemeshingOptions& nlohmann_json_t);
+    //friend void from_json(
+    //    const nlohmann::json& nlohmann_json_j,
+    //    IsotropicRemeshingOptions& nlohmann_json_t);
 
     std::vector<AttributeDescription> all_positions() const;
 

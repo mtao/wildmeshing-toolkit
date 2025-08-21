@@ -97,7 +97,8 @@ int main(int argc, char* argv[])
     wmtk::attribute::MeshAttributeHandle position_attr =
         trimesh->get_attribute_handle<double>("vertices", wmtk::PrimitiveType::Vertex);
 
-    wmtk::components::multimesh::MeshCollection mc;
+    auto mcptr = std::make_shared<wmtk::components::multimesh::MeshCollection>();
+    wmtk::components::multimesh::MeshCollection& mc = *mcptr;
     auto& nmm = mc.emplace_mesh(*trimesh, std::string("fused"));
     auto subcomplexes = fo.topology.feature_subcomplexes(*trimesh);
 
@@ -163,7 +164,7 @@ int main(int argc, char* argv[])
 
         wmtk::components::configurator::operations::EdgeCollapseOptions collapse_opts;
         wmtk::components::configurator::operations::EdgeSwapOptions swap_opts;
-        swap_opts.mode = components::configurator::operations::EdgeSwapMode::Valence;
+        swap_opts.set_mode( components::configurator::operations::EdgeSwapMode::Valence);
 
         auto mean_error =
             std::make_shared<wmtk::components::configurator::operations::PriorityOptions>();
@@ -177,7 +178,7 @@ int main(int argc, char* argv[])
 
         //collapse_opts.priority = edge_length;
         //swap_opts.priority = mean_error;
-        swap_opts.mode = wmtk::components::configurator::operations::EdgeSwapMode::Valence;
+        swap_opts.set_mode(wmtk::components::configurator::operations::EdgeSwapMode::Valence);
 
 
         {

@@ -13,6 +13,7 @@
 
 
 #include <wmtk/Mesh.hpp>
+#include "wmtk/components/configurator/PassConfiguration.hpp"
 #include "wmtk/components/configurator/transfer/TransferStrategyFactoryRegistry.hpp"
 
 #define DEFAULT_PARSABLE_ARGS                                                             \
@@ -73,7 +74,7 @@ double IsotropicRemeshingOptions::get_absolute_length(const multimesh::MeshColle
     }
     return length;
 }
-void to_json(nlohmann::json& nlohmann_json_j, const IsotropicRemeshingOptions& nlohmann_json_t)
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 {
     // NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, DEFAULT_PARSABLE_ARGS));
 
@@ -98,8 +99,9 @@ void to_json(nlohmann::json& nlohmann_json_j, const IsotropicRemeshingOptions& n
 
     // nlohmann_json_j["utility_attributes"] = nlohmann_json_t.utility_attributes;
 }
-void from_json(const nlohmann::json& nlohmann_json_j, IsotropicRemeshingOptions& nlohmann_json_t)
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 {
+    from_json(nlohmann_json_j, static_cast<configurator::PassConfiguration&>(nlohmann_json_t));
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(IsotropicRemeshingOptions);
     // WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(DEFAULT_PARSABLE_ARGS);
 
@@ -144,8 +146,7 @@ void fill_operation_parameters() {}
 wmtk::components::configurator::operations::EdgeSplitOptions IsotropicRemeshingOptions::get_split()
     const
 {
-    return operations.at("split")
-        .as<wmtk::components::configurator::operations::EdgeSplitOptions>();
+    return operations.at("split");
 }
 wmtk::components::configurator::operations::EdgeCollapseOptions
 IsotropicRemeshingOptions::get_collapse() const
@@ -160,7 +161,7 @@ IsotropicRemeshingOptions::get_smooth() const
 wmtk::components::configurator::operations::EdgeSwapOptions IsotropicRemeshingOptions::get_swap()
     const
 {
-    return operations.at("swap");
+    return wmtk::components::configurator::operations::EdgeSwapOptions(operations.at("swap"));
 }
 void IsotropicRemeshingOptions::set_split(
     const wmtk::components::configurator::operations::EdgeSplitOptions& split)

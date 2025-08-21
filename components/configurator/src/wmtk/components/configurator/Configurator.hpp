@@ -33,10 +33,10 @@ struct PassConfiguration;
 class Configurator
 {
 public:
-    Configurator();
-    Configurator(const nlohmann::json& js);
-    Configurator(const PassConfiguration& config);
-    Configurator(const Configuration& config);
+    Configurator(multimesh::MeshCollection& mc);
+    Configurator(multimesh::MeshCollection& mc, const nlohmann::json& js);
+    Configurator(multimesh::MeshCollection& mc, const PassConfiguration& config);
+    Configurator(multimesh::MeshCollection& mc, const Configuration& config);
 
     PassConfiguration as_configuration() const;
     void from_json(const nlohmann::json& js);
@@ -85,7 +85,7 @@ private:
         -> std::shared_ptr<wmtk::operations::Operation>;
 
 
-    std::shared_ptr<wmtk::components::multimesh::MeshCollection> m_meshes;
+    wmtk::components::multimesh::MeshCollection& m_meshes;
     operations::OperationFactory m_operations;
     invariants::InvariantFactory m_invariants;
 
