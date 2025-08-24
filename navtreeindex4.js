@@ -1,5 +1,9 @@
 var NAVTREEINDEX4 =
 {
+"_tag_intersection_8cpp.html":[11,0,0,22,0,0,0,0,0],
+"_tag_intersection_8cpp_source.html":[11,0,0,22,0,0,0,0,0],
+"_tag_intersection_8hpp.html":[11,0,0,22,0,0,0,0,1],
+"_tag_intersection_8hpp_source.html":[11,0,0,22,0,0,0,0,1],
 "_tag_intersection_options_8cpp.html":[11,0,0,22,0,0,0,0,2],
 "_tag_intersection_options_8cpp.html#a46caf88594dc94f3a9b7264bd6807de0":[11,0,0,22,0,0,0,0,2,1],
 "_tag_intersection_options_8cpp.html#a6e73c503f2bb2babc226368768c71070":[11,0,0,22,0,0,0,0,2,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX4 =
 "as__eigen__matrices_8cpp_source.html":[11,0,2,0,9,3],
 "as__eigen__matrices_8hpp.html":[11,0,2,0,9,4],
 "as__eigen__matrices_8hpp.html#a721fb60a6ca0623b86e2b23b6f657e5e":[11,0,2,0,9,4,2],
-"as__eigen__matrices_8hpp.html#ab1c8cf8a9c202791961c4917dd854151":[11,0,2,0,9,4,1],
-"as__eigen__matrices_8hpp.html#ae5429832ed14087b193cd19492a94099":[11,0,2,0,9,4,0],
-"as__eigen__matrices_8hpp_source.html":[11,0,2,0,9,4],
-"as__mesh__variant_8cpp.html":[11,0,2,0,9,1,1],
-"as__mesh__variant_8cpp.html#a960863b4ff77683286c7b21062aeab8d":[11,0,2,0,9,1,1,0]
+"as__eigen__matrices_8hpp.html#ab1c8cf8a9c202791961c4917dd854151":[11,0,2,0,9,4,1]
 };

@@ -28,6 +28,7 @@ var classwmtk_1_1attribute_1_1_mesh_attribute_handle =
     [ "mesh", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#a620620d54776b2c5f4f9cebad465cfa7", null ],
     [ "mesh", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#ad0f98f50746c05c5da306b69aa396585", null ],
     [ "name", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#aebd73bfe4d397951350314489834fbe3", null ],
+    [ "operator std::string", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#acca1fdefa1353f66ab3ffa7dd5f211ee", null ],
     [ "operator<", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#a2ccc3d6d39ecf0ff3e5ad17e50d615a9", null ],
     [ "operator=", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#ac6c0cf4f17f4e719cdd58b2bc98a4ac8", null ],
     [ "operator=", "classwmtk_1_1attribute_1_1_mesh_attribute_handle.html#a5fb11842eb2f213ba14c46715daae88d", null ],

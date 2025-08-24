@@ -8,7 +8,6 @@ var namespacewmtk_1_1components_1_1configurator_1_1operations =
     [ "OperationOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options" ],
     [ "Pass", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass" ],
     [ "PriorityOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options" ],
-    [ "ProjectedAttributeUpdateOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_options" ],
     [ "VertexSmoothOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options" ],
     [ "EdgeSwapMode", "namespacewmtk_1_1components_1_1configurator_1_1operations.html#a31e0ffcfbc7f3cd1f4028e462c017b4c", [
       [ "AMIPS", "namespacewmtk_1_1components_1_1configurator_1_1operations.html#a31e0ffcfbc7f3cd1f4028e462c017b4ca9f328751dca6047d364bbd5667727391", null ],

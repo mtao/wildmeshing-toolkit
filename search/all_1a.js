@@ -39,7 +39,7 @@ var searchData=
   ['_7enamedmultimesh_36',['~NamedMultiMesh',['../classwmtk_1_1components_1_1multimesh_1_1_named_multi_mesh.html#a337d72b006ccd1c389cb97b7113130ba',1,'wmtk::components::multimesh::NamedMultiMesh']]],
   ['_7enewattributestrategy_37',['~NewAttributeStrategy',['../classwmtk_1_1operations_1_1_new_attribute_strategy.html#a48940c90999320de968fb7e9abd95457',1,'wmtk::operations::NewAttributeStrategy']]],
   ['_7eoperation_38',['~Operation',['../classwmtk_1_1operations_1_1_operation.html#a79565c281727c6d14654bb89d9197205',1,'wmtk::operations::Operation']]],
-  ['_7eoperationoptions_39',['~OperationOptions',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html#a0f33402105e33867a7332c3981e110bd',1,'wmtk::components::configurator::operations::OperationOptions']]],
+  ['_7eoperationoptions_39',['~OperationOptions',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html#a04d1307c3eb0eb0996a7f137fdecc74f',1,'wmtk::components::configurator::operations::OperationOptions']]],
   ['_7eoperationsequence_40',['~OperationSequence',['../classwmtk_1_1operations_1_1_operation_sequence.html#afd4ce21dd73fd37d840d0e058004f756',1,'wmtk::operations::OperationSequence']]],
   ['_7eoroperationsequence_41',['~OrOperationSequence',['../classwmtk_1_1operations_1_1_or_operation_sequence.html#ab57b842522df4407984534af08c3ea3b',1,'wmtk::operations::OrOperationSequence']]],
   ['_7eparaviewinternalwriter_42',['~ParaviewInternalWriter',['../classwmtk_1_1io_1_1_paraview_writer_1_1_paraview_internal_writer.html#ae02778e33028cff0d79fafc67e403a32',1,'wmtk::io::ParaviewWriter::ParaviewInternalWriter']]],

@@ -1,5 +1,9 @@
 var NAVTREEINDEX3 =
 {
+"_pass_options_8hpp.html":[11,0,0,2,0,0,0,0,12],
+"_pass_options_8hpp_source.html":[11,0,0,2,0,0,0,0,12],
+"_path_resolver_8cpp.html":[11,0,0,27,0,0,0,0,7],
+"_path_resolver_8cpp.html#a626714ae9ec8a00e0ebf9cabc3b62a76":[11,0,0,27,0,0,0,0,7,2],
 "_path_resolver_8cpp.html#abb616373a5f4c0082ac0039a22925b8c":[11,0,0,27,0,0,0,0,7,1],
 "_path_resolver_8cpp_source.html":[11,0,0,27,0,0,0,0,7],
 "_path_resolver_8hpp.html":[11,0,0,27,0,0,0,0,8],
@@ -245,9 +249,5 @@ var NAVTREEINDEX3 =
 "_swap56_energy_before_invariant_double_8cpp.html":[11,0,2,0,4,70],
 "_swap56_energy_before_invariant_double_8cpp_source.html":[11,0,2,0,4,70],
 "_swap56_energy_before_invariant_double_8hpp.html":[11,0,2,0,4,71],
-"_swap56_energy_before_invariant_double_8hpp_source.html":[11,0,2,0,4,71],
-"_tag_intersection_8cpp.html":[11,0,0,22,0,0,0,0,0],
-"_tag_intersection_8cpp_source.html":[11,0,0,22,0,0,0,0,0],
-"_tag_intersection_8hpp.html":[11,0,0,22,0,0,0,0,1],
-"_tag_intersection_8hpp_source.html":[11,0,0,22,0,0,0,0,1]
+"_swap56_energy_before_invariant_double_8hpp_source.html":[11,0,2,0,4,71]
 };

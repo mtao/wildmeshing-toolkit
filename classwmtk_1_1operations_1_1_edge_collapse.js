@@ -7,6 +7,7 @@ var classwmtk_1_1operations_1_1_edge_collapse =
     [ "execute", "classwmtk_1_1operations_1_1_edge_collapse.html#a8d52e8ef34eb9d5b32c8d290270fe5d3", null ],
     [ "get_new_attribute_strategy", "classwmtk_1_1operations_1_1_edge_collapse.html#a42002d22eacaab86ed9acffab84b7097", null ],
     [ "primitive_type", "classwmtk_1_1operations_1_1_edge_collapse.html#a325e1bc523bed80de5adf695ded851d6", null ],
+    [ "reset_attribute_new_strategies", "classwmtk_1_1operations_1_1_edge_collapse.html#a0785c1db6bd9ba4f751c394536963094", null ],
     [ "set_new_attribute_strategy", "classwmtk_1_1operations_1_1_edge_collapse.html#af3e4b2eb2fa46a1475340c72f449ce9d", null ],
     [ "set_new_attribute_strategy", "classwmtk_1_1operations_1_1_edge_collapse.html#a31e2fd32feacd5705864bda83c55c188", null ],
     [ "unmodified_primitives", "classwmtk_1_1operations_1_1_edge_collapse.html#a15f338a3463830f470ea1cc408257067", null ],

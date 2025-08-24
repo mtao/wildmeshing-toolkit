@@ -9,6 +9,7 @@ var dir_19a366185586478486f2cd790a55549f =
     [ "Configurator.hpp", "_configurator_8hpp.html", "_configurator_8hpp" ],
     [ "Pass.cpp", "_pass_8cpp.html", null ],
     [ "Pass.hpp", "_pass_8hpp.html", "_pass_8hpp" ],
+    [ "PassConfiguration.cpp", "_pass_configuration_8cpp.html", "_pass_configuration_8cpp" ],
     [ "PassConfiguration.hpp", "_pass_configuration_8hpp.html", "_pass_configuration_8hpp" ],
     [ "PassOptions.cpp", "_pass_options_8cpp.html", "_pass_options_8cpp" ],
     [ "PassOptions.hpp", "_pass_options_8hpp.html", "_pass_options_8hpp" ]

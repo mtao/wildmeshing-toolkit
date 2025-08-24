@@ -83,7 +83,6 @@ var annotated_dup =
             [ "OperationOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options" ],
             [ "Pass", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass" ],
             [ "PriorityOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_priority_options" ],
-            [ "ProjectedAttributeUpdateOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_options" ],
             [ "VertexSmoothOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options.html", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options" ]
           ] ],
           [ "transfer", "namespacewmtk_1_1components_1_1configurator_1_1transfer.html", [

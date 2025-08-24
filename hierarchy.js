@@ -387,9 +387,7 @@ var hierarchy =
     ] ],
     [ "wmtk::components::configurator::operations::OperationFactory", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html", null ],
     [ "wmtk::components::configurator::operations::OperationOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_options.html", [
-      [ "wmtk::components::configurator::operations::AttributeUpdateOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_options.html", [
-        [ "wmtk::components::configurator::operations::ProjectedAttributeUpdateOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_projected_attribute_update_options.html", null ]
-      ] ],
+      [ "wmtk::components::configurator::operations::AttributeUpdateOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_attribute_update_options.html", null ],
       [ "wmtk::components::configurator::operations::EdgeCollapseOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_collapse_options.html", null ],
       [ "wmtk::components::configurator::operations::EdgeSplitOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_split_options.html", null ],
       [ "wmtk::components::configurator::operations::EdgeSwapOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_edge_swap_options.html", null ],
@@ -553,8 +551,8 @@ var hierarchy =
     [ "wmtk::simplex::internal::VisitedArray< int64_t >", "classwmtk_1_1simplex_1_1internal_1_1_visited_array.html", null ],
     [ "wmtk::simplex::internal::VisitedArray< wmtk::simplex::IdSimplex >", "classwmtk_1_1simplex_1_1internal_1_1_visited_array.html", null ],
     [ "wmtk::components::configurator::transfer::VolumeFunctor< InT, InDim, OutT, OutDim >", "structwmtk_1_1components_1_1configurator_1_1transfer_1_1_volume_functor.html", null ],
-    [ "wmtk::components::WildMeshingOptions", "structwmtk_1_1components_1_1_wild_meshing_options.html", null ],
     [ "wmtk::components::WildmeshingOptions", "structwmtk_1_1components_1_1_wildmeshing_options.html", null ],
+    [ "wmtk::components::WildMeshingOptions", "structwmtk_1_1components_1_1_wild_meshing_options.html", null ],
     [ "wmtk::components::WildmeshingOptionsAttributes", "structwmtk_1_1components_1_1_wildmeshing_options_attributes.html", null ],
     [ "wmtk::components::WildmeshingOptionsEnvelope", "structwmtk_1_1components_1_1_wildmeshing_options_envelope.html", null ],
     [ "wmtk::components::WildmeshingOptionsEnvelopeMesh", "structwmtk_1_1components_1_1_wildmeshing_options_envelope_mesh.html", null ],
