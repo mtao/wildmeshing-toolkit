@@ -23,12 +23,12 @@ class PriorityOptions;
 
 struct OperationOptions
 {
-    OperationOptions() = default;
-    OperationOptions(const OperationOptions&) = default;
-    OperationOptions(OperationOptions&&) = default;
-    OperationOptions& operator=(const OperationOptions&) = default;
-    OperationOptions& operator=(OperationOptions&&) = default;
-    ~OperationOptions() = default;
+    OperationOptions();
+    OperationOptions(const OperationOptions&);
+    OperationOptions(OperationOptions&&);
+    OperationOptions& operator=(const OperationOptions&);
+    OperationOptions& operator=(OperationOptions&&);
+    ~OperationOptions();
     // std::string name;
     std::string type;
     std::string mesh_path;
@@ -42,78 +42,61 @@ struct OperationOptions
 
 struct EdgeSplitOptions : public OperationOptions
 {
-    EdgeSplitOptions() = default;
-    EdgeSplitOptions(const OperationOptions& o)
-        : OperationOptions(o)
-    {}
-    EdgeSplitOptions(const EdgeSplitOptions&) = default;
-    EdgeSplitOptions(EdgeSplitOptions&&) = default;
-    EdgeSplitOptions& operator=(const EdgeSplitOptions&) = default;
-    EdgeSplitOptions& operator=(EdgeSplitOptions&&) = default;
+    EdgeSplitOptions();
+    EdgeSplitOptions(const OperationOptions& o);
+    EdgeSplitOptions(const EdgeSplitOptions&);
+    EdgeSplitOptions(EdgeSplitOptions&&);
+    EdgeSplitOptions& operator=(const EdgeSplitOptions&);
+    EdgeSplitOptions& operator=(EdgeSplitOptions&&);
+    constexpr static std::string type_name = "edge_split";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EdgeSplitOptions)
 };
 struct EdgeCollapseOptions : public OperationOptions
 {
-    EdgeCollapseOptions() = default;
-    EdgeCollapseOptions(const OperationOptions& o)
-        : OperationOptions(o)
-    {}
-    EdgeCollapseOptions(const EdgeCollapseOptions&) = default;
-    EdgeCollapseOptions(EdgeCollapseOptions&&) = default;
-    EdgeCollapseOptions& operator=(const EdgeCollapseOptions&) = default;
-    EdgeCollapseOptions& operator=(EdgeCollapseOptions&&) = default;
+    EdgeCollapseOptions();
+    EdgeCollapseOptions(const OperationOptions& o);
+    EdgeCollapseOptions(const EdgeCollapseOptions&);
+    EdgeCollapseOptions(EdgeCollapseOptions&&);
+    EdgeCollapseOptions& operator=(const EdgeCollapseOptions&);
+    EdgeCollapseOptions& operator=(EdgeCollapseOptions&&);
+    constexpr static std::string type_name = "edge_collapse";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EdgeCollapseOptions)
 };
 struct EdgeSwapOptions : public OperationOptions
 {
-    EdgeSwapOptions() = default;
-    EdgeSwapOptions(const OperationOptions& o)
-        : OperationOptions(o)
-    {}
-    EdgeSwapOptions(const EdgeSwapOptions&) = default;
-    EdgeSwapOptions(EdgeSwapOptions&&) = default;
-    EdgeSwapOptions& operator=(const EdgeSwapOptions&) = default;
-    EdgeSwapOptions& operator=(EdgeSwapOptions&&) = default;
+    EdgeSwapOptions();
+    EdgeSwapOptions(const OperationOptions& o);
+    EdgeSwapOptions(const EdgeSwapOptions&);
+    EdgeSwapOptions(EdgeSwapOptions&&);
+    EdgeSwapOptions& operator=(const EdgeSwapOptions&);
+    EdgeSwapOptions& operator=(EdgeSwapOptions&&);
     // by default the mode is set to Valence;
     EdgeSwapMode mode() const;
     void set_mode(EdgeSwapMode);
+    constexpr static std::string type_name = "edge_swap";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EdgeSwapOptions)
 };
 struct VertexSmoothOptions : public OperationOptions
 {
-    VertexSmoothOptions() = default;
-    VertexSmoothOptions(const OperationOptions& o)
-        : OperationOptions(o)
-    {}
-    VertexSmoothOptions(const VertexSmoothOptions&) = default;
-    VertexSmoothOptions(VertexSmoothOptions&&) = default;
-    VertexSmoothOptions& operator=(const VertexSmoothOptions&) = default;
-    VertexSmoothOptions& operator=(VertexSmoothOptions&&) = default;
+    VertexSmoothOptions();
+    VertexSmoothOptions(const OperationOptions& o);
+    VertexSmoothOptions(const VertexSmoothOptions&);
+    VertexSmoothOptions(VertexSmoothOptions&&);
+    VertexSmoothOptions& operator=(const VertexSmoothOptions&);
+    VertexSmoothOptions& operator=(VertexSmoothOptions&&);
+    constexpr static std::string type_name = "vertex_smooth";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(VertexSmoothOptions)
 };
 struct AttributeUpdateOptions : public OperationOptions
 {
-    AttributeUpdateOptions() = default;
-    AttributeUpdateOptions(const OperationOptions& o)
-        : OperationOptions(o)
-    {}
-    AttributeUpdateOptions(const AttributeUpdateOptions&) = default;
-    AttributeUpdateOptions(AttributeUpdateOptions&&) = default;
-    AttributeUpdateOptions& operator=(const AttributeUpdateOptions&) = default;
-    AttributeUpdateOptions& operator=(AttributeUpdateOptions&&) = default;
+    AttributeUpdateOptions();
+    AttributeUpdateOptions(const OperationOptions& o);
+    AttributeUpdateOptions(const AttributeUpdateOptions&);
+    AttributeUpdateOptions(AttributeUpdateOptions&&);
+    AttributeUpdateOptions& operator=(const AttributeUpdateOptions&);
+    AttributeUpdateOptions& operator=(AttributeUpdateOptions&&);
+    constexpr static std::string type_name = "attr_update";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeUpdateOptions)
-};
-struct ProjectedAttributeUpdateOptions : public AttributeUpdateOptions
-{
-    ProjectedAttributeUpdateOptions() = default;
-    ProjectedAttributeUpdateOptions(const OperationOptions& o)
-        : AttributeUpdateOptions(o)
-    {}
-    ProjectedAttributeUpdateOptions(const ProjectedAttributeUpdateOptions&) = default;
-    ProjectedAttributeUpdateOptions(ProjectedAttributeUpdateOptions&&) = default;
-    ProjectedAttributeUpdateOptions& operator=(const ProjectedAttributeUpdateOptions&) = default;
-    ProjectedAttributeUpdateOptions& operator=(ProjectedAttributeUpdateOptions&&) = default;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(ProjectedAttributeUpdateOptions)
 };
 
 struct Pass

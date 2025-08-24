@@ -69,6 +69,7 @@ auto IsotropicRemeshing::get_attribute(const multimesh::utils::AttributeDescript
 
 void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions& opts)
 {
+    assert(!opts.position_attribute.empty());
     auto position_attr = get_attribute(opts.position_attribute);
 
     if (!position_attr.is_valid()) {
@@ -234,10 +235,12 @@ IsotropicRemeshing::IsotropicRemeshing(
     load_shared_invariants(opts);
     load_transfers(opts);
 
+    // TODO: ops currently reset attribute new strats - should potentially preserve them
 
     // split
     m_split = configurator.get_operation<wmtk::operations::EdgeSplit>("split");
     if (m_split) {
+        m_split->reset_attribute_new_strategies();
         configure_split(opts);
         assert(bool(m_split));
     } else {
@@ -250,6 +253,7 @@ IsotropicRemeshing::IsotropicRemeshing(
 
     m_collapse = configurator.get_operation<wmtk::operations::EdgeCollapse>("collapse");
     if (m_collapse) {
+        m_collapse->reset_attribute_new_strategies();
         configure_collapse(opts);
         assert(bool(m_collapse));
     } else {
@@ -262,6 +266,8 @@ IsotropicRemeshing::IsotropicRemeshing(
 
     m_swap = configurator.get_operation<wmtk::operations::composite::EdgeSwap>("swap");
     if (m_swap) {
+        m_swap->split().reset_attribute_new_strategies();
+        m_swap->collapse().reset_attribute_new_strategies();
         configure_swap(opts);
         assert(bool(m_swap));
     }

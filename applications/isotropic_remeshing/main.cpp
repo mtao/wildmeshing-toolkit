@@ -149,7 +149,8 @@ int main(int argc, char* argv[])
         }
     }
 
-    spdlog::info("{}", mc.get_named_multimesh("").get_names_json()->dump(2));
+    spdlog::info("Multimesh structure: {}", mc.get_named_multimesh("").get_names_json()->dump(2));
+    spdlog::info("Options: {}", nlohmann::json(options).dump(2));
 
     wmtk::components::isotropic_remeshing::isotropic_remeshing(mc, options);
 

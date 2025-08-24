@@ -54,6 +54,8 @@ void IsotropicRemeshing::configure_split(const IsotropicRemeshingOptions& opts)
     for (const auto& [c, p] : opts.copied_attributes) {
         auto parent = get_attribute(p);
         auto child = get_attribute(c);
+        assert(parent.is_valid());
+        assert(child.is_valid());
         op->set_new_attribute_strategy(
             child,
             wmtk::operations::SplitBasicStrategy::None,

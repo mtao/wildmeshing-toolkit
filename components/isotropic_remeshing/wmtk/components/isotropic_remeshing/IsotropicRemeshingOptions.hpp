@@ -4,6 +4,7 @@
 #include <wmtk/components/output/OutputOptions.hpp>
 #include "wmtk/components/configurator/Configurator.hpp"
 #include "wmtk/components/configurator/PassConfiguration.hpp"
+#include <wmtk/components/utils/json_macros.hpp>
 #include "wmtk/components/configurator/operations/OperationOptions.hpp"
 
 namespace wmtk::components::isotropic_remeshing {

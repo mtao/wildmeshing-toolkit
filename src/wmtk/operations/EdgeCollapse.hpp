@@ -21,6 +21,7 @@ public:
         const std::shared_ptr<const operations::BaseCollapseNewAttributeStrategy>& other);
 
     void clear_attribute_new_strategies();
+    void reset_attribute_new_strategies();
 
     void set_new_attribute_strategy(
         const attribute::MeshAttributeHandle& attribute,

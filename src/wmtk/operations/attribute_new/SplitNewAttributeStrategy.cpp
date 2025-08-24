@@ -369,12 +369,14 @@ void SplitNewAttributeStrategy<T>::set_strategy(SplitBasicStrategy t)
 template <typename T>
 void SplitNewAttributeStrategy<T>::set_rib_strategy(SplitRibFuncType&& f)
 {
+    wmtk::logger().trace("split set_rib_strategy for {}", std::string(m_handle));
     m_split_rib_op = std::move(f);
     m_will_throw_rib = false;
 }
 template <typename T>
 void SplitNewAttributeStrategy<T>::set_strategy(SplitFuncType&& f)
 {
+    wmtk::logger().trace("split set_strategy for {}", std::string(m_handle));
     m_split_op = std::move(f);
     m_will_throw = false;
 }

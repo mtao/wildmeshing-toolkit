@@ -12,6 +12,9 @@ set(SRC_FILES
 
     Configuration.hpp
     Configuration.cpp
+
+    PassConfiguration.hpp
+    PassConfiguration.cpp
 )
 
 

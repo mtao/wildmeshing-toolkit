@@ -30,6 +30,11 @@ bool EdgeCollapse::attribute_new_all_configured() const
 EdgeCollapse::EdgeCollapse(Mesh& m)
     : Operation(m)
 {
+    reset_attribute_new_strategies();
+}
+
+void EdgeCollapse::reset_attribute_new_strategies() {
+    clear_attribute_new_strategies();
     auto collect_attrs = [&](auto&& mesh) {
         // can have const variant values here so gotta filter htose out
         if constexpr (!std::is_const_v<std::remove_reference_t<decltype(mesh)>>) {
@@ -56,7 +61,7 @@ EdgeCollapse::EdgeCollapse(Mesh& m)
     };
 
     multimesh::MultiMeshVisitor custom_attribute_collector(collect_attrs);
-    custom_attribute_collector.execute_from_root(m);
+    custom_attribute_collector.execute_from_root(mesh());
 }
 
 std::vector<simplex::Simplex> EdgeCollapse::execute(const simplex::Simplex& simplex)

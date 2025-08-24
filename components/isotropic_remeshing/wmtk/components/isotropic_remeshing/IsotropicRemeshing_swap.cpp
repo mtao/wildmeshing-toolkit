@@ -52,10 +52,10 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
     wmtk::Mesh& mesh = get_attribute(opts.position_attribute).mesh();
     switch (mesh.top_simplex_type()) {
     case PrimitiveType::Triangle:
-        m_swap = std::make_shared<operations::composite::TriEdgeSwap>(static_cast<TriMesh&>(mesh));
+        assert(std::dynamic_pointer_cast<operations::composite::TriEdgeSwap>(m_swap) != nullptr);
         break;
     case PrimitiveType::Tetrahedron:
-        m_swap = std::make_shared<operations::composite::TetEdgeSwap>(static_cast<TetMesh&>(mesh));
+        assert(std::dynamic_pointer_cast<operations::composite::TetEdgeSwap>(m_swap) != nullptr);
         break;
     case PrimitiveType::Vertex:
     case PrimitiveType::Edge:
@@ -152,6 +152,7 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
         }
     }
     for (const auto& transfer : m_operation_transfers) {
+        spdlog::info("Adding swap transfer for {}", transfer->handle().name());
         m_swap->split().set_new_attribute_strategy(transfer->handle());
         m_swap->split().add_transfer_strategy(transfer);
         m_swap->collapse().set_new_attribute_strategy(transfer->handle());
@@ -165,6 +166,7 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
     }
     assert(m_swap->split().attribute_new_all_configured());
     assert(m_swap->collapse().attribute_new_all_configured());
+    assert(m_swap->attribute_new_all_configured());
     // m_swap = op;
 }
 } // namespace wmtk::components::isotropic_remeshing

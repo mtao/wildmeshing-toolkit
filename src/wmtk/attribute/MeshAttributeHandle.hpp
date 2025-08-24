@@ -143,6 +143,7 @@ public:
     int64_t dimension() const;
 
     std::string name() const;
+    operator std::string() const;
 
 
 private:

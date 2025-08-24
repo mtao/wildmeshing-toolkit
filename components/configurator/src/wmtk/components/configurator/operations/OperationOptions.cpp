@@ -16,20 +16,29 @@ namespace wmtk::components::configurator::operations {
 // OperationOptions::OperationOptions() = default;
 // OperationOptions::~OperationOptions() = default;
 
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions){
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
+{
     //
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, enabled, priority)
-    // nlohmann_json_j["priority"] = nlohmann_json_t.priority;
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, type, enabled, priority, invariants, parameters)
+    if (nlohmann_json_t.priority) {
+        nlohmann_json_j["priority"] = nlohmann_json_t.priority;
+    }
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(OperationOptions)
 {
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(OperationOptions);
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(mesh_path, enabled, priority);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(
+        mesh_path,
+        enabled,
+        parameters,
+        invariants,
+        type);
 
-    // if (nlohmann_json_j.contains("priority")) {
-    //     nlohmann_json_t.priority = nlohmann_json_j["priority"];
-    // }
+
+    if (nlohmann_json_j.contains("priority")) {
+        nlohmann_json_t.priority = nlohmann_json_j["priority"];
+    }
 
     //
 }
@@ -99,5 +108,80 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(VertexSmoothOptions)
     from_json(nlohmann_json_j, static_cast<OperationOptions&>(nlohmann_json_t));
 }
 
+OperationOptions::~OperationOptions() = default;
+OperationOptions::OperationOptions() = default;
+OperationOptions::OperationOptions(const OperationOptions& o) = default;
+OperationOptions::OperationOptions(OperationOptions&&) = default;
+OperationOptions& OperationOptions::operator=(const OperationOptions&) = default;
+OperationOptions& OperationOptions::operator=(OperationOptions&&) = default;
+
+EdgeSplitOptions::EdgeSplitOptions()
+{
+    type = type_name;
+}
+EdgeSplitOptions::EdgeSplitOptions(const OperationOptions& o)
+    : OperationOptions(o)
+{
+    assert(type == type_name);
+}
+EdgeSplitOptions::EdgeSplitOptions(const EdgeSplitOptions&) = default;
+EdgeSplitOptions::EdgeSplitOptions(EdgeSplitOptions&&) = default;
+EdgeSplitOptions& EdgeSplitOptions::operator=(const EdgeSplitOptions&) = default;
+EdgeSplitOptions& EdgeSplitOptions::operator=(EdgeSplitOptions&&) = default;
+EdgeCollapseOptions::EdgeCollapseOptions()
+{
+    type = type_name;
+}
+EdgeCollapseOptions::EdgeCollapseOptions(const OperationOptions& o)
+    : OperationOptions(o)
+{
+    assert(type == type_name);
+}
+EdgeCollapseOptions::EdgeCollapseOptions(const EdgeCollapseOptions&) = default;
+EdgeCollapseOptions::EdgeCollapseOptions(EdgeCollapseOptions&&) = default;
+EdgeCollapseOptions& EdgeCollapseOptions::operator=(const EdgeCollapseOptions&) = default;
+EdgeCollapseOptions& EdgeCollapseOptions::operator=(EdgeCollapseOptions&&) = default;
+
+EdgeSwapOptions::EdgeSwapOptions()
+{
+    type = type_name;
+}
+EdgeSwapOptions::EdgeSwapOptions(const OperationOptions& o)
+    : OperationOptions(o)
+{
+    assert(type == type_name);
+}
+EdgeSwapOptions::EdgeSwapOptions(const EdgeSwapOptions&) = default;
+EdgeSwapOptions::EdgeSwapOptions(EdgeSwapOptions&&) = default;
+EdgeSwapOptions& EdgeSwapOptions::operator=(const EdgeSwapOptions&) = default;
+EdgeSwapOptions& EdgeSwapOptions::operator=(EdgeSwapOptions&&) = default;
+
+VertexSmoothOptions::VertexSmoothOptions()
+{
+    type = type_name;
+}
+VertexSmoothOptions::VertexSmoothOptions(const OperationOptions& o)
+    : OperationOptions(o)
+{
+    assert(type == type_name);
+}
+VertexSmoothOptions::VertexSmoothOptions(const VertexSmoothOptions&) = default;
+VertexSmoothOptions::VertexSmoothOptions(VertexSmoothOptions&&) = default;
+VertexSmoothOptions& VertexSmoothOptions::operator=(const VertexSmoothOptions&) = default;
+VertexSmoothOptions& VertexSmoothOptions::operator=(VertexSmoothOptions&&) = default;
+
+AttributeUpdateOptions::AttributeUpdateOptions()
+{
+    type = type_name;
+}
+AttributeUpdateOptions::AttributeUpdateOptions(const OperationOptions& o)
+    : OperationOptions(o)
+{
+    assert(type == type_name);
+}
+AttributeUpdateOptions::AttributeUpdateOptions(const AttributeUpdateOptions&) = default;
+AttributeUpdateOptions::AttributeUpdateOptions(AttributeUpdateOptions&&) = default;
+AttributeUpdateOptions& AttributeUpdateOptions::operator=(const AttributeUpdateOptions&) = default;
+AttributeUpdateOptions& AttributeUpdateOptions::operator=(AttributeUpdateOptions&&) = default;
 
 } // namespace wmtk::components::configurator::operations

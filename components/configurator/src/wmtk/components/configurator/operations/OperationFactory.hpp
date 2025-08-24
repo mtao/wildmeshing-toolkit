@@ -38,6 +38,10 @@ public:
 
     std::string_view get_name(const wmtk::operations::Operation& op) const;
 
+
+    std::vector<std::string> known_operation_functors() const;
+    std::vector<std::string> known_operations() const;
+
 private:
     std::map<std::string, OpCreatorFunc> m_op_functors;
 

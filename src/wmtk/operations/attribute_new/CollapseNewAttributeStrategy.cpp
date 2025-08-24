@@ -118,7 +118,6 @@ CollapseNewAttributeStrategy<T>::CollapseNewAttributeStrategy(
     : m_handle(h)
     , m_collapse_op(nullptr)
 {
-    spdlog::info("Configuring {}", h.name());
     assert(h.holds<T>());
 
     auto& mesh = m_handle.mesh();
@@ -216,6 +215,7 @@ void CollapseNewAttributeStrategy<T>::assign_collapsed(
 template <typename T>
 void CollapseNewAttributeStrategy<T>::set_strategy(CollapseFuncType&& f)
 {
+    wmtk::logger().trace("collapse set_strategy for {}", std::string(m_handle));
     m_collapse_op = std::move(f);
     m_will_throw = false;
 }

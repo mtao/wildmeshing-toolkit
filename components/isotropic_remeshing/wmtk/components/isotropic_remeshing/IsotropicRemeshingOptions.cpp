@@ -17,8 +17,8 @@
 #include "wmtk/components/configurator/transfer/TransferStrategyFactoryRegistry.hpp"
 
 #define DEFAULT_PARSABLE_ARGS                                                             \
-    iterations, lock_boundary, intermediate_output_format, split, swap, collapse, smooth, \
-        start_with_collapse, passes, position_attribute, copied_attributes,               \
+    lock_boundary, intermediate_output_format,  \
+        start_with_collapse, position_attribute, copied_attributes,               \
         pass_through_attributes, static_meshes, improvement_attributes //, utility_attributes
 
 namespace wmtk::components::isotropic_remeshing {
@@ -26,6 +26,12 @@ namespace wmtk::components::isotropic_remeshing {
 IsotropicRemeshingOptions::IsotropicRemeshingOptions()
 {
     wmtk::components::configurator::transfer::init();
+
+    operations["split"] = configurator::operations::EdgeSplitOptions {};
+    operations["collapse"] = configurator::operations::EdgeCollapseOptions{};
+    operations["swap"] = configurator::operations::EdgeSwapOptions{};
+    operations["smooth"] = configurator::operations::VertexSmoothOptions{};
+
 }
 namespace {
 
@@ -76,17 +82,18 @@ double IsotropicRemeshingOptions::get_absolute_length(const multimesh::MeshColle
 }
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 {
-    // NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, DEFAULT_PARSABLE_ARGS));
+    to_json(nlohmann_json_j, static_cast<const configurator::PassConfiguration&>(nlohmann_json_t));
+     NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, DEFAULT_PARSABLE_ARGS));
 
-    // if (nlohmann_json_t.length_abs != 0) {
-    //     NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, length_abs));
-    // } else {
-    //     assert(nlohmann_json_t.length_rel != 0);
-    //     NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, length_rel));
-    // }
-    // if (nlohmann_json_t.envelope_size.has_value()) {
-    //     nlohmann_json_j["envelope_size"] = nlohmann_json_t.envelope_size.value();
-    // }
+     if (nlohmann_json_t.length_abs != 0) {
+         NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, length_abs));
+     } else {
+         assert(nlohmann_json_t.length_rel != 0);
+         NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, length_rel));
+     }
+     if (nlohmann_json_t.envelope_size.has_value()) {
+         nlohmann_json_j["envelope_size"] = nlohmann_json_t.envelope_size.value();
+     }
 
     // if (nlohmann_json_t.envelope_size.has_value()) {
     //     nlohmann_json_j["envelope_size"] = nlohmann_json_t.envelope_size.value();
@@ -101,9 +108,9 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 {
-    from_json(nlohmann_json_j, static_cast<configurator::PassConfiguration&>(nlohmann_json_t));
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(IsotropicRemeshingOptions);
-    // WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(DEFAULT_PARSABLE_ARGS);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(DEFAULT_PARSABLE_ARGS);
+    from_json(nlohmann_json_j, static_cast<configurator::PassConfiguration&>(nlohmann_json_t));
 
     // WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(configurator);
 

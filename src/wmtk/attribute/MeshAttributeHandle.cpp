@@ -1,4 +1,6 @@
 #include "MeshAttributeHandle.hpp"
+#include <fmt/format.h>
+#include <fmt/ranges.h>
 #include <cassert>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Rational.hpp>
@@ -67,6 +69,28 @@ std::string MeshAttributeHandle::name() const
 {
     assert(exists());
     return std::visit([&](auto&& h) { return mesh().get_attribute_name(h); }, m_handle);
+}
+
+
+MeshAttributeHandle::operator std::string() const {
+
+    char c;
+    switch(held_type()) {
+        case HeldType::Char:
+            c = 'c'; break;
+        case HeldType::Double:
+            c = 'd'; break;
+        case HeldType::Rational:
+            c = 'r'; break;
+        case HeldType::Int64:
+            c = 'i'; break;
+        default:
+            c = '?'; break;
+    }
+
+    return fmt::format("{}[{}]:{}",
+            c,mesh().absolute_multi_mesh_id(),
+            name());
 }
 
 
