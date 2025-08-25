@@ -65,6 +65,9 @@ private:
 
 
 private:
+    void configure_configurator(const IsotropicRemeshingOptions&);
+
+
     components::configurator::Configurator m_configurator;
     multimesh::MeshCollection& mesh_collection();
     const multimesh::MeshCollection& mesh_collection() const;

@@ -77,7 +77,10 @@ void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions&
     }
     m_universal_invariants =
         std::make_shared<wmtk::invariants::InvariantCollection>(position_attr.mesh());
+    configurator().add_attribute_invariant<invariants::ImprovementInvariant>("improvement");
     for (const auto& attr : opts.improvement_attributes) {
+        configurator::invariants::AttributeInvariantOptions inv(attr);
+        // configurator().create_invariant();
         m_universal_invariants->add(
             std::make_shared<invariants::ImprovementInvariant>(get_attribute(attr)));
     }
@@ -219,12 +222,29 @@ IsotropicRemeshing::IsotropicRemeshing(
 // IsotropicRemeshing::IsotropicRemeshing(IsotropicRemeshingOptions& opts)
 //     : m_configurator(opts)
 //{}
+
+
+void IsotropicRemeshing::configure_configurator(const IsotropicRemeshingOptions& opts)
+{
+    m_configurator.add_attribute_invariant<invariants::ImprovementInvariant>("improvement");
+
+
+    m_configurator.load(opts);
+}
+
+
 IsotropicRemeshing::IsotropicRemeshing(
     multimesh::MeshCollection& mesh_collection,
     const IsotropicRemeshingOptions& opts)
-    : m_configurator(mesh_collection, opts)
+    : m_configurator(mesh_collection)
 {
     auto& configurator = this->configurator();
+
+    configure_configurator(opts);
+
+    load_shared_invariants(opts);
+
+
     passes = configurator.get_passes();
     iterations = opts.iterations;
     start_with_collapse = opts.start_with_collapse;
@@ -232,7 +252,6 @@ IsotropicRemeshing::IsotropicRemeshing(
     intermediate_output_format = opts.intermediate_output_format;
 
 
-    load_shared_invariants(opts);
     load_transfers(opts);
 
     // TODO: ops currently reset attribute new strats - should potentially preserve them

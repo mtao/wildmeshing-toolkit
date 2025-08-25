@@ -116,7 +116,7 @@ std::shared_ptr<wmtk::operations::Operation> OperationFactory::create(
 std::shared_ptr<wmtk::operations::Operation>
 OperationFactory::create(Configurator& config, std::string_view name, const nlohmann::json& js)
 {
-    //spdlog::info("{}", js.dump(2));
+    // spdlog::info("{}", js.dump(2));
     wmtk::logger().debug("Creating a {} operation named {}", js["type"].get<std::string>(), name);
     std::string type = js["type"];
     try {
@@ -158,6 +158,18 @@ std::string_view OperationFactory::get_name(const wmtk::operations::Operation& o
     }
     constexpr static std::string unknown = "unknown";
     return unknown;
+}
+
+std::vector<OperationOptions> OperationFactory::get_options(const Configurator& c) const
+{
+    std::vector<OperationOptions> opts;
+    for (const auto& [opname, op] : m_ops) {
+        auto& opt = opts.emplace_back();
+        for (const auto& inv : op->invariants().invariants()) {
+            auto inv_name = c.get_invariant_name(*inv);
+            opt.invariants.emplace_back(inv_name);
+        }
+    }
 }
 
 } // namespace wmtk::components::configurator::operations

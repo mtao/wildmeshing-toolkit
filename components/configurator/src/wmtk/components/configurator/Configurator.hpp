@@ -1,6 +1,6 @@
 #pragma once
 #include <memory>
-#include <nlohmann/json_fwd.hpp>
+#include <nlohmann/json.hpp>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include "Pass.hpp"
@@ -74,8 +74,29 @@ public:
     std::string_view get_operation_name(const wmtk::operations::Operation& op) const;
     std::string get_mesh_name(const Mesh& m) const;
 
+    std::string_view get_invariant_name(const wmtk::invariants::Invariant& op) const;
+
     const std::vector<Pass>& get_passes() const { return m_passes; }
     std::vector<Pass>& get_passes() { return m_passes; }
+
+
+    template <typename T, typename MeshType = wmtk::Mesh>
+    void add_mesh_invariant(const std::string& s);
+    template <typename T, typename MeshType = wmtk::Mesh>
+    void add_attribute_invariant(const std::string& s);
+
+    std::shared_ptr<wmtk::invariants::Invariant> create_mesh_invariant(
+        std::string_view s,
+        const Mesh& m);
+    std::shared_ptr<wmtk::invariants::Invariant> create_attribute_invariant(
+        const std::string& s,
+        const attribute::MeshAttributeHandle& mah);
+
+    template <
+        typename T,
+        typename S = invariants::MeshInvariantOptions,
+        typename MeshType = wmtk::Mesh>
+    void add_basic_operation(const std::string& s);
 
 private:
     wmtk::Mesh& get_mesh_internal(std::string_view name);
@@ -135,6 +156,48 @@ auto Configurator::get_operation(std::string_view op_name) -> std::shared_ptr<T>
         throw std::runtime_error("Could not fetch a mesh because type was wrong");
     }
     return ptr;
+}
+
+template <typename T, typename MeshType>
+void Configurator::add_mesh_invariant(const std::string& s)
+{
+    auto func = [](Configurator& c,
+                   const nlohmann::json& js) -> std::shared_ptr<wmtk::invariants::Invariant> {
+        auto opts = js.template get<invariants::MeshInvariantOptions>();
+        auto& m = c.template get_mesh<MeshType>(opts.mesh_path);
+
+        auto r = std::make_shared<T>(m);
+        return r;
+    };
+    m_invariants.add(s, func);
+}
+template <typename T, typename MeshType>
+
+void Configurator::add_attribute_invariant(const std::string& s)
+{
+    auto func = [](Configurator& c,
+                   const nlohmann::json& js) -> std::shared_ptr<wmtk::invariants::Invariant> {
+        auto opts = js.template get<invariants::AttributeInvariantOptions>();
+        auto& m = c.template get_mesh<MeshType>(opts.attribute);
+
+        auto r = std::make_shared<T>(m);
+        return r;
+    };
+    m_invariants.add(s, func);
+}
+
+template <typename T, typename S, typename MeshType>
+void Configurator::add_basic_operation(const std::string& s)
+{
+    auto func = [](Configurator& c,
+                   const nlohmann::json& js) -> std::shared_ptr<wmtk::operations::Operation> {
+        auto opts = js.template get<S>();
+        auto& m = c.template get_mesh<MeshType>(opts.mesh_path);
+
+        auto r = std::make_shared<T>(m);
+        return r;
+    };
+    m_invariants.add(s, func);
 }
 
 } // namespace wmtk::components::configurator

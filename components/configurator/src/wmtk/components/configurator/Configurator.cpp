@@ -1,5 +1,6 @@
 
 #include "Configurator.hpp"
+#include <wmtk/components/multimesh/utils/get_attribute_description.hpp>
 #include <wmtk/operations/Operation.hpp>
 #include "Configuration.hpp"
 
@@ -36,6 +37,10 @@ Configurator::Configurator(multimesh::MeshCollection& mc, const Configuration& c
     load(config);
 }
 
+std::string_view Configurator::get_invariant_name(const wmtk::invariants::Invariant& op) const
+{
+    return m_invariants.get_name(op);
+}
 std::string_view Configurator::get_operation_name(const wmtk::operations::Operation& op) const
 {
     return m_operations.get_name(op);
@@ -127,4 +132,20 @@ auto Configurator::get_attribute(
 {
     return wmtk::components::multimesh::utils::get_attribute(meshes(), attr);
 }
+auto Configurator::create_mesh_invariant(std::string_view s, const Mesh& m)
+    -> std::shared_ptr<wmtk::invariants::Invariant>
+{
+    invariants::MeshInvariantOptions opts;
+    opts.set_mesh(get_mesh_name(m));
+    m_invariants.create(*this, s, opts);
+}
+auto Configurator::create_attribute_invariant(
+    const std::string& s,
+    const attribute::MeshAttributeHandle& mah) -> std::shared_ptr<wmtk::invariants::Invariant>
+{
+    invariants::AttributeInvariantOptions opts;
+    opts.set_attribute(wmtk::components::multimesh::get_attribute_handle(meshes(), mah));
+    m_invariants.create(*this, s, opts);
+}
+
 } // namespace wmtk::components::configurator

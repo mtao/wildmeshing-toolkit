@@ -105,4 +105,15 @@ std::shared_ptr<wmtk::invariants::Invariant> InvariantFactory::get(const std::st
 {
     return m_invariants.at(name);
 }
+
+std::string_view InvariantFactory::get_name(const wmtk::invariants::Invariant& op) const
+{
+    for (const auto& [name, my_op] : m_ops) {
+        if (&op == my_op.get()) {
+            return name;
+        }
+    }
+    constexpr static std::string unknown = "unknown";
+    return unknown;
+}
 } // namespace wmtk::components::configurator::invariants

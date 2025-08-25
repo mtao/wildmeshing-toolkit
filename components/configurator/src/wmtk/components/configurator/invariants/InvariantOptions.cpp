@@ -4,16 +4,21 @@
 namespace wmtk::components::configurator::invariants {
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(InvariantOptions){
     //
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type)
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, parameters)
 
 
     // nlohmann_json_t.parameters->to_json(nlohmann_json_j["parameters"]);
 
     //
-}
+} InvariantOptions::~InvariantOptions() = default;
+InvariantOptions::InvariantOptions() = default;
+InvariantOptions::InvariantOptions(const InvariantOptions& o) = default;
+InvariantOptions::InvariantOptions(InvariantOptions&&) = default;
+InvariantOptions& InvariantOptions::operator=(const InvariantOptions&) = default;
+InvariantOptions& InvariantOptions::operator=(InvariantOptions&&) = default;
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(InvariantOptions){
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(type)
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(type, parameters)
     // auto& p = nlohmann_json_t.parameters;
     // if (nlohmann_json_t.type == "envelope") {
     //     p = std::make_unique<EnvelopeInvariantOptions>(
@@ -37,15 +42,13 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(InvariantOptions){
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MeshInvariantOptions)
 {
     //
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, on_every_mesh)
+
     to_json(nlohmann_json_j, static_cast<const InvariantOptions&>(nlohmann_json_t));
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MeshInvariantOptions)
 {
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(MeshInvariantOptions);
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(on_every_mesh);
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(mesh_path)
 
     from_json(nlohmann_json_j, static_cast<InvariantOptions&>(nlohmann_json_t));
 }
@@ -110,9 +113,22 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EnvelopeInvariantOptions)
     to_json(nlohmann_json_j, static_cast<const AttributeInvariantOptions&>(nlohmann_json_t));
 }
 
-WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EnvelopeInvariantOptions)
-{
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EnvelopeInvariantOptions){
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(size)
     // from_json(nlohmann_json_j, static_cast<AttributeInvariantOptions&>(nlohmann_json_t));
 }
+
+AttributeInvariantOptions::AttributeInvariantOptions(
+    std::string_view type,
+    const wmtk::components::multimesh::utils::AttributeDescription&);
+
+AttributeInvariantOptions::AttributeInvariantOptions(const AttributeInvariantOptions& opts) =
+    default;
+AttributeInvariantOptions::AttributeInvariantOptions(AttributeInvariantOptions&& opts) = default;
+AttributeInvariantOptions AttributeInvariantOptions::operator=(
+    const AttributeInvariantOptions& opts) = default;
+AttributeInvariantOptions AttributeInvariantOptions::operator=(AttributeInvariantOptions&& opts) =
+    default;
+// AttributeInvariantOptions::AttributeInvariantOptions(
+//     const wmtk::components::multimesh::utils::AttributeDescription&);
 } // namespace wmtk::components::configurator::invariants

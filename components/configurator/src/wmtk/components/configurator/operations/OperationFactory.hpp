@@ -1,7 +1,8 @@
 #pragma once
 #include <functional>
 #include <memory>
-#include <nlohmann/json_fwd.hpp>
+#include <nlohmann/json.hpp>
+#include "OperationOptions.hpp"
 
 
 namespace wmtk::operations {
@@ -38,6 +39,7 @@ public:
 
     std::string_view get_name(const wmtk::operations::Operation& op) const;
 
+    std::vector<OperationOptions> get_options(const Configurator& o) const;
 
     std::vector<std::string> known_operation_functors() const;
     std::vector<std::string> known_operations() const;

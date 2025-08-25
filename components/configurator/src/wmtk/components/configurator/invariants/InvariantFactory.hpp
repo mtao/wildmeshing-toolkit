@@ -9,6 +9,9 @@
 #include <nlohmann/json_fwd.hpp>
 
 
+namespace wmtk {
+class Mesh;
+}
 namespace wmtk::invariants {
 class Invariant;
 }
@@ -32,6 +35,7 @@ public:
 
     void add(const std::string& s, const InvariantCreatorFunc& f);
 
+
     void from_json(Configurator&, const nlohmann::json& js);
 
     std::shared_ptr<wmtk::invariants::Invariant>
@@ -42,9 +46,13 @@ public:
     std::shared_ptr<wmtk::invariants::Invariant> get(const std::string& name);
 
 
+    std::string_view get_name(const wmtk::invariants::Invariant& op) const;
+
 private:
     std::map<std::string, InvariantCreatorFunc> m_invariant_functors;
 
     std::map<std::string, std::shared_ptr<wmtk::invariants::Invariant>> m_invariants;
 };
+
+
 } // namespace wmtk::components::configurator::invariants
