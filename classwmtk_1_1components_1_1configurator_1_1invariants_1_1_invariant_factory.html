@@ -149,6 +149,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a97c5a717a4ab453f64a82a787fc109cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2fb7b1fafb372d6547812041b9f54f0" id="r_ad2fb7b1fafb372d6547812041b9f54f0"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_factory.html#ad2fb7b1fafb372d6547812041b9f54f0">get</a> (const std::string &amp;name)</td></tr>
 <tr class="separator:ad2fb7b1fafb372d6547812041b9f54f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cf3fa145bc193fb6c3c186b711c21ac" id="r_a4cf3fa145bc193fb6c3c186b711c21ac"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_factory.html#a4cf3fa145bc193fb6c3c186b711c21ac">get_name</a> (const <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a> &amp;op) const</td></tr>
+<tr class="separator:a4cf3fa145bc193fb6c3c186b711c21ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -159,7 +161,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="_invariant_factory_8hpp_source.html#l00026">26</a> of file <a class="el" href="_invariant_factory_8hpp_source.html">InvariantFactory.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_invariant_factory_8hpp_source.html#l00029">29</a> of file <a class="el" href="_invariant_factory_8hpp_source.html">InvariantFactory.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="a95bcdf62fd6535d2219a1293ebb829a9" name="a95bcdf62fd6535d2219a1293ebb829a9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a95bcdf62fd6535d2219a1293ebb829a9">&#9670;&#160;</a></span>InvariantCreatorFunc</h2>
@@ -173,7 +175,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_invariant_factory_8hpp_source.html#l00030">30</a> of file <a class="el" href="_invariant_factory_8hpp_source.html">InvariantFactory.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_invariant_factory_8hpp_source.html#l00033">33</a> of file <a class="el" href="_invariant_factory_8hpp_source.html">InvariantFactory.hpp</a>.</p>
 
 </div>
 </div>
@@ -195,7 +197,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_invariant_factory_8cpp_source.html#l00050">50</a> of file <a class="el" href="_invariant_factory_8cpp_source.html">InvariantFactory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_invariant_factory_8hpp_source.html#l00046">m_invariant_functors</a>.</p>
+<p class="reference">References <a class="el" href="_invariant_factory_8hpp_source.html#l00052">m_invariant_functors</a>.</p>
 
 </div>
 </div>
@@ -228,7 +230,14 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="_invariant_factory_8cpp_source.html#l00087">87</a> of file <a class="el" href="_invariant_factory_8cpp_source.html">InvariantFactory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_invariant_factory_8hpp_source.html#l00046">m_invariant_functors</a>.</p>
+<p class="reference">References <a class="el" href="_invariant_factory_8hpp_source.html#l00052">m_invariant_functors</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_configurator_8hpp_source.html#l00176">wmtk::components::configurator::Configurator::add_attribute_invariant()</a>, <a class="el" href="_configurator_8hpp_source.html#l00190">wmtk::components::configurator::Configurator::add_basic_operation()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00162">wmtk::components::configurator::Configurator::add_mesh_invariant()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_factory_a1f22ac6cc86044b61562ec09520adf71_icgraph.svg" width="100%" height="486"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -303,9 +312,9 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_invariant_factory_8cpp_source.html#l00098">98</a> of file <a class="el" href="_invariant_factory_8cpp_source.html">InvariantFactory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_invariant_factory_8hpp_source.html#l00046">m_invariant_functors</a>, and <a class="el" href="_invariant_factory_8hpp_source.html#l00048">m_invariants</a>.</p>
+<p class="reference">References <a class="el" href="_invariant_factory_8hpp_source.html#l00052">m_invariant_functors</a>, and <a class="el" href="_invariant_factory_8hpp_source.html#l00054">m_invariants</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_invariant_factory_8cpp_source.html#l00091">create()</a>, <a class="el" href="_configurator_8cpp_source.html#l00087">wmtk::components::configurator::Configurator::create_invariant()</a>, <a class="el" href="_configurator_8cpp_source.html#l00080">wmtk::components::configurator::Configurator::create_invariant()</a>, <a class="el" href="_invariant_factory_8cpp_source.html#l00073">from_json()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00060">wmtk::components::configurator::Configurator::load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_invariant_factory_8cpp_source.html#l00091">create()</a>, <a class="el" href="_configurator_8cpp_source.html#l00092">wmtk::components::configurator::Configurator::create_invariant()</a>, <a class="el" href="_configurator_8cpp_source.html#l00085">wmtk::components::configurator::Configurator::create_invariant()</a>, <a class="el" href="_invariant_factory_8cpp_source.html#l00073">from_json()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00065">wmtk::components::configurator::Configurator::load()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -369,7 +378,34 @@ Here is the call graph for this function:</div>
 
 <p class="definition">Definition at line <a class="el" href="_invariant_factory_8cpp_source.html#l00104">104</a> of file <a class="el" href="_invariant_factory_8cpp_source.html">InvariantFactory.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_invariant_factory_8hpp_source.html#l00048">m_invariants</a>.</p>
+<p class="reference">References <a class="el" href="_invariant_factory_8hpp_source.html#l00054">m_invariants</a>.</p>
+
+</div>
+</div>
+<a id="a4cf3fa145bc193fb6c3c186b711c21ac" name="a4cf3fa145bc193fb6c3c186b711c21ac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cf3fa145bc193fb6c3c186b711c21ac">&#9670;&#160;</a></span>get_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view wmtk::components::configurator::invariants::InvariantFactory::get_name </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a> &amp;&#160;</td>
+          <td class="paramname"><em>op</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_invariant_factory_8cpp_source.html#l00109">109</a> of file <a class="el" href="_invariant_factory_8cpp_source.html">InvariantFactory.cpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00040">wmtk::components::configurator::Configurator::get_invariant_name()</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1invariants_1_1_invariant_factory_a4cf3fa145bc193fb6c3c186b711c21ac_icgraph.svg" width="100%" height="300"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
 
 </div>
 </div>
@@ -394,7 +430,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_invariant_factory_8hpp_source.html#l00046">46</a> of file <a class="el" href="_invariant_factory_8hpp_source.html">InvariantFactory.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_invariant_factory_8hpp_source.html#l00052">52</a> of file <a class="el" href="_invariant_factory_8hpp_source.html">InvariantFactory.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_invariant_factory_8cpp_source.html#l00087">add()</a>, <a class="el" href="_invariant_factory_8cpp_source.html#l00098">create()</a>, and <a class="el" href="_invariant_factory_8cpp_source.html#l00050">InvariantFactory()</a>.</p>
 
@@ -420,7 +456,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_invariant_factory_8hpp_source.html#l00048">48</a> of file <a class="el" href="_invariant_factory_8hpp_source.html">InvariantFactory.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_invariant_factory_8hpp_source.html#l00054">54</a> of file <a class="el" href="_invariant_factory_8hpp_source.html">InvariantFactory.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="_invariant_factory_8cpp_source.html#l00098">create()</a>, and <a class="el" href="_invariant_factory_8cpp_source.html#l00104">get()</a>.</p>
 

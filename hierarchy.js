@@ -394,6 +394,8 @@ var hierarchy =
       [ "wmtk::components::configurator::operations::VertexSmoothOptions", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_vertex_smooth_options.html", null ]
     ] ],
     [ "wmtk::components::output::OutputOptions", "structwmtk_1_1components_1_1output_1_1_output_options.html", null ],
+    [ "wmtk::components::configurator::invariants::AttributeInvariantOptions::Parameters", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_attribute_invariant_options_1_1_parameters.html", null ],
+    [ "wmtk::components::configurator::invariants::MeshInvariantOptions::Parameters", "structwmtk_1_1components_1_1configurator_1_1invariants_1_1_mesh_invariant_options_1_1_parameters.html", null ],
     [ "wmtk::io::ParaviewWriter::ParaviewInternalWriter", "classwmtk_1_1io_1_1_paraview_writer_1_1_paraview_internal_writer.html", null ],
     [ "wmtk::components::configurator::operations::Pass", "structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass.html", null ],
     [ "wmtk::components::configurator::Pass", "classwmtk_1_1components_1_1configurator_1_1_pass.html", null ],

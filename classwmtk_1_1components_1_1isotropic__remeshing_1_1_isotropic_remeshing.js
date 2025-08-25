@@ -8,6 +8,7 @@ var classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing =
     [ "configurator", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a53cb9f9e0decece9fe2761afa36ed289", null ],
     [ "configurator", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a9decd40a1da734fa76d2abddb63a1075", null ],
     [ "configure_collapse", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a1b56eedafe8865b7ececb2d19f5eb670", null ],
+    [ "configure_configurator", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#acec86fc982cf955bc5d7c98a0f83f3d7", null ],
     [ "configure_smooth", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a92685d707ff38f233bbc28660d33e00a", null ],
     [ "configure_split", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#a5b19a293d235baa075ac83cbd921bc04", null ],
     [ "configure_swap", "classwmtk_1_1components_1_1isotropic__remeshing_1_1_isotropic_remeshing.html#ad22ce058f76ec1434f41ce7fb2bd6ffa", null ],

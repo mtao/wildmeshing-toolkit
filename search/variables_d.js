@@ -1,7 +1,7 @@
 var searchData=
 [
   ['old_5fmode_0',['old_mode',['../classwmtk_1_1components_1_1input_1_1_input_options.html#aa034e765f5d1b158b4386d188fddda45',1,'wmtk::components::input::InputOptions']]],
-  ['on_5fevery_5fmesh_1',['on_every_mesh',['../structwmtk_1_1components_1_1configurator_1_1invariants_1_1_mesh_invariant_options.html#a361cf606868f54acb3bcaa3b71876fde',1,'wmtk::components::configurator::invariants::MeshInvariantOptions']]],
+  ['on_5fevery_5fmesh_1',['on_every_mesh',['../structwmtk_1_1components_1_1configurator_1_1invariants_1_1_mesh_invariant_options_1_1_parameters.html#afae6678d37333162601f57d21bc1366a',1,'wmtk::components::configurator::invariants::MeshInvariantOptions::Parameters']]],
   ['open_5fboundary_5fmesh_2',['open_boundary_mesh',['../classwmtk_1_1components_1_1triangle__insertion_1_1_child_meshes.html#aebaac673f7a7a203c4c7e927d3019f0c',1,'wmtk::components::triangle_insertion::ChildMeshes']]],
   ['operations_3',['operations',['../structwmtk_1_1components_1_1configurator_1_1operations_1_1_pass.html#a7761f147626fd98a5c8d6fb93fbc4d82',1,'wmtk::components::configurator::operations::Pass::operations'],['../structwmtk_1_1components_1_1configurator_1_1_pass_configuration.html#aac9bbd8461e9f9189c4128e0df979387',1,'wmtk::components::configurator::PassConfiguration::operations'],['../structwmtk_1_1components_1_1configurator_1_1_pass_options.html#a667e83cb71f7c4baeb05bcbcde538c8d',1,'wmtk::components::configurator::PassOptions::operations']]],
   ['opposite_5fvid_4',['opposite_vid',['../structwmtk_1_1operations_1_1tri__mesh_1_1_edge_operation_data_1_1_incident_face_data.html#a4ae2440cf98c2519c1824413ad6ea7c5',1,'wmtk::operations::tri_mesh::EdgeOperationData::IncidentFaceData']]],

@@ -180,10 +180,25 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab9502692f6716a445473ab99d2c4d1a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9196e082e006ab80b5038660eb78648b" id="r_a9196e082e006ab80b5038660eb78648b"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#a9196e082e006ab80b5038660eb78648b">get_mesh_name</a> (const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m) const</td></tr>
 <tr class="separator:a9196e082e006ab80b5038660eb78648b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affa3604b3cf179f3174d1ea89bb70c36" id="r_affa3604b3cf179f3174d1ea89bb70c36"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#affa3604b3cf179f3174d1ea89bb70c36">get_invariant_name</a> (const <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a> &amp;op) const</td></tr>
+<tr class="separator:affa3604b3cf179f3174d1ea89bb70c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abd5631af096378d03a424203bc95bdca" id="r_abd5631af096378d03a424203bc95bdca"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="classwmtk_1_1components_1_1configurator_1_1_pass.html">Pass</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#abd5631af096378d03a424203bc95bdca">get_passes</a> () const</td></tr>
 <tr class="separator:abd5631af096378d03a424203bc95bdca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74b604eef529966925669d89b6997f9a" id="r_a74b604eef529966925669d89b6997f9a"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="classwmtk_1_1components_1_1configurator_1_1_pass.html">Pass</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#a74b604eef529966925669d89b6997f9a">get_passes</a> ()</td></tr>
 <tr class="separator:a74b604eef529966925669d89b6997f9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8f9ee11b16523ceb3ef27657383c667" id="r_ae8f9ee11b16523ceb3ef27657383c667"><td class="memTemplParams" colspan="2">template&lt;typename T , typename MeshType  = wmtk::Mesh&gt; </td></tr>
+<tr class="memitem:ae8f9ee11b16523ceb3ef27657383c667"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#ae8f9ee11b16523ceb3ef27657383c667">add_mesh_invariant</a> (const std::string &amp;s)</td></tr>
+<tr class="separator:ae8f9ee11b16523ceb3ef27657383c667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39be9c3ebc31e6fa9004ce84e7f274ce" id="r_a39be9c3ebc31e6fa9004ce84e7f274ce"><td class="memTemplParams" colspan="2">template&lt;typename T , typename MeshType  = wmtk::Mesh&gt; </td></tr>
+<tr class="memitem:a39be9c3ebc31e6fa9004ce84e7f274ce"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#a39be9c3ebc31e6fa9004ce84e7f274ce">add_attribute_invariant</a> (const std::string &amp;s)</td></tr>
+<tr class="separator:a39be9c3ebc31e6fa9004ce84e7f274ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeb4cfbe655ae2effb56c971e386db131" id="r_aeb4cfbe655ae2effb56c971e386db131"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#aeb4cfbe655ae2effb56c971e386db131">create_mesh_invariant</a> (std::string_view s, const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;m)</td></tr>
+<tr class="separator:aeb4cfbe655ae2effb56c971e386db131"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa024d2762dfd375d1147abc9077a5e68" id="r_aa024d2762dfd375d1147abc9077a5e68"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#aa024d2762dfd375d1147abc9077a5e68">create_attribute_invariant</a> (const std::string &amp;s, const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;mah)</td></tr>
+<tr class="separator:aa024d2762dfd375d1147abc9077a5e68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a317f754b7dfb38ac93e629e7297e8e16" id="r_a317f754b7dfb38ac93e629e7297e8e16"><td class="memTemplParams" colspan="2">template&lt;typename T , typename S  = invariants::MeshInvariantOptions, typename MeshType  = wmtk::Mesh&gt; </td></tr>
+<tr class="memitem:a317f754b7dfb38ac93e629e7297e8e16"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classwmtk_1_1components_1_1configurator_1_1_configurator.html#a317f754b7dfb38ac93e629e7297e8e16">add_basic_operation</a> (const std::string &amp;s)</td></tr>
+<tr class="separator:a317f754b7dfb38ac93e629e7297e8e16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -225,7 +240,7 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00025">25</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00026">26</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
 </div>
 </div>
@@ -255,9 +270,9 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00019">19</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00020">20</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_configurator_8cpp_source.html#l00075">from_json()</a>.</p>
+<p class="reference">References <a class="el" href="_configurator_8cpp_source.html#l00080">from_json()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -292,9 +307,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00028">28</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00029">29</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_configurator_8cpp_source.html#l00055">load()</a>.</p>
+<p class="reference">References <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -329,9 +344,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00033">33</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00034">34</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_configurator_8cpp_source.html#l00055">load()</a>.</p>
+<p class="reference">References <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -341,6 +356,100 @@ Here is the call graph for this function:</div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a39be9c3ebc31e6fa9004ce84e7f274ce" name="a39be9c3ebc31e6fa9004ce84e7f274ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39be9c3ebc31e6fa9004ce84e7f274ce">&#9670;&#160;</a></span>add_attribute_invariant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename MeshType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmtk::components::configurator::Configurator::add_attribute_invariant </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00176">176</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_invariant_factory_8cpp_source.html#l00087">wmtk::components::configurator::invariants::InvariantFactory::add()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00111">m_invariants</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00227">wmtk::components::isotropic_remeshing::IsotropicRemeshing::configure_configurator()</a>, and <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00070">wmtk::components::isotropic_remeshing::IsotropicRemeshing::load_shared_invariants()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_a39be9c3ebc31e6fa9004ce84e7f274ce_cgraph.svg" width="531" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_a39be9c3ebc31e6fa9004ce84e7f274ce_icgraph.svg" width="100%" height="408"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="a317f754b7dfb38ac93e629e7297e8e16" name="a317f754b7dfb38ac93e629e7297e8e16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a317f754b7dfb38ac93e629e7297e8e16">&#9670;&#160;</a></span>add_basic_operation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename S , typename MeshType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmtk::components::configurator::Configurator::add_basic_operation </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00190">190</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_invariant_factory_8cpp_source.html#l00087">wmtk::components::configurator::invariants::InvariantFactory::add()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00111">m_invariants</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_a317f754b7dfb38ac93e629e7297e8e16_cgraph.svg" width="531" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ae8f9ee11b16523ceb3ef27657383c667" name="ae8f9ee11b16523ceb3ef27657383c667"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8f9ee11b16523ceb3ef27657383c667">&#9670;&#160;</a></span>add_mesh_invariant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T , typename MeshType &gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">void wmtk::components::configurator::Configurator::add_mesh_invariant </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>s</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00162">162</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_invariant_factory_8cpp_source.html#l00087">wmtk::components::configurator::invariants::InvariantFactory::add()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00111">m_invariants</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_ae8f9ee11b16523ceb3ef27657383c667_cgraph.svg" width="548" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
 <a id="a8e7ee5f88b62181cb3464c02cc315f16" name="a8e7ee5f88b62181cb3464c02cc315f16"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8e7ee5f88b62181cb3464c02cc315f16">&#9670;&#160;</a></span>as_configuration()</h2>
 
@@ -355,6 +464,43 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa024d2762dfd375d1147abc9077a5e68" name="aa024d2762dfd375d1147abc9077a5e68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa024d2762dfd375d1147abc9077a5e68">&#9670;&#160;</a></span>create_attribute_invariant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto wmtk::components::configurator::Configurator::create_attribute_invariant </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1attribute_1_1_mesh_attribute_handle.html">attribute::MeshAttributeHandle</a> &amp;&#160;</td>
+          <td class="paramname"><em>mah</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00142">142</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="structwmtk_1_1components_1_1configurator_1_1invariants_1_1_attribute_invariant_options.html#a2a14d3fa16a1777d0fb474295c422948">wmtk::components::configurator::invariants::AttributeInvariantOptions::set_attribute()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_aa024d2762dfd375d1147abc9077a5e68_cgraph.svg" width="560" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
 
 </div>
 </div>
@@ -384,9 +530,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00087">87</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00092">92</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_invariant_factory_8cpp_source.html#l00098">wmtk::components::configurator::invariants::InvariantFactory::create()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00090">m_invariants</a>.</p>
+<p class="reference">References <a class="el" href="_invariant_factory_8cpp_source.html#l00098">wmtk::components::configurator::invariants::InvariantFactory::create()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00111">m_invariants</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -421,14 +567,44 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00080">80</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00085">85</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_invariant_factory_8cpp_source.html#l00098">wmtk::components::configurator::invariants::InvariantFactory::create()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00090">m_invariants</a>.</p>
+<p class="reference">References <a class="el" href="_invariant_factory_8cpp_source.html#l00098">wmtk::components::configurator::invariants::InvariantFactory::create()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00111">m_invariants</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_a2f1e4edaf7d72f70b0c1820825f2fae1_cgraph.svg" width="548" height="51"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="aeb4cfbe655ae2effb56c971e386db131" name="aeb4cfbe655ae2effb56c971e386db131"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb4cfbe655ae2effb56c971e386db131">&#9670;&#160;</a></span>create_mesh_invariant()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">auto wmtk::components::configurator::Configurator::create_mesh_invariant </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1_mesh.html">Mesh</a> &amp;&#160;</td>
+          <td class="paramname"><em>m</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00135">135</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
 </div>
 </div>
@@ -448,9 +624,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00101">101</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00106">106</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_operation_factory_8cpp_source.html#l00109">wmtk::components::configurator::operations::OperationFactory::create()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00089">m_operations</a>.</p>
+<p class="reference">References <a class="el" href="_operation_factory_8cpp_source.html#l00109">wmtk::components::configurator::operations::OperationFactory::create()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00110">m_operations</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -485,9 +661,9 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00094">94</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00099">99</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_operation_factory_8cpp_source.html#l00109">wmtk::components::configurator::operations::OperationFactory::create()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00089">m_operations</a>.</p>
+<p class="reference">References <a class="el" href="_operation_factory_8cpp_source.html#l00109">wmtk::components::configurator::operations::OperationFactory::create()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00110">m_operations</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -512,11 +688,11 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00075">75</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00080">80</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_configurator_8cpp_source.html#l00055">load()</a>.</p>
+<p class="reference">References <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00019">Configurator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00020">Configurator()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -546,13 +722,47 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00124">124</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00129">129</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
 <p class="reference">References <a class="el" href="get__attribute_8cpp_source.html#l00241">wmtk::components::multimesh::utils::get_attribute()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_a0c7a256309ea141121f92a7cdb4132ae_cgraph.svg" width="100%" height="597"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+</div>
+
+</div>
+</div>
+<a id="affa3604b3cf179f3174d1ea89bb70c36" name="affa3604b3cf179f3174d1ea89bb70c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affa3604b3cf179f3174d1ea89bb70c36">&#9670;&#160;</a></span>get_invariant_name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string_view wmtk::components::configurator::Configurator::get_invariant_name </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="classwmtk_1_1invariants_1_1_invariant.html">wmtk::invariants::Invariant</a> &amp;&#160;</td>
+          <td class="paramname"><em>op</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00040">40</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="_invariant_factory_8cpp_source.html#l00109">wmtk::components::configurator::invariants::InvariantFactory::get_name()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00111">m_invariants</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="_operation_factory_8cpp_source.html#l00163">wmtk::components::configurator::operations::OperationFactory::get_options()</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_affa3604b3cf179f3174d1ea89bb70c36_cgraph.svg" width="540" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_affa3604b3cf179f3174d1ea89bb70c36_icgraph.svg" width="540" height="66"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -575,7 +785,7 @@ template&lt;typename MeshType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00097">97</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00118">118</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
 </div>
 </div>
@@ -597,7 +807,7 @@ template&lt;typename MeshType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00113">113</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00134">134</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
 </div>
 </div>
@@ -625,7 +835,7 @@ template&lt;typename MeshType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00107">107</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00112">112</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
 </div>
 </div>
@@ -653,7 +863,7 @@ template&lt;typename MeshType &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00111">111</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00116">116</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
 </div>
 </div>
@@ -673,11 +883,11 @@ template&lt;typename MeshType &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00043">43</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00048">48</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_mesh_collection_8cpp_source.html#l00152">wmtk::components::multimesh::MeshCollection::get_mesh_path()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00116">meshes()</a>.</p>
+<p class="reference">References <a class="el" href="_mesh_collection_8cpp_source.html#l00152">wmtk::components::multimesh::MeshCollection::get_mesh_path()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00121">meshes()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00372">wmtk::components::isotropic_remeshing::IsotropicRemeshing::run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00391">wmtk::components::isotropic_remeshing::IsotropicRemeshing::run()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -709,9 +919,9 @@ template&lt;typename T &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00129">129</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00150">150</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00222">wmtk::components::isotropic_remeshing::IsotropicRemeshing::IsotropicRemeshing()</a>, and <a class="el" href="_pass_8cpp_source.html#l00026">wmtk::components::configurator::Pass::Pass()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00236">wmtk::components::isotropic_remeshing::IsotropicRemeshing::IsotropicRemeshing()</a>, and <a class="el" href="_pass_8cpp_source.html#l00026">wmtk::components::configurator::Pass::Pass()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -744,7 +954,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00013">13</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00014">14</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
 </div>
 </div>
@@ -764,9 +974,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00039">39</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00044">44</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_operation_factory_8cpp_source.html#l00152">wmtk::components::configurator::operations::OperationFactory::get_name()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00089">m_operations</a>.</p>
+<p class="reference">References <a class="el" href="_operation_factory_8cpp_source.html#l00152">wmtk::components::configurator::operations::OperationFactory::get_name()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00110">m_operations</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -798,9 +1008,9 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00078">78</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00080">80</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_configurator_8hpp_source.html#l00092">m_passes</a>.</p>
+<p class="reference">References <a class="el" href="_configurator_8hpp_source.html#l00113">m_passes</a>.</p>
 
 </div>
 </div>
@@ -827,11 +1037,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00077">77</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00079">79</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_configurator_8hpp_source.html#l00092">m_passes</a>.</p>
+<p class="reference">References <a class="el" href="_configurator_8hpp_source.html#l00113">m_passes</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00222">wmtk::components::isotropic_remeshing::IsotropicRemeshing::IsotropicRemeshing()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00236">wmtk::components::isotropic_remeshing::IsotropicRemeshing::IsotropicRemeshing()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -856,11 +1066,11 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00055">55</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00060">60</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_mesh_collection_8hpp_source.html#l00014">wmtk::components::multimesh::MeshCollection::emplace_mesh()</a>, <a class="el" href="_configuration_8hpp_source.html#l00016">wmtk::components::configurator::Configuration::input</a>, <a class="el" href="src_2wmtk_2components_2input_2input_8cpp_source.html#l00015">wmtk::components::input::input()</a>, <a class="el" href="_configurator_8cpp_source.html#l00055">load()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00088">m_meshes</a>.</p>
+<p class="reference">References <a class="el" href="_mesh_collection_8hpp_source.html#l00014">wmtk::components::multimesh::MeshCollection::emplace_mesh()</a>, <a class="el" href="_configuration_8hpp_source.html#l00016">wmtk::components::configurator::Configuration::input</a>, <a class="el" href="src_2wmtk_2components_2input_2input_8cpp_source.html#l00015">wmtk::components::input::input()</a>, <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>, and <a class="el" href="_configurator_8hpp_source.html#l00109">m_meshes</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00033">Configurator()</a>, <a class="el" href="_configurator_8cpp_source.html#l00028">Configurator()</a>, <a class="el" href="_configurator_8cpp_source.html#l00075">from_json()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00055">load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00034">Configurator()</a>, <a class="el" href="_configurator_8cpp_source.html#l00029">Configurator()</a>, <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00227">wmtk::components::isotropic_remeshing::IsotropicRemeshing::configure_configurator()</a>, <a class="el" href="_configurator_8cpp_source.html#l00080">from_json()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -869,7 +1079,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_a67a790b2234ce6fa5691a39d34ab786d_icgraph.svg" width="100%" height="434"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="classwmtk_1_1components_1_1configurator_1_1_configurator_a67a790b2234ce6fa5691a39d34ab786d_icgraph.svg" width="100%" height="494"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 
 </div>
@@ -890,9 +1100,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00060">60</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00065">65</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_operation_factory_8cpp_source.html#l00109">wmtk::components::configurator::operations::OperationFactory::create()</a>, <a class="el" href="_invariant_factory_8cpp_source.html#l00098">wmtk::components::configurator::invariants::InvariantFactory::create()</a>, <a class="el" href="_pass_configuration_8hpp_source.html#l00020">wmtk::components::configurator::PassConfiguration::invariants</a>, <a class="el" href="_configurator_8hpp_source.html#l00090">m_invariants</a>, <a class="el" href="_configurator_8hpp_source.html#l00089">m_operations</a>, <a class="el" href="_configurator_8hpp_source.html#l00092">m_passes</a>, <a class="el" href="_pass_configuration_8hpp_source.html#l00017">wmtk::components::configurator::PassConfiguration::operations</a>, and <a class="el" href="_pass_configuration_8hpp_source.html#l00028">wmtk::components::configurator::PassConfiguration::passes</a>.</p>
+<p class="reference">References <a class="el" href="_operation_factory_8cpp_source.html#l00109">wmtk::components::configurator::operations::OperationFactory::create()</a>, <a class="el" href="_invariant_factory_8cpp_source.html#l00098">wmtk::components::configurator::invariants::InvariantFactory::create()</a>, <a class="el" href="_pass_configuration_8hpp_source.html#l00020">wmtk::components::configurator::PassConfiguration::invariants</a>, <a class="el" href="_configurator_8hpp_source.html#l00111">m_invariants</a>, <a class="el" href="_configurator_8hpp_source.html#l00110">m_operations</a>, <a class="el" href="_configurator_8hpp_source.html#l00113">m_passes</a>, <a class="el" href="_pass_configuration_8hpp_source.html#l00017">wmtk::components::configurator::PassConfiguration::operations</a>, and <a class="el" href="_pass_configuration_8hpp_source.html#l00028">wmtk::components::configurator::PassConfiguration::passes</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -916,11 +1126,11 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00116">116</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00121">121</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_configurator_8hpp_source.html#l00088">m_meshes</a>.</p>
+<p class="reference">References <a class="el" href="_configurator_8hpp_source.html#l00109">m_meshes</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00043">get_mesh_name()</a>, <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00055">wmtk::components::isotropic_remeshing::IsotropicRemeshing::mesh_collection()</a>, and <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00059">wmtk::components::isotropic_remeshing::IsotropicRemeshing::mesh_collection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00048">get_mesh_name()</a>, <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00055">wmtk::components::isotropic_remeshing::IsotropicRemeshing::mesh_collection()</a>, and <a class="el" href="_isotropic_remeshing_8cpp_source.html#l00059">wmtk::components::isotropic_remeshing::IsotropicRemeshing::mesh_collection()</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -944,9 +1154,9 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00120">120</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8cpp_source.html#l00125">125</a> of file <a class="el" href="_configurator_8cpp_source.html">Configurator.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="_configurator_8hpp_source.html#l00088">m_meshes</a>.</p>
+<p class="reference">References <a class="el" href="_configurator_8hpp_source.html#l00109">m_meshes</a>.</p>
 
 </div>
 </div>
@@ -971,9 +1181,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00090">90</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00111">111</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00087">create_invariant()</a>, <a class="el" href="_configurator_8cpp_source.html#l00080">create_invariant()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_configurator_8hpp_source.html#l00176">add_attribute_invariant()</a>, <a class="el" href="_configurator_8hpp_source.html#l00190">add_basic_operation()</a>, <a class="el" href="_configurator_8hpp_source.html#l00162">add_mesh_invariant()</a>, <a class="el" href="_configurator_8cpp_source.html#l00092">create_invariant()</a>, <a class="el" href="_configurator_8cpp_source.html#l00085">create_invariant()</a>, <a class="el" href="_configurator_8cpp_source.html#l00040">get_invariant_name()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00065">load()</a>.</p>
 
 </div>
 </div>
@@ -997,9 +1207,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00088">88</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00109">109</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00055">load()</a>, <a class="el" href="_configurator_8cpp_source.html#l00116">meshes()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00120">meshes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>, <a class="el" href="_configurator_8cpp_source.html#l00121">meshes()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00125">meshes()</a>.</p>
 
 </div>
 </div>
@@ -1023,9 +1233,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00089">89</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00110">110</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00101">create_operation()</a>, <a class="el" href="_configurator_8cpp_source.html#l00094">create_operation()</a>, <a class="el" href="_configurator_8cpp_source.html#l00039">get_operation_name()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_configurator_8cpp_source.html#l00106">create_operation()</a>, <a class="el" href="_configurator_8cpp_source.html#l00099">create_operation()</a>, <a class="el" href="_configurator_8cpp_source.html#l00044">get_operation_name()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00065">load()</a>.</p>
 
 </div>
 </div>
@@ -1049,9 +1259,9 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00092">92</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_configurator_8hpp_source.html#l00113">113</a> of file <a class="el" href="_configurator_8hpp_source.html">Configurator.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="_configurator_8hpp_source.html#l00078">get_passes()</a>, <a class="el" href="_configurator_8hpp_source.html#l00077">get_passes()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00060">load()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="_configurator_8hpp_source.html#l00080">get_passes()</a>, <a class="el" href="_configurator_8hpp_source.html#l00079">get_passes()</a>, and <a class="el" href="_configurator_8cpp_source.html#l00065">load()</a>.</p>
 
 </div>
 </div>

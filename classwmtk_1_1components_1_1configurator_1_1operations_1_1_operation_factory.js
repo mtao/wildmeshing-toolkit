@@ -8,6 +8,7 @@ var classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory 
     [ "from_json", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html#a59d682bab6278eb2eaa9b469b65e1533", null ],
     [ "get", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html#a88467580736dae861b07a25555bcd08b", null ],
     [ "get_name", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html#a2315374133fd0cf198ffbf3189fe33a1", null ],
+    [ "get_options", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html#a0aebfbba31c5eb4058062fa217570ba5", null ],
     [ "known_operation_functors", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html#aec23d97d1c09f622b6c5bf9312ac7ec5", null ],
     [ "known_operations", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html#acd9f9d1d5756f680cd71ef783222ce25", null ],
     [ "m_op_functors", "classwmtk_1_1components_1_1configurator_1_1operations_1_1_operation_factory.html#ae863b43a793f30589071299070f76e83", null ],
