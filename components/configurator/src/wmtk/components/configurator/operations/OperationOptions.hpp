@@ -64,6 +64,13 @@ struct EdgeCollapseOptions : public OperationOptions
 };
 struct EdgeSwapOptions : public OperationOptions
 {
+    struct Parameters
+    {
+        EdgeSwapMode mode;
+        WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Parameters)
+    };
+    Parameters get_parameters() const;
+    void set_parameters(const Parameters& p) const;
     EdgeSwapOptions();
     EdgeSwapOptions(const OperationOptions& o);
     EdgeSwapOptions(const EdgeSwapOptions&);
@@ -89,6 +96,11 @@ struct VertexSmoothOptions : public OperationOptions
 };
 struct AttributeUpdateOptions : public OperationOptions
 {
+    struct Parameters
+    {
+        bool project = false;
+        WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Parameters)
+    };
     AttributeUpdateOptions();
     AttributeUpdateOptions(const OperationOptions& o);
     AttributeUpdateOptions(const AttributeUpdateOptions&);

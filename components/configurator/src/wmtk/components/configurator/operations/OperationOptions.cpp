@@ -76,28 +76,53 @@ void EdgeSwapOptions::set_mode(EdgeSwapMode mode)
 
     parameters["mode"] = r;
 }
-EdgeSwapMode EdgeSwapOptions::mode() const
+auto EdgeSwapOptions::get_parameters() const -> Parameters
 {
-    if (!parameters.contains("mode")) {
-        wmtk::logger().debug("Edge swap did not have a mode, defaulting to valence");
-        return EdgeSwapMode::Valence;
-    }
-    const std::string swap_name = parameters["mode"].get<std::string>();
-    if (swap_name == "amips") {
-        return EdgeSwapMode::AMIPS;
-    } else if (swap_name == "valence") {
-        return EdgeSwapMode::Valence;
-    } else {
-        throw std::runtime_error(
-            fmt::format(
-                "Expected edge_swap_mode to be one of [amips,valence], got [{}]",
-                swap_name));
-    }
+    return parameters.get<Parameters>();
+    //
 }
+void EdgeSwapOptions::set_parameters(const Parameters& p) const
+{
+    parameters = p;
+}
+
+EdgeSwapMode EdgeSwapOptions::mode() const {}
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeSwapOptions)
 {
     from_json(nlohmann_json_j, static_cast<OperationOptions&>(nlohmann_json_t));
-    nlohmann_json_t.mode();
+}
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EdgeSwapOptions::Parameters)
+{
+    {
+        std::string r;
+        switch (nlohmann_json_t.mode) {
+        case EdgeSwapMode::AMIPS: r = "amips"; break;
+        case EdgeSwapMode::Valence: r = "valence"; break;
+        default: break;
+        }
+        nlohmann_json_j["mode"] = r;
+    }
+}
+
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeSwapOptions::Parameters)
+{
+    // WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(mode);
+    if (!nlohmann_json_j.contains("mode")) {
+        wmtk::logger().debug("Edge swap did not have a mode, defaulting to valence");
+        nlohmann_json_t.mode = EdgeSwapMode::Valence;
+    } else {
+        const std::string swap_name = nlohmann_json_j["mode"].get<std::string>();
+        if (swap_name == "amips") {
+            nlohmann_json_t.mode = EdgeSwapMode::AMIPS;
+        } else if (swap_name == "valence") {
+            nlohmann_json_t.mode = EdgeSwapMode::Valence;
+        } else {
+            throw std::runtime_error(
+                fmt::format(
+                    "Expected edge_swap_mode to be one of [amips,valence], got [{}]",
+                    swap_name));
+        }
+    }
 }
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(VertexSmoothOptions)
 {
