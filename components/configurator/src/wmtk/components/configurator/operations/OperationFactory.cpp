@@ -167,9 +167,10 @@ std::vector<OperationOptions> OperationFactory::get_options(const Configurator& 
         auto& opt = opts.emplace_back();
         for (const auto& inv : op->invariants().invariants()) {
             auto inv_name = c.get_invariant_name(*inv);
-            opt.invariants.emplace_back(inv_name);
+            opt.invariants[inv_name] = invariants::AliasInvariantOptions(inv_name);
         }
     }
+    return opts;
 }
 
 } // namespace wmtk::components::configurator::operations

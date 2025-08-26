@@ -3,6 +3,7 @@
 #include <wmtk/components/multimesh/utils/get_attribute_description.hpp>
 #include <wmtk/operations/Operation.hpp>
 #include "Configuration.hpp"
+#include "invariants/InvariantOptions.hpp"
 
 #include <wmtk/components/input/InputOptions.hpp>
 #include <wmtk/components/input/input.hpp>
