@@ -81,12 +81,14 @@ auto EdgeSwapOptions::get_parameters() const -> Parameters
     return parameters.get<Parameters>();
     //
 }
-void EdgeSwapOptions::set_parameters(const Parameters& p) const
+void EdgeSwapOptions::set_parameters(const Parameters& p) 
 {
     parameters = p;
 }
 
-EdgeSwapMode EdgeSwapOptions::mode() const {}
+EdgeSwapMode EdgeSwapOptions::mode() const {
+    return get_parameters().mode;
+}
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeSwapOptions)
 {
     from_json(nlohmann_json_j, static_cast<OperationOptions&>(nlohmann_json_t));

@@ -70,7 +70,7 @@ struct EdgeSwapOptions : public OperationOptions
         WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Parameters)
     };
     Parameters get_parameters() const;
-    void set_parameters(const Parameters& p) const;
+    void set_parameters(const Parameters& p);
     EdgeSwapOptions();
     EdgeSwapOptions(const OperationOptions& o);
     EdgeSwapOptions(const EdgeSwapOptions&);
