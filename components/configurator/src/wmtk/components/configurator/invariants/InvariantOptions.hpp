@@ -34,21 +34,29 @@ struct InvariantOptions
 };
 
 
-// template <typename ParametersType>
-// struct TypedInvariantOptions: public InvariantOptions {
-//     ParametersType get_parameters() const {
-//         return parameters.get<ParametersType>();
-//     }
-//     void set_parameters(const ParametersType& p) const {
-//         parameters = p;
-//     }
-//     TypedInvariantOptions(const TypedInvariantOptions& opts) = default;
-//     TypedInvariantOptions(TypedInvariantOptions&& opts) = default;
-//     TypedInvariantOptions operator=(const TypedInvariantOptions& opts) = default;
-//     TypedInvariantOptions operator=(TypedInvariantOptions&& opts) = default;
-//     TypedInvariantOptions(const InvariantOptions& o): InvariantOptions(o) {}
-//
-// };
+template <typename ParametersType>
+struct TypedInvariantOptions : public InvariantOptions
+{
+    ParametersType get_parameters() const { return parameters.get<ParametersType>(); }
+    void set_parameters(const ParametersType& p) const { parameters = p; }
+    TypedInvariantOptions() = default;
+    TypedInvariantOptions(const TypedInvariantOptions& opts) = default;
+    TypedInvariantOptions(TypedInvariantOptions&& opts) = default;
+    TypedInvariantOptions& operator=(const TypedInvariantOptions& opts) = default;
+    TypedInvariantOptions& operator=(TypedInvariantOptions&& opts) = default;
+    TypedInvariantOptions(const InvariantOptions& o)
+        : InvariantOptions(o)
+    {}
+
+    void to_json(nlohmann::json& nlohmann_json_j) const
+    {
+        to_json(nlohmann_json_j, static_cast<const InvariantOptions&>(*this));
+    }
+    void from_json(const nlohmann::json& nlohmann_json_j)
+    {
+        to_json(nlohmann_json_j, static_cast<InvariantOptions&>(*this));
+    }
+};
 
 struct MeshInvariantParameters
 {
@@ -58,26 +66,17 @@ struct MeshInvariantParameters
 };
 
 // An attribute that only de
-struct MeshInvariantOptions : public InvariantOptions
+struct MeshInvariantOptions : public TypedInvariantOptions<MeshInvariantParameters>
 {
+    using ParameterType = MeshInvariantParameters;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeshInvariantOptions)
     MeshInvariantParameters get_parameters() const;
     void set_parameters(const MeshInvariantParameters& p) const;
     std::string mesh_path() const;
     bool on_every_mesh() const;
-    // void to_json(nlohmann::json& j) const override;
-    MeshInvariantOptions(const InvariantOptions& o)
-        : InvariantOptions(o)
-    {}
-    MeshInvariantOptions(std::string_view type = {}, std::string_view name = {});
-    MeshInvariantOptions(
-        std::string_view type,
-        const components::multimesh::MeshCollection& mc,
-        const Mesh& mesh);
-    MeshInvariantOptions(const MeshInvariantOptions& opts);
-    MeshInvariantOptions(MeshInvariantOptions&& opts);
-    MeshInvariantOptions operator=(const MeshInvariantOptions& opts);
-    MeshInvariantOptions operator=(MeshInvariantOptions&& opts);
+    using Base = TypedInvariantOptions<MeshInvariantParameters>;
+    using Base::Base;
+    using Base::operator=;
 };
 
 struct AttributeInvariantParameters
@@ -95,8 +94,8 @@ struct AttributeInvariantOptions : public InvariantOptions
         const wmtk::components::multimesh::utils::AttributeDescription& = {});
     AttributeInvariantOptions(const AttributeInvariantOptions& opts);
     AttributeInvariantOptions(AttributeInvariantOptions&& opts);
-    AttributeInvariantOptions operator=(const AttributeInvariantOptions& opts);
-    AttributeInvariantOptions operator=(AttributeInvariantOptions&& opts);
+    AttributeInvariantOptions& operator=(const AttributeInvariantOptions& opts);
+    AttributeInvariantOptions& operator=(AttributeInvariantOptions&& opts);
     AttributeInvariantOptions(const InvariantOptions& o);
 
     wmtk::components::multimesh::utils::AttributeDescription attribute() const;

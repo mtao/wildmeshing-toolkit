@@ -136,17 +136,21 @@ auto Configurator::get_attribute(
 auto Configurator::create_mesh_invariant(std::string_view s, const Mesh& m)
     -> std::shared_ptr<wmtk::invariants::Invariant>
 {
+    invariants::MeshInvariantParameters p;
+    p.mesh_path = get_mesh_name(m);
     invariants::MeshInvariantOptions opts;
-    opts.set_mesh(get_mesh_name(m));
-    m_invariants.create(*this, s, opts);
+    opts.set_parameters(p);
+    return m_invariants.create(*this, s, opts);
 }
 auto Configurator::create_attribute_invariant(
     const std::string& s,
     const attribute::MeshAttributeHandle& mah) -> std::shared_ptr<wmtk::invariants::Invariant>
 {
     invariants::AttributeInvariantOptions opts;
-    opts.set_attribute(wmtk::components::multimesh::get_attribute_handle(meshes(), mah));
-    m_invariants.create(*this, s, opts);
+    invariants::AttributeInvariantParameters p;
+    p.attribute = wmtk::components::multimesh::utils::get_attribute_handle(meshes(), mah);
+    opts.set_parameters(p);
+    return m_invariants.create(*this, s, opts);
 }
 
 } // namespace wmtk::components::configurator

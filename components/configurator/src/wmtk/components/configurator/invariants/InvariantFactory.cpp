@@ -20,9 +20,9 @@ std::shared_ptr<wmtk::invariants::Invariant> default_add_mesh_invariant(
     const nlohmann::json& js)
 {
     auto opts = js.template get<S>();
-    auto& m = c.get_mesh<MeshType>(opts.mesh_path);
+    auto& m = c.get_mesh<MeshType>(opts.mesh_path());
 
-    if (opts.on_every_mesh) {
+    if (opts.on_every_mesh()) {
         auto ic = std::make_shared<wmtk::invariants::InvariantCollection>(m);
         for (auto& child : m.get_multi_mesh_root().get_all_meshes()) {
             ic->add(std::make_shared<T>(*child));
@@ -40,7 +40,7 @@ std::shared_ptr<wmtk::invariants::Invariant> default_add_attribute_invariant(
 {
     auto opts = js.template get<S>();
 
-    auto attr = c.get_attribute(opts.attribute);
+    auto attr = c.get_attribute(opts.attribute());
     auto r = std::make_shared<T>(attr);
     return r;
 }
@@ -55,6 +55,9 @@ InvariantFactory::InvariantFactory()
     m_invariant_functors["interior_simplex"] =
         &default_add_mesh_invariant<wmtk::invariants::InteriorSimplexInvariant>;
 
+    m_invariant_functors["collection"] =
+        &default_add_mesh_invariant<wmtk::invariants::InvariantCollection>;
+
     // TODO: make simplex inversion a single name that is generic
     m_invariant_functors["simplex_inversion"] =
         &default_add_attribute_invariant<wmtk::invariants::SimplexInversionInvariant<double>>;
@@ -62,6 +65,7 @@ InvariantFactory::InvariantFactory()
         &default_add_attribute_invariant<wmtk::invariants::SimplexInversionInvariant<double>>;
     m_invariant_functors["simplex_inversion_rational"] = &default_add_attribute_invariant<
         wmtk::invariants::SimplexInversionInvariant<wmtk::Rational>>;
+
     // m_invariant_functors["split"] = &default_add_invariant<wmtk::invariants::EdgeSplit,
     // EdgeSplitOptions>; m_invariant_functors["collapse"] =
     //     &default_add_invariant<wmtk::invariants::EdgeCollapse, EdgeCollapseOptions>;
@@ -106,10 +110,10 @@ std::shared_ptr<wmtk::invariants::Invariant> InvariantFactory::get(const std::st
     return m_invariants.at(name);
 }
 
-std::string_view InvariantFactory::get_name(const wmtk::invariants::Invariant& op) const
+std::string_view InvariantFactory::get_name(const wmtk::invariants::Invariant& inv) const
 {
-    for (const auto& [name, my_op] : m_ops) {
-        if (&op == my_op.get()) {
+    for (const auto& [name, my_inv] : m_invariants) {
+        if (&inv == my_inv.get()) {
             return name;
         }
     }
