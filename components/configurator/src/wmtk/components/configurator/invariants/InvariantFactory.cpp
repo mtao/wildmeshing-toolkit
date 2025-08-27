@@ -55,8 +55,16 @@ InvariantFactory::InvariantFactory()
     m_invariant_functors["interior_simplex"] =
         &default_add_mesh_invariant<wmtk::invariants::InteriorSimplexInvariant>;
 
-    m_invariant_functors["collection"] =
-        &default_add_mesh_invariant<wmtk::invariants::InvariantCollection>;
+    m_invariant_functors["collection"] = [](const Configurator& c, const nlohmann::json& js) {
+        auto ic = std::make_shared<wmtk::invariants::InvariantCollection>();
+        InvariantCollectionOptions opts = js;
+        auto params = opts.get_parameters();
+        for (const auto& inv : params.invariants) {
+        }
+
+
+        return ic;
+    };
 
     // TODO: make simplex inversion a single name that is generic
     m_invariant_functors["simplex_inversion"] =
