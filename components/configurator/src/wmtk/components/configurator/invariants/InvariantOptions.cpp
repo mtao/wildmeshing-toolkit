@@ -38,7 +38,14 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(InvariantOptions){
 //{}
 //
 // WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(InvariantOptions) {}
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(MeshInvariantParameters, mesh_path, on_every_mesh)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(AttributeInvariantParameters, attribute)
 
+NLOHMANN_DEFINE_DERIVED_TYPE_NON_INTRUSIVE_WITH_DEFAULT(EnvelopeInvariantOptions, AttributeInvariantParameters, size)
+
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(InvariantCollectionParameters, invariants)
+NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE_WITH_DEFAULT(AliasInvariantParameters, name)
+/*
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MeshInvariantOptions)
 {
     //
@@ -106,6 +113,7 @@ AttributeInvariantOptions& AttributeInvariantOptions::operator=(
     const AttributeInvariantOptions& opts) = default;
 AttributeInvariantOptions& AttributeInvariantOptions::operator=(AttributeInvariantOptions&& opts) =
     default;
+*/
 // AttributeInvariantOptions::AttributeInvariantOptions(
 //     const wmtk::components::multimesh::utils::AttributeDescription&);
 } // namespace wmtk::components::configurator::invariants

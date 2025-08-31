@@ -61,17 +61,37 @@ struct TypedInvariantOptions : public InvariantOptions
 struct MeshInvariantParameters
 {
     std::string mesh_path;
-    bool on_every_mesh;
+    bool on_every_mesh = false;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeshInvariantParameters)
 };
+struct AttributeInvariantParameters
+{
+    wmtk::components::multimesh::utils::AttributeDescription attribute;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeInvariantParameters)
+};
+struct EnvelopeInvariantOptions: public AttributeInvariantParameters
+{
+    double size;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
+};
+struct InvariantCollectionParameters : public InvariantOptions
+{
+    std::vector<InvariantOptions> invariants;
+};
 
+// special invariant for referring to invariants from a cache
+struct AliasInvariantParameters
+{
+    std::string name;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AliasInvariantParameters)
+};
+
+/*
 // An attribute that only de
 struct MeshInvariantOptions : public TypedInvariantOptions<MeshInvariantParameters>
 {
     using ParameterType = MeshInvariantParameters;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeshInvariantOptions)
-    MeshInvariantParameters get_parameters() const;
-    void set_parameters(const MeshInvariantParameters& p) const;
     std::string mesh_path() const;
     bool on_every_mesh() const;
     using Base = TypedInvariantOptions<MeshInvariantParameters>;
@@ -79,41 +99,27 @@ struct MeshInvariantOptions : public TypedInvariantOptions<MeshInvariantParamete
     using Base::operator=;
 };
 
-struct AttributeInvariantParameters
-{
-    wmtk::components::multimesh::utils::AttributeDescription attribute;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeInvariantParameters)
-};
 
-struct AttributeInvariantOptions : public InvariantOptions
+struct AttributeInvariantOptions : public TypedInvariantOptions<AttributeInvariantParameters>
 {
-    AttributeInvariantParameters get_parameters() const;
-    void set_parameters(const AttributeInvariantParameters& p) const;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeInvariantOptions)
     AttributeInvariantOptions(
         std::string_view type = {},
         const wmtk::components::multimesh::utils::AttributeDescription& = {});
-    AttributeInvariantOptions(const AttributeInvariantOptions& opts);
-    AttributeInvariantOptions(AttributeInvariantOptions&& opts);
-    AttributeInvariantOptions& operator=(const AttributeInvariantOptions& opts);
-    AttributeInvariantOptions& operator=(AttributeInvariantOptions&& opts);
-    AttributeInvariantOptions(const InvariantOptions& o);
+    using Base = TypedInvariantOptions<AttributeInvariantParameters>;
+    using Base::Base;
+    using Base::operator=;
 
     wmtk::components::multimesh::utils::AttributeDescription attribute() const;
     void set_attribute(const wmtk::components::multimesh::utils::AttributeDescription&);
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeInvariantOptions)
     // void to_json(nlohmann::json& j) const override;
 };
-struct EnvelopeInvariantOptions : public AttributeInvariantOptions
+struct EnvelopeInvariantOptions: public  TypedInvariantOptions<EnvelopeInvariantOptions>
 {
-    double size;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
     // void to_json(nlohmann::json& j) const override;
 };
 
-struct InvariantCollectionParameters : public InvariantOptions
-{
-    std::vector<InvariantOptions> invariants;
-};
 
 struct InvariantCollectionOptions : public InvariantOptions
 {
@@ -129,12 +135,6 @@ struct InvariantCollectionOptions : public InvariantOptions
     // void to_json(nlohmann::json& j) const override;
 };
 
-// special invariant for referring to invariants from a cache
-struct AliasInvariantParameters
-{
-    std::string name;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AliasInvariantParameters)
-};
 struct AliasInvariantOptions : public InvariantOptions
 {
     AliasInvariantParameters get_parameters() const;
@@ -150,4 +150,5 @@ struct AliasInvariantOptions : public InvariantOptions
     std::string get_name() const;
     void set_name(const std::string& name);
 };
+*/
 } // namespace wmtk::components::configurator::invariants

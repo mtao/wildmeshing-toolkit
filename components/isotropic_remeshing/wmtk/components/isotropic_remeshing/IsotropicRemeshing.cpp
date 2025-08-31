@@ -78,9 +78,10 @@ void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions&
     m_universal_invariants =
         std::make_shared<wmtk::invariants::InvariantCollection>(position_attr.mesh());
 
-        configurator::invariants::InvariantCollectionOptions improvement_collection;
+        configurator::invariants::InvariantCollectionParameters improvement_collection;
     for (const auto& attr : opts.improvement_attributes) {
-        configurator::invariants::AttributeInvariantOptions inv("improvement",attr);
+
+        improvement_collection.invarants.emplace_back("improvement",configurator::invariants::AttributeInvariantParameters{attr});
         // configurator().create_invariant();
         m_universal_invariants->add(
             std::make_shared<invariants::ImprovementInvariant>(get_attribute(attr)));

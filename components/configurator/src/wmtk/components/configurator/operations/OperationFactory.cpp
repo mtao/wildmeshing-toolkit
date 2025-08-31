@@ -167,7 +167,10 @@ std::vector<OperationOptions> OperationFactory::get_options(const Configurator& 
         auto& opt = opts.emplace_back();
         for (const auto& inv : op->invariants().invariants()) {
             std::string inv_name =std::string( c.get_invariant_name(*inv));
-            opt.invariants[inv_name] = invariants::AliasInvariantOptions(inv_name);
+                invariants::InvariantOptions opts;
+                opts.type = "alias";
+                opts.paremeters = invariants::AliasInvariantParameters(inv_name);
+            opt.invariants[inv_name] = opts;
         }
     }
     return opts;

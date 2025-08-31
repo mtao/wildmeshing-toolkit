@@ -90,15 +90,17 @@ public:
     void add_attribute_invariant(const std::string& s);
 
     std::shared_ptr<wmtk::invariants::Invariant> create_mesh_invariant(
-        std::string_view s,
+        std::string_view name,
+        std::string_view type,
         const Mesh& m);
     std::shared_ptr<wmtk::invariants::Invariant> create_attribute_invariant(
-        const std::string& s,
+        std::string_view name,
+        std::string_view type,
         const attribute::MeshAttributeHandle& mah);
 
     template <
         typename T,
-        typename S = invariants::MeshInvariantOptions,
+        typename ParameterType,
         typename MeshType = wmtk::Mesh>
     void add_basic_operation(const std::string& s);
 
@@ -167,8 +169,8 @@ void Configurator::add_mesh_invariant(const std::string& s)
 {
     auto func = [](Configurator& c,
                    const nlohmann::json& js) -> std::shared_ptr<wmtk::invariants::Invariant> {
-        invariants::MeshInvariantOptions opts = js.get<invariants::InvariantOptions>();
-        auto& m = c.template get_mesh<MeshType>(opts.mesh_path());
+        invariants::MeshInvariantParameters opts = js.get<invariants::InvariantOptions>().parameters;
+        auto& m = c.template get_mesh<MeshType>(opts.mesh_path);
 
         auto r = std::make_shared<T>(m);
         return r;
@@ -181,8 +183,8 @@ void Configurator::add_attribute_invariant(const std::string& s)
 {
     auto func = [](Configurator& c,
                    const nlohmann::json& js) -> std::shared_ptr<wmtk::invariants::Invariant> {
-        invariants::AttributeInvariantOptions opts = js.get<invariants::InvariantOptions>();
-        auto m = c.get_attribute(opts.attribute());
+        invariants::AttributeInvariantParameters opts = js.get<invariants::InvariantOptions>().parameters;
+        auto m = c.get_attribute(opts.attribute);
 
         auto r = std::make_shared<T>(m);
         return r;

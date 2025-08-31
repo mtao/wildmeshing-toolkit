@@ -98,6 +98,7 @@ set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 # ###############################################################################
 
 # Dependencies
+include(json)
 include(eigen)
 include(fmt)
 include(paraviewo)
