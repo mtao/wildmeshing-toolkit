@@ -15,10 +15,10 @@ class NamedMultiMesh;
 namespace utils {
 struct AttributeDescription;
 
-AttributeDescription get_attribute_handle(
+AttributeDescription get_attribute_description(
     const MeshCollection& collection,
     const wmtk::attribute::MeshAttributeHandle& handle);
-AttributeDescription get_attribute_handle(
+AttributeDescription get_attribute_description(
     const NamedMultiMesh& collection,
     const wmtk::attribute::MeshAttributeHandle& handle);
 } // namespace utils

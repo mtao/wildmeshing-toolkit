@@ -64,6 +64,9 @@ set(SRC_FILES
 
     from_vertex_simplices.hpp
     from_vertex_simplices.cpp
+
+    utils/get_attribute_description.hpp
+    utils/get_attribute_description.cpp
 )
 
 include(stb)

@@ -35,6 +35,11 @@ struct OperationOptions
     bool enabled = true;
     PriorityOptions priority;
     std::map<std::string, invariants::InvariantOptions> invariants;
+    // adds a new alias invariant assuming the name in the operation is the same as the configurator's name
+    void add_alias_invariant(std::string_view name);
+    // adds a new alias invariant for "original_name" but giving the name "name"
+    void add_alias_invariant(std::string_view name, std::string_view original_name);
+
     nlohmann::json parameters;
 
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(OperationOptions)

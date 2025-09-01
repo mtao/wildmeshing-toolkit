@@ -25,6 +25,12 @@ public:
     NamedMultiMesh& get_named_multimesh(const std::string_view& path);
     Mesh& get_mesh(const std::string_view& path);
 
+    // returns the name of a mesh if it lies in this multimesh
+    // if the same mesh belongs to multiple trees we return all of them
+    std::vector<std::string> get_names(const Mesh& m) const;
+    // returns the name of a mesh if it lies in this multimesh. if more than 1 name exists this
+    // throws an error
+    std::string get_name(const Mesh& m) const;
 
     // std::vector<const NamedMultiMesh*> get_named_multimeshes(const Mesh&) const;
 

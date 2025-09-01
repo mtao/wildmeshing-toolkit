@@ -14,24 +14,33 @@
 
 #include <wmtk/Mesh.hpp>
 #include "wmtk/components/configurator/PassConfiguration.hpp"
+#include "wmtk/components/configurator/invariants/InvariantOptions.hpp"
 #include "wmtk/components/configurator/transfer/TransferStrategyFactoryRegistry.hpp"
 
-#define DEFAULT_PARSABLE_ARGS                                                             \
-    lock_boundary, intermediate_output_format,  \
-        start_with_collapse, position_attribute, copied_attributes,               \
-        pass_through_attributes, static_meshes, improvement_attributes //, utility_attributes
+#define DEFAULT_PARSABLE_ARGS                                                           \
+    lock_boundary, intermediate_output_format, start_with_collapse, position_attribute, \
+        copied_attributes, pass_through_attributes, static_meshes,                      \
+        improvement_attributes //, utility_attributes
 
 namespace wmtk::components::isotropic_remeshing {
 
 IsotropicRemeshingOptions::IsotropicRemeshingOptions()
 {
     wmtk::components::configurator::transfer::init();
+    invariants["link_condition"] = {"link_condition"};
+    invariants["interior_simplex"] = {"interior_simplex"};
 
-    operations["split"] = configurator::operations::EdgeSplitOptions {};
+    operations["split"] = configurator::operations::EdgeSplitOptions{};
     operations["collapse"] = configurator::operations::EdgeCollapseOptions{};
     operations["swap"] = configurator::operations::EdgeSwapOptions{};
     operations["smooth"] = configurator::operations::VertexSmoothOptions{};
-
+    operations["collapse"].invariants["link_condition"] = {
+        "link_condition",
+        configurator::invariants::AliasInvariantParameters("link_condition")};
+    operations["swap"].invariants.emplace(
+        "interior_simplex",
+        configurator::invariants::AliasInvariantParameters("interior_simplex"));
+    // operations["swap"].invariants.emplace("link_condition",configurator::invariants::AliasInvariantParameters("link_condition"));
 }
 namespace {
 
@@ -83,17 +92,17 @@ double IsotropicRemeshingOptions::get_absolute_length(const multimesh::MeshColle
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 {
     to_json(nlohmann_json_j, static_cast<const configurator::PassConfiguration&>(nlohmann_json_t));
-     NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, DEFAULT_PARSABLE_ARGS));
+    NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, DEFAULT_PARSABLE_ARGS));
 
-     if (nlohmann_json_t.length_abs != 0) {
-         NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, length_abs));
-     } else {
-         assert(nlohmann_json_t.length_rel != 0);
-         NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, length_rel));
-     }
-     if (nlohmann_json_t.envelope_size.has_value()) {
-         nlohmann_json_j["envelope_size"] = nlohmann_json_t.envelope_size.value();
-     }
+    if (nlohmann_json_t.length_abs != 0) {
+        NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, length_abs));
+    } else {
+        assert(nlohmann_json_t.length_rel != 0);
+        NLOHMANN_JSON_EXPAND(NLOHMANN_JSON_PASTE(NLOHMANN_JSON_TO, length_rel));
+    }
+    if (nlohmann_json_t.envelope_size.has_value()) {
+        nlohmann_json_j["envelope_size"] = nlohmann_json_t.envelope_size.value();
+    }
 
     // if (nlohmann_json_t.envelope_size.has_value()) {
     //     nlohmann_json_j["envelope_size"] = nlohmann_json_t.envelope_size.value();

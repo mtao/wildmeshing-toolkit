@@ -6,5 +6,6 @@ target_sources(wmtk_${COMPONENT_NAME} PRIVATE
 
     InvariantFactory.hpp
     InvariantFactory.cpp
+    InvariantFactory_default_functors.cpp
 
 )

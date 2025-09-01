@@ -30,7 +30,11 @@ struct InvariantOptions
     InvariantOptions& operator=(const InvariantOptions&);
     InvariantOptions& operator=(InvariantOptions&&);
     ~InvariantOptions();
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
+
+    InvariantOptions(const std::string& type, const nlohmann::json& params = {});
+
+    // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(InvariantOptions, type, parameters);
 };
 
 
@@ -62,28 +66,35 @@ struct MeshInvariantParameters
 {
     std::string mesh_path;
     bool on_every_mesh = false;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeshInvariantParameters)
+    // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeshInvariantParameters)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(MeshInvariantParameters, mesh_path, on_every_mesh);
 };
 struct AttributeInvariantParameters
 {
     wmtk::components::multimesh::utils::AttributeDescription attribute;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeInvariantParameters)
+    // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeInvariantParameters)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(AttributeInvariantParameters, attribute);
 };
-struct EnvelopeInvariantOptions: public AttributeInvariantParameters
+struct EnvelopeInvariantOptions : public AttributeInvariantParameters
 {
     double size;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
+    //    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(EnvelopeInvariantOptions, attribute, size);
 };
-struct InvariantCollectionParameters : public InvariantOptions
+struct InvariantCollectionParameters : public MeshInvariantParameters
 {
-    std::vector<InvariantOptions> invariants;
+    std::map<std::string, InvariantOptions> invariants;
+    // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantCollectionParameters)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(InvariantCollectionParameters, invariants, mesh_path);
 };
 
 // special invariant for referring to invariants from a cache
 struct AliasInvariantParameters
 {
+    constexpr static std::string type_name = "alias";
     std::string name;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AliasInvariantParameters)
+    // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AliasInvariantParameters)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE(AliasInvariantParameters, name);
 };
 
 /*

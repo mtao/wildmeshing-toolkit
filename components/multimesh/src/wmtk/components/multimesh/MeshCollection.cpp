@@ -56,14 +56,15 @@ const NamedMultiMesh& MeshCollection::get_named_multimesh(const std::string_view
     assert(!m_meshes.empty());
     using namespace std;
     std::string_view path = attr_path;
-    if(attr_path.find('/') != std::string::npos) {
+    if (attr_path.find('/') != std::string::npos) {
         path = utils::get_mesh_path_from_attribute_path(attr_path);
     }
     std::ranges::view auto split = internal::split_path(path);
     const auto nmm_name = *split.begin();
     if (nmm_name.empty() && m_meshes.size() == 1) {
-        wmtk::logger().debug("MeshCollection accessed with an empty name, but has only 1 mesh so "
-                             "assuming that is the right mesh");
+        wmtk::logger().debug(
+            "MeshCollection accessed with an empty name, but has only 1 mesh so "
+            "assuming that is the right mesh");
         return *m_meshes.begin()->second;
     }
     if (auto it = m_meshes.find(nmm_name); it == m_meshes.end()) {
@@ -80,20 +81,25 @@ NamedMultiMesh& MeshCollection::get_named_multimesh(const std::string_view& attr
     using namespace std;
     using namespace std;
     std::string_view path = attr_path;
-    if(attr_path.find('/') != std::string::npos) {
+    if (attr_path.find('/') != std::string::npos) {
         path = utils::get_mesh_path_from_attribute_path(attr_path);
     }
     std::ranges::view auto split = internal::split_path(path);
     const auto nmm_name = *split.begin();
     if (nmm_name.empty() && m_meshes.size() == 1) {
-        wmtk::logger().debug("MeshCollection accessed with an empty name, but has only 1 mesh so "
-                             "assuming that is the right mesh");
+        wmtk::logger().debug(
+            "MeshCollection accessed with an empty name, but has only 1 mesh so "
+            "assuming that is the right mesh");
         return *m_meshes.begin()->second;
     }
     try {
         return *m_meshes.at(nmm_name);
     } catch (const std::runtime_error& e) {
-        wmtk::logger().warn("Failed to find mesh named {} in mesh list. Got [{}]. Path was ", nmm_name, e.what(), path);
+        wmtk::logger().warn(
+            "Failed to find mesh named {} in mesh list. Got [{}]. Path was ",
+            nmm_name,
+            e.what(),
+            path);
         throw e;
     }
 }
@@ -149,13 +155,42 @@ bool MeshCollection::is_valid(bool pass_exceptions) const
 //        if(m.is_string
 //    }
 //}
-    std::string MeshCollection::get_mesh_path(const Mesh& m) const {
-        for(const auto& [key, mesh]: all_meshes()) {
-            if(&mesh == &m) {
-                return key;
-            }
+std::string MeshCollection::get_mesh_path(const Mesh& m) const
+{
+    for (const auto& [key, mesh] : all_meshes()) {
+        if (&mesh == &m) {
+            return key;
         }
-        throw std::runtime_error("Could not find a name for passed mesh");
-        return "";
     }
+    throw std::runtime_error("Could not find a name for passed mesh");
+    return "";
+}
+
+
+std::vector<std::string> MeshCollection::get_names(const Mesh& m) const
+{
+    std::vector<std::string> names;
+    for (const auto& [name, nmm_ptr] : m_meshes) {
+        if (nmm_ptr->has_name(m)) {
+            names.emplace_back(nmm_ptr->get_name(m));
+        }
+    }
+    return names;
+}
+std::string MeshCollection::get_name(const Mesh& m) const
+{
+    auto names = get_names(m);
+    if (names.empty()) {
+        throw std::runtime_error(fmt::format("MeshCollection:get_name: Mesh didn't have a name"));
+    }
+    if (names.size() > 1) {
+        throw std::runtime_error(
+            fmt::format(
+                "MeshCollection:get_name: Mesh had multiple names available: {}",
+                names
+
+                ));
+    }
+    return names[0];
+}
 } // namespace wmtk::components::multimesh

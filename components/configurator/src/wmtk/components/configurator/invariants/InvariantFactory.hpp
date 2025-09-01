@@ -33,6 +33,8 @@ public:
     using InvariantCreatorFunc = std::function<
         std::shared_ptr<wmtk::invariants::Invariant>(Configurator&, const nlohmann::json& js)>;
 
+    void load_default_functors();
+
     void add(const std::string& s, const InvariantCreatorFunc& f);
 
 
@@ -47,6 +49,9 @@ public:
 
 
     std::string_view get_name(const wmtk::invariants::Invariant& op) const;
+
+    std::vector<std::string> known_invariant_functors() const;
+    std::vector<std::string> known_invariants() const;
 
 private:
     std::map<std::string, InvariantCreatorFunc> m_invariant_functors;
