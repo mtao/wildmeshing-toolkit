@@ -159,7 +159,7 @@ void OperationFactory::from_json(Configurator& c, const nlohmann::json& js)
 std::string_view OperationFactory::get_name(const wmtk::operations::Operation& op) const
 {
     for (const auto& [name, my_op] : m_ops) {
-        if (&op == my_op.get()) {
+        if (&op == my_op.first.get()) {
             return name;
         }
     }
