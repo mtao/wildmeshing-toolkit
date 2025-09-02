@@ -32,6 +32,8 @@ struct InvariantOptions
     ~InvariantOptions();
 
     InvariantOptions(const std::string& type, const nlohmann::json& params = {});
+    //template <typename T>
+    //InvariantOptions(const std::string& type, const T& params): InvariantOptions(type,nlohmann::json(params)) {}
 
     // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(InvariantOptions, type, parameters);

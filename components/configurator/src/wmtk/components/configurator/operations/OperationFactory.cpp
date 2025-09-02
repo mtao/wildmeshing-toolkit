@@ -39,6 +39,7 @@ std::shared_ptr<wmtk::operations::Operation> add_swap_operation(
 {
     auto opts = js.template get<EdgeSwapOptions>();
     auto& m_ = c.get_mesh<wmtk::Mesh>(opts.mesh_path);
+    auto params = opts.get_parameters();
 
     int8_t dim = m_.top_cell_dimension();
     std::shared_ptr<wmtk::operations::composite::EdgeSwap> r;
@@ -57,6 +58,12 @@ std::shared_ptr<wmtk::operations::Operation> add_swap_operation(
     }
     for (const auto& [name, inv] : opts.invariants) {
         r->add_invariant(c.create_invariant(name, inv));
+    }
+    for (const auto& [name, inv] : params.split_invariants) {
+        r->split().add_invariant(c.create_invariant(name, inv));
+    }
+    for (const auto& [name, inv] : opts.invariants) {
+        r->collapse().add_invariant(c.create_invariant(name, inv));
     }
     return r;
 }

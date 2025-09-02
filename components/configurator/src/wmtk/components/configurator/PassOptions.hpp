@@ -10,7 +10,7 @@ namespace wmtk::components::configurator {
 struct PassOptions
 {
     std::string mesh_path;
-    int64_t iterations = 10;
+    int64_t iterations = 1;
     std::vector<std::string> operations;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(PassOptions)
 };

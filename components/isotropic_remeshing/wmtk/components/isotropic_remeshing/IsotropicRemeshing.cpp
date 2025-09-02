@@ -243,6 +243,8 @@ IsotropicRemeshing::IsotropicRemeshing(
 {
     auto& configurator = this->configurator();
 
+    configurator.create_mesh_invariant("link_condition","link_condition", configurator.get_mesh(opts.position_attribute.path));
+    //configurator.create_mesh_invariant("interior_simplex","interior_simplex", configurator.get_mesh(opts.position_attribute.path));
     configure_configurator(opts);
 
     load_shared_invariants(opts);

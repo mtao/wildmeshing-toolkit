@@ -27,19 +27,13 @@ namespace wmtk::components::isotropic_remeshing {
 IsotropicRemeshingOptions::IsotropicRemeshingOptions()
 {
     wmtk::components::configurator::transfer::init();
-    invariants["link_condition"] = {"link_condition"};
-    invariants["interior_simplex"] = {"interior_simplex"};
 
     operations["split"] = configurator::operations::EdgeSplitOptions{};
     operations["collapse"] = configurator::operations::EdgeCollapseOptions{};
     operations["swap"] = configurator::operations::EdgeSwapOptions{};
     operations["smooth"] = configurator::operations::VertexSmoothOptions{};
-    operations["collapse"].invariants["link_condition"] = {
-        "link_condition",
-        configurator::invariants::AliasInvariantParameters("link_condition")};
-    operations["swap"].invariants.emplace(
-        "interior_simplex",
-        configurator::invariants::AliasInvariantParameters("interior_simplex"));
+    //operations["swap"].add_alias_invariant("interior_simplex");
+    operations["collapse"].add_alias_invariant("link_condition");
     // operations["swap"].invariants.emplace("link_condition",configurator::invariants::AliasInvariantParameters("link_condition"));
 }
 namespace {

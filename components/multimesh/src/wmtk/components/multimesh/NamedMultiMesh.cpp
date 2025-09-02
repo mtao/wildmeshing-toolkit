@@ -186,11 +186,17 @@ void NamedMultiMesh::set_mesh(Mesh& m, bool do_populate_unnamed)
 
 Mesh& NamedMultiMesh::get_mesh(const std::string_view& path) const
 {
+    if(auto it = path.find_first_of('/'); it != std::string_view::npos) {
+        return get_mesh(path.substr(0,it));
+    }
     const auto id = get_id(path);
     return m_root->get_multi_mesh_child_mesh(id);
 }
 bool NamedMultiMesh::has_mesh(const std::string_view& path) const
 {
+    if(auto it = path.find_first_of('/'); it != std::string_view::npos) {
+        return has_mesh(path.substr(0,it));
+    }
     std::ranges::view auto split = internal::split_path(path);
     Node const* cur_mesh = m_name_root.get();
     const std::string& cur_name = cur_mesh->name;

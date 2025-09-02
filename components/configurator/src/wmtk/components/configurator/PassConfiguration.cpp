@@ -18,7 +18,14 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(PassConfiguration)
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PassConfiguration)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(passes);
+    if (nlohmann_json_j.contains("passes")) {
+        auto passes = nlohmann_json_j["passes"];
+        if (passes.is_array()) {
+            nlohmann_json_t.passes = passes;
+        } else {
+            nlohmann_json_t.passes.emplace_back(passes);
+        }
+    }
 
     if (nlohmann_json_j.contains("operations")) {
         auto& ops = nlohmann_json_t.operations;

@@ -16,6 +16,17 @@ namespace wmtk::components::configurator::operations {
 // OperationOptions::OperationOptions() = default;
 // OperationOptions::~OperationOptions() = default;
 
+void OperationOptions::add_alias_invariant(std::string_view name)
+{
+    return add_alias_invariant(name, name);
+}
+// adds a new alias invariant for "original_name" but giving the name "name"
+void OperationOptions::add_alias_invariant(std::string_view name, std::string_view original_name)
+{
+    invariants["name"] = invariants::InvariantOptions{
+        "alias",
+        invariants::AliasInvariantParameters{std::string(original_name)}};
+}
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
 {
     //
@@ -81,12 +92,13 @@ auto EdgeSwapOptions::get_parameters() const -> Parameters
     return parameters.get<Parameters>();
     //
 }
-void EdgeSwapOptions::set_parameters(const Parameters& p) 
+void EdgeSwapOptions::set_parameters(const Parameters& p)
 {
     parameters = p;
 }
 
-EdgeSwapMode EdgeSwapOptions::mode() const {
+EdgeSwapMode EdgeSwapOptions::mode() const
+{
     return get_parameters().mode;
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeSwapOptions)

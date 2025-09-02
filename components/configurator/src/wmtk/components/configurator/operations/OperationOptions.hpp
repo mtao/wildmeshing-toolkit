@@ -18,8 +18,6 @@ class MeshCollection;
 } // namespace wmtk
 namespace wmtk::components::configurator::operations {
 
-class PriorityOptions;
-
 
 struct OperationOptions
 {
@@ -35,7 +33,8 @@ struct OperationOptions
     bool enabled = true;
     PriorityOptions priority;
     std::map<std::string, invariants::InvariantOptions> invariants;
-    // adds a new alias invariant assuming the name in the operation is the same as the configurator's name
+    // adds a new alias invariant assuming the name in the operation is the same as the
+    // configurator's name
     void add_alias_invariant(std::string_view name);
     // adds a new alias invariant for "original_name" but giving the name "name"
     void add_alias_invariant(std::string_view name, std::string_view original_name);
@@ -72,6 +71,9 @@ struct EdgeSwapOptions : public OperationOptions
     struct Parameters
     {
         EdgeSwapMode mode;
+        std::map<std::string, invariants::InvariantOptions> split_invariants;
+        std::map<std::string, invariants::InvariantOptions> collapse_invariants;
+
         WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Parameters)
     };
     Parameters get_parameters() const;
