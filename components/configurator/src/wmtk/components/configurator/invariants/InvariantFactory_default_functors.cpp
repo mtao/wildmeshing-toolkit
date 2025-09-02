@@ -1,6 +1,7 @@
 #include <spdlog/spdlog.h>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/invariants/Invariant.hpp>
+#include <wmtk/invariants/MultiMeshMapValidInvariant.hpp>
 #include <wmtk/invariants/InvariantCollection.hpp>
 #include "../Configurator.hpp"
 #include "InvariantFactory.hpp"
@@ -53,6 +54,9 @@ void InvariantFactory::load_default_functors()
 {
     m_invariant_functors["link_condition"] =
         &default_add_mesh_invariant<wmtk::invariants::MultiMeshLinkConditionInvariant>;
+
+    m_invariant_functors["multimesh_valid_map"] =
+        &default_add_mesh_invariant<wmtk::invariants::MultiMeshMapValidInvariant>;
 
     m_invariant_functors["interior_simplex"] =
         &default_add_mesh_invariant<wmtk::invariants::InteriorSimplexInvariant>;

@@ -3,6 +3,7 @@
 #include "Invariant.hpp"
 
 namespace wmtk {
+namespace invariants {
 class MultiMeshMapValidInvariant : public Invariant
 {
 public:
@@ -18,8 +19,10 @@ public:
     MultiMeshMapValidInvariant(const Mesh& m, bool single_mesh_mode = false);
     bool before(const simplex::Simplex& t) const override;
     std::string name() const override;
+
 private:
     bool m_single_mesh_mode;
-    
 };
+} // namespace invariants
+using MultiMeshMapValidInvariant = invariants::MultiMeshMapValidInvariant;
 } // namespace wmtk

@@ -128,7 +128,7 @@ OperationFactory::create(Configurator& config, std::string_view name, const nloh
     std::string type = js["type"];
     try {
         auto r = m_op_functors.at(type)(config, js);
-        m_ops[std::string(name)] = r;
+        m_ops[std::string(name)] = {r,js};
         return r;
     } catch (const std::exception& e) {
         spdlog::warn(
@@ -140,7 +140,7 @@ OperationFactory::create(Configurator& config, std::string_view name, const nloh
 }
 std::shared_ptr<wmtk::operations::Operation> OperationFactory::get(std::string_view name)
 {
-    return m_ops.at(std::string(name));
+    return m_ops.at(std::string(name)).first;
 }
 
 void OperationFactory::from_json(Configurator& c, const nlohmann::json& js)
@@ -171,8 +171,11 @@ std::vector<OperationOptions> OperationFactory::get_options(const Configurator& 
 {
     std::vector<OperationOptions> opts;
     for (const auto& [opname, op] : m_ops) {
-        auto& opt = opts.emplace_back();
-        for (const auto& inv : op->invariants().invariants()) {
+        auto& opt = opts.emplace_back() = op.second;
+
+
+        // updates the invariant info to a normalized form
+        for (const auto& inv : op.first->invariants().invariants()) {
             std::string inv_name = std::string(c.get_invariant_name(*inv));
             invariants::InvariantOptions iopt(
                 "alias",

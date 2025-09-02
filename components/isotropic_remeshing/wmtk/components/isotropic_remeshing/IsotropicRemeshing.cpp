@@ -75,8 +75,13 @@ void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions&
     if (!position_attr.is_valid()) {
         throw std::runtime_error("Isotropic remeshing run without a valid position attribute");
     }
-    m_universal_invariants =
-        std::make_shared<wmtk::invariants::InvariantCollection>(position_attr.mesh());
+    auto& position_mesh = position_attr.mesh();
+    m_universal_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(position_mesh);
+    configurator().create_mesh_invariant("link_condition", "link_condition", position_mesh);
+    configurator().create_mesh_invariant(
+        "multimesh_valid_map",
+        "multimesh_valid_map",
+        position_mesh);
 
     configurator::invariants::InvariantCollectionParameters improvement_collection;
     for (const auto& attr : opts.improvement_attributes) {
@@ -87,6 +92,8 @@ void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions&
         // configurator().create_invariant();
         m_universal_invariants->add(std::make_shared<invariants::ImprovementInvariant>(attr_desc));
     }
+    configurator::invariants::InvariantOptions o("collection", improvement_collection);
+    m_configurator.create_invariant("attributes_improve", o);
 
 
     if (opts.envelope_size.has_value()) {
@@ -243,8 +250,12 @@ IsotropicRemeshing::IsotropicRemeshing(
 {
     auto& configurator = this->configurator();
 
-    configurator.create_mesh_invariant("link_condition","link_condition", configurator.get_mesh(opts.position_attribute.path));
-    //configurator.create_mesh_invariant("interior_simplex","interior_simplex", configurator.get_mesh(opts.position_attribute.path));
+    configurator.create_mesh_invariant(
+        "link_condition",
+        "link_condition",
+        configurator.get_mesh(opts.position_attribute.path));
+    // configurator.create_mesh_invariant("interior_simplex","interior_simplex",
+    // configurator.get_mesh(opts.position_attribute.path));
     configure_configurator(opts);
 
     load_shared_invariants(opts);

@@ -47,6 +47,6 @@ public:
 private:
     std::map<std::string, OpCreatorFunc> m_op_functors;
 
-    std::map<std::string, std::shared_ptr<wmtk::operations::Operation>> m_ops;
+    std::map<std::string, std::pair<std::shared_ptr<wmtk::operations::Operation>,nlohmann::json>> m_ops;
 };
 } // namespace wmtk::components::configurator::operations

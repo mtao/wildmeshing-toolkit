@@ -60,18 +60,18 @@ std::shared_ptr<wmtk::invariants::Invariant>
 InvariantFactory::create(Configurator& config, std::string_view name, const nlohmann::json& js)
 {
     auto r = m_invariant_functors.at(js["type"])(config, js);
-    m_invariants[std::string(name)] = r;
+    m_invariants[std::string(name)] = {r,js};
     return r;
 }
 std::shared_ptr<wmtk::invariants::Invariant> InvariantFactory::get(const std::string& name)
 {
-    return m_invariants.at(name);
+    return m_invariants.at(name).first;
 }
 
 std::string_view InvariantFactory::get_name(const wmtk::invariants::Invariant& inv) const
 {
     for (const auto& [name, my_inv] : m_invariants) {
-        if (&inv == my_inv.get()) {
+        if (&inv == my_inv.first.get()) {
             return name;
         }
     }

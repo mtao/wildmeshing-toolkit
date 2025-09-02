@@ -16,7 +16,7 @@
 
 #include "wmtk/simplex/cofaces_single_dimension.hpp"
 
-namespace wmtk {
+namespace wmtk::invariants {
 namespace {
 
 
@@ -147,4 +147,4 @@ std::string MultiMeshMapValidInvariant::name() const
 {
     return "MultiMeshMapValidInvariant";
 }
-} // namespace wmtk
+} // namespace wmtk::invariants

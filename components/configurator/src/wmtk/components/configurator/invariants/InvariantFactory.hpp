@@ -56,7 +56,7 @@ public:
 private:
     std::map<std::string, InvariantCreatorFunc> m_invariant_functors;
 
-    std::map<std::string, std::shared_ptr<wmtk::invariants::Invariant>> m_invariants;
+    std::map<std::string, std::pair<std::shared_ptr<wmtk::invariants::Invariant>,nlohmann::json>> m_invariants;
 };
 
 

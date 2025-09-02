@@ -30,11 +30,21 @@ IsotropicRemeshingOptions::IsotropicRemeshingOptions()
 
     operations["split"] = configurator::operations::EdgeSplitOptions{};
     operations["collapse"] = configurator::operations::EdgeCollapseOptions{};
-    operations["swap"] = configurator::operations::EdgeSwapOptions{};
     operations["smooth"] = configurator::operations::VertexSmoothOptions{};
-    //operations["swap"].add_alias_invariant("interior_simplex");
+    // operations["swap"].add_alias_invariant("interior_simplex");
     operations["collapse"].add_alias_invariant("link_condition");
-    // operations["swap"].invariants.emplace("link_condition",configurator::invariants::AliasInvariantParameters("link_condition"));
+    operations["collapse"].add_alias_invariant("multimesh_valid_map");
+
+    {
+        auto so = configurator::operations::EdgeSwapOptions{};
+        auto sp = so.get_parameters();
+        sp.collapse_invariants["link_condition"] =
+            operations["collapse"].invariants["link_condition"];
+        sp.collapse_invariants["multimesh_valid_map"] =
+            operations["collapse"].invariants["multimesh_valid_map"];
+        so.set_parameters(sp);
+        operations["swap"] = so;
+    }
 }
 namespace {
 
