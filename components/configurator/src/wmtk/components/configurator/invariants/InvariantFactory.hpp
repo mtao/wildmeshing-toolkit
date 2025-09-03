@@ -42,6 +42,8 @@ public:
 
     std::shared_ptr<wmtk::invariants::Invariant>
     create(Configurator& config, std::string_view name, const nlohmann::json& js);
+    std::shared_ptr<wmtk::invariants::Invariant>
+    create(Configurator& config, std::string_view name, const InvariantOptions& js);
     std::shared_ptr<wmtk::invariants::Invariant> create(
         Configurator& config,
         const nlohmann::json& js);
@@ -56,7 +58,8 @@ public:
 private:
     std::map<std::string, InvariantCreatorFunc> m_invariant_functors;
 
-    std::map<std::string, std::pair<std::shared_ptr<wmtk::invariants::Invariant>,nlohmann::json>> m_invariants;
+    std::map<std::string, std::pair<std::shared_ptr<wmtk::invariants::Invariant>, nlohmann::json>>
+        m_invariants;
 };
 
 

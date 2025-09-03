@@ -1,8 +1,8 @@
 #include <spdlog/spdlog.h>
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/invariants/Invariant.hpp>
-#include <wmtk/invariants/MultiMeshMapValidInvariant.hpp>
 #include <wmtk/invariants/InvariantCollection.hpp>
+#include <wmtk/invariants/MultiMeshMapValidInvariant.hpp>
 #include "../Configurator.hpp"
 #include "InvariantFactory.hpp"
 #include "InvariantOptions.hpp"

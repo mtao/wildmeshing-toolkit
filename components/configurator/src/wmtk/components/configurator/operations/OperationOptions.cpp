@@ -23,9 +23,11 @@ void OperationOptions::add_alias_invariant(std::string_view name)
 // adds a new alias invariant for "original_name" but giving the name "name"
 void OperationOptions::add_alias_invariant(std::string_view name, std::string_view original_name)
 {
-    invariants["name"] = invariants::InvariantOptions{
+    invariants::InvariantOptions inv{
         "alias",
         invariants::AliasInvariantParameters{std::string(original_name)}};
+    spdlog::info("Creating an alias invariant {}", nlohmann::json(inv).dump());
+    invariants[std::string(name)] = nlohmann::json(inv);
 }
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
 {

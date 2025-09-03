@@ -38,8 +38,10 @@ IsotropicRemeshingOptions::IsotropicRemeshingOptions()
     {
         auto so = configurator::operations::EdgeSwapOptions{};
         auto sp = so.get_parameters();
-        sp.collapse_invariants["link_condition"] =
-            operations["collapse"].invariants["link_condition"];
+        so.add_alias_invariant("valence_improvement");
+        //sp.collapse_invariants["link_condition"] =
+        //    operations["collapse"].invariants["link_condition"];
+
         sp.collapse_invariants["multimesh_valid_map"] =
             operations["collapse"].invariants["multimesh_valid_map"];
         so.set_parameters(sp);

@@ -57,15 +57,34 @@ std::shared_ptr<wmtk::invariants::Invariant> InvariantFactory::create(
     return create(config, js["name"].get<std::string>(), js);
 }
 std::shared_ptr<wmtk::invariants::Invariant>
+InvariantFactory::create(Configurator& config, std::string_view name, const InvariantOptions& opts)
+{
+    const std::string& t = opts.type;
+    spdlog::warn(
+        "Creating invariant \"{}\" type \"{}\" among {} available",
+        name,
+        t,
+        known_invariant_functors());
+    const auto& f = m_invariant_functors.at(t);
+    auto js = nlohmann::json(opts);
+    auto r = f(config, js);
+    m_invariants[std::string(name)] = {r, js};
+    return r;
+}
+
+std::shared_ptr<wmtk::invariants::Invariant>
 InvariantFactory::create(Configurator& config, std::string_view name, const nlohmann::json& js)
 {
-    auto r = m_invariant_functors.at(js["type"])(config, js);
-    m_invariants[std::string(name)] = {r,js};
-    return r;
+    return create(config, name, js.get<InvariantOptions>());
 }
 std::shared_ptr<wmtk::invariants::Invariant> InvariantFactory::get(const std::string& name)
 {
-    return m_invariants.at(name).first;
+    try {
+        return m_invariants.at(name).first;
+    } catch (const std::exception& e) {
+        spdlog::warn("Added op functor \"{}\" among {} available", name, known_invariants());
+        throw e;
+    }
 }
 
 std::string_view InvariantFactory::get_name(const wmtk::invariants::Invariant& inv) const

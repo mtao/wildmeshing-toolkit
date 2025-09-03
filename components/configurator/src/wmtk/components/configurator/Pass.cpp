@@ -1,10 +1,10 @@
 #include "Pass.hpp"
+#include <wmtk/Mesh.hpp>
 #include <wmtk/multimesh/consolidate.hpp>
 #include <wmtk/operations/Operation.hpp>
 #include <wmtk/utils/Logger.hpp>
 #include "Configurator.hpp"
 #include "wmtk/Scheduler.hpp"
-#include <wmtk/Mesh.hpp>
 
 
 namespace wmtk::components::configurator {
@@ -40,8 +40,16 @@ wmtk::SchedulerStats Pass::run(std::string_view info)
     for (long i = 0; i < m_iterations; ++i) {
         wmtk::logger().info("Pass {}, Sub-Iteration {}", info, i);
 
-        for (const auto& op : m_operations) {
+        for (size_t j = 0; j < m_operations.size(); ++j) {
+            const auto& op = m_operations[j];
+            // for (const auto& op : m_operations) {
             SchedulerStats stats = scheduler.run_operation_on_all(*op, *m_mesh);
+            logger().info(
+                "{} Executed {} ops (S/F) {}/{}.",
+                j,
+                stats.number_of_performed_operations(),
+                stats.number_of_successful_operations(),
+                stats.number_of_failed_operations());
             pass_stats += stats;
         }
 

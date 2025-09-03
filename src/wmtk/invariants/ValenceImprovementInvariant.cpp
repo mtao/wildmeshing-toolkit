@@ -30,10 +30,10 @@ bool ValenceImprovementInvariant::before(const simplex::Simplex& simplex) const
     const Tuple v2 = vertices_t0[2];
     const Tuple v3 = vertices_t1[2];
 
-    auto valence = [this](const Tuple& v) {
-        return static_cast<int64_t>(simplex::link(mesh(), simplex::Simplex::vertex(mesh(), v))
+    auto valence = [this](const Tuple& v) -> int64_t {
+        return simplex::link(mesh(), simplex::Simplex::vertex(mesh(), v))
                                         .simplex_vector(PrimitiveType::Vertex)
-                                        .size());
+                                        .size();
     };
 
     int64_t val0 = valence(v0);
@@ -59,11 +59,8 @@ bool ValenceImprovementInvariant::before(const simplex::Simplex& simplex) const
     const int64_t val_after = std::max(std::abs(val0 - 7), std::abs(val1 - 7)) +
                               std::max(std::abs(val2 - 5), std::abs(val3 - 5));
 
-    if (val_after >= val_before) {
-        return false;
-    }
-
-    return true;
+    bool ret = val_after < val_before;
+    return ret;
 }
 
 

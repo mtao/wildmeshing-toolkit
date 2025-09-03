@@ -31,7 +31,7 @@ struct InvariantOptions
     InvariantOptions& operator=(InvariantOptions&&);
     ~InvariantOptions();
 
-    InvariantOptions(const std::string& type, const nlohmann::json& params = {});
+    explicit InvariantOptions(const std::string& type, const nlohmann::json& params = {});
     //template <typename T>
     //InvariantOptions(const std::string& type, const T& params): InvariantOptions(type,nlohmann::json(params)) {}
 

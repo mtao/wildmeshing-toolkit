@@ -78,10 +78,14 @@ void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions&
     auto& position_mesh = position_attr.mesh();
     m_universal_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(position_mesh);
     configurator().create_mesh_invariant("link_condition", "link_condition", position_mesh);
+    spdlog::info("Making multimesh mah");
     configurator().create_mesh_invariant(
         "multimesh_valid_map",
         "multimesh_valid_map",
         position_mesh);
+    configurator().create_mesh_invariant("valence_improvement","triangle_valence_improvement", position_mesh);
+
+    spdlog::info("done");
 
     configurator::invariants::InvariantCollectionParameters improvement_collection;
     for (const auto& attr : opts.improvement_attributes) {
@@ -250,15 +254,12 @@ IsotropicRemeshing::IsotropicRemeshing(
 {
     auto& configurator = this->configurator();
 
-    configurator.create_mesh_invariant(
-        "link_condition",
-        "link_condition",
-        configurator.get_mesh(opts.position_attribute.path));
+
+    load_shared_invariants(opts);
     // configurator.create_mesh_invariant("interior_simplex","interior_simplex",
     // configurator.get_mesh(opts.position_attribute.path));
     configure_configurator(opts);
 
-    load_shared_invariants(opts);
 
 
     passes = configurator.get_passes();

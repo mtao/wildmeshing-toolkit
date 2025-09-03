@@ -138,11 +138,12 @@ auto Configurator::create_mesh_invariant(
     std::string_view type,
     const Mesh& m) -> std::shared_ptr<wmtk::invariants::Invariant>
 {
-    invariants::MeshInvariantParameters p;
-    p.mesh_path = get_mesh_name(m);
     invariants::InvariantOptions opts;
     opts.type = type;
+    invariants::MeshInvariantParameters p;
+    p.mesh_path = get_mesh_name(m);
     opts.parameters = p;
+    spdlog::info("{}", nlohmann::json(opts).dump());
     return m_invariants.create(*this, name, opts);
 }
 auto Configurator::create_attribute_invariant(

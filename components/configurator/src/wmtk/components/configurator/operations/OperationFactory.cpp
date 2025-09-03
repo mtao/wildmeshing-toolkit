@@ -25,10 +25,13 @@ std::shared_ptr<wmtk::operations::Operation> default_add_operation(
     auto& m = c.get_mesh<MeshType>(opts.mesh_path);
     auto r = std::make_shared<T>(m);
 
+    spdlog::info("Setting priority");
     if (opts.priority) {
         opts.priority.assign_to(c.meshes(), *r);
     }
+    spdlog::info("Setting invariants");
     for (const auto& [name, inv] : opts.invariants) {
+        spdlog::info("Fetching {} {}", name, nlohmann::json(inv).dump());
         r->add_invariant(c.create_invariant(name, inv));
     }
     return r;
@@ -132,9 +135,9 @@ OperationFactory::create(Configurator& config, std::string_view name, const nloh
         return r;
     } catch (const std::exception& e) {
         spdlog::warn(
-            "Was unable to create op functor \"{}\" among {} available",
+            "Was unable to create op functor \"{}\" among {} available: {}",
             type,
-            known_operation_functors());
+            known_operation_functors(), e.what());
         throw e;
     }
 }
