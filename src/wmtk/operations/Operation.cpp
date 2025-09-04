@@ -1,8 +1,9 @@
-#include "Operation.hpp"
 
 #if !defined(WMTK_TEST_BREAKING_CHECKS)
 #define WMTK_BLOCK_OPERATION_EXCEPTIONS
+#include "Operation.hpp"
 #endif
+#include <perfetto.h>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/multimesh/MultiMeshVisitor.hpp>
 #include <wmtk/multimesh/utils/check_map_valid.hpp>
@@ -101,6 +102,7 @@ void Operation::add_transfer_strategy(
 
 std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simplex)
 {
+
     if (!before(simplex)) {
         return {};
     }
@@ -179,6 +181,7 @@ bool Operation::after(
     const std::vector<simplex::Simplex>& unmods,
     const std::vector<simplex::Simplex>& mods) const
 {
+    TRACE_EVENT("operation", "Operation::after");
 #if !defined(NDEBUG)
     const Mesh& invariant_mesh = m_after_invariants.mesh();
 

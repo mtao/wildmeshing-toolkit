@@ -113,6 +113,7 @@ include(volume_mesher)
 include(onetbb)
 include(CLI11)
 include(CDT)
+include(perfetto)
 
 # Core library
 add_library(wildmeshing_toolkit ${WMTK_LIBRARY_TYPE})
@@ -190,6 +191,7 @@ target_link_libraries(wildmeshing_toolkit PUBLIC
     FastEnvelope::FastEnvelope
     simple_bvh::simple_bvh
     VolumeRemesher::VolumeRemesher
+    perfetto
     TBB::tbb
 )
 
