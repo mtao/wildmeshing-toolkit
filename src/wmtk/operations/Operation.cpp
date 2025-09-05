@@ -181,7 +181,7 @@ bool Operation::after(
     const std::vector<simplex::Simplex>& unmods,
     const std::vector<simplex::Simplex>& mods) const
 {
-    TRACE_EVENT("operation", "Operation::after");
+    //TRACE_EVENT("operation", "Operation::after");
 #if !defined(NDEBUG)
     const Mesh& invariant_mesh = m_after_invariants.mesh();
 
