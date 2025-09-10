@@ -32,7 +32,7 @@ void OperationOptions::add_alias_invariant(std::string_view name, std::string_vi
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
 {
     //
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path, type, enabled, priority, invariants, parameters)
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, enabled, priority, invariants, parameters)
     if (nlohmann_json_t.priority) {
         nlohmann_json_j["priority"] = nlohmann_json_t.priority;
     }
@@ -41,17 +41,23 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(OperationOptions)
 {
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(OperationOptions);
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(
-        mesh_path,
-        enabled,
-        parameters,
-        invariants,
-        type);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(enabled, parameters, invariants, type);
 
 
     if (nlohmann_json_j.contains("priority")) {
         nlohmann_json_t.priority = nlohmann_json_j["priority"];
     }
+
+    //
+}
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MeshOperationParameters){
+    //
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(mesh_path)}
+
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MeshOperationParameters)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(mesh_path);
+
 
     //
 }
@@ -76,6 +82,22 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeCollapseOptions)
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(EdgeSwapOptions)
 {
     to_json(nlohmann_json_j, static_cast<const OperationOptions&>(nlohmann_json_t));
+}
+MeshOperationParameters EdgeSplitOptions::get_parameters() const
+{
+    return parameters.get<MeshOperationParameters>();
+}
+void EdgeSplitOptions::set_parameters(const MeshOperationParameters& p)
+{
+    parameters = p;
+}
+MeshOperationParameters EdgeCollapseOptions::get_parameters() const
+{
+    return parameters.get<MeshOperationParameters>();
+}
+void EdgeCollapseOptions::set_parameters(const MeshOperationParameters& p)
+{
+    parameters = p;
 }
 
 void EdgeSwapOptions::set_mode(EdgeSwapMode mode)
@@ -140,25 +162,46 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(EdgeSwapOptions::Parameters)
         }
     }
 }
-WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(VertexSmoothOptions)
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(AttributeUpdateOptions)
 {
     to_json(nlohmann_json_j, static_cast<const OperationOptions&>(nlohmann_json_t));
 }
-WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(VertexSmoothOptions)
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeUpdateOptions)
 {
     from_json(nlohmann_json_j, static_cast<OperationOptions&>(nlohmann_json_t));
 }
 
+WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute_path);
+    if (!nlohmann_json_t.projection_attribute.empty()) {
+        nlohmann_json_j["projection_attribute"] = nlohmann_json_t.projection_attribute;
+    }
+    //
+}
+WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters)
+{
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute_path);
+    if (nlohmann_json_j.contains("projection_attribute")) {
+        nlohmann_json_t.projection_attribute = nlohmann_json_j["projection_attribute"];
+    }
+
+    //
+}
+
 OperationOptions::~OperationOptions() = default;
-OperationOptions::OperationOptions() = default;
+OperationOptions::OperationOptions(std::string_view type)
+    : type(std::string(type))
+{}
 OperationOptions::OperationOptions(const OperationOptions& o) = default;
 OperationOptions::OperationOptions(OperationOptions&&) = default;
 OperationOptions& OperationOptions::operator=(const OperationOptions&) = default;
 OperationOptions& OperationOptions::operator=(OperationOptions&&) = default;
 
-EdgeSplitOptions::EdgeSplitOptions()
+EdgeSplitOptions::EdgeSplitOptions(std::string_view mesh_name)
+    : OperationOptions(type_name)
 {
-    type = type_name;
+    set_parameters(MeshOperationParameters{mesh_name});
 }
 EdgeSplitOptions::EdgeSplitOptions(const OperationOptions& o)
     : OperationOptions(o)
@@ -169,9 +212,10 @@ EdgeSplitOptions::EdgeSplitOptions(const EdgeSplitOptions&) = default;
 EdgeSplitOptions::EdgeSplitOptions(EdgeSplitOptions&&) = default;
 EdgeSplitOptions& EdgeSplitOptions::operator=(const EdgeSplitOptions&) = default;
 EdgeSplitOptions& EdgeSplitOptions::operator=(EdgeSplitOptions&&) = default;
-EdgeCollapseOptions::EdgeCollapseOptions()
+EdgeCollapseOptions::EdgeCollapseOptions(std::string_view mesh_name)
+    : OperationOptions(type_name)
 {
-    type = type_name;
+    set_parameters(MeshOperationParameters{mesh_name});
 }
 EdgeCollapseOptions::EdgeCollapseOptions(const OperationOptions& o)
     : OperationOptions(o)
@@ -197,6 +241,7 @@ EdgeSwapOptions::EdgeSwapOptions(EdgeSwapOptions&&) = default;
 EdgeSwapOptions& EdgeSwapOptions::operator=(const EdgeSwapOptions&) = default;
 EdgeSwapOptions& EdgeSwapOptions::operator=(EdgeSwapOptions&&) = default;
 
+/*
 VertexSmoothOptions::VertexSmoothOptions()
 {
     type = type_name;
@@ -210,6 +255,7 @@ VertexSmoothOptions::VertexSmoothOptions(const VertexSmoothOptions&) = default;
 VertexSmoothOptions::VertexSmoothOptions(VertexSmoothOptions&&) = default;
 VertexSmoothOptions& VertexSmoothOptions::operator=(const VertexSmoothOptions&) = default;
 VertexSmoothOptions& VertexSmoothOptions::operator=(VertexSmoothOptions&&) = default;
+*/
 
 AttributeUpdateOptions::AttributeUpdateOptions()
 {
@@ -225,4 +271,12 @@ AttributeUpdateOptions::AttributeUpdateOptions(AttributeUpdateOptions&&) = defau
 AttributeUpdateOptions& AttributeUpdateOptions::operator=(const AttributeUpdateOptions&) = default;
 AttributeUpdateOptions& AttributeUpdateOptions::operator=(AttributeUpdateOptions&&) = default;
 
+auto AttributeUpdateOptions::get_parameters() const -> Parameters
+{
+    return parameters.get<Parameters>();
+}
+void AttributeUpdateOptions::set_parameters(const Parameters& p)
+{
+    parameters = p;
+}
 } // namespace wmtk::components::configurator::operations

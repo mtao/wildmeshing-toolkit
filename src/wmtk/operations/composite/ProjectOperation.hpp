@@ -1,6 +1,6 @@
 #pragma once
 
-#include <wmtk/operations/AttributesUpdate.hpp>
+#include <wmtk/operations/AttributeUpdate.hpp>
 
 #include <memory>
 
@@ -9,7 +9,7 @@ class BVH;
 }
 
 namespace wmtk::operations::composite {
-class ProjectOperation : public AttributesUpdate
+class ProjectOperation : public AttributeUpdate
 {
 public:
     using MeshConstrainPair =

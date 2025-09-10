@@ -121,6 +121,19 @@ AttributeDescription::operator std::string() const
 }
 
 
+auto AttributeDescription::mesh_path() const -> std::string_view
+{
+    return mesh_path(path);
+}
+std::string_view AttributeDescription::mesh_path(std::string_view path)
+{
+    if (auto it = path.find_first_of('/'); it != std::string_view::npos) {
+        return path.substr(0, it);
+    } else {
+        return path;
+    }
+}
+
 bool AttributeDescription::fully_specified() const
 {
     return simplex_dimension.has_value() && type.has_value() && dimension.has_value();

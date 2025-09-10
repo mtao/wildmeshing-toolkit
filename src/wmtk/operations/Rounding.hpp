@@ -1,12 +1,12 @@
 #pragma once
 
 #include <wmtk/utils/Rational.hpp>
-#include "AttributesUpdate.hpp"
+#include "AttributeUpdate.hpp"
 
 
 namespace wmtk::operations {
 
-class Rounding : public AttributesUpdate
+class Rounding : public AttributeUpdate
 {
 public:
     Rounding(Mesh& m, TypedAttributeHandle<Rational>& coordinate);

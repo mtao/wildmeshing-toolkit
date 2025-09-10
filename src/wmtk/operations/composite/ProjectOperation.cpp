@@ -18,7 +18,7 @@ ProjectOperation::ProjectOperation(
 ProjectOperation::ProjectOperation(
     std::shared_ptr<Operation> main_op,
     const std::vector<MeshConstrainPair>& mesh_constaint_pairs)
-    : AttributesUpdate(main_op->mesh())
+    : AttributeUpdate(main_op->mesh())
     , m_main_op(main_op)
 {
     for (auto& pair : mesh_constaint_pairs) {

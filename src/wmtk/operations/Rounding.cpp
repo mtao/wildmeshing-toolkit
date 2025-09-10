@@ -9,7 +9,7 @@
 namespace wmtk::operations {
 
 Rounding::Rounding(Mesh& m, TypedAttributeHandle<Rational>& coordinate)
-    : AttributesUpdate(m)
+    : AttributeUpdate(m)
     , m_coordinate_handle(coordinate)
 {}
 
@@ -26,7 +26,7 @@ std::vector<simplex::Simplex> Rounding::execute(const simplex::Simplex& simplex)
     }
     // accessor.vector_attribute(simplex.tuple()) = pos;
 
-    return AttributesUpdate::execute(simplex);
+    return AttributeUpdate::execute(simplex);
 }
 
 } // namespace wmtk::operations

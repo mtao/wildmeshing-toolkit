@@ -228,7 +228,7 @@ bool AMIPSOptimizationSmoothing::WMTKAMIPSProblem<S>::is_step_valid(
 AMIPSOptimizationSmoothing::AMIPSOptimizationSmoothing(
     Mesh& mesh,
     const attribute::MeshAttributeHandle& coords)
-    : AttributesUpdate(mesh)
+    : AttributeUpdate(mesh)
     , m_coordinate_handle(coords)
     , m_amips(mesh, coords)
 {
@@ -513,7 +513,7 @@ std::vector<simplex::Simplex> AMIPSOptimizationSmoothing::execute(const simplex:
     }
 
 
-    return AttributesUpdate::execute(simplex);
+    return AttributeUpdate::execute(simplex);
 }
 
 } // namespace wmtk::operations

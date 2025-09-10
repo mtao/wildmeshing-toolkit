@@ -16,6 +16,7 @@ struct IsotropicRemeshingOptions : public wmtk::components::configurator::PassCo
     using AttributeDescription = components::multimesh::utils::AttributeDescription;
     IsotropicRemeshingOptions();
 
+    IsotropicRemeshingOptions(const multimesh::utils::AttributeDescription& position_attr);
 
     bool separate_substructures = false;
     AttributeDescription position_attribute;
@@ -52,12 +53,12 @@ struct IsotropicRemeshingOptions : public wmtk::components::configurator::PassCo
 
     wmtk::components::configurator::operations::EdgeSplitOptions get_split() const;
     wmtk::components::configurator::operations::EdgeCollapseOptions get_collapse() const;
-    wmtk::components::configurator::operations::VertexSmoothOptions get_smooth() const;
+    wmtk::components::configurator::operations::AttributeUpdateOptions get_smooth() const;
     wmtk::components::configurator::operations::EdgeSwapOptions get_swap() const;
     void set_split(const wmtk::components::configurator::operations::EdgeSplitOptions& split);
     void set_collapse(
         const wmtk::components::configurator::operations::EdgeCollapseOptions& collapse);
-    void set_smooth(const wmtk::components::configurator::operations::VertexSmoothOptions& smooth);
+    void set_smooth(const wmtk::components::configurator::operations::AttributeUpdateOptions& smooth);
     void set_swap(const wmtk::components::configurator::operations::EdgeSwapOptions& swap);
 
     // wmtk::components::configurator::Configuration make_pass_configuration() const;

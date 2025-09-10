@@ -2,7 +2,7 @@
 
 #include <polysolve/Types.hpp>
 #include <wmtk/function/Function.hpp>
-#include "AttributesUpdate.hpp"
+#include "AttributeUpdate.hpp"
 
 
 namespace polysolve::nonlinear {
@@ -15,7 +15,7 @@ class Function;
 
 namespace wmtk::operations {
 
-class OptimizationSmoothing : public AttributesUpdate
+class OptimizationSmoothing : public AttributeUpdate
 {
 private:
     template <typename T>

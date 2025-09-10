@@ -4,10 +4,10 @@
 
 namespace wmtk::operations {
 
-class AttributesUpdate : public Operation
+class AttributeUpdate : public Operation
 {
 public:
-    AttributesUpdate(Mesh& m);
+    AttributeUpdate(Mesh& m);
 
     virtual PrimitiveType primitive_type() const override { return PrimitiveType::Vertex; }
     bool attribute_new_all_configured() const final;
@@ -18,10 +18,10 @@ protected:
     virtual std::vector<simplex::Simplex> execute(const simplex::Simplex& simplex) override;
 };
 
-class AttributesUpdateWithFunction : public AttributesUpdate
+class AttributeUpdateWithFunction : public AttributeUpdate
 {
 public:
-    AttributesUpdateWithFunction(Mesh& m);
+    AttributeUpdateWithFunction(Mesh& m);
 
     using UpdateFunction = std::function<bool(Mesh&, const simplex::Simplex& s)>;
 

@@ -232,7 +232,7 @@ AMIPSOptimizationSmoothingPeriodic::AMIPSOptimizationSmoothingPeriodic(
     Mesh& periodic_mesh,
     Mesh& position_mesh,
     const attribute::MeshAttributeHandle& coords)
-    : AttributesUpdate(position_mesh)
+    : AttributeUpdate(position_mesh)
     , m_periodic_mesh(periodic_mesh)
     , m_position_mesh(position_mesh)
     , m_coordinate_handle(coords)
@@ -523,7 +523,7 @@ std::vector<simplex::Simplex> AMIPSOptimizationSmoothingPeriodic::execute(
     }
 
 
-    return AttributesUpdate::execute(simplex);
+    return AttributeUpdate::execute(simplex);
 }
 
 } // namespace wmtk::operations

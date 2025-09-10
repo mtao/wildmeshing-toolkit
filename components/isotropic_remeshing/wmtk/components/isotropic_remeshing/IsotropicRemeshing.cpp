@@ -37,7 +37,7 @@
 
 
 // op types
-#include <wmtk/operations/AttributesUpdate.hpp>
+#include <wmtk/operations/AttributeUpdate.hpp>
 #include <wmtk/operations/composite/EdgeSwap.hpp>
 //
 #include <Eigen/Geometry>
@@ -310,7 +310,7 @@ IsotropicRemeshing::IsotropicRemeshing(
 
     //////////////////////////////////////////
     // smooth
-    m_smooth = configurator.get_operation<wmtk::operations::AttributesUpdate>("smooth");
+    m_smooth = configurator.get_operation<wmtk::operations::AttributeUpdate>("smooth");
     if (m_smooth) {
         configure_smooth(opts);
         assert(bool(m_smooth));

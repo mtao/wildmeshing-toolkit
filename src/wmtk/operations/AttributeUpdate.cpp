@@ -1,26 +1,26 @@
-#include "AttributesUpdate.hpp"
+#include "AttributeUpdate.hpp"
 
 #include <wmtk/simplex/closed_star.hpp>
 
 namespace wmtk::operations {
 
 
-AttributesUpdate::AttributesUpdate(Mesh& m)
+AttributeUpdate::AttributeUpdate(Mesh& m)
     : Operation(m)
 {}
 
-std::vector<simplex::Simplex> AttributesUpdate::unmodified_primitives(
+std::vector<simplex::Simplex> AttributeUpdate::unmodified_primitives(
     const simplex::Simplex& simplex) const
 {
     return {simplex};
 }
 
-bool AttributesUpdate::attribute_new_all_configured() const
+bool AttributeUpdate::attribute_new_all_configured() const
 {
     return true;
 }
 
-std::vector<simplex::Simplex> AttributesUpdate::execute(const simplex::Simplex& simplex)
+std::vector<simplex::Simplex> AttributeUpdate::execute(const simplex::Simplex& simplex)
 {
     assert(simplex.primitive_type() == primitive_type());
     assert(mesh().is_valid(simplex.tuple()));
@@ -42,16 +42,16 @@ std::vector<simplex::Simplex> AttributesUpdate::execute(const simplex::Simplex& 
     return {simplex};
 }
 
-AttributesUpdateWithFunction::AttributesUpdateWithFunction(Mesh& m)
-    : AttributesUpdate(m)
+AttributeUpdateWithFunction::AttributeUpdateWithFunction(Mesh& m)
+    : AttributeUpdate(m)
 {}
 
-std::vector<simplex::Simplex> AttributesUpdateWithFunction::execute(const simplex::Simplex& simplex)
+std::vector<simplex::Simplex> AttributeUpdateWithFunction::execute(const simplex::Simplex& simplex)
 {
     if (bool(m_function)) {
         if (!m_function(mesh(), simplex)) return {};
     }
-    return AttributesUpdate::execute(simplex);
+    return AttributeUpdate::execute(simplex);
 }
 
 } // namespace wmtk::operations

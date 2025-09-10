@@ -5,8 +5,8 @@ set(SRC_FILES
     AMIPSOptimizationSmoothingPeriodic.hpp
     AMIPSOptimizationSmoothingPeriodic.cpp
 
-    AttributesUpdate.hpp
-    AttributesUpdate.cpp
+    AttributeUpdate.hpp
+    AttributeUpdate.cpp
 
     AttributeTransferEdge.hpp
     AttributeTransferEdge.cpp

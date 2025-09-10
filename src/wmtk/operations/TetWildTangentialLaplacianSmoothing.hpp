@@ -1,12 +1,12 @@
 #pragma once
 
 #include <wmtk/utils/Rational.hpp>
-#include "AttributesUpdate.hpp"
+#include "AttributeUpdate.hpp"
 
 
 namespace wmtk::operations {
 
-class TetWildTangentialLaplacianSmoothing : public AttributesUpdate
+class TetWildTangentialLaplacianSmoothing : public AttributeUpdate
 {
 public:
     TetWildTangentialLaplacianSmoothing(

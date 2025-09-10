@@ -15,7 +15,7 @@ TetWildTangentialLaplacianSmoothing::TetWildTangentialLaplacianSmoothing(
     Mesh& m,
     const TypedAttributeHandle<Rational>& coordinate,
     double damping_factor)
-    : AttributesUpdate(m)
+    : AttributeUpdate(m)
     , m_coordinate_handle(coordinate)
     , m_damping_factor(damping_factor)
 {
@@ -92,7 +92,7 @@ std::vector<simplex::Simplex> TetWildTangentialLaplacianSmoothing::execute(
         Rational(new_pos[1], true),
         Rational(new_pos[2], true));
 
-    return AttributesUpdate::execute(simplex);
+    return AttributeUpdate::execute(simplex);
 }
 
 } // namespace wmtk::operations

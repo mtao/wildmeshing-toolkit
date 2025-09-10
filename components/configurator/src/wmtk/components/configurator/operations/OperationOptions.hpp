@@ -7,6 +7,7 @@
 #include "../invariants/InvariantOptions.hpp"
 #include "EdgeSwapMode.hpp"
 #include "PriorityOptions.hpp"
+#include "wmtk/components/multimesh/utils/AttributeDescription.hpp"
 
 namespace wmtk {
 namespace operations {
@@ -21,7 +22,7 @@ namespace wmtk::components::configurator::operations {
 
 struct OperationOptions
 {
-    OperationOptions();
+    OperationOptions(std::string_view type = {});
     OperationOptions(const OperationOptions&);
     OperationOptions(OperationOptions&&);
     OperationOptions& operator=(const OperationOptions&);
@@ -29,7 +30,6 @@ struct OperationOptions
     ~OperationOptions();
     // std::string name;
     std::string type;
-    std::string mesh_path;
     bool enabled = true;
     PriorityOptions priority;
     std::map<std::string, invariants::InvariantOptions> invariants;
@@ -44,9 +44,24 @@ struct OperationOptions
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(OperationOptions)
 };
 
+struct MeshOperationParameters
+{
+    MeshOperationParameters(std::string_view mp = {})
+        : mesh_path(std::string(mp))
+    {}
+    MeshOperationParameters(const MeshOperationParameters&) = default;
+    MeshOperationParameters(MeshOperationParameters&&) = default;
+    MeshOperationParameters& operator=(const MeshOperationParameters&) = default;
+    MeshOperationParameters& operator=(MeshOperationParameters&&) = default;
+    std::string mesh_path;
+    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeshOperationParameters)
+};
+
 struct EdgeSplitOptions : public OperationOptions
 {
-    EdgeSplitOptions();
+    MeshOperationParameters get_parameters() const;
+    void set_parameters(const MeshOperationParameters& p);
+    EdgeSplitOptions(std::string_view mesh_path = "");
     EdgeSplitOptions(const OperationOptions& o);
     EdgeSplitOptions(const EdgeSplitOptions&);
     EdgeSplitOptions(EdgeSplitOptions&&);
@@ -57,7 +72,9 @@ struct EdgeSplitOptions : public OperationOptions
 };
 struct EdgeCollapseOptions : public OperationOptions
 {
-    EdgeCollapseOptions();
+    MeshOperationParameters get_parameters() const;
+    void set_parameters(const MeshOperationParameters& p);
+    EdgeCollapseOptions(std::string_view mesh_path = "");
     EdgeCollapseOptions(const OperationOptions& o);
     EdgeCollapseOptions(const EdgeCollapseOptions&);
     EdgeCollapseOptions(EdgeCollapseOptions&&);
@@ -68,7 +85,7 @@ struct EdgeCollapseOptions : public OperationOptions
 };
 struct EdgeSwapOptions : public OperationOptions
 {
-    struct Parameters
+    struct Parameters : public MeshOperationParameters
     {
         EdgeSwapMode mode;
         std::map<std::string, invariants::InvariantOptions> split_invariants;
@@ -78,7 +95,7 @@ struct EdgeSwapOptions : public OperationOptions
     };
     Parameters get_parameters() const;
     void set_parameters(const Parameters& p);
-    EdgeSwapOptions();
+    EdgeSwapOptions(std::string_view mesh_path = "");
     EdgeSwapOptions(const OperationOptions& o);
     EdgeSwapOptions(const EdgeSwapOptions&);
     EdgeSwapOptions(EdgeSwapOptions&&);
@@ -90,25 +107,20 @@ struct EdgeSwapOptions : public OperationOptions
     constexpr static std::string type_name = "edge_swap";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EdgeSwapOptions)
 };
-struct VertexSmoothOptions : public OperationOptions
-{
-    VertexSmoothOptions();
-    VertexSmoothOptions(const OperationOptions& o);
-    VertexSmoothOptions(const VertexSmoothOptions&);
-    VertexSmoothOptions(VertexSmoothOptions&&);
-    VertexSmoothOptions& operator=(const VertexSmoothOptions&);
-    VertexSmoothOptions& operator=(VertexSmoothOptions&&);
-    constexpr static std::string type_name = "vertex_smooth";
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(VertexSmoothOptions)
-};
 struct AttributeUpdateOptions : public OperationOptions
 {
     struct Parameters
     {
-        bool project = false;
+        multimesh::utils::AttributeDescription attribute_path;
+        std::string function;
+        // if this value is set then a mesh to project to will be enabled
+        std::string projection_attribute;
         WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Parameters)
     };
-    AttributeUpdateOptions();
+
+    Parameters get_parameters() const;
+    void set_parameters(const Parameters& p);
+    AttributeUpdateOptions(std::string_view attribute_path = "");
     AttributeUpdateOptions(const OperationOptions& o);
     AttributeUpdateOptions(const AttributeUpdateOptions&);
     AttributeUpdateOptions(AttributeUpdateOptions&&);

@@ -8,7 +8,7 @@
 #include <wmtk/invariants/SimplexInversionInvariant.hpp>
 #include <wmtk/invariants/uvEdgeInvariant.hpp>
 #include <wmtk/multimesh/MultiMeshVisitor.hpp>
-#include <wmtk/operations/AttributesUpdate.hpp>
+#include <wmtk/operations/AttributeUpdate.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include <wmtk/operations/composite/ProjectOperation.hpp>
 #include <wmtk/operations/utils/VertexLaplacianSmooth.hpp>
@@ -36,7 +36,7 @@ void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
     // keeps.emplace_back(position);
 
     auto op_smooth = m_smooth;
-    // std::make_shared<operations::AttributesUpdateWithFunction>(mesh);
+    // std::make_shared<operations::AttributeUpdateWithFunction>(mesh);
 
     std::shared_ptr<wmtk::operations::composite::ProjectOperation> proj_op;
 
@@ -64,7 +64,7 @@ void IsotropicRemeshing::configure_smooth(const IsotropicRemeshingOptions& opts)
     // }
 
     if (auto with_func =
-            std::dynamic_pointer_cast<wmtk::operations::AttributesUpdateWithFunction>(op_smooth);
+            std::dynamic_pointer_cast<wmtk::operations::AttributeUpdateWithFunction>(op_smooth);
         bool(with_func)) {
         if (position.dimension() == 3 && mesh.top_simplex_type() == PrimitiveType::Triangle) {
             with_func->set_function(operations::VertexTangentialLaplacianSmooth(position));

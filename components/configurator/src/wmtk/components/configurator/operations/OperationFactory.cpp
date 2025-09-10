@@ -2,12 +2,18 @@
 #include <nlohmann/json.hpp>
 #include <ranges>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
-#include <wmtk/operations/AttributesUpdate.hpp>
+#include <wmtk/operations/AttributeUpdate.hpp>
+//
 #include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/EdgeSplit.hpp>
 #include <wmtk/operations/Operation.hpp>
+#include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
+#include <wmtk/operations/composite/ProjectOperation.hpp>
 #include <wmtk/operations/composite/TetEdgeSwap.hpp>
 #include <wmtk/operations/composite/TriEdgeSwap.hpp>
+#include <wmtk/operations/utils/VertexLaplacianSmooth.hpp>
+#include <wmtk/operations/utils/VertexTangentialLaplacianSmooth.hpp>
+//
 #include <wmtk/utils/Logger.hpp>
 #include "../Configurator.hpp"
 #include "OperationOptions.hpp"
@@ -21,8 +27,13 @@ std::shared_ptr<wmtk::operations::Operation> default_add_operation(
     Configurator& c,
     const nlohmann::json& js)
 {
+    spdlog::info("Getting opts");
     auto opts = js.template get<S>();
-    auto& m = c.get_mesh<MeshType>(opts.mesh_path);
+    spdlog::info("Getting params");
+    auto params = opts.get_parameters();
+    spdlog::info("Getting mesh");
+    auto& m = c.get_mesh<MeshType>(params.mesh_path);
+    spdlog::info("Making op");
     auto r = std::make_shared<T>(m);
 
     spdlog::info("Setting priority");
@@ -41,17 +52,17 @@ std::shared_ptr<wmtk::operations::Operation> add_swap_operation(
     const nlohmann::json& js)
 {
     auto opts = js.template get<EdgeSwapOptions>();
-    auto& m_ = c.get_mesh<wmtk::Mesh>(opts.mesh_path);
     auto params = opts.get_parameters();
+    auto& m_ = c.get_mesh<wmtk::Mesh>(params.mesh_path);
 
     int8_t dim = m_.top_cell_dimension();
     std::shared_ptr<wmtk::operations::composite::EdgeSwap> r;
     assert(dim == 2 || dim == 3);
     if (dim == 2) {
-        auto& m = c.get_mesh<wmtk::TriMesh>(opts.mesh_path);
+        auto& m = c.get_mesh<wmtk::TriMesh>(params.mesh_path);
         r = std::make_shared<wmtk::operations::composite::TriEdgeSwap>(m);
     } else {
-        auto& m = c.get_mesh<wmtk::TetMesh>(opts.mesh_path);
+        auto& m = c.get_mesh<wmtk::TetMesh>(params.mesh_path);
         r = std::make_shared<wmtk::operations::composite::TetEdgeSwap>(m);
     }
 
@@ -71,6 +82,48 @@ std::shared_ptr<wmtk::operations::Operation> add_swap_operation(
     return r;
 }
 
+
+template <typename Function>
+std::shared_ptr<wmtk::operations::AttributeUpdate> add_vertex_smooth_operation(
+    Configurator& c,
+    const nlohmann::json& js)
+{
+    auto opts = js.template get<AttributeUpdateOptions>();
+    auto params = opts.get_parameters();
+    auto attr = c.get_attribute(params.attribute_path);
+    auto& mesh = attr.mesh();
+
+    int8_t dim = mesh.top_cell_dimension();
+    std::shared_ptr<wmtk::operations::AttributeUpdate> r;
+    std::shared_ptr<wmtk::operations::AttributeUpdateWithFunction> op_smooth;
+
+
+    if (!params.projection_attribute.empty()) {
+        std::shared_ptr<wmtk::operations::composite::ProjectOperation> proj_op;
+        proj_op = std::make_shared<wmtk::operations::composite::ProjectOperation>(op_smooth);
+        auto proj_attr = c.get_attribute(params.attribute_path);
+        proj_op->add_constraint(proj_attr, proj_attr);
+        r = proj_op;
+    }
+
+
+    if (opts.priority) {
+        opts.priority.assign_to(c.meshes(), *r);
+    }
+    for (const auto& [name, inv] : opts.invariants) {
+        r->add_invariant(c.create_invariant(name, inv));
+    }
+    return r;
+}
+template <typename T>
+auto default_add_attribute(Configurator& c, const nlohmann::json& js)
+    -> wmtk::operations::AttributeUpdateWithFunction::UpdateFunction
+{
+    auto opts = js.template get<AttributeUpdateOptions>();
+    auto params = opts.get_parameters();
+    auto attr = c.get_attribute(params.attribute_path);
+    return T(attr);
+}
 } // namespace
 
 OperationFactory::OperationFactory()
@@ -78,8 +131,6 @@ OperationFactory::OperationFactory()
     add("edge_split", &default_add_operation<wmtk::operations::EdgeSplit, EdgeSplitOptions>);
     add("edge_collapse",
         &default_add_operation<wmtk::operations::EdgeCollapse, EdgeCollapseOptions>);
-    add("vertex_smooth",
-        &default_add_operation<wmtk::operations::AttributesUpdate, VertexSmoothOptions>);
     add("edge_swap2",
         &default_add_operation<
             wmtk::operations::composite::TriEdgeSwap,
@@ -92,9 +143,20 @@ OperationFactory::OperationFactory()
             wmtk::TetMesh>);
 
     add("edge_swap", &add_swap_operation);
-    // m_op_functors["attr_update"] =
-    //     &default_add_operation<wmtk::operations::AttributeUpdate, EdgeSwapOptions,
-    //     wmtk::TetMesh>;
+
+    add_attribute_function(
+        "vertex_smooth",
+        &default_add_attribute<wmtk::operations::VertexLaplacianSmooth>);
+
+    add_attribute_function(
+        "tangential_vertex_smooth",
+        &default_add_attribute<wmtk::operations::VertexTangentialLaplacianSmooth>);
+
+    // add("vertex_smooth",
+    //         &add_vertex_smooth_operation);
+    //  m_op_functors["attr_update"] =
+    //      &default_add_operation<wmtk::operations::AttributeUpdate, EdgeSwapOptions,
+    //      wmtk::TetMesh>;
 }
 
 std::vector<std::string> OperationFactory::known_operation_functors() const
@@ -104,6 +166,14 @@ std::vector<std::string> OperationFactory::known_operation_functors() const
     std::ranges::copy(tmp, std::back_inserter(ret));
     return ret;
 }
+std::vector<std::string> OperationFactory::known_attribute_update_functors() const
+{
+    auto tmp = std::views::transform(m_attr_op_functors, [](const auto& pr) { return pr.first; });
+    std::vector<std::string> ret;
+    std::ranges::copy(tmp, std::back_inserter(ret));
+    return ret;
+}
+
 std::vector<std::string> OperationFactory::known_operations() const
 {
     auto tmp = std::views::transform(m_ops, [](const auto& pr) { return pr.first; });
@@ -116,6 +186,17 @@ void OperationFactory::add(const std::string& s, const OpCreatorFunc& f)
     m_op_functors[s] = f;
     spdlog::warn("Added op functor \"{}\" among {} available", s, known_operation_functors());
 }
+void OperationFactory::add_attribute_function(
+    const std::string& s,
+    const AttrUpdateOpCreatorFunc& f)
+{
+    m_attr_op_functors[s] = f;
+    spdlog::warn(
+        "Added op functor \"{}\" among {} available",
+        s,
+        known_attribute_update_functors());
+}
+
 std::shared_ptr<wmtk::operations::Operation> OperationFactory::create(
     Configurator& config,
     const nlohmann::json& js)
@@ -130,14 +211,18 @@ OperationFactory::create(Configurator& config, std::string_view name, const nloh
     wmtk::logger().debug("Creating a {} operation named {}", js["type"].get<std::string>(), name);
     std::string type = js["type"];
     try {
-        auto r = m_op_functors.at(type)(config, js);
-        m_ops[std::string(name)] = {r,js};
+        spdlog::info("Getting functor");
+        const auto& f = m_op_functors.at(type);
+        spdlog::info("found functor, execing");
+        auto r = f(config, js);
+        m_ops[std::string(name)] = {r, js};
         return r;
     } catch (const std::exception& e) {
         spdlog::warn(
             "Was unable to create op functor \"{}\" among {} available: {}",
             type,
-            known_operation_functors(), e.what());
+            known_operation_functors(),
+            e.what());
         throw e;
     }
 }

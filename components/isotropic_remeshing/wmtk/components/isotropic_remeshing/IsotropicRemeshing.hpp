@@ -9,12 +9,12 @@ namespace wmtk {
 namespace operations {
 class EdgeCollapse;
 class EdgeSplit;
-class AttributesUpdate;
+class AttributeUpdate;
 namespace composite {
 class EdgeSwap;
 }
 class Operation;
-class AttributesUpdateWithFunction;
+class AttributeUpdateWithFunction;
 class AttributeTransferStsrategyBase;
 } // namespace operations
 namespace invariants {
@@ -90,7 +90,7 @@ private:
     std::shared_ptr<wmtk::operations::EdgeSplit> m_split;
     std::shared_ptr<wmtk::operations::EdgeCollapse> m_collapse;
     std::shared_ptr<wmtk::operations::composite::EdgeSwap> m_swap;
-    std::shared_ptr<wmtk::operations::AttributesUpdate> m_smooth;
+    std::shared_ptr<wmtk::operations::AttributeUpdate> m_smooth;
 
     std::vector<std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>>
         m_operation_transfers;

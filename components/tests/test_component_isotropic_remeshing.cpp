@@ -22,7 +22,7 @@
 #include <wmtk/multimesh/same_simplex_dimension_surjection.hpp>
 #include <wmtk/multimesh/utils/extract_child_mesh_from_tag.hpp>
 #include <wmtk/multimesh/utils/tuple_map_attribute_io.hpp>
-#include <wmtk/operations/AttributesUpdate.hpp>
+#include <wmtk/operations/AttributeUpdate.hpp>
 #include <wmtk/operations/EdgeCollapse.hpp>
 #include <wmtk/operations/EdgeSplit.hpp>
 #include <wmtk/operations/attribute_new/CollapseNewAttributeStrategy.hpp>
@@ -82,7 +82,7 @@ TEST_CASE("smoothing_mesh", "[components][isotropic_remeshing][2D]")
     wmtk::attribute::MeshAttributeHandle pos_attribute =
         m.get_attribute_handle<double>("vertices", PrimitiveType::Vertex);
 
-    AttributesUpdateWithFunction op(m);
+    AttributeUpdateWithFunction op(m);
     op.set_function(VertexLaplacianSmooth(pos_attribute));
 
     op.add_invariant(
@@ -125,7 +125,7 @@ TEST_CASE("smoothing_simple_examples", "[components][isotropic_remeshing][2D]")
         Tuple v4 = mesh.tuple_from_id(PrimitiveType::Vertex, 4);
         pos.vector_attribute(v4) = Eigen::Vector3d{0.6, 0.9, 0};
 
-        AttributesUpdateWithFunction op(mesh);
+        AttributeUpdateWithFunction op(mesh);
         op.set_function(VertexLaplacianSmooth(pos_attribute));
         op.add_invariant(
             std::make_shared<invariants::InteriorSimplexInvariant>(mesh, PrimitiveType::Vertex));
@@ -152,7 +152,7 @@ TEST_CASE("smoothing_simple_examples", "[components][isotropic_remeshing][2D]")
         pos.vector_attribute(v4) = Eigen::Vector3d{0.6, 0.9, 0};
         pos.vector_attribute(v5) = Eigen::Vector3d{1.4, -0.9, 0};
 
-        AttributesUpdateWithFunction op(mesh);
+        AttributeUpdateWithFunction op(mesh);
         op.set_function(VertexLaplacianSmooth(pos_attribute));
         op.add_invariant(
             std::make_shared<invariants::InteriorSimplexInvariant>(mesh, PrimitiveType::Vertex));
@@ -204,7 +204,7 @@ TEST_CASE("tangential_smoothing", "[components][isotropic_remeshing][2D]")
 
     pos.vector_attribute(v4) = p_init;
 
-    AttributesUpdateWithFunction op(mesh);
+    AttributeUpdateWithFunction op(mesh);
     op.set_function(VertexTangentialLaplacianSmooth(pos_attribute));
     op.add_invariant(
         std::make_shared<invariants::InteriorSimplexInvariant>(mesh, PrimitiveType::Vertex));
@@ -248,7 +248,7 @@ TEST_CASE("tangential_smoothing_boundary", "[components][isotropic_remeshing][2D
 
     pos.vector_attribute(v1) = p_init;
 
-    AttributesUpdateWithFunction op(mesh);
+    AttributeUpdateWithFunction op(mesh);
     op.set_function(VertexTangentialLaplacianSmooth(pos_attribute));
 
     const bool success = !op(Simplex::vertex(mesh, v1)).empty();

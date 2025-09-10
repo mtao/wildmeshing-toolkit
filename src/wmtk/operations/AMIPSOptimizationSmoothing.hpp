@@ -3,7 +3,7 @@
 #include <polysolve/Types.hpp>
 #include <wmtk/function/Function.hpp>
 #include <wmtk/function/simplex/AMIPS.hpp>
-#include "AttributesUpdate.hpp"
+#include "AttributeUpdate.hpp"
 
 
 namespace polysolve::nonlinear {
@@ -16,7 +16,7 @@ class Function;
 
 namespace wmtk::operations {
 
-class AMIPSOptimizationSmoothing : public AttributesUpdate
+class AMIPSOptimizationSmoothing : public AttributeUpdate
 {
 private:
     template <int S>

@@ -24,13 +24,17 @@
 
 namespace wmtk::components::isotropic_remeshing {
 
-IsotropicRemeshingOptions::IsotropicRemeshingOptions()
+IsotropicRemeshingOptions::IsotropicRemeshingOptions(): IsotropicRemeshingOptions("/vertices")
 {
+}
+
+IsotropicRemeshingOptions::IsotropicRemeshingOptions(const multimesh::utils::AttributeDescription& position_attr) {
     wmtk::components::configurator::transfer::init();
 
+    const std::string_view mesh_path = position_attr.mesh_path();
     operations["split"] = configurator::operations::EdgeSplitOptions{};
     operations["collapse"] = configurator::operations::EdgeCollapseOptions{};
-    operations["smooth"] = configurator::operations::VertexSmoothOptions{};
+    operations["smooth"] = configurator::operations::AttributeUpdateOptions{};
     // operations["swap"].add_alias_invariant("interior_simplex");
     operations["collapse"].add_alias_invariant("link_condition");
     operations["collapse"].add_alias_invariant("multimesh_valid_map");
@@ -175,7 +179,7 @@ IsotropicRemeshingOptions::get_collapse() const
 {
     return operations.at("collapse");
 }
-wmtk::components::configurator::operations::VertexSmoothOptions
+wmtk::components::configurator::operations::AttributeUpdateOptions
 IsotropicRemeshingOptions::get_smooth() const
 {
     return operations.at("smooth");
@@ -187,14 +191,23 @@ wmtk::components::configurator::operations::EdgeSwapOptions IsotropicRemeshingOp
 }
 void IsotropicRemeshingOptions::set_split(
     const wmtk::components::configurator::operations::EdgeSplitOptions& split)
-{}
+{
+    operations["split"] = split;
+}
 void IsotropicRemeshingOptions::set_collapse(
     const wmtk::components::configurator::operations::EdgeCollapseOptions& collapse)
-{}
+{
+    operations["collapse"] = collapse;
+}
 void IsotropicRemeshingOptions::set_smooth(
-    const wmtk::components::configurator::operations::VertexSmoothOptions& smooth)
-{}
+    const wmtk::components::configurator::operations::AttributeUpdateOptions& smooth)
+{
+    operations["smooth"] = smooth;
+}
 void IsotropicRemeshingOptions::set_swap(
     const wmtk::components::configurator::operations::EdgeSwapOptions& swap)
-{}
+{
+    operations["swap"] = swap;
+
+}
 } // namespace wmtk::components::isotropic_remeshing

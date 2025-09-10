@@ -72,6 +72,10 @@ struct AttributeDescription
         : AttributeDescription{str, std::optional<uint8_t>{}, {}}
     {}
 
+    std::string_view mesh_path() const;
+
+    // returns the path to a mesh from an attribute path
+    static std::string_view mesh_path(std::string_view attribute_path);
 
     std::optional<PrimitiveType> primitive_type() const;
 

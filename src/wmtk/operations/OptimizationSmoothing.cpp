@@ -156,7 +156,7 @@ bool OptimizationSmoothing::WMTKProblem<T>::is_step_valid(const TVector& x0, con
 
 
 OptimizationSmoothing::OptimizationSmoothing(std::shared_ptr<wmtk::function::Function> energy)
-    : AttributesUpdate(energy->mesh())
+    : AttributeUpdate(energy->mesh())
     , m_energy(energy)
 {
     m_linear_solver_params = R"({"solver": "Eigen::LDLT"})"_json;
@@ -192,7 +192,7 @@ std::vector<simplex::Simplex> OptimizationSmoothing::execute(const simplex::Simp
         }
 
 
-        return AttributesUpdate::execute(simplex);
+        return AttributeUpdate::execute(simplex);
     } else {
         assert(m_energy->attribute_handle().holds<Rational>());
         auto accessor = mesh().create_accessor(m_energy->attribute_handle().as<Rational>());
@@ -210,7 +210,7 @@ std::vector<simplex::Simplex> OptimizationSmoothing::execute(const simplex::Simp
         }
 
 
-        return AttributesUpdate::execute(simplex);
+        return AttributeUpdate::execute(simplex);
     }
 }
 
