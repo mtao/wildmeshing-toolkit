@@ -27,11 +27,10 @@ public:
     OperationFactory();
     using OpCreatorFunc = std::function<
         std::shared_ptr<wmtk::operations::Operation>(Configurator&, const nlohmann::json& js)>;
+    using AttributeUpdateFunction = wmtk::operations::AttributeUpdateWithFunction::UpdateFunction;
     using AttrUpdateOpCreatorFunc = std::function<
         // std::shared_ptr<wmtk::operations::AttributeUpdate>
-        wmtk::operations::AttributeUpdateWithFunction::UpdateFunction(
-            Configurator&,
-            const nlohmann::json& js)>;
+        AttributeUpdateFunction(const Configurator&, const nlohmann::json& js)>;
     // using AttrUpdateOpCreatorFunc = std::function<
     //     std::shared_ptr<wmtk::operations::AttributeUpdate>(Configurator&, const nlohmann::json&
     //     js)>;
@@ -46,6 +45,12 @@ public:
         const nlohmann::json& js);
     std::shared_ptr<wmtk::operations::Operation>
     create(Configurator& config, std::string_view name, const nlohmann::json& js);
+
+    auto create_attribute_update_function(
+        const Configurator& config,
+        std::string_view name,
+        const nlohmann::json& js) const -> AttributeUpdateFunction;
+
     std::shared_ptr<wmtk::operations::Operation> get(std::string_view name);
 
     std::string_view get_name(const wmtk::operations::Operation& op) const;

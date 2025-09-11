@@ -24,7 +24,7 @@
 
 namespace wmtk::components::isotropic_remeshing {
 
-IsotropicRemeshingOptions::IsotropicRemeshingOptions(): IsotropicRemeshingOptions("/vertices")
+IsotropicRemeshingOptions::IsotropicRemeshingOptions(): IsotropicRemeshingOptions(multimesh::utils::AttributeDescription("/vertices"))
 {
 }
 
@@ -32,15 +32,15 @@ IsotropicRemeshingOptions::IsotropicRemeshingOptions(const multimesh::utils::Att
     wmtk::components::configurator::transfer::init();
 
     const std::string_view mesh_path = position_attr.mesh_path();
-    operations["split"] = configurator::operations::EdgeSplitOptions{};
-    operations["collapse"] = configurator::operations::EdgeCollapseOptions{};
-    operations["smooth"] = configurator::operations::AttributeUpdateOptions{};
+    operations["split"] = configurator::operations::EdgeSplitOptions{mesh_path};
+    operations["collapse"] = configurator::operations::EdgeCollapseOptions{mesh_path};
+    operations["smooth"] = configurator::operations::AttributeUpdateOptions(position_attr);
     // operations["swap"].add_alias_invariant("interior_simplex");
     operations["collapse"].add_alias_invariant("link_condition");
     operations["collapse"].add_alias_invariant("multimesh_valid_map");
 
     {
-        auto so = configurator::operations::EdgeSwapOptions{};
+        auto so = configurator::operations::EdgeSwapOptions{mesh_path};
         auto sp = so.get_parameters();
         so.add_alias_invariant("valence_improvement");
         //sp.collapse_invariants["link_condition"] =
@@ -127,6 +127,8 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 {
+    multimesh::utils::AttributeDescription pos_attr = nlohmann_json_j["position_attribute"];
+    nlohmann_json_t = IsotropicRemeshingOptions(pos_attr);
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(IsotropicRemeshingOptions);
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(DEFAULT_PARSABLE_ARGS);
     from_json(nlohmann_json_j, static_cast<configurator::PassConfiguration&>(nlohmann_json_t));

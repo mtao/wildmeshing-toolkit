@@ -168,4 +168,9 @@ std::shared_ptr<wmtk::operations::Operation> Configurator::get_operation(std::st
 {
     return m_operations.get(std::string(name));
 }
+auto Configurator::create_attribute_update_function(std::string_view name, const nlohmann::json& js)
+    const -> operations::OperationFactory::AttributeUpdateFunction
+{
+    return m_operations.create_attribute_update_function(*this, name, js);
+}
 } // namespace wmtk::components::configurator

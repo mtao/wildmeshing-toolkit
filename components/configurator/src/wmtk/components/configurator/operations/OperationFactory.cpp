@@ -83,45 +83,52 @@ std::shared_ptr<wmtk::operations::Operation> add_swap_operation(
 }
 
 
-template <typename Function>
-std::shared_ptr<wmtk::operations::AttributeUpdate> add_vertex_smooth_operation(
+std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_function(
     Configurator& c,
     const nlohmann::json& js)
 {
     auto opts = js.template get<AttributeUpdateOptions>();
     auto params = opts.get_parameters();
-    auto attr = c.get_attribute(params.attribute_path);
+    auto attr = c.get_attribute(params.attribute);
     auto& mesh = attr.mesh();
 
     int8_t dim = mesh.top_cell_dimension();
     std::shared_ptr<wmtk::operations::AttributeUpdate> r;
-    std::shared_ptr<wmtk::operations::AttributeUpdateWithFunction> op_smooth;
+    std::shared_ptr<wmtk::operations::AttributeUpdateWithFunction> op_smooth =
+        std::make_shared<wmtk::operations::AttributeUpdateWithFunction>(mesh);
+
+    spdlog::info("Setting function");
+    op_smooth->set_function(c.create_attribute_update_function(params.function));
 
 
     if (!params.projection_attribute.empty()) {
+        spdlog::info("Trying to make projection attribute");
         std::shared_ptr<wmtk::operations::composite::ProjectOperation> proj_op;
         proj_op = std::make_shared<wmtk::operations::composite::ProjectOperation>(op_smooth);
-        auto proj_attr = c.get_attribute(params.attribute_path);
+        auto proj_attr = c.get_attribute(params.attribute);
         proj_op->add_constraint(proj_attr, proj_attr);
         r = proj_op;
     }
 
 
+    spdlog::info("Setting priority");
+
     if (opts.priority) {
         opts.priority.assign_to(c.meshes(), *r);
     }
+    spdlog::info("Creating attributes");
     for (const auto& [name, inv] : opts.invariants) {
         r->add_invariant(c.create_invariant(name, inv));
     }
     return r;
 }
 template <typename T>
-auto default_add_attribute(Configurator& c, const nlohmann::json& js)
+auto default_add_attribute(const Configurator& c, const nlohmann::json& js)
     -> wmtk::operations::AttributeUpdateWithFunction::UpdateFunction
 {
     auto opts = js.template get<AttributeUpdateOptions>();
     auto params = opts.get_parameters();
-    auto attr = c.get_attribute(params.attribute_path);
+    auto attr = c.get_attribute(params.attribute);
     return T(attr);
 }
 } // namespace
@@ -154,9 +161,7 @@ OperationFactory::OperationFactory()
 
     // add("vertex_smooth",
     //         &add_vertex_smooth_operation);
-    //  m_op_functors["attr_update"] =
-    //      &default_add_operation<wmtk::operations::AttributeUpdate, EdgeSwapOptions,
-    //      wmtk::TetMesh>;
+    add("attr_update", &default_add_attribute_update_function);
 }
 
 std::vector<std::string> OperationFactory::known_operation_functors() const
@@ -223,6 +228,7 @@ OperationFactory::create(Configurator& config, std::string_view name, const nloh
             type,
             known_operation_functors(),
             e.what());
+        spdlog::warn("Json was \n{}", js.dump(2));
         throw e;
     }
 }
@@ -272,6 +278,23 @@ std::vector<OperationOptions> OperationFactory::get_options(const Configurator& 
         }
     }
     return opts;
+}
+
+auto OperationFactory::create_attribute_update_function(
+    const Configurator& config,
+    std::string_view name,
+    const nlohmann::json& js) const -> AttributeUpdateFunction
+{
+    try {
+        return m_attr_op_functors.at(std::string(name))(config, js);
+    } catch (std::out_of_range& err) {
+        logger().error(
+            "Could not find attr update function \"{}\" among [{}]. Json was {}",
+            name,
+            known_attribute_update_functors(),
+            js.dump());
+        throw err;
+    }
 }
 
 } // namespace wmtk::components::configurator::operations
