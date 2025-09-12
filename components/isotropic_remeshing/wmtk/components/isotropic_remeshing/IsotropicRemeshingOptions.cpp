@@ -34,7 +34,7 @@ IsotropicRemeshingOptions::IsotropicRemeshingOptions(const multimesh::utils::Att
     const std::string_view mesh_path = position_attr.mesh_path();
     operations["split"] = configurator::operations::EdgeSplitOptions{mesh_path};
     operations["collapse"] = configurator::operations::EdgeCollapseOptions{mesh_path};
-    operations["smooth"] = configurator::operations::AttributeUpdateOptions(position_attr);
+    operations["smooth"] = configurator::operations::AttributeUpdateOptions(position_attr, "vertex_smooth");
     // operations["swap"].add_alias_invariant("interior_simplex");
     operations["collapse"].add_alias_invariant("link_condition");
     operations["collapse"].add_alias_invariant("multimesh_valid_map");

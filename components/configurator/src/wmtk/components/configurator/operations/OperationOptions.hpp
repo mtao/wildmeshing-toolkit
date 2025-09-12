@@ -121,7 +121,7 @@ struct AttributeUpdateOptions : public OperationOptions
 
     Parameters get_parameters() const;
     void set_parameters(const Parameters& p);
-    AttributeUpdateOptions(const multimesh::utils::AttributeDescription& attr = {});
+    AttributeUpdateOptions(const multimesh::utils::AttributeDescription& attr = {}, std::string_view function_name = {});
     AttributeUpdateOptions(const OperationOptions& o);
     AttributeUpdateOptions(const AttributeUpdateOptions&);
     AttributeUpdateOptions(AttributeUpdateOptions&&);

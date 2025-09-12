@@ -257,10 +257,11 @@ VertexSmoothOptions& VertexSmoothOptions::operator=(const VertexSmoothOptions&) 
 VertexSmoothOptions& VertexSmoothOptions::operator=(VertexSmoothOptions&&) = default;
 */
 
-AttributeUpdateOptions::AttributeUpdateOptions(const multimesh::utils::AttributeDescription& attr): OperationOptions(type_name)
+AttributeUpdateOptions::AttributeUpdateOptions(const multimesh::utils::AttributeDescription& attr, std::string_view function_name): OperationOptions(type_name)
 {
     Parameters p;
     p.attribute = attr;
+    p.function = function_name;
     set_parameters(p);
 
 }
