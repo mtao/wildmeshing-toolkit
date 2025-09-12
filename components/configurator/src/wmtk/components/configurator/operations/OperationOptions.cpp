@@ -1,7 +1,6 @@
 #include "OperationOptions.hpp"
 // #include "PriorityOptions.hpp"
 #include <fmt/format.h>
-#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
@@ -26,7 +25,6 @@ void OperationOptions::add_alias_invariant(std::string_view name, std::string_vi
     invariants::InvariantOptions inv{
         "alias",
         invariants::AliasInvariantParameters{std::string(original_name)}};
-    spdlog::info("Creating an alias invariant {}", nlohmann::json(inv).dump());
     invariants[std::string(name)] = nlohmann::json(inv);
 }
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
@@ -173,7 +171,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeUpdateOptions)
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute);
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute, function);
     if (!nlohmann_json_t.projection_attribute.empty()) {
         nlohmann_json_j["projection_attribute"] = nlohmann_json_t.projection_attribute;
     }
@@ -181,7 +179,7 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters)
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute, function);
     if (nlohmann_json_j.contains("projection_attribute")) {
         nlohmann_json_t.projection_attribute = nlohmann_json_j["projection_attribute"];
     }
@@ -227,7 +225,8 @@ EdgeCollapseOptions::EdgeCollapseOptions(EdgeCollapseOptions&&) = default;
 EdgeCollapseOptions& EdgeCollapseOptions::operator=(const EdgeCollapseOptions&) = default;
 EdgeCollapseOptions& EdgeCollapseOptions::operator=(EdgeCollapseOptions&&) = default;
 
-EdgeSwapOptions::EdgeSwapOptions(std::string_view mesh_name): OperationOptions(type_name)
+EdgeSwapOptions::EdgeSwapOptions(std::string_view mesh_name)
+    : OperationOptions(type_name)
 {
     set_parameters(Parameters(mesh_name));
 }
@@ -257,13 +256,15 @@ VertexSmoothOptions& VertexSmoothOptions::operator=(const VertexSmoothOptions&) 
 VertexSmoothOptions& VertexSmoothOptions::operator=(VertexSmoothOptions&&) = default;
 */
 
-AttributeUpdateOptions::AttributeUpdateOptions(const multimesh::utils::AttributeDescription& attr, std::string_view function_name): OperationOptions(type_name)
+AttributeUpdateOptions::AttributeUpdateOptions(
+    const multimesh::utils::AttributeDescription& attr,
+    std::string_view function_name)
+    : OperationOptions(type_name)
 {
     Parameters p;
     p.attribute = attr;
     p.function = function_name;
     set_parameters(p);
-
 }
 AttributeUpdateOptions::AttributeUpdateOptions(const OperationOptions& o)
     : OperationOptions(o)

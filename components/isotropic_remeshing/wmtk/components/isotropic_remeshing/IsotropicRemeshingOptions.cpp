@@ -51,6 +51,8 @@ IsotropicRemeshingOptions::IsotropicRemeshingOptions(const multimesh::utils::Att
         so.set_parameters(sp);
         operations["swap"] = so;
     }
+    spdlog::error("OPERATIONS\n{}",nlohmann::json(operations).dump(2));
+    spdlog::info("{}",nlohmann::json(configurator::operations::AttributeUpdateOptions(position_attr, "vertex_smooth")).dump(2));
 }
 namespace {
 

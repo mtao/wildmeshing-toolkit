@@ -155,6 +155,7 @@ template <typename T>
 auto Configurator::get_operation(std::string_view op_name) -> std::shared_ptr<T>
 {
     auto basic_ptr = get_operation_internal(op_name);
+    assert(bool(basic_ptr));
 
     auto ptr = std::dynamic_pointer_cast<T>(basic_ptr);
     if (!bool(ptr)) {

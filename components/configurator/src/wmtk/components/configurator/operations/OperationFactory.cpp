@@ -87,8 +87,11 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
     Configurator& c,
     const nlohmann::json& js)
 {
+    spdlog::info("As attr");
     auto opts = js.template get<AttributeUpdateOptions>();
+    spdlog::info("As params");
     auto params = opts.get_parameters();
+    spdlog::info("As attr");
     auto attr = c.get_attribute(params.attribute);
     auto& mesh = attr.mesh();
 
@@ -98,7 +101,7 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
         std::make_shared<wmtk::operations::AttributeUpdateWithFunction>(mesh);
 
     spdlog::info("Setting function");
-    op_smooth->set_function(c.create_attribute_update_function(params.function));
+    op_smooth->set_function(c.create_attribute_update_function(params.function, params));
 
 
     if (!params.projection_attribute.empty()) {
@@ -108,6 +111,8 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
         auto proj_attr = c.get_attribute(params.attribute);
         proj_op->add_constraint(proj_attr, proj_attr);
         r = proj_op;
+    } else {
+        r = op_smooth;
     }
 
 
@@ -120,14 +125,14 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
     for (const auto& [name, inv] : opts.invariants) {
         r->add_invariant(c.create_invariant(name, inv));
     }
+    assert(bool(r));
     return r;
 }
 template <typename T>
 auto default_add_attribute(const Configurator& c, const nlohmann::json& js)
     -> wmtk::operations::AttributeUpdateWithFunction::UpdateFunction
 {
-    auto opts = js.template get<AttributeUpdateOptions>();
-    auto params = opts.get_parameters();
+    auto params = js.template get<AttributeUpdateOptions::Parameters>();
     auto attr = c.get_attribute(params.attribute);
     return T(attr);
 }
@@ -220,6 +225,7 @@ OperationFactory::create(Configurator& config, std::string_view name, const nloh
         const auto& f = m_op_functors.at(type);
         spdlog::info("found functor, execing");
         auto r = f(config, js);
+        assert(bool(r));
         m_ops[std::string(name)] = {r, js};
         return r;
     } catch (const std::exception& e) {
@@ -286,6 +292,7 @@ auto OperationFactory::create_attribute_update_function(
     const nlohmann::json& js) const -> AttributeUpdateFunction
 {
     try {
+        spdlog::info("{} {}", name, js.dump());
         return m_attr_op_functors.at(std::string(name))(config, js);
     } catch (std::out_of_range& err) {
         logger().error(
