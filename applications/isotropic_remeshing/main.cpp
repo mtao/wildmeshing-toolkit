@@ -6,6 +6,7 @@
 #include <wmtk/applications/utils/element_count_report.hpp>
 #include <wmtk/applications/utils/get_integration_test_data_root.hpp>
 #include <wmtk/applications/utils/parse_jse.hpp>
+#include <wmtk/applications/utils/read_inputs.hpp>
 #include <wmtk/components/input/InputOptions.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/MultimeshOptions.hpp>
@@ -24,6 +25,7 @@
 #include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/output/output.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
+
 
 #include "spec.hpp"
 
@@ -88,47 +90,23 @@ int main(int argc, char* argv[])
     // Parse input path util
     // =====================
     components::utils::PathResolver path_resolver;
+    std::filesystem::path additional_paths;
 
-    if (j.contains(root_attribute_name)) {
-        path_resolver = j[root_attribute_name];
-    }
     if (!json_integration_config_file.empty()) {
         auto path = wmtk::applications::utils::get_integration_test_data_root(
             json_integration_config_file,
             argv[0]);
-        path_resolver.add_path(path);
+        additional_paths.emplace_back(path);
     }
-    path_resolver.add_path(json_input_file.parent_path());
+    additional_paths.emplace_back(json_input_file.parent_path());
+
 
     // =====================
     // Parse input path json
     // =====================
-    const auto& input_js = j["input"];
 
-    wmtk::components::multimesh::MeshCollection mc;
-
-    auto add = [&](const auto& my_input_js) {
-        auto input_opts = my_input_js.template get<wmtk::components::input::InputOptions>();
-        auto& named_mesh = mc.add_mesh(wmtk::components::input::input(input_opts, path_resolver));
-
-        if (my_input_js.contains("multimesh")) {
-            const nlohmann::ordered_json mm_js = my_input_js["multimesh"];
-            if (mm_js.is_array()) {
-                for (const auto& single_mm : mm_js) {
-                    wmtk::components::multimesh::multimesh(mc, single_mm);
-                }
-            } else {
-                wmtk::components::multimesh::multimesh(mc, mm_js);
-            }
-        }
-    };
-    if (input_js.is_array()) {
-        for (const auto& js : input_js) {
-            add(js);
-        }
-    } else {
-        add(input_js);
-    }
+    wmtk::components::multimesh::MeshCollection mc =
+        wmtk::applications::utils::parse_inputs(js, "input", root_attribute_name, additional_paths);
 
 
     if (!mc.is_valid()) {
