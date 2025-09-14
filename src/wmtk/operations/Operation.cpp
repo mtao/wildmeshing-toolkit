@@ -61,6 +61,8 @@ void Operation::optimize_invariants()
 }
 
 
+void Operation::clear_attribute_new_strategy(const attribute::MeshAttributeHandle&) {}
+
 std::shared_ptr<const operations::AttributeTransferStrategyBase> Operation::get_transfer_strategy(
     const attribute::MeshAttributeHandle& attribute)
 {
@@ -86,6 +88,7 @@ void Operation::set_transfer_strategy(
 
     for (auto& s : m_attr_transfer_strategies) {
         if (s->matches_attribute(attribute)) {
+            clear_attribute_new_strategy(attribute);
             s = other;
             return;
         }
@@ -102,7 +105,6 @@ void Operation::add_transfer_strategy(
 
 std::vector<simplex::Simplex> Operation::operator()(const simplex::Simplex& simplex)
 {
-
     if (!before(simplex)) {
         return {};
     }
@@ -181,7 +183,7 @@ bool Operation::after(
     const std::vector<simplex::Simplex>& unmods,
     const std::vector<simplex::Simplex>& mods) const
 {
-    //TRACE_EVENT("operation", "Operation::after");
+// TRACE_EVENT("operation", "Operation::after");
 #if !defined(NDEBUG)
     const Mesh& invariant_mesh = m_after_invariants.mesh();
 

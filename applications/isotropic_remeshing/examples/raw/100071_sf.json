@@ -15,18 +15,18 @@
                 "creation_attributes": 
                 [
                     {
-                        "attribute_path": "main/normal",
-                        "base_attribute_path": "main/vertices",
+                        "attribute": "main/normal",
+                        "base_attribute": "main/vertices",
                         "type": "normal"
                     },
                     {
-                        "attribute_path": "main/edge_angle",
-                        "base_attribute_path": "main/normal",
+                        "attribute": "main/edge_angle",
+                        "base_attribute": "main/normal",
                         "type": "edge_angle"
                     },
                     {
-                        "attribute_path": "main/high_edge_angle",
-                        "base_attribute_path": "main/edge_angle",
+                        "attribute": "main/high_edge_angle",
+                        "base_attribute": "main/edge_angle",
                         "parameters": {
                             "over": 1.5
                         },
@@ -63,15 +63,15 @@
     "utility_attributes": [
         { 
             "type": "edge_length",
-            "attribute_path": "main/edge_length",
-            "base_attribute_path": "main/vertices"
+            "attribute": "main/edge_length",
+            "base_attribute": "main/vertices"
         }
     ],
     "collapse": {
         "enabled": true,
         "priority": {
             "type": "attribute",
-            "attribute_path": "main/edge_length"
+            "attribute": "main/edge_length"
         }
     },
     "split": {

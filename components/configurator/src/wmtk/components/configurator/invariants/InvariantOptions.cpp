@@ -8,8 +8,8 @@ InvariantOptions::InvariantOptions(const InvariantOptions& o) = default;
 InvariantOptions::InvariantOptions(InvariantOptions&&) = default;
 InvariantOptions& InvariantOptions::operator=(const InvariantOptions&) = default;
 InvariantOptions& InvariantOptions::operator=(InvariantOptions&&) = default;
-InvariantOptions::InvariantOptions(const std::string& type, const nlohmann::json& params)
-    : type(type)
+InvariantOptions::InvariantOptions(const std::string& t, const nlohmann::json& params)
+    : type(t)
     , parameters(params)
 {}
 

@@ -3,6 +3,8 @@
 #include "wmtk/components/input/InputOptions.hpp"
 #include "wmtk/components/input/input.hpp"
 #include "wmtk/components/utils/PathResolver.hpp"
+#include <wmtk/components/multimesh/MultimeshOptions.hpp>
+#include <wmtk/components/multimesh/multimesh.hpp>
 namespace wmtk::applications::utils {
 
 components::multimesh::MeshCollection read_inputs(
@@ -31,10 +33,10 @@ components::multimesh::MeshCollection read_inputs(
             const nlohmann::ordered_json mm_js = my_input_js["multimesh"];
             if (mm_js.is_array()) {
                 for (const auto& single_mm : mm_js) {
-                    wmtk::components::multimesh::multimesh(mc, single_mm);
+                    wmtk::components::multimesh::multimesh(meshes, single_mm);
                 }
             } else {
-                wmtk::components::multimesh::multimesh(mc, mm_js);
+                wmtk::components::multimesh::multimesh(meshes, mm_js);
             }
         }
     };

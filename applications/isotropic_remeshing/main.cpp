@@ -14,7 +14,6 @@
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
-#include "wmtk/components/utils/PathResolver.hpp"
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
@@ -27,7 +26,6 @@
 #include <wmtk/components/utils/resolve_path.hpp>
 
 
-#include "spec.hpp"
 
 using namespace wmtk::components;
 using namespace wmtk;
@@ -89,8 +87,7 @@ int main(int argc, char* argv[])
     // =====================
     // Parse input path util
     // =====================
-    components::utils::PathResolver path_resolver;
-    std::filesystem::path additional_paths;
+    std::vector<std::filesystem::path> additional_paths;
 
     if (!json_integration_config_file.empty()) {
         auto path = wmtk::applications::utils::get_integration_test_data_root(
@@ -106,7 +103,7 @@ int main(int argc, char* argv[])
     // =====================
 
     wmtk::components::multimesh::MeshCollection mc =
-        wmtk::applications::utils::parse_inputs(js, "input", root_attribute_name, additional_paths);
+        wmtk::applications::utils::read_inputs(j, "input", root_attribute_name, additional_paths);
 
 
     if (!mc.is_valid()) {
@@ -120,8 +117,8 @@ int main(int argc, char* argv[])
     wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions options = j;
 
     spdlog::info("filling in mesh attributes");
-    if (input_js.contains("improvement_attributes")) {
-        for (const auto& attribute : input_js["improvement_attributes"]) {
+    if (j.contains("improvement_attributes")) {
+        for (const auto& attribute : j["improvement_attributes"]) {
             options.improvement_attributes.emplace_back(
                 wmtk::components::multimesh::utils::get_attribute(mc, attribute));
         }

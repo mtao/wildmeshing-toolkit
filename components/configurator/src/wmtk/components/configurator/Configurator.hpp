@@ -115,6 +115,9 @@ private:
     operations::OperationFactory m_operations;
     invariants::InvariantFactory m_invariants;
 
+    std::vector<std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>>
+        m_operation_transfers;
+
     std::vector<Pass> m_passes;
 };
 

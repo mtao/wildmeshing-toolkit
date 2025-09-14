@@ -7,16 +7,17 @@ SingleAttributeTransferStrategyFactoryBase::~SingleAttributeTransferStrategyFact
 
 void SingleAttributeTransferStrategyFactoryBase::to_json(nlohmann::json& j) const
 {
-    j["attribute_path"] = attribute_path;
+    j["attribute"] = attribute;
     j["type"] = type;
-    j["base_attribute_path"] = base_attribute_path;
+    j["base_attribute"] = base_attribute;
     j["parameters"] = parameters;
 }
 void SingleAttributeTransferStrategyFactoryBase::from_json(const nlohmann::json& j)
 {
-    attribute_path = j["attribute_path"];
+    spdlog::info("{}", j.dump());
+    attribute = j["attribute"];
     type = j["type"];
-    base_attribute_path = j["base_attribute_path"].get<std::string>();
+    base_attribute = j["base_attribute"];
     if (j.contains("parameters")) {
         parameters = j["parameters"];
     }

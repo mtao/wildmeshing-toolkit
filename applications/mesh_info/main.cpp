@@ -265,8 +265,8 @@ int main(int argc, char* argv[])
         auto& attr_js = js["attributes"];
         for (const auto& attr : attrs) {
             nlohmann::json a_js;
-            a_js["attribute_path"] = attr;
-            a_js["base_attribute_path"] = position;
+            a_js["attribute"] = attr;
+            a_js["base_attribute"] = position;
             a_js["type"] = attr;
             util_attr_js.emplace_back(a_js);
             attr_js[attr] = "all";

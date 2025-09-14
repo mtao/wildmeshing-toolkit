@@ -73,6 +73,9 @@ void Configurator::load(const PassConfiguration& config)
         m_operations.create(*this, n, o);
     }
 
+    for (const auto& transfer : config.transfers) {
+        m_operation_transfers.emplace_back(transfer->create(meshes()));
+    }
 
     for (const auto& p : config.passes) {
         m_passes.emplace_back(*this, p);

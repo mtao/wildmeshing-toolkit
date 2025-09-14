@@ -55,6 +55,7 @@ public:
     std::shared_ptr<const operations::AttributeTransferStrategyBase> get_transfer_strategy(
         const attribute::MeshAttributeHandle& attribute);
 
+    virtual void clear_attribute_new_strategy(const attribute::MeshAttributeHandle& h);
 
     void add_transfer_strategy(
         const std::shared_ptr<const operations::AttributeTransferStrategyBase>& other);

@@ -12,7 +12,7 @@
     "collapse": {
       "enabled": true,
       "priority": {
-        "attribute_path": "pos/edge_length",
+        "attribute": "pos/edge_length",
         "type": "attribute"
       }
     },
@@ -48,8 +48,8 @@
     "use_for_periodic": false,
     "utility_attributes": [
       {
-        "attribute_path": "pos/edge_length",
-        "base_attribute_path": "pos/vertices",
+        "attribute": "pos/edge_length",
+        "base_attribute": "pos/vertices",
         "type": "edge_length"
       }
     ],

@@ -169,12 +169,12 @@ int main(int argc, char* argv[])
         auto mean_error =
             std::make_shared<wmtk::components::configurator::operations::PriorityOptions>();
         mean_error->type = "attribute";
-        mean_error->attribute_path = "fused/min_mean_area_measure";
+        mean_error->attribute = {"fused/min_mean_area_measure"};
 
         auto edge_length =
             std::make_shared<wmtk::components::configurator::operations::PriorityOptions>();
         edge_length->type = "attribute";
-        edge_length->attribute_path = "fused/edge_length";
+        edge_length->attribute = {"fused/edge_length"};
 
         //collapse_opts.priority = edge_length;
         //swap_opts.priority = mean_error;
@@ -184,18 +184,18 @@ int main(int argc, char* argv[])
         {
             auto el = std::make_shared<wmtk::components::configurator::transfer::EdgeLength>();
             el->type = "edge_length";
-            el->attribute_path = "fused/edge_length";
-            el->base_attribute_path = "fused/vertices";
+            el->attribute = {"fused/edge_length"};
+            el->base_attribute = {"fused/vertices"};
 
             auto mrm = std::make_shared<wmtk::components::configurator::transfer::MeanRatioMeasure>();
             mrm->type = "mean_ratio_transfer";
-            mrm->attribute_path = "fused/mean_area_measure";
-            mrm->base_attribute_path = "fused/vertices";
+            mrm->attribute = {"fused/mean_area_measure"};
+            mrm->base_attribute = {"fused/vertices"};
             auto min_mrm = std::make_shared<wmtk::components::configurator::transfer::MinNeighbor>();
             min_mrm->type = "min";
-            min_mrm->attribute_path = "fused/min_mean_area_measure";
+            min_mrm->attribute = {"fused/min_mean_area_measure"};
             min_mrm->parameters["simplex_dimension"] = 1;
-            min_mrm->base_attribute_path = "fused/mean_area_measure";
+            min_mrm->base_attribute = {"fused/mean_area_measure"};
             opts.utility_attributes.emplace_back(el);
             opts.utility_attributes.emplace_back(mrm);
             opts.utility_attributes.emplace_back(min_mrm);
