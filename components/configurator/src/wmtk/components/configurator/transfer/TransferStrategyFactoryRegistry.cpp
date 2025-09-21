@@ -1,5 +1,7 @@
 #include "TransferStrategyFactoryRegistry.hpp"
 #include <nlohmann/json.hpp>
+#include <ranges>
+#include <wmtk/utils/Logger.hpp>
 #include "TransferStrategyFactory.hpp"
 
 namespace wmtk::components::configurator::transfer {
@@ -18,6 +20,19 @@ std::shared_ptr<TransferStrategyFactory> TransferStrategyFactoryRegistry::create
     const std::string_view& name,
     const nlohmann::json& js) const
 {
-    return m_map.at(std::string(name))(js);
+    try {
+        return m_map.at(std::string(name))(js);
+    } catch (const std::out_of_range& err) {
+        auto r = m_map | std::views::transform([](const auto& s) { return s.first; });
+        wmtk::logger().error(
+            "Could not find \"{}\" in transfer registry, which had [{}] available",
+            name,
+            r);
+
+        throw err;
+    } catch (const std::exception& err) {
+        wmtk::logger().error("Failed to create transfer \"{}\" got error [{}]", name, err.what());
+        throw err;
+    }
 }
 } // namespace wmtk::components::configurator::transfer

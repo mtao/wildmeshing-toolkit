@@ -27,22 +27,15 @@ std::shared_ptr<wmtk::operations::Operation> default_add_operation(
     Configurator& c,
     const nlohmann::json& js)
 {
-    spdlog::info("Getting opts");
     auto opts = js.template get<S>();
-    spdlog::info("Getting params");
     auto params = opts.get_parameters();
-    spdlog::info("Getting mesh");
     auto& m = c.get_mesh<MeshType>(params.mesh_path);
-    spdlog::info("Making op");
     auto r = std::make_shared<T>(m);
 
-    spdlog::info("Setting priority");
     if (opts.priority) {
         opts.priority.assign_to(c.meshes(), *r);
     }
-    spdlog::info("Setting invariants");
     for (const auto& [name, inv] : opts.invariants) {
-        spdlog::info("Fetching {} {}", name, nlohmann::json(inv).dump());
         r->add_invariant(c.create_invariant(name, inv));
     }
     return r;
@@ -83,28 +76,33 @@ std::shared_ptr<wmtk::operations::Operation> add_swap_operation(
 }
 
 
-template <typename Function>
-std::shared_ptr<wmtk::operations::AttributeUpdate> add_vertex_smooth_operation(
+std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_function(
     Configurator& c,
     const nlohmann::json& js)
 {
     auto opts = js.template get<AttributeUpdateOptions>();
     auto params = opts.get_parameters();
-    auto attr = c.get_attribute(params.attribute_path);
+    auto attr = c.get_attribute(params.attribute);
     auto& mesh = attr.mesh();
 
     int8_t dim = mesh.top_cell_dimension();
     std::shared_ptr<wmtk::operations::AttributeUpdate> r;
-    std::shared_ptr<wmtk::operations::AttributeUpdateWithFunction> op_smooth;
+    std::shared_ptr<wmtk::operations::AttributeUpdateWithFunction> op_smooth =
+        std::make_shared<wmtk::operations::AttributeUpdateWithFunction>(mesh);
+
+    op_smooth->set_function(c.create_attribute_update_function(params.function, params));
 
 
     if (!params.projection_attribute.empty()) {
         std::shared_ptr<wmtk::operations::composite::ProjectOperation> proj_op;
         proj_op = std::make_shared<wmtk::operations::composite::ProjectOperation>(op_smooth);
-        auto proj_attr = c.get_attribute(params.attribute_path);
+        auto proj_attr = c.get_attribute(params.attribute);
         proj_op->add_constraint(proj_attr, proj_attr);
         r = proj_op;
+    } else {
+        r = op_smooth;
     }
+
 
 
     if (opts.priority) {
@@ -113,15 +111,15 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> add_vertex_smooth_operation(
     for (const auto& [name, inv] : opts.invariants) {
         r->add_invariant(c.create_invariant(name, inv));
     }
+    assert(bool(r));
     return r;
 }
 template <typename T>
-auto default_add_attribute(Configurator& c, const nlohmann::json& js)
+auto default_add_attribute(const Configurator& c, const nlohmann::json& js)
     -> wmtk::operations::AttributeUpdateWithFunction::UpdateFunction
 {
-    auto opts = js.template get<AttributeUpdateOptions>();
-    auto params = opts.get_parameters();
-    auto attr = c.get_attribute(params.attribute_path);
+    auto params = js.template get<AttributeUpdateOptions::Parameters>();
+    auto attr = c.get_attribute(params.attribute);
     return T(attr);
 }
 } // namespace
@@ -154,9 +152,7 @@ OperationFactory::OperationFactory()
 
     // add("vertex_smooth",
     //         &add_vertex_smooth_operation);
-    //  m_op_functors["attr_update"] =
-    //      &default_add_operation<wmtk::operations::AttributeUpdate, EdgeSwapOptions,
-    //      wmtk::TetMesh>;
+    add("attr_update", &default_add_attribute_update_function);
 }
 
 std::vector<std::string> OperationFactory::known_operation_functors() const
@@ -184,14 +180,14 @@ std::vector<std::string> OperationFactory::known_operations() const
 void OperationFactory::add(const std::string& s, const OpCreatorFunc& f)
 {
     m_op_functors[s] = f;
-    spdlog::warn("Added op functor \"{}\" among {} available", s, known_operation_functors());
+    logger().debug("Added op functor \"{}\" among {} available", s, known_operation_functors());
 }
 void OperationFactory::add_attribute_function(
     const std::string& s,
     const AttrUpdateOpCreatorFunc& f)
 {
     m_attr_op_functors[s] = f;
-    spdlog::warn(
+    logger().debug(
         "Added op functor \"{}\" among {} available",
         s,
         known_attribute_update_functors());
@@ -207,22 +203,21 @@ std::shared_ptr<wmtk::operations::Operation> OperationFactory::create(
 std::shared_ptr<wmtk::operations::Operation>
 OperationFactory::create(Configurator& config, std::string_view name, const nlohmann::json& js)
 {
-    // spdlog::info("{}", js.dump(2));
     wmtk::logger().debug("Creating a {} operation named {}", js["type"].get<std::string>(), name);
     std::string type = js["type"];
     try {
-        spdlog::info("Getting functor");
         const auto& f = m_op_functors.at(type);
-        spdlog::info("found functor, execing");
         auto r = f(config, js);
+        assert(bool(r));
         m_ops[std::string(name)] = {r, js};
         return r;
     } catch (const std::exception& e) {
-        spdlog::warn(
+        logger().error(
             "Was unable to create op functor \"{}\" among {} available: {}",
             type,
             known_operation_functors(),
             e.what());
+        logger().error("Json was \n{}", js.dump(2));
         throw e;
     }
 }
@@ -272,6 +267,23 @@ std::vector<OperationOptions> OperationFactory::get_options(const Configurator& 
         }
     }
     return opts;
+}
+
+auto OperationFactory::create_attribute_update_function(
+    const Configurator& config,
+    std::string_view name,
+    const nlohmann::json& js) const -> AttributeUpdateFunction
+{
+    try {
+        return m_attr_op_functors.at(std::string(name))(config, js);
+    } catch (std::out_of_range& err) {
+        logger().error(
+            "Could not find attr update function \"{}\" among [{}]. Json was {}",
+            name,
+            known_attribute_update_functors(),
+            js.dump());
+        throw err;
+    }
 }
 
 } // namespace wmtk::components::configurator::operations

@@ -12,14 +12,14 @@ TransferStrategyFactory::~TransferStrategyFactory() = default;
 TransferStrategyFactory::TransferStrategyFactory() = default;
 TransferStrategyFactory::TransferStrategyFactory(TransferStrategyFactory&& o) = default;
 TransferStrategyFactory::TransferStrategyFactory(const TransferStrategyFactory& o)
-    : attribute_path(o.attribute_path)
+    : attribute(o.attribute)
     , type(o.type)
 //, dynamic_factory(o.dynamic_factory ? o.dynamic_factory->clone() : nullptr)
 {}
 TransferStrategyFactory& TransferStrategyFactory::operator=(TransferStrategyFactory&& o) = default;
 TransferStrategyFactory& TransferStrategyFactory::operator=(const TransferStrategyFactory& o)
 {
-    this->attribute_path = o.attribute_path;
+    this->attribute= o.attribute;
     this->type = o.type;
     // this->dynamic_factory = o.dynamic_factory->clone();
     return *this;
@@ -53,13 +53,13 @@ auto TransferStrategyFactory::populate_attribute(
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(TransferStrategyFactory)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute_path, type);
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute, type);
     nlohmann_json_t.to_json(nlohmann_json_j);
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(TransferStrategyFactory)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute_path, type);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute, type);
     nlohmann_json_t.from_json(nlohmann_json_j);
 }
 } // namespace wmtk::components::configurator::transfer

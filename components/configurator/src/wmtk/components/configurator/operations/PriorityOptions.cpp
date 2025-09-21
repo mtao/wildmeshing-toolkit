@@ -7,14 +7,14 @@
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 namespace wmtk::components::configurator::operations {
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(PriorityOptions){
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, attribute_path, minimize)
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, attribute, minimize)
     //
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PriorityOptions)
 {
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(PriorityOptions);
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(type, attribute_path, minimize);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(type, attribute, minimize);
 }
 
 void PriorityOptions::assign_to(
@@ -29,11 +29,10 @@ void PriorityOptions::assign_to(
         op.set_priority(nullptr);
     } else if (type == "attribute") {
         op.use_random_priority() = false;
-        auto ap = attribute_path;
+        auto ap = attribute;
         if (!ap.empty()) {
             auto priority_attribute = wmtk::components::multimesh::utils::get_attribute(
-                mc,
-                wmtk::components::multimesh::utils::AttributeDescription{ap});
+                mc,ap);
             if (minimize) {
                 auto priority_func = [priority_attribute](const simplex::Simplex& s) -> double {
                     auto acc =

@@ -93,14 +93,14 @@ TEST_CASE("multimesh_tag_creation_json", "[components][multimesh]")
         {"output_mesh_name", "tagged_edges"},
         {"manifold_decomposition", false},
         {"creation_attributes",
-         {{{"attribute_path", "main/normal"},
-           {"base_attribute_path", "main/vertices"},
+         {{{"attribute", "main/normal"},
+           {"base_attribute", "main/vertices"},
            {"type", "normal"}},
-          {{"attribute_path", "main/edge_angle"},
-           {"base_attribute_path", "main/normal"},
+          {{"attribute", "main/edge_angle"},
+           {"base_attribute", "main/normal"},
            {"type", "edge_angle"}},
-          {{"attribute_path", "main/high_edge_angle"},
-           {"base_attribute_path", "main/edge_angle"},
+          {{"attribute", "main/high_edge_angle"},
+           {"base_attribute", "main/edge_angle"},
            {"parameters", {{"over", 1.5}}},
            {"type", "threshold"}}}},
         {"tag_attribute",
@@ -219,7 +219,7 @@ TEST_CASE("multimesh_fusion_json", "[components][multimesh]")
     {
         JS js = {
             {"type", "axis_aligned_fusion"},
-            {"attribute_path", "/vertices"},
+            {"attribute", "/vertices"},
             {"fused_mesh_name", "fused"},
             {"epsilon", 1e-5},
             {"axes_to_fuse", {true, true}}};
@@ -264,7 +264,7 @@ TEST_CASE("multimesh_fusion_json", "[components][multimesh]")
     {
         JS js = {
             {"type", "axis_aligned_fusion"},
-            {"attribute_path", "/vertices"},
+            {"attribute", "/vertices"},
             {"fused_mesh_name", "fused"},
             {"epsilon", 1e-5},
             {"axes_to_fuse", {true, false}}};
@@ -287,7 +287,7 @@ TEST_CASE("multimesh_fusion_json", "[components][multimesh]")
     {
         JS js = {
             {"type", "axis_aligned_fusion"},
-            {"attribute_path", "/vertices"},
+            {"attribute", "/vertices"},
             {"fused_mesh_name", "fused"},
             {"epsilon", 1e-5},
             {"axes_to_fuse", {false, true}}};

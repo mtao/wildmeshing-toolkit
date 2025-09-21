@@ -90,4 +90,9 @@ struct AttributeDescription
     // the MAH
     AttributeDescription(const std::string_view& p, const wmtk::attribute::MeshAttributeHandle&);
 };
+
+
+inline auto format_as(const AttributeDescription& attr) {
+    return std::string(attr);
+}
 } // namespace wmtk::components::multimesh::utils

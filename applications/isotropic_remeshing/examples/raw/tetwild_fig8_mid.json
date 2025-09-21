@@ -14,8 +14,8 @@
     "utility_attributes": [
         { 
             "type": "edge_length",
-            "attribute_path": "main/edge_length",
-            "base_attribute_path": "main/vertices"
+            "attribute": "main/edge_length",
+            "base_attribute": "main/vertices"
         }
     ],
     "swap": {
@@ -26,7 +26,7 @@
         "enabled": true,
         "priority": {
             "type": "attribute",
-            "attribute_path": "main/edge_length"
+            "attribute": "main/edge_length"
         }
     },
     "split": {

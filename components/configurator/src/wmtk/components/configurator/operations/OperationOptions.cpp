@@ -1,7 +1,6 @@
 #include "OperationOptions.hpp"
 // #include "PriorityOptions.hpp"
 #include <fmt/format.h>
-#include <spdlog/spdlog.h>
 #include <nlohmann/json.hpp>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
@@ -26,13 +25,12 @@ void OperationOptions::add_alias_invariant(std::string_view name, std::string_vi
     invariants::InvariantOptions inv{
         "alias",
         invariants::AliasInvariantParameters{std::string(original_name)}};
-    spdlog::info("Creating an alias invariant {}", nlohmann::json(inv).dump());
     invariants[std::string(name)] = nlohmann::json(inv);
 }
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
 {
     //
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, enabled, priority, invariants, parameters)
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type,  invariants, parameters)
     if (nlohmann_json_t.priority) {
         nlohmann_json_j["priority"] = nlohmann_json_t.priority;
     }
@@ -41,7 +39,7 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(OperationOptions)
 {
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(OperationOptions);
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(enabled, parameters, invariants, type);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(parameters, invariants, type);
 
 
     if (nlohmann_json_j.contains("priority")) {
@@ -173,7 +171,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeUpdateOptions)
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute_path);
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute, function);
     if (!nlohmann_json_t.projection_attribute.empty()) {
         nlohmann_json_j["projection_attribute"] = nlohmann_json_t.projection_attribute;
     }
@@ -181,7 +179,7 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters)
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters)
 {
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute_path);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(attribute, function);
     if (nlohmann_json_j.contains("projection_attribute")) {
         nlohmann_json_t.projection_attribute = nlohmann_json_j["projection_attribute"];
     }
@@ -190,8 +188,8 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters
 }
 
 OperationOptions::~OperationOptions() = default;
-OperationOptions::OperationOptions(std::string_view type)
-    : type(std::string(type))
+OperationOptions::OperationOptions(std::string_view t)
+    : type(std::string(t))
 {}
 OperationOptions::OperationOptions(const OperationOptions& o) = default;
 OperationOptions::OperationOptions(OperationOptions&&) = default;
@@ -227,9 +225,10 @@ EdgeCollapseOptions::EdgeCollapseOptions(EdgeCollapseOptions&&) = default;
 EdgeCollapseOptions& EdgeCollapseOptions::operator=(const EdgeCollapseOptions&) = default;
 EdgeCollapseOptions& EdgeCollapseOptions::operator=(EdgeCollapseOptions&&) = default;
 
-EdgeSwapOptions::EdgeSwapOptions()
+EdgeSwapOptions::EdgeSwapOptions(std::string_view mesh_name)
+    : OperationOptions(type_name)
 {
-    type = type_name;
+    set_parameters(Parameters(mesh_name));
 }
 EdgeSwapOptions::EdgeSwapOptions(const OperationOptions& o)
     : OperationOptions(o)
@@ -257,9 +256,15 @@ VertexSmoothOptions& VertexSmoothOptions::operator=(const VertexSmoothOptions&) 
 VertexSmoothOptions& VertexSmoothOptions::operator=(VertexSmoothOptions&&) = default;
 */
 
-AttributeUpdateOptions::AttributeUpdateOptions()
+AttributeUpdateOptions::AttributeUpdateOptions(
+    const multimesh::utils::AttributeDescription& attr,
+    std::string_view function_name)
+    : OperationOptions(type_name)
 {
-    type = type_name;
+    Parameters p;
+    p.attribute = attr;
+    p.function = function_name;
+    set_parameters(p);
 }
 AttributeUpdateOptions::AttributeUpdateOptions(const OperationOptions& o)
     : OperationOptions(o)

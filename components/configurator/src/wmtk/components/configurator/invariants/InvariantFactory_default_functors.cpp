@@ -6,8 +6,10 @@
 #include "../Configurator.hpp"
 #include "InvariantFactory.hpp"
 #include "InvariantOptions.hpp"
+#include "wmtk/invariants/CannotMapSimplexInvariant.hpp"
 #include "wmtk/invariants/InteriorSimplexInvariant.hpp"
 #include "wmtk/invariants/MultiMeshLinkConditionInvariant.hpp"
+#include "wmtk/invariants/SeparateSubstructuresInvariant.hpp"
 #include "wmtk/invariants/SimplexInversionInvariant.hpp"
 #include "wmtk/invariants/ValenceImprovementInvariant.hpp"
 
@@ -55,6 +57,9 @@ void InvariantFactory::load_default_functors()
     m_invariant_functors["link_condition"] =
         &default_add_mesh_invariant<wmtk::invariants::MultiMeshLinkConditionInvariant>;
 
+    m_invariant_functors["separate_substructures"] =
+        &default_add_mesh_invariant<wmtk::invariants::SeparateSubstructuresInvariant>;
+
     m_invariant_functors["multimesh_valid_map"] =
         &default_add_mesh_invariant<wmtk::invariants::MultiMeshMapValidInvariant>;
 
@@ -81,6 +86,20 @@ void InvariantFactory::load_default_functors()
         auto ic = std::make_shared<wmtk::invariants::InvariantCollection>(inv->mesh());
         ic->add(inv);
         return ic;
+    };
+
+    m_invariant_functors["cannot_map"] = [](Configurator& c, const nlohmann::json& js) {
+        invariants::TypedInvariantOptions<invariants::CannotMapSimplexInvariantParameters> opts =
+            js;
+        auto params = opts.get_parameters();
+
+        auto& m = c.get_mesh(params.mesh_path);
+        auto& m2 = c.get_mesh(params.mapped_mesh_path);
+        return std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
+            m,
+            m2,
+            get_primitive_type_from_id(params.simplex_dimension),
+            params.invert);
     };
 
 

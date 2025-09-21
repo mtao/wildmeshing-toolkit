@@ -89,20 +89,19 @@ public:
     template <typename T>
     void add_attribute_invariant(const std::string& s);
 
-    std::shared_ptr<wmtk::invariants::Invariant> create_mesh_invariant(
-        std::string_view name,
-        std::string_view type,
-        const Mesh& m);
+    std::shared_ptr<wmtk::invariants::Invariant>
+    create_mesh_invariant(std::string_view name, std::string_view type, const Mesh& m);
     std::shared_ptr<wmtk::invariants::Invariant> create_attribute_invariant(
         std::string_view name,
         std::string_view type,
         const attribute::MeshAttributeHandle& mah);
 
-    template <
-        typename T,
-        typename ParameterType,
-        typename MeshType = wmtk::Mesh>
+    template <typename T, typename ParameterType, typename MeshType = wmtk::Mesh>
     void add_basic_operation(const std::string& s);
+
+
+    auto create_attribute_update_function(std::string_view name, const nlohmann::json& js = {})
+        const -> operations::OperationFactory::AttributeUpdateFunction;
 
 private:
     wmtk::Mesh& get_mesh_internal(std::string_view name);
@@ -115,6 +114,9 @@ private:
     wmtk::components::multimesh::MeshCollection& m_meshes;
     operations::OperationFactory m_operations;
     invariants::InvariantFactory m_invariants;
+
+    std::vector<std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>>
+        m_operation_transfers;
 
     std::vector<Pass> m_passes;
 };
@@ -156,6 +158,7 @@ template <typename T>
 auto Configurator::get_operation(std::string_view op_name) -> std::shared_ptr<T>
 {
     auto basic_ptr = get_operation_internal(op_name);
+    assert(bool(basic_ptr));
 
     auto ptr = std::dynamic_pointer_cast<T>(basic_ptr);
     if (!bool(ptr)) {
@@ -169,7 +172,8 @@ void Configurator::add_mesh_invariant(const std::string& s)
 {
     auto func = [](Configurator& c,
                    const nlohmann::json& js) -> std::shared_ptr<wmtk::invariants::Invariant> {
-        invariants::MeshInvariantParameters opts = js.get<invariants::InvariantOptions>().parameters;
+        invariants::MeshInvariantParameters opts =
+            js.get<invariants::InvariantOptions>().parameters;
         auto& m = c.template get_mesh<MeshType>(opts.mesh_path);
 
         auto r = std::make_shared<T>(m);
@@ -183,7 +187,8 @@ void Configurator::add_attribute_invariant(const std::string& s)
 {
     auto func = [](Configurator& c,
                    const nlohmann::json& js) -> std::shared_ptr<wmtk::invariants::Invariant> {
-        invariants::AttributeInvariantParameters opts = js.get<invariants::InvariantOptions>().parameters;
+        invariants::AttributeInvariantParameters opts =
+            js.get<invariants::InvariantOptions>().parameters;
         auto m = c.get_attribute(opts.attribute);
 
         auto r = std::make_shared<T>(m);

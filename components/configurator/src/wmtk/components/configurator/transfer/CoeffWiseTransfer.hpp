@@ -2,6 +2,7 @@
 #include <nlohmann/json_fwd.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 #include "TransferStrategy.hpp"
+#include "wmtk/components/multimesh/utils/AttributeDescription.hpp"
 
 namespace wmtk::components::configurator::transfer {
 
@@ -9,7 +10,7 @@ struct CoeffWiseTransfer : public TransferStrategy
 {
     MinNeighbor();
     ~MinNeighbor();
-    std::string base_attribute_path;
+    multimesh::utils::AttributeDescription base_attribute;
     int8_t simplex_dimension;
     void to_json(nlohmann::json&) const final;
     void from_json(const nlohmann::json&) final;

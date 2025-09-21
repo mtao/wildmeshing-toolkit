@@ -32,8 +32,9 @@ struct InvariantOptions
     ~InvariantOptions();
 
     explicit InvariantOptions(const std::string& type, const nlohmann::json& params = {});
-    //template <typename T>
-    //InvariantOptions(const std::string& type, const T& params): InvariantOptions(type,nlohmann::json(params)) {}
+    // template <typename T>
+    // InvariantOptions(const std::string& type, const T& params):
+    // InvariantOptions(type,nlohmann::json(params)) {}
 
     // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantOptions)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(InvariantOptions, type, parameters);
@@ -83,6 +84,19 @@ struct EnvelopeInvariantOptions : public AttributeInvariantParameters
     //    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(EnvelopeInvariantOptions, attribute, size);
 };
+
+struct CannotMapSimplexInvariantParameters : public MeshInvariantParameters
+{
+    std::string mapped_mesh_path = "";
+    int8_t simplex_dimension = 0;
+    bool invert = false; //
+    //    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+        CannotMapSimplexInvariantParameters,
+        mapped_mesh_path);
+};
+
+
 struct InvariantCollectionParameters : public MeshInvariantParameters
 {
     std::map<std::string, InvariantOptions> invariants;

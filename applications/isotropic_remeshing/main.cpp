@@ -6,6 +6,7 @@
 #include <wmtk/applications/utils/element_count_report.hpp>
 #include <wmtk/applications/utils/get_integration_test_data_root.hpp>
 #include <wmtk/applications/utils/parse_jse.hpp>
+#include <wmtk/applications/utils/read_inputs.hpp>
 #include <wmtk/components/input/InputOptions.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/MultimeshOptions.hpp>
@@ -13,7 +14,6 @@
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
-#include "wmtk/components/utils/PathResolver.hpp"
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
@@ -25,7 +25,7 @@
 #include <wmtk/components/output/output.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 
-#include "spec.hpp"
+
 
 using namespace wmtk::components;
 using namespace wmtk;
@@ -87,48 +87,23 @@ int main(int argc, char* argv[])
     // =====================
     // Parse input path util
     // =====================
-    components::utils::PathResolver path_resolver;
+    std::vector<std::filesystem::path> additional_paths;
 
-    if (j.contains(root_attribute_name)) {
-        path_resolver = j[root_attribute_name];
-    }
     if (!json_integration_config_file.empty()) {
         auto path = wmtk::applications::utils::get_integration_test_data_root(
             json_integration_config_file,
             argv[0]);
-        path_resolver.add_path(path);
+        additional_paths.emplace_back(path);
     }
-    path_resolver.add_path(json_input_file.parent_path());
+    additional_paths.emplace_back(json_input_file.parent_path());
+
 
     // =====================
     // Parse input path json
     // =====================
-    const auto& input_js = j["input"];
 
-    wmtk::components::multimesh::MeshCollection mc;
-
-    auto add = [&](const auto& my_input_js) {
-        auto input_opts = my_input_js.template get<wmtk::components::input::InputOptions>();
-        auto& named_mesh = mc.add_mesh(wmtk::components::input::input(input_opts, path_resolver));
-
-        if (my_input_js.contains("multimesh")) {
-            const nlohmann::ordered_json mm_js = my_input_js["multimesh"];
-            if (mm_js.is_array()) {
-                for (const auto& single_mm : mm_js) {
-                    wmtk::components::multimesh::multimesh(mc, single_mm);
-                }
-            } else {
-                wmtk::components::multimesh::multimesh(mc, mm_js);
-            }
-        }
-    };
-    if (input_js.is_array()) {
-        for (const auto& js : input_js) {
-            add(js);
-        }
-    } else {
-        add(input_js);
-    }
+    wmtk::components::multimesh::MeshCollection mc =
+        wmtk::applications::utils::read_inputs(j, "input", root_attribute_name, additional_paths);
 
 
     if (!mc.is_valid()) {
@@ -140,17 +115,13 @@ int main(int argc, char* argv[])
     spdlog::info("Parsing isotropic params");
 
     wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions options = j;
+    options.process_custom_options();
 
-    spdlog::info("filling in mesh attributes");
-    if (input_js.contains("improvement_attributes")) {
-        for (const auto& attribute : input_js["improvement_attributes"]) {
-            options.improvement_attributes.emplace_back(
-                wmtk::components::multimesh::utils::get_attribute(mc, attribute));
-        }
-    }
+
+    options.process_custom_options();
 
     spdlog::info("Multimesh structure: {}", mc.get_named_multimesh("").get_names_json()->dump(2));
-    spdlog::info("Options: {}", nlohmann::json(options).dump(2));
+    spdlog::info("Options: \n{}", nlohmann::json(options).dump(2));
 
     wmtk::components::isotropic_remeshing::isotropic_remeshing(mc, options);
 

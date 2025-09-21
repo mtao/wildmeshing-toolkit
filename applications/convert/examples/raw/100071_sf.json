@@ -8,36 +8,36 @@
     ,
     "utility_attributes": [
       {
-        "attribute_path": "position/edge_length",
-        "base_attribute_path": "position/vertices",
+        "attribute": "position/edge_length",
+        "base_attribute": "position/vertices",
         "simplex_dimension": 1,
         "parameters": {},
         "type": "edge_length"
       },
       {
-        "attribute_path": "position/volume",
-        "base_attribute_path": "position/vertices",
+        "attribute": "position/volume",
+        "base_attribute": "position/vertices",
         "simplex_dimension": 2,
         "parameters": {},
         "type": "volume"
       },
       {
-        "attribute_path": "position/normal",
-        "base_attribute_path": "position/vertices",
+        "attribute": "position/normal",
+        "base_attribute": "position/vertices",
         "simplex_dimension": 2,
         "parameters": {},
         "type": "normal"
       },
       {
-        "attribute_path": "position/edge_angle",
-        "base_attribute_path": "position/normal",
+        "attribute": "position/edge_angle",
+        "base_attribute": "position/normal",
         "simplex_dimension": 1,
         "parameters": {},
         "type": "edge_angle"
       },
       {
-          "attribute_path": "position/high_edge_angle",
-          "base_attribute_path": "position/edge_angle",
+          "attribute": "position/high_edge_angle",
+          "base_attribute": "position/edge_angle",
           "parameters": {
               "over": 1.5
           },

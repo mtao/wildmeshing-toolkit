@@ -30,7 +30,6 @@ struct OperationOptions
     ~OperationOptions();
     // std::string name;
     std::string type;
-    bool enabled = true;
     PriorityOptions priority;
     std::map<std::string, invariants::InvariantOptions> invariants;
     // adds a new alias invariant assuming the name in the operation is the same as the
@@ -87,7 +86,8 @@ struct EdgeSwapOptions : public OperationOptions
 {
     struct Parameters : public MeshOperationParameters
     {
-        EdgeSwapMode mode;
+        using MeshOperationParameters::MeshOperationParameters;
+        EdgeSwapMode mode = EdgeSwapMode::Valence;
         std::map<std::string, invariants::InvariantOptions> split_invariants;
         std::map<std::string, invariants::InvariantOptions> collapse_invariants;
 
@@ -111,7 +111,7 @@ struct AttributeUpdateOptions : public OperationOptions
 {
     struct Parameters
     {
-        multimesh::utils::AttributeDescription attribute_path;
+        multimesh::utils::AttributeDescription attribute;
         std::string function;
         // if this value is set then a mesh to project to will be enabled
         std::string projection_attribute;
@@ -120,7 +120,7 @@ struct AttributeUpdateOptions : public OperationOptions
 
     Parameters get_parameters() const;
     void set_parameters(const Parameters& p);
-    AttributeUpdateOptions(std::string_view attribute_path = "");
+    AttributeUpdateOptions(const multimesh::utils::AttributeDescription& attr = {}, std::string_view function_name = {});
     AttributeUpdateOptions(const OperationOptions& o);
     AttributeUpdateOptions(const AttributeUpdateOptions&);
     AttributeUpdateOptions(AttributeUpdateOptions&&);

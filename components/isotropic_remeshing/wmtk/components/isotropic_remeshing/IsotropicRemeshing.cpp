@@ -78,14 +78,12 @@ void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions&
     auto& position_mesh = position_attr.mesh();
     m_universal_invariants = std::make_shared<wmtk::invariants::InvariantCollection>(position_mesh);
     configurator().create_mesh_invariant("link_condition", "link_condition", position_mesh);
-    spdlog::info("Making multimesh mah");
     configurator().create_mesh_invariant(
         "multimesh_valid_map",
         "multimesh_valid_map",
         position_mesh);
     configurator().create_mesh_invariant("valence_improvement","triangle_valence_improvement", position_mesh);
 
-    spdlog::info("done");
 
     configurator::invariants::InvariantCollectionParameters improvement_collection;
     for (const auto& attr : opts.improvement_attributes) {
@@ -437,13 +435,6 @@ void IsotropicRemeshing::run()
     }
 
     auto log_mesh = [&](int64_t index) {
-        for (const auto& [name, mesh] : mesh_collection().all_meshes()) {
-            spdlog::info(
-                "Mesh [{}] has {} {}-facets",
-                name,
-                mesh.get_all(mesh.top_simplex_type()).size(),
-                mesh.top_cell_dimension());
-        }
         if (intermediate_output_format.empty()) {
             wmtk::logger().error(
                 "Failed to log using intermediate_output_format because "
@@ -452,7 +443,6 @@ void IsotropicRemeshing::run()
         }
         for (const auto& [name, opts] : intermediate_output_format) {
             auto opt = wmtk::components::output::utils::format(opts, index);
-            spdlog::info("Temp logging {} as {}", name, opt.path.string());
             wmtk::components::output::output(mesh_collection().get_mesh(name), opt);
         }
     };

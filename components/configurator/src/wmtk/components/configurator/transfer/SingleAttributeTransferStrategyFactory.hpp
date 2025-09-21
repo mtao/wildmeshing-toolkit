@@ -1,6 +1,7 @@
 #pragma once
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
+#include <wmtk/utils/Logger.hpp>
 #include <wmtk/utils/Rational.hpp>
 #include "TransferFunctorTraits.hpp"
 #include "TransferStrategyFactory.hpp"
@@ -18,7 +19,7 @@ struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFacto
 {
     SingleAttributeTransferStrategyFactoryBase();
     ~SingleAttributeTransferStrategyFactoryBase();
-    std::string base_attribute_path;
+    multimesh::utils::AttributeDescription base_attribute;
 
     nlohmann::json parameters;
     void to_json(nlohmann::json& j) const final;
@@ -91,20 +92,29 @@ components::multimesh::utils::AttributeDescription
 SingleAttributeTransferStrategyFactory<Functor>::get_output_attribute_description(
     const wmtk::components::multimesh::MeshCollection& mc) const
 {
-    auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, {base_attribute_path});
+    auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, base_attribute);
     using Traits = TransferFunctorTraits<Functor>;
-    return {
-        attribute_path,
+    multimesh::utils::AttributeDescription out_type = {
+        attribute.path,
         Traits::simplex_dimension(from_attr, parameters),
         Traits::output_type(from_attr, parameters),
         Traits::output_dimension(from_attr)};
+    if (!attribute.compatible(out_type)) {
+        logger().warn(
+            "Attribute transfer from {} to {} was misconfigured because the target attribute is "
+            "not compatible with {}",
+            base_attribute,
+            attribute,
+            out_type);
+    }
+    return out_type;
 }
 template <template <typename, int, typename, int> typename Functor>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
 SingleAttributeTransferStrategyFactory<Functor>::create_transfer(
     wmtk::components::multimesh::MeshCollection& mc) const
 {
-    auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, {base_attribute_path});
+    auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, base_attribute);
     auto to_attr_d = get_output_attribute_description(mc);
 
     auto to_attr = wmtk::components::multimesh::utils::create_attribute(mc, to_attr_d);

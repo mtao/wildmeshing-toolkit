@@ -59,14 +59,6 @@ void IsotropicRemeshing::configure_collapse(const IsotropicRemeshingOptions& opt
     auto& op = m_collapse;
 
 
-    add_core_collapse_invariants(*op, opts);
-    if (opts.separate_substructures) {
-        auto invariant_separate_substructures =
-            std::make_shared<wmtk::invariants::SeparateSubstructuresInvariant>(mesh);
-        op->add_invariant(invariant_separate_substructures);
-    }
-
-
     const double length_min = (4. / 5.) * opts.get_absolute_length(mesh_collection());
     auto pos_attr = get_attribute(opts.position_attribute);
 
@@ -81,16 +73,6 @@ void IsotropicRemeshing::configure_collapse(const IsotropicRemeshingOptions& opt
         length_min * length_min);
     op->add_invariant(invariant_max_edge_length);
 
-    if (!opts.static_meshes.empty()) {
-        for (const auto& mesh_name : opts.static_meshes) {
-            auto& mesh2 = mesh_collection().get_mesh(mesh_name);
-            op->add_invariant(
-                std::make_shared<wmtk::invariants::CannotMapSimplexInvariant>(
-                    mesh,
-                    mesh2,
-                    wmtk::PrimitiveType::Vertex));
-        }
-    }
 
     if (m_envelope_invariants) {
         spdlog::info("Attaching envelope invariants");

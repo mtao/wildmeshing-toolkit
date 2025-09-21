@@ -7,6 +7,7 @@
 #include "PassOptions.hpp"
 #include "invariants/InvariantOptions.hpp"
 #include "operations/OperationOptions.hpp"
+#include "transfer/TransferStrategyFactoryCollection.hpp"
 
 
 namespace wmtk::components::configurator {
@@ -18,6 +19,8 @@ struct PassConfiguration
     // defines the invariants used in the aforementioned invariants. they will be referred to in the
     // above section
     std::map<std::string, invariants::InvariantOptions> invariants;
+
+    transfer::TransferStrategyFactoryCollection transfers;
     // std::vector<std::shared_ptr<operations::OperationOptions>> operations;
     // std::vector<std::shared_ptr<invariants::InvariantOptions>> invariants;
 
