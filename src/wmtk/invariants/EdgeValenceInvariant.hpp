@@ -1,6 +1,9 @@
 #pragma once
 
 #include "Invariant.hpp"
+namespace wmtk {
+    class TetMesh;
+}
 
 namespace wmtk::invariants {
 
@@ -12,7 +15,7 @@ namespace wmtk::invariants {
 class EdgeValenceInvariant : public Invariant
 {
 public:
-    EdgeValenceInvariant(const Mesh& m, int64_t valence);
+    EdgeValenceInvariant(const TetMesh& m, int64_t valence);
 
     bool before(const simplex::Simplex& t) const override;
 

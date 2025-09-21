@@ -3,7 +3,7 @@
 set(TEST_SOURCES
 min_incident_valence.cpp
 substructure_topology_preserving.cpp
-test_3d_invariants.cpp
-tri_rational_inversion.cpp
+inversion_3d.cpp
+inversion_2d.cpp
 )
 target_sources(wmtk_tests PRIVATE ${TEST_SOURCES})

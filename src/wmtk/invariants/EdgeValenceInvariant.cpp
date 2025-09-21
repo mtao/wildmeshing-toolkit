@@ -1,9 +1,10 @@
 #include "EdgeValenceInvariant.hpp"
 
 #include <wmtk/simplex/top_dimension_cofaces.hpp>
+#include <wmtk/TetMesh.hpp>
 
 namespace wmtk::invariants {
-EdgeValenceInvariant::EdgeValenceInvariant(const Mesh& m, int64_t valence)
+EdgeValenceInvariant::EdgeValenceInvariant(const TetMesh& m, int64_t valence)
     : Invariant(m,true,false,false)
     , m_valence(valence)
 {}
