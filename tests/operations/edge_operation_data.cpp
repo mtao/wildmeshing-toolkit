@@ -285,6 +285,7 @@ TEST_CASE("collapse_facet_maps_1d", "[operations][data][1D]")
                 size_t vertex_index = index + j;
 
                 const auto& tup = both[j];
+                spdlog::info("{} {} {}", k,alt,bits[k]);
                 // boundary == bits is 1
                 // spdlog::info(
                 //    "{}: {} => {}",
