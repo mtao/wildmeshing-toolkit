@@ -100,7 +100,7 @@ public:
         for (Tuple t : mesh().get_all(BT)) {
             dart::Dart d = sd.dart_from_tuple(t);
             if (mesh().is_boundary(BT, t)) {
-                get_neighbor(d) = dart::Dart();
+                get_neighbor(d) = dart::Dart(-1,-1);
             } else {
                 const Tuple ot = mesh().switch_tuple(t, FT);
                 assert(ot != t);

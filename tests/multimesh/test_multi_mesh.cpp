@@ -986,6 +986,7 @@ TEST_CASE("test_split_multi_mesh_1D_2D_a", "[multimesh][1D][2D]")
     spdlog::error("Map state after operation");
     logger().debug("parent.capacity(PF) = {}", parent.capacity(PF));
     logger().debug("child0.capacity(PE) = {}", child0.capacity(PE));
+    print_tuple_map(parent, p_mul_manager);
     REQUIRE(parent.is_connectivity_valid());
     REQUIRE(child0.is_connectivity_valid());
     p_mul_manager.check_map_valid(parent);

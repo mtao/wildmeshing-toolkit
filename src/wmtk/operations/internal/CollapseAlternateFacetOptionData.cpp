@@ -23,6 +23,7 @@ CollapseAlternateFacetOptionData::CollapseAlternateFacetOptionData(
     : input(sd.dart_from_tuple(input_tuple))
     , alts({{left_switches(m, input_tuple), right_switches(m, input_tuple)}})
 {
+    spdlog::info("{}", alts);
 }
 
 
@@ -71,7 +72,7 @@ auto CollapseAlternateFacetOptionData::get_action(const Mesh& m, const Tuple& tu
     const PrimitiveType mesh_type = m.top_simplex_type();
     const PrimitiveType boundary_type = mesh_type - 1;
     Tuple r = tuple;
-    Dart d;
+    Dart d(-1,-1);
     if (!m.is_boundary(boundary_type, r)) {
         const auto& sd = dart::SimplexDart::get_singleton(m.top_simplex_type());
         int8_t source_orientation = sd.permutation_index_from_tuple(r);
