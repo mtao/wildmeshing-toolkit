@@ -17,6 +17,7 @@ struct IsotropicRemeshingOptions : public wmtk::components::configurator::PassCo
     IsotropicRemeshingOptions();
 
     IsotropicRemeshingOptions(const multimesh::utils::AttributeDescription& position_attr);
+    void process_custom_options();
 
     bool separate_substructures = false;
     AttributeDescription position_attribute;

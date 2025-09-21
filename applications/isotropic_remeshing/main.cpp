@@ -115,17 +115,13 @@ int main(int argc, char* argv[])
     spdlog::info("Parsing isotropic params");
 
     wmtk::components::isotropic_remeshing::IsotropicRemeshingOptions options = j;
+    options.process_custom_options();
 
-    spdlog::info("filling in mesh attributes");
-    if (j.contains("improvement_attributes")) {
-        for (const auto& attribute : j["improvement_attributes"]) {
-            options.improvement_attributes.emplace_back(
-                wmtk::components::multimesh::utils::get_attribute(mc, attribute));
-        }
-    }
+
+    options.process_custom_options();
 
     spdlog::info("Multimesh structure: {}", mc.get_named_multimesh("").get_names_json()->dump(2));
-    spdlog::info("Options: {}", nlohmann::json(options).dump(2));
+    spdlog::info("Options: \n{}", nlohmann::json(options).dump(2));
 
     wmtk::components::isotropic_remeshing::isotropic_remeshing(mc, options);
 

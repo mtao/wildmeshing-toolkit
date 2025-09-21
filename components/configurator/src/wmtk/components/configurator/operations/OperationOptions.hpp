@@ -30,7 +30,6 @@ struct OperationOptions
     ~OperationOptions();
     // std::string name;
     std::string type;
-    bool enabled = true;
     PriorityOptions priority;
     std::map<std::string, invariants::InvariantOptions> invariants;
     // adds a new alias invariant assuming the name in the operation is the same as the

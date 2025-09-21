@@ -30,7 +30,7 @@ void OperationOptions::add_alias_invariant(std::string_view name, std::string_vi
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
 {
     //
-    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type, enabled, priority, invariants, parameters)
+    WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(type,  invariants, parameters)
     if (nlohmann_json_t.priority) {
         nlohmann_json_j["priority"] = nlohmann_json_t.priority;
     }
@@ -39,7 +39,7 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(OperationOptions)
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(OperationOptions)
 {
     WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(OperationOptions);
-    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(enabled, parameters, invariants, type);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(parameters, invariants, type);
 
 
     if (nlohmann_json_j.contains("priority")) {
@@ -188,8 +188,8 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(AttributeUpdateOptions::Parameters
 }
 
 OperationOptions::~OperationOptions() = default;
-OperationOptions::OperationOptions(std::string_view type)
-    : type(std::string(type))
+OperationOptions::OperationOptions(std::string_view t)
+    : type(std::string(t))
 {}
 OperationOptions::OperationOptions(const OperationOptions& o) = default;
 OperationOptions::OperationOptions(OperationOptions&&) = default;

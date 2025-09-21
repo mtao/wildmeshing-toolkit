@@ -27,22 +27,15 @@ std::shared_ptr<wmtk::operations::Operation> default_add_operation(
     Configurator& c,
     const nlohmann::json& js)
 {
-    spdlog::info("Getting opts");
     auto opts = js.template get<S>();
-    spdlog::info("Getting params");
     auto params = opts.get_parameters();
-    spdlog::info("Getting mesh");
     auto& m = c.get_mesh<MeshType>(params.mesh_path);
-    spdlog::info("Making op");
     auto r = std::make_shared<T>(m);
 
-    spdlog::info("Setting priority");
     if (opts.priority) {
         opts.priority.assign_to(c.meshes(), *r);
     }
-    spdlog::info("Setting invariants");
     for (const auto& [name, inv] : opts.invariants) {
-        spdlog::info("Fetching {} {}", name, nlohmann::json(inv).dump());
         r->add_invariant(c.create_invariant(name, inv));
     }
     return r;
@@ -87,11 +80,8 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
     Configurator& c,
     const nlohmann::json& js)
 {
-    spdlog::info("As attr");
     auto opts = js.template get<AttributeUpdateOptions>();
-    spdlog::info("As params");
     auto params = opts.get_parameters();
-    spdlog::info("As attr");
     auto attr = c.get_attribute(params.attribute);
     auto& mesh = attr.mesh();
 
@@ -100,12 +90,10 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
     std::shared_ptr<wmtk::operations::AttributeUpdateWithFunction> op_smooth =
         std::make_shared<wmtk::operations::AttributeUpdateWithFunction>(mesh);
 
-    spdlog::info("Setting function");
     op_smooth->set_function(c.create_attribute_update_function(params.function, params));
 
 
     if (!params.projection_attribute.empty()) {
-        spdlog::info("Trying to make projection attribute");
         std::shared_ptr<wmtk::operations::composite::ProjectOperation> proj_op;
         proj_op = std::make_shared<wmtk::operations::composite::ProjectOperation>(op_smooth);
         auto proj_attr = c.get_attribute(params.attribute);
@@ -116,12 +104,10 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
     }
 
 
-    spdlog::info("Setting priority");
 
     if (opts.priority) {
         opts.priority.assign_to(c.meshes(), *r);
     }
-    spdlog::info("Creating attributes");
     for (const auto& [name, inv] : opts.invariants) {
         r->add_invariant(c.create_invariant(name, inv));
     }
@@ -194,14 +180,14 @@ std::vector<std::string> OperationFactory::known_operations() const
 void OperationFactory::add(const std::string& s, const OpCreatorFunc& f)
 {
     m_op_functors[s] = f;
-    spdlog::warn("Added op functor \"{}\" among {} available", s, known_operation_functors());
+    logger().debug("Added op functor \"{}\" among {} available", s, known_operation_functors());
 }
 void OperationFactory::add_attribute_function(
     const std::string& s,
     const AttrUpdateOpCreatorFunc& f)
 {
     m_attr_op_functors[s] = f;
-    spdlog::warn(
+    logger().debug(
         "Added op functor \"{}\" among {} available",
         s,
         known_attribute_update_functors());
@@ -217,24 +203,21 @@ std::shared_ptr<wmtk::operations::Operation> OperationFactory::create(
 std::shared_ptr<wmtk::operations::Operation>
 OperationFactory::create(Configurator& config, std::string_view name, const nlohmann::json& js)
 {
-    // spdlog::info("{}", js.dump(2));
     wmtk::logger().debug("Creating a {} operation named {}", js["type"].get<std::string>(), name);
     std::string type = js["type"];
     try {
-        spdlog::info("Getting functor");
         const auto& f = m_op_functors.at(type);
-        spdlog::info("found functor, execing");
         auto r = f(config, js);
         assert(bool(r));
         m_ops[std::string(name)] = {r, js};
         return r;
     } catch (const std::exception& e) {
-        spdlog::warn(
+        logger().error(
             "Was unable to create op functor \"{}\" among {} available: {}",
             type,
             known_operation_functors(),
             e.what());
-        spdlog::warn("Json was \n{}", js.dump(2));
+        logger().error("Json was \n{}", js.dump(2));
         throw e;
     }
 }
@@ -292,7 +275,6 @@ auto OperationFactory::create_attribute_update_function(
     const nlohmann::json& js) const -> AttributeUpdateFunction
 {
     try {
-        spdlog::info("{} {}", name, js.dump());
         return m_attr_op_functors.at(std::string(name))(config, js);
     } catch (std::out_of_range& err) {
         logger().error(
