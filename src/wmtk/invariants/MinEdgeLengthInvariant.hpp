@@ -15,6 +15,9 @@ public:
         const Mesh& m,
         const TypedAttributeHandle<double>& coordinate,
         double threshold_squared);
+    MinEdgeLengthInvariant(
+        const attribute::MeshAttributeHandle& coordinate,
+        double threshold_squared);
     bool before(const simplex::Simplex& t) const override;
 
     std::string name() const override;

@@ -13,6 +13,11 @@
 #include "wmtk/invariants/SimplexInversionInvariant.hpp"
 #include "wmtk/invariants/ValenceImprovementInvariant.hpp"
 #include "wmtk/invariants/EnvelopeInvariant.hpp"
+#include "wmtk/invariants/InteriorEdgeInvariant.hpp"
+#include "wmtk/invariants/InteriorVertexInvariant.hpp"
+#include "wmtk/invariants/MaxEdgeLengthInvariant.hpp"
+#include "wmtk/invariants/MinEdgeLengthInvariant.hpp"
+#include "wmtk/invariants/RoundedInvariant.hpp"
 
 
 namespace wmtk::components::configurator::invariants {
@@ -75,10 +80,23 @@ void InvariantFactory::load_default_functors()
         for (const auto& [name, inv] : params.invariants) {
             c.create_invariant(name, inv);
         }
-
-
         return ic;
     };
+
+    m_invariant_functors["interior_simplex"] =
+        &default_add_attribute_invariant<wmtk::invariants::EnvelopeInvariant>;
+    m_invariant_functors["interior_simplex"] =
+        &default_add_mesh_invariant<wmtk::invariants::InteriorEdgeInvariant>;
+    m_invariant_functors["interior_simplex"] =
+        &default_add_mesh_invariant<wmtk::invariants::InteriorVertexInvariant>;
+    m_invariant_functors["interior_simplex"] =
+        &default_add_mesh_invariant<wmtk::invariants::MaxEdgeLengthInvariant>;
+    m_invariant_functors["interior_simplex"] =
+        &default_add_mesh_invariant<wmtk::invariants::MinEdgeLengthInvariant>;
+    m_invariant_functors["interior_simplex"] =
+        &default_add_mesh_invariant<wmtk::invariants::RoundedInvariant>;
+
+
     m_invariant_functors["alias"] = [](Configurator& c, const nlohmann::json& js) {
         invariants::TypedInvariantOptions<invariants::AliasInvariantParameters> opts = js;
         auto params = opts.get_parameters();

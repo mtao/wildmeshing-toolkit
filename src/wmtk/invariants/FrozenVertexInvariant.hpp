@@ -17,6 +17,7 @@ public:
 
 private:
     const TypedAttributeHandle<int64_t> m_frozen_vertex_handle;
+    bool m_do_opposite_vertex = false;
 };
 
 
