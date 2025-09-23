@@ -10,6 +10,7 @@
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/output/parse_output.hpp>
 #include <wmtk/utils/Logger.hpp>
+#include "wmtk/components/configurator/invariants/InvariantFactory_default_functors.hpp"
 
 
 #include <wmtk/Mesh.hpp>
@@ -82,7 +83,7 @@ void IsotropicRemeshingOptions::process_custom_options()
                 p.mesh_path,
                 p.mapped_mesh_path);
             // auto [it, did] =
-            smp.invariants.try_emplace(
+            smp.invariants.emplace_back(
                 name,
                 configurator::invariants::InvariantOptions("cannot_map", p));
         }

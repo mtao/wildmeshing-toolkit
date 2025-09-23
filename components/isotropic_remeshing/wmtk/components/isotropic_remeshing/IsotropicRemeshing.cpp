@@ -88,7 +88,7 @@ void IsotropicRemeshing::load_shared_invariants(const IsotropicRemeshingOptions&
     configurator::invariants::InvariantCollectionParameters improvement_collection;
     for (const auto& attr : opts.improvement_attributes) {
         auto attr_desc = get_attribute(attr);
-        improvement_collection.invariants.emplace(
+        improvement_collection.invariants.emplace_back(
             fmt::format("improvement[{}]", std::string(attr_desc)),
             nlohmann::json(configurator::invariants::AttributeInvariantParameters{attr}));
         // configurator().create_invariant();

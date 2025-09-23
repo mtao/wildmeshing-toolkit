@@ -11,6 +11,12 @@ MinEdgeLengthInvariant::MinEdgeLengthInvariant(
     , m_coordinate_handle(coordinate)
     , m_threshold_squared(threshold_squared)
 {}
+MinEdgeLengthInvariant::MinEdgeLengthInvariant(
+    const attribute::MeshAttributeHandle& coordinate,
+    double threshold_squared)
+    : MinEdgeLengthInvariant(coordinate.mesh(), coordinate.as<double>(), threshold_squared)
+{}
+
 bool MinEdgeLengthInvariant::before(const simplex::Simplex& t) const
 {
     const attribute::Accessor<double> accessor = mesh().create_const_accessor(m_coordinate_handle);

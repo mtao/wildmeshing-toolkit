@@ -42,13 +42,16 @@ std::vector<std::string> InvariantFactory::known_invariants() const
     return ret;
 }
 
-void InvariantFactory::add(const std::string& s, const InvariantCreatorFunc& f)
+void InvariantFactory::add(
+    const std::string& s,
+    const InvariantCreatorFunc& f,
+    std::string_view info)
 {
     spdlog::warn(
         "Added invariant functor \"{}\" among {} available",
         s,
         known_invariant_functors());
-    m_invariant_functors[s] = f;
+    m_invariant_functors[s] = {f, std::string(info)};
 }
 std::shared_ptr<wmtk::invariants::Invariant> InvariantFactory::create(
     Configurator& config,
@@ -65,7 +68,7 @@ InvariantFactory::create(Configurator& config, std::string_view name, const Inva
         name,
         t,
         known_invariant_functors());
-    const auto& f = m_invariant_functors.at(t);
+    const auto& [f, _] = m_invariant_functors.at(t);
     auto js = nlohmann::json(opts);
     auto r = f(config, js);
     m_invariants[std::string(name)] = {r, js};

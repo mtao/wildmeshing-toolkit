@@ -35,7 +35,7 @@ public:
 
     void load_default_functors();
 
-    void add(const std::string& s, const InvariantCreatorFunc& f);
+    void add(const std::string& s, const InvariantCreatorFunc& f, std::string_view info = {});
 
 
     void from_json(Configurator&, const nlohmann::json& js);
@@ -56,7 +56,7 @@ public:
     std::vector<std::string> known_invariants() const;
 
 private:
-    std::map<std::string, InvariantCreatorFunc> m_invariant_functors;
+    std::map<std::string, std::pair<InvariantCreatorFunc, std::string>> m_invariant_functors;
 
     std::map<std::string, std::pair<std::shared_ptr<wmtk::invariants::Invariant>, nlohmann::json>>
         m_invariants;

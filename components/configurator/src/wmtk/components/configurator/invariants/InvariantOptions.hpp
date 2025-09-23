@@ -78,28 +78,10 @@ struct AttributeInvariantParameters
     // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeInvariantParameters)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(AttributeInvariantParameters, attribute);
 };
-struct EnvelopeInvariantOptions : public AttributeInvariantParameters
-{
-    double size;
-    //    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE(EnvelopeInvariantOptions, attribute, size);
-};
-
-struct CannotMapSimplexInvariantParameters : public MeshInvariantParameters
-{
-    std::string mapped_mesh_path = "";
-    int8_t simplex_dimension = 0;
-    bool invert = false; //
-    //    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-        CannotMapSimplexInvariantParameters,
-        mapped_mesh_path);
-};
-
 
 struct InvariantCollectionParameters : public MeshInvariantParameters
 {
-    std::map<std::string, InvariantOptions> invariants;
+    std::vector<std::pair<std::string, InvariantOptions>> invariants;
     // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(InvariantCollectionParameters)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(InvariantCollectionParameters, invariants, mesh_path);
 };
@@ -112,7 +94,6 @@ struct AliasInvariantParameters
     // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AliasInvariantParameters)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(AliasInvariantParameters, name);
 };
-
 /*
 // An attribute that only de
 struct MeshInvariantOptions : public TypedInvariantOptions<MeshInvariantParameters>

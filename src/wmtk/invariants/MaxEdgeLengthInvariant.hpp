@@ -4,6 +4,7 @@
 #include "Invariant.hpp"
 
 namespace wmtk {
+namespace invariants {
 class MaxEdgeLengthInvariant : public Invariant
 {
 public:
@@ -12,6 +13,9 @@ public:
         const Mesh& m,
         const TypedAttributeHandle<double>& coordinate,
         double threshold_squared);
+    MaxEdgeLengthInvariant(
+        const attribute::MeshAttributeHandle& coordinate,
+        double threshold_squared);
     bool before(const simplex::Simplex& t) const override;
     std::string name() const override;
 
@@ -19,4 +23,6 @@ private:
     const TypedAttributeHandle<double> m_coordinate_handle;
     double m_threshold_squared;
 };
+} // namespace invariants
+using MaxEdgeLengthInvariant = invariants::MaxEdgeLengthInvariant;
 } // namespace wmtk

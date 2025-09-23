@@ -104,7 +104,6 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
     }
 
 
-
     if (opts.priority) {
         opts.priority.assign_to(c.meshes(), *r);
     }
