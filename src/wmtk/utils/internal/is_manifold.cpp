@@ -1,4 +1,5 @@
 
+#include <wmtk/utils/Logger.hpp>
 #include <fmt/ranges.h>
 #include <spdlog/spdlog.h>
 #include <wmtk/EdgeMesh.hpp>
@@ -18,7 +19,7 @@ namespace {
 template <int8_t SimplexDim, int8_t FaceDim, typename MeshType>
 bool is_manifold(const MeshType& m)
 {
-    spdlog::info(
+    logger().debug(
         "Running is-manifold {} {} [{}]",
 
         fmt::join(m.absolute_multi_mesh_id(), ","),
@@ -49,13 +50,13 @@ bool is_manifold(const MeshType& m)
 
         /*
         if ((cof_ids.find(id) == cof_ids.end())) {
-            spdlog::info("{}", fmt::join(ism.simplices<SimplexDim>(), ","));
+            logger().debug("{}", fmt::join(ism.simplices<SimplexDim>(), ","));
             assert(cof_ids.find(id) == cof_ids.end());
         }
         */
 
         if (cof_ids2 != cof_ids.at(id)) {
-            spdlog::info(
+            logger().debug(
                 "{}-simplex {}-face index {} had cofaces from ids: {} and cofaces from topology:{} "
                 "as neighbor facets",
                 SimplexDim,
@@ -69,13 +70,13 @@ bool is_manifold(const MeshType& m)
                     auto myt = ts[facet_id];
                     int64_t vid0 = m.id(myt, PrimitiveType::Vertex);
                     int64_t vid1 = m.id(m.switch_vertex(myt), PrimitiveType::Vertex);
-                    spdlog::info("{} had vids {} {}", facet_id, vid0, vid1);
+                    logger().debug("{} had vids {} {}", facet_id, vid0, vid1);
                 }
                 for (const auto& facet_id : cof_ids2) {
                     auto myt = ts[facet_id];
                     int64_t vid0 = m.id(myt, PrimitiveType::Vertex);
                     int64_t vid1 = m.id(m.switch_vertex(myt), PrimitiveType::Vertex);
-                    spdlog::info("topo {} had vids {} {}", facet_id, vid0, vid1);
+                    logger().debug("topo {} had vids {} {}", facet_id, vid0, vid1);
                 }
             }
             return false;

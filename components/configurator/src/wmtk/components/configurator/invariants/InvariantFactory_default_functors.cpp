@@ -12,6 +12,7 @@
 #include "wmtk/invariants/SeparateSubstructuresInvariant.hpp"
 #include "wmtk/invariants/SimplexInversionInvariant.hpp"
 #include "wmtk/invariants/ValenceImprovementInvariant.hpp"
+#include "wmtk/invariants/EnvelopeInvariant.hpp"
 
 
 namespace wmtk::components::configurator::invariants {

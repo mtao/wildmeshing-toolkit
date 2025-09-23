@@ -423,9 +423,9 @@ std::vector<std::pair<std::shared_ptr<Mesh>, std::string>> wildmeshing2d(
     auto frozen_vertex_invariant = std::make_shared<invariants::FrozenVertexInvariant>(
         *mesh,
         frozen_vertex_attribute.as<int64_t>());
-    auto frozen_opp_vertex_invariant = std::make_shared<invariants::FrozenOppVertexInvariant>(
+    auto frozen_opp_vertex_invariant = std::make_shared<invariants::FrozenVertexInvariant>(
         *mesh,
-        frozen_vertex_attribute.as<int64_t>());
+        frozen_vertex_attribute.as<int64_t>(), true);
 
     //////////////////////////////////
     // renew flags

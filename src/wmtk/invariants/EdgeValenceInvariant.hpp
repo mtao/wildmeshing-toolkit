@@ -2,20 +2,20 @@
 
 #include "Invariant.hpp"
 namespace wmtk {
-    class TetMesh;
+class TetMesh;
 }
 
 namespace wmtk::invariants {
 
 /**
- * @brief for edge swap in tetmesh. Checks that the valence of the edge is equal to the given
+ * @brief for edge swap in tetmesh. Checks that the tet-valence of the edge is equal to the given
  * valence.
  *
  */
 class EdgeValenceInvariant : public Invariant
 {
 public:
-    EdgeValenceInvariant(const TetMesh& m, int64_t valence);
+    EdgeValenceInvariant(const TetMesh& m, int64_t target_valence);
 
     bool before(const simplex::Simplex& t) const override;
 

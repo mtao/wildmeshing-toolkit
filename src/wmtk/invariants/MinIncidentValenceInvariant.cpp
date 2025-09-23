@@ -3,6 +3,7 @@
 #include <wmtk/Mesh.hpp>
 #include <wmtk/simplex/faces_single_dimension.hpp>
 #include <wmtk/simplex/link.hpp>
+#include <wmtk/simplex/valence.hpp>
 
 namespace wmtk::invariants {
 
@@ -47,12 +48,13 @@ bool MinIncidentValenceInvariant::is_greater_min_valence(const Tuple& t) const
         simplex::Simplex::face(mesh(), t),
         PrimitiveType::Vertex);
 
-    const simplex::Simplex v0 = simplex::Simplex::vertex(mesh(), vs[0]);
-    const simplex::Simplex v1 = simplex::Simplex::vertex(mesh(), vs[1]);
-    const int64_t val0 =
-        static_cast<int64_t>(link(mesh(), v0).simplex_vector(PrimitiveType::Vertex).size());
-    const int64_t val1 =
-        static_cast<int64_t>(link(mesh(), v1).simplex_vector(PrimitiveType::Vertex).size());
+
+    // const simplex::Simplex v0 = simplex::Simplex::vertex(mesh(), vs[0]);
+    // const simplex::Simplex v1 = simplex::Simplex::vertex(mesh(), vs[1]);
+    const int64_t val0 = simplex::valence(mesh(), vs[0]);
+    // static_cast<int64_t>(link(mesh(), v0).simplex_vector(PrimitiveType::Vertex).size());
+    const int64_t val1 = simplex::valence(mesh(), vs[1]);
+    // static_cast<int64_t>(link(mesh(), v1).simplex_vector(PrimitiveType::Vertex).size());
 
     return val0 >= m_min_valence && val1 >= m_min_valence;
 }

@@ -232,7 +232,7 @@ TetMesh::TetMeshOperationExecutor::get_split_simplices_to_delete()
         simplex::open_star(m_mesh, simplex::Simplex::edge(m_mesh, m_operating_tuple));
     std::array<std::vector<int64_t>, 4> ids;
     for (const simplex::Simplex& s : sc) {
-        spdlog::info("{} {}", s.primitive_type(), std::string(s.tuple()));
+        //spdlog::info("{} {}", s.primitive_type(), std::string(s.tuple()));
         ids[get_primitive_type_id(s.primitive_type())].emplace_back(m_mesh.id(s));
     }
 

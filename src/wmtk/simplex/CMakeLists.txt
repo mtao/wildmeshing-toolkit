@@ -64,6 +64,9 @@ set(SRC_FILES
 
     neighbors_single_dimension.hpp
     neighbors_single_dimension.cpp
+
+    valence.hpp
+    valence.cpp
 )
 target_sources(wildmeshing_toolkit PRIVATE ${SRC_FILES})
 add_subdirectory(utils)
