@@ -34,33 +34,65 @@ Pass::Pass(Configurator& c, const PassOptions& o)
 
 wmtk::SchedulerStats Pass::run(std::string_view info)
 {
-    if(m_iterations == 0) {
+    if (m_iterations == 0) {
         return run_until_convergence(info);
     } else {
-        return run(info,m_iterations);
+        return run(info, m_iterations);
     }
 }
-    wmtk::SchedulerStats Pass::run_until_convergence(std::string_view info) {
+
+wmtk::SchedulerStats Pass::run_all_operations(Scheduler& scheduler)
+{
+    SchedulerStats run_stats;
+    for (size_t j = 0; j < m_operations.size(); ++j) {
+        const auto& op = m_operations[j];
+        // for (const auto& op : m_operations) {
+        SchedulerStats stats = scheduler.run_operation_on_all(*op, *m_mesh);
+        logger().info(
+            "{} Executed {} ops (S/F) {}/{}.",
+            j,
+            stats.number_of_performed_operations(),
+            stats.number_of_successful_operations(),
+            stats.number_of_failed_operations());
+        run_stats += stats;
     }
-    wmtk::SchedulerStats Pass::run(std::string_view info, int64_t iterations) {
+    return run_stats;
+}
+wmtk::SchedulerStats Pass::run_until_convergence(std::string_view info)
+{
+    wmtk::Scheduler scheduler;
+    SchedulerStats pass_stats;
+
+    for (int i = 0;; ++i) {
+        wmtk::logger().info("Pass {}, Sub-Iteration {} until convergence", info, i);
+
+        SchedulerStats run_stats = run_all_operations(scheduler);
+        if (run_stats.number_of_successful_operations() == 0) {
+            break;
+        }
+        wmtk::multimesh::consolidate(*m_mesh);
+        // m_mesh.consolidate();
+    }
+    logger().info(
+        "Executed {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
+        pass_stats.number_of_performed_operations(),
+        pass_stats.number_of_successful_operations(),
+        pass_stats.number_of_failed_operations(),
+        pass_stats.collecting_time,
+        pass_stats.sorting_time,
+        pass_stats.executing_time);
+    return pass_stats;
+}
+wmtk::SchedulerStats Pass::run(std::string_view info, int64_t iterations)
+{
     wmtk::Scheduler scheduler;
     SchedulerStats pass_stats;
 
     for (long i = 0; i < iterations; ++i) {
         wmtk::logger().info("Pass {}, Sub-Iteration {} of {}", info, i, iterations);
 
-        for (size_t j = 0; j < m_operations.size(); ++j) {
-            const auto& op = m_operations[j];
-            // for (const auto& op : m_operations) {
-            SchedulerStats stats = scheduler.run_operation_on_all(*op, *m_mesh);
-            logger().info(
-                "{} Executed {} ops (S/F) {}/{}.",
-                j,
-                stats.number_of_performed_operations(),
-                stats.number_of_successful_operations(),
-                stats.number_of_failed_operations());
-            pass_stats += stats;
-        }
+        SchedulerStats run_stats = run_all_operations(scheduler);
+        pass_stats += run_stats;
 
         wmtk::multimesh::consolidate(*m_mesh);
         // m_mesh.consolidate();

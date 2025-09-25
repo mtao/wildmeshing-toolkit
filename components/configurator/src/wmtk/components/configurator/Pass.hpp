@@ -26,6 +26,8 @@ public:
     wmtk::SchedulerStats run(std::string_view info);
     wmtk::SchedulerStats run_until_convergence(std::string_view info);
     wmtk::SchedulerStats run(std::string_view info, int64_t iterations);
+
+    wmtk::SchedulerStats run_all_operations(Scheduler& s);
     const std::vector<std::shared_ptr<wmtk::operations::Operation>>& operations() const
     {
         return m_operations;
