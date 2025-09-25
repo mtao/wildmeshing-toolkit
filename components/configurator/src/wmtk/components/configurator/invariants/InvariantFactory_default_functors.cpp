@@ -22,6 +22,8 @@
 
 
 namespace wmtk::components::configurator::invariants {
+
+
 namespace {
 template <typename T, typename MeshType = wmtk::Mesh, typename S = MeshInvariantParameters>
 std::shared_ptr<wmtk::invariants::Invariant> default_add_mesh_invariant(
@@ -66,7 +68,7 @@ std::shared_ptr<wmtk::invariants::Invariant> default_add_attribute_threshold_inv
     auto params = opts.get_parameters();
 
     auto attr = c.get_attribute(params.attribute);
-    auto threshold = params.threshold;
+    auto threshold = params.threshold(c.meshes());
     auto r = std::make_shared<T>(attr, threshold);
     return r;
 }
@@ -111,7 +113,7 @@ void InvariantFactory::load_default_functors()
             invariants::TypedInvariantOptions<invariants::EnvelopeInvariantParameters> opts = js;
             auto params = opts.get_parameters();
             auto attr = c.get_attribute(params.attribute);
-            double size = params.size;
+            double size = params.threshold(c.meshes());
             wmtk::attribute::MeshAttributeHandle env;
 
             if (params.envelope.empty()) {
@@ -140,8 +142,7 @@ void InvariantFactory::load_default_functors()
         &default_add_attribute_threshold_invariant<wmtk::invariants::MinEdgeLengthInvariant>,
         "Only allows operations whose input attribute's edge length is above the provided "
         "threshold");
-    // add("is_rounded",
-    //     &default_add_mesh_invariant<wmtk::invariants::RoundedInvariant>);
+    add("is_rounded", &default_add_attribute_invariant<wmtk::invariants::RoundedInvariant>);
 
 
     add(

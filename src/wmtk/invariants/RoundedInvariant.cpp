@@ -14,6 +14,10 @@ RoundedInvariant::RoundedInvariant(
     , inverse(inverse_flag)
 {}
 
+RoundedInvariant::RoundedInvariant(const attribute::MeshAttributeHandle& mah, bool inverse_flag)
+    : RoundedInvariant(mah.mesh(), mah.as<wmtk::Rational>(), inverse_flag)
+{}
+
 bool RoundedInvariant::before(const simplex::Simplex& t) const
 {
     auto accessor = mesh().create_const_accessor(m_coordinate_handle);

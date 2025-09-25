@@ -28,6 +28,7 @@ bool MinEdgeLengthInvariant::before(const simplex::Simplex& t) const
     return l_squared > m_threshold_squared;
 }
 
+
 std::string MinEdgeLengthInvariant::name() const
 {
     return "MinEdgeLengthInvariant";

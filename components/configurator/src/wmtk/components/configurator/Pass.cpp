@@ -34,11 +34,20 @@ Pass::Pass(Configurator& c, const PassOptions& o)
 
 wmtk::SchedulerStats Pass::run(std::string_view info)
 {
+    if(m_iterations == 0) {
+        return run_until_convergence(info);
+    } else {
+        return run(info,m_iterations);
+    }
+}
+    wmtk::SchedulerStats Pass::run_until_convergence(std::string_view info) {
+    }
+    wmtk::SchedulerStats Pass::run(std::string_view info, int64_t iterations) {
     wmtk::Scheduler scheduler;
     SchedulerStats pass_stats;
 
-    for (long i = 0; i < m_iterations; ++i) {
-        wmtk::logger().info("Pass {}, Sub-Iteration {}", info, i);
+    for (long i = 0; i < iterations; ++i) {
+        wmtk::logger().info("Pass {}, Sub-Iteration {} of {}", info, i, iterations);
 
         for (size_t j = 0; j < m_operations.size(); ++j) {
             const auto& op = m_operations[j];

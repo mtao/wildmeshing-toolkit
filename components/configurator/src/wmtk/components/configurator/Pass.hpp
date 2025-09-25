@@ -24,12 +24,16 @@ public:
 
     // info is just some info for debug logs to print things nicely
     wmtk::SchedulerStats run(std::string_view info);
+    wmtk::SchedulerStats run_until_convergence(std::string_view info);
+    wmtk::SchedulerStats run(std::string_view info, int64_t iterations);
     const std::vector<std::shared_ptr<wmtk::operations::Operation>>& operations() const
     {
         return m_operations;
     }
 
     int64_t iterations() const { return m_iterations; }
+
+    // runs u
 
     const Mesh& mesh() const;
 

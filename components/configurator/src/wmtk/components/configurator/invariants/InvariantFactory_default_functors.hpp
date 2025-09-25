@@ -1,35 +1,19 @@
 #pragma once
+#include <nlohmann/json.hpp>
 #include "InvariantOptions.hpp"
 
 namespace wmtk::components::configurator::invariants {
 
-struct EnvelopeInvariantParameters : public AttributeInvariantParameters
+
+struct EnvelopeInvariantParameters : public ThresholdInvariantParameters
 {
     wmtk::components::multimesh::utils::AttributeDescription envelope;
-    double size = 1e-3;
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
+    NLOHMANN_DEFINE_DERIVED_TYPE_INTRUSIVE_WITH_DEFAULT(
         EnvelopeInvariantParameters,
-        attribute,
-        size,
+        ThresholdInvariantParameters,
         envelope);
 };
-struct ThresholdInvariantParameters : public AttributeInvariantParameters
-{
-    double threshold;
-    //    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(ThresholdInvariantParameters, attribute, threshold);
-};
 
-struct MinEdgeLengthInvariantParameters : public AttributeInvariantParameters
-{
-    wmtk::components::multimesh::utils::AttributeDescription envelope;
-    double threshold;
-    //    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EnvelopeInvariantOptions)
-    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(
-        MinEdgeLengthInvariantParameters,
-        attribute,
-        threshold);
-};
 
 struct CannotMapSimplexInvariantParameters : public MeshInvariantParameters
 {

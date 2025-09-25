@@ -94,6 +94,47 @@ struct AliasInvariantParameters
     // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AliasInvariantParameters)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(AliasInvariantParameters, name);
 };
+
+struct AbsoluteThresholdParameters
+{
+    double threshold;
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(AbsoluteThresholdParameters, threshold);
+};
+
+struct BoundingBoxDiagonalThresholdParameters
+{
+    double ratio;
+    wmtk::components::multimesh::utils::AttributeDescription threshold_attribute;
+    double threshold(const multimesh::MeshCollection& mc) const;
+    NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(BoundingBoxDiagonalThresholdParameters, ratio);
+};
+
+struct ThresholdInvariantParameters : public AttributeInvariantParameters
+{
+    // the way the threshold should be computed
+    enum class ThresholdType { Absolute, BoundingBoxDiagonalRelative };
+
+
+    ThresholdType type;
+
+
+    double threshold(const multimesh::MeshCollection& mc) const;
+
+    nlohmann::json parameters;
+
+    NLOHMANN_DEFINE_DERIVED_TYPE_INTRUSIVE_WITH_DEFAULT(
+        ThresholdInvariantParameters,
+        AttributeInvariantParameters,
+        type,
+        parameters);
+};
+NLOHMANN_JSON_SERIALIZE_ENUM(
+    ThresholdInvariantParameters::ThresholdType,
+    {{ThresholdInvariantParameters::ThresholdType::Absolute, "absolute"},
+     {ThresholdInvariantParameters::ThresholdType::BoundingBoxDiagonalRelative, "bounding_box"}
+
+    });
+
 /*
 // An attribute that only de
 struct MeshInvariantOptions : public TypedInvariantOptions<MeshInvariantParameters>
