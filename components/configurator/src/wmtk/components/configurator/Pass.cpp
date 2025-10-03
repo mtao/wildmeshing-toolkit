@@ -35,6 +35,8 @@ Pass::Pass(Configurator& c, const PassOptions& o)
 wmtk::SchedulerStats Pass::run(std::string_view info)
 {
     if (m_iterations == 0) {
+        return {};
+    } else if (m_iterations == -1) {
         return run_until_convergence(info);
     } else {
         return run(info, m_iterations);

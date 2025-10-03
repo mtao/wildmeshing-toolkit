@@ -2,9 +2,9 @@
 #include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
+#include <wmtk/components/utils/json_macros.hpp>
 #include "wmtk/components/configurator/Configurator.hpp"
 #include "wmtk/components/configurator/PassConfiguration.hpp"
-#include <wmtk/components/utils/json_macros.hpp>
 #include "wmtk/components/configurator/operations/OperationOptions.hpp"
 
 namespace wmtk::components::isotropic_remeshing {
@@ -59,7 +59,8 @@ struct IsotropicRemeshingOptions : public wmtk::components::configurator::PassCo
     void set_split(const wmtk::components::configurator::operations::EdgeSplitOptions& split);
     void set_collapse(
         const wmtk::components::configurator::operations::EdgeCollapseOptions& collapse);
-    void set_smooth(const wmtk::components::configurator::operations::AttributeUpdateOptions& smooth);
+    void set_smooth(
+        const wmtk::components::configurator::operations::AttributeUpdateOptions& smooth);
     void set_swap(const wmtk::components::configurator::operations::EdgeSwapOptions& swap);
 
     // wmtk::components::configurator::Configuration make_pass_configuration() const;
@@ -73,12 +74,12 @@ struct IsotropicRemeshingOptions : public wmtk::components::configurator::PassCo
 
 
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(IsotropicRemeshingOptions)
-    //friend void to_json(
-    //    nlohmann::json& nlohmann_json_j,
-    //    const IsotropicRemeshingOptions& nlohmann_json_t);
-    //friend void from_json(
-    //    const nlohmann::json& nlohmann_json_j,
-    //    IsotropicRemeshingOptions& nlohmann_json_t);
+    // friend void to_json(
+    //     nlohmann::json& nlohmann_json_j,
+    //     const IsotropicRemeshingOptions& nlohmann_json_t);
+    // friend void from_json(
+    //     const nlohmann::json& nlohmann_json_j,
+    //     IsotropicRemeshingOptions& nlohmann_json_t);
 
     std::vector<AttributeDescription> all_positions() const;
 

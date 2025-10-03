@@ -1,20 +1,23 @@
 #pragma once
 
-#include <wmtk/TriMesh.hpp>
+#include <optional>
+#include <vector>
+#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
+#include "wmtk/components/configurator/PassConfiguration.hpp"
 
 namespace wmtk::components::shortest_edge_collapse {
 
-struct ShortestEdgeCollapseOptions
+struct ShortestEdgeCollapseOptions : public wmtk::components::configurator::PassConfiguration
 {
     /**
      * vertex positions (double)
      */
-    attribute::MeshAttributeHandle position_handle;
+    components::multimesh::utils::AttributeDescription position_handle;
     /**
      * If this mesh is part of a multimesh, specify the vertex positions of all other meshes here,
      * if they have any.
      */
-    std::vector<attribute::MeshAttributeHandle> other_position_handles;
+    std::vector<components::multimesh::utils::AttributeDescription> other_position_handles;
     /**
      * The desired edge length relative to the AABB.
      */
@@ -35,7 +38,7 @@ struct ShortestEdgeCollapseOptions
     /**
      * Any other attribute goes here. They are handled with the default attribute behavior.
      */
-    std::vector<attribute::MeshAttributeHandle> pass_through_attributes;
+    std::vector<components::multimesh::utils::AttributeDescription> pass_through_attributes;
 };
 
 } // namespace wmtk::components::shortest_edge_collapse

@@ -72,6 +72,16 @@ struct MeshInvariantParameters
     // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeshInvariantParameters)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(MeshInvariantParameters, mesh_path, on_every_mesh);
 };
+struct MeshSimplexInvariantParameters : public MeshInvariantParameters
+{
+    int8_t dimension;
+    // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(MeshInvariantParameters)
+    NLOHMANN_DEFINE_DERIVED_TYPE_INTRUSIVE(
+        MeshSimplexInvariantParameters,
+        MeshInvariantParameters,
+        dimension);
+};
+
 struct AttributeInvariantParameters
 {
     wmtk::components::multimesh::utils::AttributeDescription attribute;
@@ -93,6 +103,7 @@ struct AliasInvariantParameters
     std::string name;
     // WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AliasInvariantParameters)
     NLOHMANN_DEFINE_TYPE_INTRUSIVE(AliasInvariantParameters, name);
+    wmtk::components::multimesh::utils::AttributeDescription threshold_attribute;
 };
 
 struct AbsoluteThresholdParameters
@@ -104,7 +115,7 @@ struct AbsoluteThresholdParameters
 struct BoundingBoxDiagonalThresholdParameters
 {
     double ratio;
-    wmtk::components::multimesh::utils::AttributeDescription threshold_attribute;
+    wmtk::components::multimesh::utils::AttributeDescription attribute;
     double threshold(const multimesh::MeshCollection& mc) const;
     NLOHMANN_DEFINE_TYPE_INTRUSIVE_WITH_DEFAULT(BoundingBoxDiagonalThresholdParameters, ratio);
 };
@@ -120,13 +131,17 @@ struct ThresholdInvariantParameters : public AttributeInvariantParameters
 
     double threshold(const multimesh::MeshCollection& mc) const;
 
+    // If the parameters
+    multimesh::utils::AttributeDescription attribute;
+
     nlohmann::json parameters;
 
-    NLOHMANN_DEFINE_DERIVED_TYPE_INTRUSIVE_WITH_DEFAULT(
-        ThresholdInvariantParameters,
-        AttributeInvariantParameters,
-        type,
-        parameters);
+    WMTK_NLOHMANN_JSON_DECLARATION(ThresholdInvariantParameters);
+    // NLOHMANN_DEFINE_DERIVED_TYPE_INTRUSIVE_WITH_DEFAULT(
+    //     ThresholdInvariantParameters,
+    //     AttributeInvariantParameters,
+    //     type,
+    //     parameters);
 };
 NLOHMANN_JSON_SERIALIZE_ENUM(
     ThresholdInvariantParameters::ThresholdType,

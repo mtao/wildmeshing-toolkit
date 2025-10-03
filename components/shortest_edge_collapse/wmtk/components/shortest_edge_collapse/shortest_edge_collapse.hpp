@@ -1,8 +1,20 @@
 #pragma once
-#include <wmtk/Mesh.hpp>
-#include <wmtk/TriMesh.hpp>
 
+#include <optional>
+#include <vector>
 #include "ShortestEdgeCollapseOptions.hpp"
+
+namespace wmtk {
+class Mesh;
+namespace attribute {
+class MeshAttributeHandle;
+
+}
+} // namespace wmtk
+
+namespace wmtk::components::multimesh {
+class MeshCollection;
+}
 
 namespace wmtk::components::shortest_edge_collapse {
 
@@ -15,6 +27,9 @@ namespace wmtk::components::shortest_edge_collapse {
  * @param options All options required for performing the shortest-edge collapse.
  */
 void shortest_edge_collapse(Mesh& mesh, const ShortestEdgeCollapseOptions& options);
+void shortest_edge_collapse(
+    multimesh::MeshCollection& meshes,
+    const ShortestEdgeCollapseOptions& options);
 
 /**
  * @brief Perform shortest-edge collapse on a triangular surface mesh.

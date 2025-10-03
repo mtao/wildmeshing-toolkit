@@ -14,6 +14,10 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(PassConfiguration)
     for (const auto& [name, inv] : nlohmann_json_t.invariants) {
         invs[name] = inv;
     }
+    auto& tr = nlohmann_json_j["transfers"];
+    for (const auto& [name, tran] : nlohmann_json_t.transfers) {
+        tr[name] = tran;
+    }
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PassConfiguration)
@@ -51,6 +55,20 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(PassConfiguration)
         } else {
             for (const auto& [name, inv] : invsj.items()) {
                 invs[name] = inv;
+            }
+        }
+    }
+
+    if (nlohmann_json_j.contains("transfers")) {
+        auto& transfers = nlohmann_json_t.transfers;
+        const auto& transfersj = nlohmann_json_j["transfers"];
+        if (transfersj.is_array()) {
+            for (const auto& transfer : transfersj) {
+                transfers[transfer["name"].get<std::string>()] = transfer;
+            }
+        } else {
+            for (const auto& [name, transfer] : transfersj.items()) {
+                transfers[name] = transfer;
             }
         }
     }

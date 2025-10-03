@@ -31,8 +31,12 @@ TransferStrategyFactoryRegistry create_registry()
     reg.register_transfer<AMIPS>("amips");
     return reg;
 }
+std::shared_ptr<TransferStrategyFactoryRegistry> create_registry_ptr()
+{
+    return std::make_shared<TransferStrategyFactoryRegistry>(create_registry());
+}
 void init()
 {
-    TransferStrategyFactory::s_transfer_registry = create_registry();
+    TransferStrategyFactory::s_transfer_registry = create_registry_ptr();
 }
 } // namespace wmtk::components::configurator::transfer

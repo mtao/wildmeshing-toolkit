@@ -14,6 +14,7 @@ class MeshAttributeHandle;
 }
 namespace components::configurator::transfer {
     class TransferStrategyFactoryCollection;
+    class TransferStrategyOptions;
 };
 } // namespace wmtk
 namespace wmtk::components::multimesh {
@@ -52,9 +53,10 @@ struct MultimeshTagOptions : public MultimeshRunnableOptions
     void run(MeshCollection& mc) const final;
     void to_json(nlohmann::json& j) const final;
     void from_json(const nlohmann::json&) final;
-    std::unique_ptr<configurator::transfer::TransferStrategyFactoryCollection> creation_attributes;
+    //std::unique_ptr<configurator::transfer::TransferStrategyFactoryCollection> creation_attributes;
+    std::map<std::string, configurator::transfer::TransferStrategyOptions> creation_attributes;
 
-    bool operator==(const MultimeshTagOptions&) const;
+    //bool operator==(const MultimeshTagOptions&) const;
 };
 
 // returns the child mesh created

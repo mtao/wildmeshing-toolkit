@@ -6,6 +6,7 @@
 #include <wmtk/components/output/OutputOptions.hpp>
 #include "PassOptions.hpp"
 #include "invariants/InvariantOptions.hpp"
+#include "transfer/TransferStrategyOptions.hpp"
 #include "operations/OperationOptions.hpp"
 #include "transfer/TransferStrategyFactoryCollection.hpp"
 
@@ -20,7 +21,7 @@ struct PassConfiguration
     // above section
     std::map<std::string, invariants::InvariantOptions> invariants;
 
-    transfer::TransferStrategyFactoryCollection transfers;
+    std::map<std::string, transfer::TransferStrategyOptions> transfers;
     // std::vector<std::shared_ptr<operations::OperationOptions>> operations;
     // std::vector<std::shared_ptr<invariants::InvariantOptions>> invariants;
 

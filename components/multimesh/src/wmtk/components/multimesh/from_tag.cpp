@@ -1,5 +1,8 @@
 #include "from_tag.hpp"
 #include <wmtk/Mesh.hpp>
+#include <wmtk/components/configurator/Configurator.hpp>
+#include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
+#include <wmtk/components/configurator/transfer/TransferStrategyOptions.hpp>
 #include <wmtk/multimesh/utils/check_map_valid.hpp>
 #include <wmtk/multimesh/utils/extract_child_mesh_from_tag.hpp>
 #include <wmtk/multimesh/utils/transfer_attribute.hpp>
@@ -8,7 +11,7 @@
 #include "MeshCollection.hpp"
 #include "MultimeshRunnableOptions.hpp"
 #include "utils/get_attribute.hpp"
-#include <wmtk/components/configurator/transfer/TransferStrategyFactoryCollection.hpp>
+#include "wmtk/components/utils/json_macros.hpp"
 
 
 namespace wmtk::components::multimesh {
@@ -37,7 +40,7 @@ std::shared_ptr<Mesh> from_tag(
 }
 } // namespace
 
-std::shared_ptr<Mesh> from_tag(const FromTagOptions& options)
+auto from_tag(const FromTagOptions& options) -> std::shared_ptr<Mesh>
 {
     // constness is annoying, but want to let rvalues get passed in?
     wmtk::attribute::MeshAttributeHandle h = options.mesh.handle;
@@ -47,13 +50,13 @@ std::shared_ptr<Mesh> from_tag(const FromTagOptions& options)
         options.passed_attributes,
         options.manifold_decomposition);
 }
-std::shared_ptr<Mesh> from_tag(
+auto from_tag(
     const wmtk::attribute::MeshAttributeHandle& handle,
 
     const wmtk::attribute::MeshAttributeHandle::ValueVariant& tag_value,
 
     const std::vector<wmtk::attribute::MeshAttributeHandle>& passed_attributes,
-    bool manifold_decomposition)
+    bool manifold_decomposition) -> std::shared_ptr<Mesh>
 
 {
     FromTagOptions opts;
@@ -82,8 +85,8 @@ FromTagOptions MultimeshTagOptions::toTagOptions(const MeshCollection& mc) const
     }
     opts.mesh = TaggedRegion{mah, value};
     opts.manifold_decomposition = manifold_decomposition;
-    for(const auto& ad: passed_attributes) {
-        opts.passed_attributes.emplace_back(utils::get_attribute(mc,tag_attribute));
+    for (const auto& ad : passed_attributes) {
+        opts.passed_attributes.emplace_back(utils::get_attribute(mc, tag_attribute));
     }
 
     return opts;
@@ -91,9 +94,12 @@ FromTagOptions MultimeshTagOptions::toTagOptions(const MeshCollection& mc) const
 void MultimeshTagOptions::run(MeshCollection& mc) const
 {
     std::vector<attribute::MeshAttributeHandle> creation_attr_handles;
-    if (bool(creation_attributes)) {
-        for (const auto& attr : *creation_attributes) {
-            creation_attr_handles.emplace_back(attr->populate_attribute(mc));
+    if (!creation_attributes.empty()) {
+        configurator::Configurator configurator(mc);
+        for (const auto& [name, attr] : creation_attributes) {
+            auto t = configurator.create_transfer_strategy(name, attr);
+            t->run_on_all();
+            creation_attr_handles.emplace_back(t->handle());
         }
         auto mah = utils::get_attribute(mc, tag_attribute);
         if (delete_tag_attribute) {
@@ -117,7 +123,7 @@ void MultimeshTagOptions::run(MeshCollection& mc) const
         }
     }
 }
-bool MultimeshTagOptions::operator==(const MultimeshTagOptions&) const = default;
+// bool MultimeshTagOptions::operator==(const MultimeshTagOptions&) const = default;
 
 
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshTagOptions)
@@ -126,9 +132,9 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshTagOptions)
         tag_attribute,
         output_mesh_name,
         delete_tag_attribute,
-        manifold_decomposition);
+        manifold_decomposition,
+        creation_attributes);
 
-    nlohmann_json_j["creation_attributes"] = *nlohmann_json_t.creation_attributes;
     std::visit(
         [&](const auto& v) noexcept {
             if constexpr (std::is_same_v<std::decay_t<decltype(v)>, wmtk::Rational>) {
@@ -140,25 +146,13 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(MultimeshTagOptions)
 }
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(MultimeshTagOptions)
 {
+    WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(MultimeshTagOptions)
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON(tag_attribute, output_mesh_name);
-    if (nlohmann_json_j.contains("manifold_decomposition")) {
-        nlohmann_json_t.manifold_decomposition = nlohmann_json_j["manifold_decomposition"];
-    } else {
-        nlohmann_json_t.manifold_decomposition = true;
-    }
-
-    if (nlohmann_json_j.contains("delete_tag_attribute")) {
-        nlohmann_json_t.delete_tag_attribute = nlohmann_json_j["delete_tag_attribute"];
-    } else {
-        nlohmann_json_t.delete_tag_attribute = true;
-    }
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(
+        manifold_decomposition,
+        delete_tag_attribute,
+        creation_attributes);
     const auto& type_opt = nlohmann_json_t.tag_attribute.type;
-    if (nlohmann_json_j.contains("creation_attributes")) {
-        auto a = nlohmann_json_j["creation_attributes"]
-                     .get<configurator::transfer::TransferStrategyFactoryCollection>();
-        nlohmann_json_t.creation_attributes =
-            std::make_unique<configurator::transfer::TransferStrategyFactoryCollection>(std::move(a));
-    }
     attribute::AttributeType type;
     if (type_opt.has_value()) {
         type = *type_opt;

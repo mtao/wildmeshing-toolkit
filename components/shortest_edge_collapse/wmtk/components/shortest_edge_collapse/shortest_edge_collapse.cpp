@@ -2,6 +2,8 @@
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/Scheduler.hpp>
+#include <wmtk/components/multimesh/MeshCollection.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/components/utils/get_attributes.hpp>
 #include <wmtk/invariants/EnvelopeInvariant.hpp>
 #include <wmtk/invariants/InteriorSimplexInvariant.hpp>
@@ -24,8 +26,30 @@
 
 namespace wmtk::components::shortest_edge_collapse {
 
+
 void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& options)
 {
+    multimesh::MeshCollection mc;
+    mc.add_mesh({mesh_in});
+
+    shortest_edge_collapse(mc, options);
+}
+
+void shortest_edge_collapse(
+    multimesh::MeshCollection& mc,
+    const ShortestEdgeCollapseOptions& options)
+{
+    configurator::PassConfiguration pass_options = options;
+
+    configurator::operations::EdgeCollapseOptions collapse_options;
+    if (pass_options.operations.contains("edge_collapse")) {
+        collapse_options = pass_options.operations["edge_collapse"];
+    }
+    attribute::MeshAttributeHandle position_handle =
+        multimesh::utils::get_attribute(mc, options.position_handle);
+
+    Mesh& mesh_in = position_handle.mesh().get_multi_mesh_root();
+
     if (mesh_in.top_simplex_type() != PrimitiveType::Edge &&
         mesh_in.top_simplex_type() != PrimitiveType::Triangle &&
         mesh_in.top_simplex_type() != PrimitiveType::Tetrahedron) {
@@ -38,13 +62,21 @@ void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& op
         log_and_throw_error("The mesh passed in shortest_edge_collapse must be the root mesh");
     }
 
-    attribute::MeshAttributeHandle position_handle = options.position_handle;
-    std::vector<attribute::MeshAttributeHandle> other_position_handles =
-        options.other_position_handles;
+    std::vector<attribute::MeshAttributeHandle> other_position_handles;
+
+    {
+        std::transform(
+            options.other_position_handles.begin(),
+            options.other_position_handles.end(),
+            std::back_inserter(other_position_handles),
+            [&mc](const auto& ad) { return multimesh::utils::get_attribute(mc, ad); });
+    }
 
     Mesh& mesh = position_handle.mesh();
 
     std::vector<attribute::MeshAttributeHandle> inversion_position_handles;
+    std::vector<components::multimesh::utils::AttributeDescription>
+        inversion_attribute_descriptions;
     if (options.check_inversions) {
         if (position_handle.mesh().top_cell_dimension() == position_handle.dimension()) {
             logger().info("Adding inversion check on collapsing mesh.");
@@ -58,13 +90,20 @@ void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& op
         }
 
         if (inversion_position_handles.empty()) {
-            logger().warn("Shortest-edge collapse should check for inversions but there was no "
-                          "position handle that is valid for inversion checks.");
+            logger().warn(
+                "Shortest-edge collapse should check for inversions but there was no "
+                "position handle that is valid for inversion checks.");
         }
     }
 
-    std::vector<attribute::MeshAttributeHandle> pass_through_attributes =
-        options.pass_through_attributes;
+    std::vector<attribute::MeshAttributeHandle> pass_through_attributes;
+    {
+        std::transform(
+            options.pass_through_attributes.begin(),
+            options.pass_through_attributes.end(),
+            std::back_inserter(pass_through_attributes),
+            [&mc](const auto& ad) { return multimesh::utils::get_attribute(mc, ad); });
+    }
 
     for (auto& h : other_position_handles) {
         pass_through_attributes.emplace_back(h);
@@ -144,22 +183,61 @@ void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& op
         4. / 5. * length_abs); // MTAO: why is this 4/5?
 
     //////////////////////////invariants
+    std::string mesh_path(options.position_handle.mesh_path());
+    {
+        using namespace configurator::invariants;
+        auto invariant_link_condition = std::make_shared<MultiMeshLinkConditionInvariant>(mesh);
 
-    auto invariant_link_condition = std::make_shared<MultiMeshLinkConditionInvariant>(mesh);
+        collapse_options.invariants.try_emplace(
+            "link_condition",
+            InvariantOptions{"link_condition", MeshInvariantParameters{.mesh_path = mesh_path}});
 
-    auto invariant_interior_edge = std::make_shared<invariants::InvariantCollection>(mesh);
-    auto invariant_interior_vertex = std::make_shared<invariants::InvariantCollection>(mesh);
 
-    auto set_all_invariants = [&](auto&& m) {
-        invariant_interior_edge->add(
-            std::make_shared<invariants::InteriorSimplexInvariant>(m, PrimitiveType::Edge));
-        invariant_interior_vertex->add(
-            std::make_shared<invariants::InteriorSimplexInvariant>(m, PrimitiveType::Vertex));
-    };
-    wmtk::multimesh::MultiMeshVisitor visitor(set_all_invariants);
-    visitor.execute_from_root(mesh);
+        auto invariant_interior_edge = std::make_shared<invariants::InvariantCollection>(mesh);
+        auto invariant_interior_vertex = std::make_shared<invariants::InvariantCollection>(mesh);
 
-    auto invariant_mm_map = std::make_shared<MultiMeshMapValidInvariant>(mesh);
+        InvariantCollectionParameters interior_edge_invariant_parameters;
+        InvariantCollectionParameters interior_vertex_invariant_parameters;
+
+        auto set_all_invariants = [&](auto&& m) {
+            auto path = mc.get_mesh_path(m);
+
+
+            MeshSimplexInvariantParameters vp;
+            vp.mesh_path = path;
+            vp.dimension = 0;
+            MeshSimplexInvariantParameters ep;
+            ep.mesh_path = path;
+            ep.dimension = 1;
+            interior_vertex_invariant_parameters.invariants.emplace_back(
+                fmt::format("interior_vertex_{}", path),
+                InvariantOptions{"interior_simplex", nlohmann::json(vp)});
+            interior_edge_invariant_parameters.invariants.emplace_back(
+                fmt::format("interior_edge_{}", path),
+                InvariantOptions{"interior_simplex", nlohmann::json(ep)});
+
+            invariant_interior_edge->add(
+                std::make_shared<invariants::InteriorSimplexInvariant>(m, PrimitiveType::Edge));
+            invariant_interior_vertex->add(
+                std::make_shared<invariants::InteriorSimplexInvariant>(m, PrimitiveType::Vertex));
+        };
+        wmtk::multimesh::MultiMeshVisitor visitor(set_all_invariants);
+        visitor.execute_from_root(mesh);
+
+        InvariantOptions interior_edge_invariants("collection", interior_edge_invariant_parameters);
+        InvariantOptions interior_vertex_invariants(
+            "collection",
+            interior_vertex_invariant_parameters);
+        collapse_options.invariants.try_emplace("interior_vertices_mm", interior_vertex_invariants);
+        collapse_options.invariants.try_emplace("interior_edge_mm", interior_edge_invariants);
+
+        collapse_options.invariants.try_emplace(
+            "multimesh_valid_map",
+            InvariantOptions{
+                "mutlimesh_valid_map",
+                MeshInvariantParameters{.mesh_path = mesh_path}});
+        auto invariant_mm_map = std::make_shared<MultiMeshMapValidInvariant>(mesh);
+    }
 
     ////////////// positions
     std::vector<attribute::MeshAttributeHandle> position_handles;
@@ -167,10 +245,10 @@ void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& op
 
     //////////////////////////////////////////
     // collapse
-    auto collapse = std::make_shared<wmtk::operations::EdgeCollapse>(mesh);
-    collapse->add_invariant(todo);
-    collapse->add_invariant(invariant_link_condition);
-    collapse->add_invariant(invariant_mm_map);
+    // auto collapse = std::make_shared<wmtk::operations::EdgeCollapse>(mesh);
+    // collapse->add_invariant(todo);
+    // collapse->add_invariant(invariant_link_condition);
+    // collapse->add_invariant(invariant_mm_map);
 
 
     if (options.envelope_size) {
@@ -179,10 +257,11 @@ void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& op
 
         if (position_handle.mesh().top_cell_dimension() < position_handle.dimension()) {
             logger().info("Adding envelope check on collapsing mesh.");
-            collapse->add_invariant(std::make_shared<wmtk::invariants::EnvelopeInvariant>(
-                position_handle,
-                env_size,
-                position_handle));
+            collapse->add_invariant(
+                std::make_shared<wmtk::invariants::EnvelopeInvariant>(
+                    position_handle,
+                    env_size,
+                    position_handle));
             envelope_added = true;
         }
 
@@ -196,8 +275,9 @@ void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& op
         }
 
         if (!envelope_added) {
-            logger().warn("Shortest-edge collapse should check for inversion but there was no "
-                          "position handle that is valid for inversion checks.");
+            logger().warn(
+                "Shortest-edge collapse should check for inversion but there was no "
+                "position handle that is valid for inversion checks.");
         }
     }
 

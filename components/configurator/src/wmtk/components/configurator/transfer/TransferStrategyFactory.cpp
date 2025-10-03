@@ -7,7 +7,8 @@
 #include "init.hpp"
 namespace wmtk::components::configurator::transfer {
 
-TransferStrategyFactoryRegistry TransferStrategyFactory::s_transfer_registry = create_registry();
+std::shared_ptr<TransferStrategyFactoryRegistry> TransferStrategyFactory::s_transfer_registry =
+    create_registry_ptr();
 TransferStrategyFactory::~TransferStrategyFactory() = default;
 TransferStrategyFactory::TransferStrategyFactory() = default;
 TransferStrategyFactory::TransferStrategyFactory(TransferStrategyFactory&& o) = default;
@@ -19,11 +20,16 @@ TransferStrategyFactory::TransferStrategyFactory(const TransferStrategyFactory& 
 TransferStrategyFactory& TransferStrategyFactory::operator=(TransferStrategyFactory&& o) = default;
 TransferStrategyFactory& TransferStrategyFactory::operator=(const TransferStrategyFactory& o)
 {
-    this->attribute= o.attribute;
+    this->attribute = o.attribute;
     this->type = o.type;
     // this->dynamic_factory = o.dynamic_factory->clone();
     return *this;
 }
+void TransferStrategyFactory::to_json(nlohmann::json& js) const
+{
+    js = static_cast<const TransferStrategyOptions&>(*this);
+}
+void TransferStrategyFactory::from_json(const nlohmann::json&) {}
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> TransferStrategyFactory::create(
     wmtk::components::multimesh::MeshCollection& mc,
     bool populate) const
@@ -46,6 +52,7 @@ auto TransferStrategyFactory::get_output_attribute_handle(
 auto TransferStrategyFactory::populate_attribute(
     wmtk::components::multimesh::MeshCollection& mc) const -> attribute::MeshAttributeHandle
 {
+    spdlog::info("Json! {}", nlohmann::json(TransferStrategyOptions(*this)).dump());
     auto t = create_transfer(mc);
     t->run_on_all();
     return t->handle();

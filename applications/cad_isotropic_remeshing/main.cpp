@@ -164,7 +164,7 @@ int main(int argc, char* argv[])
 
         wmtk::components::configurator::operations::EdgeCollapseOptions collapse_opts;
         wmtk::components::configurator::operations::EdgeSwapOptions swap_opts;
-        swap_opts.set_mode( components::configurator::operations::EdgeSwapMode::Valence);
+        //swap_opts.set_mode( components::configurator::operations::EdgeSwapMode::Valence);
 
         auto mean_error =
             std::make_shared<wmtk::components::configurator::operations::PriorityOptions>();
@@ -178,24 +178,24 @@ int main(int argc, char* argv[])
 
         //collapse_opts.priority = edge_length;
         //swap_opts.priority = mean_error;
-        swap_opts.set_mode(wmtk::components::configurator::operations::EdgeSwapMode::Valence);
+        //swap_opts.set_mode(wmtk::components::configurator::operations::EdgeSwapMode::Valence);
 
 
         {
             auto el = std::make_shared<wmtk::components::configurator::transfer::EdgeLength>();
             el->type = "edge_length";
             el->attribute = {"fused/edge_length"};
-            el->base_attribute = {"fused/vertices"};
+            el->set_base_attribute({"fused/vertices"});
 
             auto mrm = std::make_shared<wmtk::components::configurator::transfer::MeanRatioMeasure>();
             mrm->type = "mean_ratio_transfer";
             mrm->attribute = {"fused/mean_area_measure"};
-            mrm->base_attribute = {"fused/vertices"};
+            mrm->set_base_attribute ({"fused/vertices"});
             auto min_mrm = std::make_shared<wmtk::components::configurator::transfer::MinNeighbor>();
             min_mrm->type = "min";
             min_mrm->attribute = {"fused/min_mean_area_measure"};
             min_mrm->parameters["simplex_dimension"] = 1;
-            min_mrm->base_attribute = {"fused/mean_area_measure"};
+            min_mrm->set_base_attribute ({"fused/mean_area_measure"});
             opts.utility_attributes.emplace_back(el);
             opts.utility_attributes.emplace_back(mrm);
             opts.utility_attributes.emplace_back(min_mrm);

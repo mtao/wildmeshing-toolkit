@@ -73,6 +73,26 @@ std::shared_ptr<wmtk::invariants::Invariant> default_add_attribute_threshold_inv
     return r;
 }
 
+template <typename T, typename MeshType = wmtk::Mesh, typename S = ThresholdInvariantParameters>
+std::shared_ptr<wmtk::invariants::Invariant> default_add_attribute_attribute_threshold_invariant(
+    Configurator& c,
+    const nlohmann::json& js)
+{
+    auto opts = js.template get<TypedInvariantOptions<S>>();
+    auto params = opts.get_parameters();
+
+    auto attr = c.get_attribute(params.attribute);
+    auto threshold = params.threshold(c.meshes());
+    if (opts.attribute.is_empty()) {
+        auto tattr = c.get_attribute(params.attribute);
+        auto r = std::make_shared<T>(attr, tattr, threshold);
+        return r;
+    } else {
+        auto r = std::make_shared<T>(attr, threshold);
+        return r;
+    }
+}
+
 
 } // namespace
 void InvariantFactory::load_default_functors()
@@ -90,8 +110,17 @@ void InvariantFactory::load_default_functors()
         "Verifies that any two simplices that an edge collapse merges into one remain distinct "
         "unless they are faces of a simplex that is being destroyed");
 
-    add("interior_simplex",
-        &default_add_mesh_invariant<wmtk::invariants::InteriorSimplexInvariant>);
+    add(
+        "interior_simplex",
+        [](Configurator& c, const nlohmann::json& js) {
+            invariants::TypedInvariantOptions<invariants::MeshSimplexInvariantParameters> opts = js;
+            auto params = opts.get_parameters();
+            auto p = std::make_shared<wmtk::invariants::InteriorSimplexInvariant>(
+                c.get_mesh(params.mesh_path),
+                get_primitive_type_from_id(params.dimension));
+            return p;
+        },
+        "Represents a collection of invariants");
 
     add(
         "collection",

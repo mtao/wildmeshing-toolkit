@@ -13,6 +13,8 @@ set(SRC_FILES
 
 target_sources(wmtk_${COMPONENT_NAME} PRIVATE ${SRC_FILES})
 
-# target_link_libraries(wmtk_${COMPONENT_NAME} PRIVATE
-#     #
-# )
+target_link_libraries(wmtk_${COMPONENT_NAME} PUBLIC
+     wmtk_configurator
+     wmtk_multimesh
+     #
+ )

@@ -14,7 +14,7 @@ class MeshCollection;
 } // namespace wmtk
 namespace wmtk::components::configurator::transfer {
 
-struct TransferStrategyFactory
+struct TransferStrategyFactory : public TransferStrategyOptions
 {
     TransferStrategyFactory();
     virtual ~TransferStrategyFactory();
@@ -23,7 +23,9 @@ struct TransferStrategyFactory
     TransferStrategyFactory& operator=(const TransferStrategyFactory&);
     TransferStrategyFactory& operator=(TransferStrategyFactory&&);
 
-    // the attribute that will be written to. This does not need to be fully specified, as the base attribute might have constraints on what this output can be. However, a warning will be made to make sure that it is compatible if specified
+    // the attribute that will be written to. This does not need to be fully specified, as the base
+    // attribute might have constraints on what this output can be. However, a warning will be made
+    // to make sure that it is compatible if specified
     multimesh::utils::AttributeDescription attribute;
     std::string type;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(TransferStrategyFactory)
@@ -49,7 +51,8 @@ struct TransferStrategyFactory
 
     // virtual int output_dimension(int input_dim) const = 0;
 
-    static const TransferStrategyFactoryRegistry& transfer_registry()
+    static TransferStrategyFactoryRegistry& transfer_registry() { return *s_transfer_registry; }
+    static std::shared_ptr<TransferStrategyFactoryRegistry>& transfer_registry_ptr()
     {
         return s_transfer_registry;
     }
@@ -61,14 +64,17 @@ protected:
     friend struct TransferStrategy;
     friend void init();
 
-    virtual void to_json(nlohmann::json&) const = 0;
-    virtual void from_json(const nlohmann::json&) = 0;
+    virtual TransferStrategyOptions to_options() const = 0;
+    virtual void from_options(const TransferStrategyOptions&) = 0;
+
+    void to_json(nlohmann::json&) const;
+    void from_json(const nlohmann::json&);
 
     template <typename Type>
     void static register_transfer(const std::string& name);
 
 private:
-    static TransferStrategyFactoryRegistry s_transfer_registry;
+    static std::shared_ptr<TransferStrategyFactoryRegistry> s_transfer_registry;
 };
 void to_json(nlohmann::json&, const TransferStrategyFactory&);
 void from_json(const nlohmann::json&, TransferStrategyFactory&);
@@ -76,6 +82,6 @@ void from_json(const nlohmann::json&, TransferStrategyFactory&);
 template <typename Type>
 void TransferStrategyFactory::register_transfer(const std::string& name)
 {
-    s_transfer_registry.register_transfer<Type>(name);
+    s_transfer_registry->register_transfer<Type>(name);
 }
 } // namespace wmtk::components::configurator::transfer

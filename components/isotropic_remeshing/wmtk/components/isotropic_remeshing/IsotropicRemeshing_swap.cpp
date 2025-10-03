@@ -66,6 +66,7 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
     // const std::optional<attribute::MeshAttributeHandle>& position_for_inversion =
     //     opts.inversion_position_attribute;
 
+    /*
     switch (opts.get_swap().mode()) {
     case configurator::operations::EdgeSwapMode::Valence: {
         auto tri = dynamic_cast<TriMesh*>(&mesh);
@@ -82,6 +83,7 @@ void IsotropicRemeshing::configure_swap(const IsotropicRemeshingOptions& opts)
     }
     default: assert(false);
     }
+    */
     // if (position_for_inversion) {
     //     m_swap->collapse().add_invariant(std::make_shared<SimplexInversionInvariant<double>>(
     //         position_for_inversion.value().mesh(),

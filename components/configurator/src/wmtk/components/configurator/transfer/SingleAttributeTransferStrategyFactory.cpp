@@ -1,25 +1,36 @@
 #include "SingleAttributeTransferStrategyFactory.hpp"
+#include "wmtk/components/configurator/transfer/TransferStrategyOptions.hpp"
 
 
 namespace wmtk::components::configurator::transfer {
 SingleAttributeTransferStrategyFactoryBase::SingleAttributeTransferStrategyFactoryBase() = default;
 SingleAttributeTransferStrategyFactoryBase::~SingleAttributeTransferStrategyFactoryBase() = default;
 
-void SingleAttributeTransferStrategyFactoryBase::to_json(nlohmann::json& j) const
+TransferStrategyOptions SingleAttributeTransferStrategyFactoryBase::to_options() const
 {
-    j["attribute"] = attribute;
-    j["type"] = type;
-    j["base_attribute"] = base_attribute;
-    j["parameters"] = parameters;
+    return *this;
 }
-void SingleAttributeTransferStrategyFactoryBase::from_json(const nlohmann::json& j)
+void SingleAttributeTransferStrategyFactoryBase::from_options(const TransferStrategyOptions& opts)
 {
-    spdlog::info("{}", j.dump());
-    attribute = j["attribute"];
-    type = j["type"];
-    base_attribute = j["base_attribute"];
-    if (j.contains("parameters")) {
-        parameters = j["parameters"];
-    }
+    static_cast<TransferStrategyOptions&>(*this) = opts;
 }
+
+void SingleAttributeTransferStrategyFactoryBase::set_base_attribute(
+    const multimesh::utils::AttributeDescription& at)
+{
+    spdlog::info("Set parameters {}", at);
+    SingleAttributeTransferStrategyParameters p;
+    p.attribute = at;
+    parameters = p;
+    spdlog::info("Now paramters is {}", parameters.dump());
+}
+
+auto SingleAttributeTransferStrategyFactoryBase::base_attribute() const
+    -> multimesh::utils::AttributeDescription
+{
+    spdlog::info("{}", parameters.dump());
+    SingleAttributeTransferStrategyParameters p = parameters;
+    return p.attribute;
+}
+
 } // namespace wmtk::components::configurator::transfer

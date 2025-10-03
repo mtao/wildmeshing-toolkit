@@ -65,6 +65,10 @@ void Configurator::load(const Configuration& config)
 }
 void Configurator::load(const PassConfiguration& config)
 {
+    for (const auto& [name, transfer] : config.transfers) {
+        m_transfer_strategies.create(*this, name, transfer);
+    }
+
     for (const auto& [n, i] : config.invariants) {
         m_invariants.create(*this, n, i);
     }
@@ -73,9 +77,6 @@ void Configurator::load(const PassConfiguration& config)
         m_operations.create(*this, n, o);
     }
 
-    for (const auto& transfer : config.transfers) {
-        m_operation_transfers.emplace_back(transfer->create(meshes()));
-    }
 
     for (const auto& p : config.passes) {
         m_passes.emplace_back(*this, p);
@@ -112,6 +113,15 @@ std::shared_ptr<wmtk::operations::Operation> Configurator::create_operation(
 {
     return m_operations.create(*this, js);
 }
+
+auto Configurator::create_transfer_strategy(
+    std::string_view name,
+    const transfer::TransferStrategyOptions& opts)
+    -> std::shared_ptr<transfer::TransferFactory::transfer_strategy_type>
+{
+    return m_transfer_strategies.create(*this, name, opts);
+}
+
 
 auto Configurator::get_mesh_internal(std::string_view name) -> wmtk::Mesh&
 {

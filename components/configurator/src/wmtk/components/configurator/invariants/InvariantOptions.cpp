@@ -25,6 +25,8 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(ThresholdInvariantParameters)
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(ThresholdInvariantParameters)
 {
+    WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(ThresholdInvariantParameters);
+    WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(attribute);
     from_json(nlohmann_json_j, static_cast<AttributeInvariantParameters&>(nlohmann_json_t));
 
     // if we are using bounding box but no threshold is set
@@ -33,13 +35,13 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(ThresholdInvariantParameters)
             nlohmann_json_t.type = ThresholdInvariantParameters::ThresholdType::Absolute;
             BoundingBoxDiagonalThresholdParameters p;
             p.ratio = nlohmann_json_j["relative_size"];
-            if (nlohmann_json_j.contains("threshold_attribute")) {
+            if (nlohmann_json_j.contains("attribute")) {
                 logger().debug(
                     "Threshold invariant didn't have an envelope attribute, assuming it was input "
                     "mesh "
                     "{}",
                     nlohmann_json_t.attribute);
-                p.threshold_attribute = nlohmann_json_t.attribute;
+                p.attribute = nlohmann_json_t.attribute;
             }
             nlohmann_json_t.parameters = p;
         } else if (nlohmann_json_j.contains("absolute_size")) {
@@ -61,7 +63,7 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(ThresholdInvariantParameters)
 
 double BoundingBoxDiagonalThresholdParameters::threshold(const multimesh::MeshCollection& mc) const
 {
-    auto attr = multimesh::utils::get_attribute(mc, threshold_attribute);
+    auto attr = multimesh::utils::get_attribute(mc, attribute);
 
     return std::visit(
         [&](const auto& t) -> double {
@@ -84,6 +86,7 @@ double ThresholdInvariantParameters::threshold(const multimesh::MeshCollection& 
     }
     return 0.0;
 }
+
 
 // NLOHMANN_DEFINE_TYPE_NON_INTRUSIVE(InvariantOptions, type, parameters);
 

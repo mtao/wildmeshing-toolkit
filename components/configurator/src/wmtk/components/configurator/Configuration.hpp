@@ -16,6 +16,7 @@ struct Configuration: public PassConfiguration
     wmtk::components::input::InputOptions input;
     // output is optional
     wmtk::components::output::OutputOptions output;
+
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Configuration);
 };
 } // namespace wmtk::components::configurator

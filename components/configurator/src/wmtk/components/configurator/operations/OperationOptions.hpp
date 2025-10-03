@@ -5,6 +5,7 @@
 #include <wmtk/components/utils/json_macros.hpp>
 
 #include "../invariants/InvariantOptions.hpp"
+#include "../transfer/TransferStrategyOptions.hpp"
 #include "EdgeSwapMode.hpp"
 #include "PriorityOptions.hpp"
 #include "wmtk/components/multimesh/utils/AttributeDescription.hpp"
@@ -32,6 +33,7 @@ struct OperationOptions
     std::string type;
     PriorityOptions priority;
     std::map<std::string, invariants::InvariantOptions> invariants;
+    std::map<std::string, transfer::TransferStrategyOptions> transfers;
     // adds a new alias invariant assuming the name in the operation is the same as the
     // configurator's name
     void add_alias_invariant(std::string_view name);
@@ -87,7 +89,7 @@ struct EdgeSwapOptions : public OperationOptions
     struct Parameters : public MeshOperationParameters
     {
         using MeshOperationParameters::MeshOperationParameters;
-        EdgeSwapMode mode = EdgeSwapMode::Valence;
+        //EdgeSwapMode mode = EdgeSwapMode::Valence;
         std::map<std::string, invariants::InvariantOptions> split_invariants;
         std::map<std::string, invariants::InvariantOptions> collapse_invariants;
 
@@ -102,8 +104,8 @@ struct EdgeSwapOptions : public OperationOptions
     EdgeSwapOptions& operator=(const EdgeSwapOptions&);
     EdgeSwapOptions& operator=(EdgeSwapOptions&&);
     // by default the mode is set to Valence;
-    EdgeSwapMode mode() const;
-    void set_mode(EdgeSwapMode);
+    //EdgeSwapMode mode() const;
+    //void set_mode(EdgeSwapMode);
     constexpr static std::string type_name = "edge_swap";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EdgeSwapOptions)
 };
@@ -130,13 +132,6 @@ struct AttributeUpdateOptions : public OperationOptions
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeUpdateOptions)
 };
 
-struct Pass
-{
-    std::string mesh_path;
-    int64_t iterations = 10;
-    std::vector<std::string> operations;
-    WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(Pass)
-};
 
 
 } // namespace wmtk::components::configurator::operations

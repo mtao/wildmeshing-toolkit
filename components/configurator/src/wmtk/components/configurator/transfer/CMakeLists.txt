@@ -1,5 +1,12 @@
 
 target_sources(wmtk_${COMPONENT_NAME} PRIVATE 
+
+    TransferStrategyOptions.hpp
+    TransferStrategyOptions.cpp
+
+    TransferFactory.hpp
+    TransferFactory.cpp
+
 TransferStrategyFactory.cpp
 TransferStrategyFactory.hpp
 TransferStrategy_macros.hpp

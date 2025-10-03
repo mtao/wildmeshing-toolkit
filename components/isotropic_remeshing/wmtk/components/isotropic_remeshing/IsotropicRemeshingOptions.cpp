@@ -20,7 +20,8 @@
 
 #define DEFAULT_PARSABLE_ARGS                                                           \
     lock_boundary, intermediate_output_format, start_with_collapse, position_attribute, \
-        pass_through_attributes, static_meshes, improvement_attributes //, utility_attributes
+        pass_through_attributes, static_meshes, improvement_attributes, utility_attributes
+
 
 namespace wmtk::components::isotropic_remeshing {
 
@@ -34,35 +35,37 @@ IsotropicRemeshingOptions::IsotropicRemeshingOptions(
     wmtk::components::configurator::transfer::init();
 
     position_attribute = position_attr;
-}
 
-void IsotropicRemeshingOptions::process_custom_options()
-{
     const std::string_view mesh_path = position_attribute.mesh_path();
     operations["split"] = configurator::operations::EdgeSplitOptions{mesh_path};
     operations["collapse"] = configurator::operations::EdgeCollapseOptions{mesh_path};
+    operations["collapse"].add_alias_invariant("link_condition");
+    operations["collapse"].add_alias_invariant("multimesh_valid_map");
     operations["smooth"] =
         configurator::operations::AttributeUpdateOptions(position_attribute, "vertex_smooth");
     // operations["swap"].add_alias_invariant("interior_simplex");
-    operations["collapse"].add_alias_invariant("link_condition");
-    operations["collapse"].add_alias_invariant("multimesh_valid_map");
 
     {
         auto so = configurator::operations::EdgeSwapOptions{mesh_path};
         auto sp = so.get_parameters();
         so.add_alias_invariant("valence_improvement");
-        // sp.collapse_invariants["link_condition"] =
-        //     operations["collapse"].invariants["link_condition"];
+        // so.add_alias_invariant("interior_simplex");
+        // so.add_alias_invariant("cannot_map");
+        //  sp.collapse_invariants["link_condition"] =
+        //      operations["collapse"].invariants["link_condition"];
 
         sp.collapse_invariants["multimesh_valid_map"] =
             operations["collapse"].invariants["multimesh_valid_map"];
         so.set_parameters(sp);
         operations["swap"] = so;
     }
-
     passes = {configurator::PassOptions{
         .mesh_path = std::string(mesh_path),
         .operations = {"split", "collapse", "swap", "smooth"}}};
+}
+
+void IsotropicRemeshingOptions::process_custom_options()
+{
     if (separate_substructures) {
         operations["collapse"].add_alias_invariant("separate_substructures");
     }
@@ -155,6 +158,13 @@ WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(IsotropicRemeshingOptions)
     if (nlohmann_json_t.envelope_size.has_value()) {
         nlohmann_json_j["envelope_size"] = nlohmann_json_t.envelope_size.value();
     }
+    {
+        std::map<std::string, wmtk::components::multimesh::utils::AttributeDescription> ad;
+        for (const auto& [target, src] : nlohmann_json_t.copied_attributes) {
+            ad[target.path] = src;
+        }
+        nlohmann_json_j["copied_attributes"] = ad;
+    }
 
     // if (nlohmann_json_t.envelope_size.has_value()) {
     //     nlohmann_json_j["envelope_size"] = nlohmann_json_t.envelope_size.value();
@@ -171,7 +181,8 @@ WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(IsotropicRemeshingOptions)
 {
     multimesh::utils::AttributeDescription pos_attr = nlohmann_json_j["position_attribute"];
     nlohmann_json_t = IsotropicRemeshingOptions(pos_attr);
-    WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(IsotropicRemeshingOptions);
+    IsotropicRemeshingOptions nlohmann_json_default_obj = IsotropicRemeshingOptions(pos_attr);
+    // WMTK_NLOHMANN_JSON_DECLARE_DEFAULT_OBJECT(IsotropicRemeshingOptions);
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(DEFAULT_PARSABLE_ARGS);
     WMTK_NLOHMANN_ASSIGN_TYPE_FROM_JSON_WITH_DEFAULT(copied_attributes);
 

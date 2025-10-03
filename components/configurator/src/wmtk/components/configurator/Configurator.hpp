@@ -8,6 +8,7 @@
 #include "invariants/InvariantFactory.hpp"
 #include "invariants/InvariantOptions.hpp"
 #include "operations/OperationFactory.hpp"
+#include "transfer/TransferFactory.hpp"
 
 
 namespace wmtk::components::multimesh {
@@ -55,6 +56,10 @@ public:
         std::string_view name,
         const nlohmann::json& js);
     std::shared_ptr<wmtk::operations::Operation> create_operation(const nlohmann::json& js);
+
+    std::shared_ptr<transfer::TransferFactory::transfer_strategy_type> create_transfer_strategy(
+        std::string_view name,
+        const transfer::TransferStrategyOptions& opts);
 
     std::shared_ptr<wmtk::invariants::Invariant> get_invariant(std::string_view name);
     std::shared_ptr<wmtk::operations::Operation> get_operation(std::string_view name);
@@ -115,8 +120,9 @@ private:
     operations::OperationFactory m_operations;
     invariants::InvariantFactory m_invariants;
 
-    std::vector<std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>>
-        m_operation_transfers;
+    // TODO: this was written before the OperationFactory and InvariantFactory so naming is currently inconsistent
+    transfer::TransferFactory m_transfer_strategies;
+
 
     std::vector<Pass> m_passes;
 };
