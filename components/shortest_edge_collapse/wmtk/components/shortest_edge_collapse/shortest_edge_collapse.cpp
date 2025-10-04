@@ -4,6 +4,7 @@
 #include <wmtk/Scheduler.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
+#include <wmtk/components/configurator/Configurator.hpp>
 #include <wmtk/components/utils/get_attributes.hpp>
 #include <wmtk/invariants/EnvelopeInvariant.hpp>
 #include <wmtk/invariants/InteriorSimplexInvariant.hpp>
@@ -40,6 +41,7 @@ void shortest_edge_collapse(
     const ShortestEdgeCollapseOptions& options)
 {
     configurator::PassConfiguration pass_options = options;
+    configurator::Configurator configurator(mc);
 
     configurator::operations::EdgeCollapseOptions collapse_options;
     if (pass_options.operations.contains("edge_collapse")) {

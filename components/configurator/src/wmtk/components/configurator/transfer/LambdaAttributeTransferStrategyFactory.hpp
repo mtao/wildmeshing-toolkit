@@ -1,3 +1,4 @@
+
 #pragma once
 #include <nlohmann/json.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
@@ -15,10 +16,10 @@
 
 namespace wmtk::components::configurator::transfer {
 
-struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFactory
+struct LambdaFunctionTransferStrategyFactoryBase : public TransferStrategyFactory
 {
-    SingleAttributeTransferStrategyFactoryBase();
-    ~SingleAttributeTransferStrategyFactoryBase();
+    LambdaFunctionTransferStrategyFactoryBase();
+    ~LambdaFunctionTransferStrategyFactoryBase();
     multimesh::utils::AttributeDescription base_attribute() const;
     void set_base_attribute(const multimesh::utils::AttributeDescription&);
 
@@ -33,10 +34,10 @@ struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFacto
 };
 
 template <template <typename, int, typename, int> typename Functor>
-struct SingleAttributeTransferStrategyFactory : public SingleAttributeTransferStrategyFactoryBase
+struct LambdaFunctionTransferStrategyFactory : public LambdaFunctionTransferStrategyFactoryBase
 {
-    SingleAttributeTransferStrategyFactory();
-    ~SingleAttributeTransferStrategyFactory();
+    LambdaFunctionTransferStrategyFactory();
+    ~LambdaFunctionTransferStrategyFactory();
 
 
     components::multimesh::utils::AttributeDescription get_output_attribute_description(
@@ -60,7 +61,7 @@ struct SingleAttributeTransferStrategyFactory : public SingleAttributeTransferSt
 template <template <typename, int, typename, int> typename Functor>
 template <int ToDim, int FromDim, typename ToT, typename FromT>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-SingleAttributeTransferStrategyFactory<Functor>::create_T(
+LambdaFunctionTransferStrategyFactory<Functor>::create_T(
     const attribute::MeshAttributeHandle& to,
     const attribute::MeshAttributeHandle& from) const
 {
@@ -68,7 +69,7 @@ SingleAttributeTransferStrategyFactory<Functor>::create_T(
 
     if constexpr (F::valid()) {
         return std::make_shared<
-            wmtk::operations::SingleAttributeTransferStrategy<ToT, FromT, ToDim, FromDim>>(
+            wmtk::operations::LambdaFunctionTransferStrategy<ToT, FromT, ToDim, FromDim>>(
             to,
             from,
             F(parameters));
@@ -80,18 +81,18 @@ SingleAttributeTransferStrategyFactory<Functor>::create_T(
 }
 
 // template <template <typename, int, typename, int> typename Functor>
-// int SingleAttributeTransferStrategyFactory<Functor>::output_dimension(int input_dim) const
+// int LambdaFunctionTransferStrategyFactory<Functor>::output_dimension(int input_dim) const
 //{
 //     return TransferFunctorTraits<Functor>::output_dimension(input_dim);
 // }
 // template <template <typename, int, typename, int> typename Functor>
-// int SingleAttributeTransferStrategyFactory<Functor>::simplex_dimension(int input_dim) const
+// int LambdaFunctionTransferStrategyFactory<Functor>::simplex_dimension(int input_dim) const
 //{
 //     return TransferFunctorTraits<Functor>::simplex_dimension(base_);
 // }
 template <template <typename, int, typename, int> typename Functor>
 components::multimesh::utils::AttributeDescription
-SingleAttributeTransferStrategyFactory<Functor>::get_output_attribute_description(
+LambdaFunctionTransferStrategyFactory<Functor>::get_output_attribute_description(
     const wmtk::components::multimesh::MeshCollection& mc) const
 {
     auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, base_attribute());
@@ -113,7 +114,7 @@ SingleAttributeTransferStrategyFactory<Functor>::get_output_attribute_descriptio
 }
 template <template <typename, int, typename, int> typename Functor>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-SingleAttributeTransferStrategyFactory<Functor>::create_transfer(
+LambdaFunctionTransferStrategyFactory<Functor>::create_transfer(
     wmtk::components::multimesh::MeshCollection& mc) const
 {
     auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, base_attribute());
@@ -149,24 +150,5 @@ SingleAttributeTransferStrategyFactory<Functor>::create_transfer(
         to_attr.handle(),
         from_attr.handle());
 }
-
-#define WMTK_TRANSFER_DEFINE_CONSTRUCTOR_DESTRUCTOR(TYPE)                                     \
-    namespace wmtk::components::configurator::transfer {                                      \
-    template <>                                                                               \
-    SingleAttributeTransferStrategyFactory<TYPE>::SingleAttributeTransferStrategyFactory() =  \
-        default;                                                                              \
-    template <>                                                                               \
-    SingleAttributeTransferStrategyFactory<TYPE>::~SingleAttributeTransferStrategyFactory() = \
-        default;                                                                              \
-    } // namespace wmtk::components::configurator::transfer
-#define WMTK_TRANSFER_DEFINE_CONSTRUCTOR_DESTRUCTOR_INLINE(TYPE)    \
-    namespace wmtk::components::configurator::transfer {            \
-    template <>                                                     \
-    inline SingleAttributeTransferStrategyFactory<                  \
-        TYPE>::SingleAttributeTransferStrategyFactory() = default;  \
-    template <>                                                     \
-    inline SingleAttributeTransferStrategyFactory<                  \
-        TYPE>::~SingleAttributeTransferStrategyFactory() = default; \
-    } // namespace wmtk::components::configurator::transfer
 
 } // namespace wmtk::components::configurator::transfer

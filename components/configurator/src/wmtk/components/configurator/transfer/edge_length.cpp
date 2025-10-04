@@ -1,15 +1,6 @@
 #include "edge_length.hpp"
 #include <nlohmann/json.hpp>
 #include "SingleAttributeTransferStrategyFactory.hpp"
-namespace wmtk::components::configurator::transfer {
 
+WMTK_TRANSFER_DEFINE_CONSTRUCTOR_DESTRUCTOR(EdgeLengthFunctor);
 
-template <>
-SingleAttributeTransferStrategyFactory<
-    EdgeLengthFunctor>::SingleAttributeTransferStrategyFactory() = default;
-template <>
-SingleAttributeTransferStrategyFactory<
-    EdgeLengthFunctor>::~SingleAttributeTransferStrategyFactory() = default;
-
-
-} // namespace wmtk::components::configurator::transfer
