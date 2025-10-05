@@ -27,69 +27,55 @@ struct LambdaFunctionTransferStrategyFactoryBase : public TransferStrategyFactor
 
     TransferStrategyOptions to_options() const final;
     void from_options(const TransferStrategyOptions&) final;
-
-    // entry point to set the type and dim of the output
-    // int base_attribute_dimension(wmtk::components::multimesh::MeshCollection& mc) const;
-    // int base_simplex_dimension(wmtk::components::multimesh::MeshCollection& mc) const;
 };
 
-template <template <typename, int, typename, int> typename Functor>
+template <typename InType, int InDim, typename OutType, int OutDim>
 struct LambdaFunctionTransferStrategyFactory : public LambdaFunctionTransferStrategyFactoryBase
 {
-    LambdaFunctionTransferStrategyFactory();
+    using RetObjectType =
+        wmtk::operations::SingleAttributeTransferStrategy<InType, OutType, InDim, OutDim>;
+    using FunctorType = typename RetObjectType::FunctorType;
+    using FunctorWithoutSimplexType = typename RetObjectType::FunctorWithoutSimplexType;
+    LambdaFunctionTransferStrategyFactory(FunctorType f = {})
+        : m_functor(f)
+    {}
+    LambdaFunctionTransferStrategyFactory(FunctorWithoutSimplexType f)
+        : m_functor(f)
+    {}
     ~LambdaFunctionTransferStrategyFactory();
 
 
     components::multimesh::utils::AttributeDescription get_output_attribute_description(
         const wmtk::components::multimesh::MeshCollection&) const final;
-    // std::unique_ptr<TransferStrategyFactory> clone() const final;
-    // pass in the dimension of hte input vector, gets output vector
-    // int output_dimension(int input_attribute_dimension) const final;
-    // int output_simplex_dimension(int input_dim) const;
-
-    template <int ToDim, int FromDim, typename ToT, typename FromT>
-    std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_T(
-        const attribute::MeshAttributeHandle& to,
-        const attribute::MeshAttributeHandle& from) const;
 
     std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_transfer(
         wmtk::components::multimesh::MeshCollection& mc) const final;
-    template <int ToDim, int FromDim, typename ToT, typename FromT>
-    using FunctorType = Functor<FromT, FromDim, ToT, ToDim>;
+
+    std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> create_transfer(
+        const attribute::MeshAttributeHandle& to,
+        const attribute::MeshAttributeHandle& from) const;
+
+private:
+    std::variant<FunctorType, FunctorWithoutSimplexType> m_functor;
 };
 
-template <template <typename, int, typename, int> typename Functor>
-template <int ToDim, int FromDim, typename ToT, typename FromT>
+template <typename InType, int InDim, typename OutType, int OutDim>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-LambdaFunctionTransferStrategyFactory<Functor>::create_T(
+LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::create_transfer(
     const attribute::MeshAttributeHandle& to,
     const attribute::MeshAttributeHandle& from) const
 {
-    using F = Functor<FromT, FromDim, ToT, ToDim>;
-
-    if constexpr (F::valid()) {
-        return std::make_shared<
-            wmtk::operations::LambdaFunctionTransferStrategy<ToT, FromT, ToDim, FromDim>>(
-            to,
-            from,
-            F(parameters));
-        //[](auto&& a) { return F::execute(a); });
-    } else {
-        assert(false); // was unable to construct mesh because validity was not met
-        return {};
-    }
+    return std::visit(
+        [&](const auto& f) {
+            return std::make_shared<
+                wmtk::operations::SingleAttributeTransferStrategy<InType, OutType, InDim, OutDim>>(
+                to,
+                from,
+                f);
+        },
+        m_functor);
 }
 
-// template <template <typename, int, typename, int> typename Functor>
-// int LambdaFunctionTransferStrategyFactory<Functor>::output_dimension(int input_dim) const
-//{
-//     return TransferFunctorTraits<Functor>::output_dimension(input_dim);
-// }
-// template <template <typename, int, typename, int> typename Functor>
-// int LambdaFunctionTransferStrategyFactory<Functor>::simplex_dimension(int input_dim) const
-//{
-//     return TransferFunctorTraits<Functor>::simplex_dimension(base_);
-// }
 template <template <typename, int, typename, int> typename Functor>
 components::multimesh::utils::AttributeDescription
 LambdaFunctionTransferStrategyFactory<Functor>::get_output_attribute_description(

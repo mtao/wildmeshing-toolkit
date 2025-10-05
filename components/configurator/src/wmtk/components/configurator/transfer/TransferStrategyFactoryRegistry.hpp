@@ -4,6 +4,7 @@
 #include <memory>
 #include <nlohmann/json_fwd.hpp>
 #include "TransferStrategyOptions.hpp"
+#include "wmtk/components/configurator/transfer/LambdaAttributeTransferStrategyFactory.hpp"
 
 namespace wmtk::components::configurator::transfer {
 struct TransferStrategyFactory;
@@ -23,6 +24,9 @@ public:
 
     std::vector<std::string> names() const;
 
+    template <typename InType, int InDim, typename OutType, int OutDim, typename Func>
+    void register_lambda_transfer(const std::string_view& name, Func&& f = {});
+
 private:
     std::map<
         std::string,
@@ -41,5 +45,18 @@ void TransferStrategyFactoryRegistry::register_transfer(const std::string_view& 
         });
     }
 }
+
+    template <typename InType, int InDim, typename OutType, int OutDim, typename Func>
+    void TransferStrategyFactoryRegistry::register_lambda_transfer(const std::string_view& name, Func&& f) {
+
+
+    if (!has(name)) {
+        m_map.emplace(name, [f](const TransferStrategyOptions& js) {
+            auto t = std::make_shared<LambdaFunctionTransferStrategyFactory<InType,InDim,OutType,OutDim,Func>>(f);
+            t->from_options(js);
+            return t;
+        });
+    }
+    }
 } // namespace wmtk::components::configurator::transfer
 

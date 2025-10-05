@@ -20,6 +20,10 @@ TransferStrategyFactoryCollection.hpp
 SingleAttributeTransferStrategyFactory.cpp
 SingleAttributeTransferStrategyFactory.hpp
 
+LambdaFunctionTransferStrategyFactory.cpp
+LambdaFunctionTransferStrategyFactory.hpp
+
+
 edge_length.cpp
 edge_length.hpp
 
