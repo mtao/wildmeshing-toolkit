@@ -22,8 +22,8 @@ struct LambdaFunctionTransferStrategyFactoryBase : public TransferStrategyFactor
     ~LambdaFunctionTransferStrategyFactoryBase();
     multimesh::utils::AttributeDescription base_attribute() const;
     void set_base_attribute(const multimesh::utils::AttributeDescription&);
+    void set_attribute(const multimesh::utils::AttributeDescription&);
 
-    nlohmann::json parameters;
 
     TransferStrategyOptions to_options() const final;
     void from_options(const TransferStrategyOptions&) final;
@@ -76,31 +76,17 @@ LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::create_tr
         m_functor);
 }
 
-template <template <typename, int, typename, int> typename Functor>
+template <typename InType, int InDim, typename OutType, int OutDim>
 components::multimesh::utils::AttributeDescription
-LambdaFunctionTransferStrategyFactory<Functor>::get_output_attribute_description(
-    const wmtk::components::multimesh::MeshCollection& mc) const
+LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::
+    get_output_attribute_description(const wmtk::components::multimesh::MeshCollection& mc) const
 {
-    auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, base_attribute());
-    using Traits = TransferFunctorTraits<Functor>;
-    multimesh::utils::AttributeDescription out_type = {
-        attribute.path,
-        Traits::simplex_dimension(from_attr, parameters),
-        Traits::output_type(from_attr, parameters),
-        Traits::output_dimension(from_attr)};
-    if (!attribute.compatible(out_type)) {
-        logger().warn(
-            "Attribute transfer from {} to {} was misconfigured because the target attribute is "
-            "not compatible with {}",
-            base_attribute(),
-            attribute,
-            out_type);
-    }
-    return out_type;
+    this->attribute auto from_attr =
+        wmtk::components::multimesh::utils::get_attribute(mc, base_attribute());
 }
-template <template <typename, int, typename, int> typename Functor>
+template <typename InType, int InDim, typename OutType, int OutDim>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-LambdaFunctionTransferStrategyFactory<Functor>::create_transfer(
+LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::create_transfer(
     wmtk::components::multimesh::MeshCollection& mc) const
 {
     auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, base_attribute());
