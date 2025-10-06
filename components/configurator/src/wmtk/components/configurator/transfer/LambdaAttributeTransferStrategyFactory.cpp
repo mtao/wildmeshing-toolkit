@@ -1,5 +1,5 @@
 
-#include "LambdaFunctionTransferStrategyFactory.hpp"
+#include "LambdaAttributeTransferStrategyFactory.hpp"
 #include "wmtk/components/configurator/transfer/TransferStrategyOptions.hpp"
 
 
@@ -20,7 +20,7 @@ void LambdaFunctionTransferStrategyFactoryBase::set_base_attribute(
     const multimesh::utils::AttributeDescription& at)
 {
     spdlog::info("Set parameters {}", at);
-    LambdaFunctionTransferStrategyParameters p;
+    SingleAttributeTransferStrategyParameters p;
     p.attribute = at;
     parameters = p;
     spdlog::info("Now paramters is {}", parameters.dump());
@@ -30,7 +30,7 @@ auto LambdaFunctionTransferStrategyFactoryBase::base_attribute() const
     -> multimesh::utils::AttributeDescription
 {
     spdlog::info("{}", parameters.dump());
-    LambdaFunctionTransferStrategyParameters p = parameters;
+    SingleAttributeTransferStrategyParameters p = parameters;
     return p.attribute;
 }
 

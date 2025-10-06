@@ -23,9 +23,10 @@ struct TransferStrategyFactory : public TransferStrategyOptions
     TransferStrategyFactory& operator=(const TransferStrategyFactory&);
     TransferStrategyFactory& operator=(TransferStrategyFactory&&);
 
-    // the attribute that will be written to. This does not need to be fully specified, as the base
-    // attribute might have constraints on what this output can be. However, a warning will be made
-    // to make sure that it is compatible if specified
+    /// The attribute that will be written to.
+    // This does not need to be fully specified, as the base attribute might have constraints on
+    // what this output can be. However, a warning will be made to make sure that it is compatible
+    // if specified
     multimesh::utils::AttributeDescription attribute;
     std::string type;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(TransferStrategyFactory)

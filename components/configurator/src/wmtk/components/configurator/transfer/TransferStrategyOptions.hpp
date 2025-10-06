@@ -10,11 +10,14 @@ struct TransferStrategyOptions
     // the attribute that will be written to. This does not need to be fully specified, as the base
     // attribute might have constraints on what this output can be. However, a warning will be made
     // to make sure that it is compatible if specified
+    /// Attribute that the strategy will write to
     multimesh::utils::AttributeDescription attribute;
+    /// Type of the attribute
     std::string type;
+    /// Parameters potentially used for derived transfers to simplify serialization
+    nlohmann::json parameters;
 
     bool operator<=>(const TransferStrategyOptions&) const = default;
-    nlohmann::json parameters;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(TransferStrategyOptions)
 };
 

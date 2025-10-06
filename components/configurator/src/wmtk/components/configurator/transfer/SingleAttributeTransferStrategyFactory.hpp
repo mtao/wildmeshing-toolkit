@@ -19,9 +19,12 @@ struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFacto
 {
     SingleAttributeTransferStrategyFactoryBase();
     ~SingleAttributeTransferStrategyFactoryBase();
+    /// The attribute that the transfer will read data from
     multimesh::utils::AttributeDescription base_attribute() const;
+    /// The set attribute that the transfer will read data from
     void set_base_attribute(const multimesh::utils::AttributeDescription&);
 
+    /// Parameters potentially used for derived transfers to simplify serialization
     nlohmann::json parameters;
 
     TransferStrategyOptions to_options() const final;
