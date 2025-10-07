@@ -1,36 +1,10 @@
-
 #pragma once
-#include <nlohmann/json.hpp>
-#include <wmtk/components/utils/json_macros.hpp>
-#include <wmtk/utils/Logger.hpp>
-#include <wmtk/utils/Rational.hpp>
-#include "TransferFunctorTraits.hpp"
-#include "TransferStrategyFactory.hpp"
-
-#include <wmtk/Types.hpp>
-#include <wmtk/components/multimesh/MeshCollection.hpp>
-#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
-#include <wmtk/components/multimesh/utils/create_attribute.hpp>
-#include <wmtk/components/multimesh/utils/get_attribute.hpp>
-#include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
+#include "SingleAttributeTransferStrategyFactory.hpp"
 
 namespace wmtk::components::configurator::transfer {
 
-struct LambdaFunctionTransferStrategyFactoryBase : public TransferStrategyFactory
-{
-    LambdaFunctionTransferStrategyFactoryBase();
-    ~LambdaFunctionTransferStrategyFactoryBase();
-    multimesh::utils::AttributeDescription base_attribute() const;
-    void set_base_attribute(const multimesh::utils::AttributeDescription&);
-    void set_attribute(const multimesh::utils::AttributeDescription&);
-
-
-    TransferStrategyOptions to_options() const final;
-    void from_options(const TransferStrategyOptions&) final;
-};
-
 template <typename InType, int InDim, typename OutType, int OutDim>
-struct LambdaFunctionTransferStrategyFactory : public LambdaFunctionTransferStrategyFactoryBase
+struct LambdaFunctionTransferStrategyFactory : public SingleAttributeTransferStrategyFactoryBase
 {
     using RetObjectType =
         wmtk::operations::SingleAttributeTransferStrategy<InType, OutType, InDim, OutDim>;
@@ -81,8 +55,9 @@ components::multimesh::utils::AttributeDescription
 LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::
     get_output_attribute_description(const wmtk::components::multimesh::MeshCollection& mc) const
 {
-    this->attribute auto from_attr =
-        wmtk::components::multimesh::utils::get_attribute(mc, base_attribute());
+    auto attr = base_attribute();
+    assert(attr.fully_specified());
+    return attr;
 }
 template <typename InType, int InDim, typename OutType, int OutDim>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
@@ -94,33 +69,7 @@ LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::create_tr
 
     auto to_attr = wmtk::components::multimesh::utils::create_attribute(mc, to_attr_d);
 
-
-    return std::visit(
-        [&](const auto& to_t, const auto& from_t) noexcept
-            -> std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> {
-            using FromT = typename std::decay_t<decltype(from_t)>::Type;
-            using ToT = typename std::decay_t<decltype(to_t)>::Type;
-            auto run = [&](auto&& dim)
-
-                -> std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase> {
-                constexpr static int d = std::decay_t<decltype(dim)>::value;
-                switch (from_attr.dimension()) {
-                case 1: return create_T<d, 1, ToT, FromT>(to_attr, from_attr);
-                case 2: return create_T<d, 2, ToT, FromT>(to_attr, from_attr);
-                case 3: return create_T<d, 3, ToT, FromT>(to_attr, from_attr);
-                default: return create_T<d, Eigen::Dynamic, ToT, FromT>(to_attr, from_attr);
-                }
-            };
-
-            switch (to_attr.dimension()) {
-            case 1: return run(std::integral_constant<int, 1>{});
-            case 2: return run(std::integral_constant<int, 2>{});
-            case 3: return run(std::integral_constant<int, 3>{});
-            default: return run(std::integral_constant<int, Eigen::Dynamic>{});
-            }
-        },
-        to_attr.handle(),
-        from_attr.handle());
+    return create_transfer(to_attr, from_attr);
 }
 
 } // namespace wmtk::components::configurator::transfer

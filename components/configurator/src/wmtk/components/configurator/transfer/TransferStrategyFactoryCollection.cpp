@@ -1,4 +1,5 @@
 #include "TransferStrategyFactoryCollection.hpp"
+#include "TransferStrategyFactoryRegistry.hpp"
 #include <nlohmann/json.hpp>
 namespace wmtk::components::configurator::transfer {
 

@@ -3,7 +3,7 @@
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
-#include "TransferStrategyFactoryRegistry.hpp"
+#include "TransferStrategyOptions.hpp"
 namespace wmtk {
 namespace operations {
 class AttributeTransferStrategyBase;
@@ -13,6 +13,7 @@ class MeshCollection;
 }
 } // namespace wmtk
 namespace wmtk::components::configurator::transfer {
+    class TransferStrategyFactoryRegistry;
 
 struct TransferStrategyFactory : public TransferStrategyOptions
 {
@@ -71,8 +72,8 @@ protected:
     void to_json(nlohmann::json&) const;
     void from_json(const nlohmann::json&);
 
-    template <typename Type>
-    void static register_transfer(const std::string& name);
+    //template <typename Type>
+    //void static register_transfer(const std::string& name);
 
 private:
     static std::shared_ptr<TransferStrategyFactoryRegistry> s_transfer_registry;
@@ -80,9 +81,9 @@ private:
 void to_json(nlohmann::json&, const TransferStrategyFactory&);
 void from_json(const nlohmann::json&, TransferStrategyFactory&);
 
-template <typename Type>
-void TransferStrategyFactory::register_transfer(const std::string& name)
-{
-    s_transfer_registry->register_transfer<Type>(name);
-}
+//template <typename Type>
+//void TransferStrategyFactory::register_transfer(const std::string& name)
+//{
+//    s_transfer_registry->register_transfer<Type>(name);
+//}
 } // namespace wmtk::components::configurator::transfer

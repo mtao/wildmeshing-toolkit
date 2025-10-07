@@ -1,3 +1,4 @@
+#include "TransferStrategyFactoryRegistry.hpp"
 #include "TransferStrategyFactory.hpp"
 #include "amips.hpp"
 #include "edge_angle.hpp"
