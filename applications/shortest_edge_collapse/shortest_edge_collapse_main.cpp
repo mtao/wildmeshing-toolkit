@@ -11,6 +11,7 @@
 #include <wmtk/components/output/output.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
 #include <wmtk/components/shortest_edge_collapse/shortest_edge_collapse.hpp>
+#include <wmtk/applications/utils/read_inputs.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 
 #include "shortest_edge_collapse_spec.hpp"
@@ -63,6 +64,8 @@ int main(int argc, char* argv[])
     const fs::path input_file = resolve_paths(json_input_file, {j["input_path"], j["input"]});
 
     std::shared_ptr<Mesh> mesh_in = wmtk::components::input::input(input_file, true);
+    wmtk::components::multimesh::MeshCollection mc =
+        wmtk::applications::utils::read_inputs(j, "input", "root", {j["input_path"]});
 
     attribute::MeshAttributeHandle pos_handle =
         mesh_in->get_attribute_handle<double>("vertices", PrimitiveType::Vertex);
@@ -115,7 +118,7 @@ int main(int argc, char* argv[])
         options.lock_boundary = j["lock_boundary"];
         options.check_inversions = j["check_inversion"];
 
-        shortest_edge_collapse(mesh, options);
+        shortest_edge_collapse(mc, options);
     }
 
     wmtk::components::output::output(mesh, j["output"], pos_handle);

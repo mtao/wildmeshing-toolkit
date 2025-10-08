@@ -1,4 +1,5 @@
 #include "shortest_edge_collapse.hpp"
+#include <wmtk/components/multimesh/utils/get_attribute_description.hpp>
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/Scheduler.hpp>
@@ -27,7 +28,6 @@
 
 namespace wmtk::components::shortest_edge_collapse {
 
-
 void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& options)
 {
     multimesh::MeshCollection mc;
@@ -35,6 +35,7 @@ void shortest_edge_collapse(Mesh& mesh_in, const ShortestEdgeCollapseOptions& op
 
     shortest_edge_collapse(mc, options);
 }
+
 
 void shortest_edge_collapse(
     multimesh::MeshCollection& mc,
@@ -113,14 +114,21 @@ void shortest_edge_collapse(
 
     /////////////////////////////////////////////
 
+
+    auto& transfer_registry = configurator.transfer_strategies().registry();
     auto visited_edge_flag =
         mesh.register_attribute<char>("visited_edge", PrimitiveType::Edge, 1, false, char(1));
 
-    auto update_flag_func = [](Eigen::Ref<const Eigen::MatrixXd> P) -> Eigen::VectorX<char> {
+    auto update_flag_func = [](const Eigen::MatrixXd& P) -> Eigen::VectorX<char> {
         assert(P.cols() == 2);
         assert(P.rows() == 2 || P.rows() == 3);
         return Eigen::VectorX<char>::Constant(1, char(1));
     };
+
+
+    transfer_registry.register_lambda_transfer_without_simplices<char,Eigen::Dynamic,double,Eigen::Dynamic>("update_flag", update_flag_func);
+
+
     auto tag_update =
         std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<char, double>>(
             visited_edge_flag,
@@ -144,6 +152,7 @@ void shortest_edge_collapse(
             position_handle,
             compute_edge_length);
     edge_length_update->run_on_all();
+
 
     //////////////////////////////////
     // computing bbox diagonal
@@ -184,6 +193,7 @@ void shortest_edge_collapse(
         edge_length_attribute.as<double>(),
         4. / 5. * length_abs); // MTAO: why is this 4/5?
 
+    /*
     //////////////////////////invariants
     std::string mesh_path(options.position_handle.mesh_path());
     {
@@ -357,10 +367,24 @@ void shortest_edge_collapse(
         pass_stats.collecting_time,
         pass_stats.sorting_time,
         pass_stats.executing_time);
+    */
+}
+void shortest_edge_collapse(
+    Mesh& mesh,
+    const attribute::MeshAttributeHandle& position_handle,
+    const double length_rel,
+    std::optional<bool> lock_boundary,
+    std::optional<double> envelope_size,
+    bool check_inversion,
+    const std::vector<attribute::MeshAttributeHandle>& pass_through)
+{
+    multimesh::MeshCollection mc;
+    mc.add_mesh({mesh});
+    shortest_edge_collapse(mc,position_handle,length_rel,lock_boundary, envelope_size, check_inversion, pass_through);
 }
 
 void shortest_edge_collapse(
-    Mesh& mesh,
+    multimesh::MeshCollection& mc,
     const attribute::MeshAttributeHandle& position_handle,
     const double length_rel,
     std::optional<bool> lock_boundary,
@@ -376,7 +400,17 @@ void shortest_edge_collapse(
     }
     options.envelope_size = envelope_size;
 
-    options.pass_through_attributes = pass_through;
-    shortest_edge_collapse(mesh, options);
+    options.transfers.emplace("edge_length", configurator::transfer::TransferStrategyOptions{
+            .attribute = multimesh::utils::AttributeDescription("edge_length", 1, attribute::AttributeType::Double, 1),
+            .type = "edge_length",
+            .parameters = configurator::transfer::SingleAttributeTransferStrategyParameters{.attribute = options.position_handle}
+            });
+
+        std::transform(
+                pass_through.begin(),
+                pass_through.end(),
+            std::back_inserter(options.pass_through_attributes),
+            [&mc](const auto& m) { return multimesh::utils::get_attribute_description(mc, m); });
+    shortest_edge_collapse(mc, options);
 }
 } // namespace wmtk::components::shortest_edge_collapse

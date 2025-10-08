@@ -3,20 +3,25 @@
 
 namespace wmtk::components::configurator::transfer {
 
-template <typename InType, int InDim, typename OutType, int OutDim>
+template <typename ToType, int ToDim, typename FromType, int FromDim>
 struct LambdaFunctionTransferStrategyFactory : public SingleAttributeTransferStrategyFactoryBase
 {
     using RetObjectType =
-        wmtk::operations::SingleAttributeTransferStrategy<InType, OutType, InDim, OutDim>;
+        wmtk::operations::SingleAttributeTransferStrategy<ToType, FromType, ToDim, FromDim>;
     using FunctorType = typename RetObjectType::FunctorType;
-    using FunctorWithoutSimplexType = typename RetObjectType::FunctorWithoutSimplexType;
+    using FunctorWithoutSimplicesType = typename RetObjectType::FunctorWithoutSimplicesType;
+
+    using FunctorVariant = std::variant<FunctorType, FunctorWithoutSimplicesType>;
     LambdaFunctionTransferStrategyFactory(FunctorType f = {})
         : m_functor(f)
     {}
-    LambdaFunctionTransferStrategyFactory(FunctorWithoutSimplexType f)
+    LambdaFunctionTransferStrategyFactory(FunctorWithoutSimplicesType f)
         : m_functor(f)
     {}
-    ~LambdaFunctionTransferStrategyFactory();
+    LambdaFunctionTransferStrategyFactory(FunctorVariant f)
+        : m_functor(f)
+    {}
+    ~LambdaFunctionTransferStrategyFactory() = default;
 
 
     components::multimesh::utils::AttributeDescription get_output_attribute_description(
@@ -30,38 +35,36 @@ struct LambdaFunctionTransferStrategyFactory : public SingleAttributeTransferStr
         const attribute::MeshAttributeHandle& from) const;
 
 private:
-    std::variant<FunctorType, FunctorWithoutSimplexType> m_functor;
+    FunctorVariant m_functor;
 };
 
-template <typename InType, int InDim, typename OutType, int OutDim>
+template <typename ToType, int ToDim, typename FromType, int FromDim>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::create_transfer(
+LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>::create_transfer(
     const attribute::MeshAttributeHandle& to,
     const attribute::MeshAttributeHandle& from) const
 {
     return std::visit(
         [&](const auto& f) {
             return std::make_shared<
-                wmtk::operations::SingleAttributeTransferStrategy<InType, OutType, InDim, OutDim>>(
-                to,
-                from,
-                f);
+                wmtk::operations::
+                    SingleAttributeTransferStrategy<ToType, FromType, ToDim, FromDim>>(to, from, f);
         },
         m_functor);
 }
 
-template <typename InType, int InDim, typename OutType, int OutDim>
+template <typename ToType, int ToDim, typename FromType, int FromDim>
 components::multimesh::utils::AttributeDescription
-LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::
+LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>::
     get_output_attribute_description(const wmtk::components::multimesh::MeshCollection& mc) const
 {
     auto attr = base_attribute();
     assert(attr.fully_specified());
     return attr;
 }
-template <typename InType, int InDim, typename OutType, int OutDim>
+template <typename ToType, int ToDim, typename FromType, int FromDim>
 std::shared_ptr<wmtk::operations::AttributeTransferStrategyBase>
-LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>::create_transfer(
+LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>::create_transfer(
     wmtk::components::multimesh::MeshCollection& mc) const
 {
     auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, base_attribute());

@@ -108,6 +108,16 @@ public:
     auto create_attribute_update_function(std::string_view name, const nlohmann::json& js = {})
         const -> operations::OperationFactory::AttributeUpdateFunction;
 
+
+    auto& operations() { return m_operations; }
+    auto& operations() const { return m_operations; }
+
+    auto& invariants() { return m_invariants; }
+    auto& invariants() const { return m_invariants; }
+
+    auto& transfer_strategies() { return m_transfer_strategies; }
+    auto& transfer_strategies() const { return m_transfer_strategies; }
+
 private:
     wmtk::Mesh& get_mesh_internal(std::string_view name);
     const wmtk::Mesh& get_mesh_internal(std::string_view name) const;

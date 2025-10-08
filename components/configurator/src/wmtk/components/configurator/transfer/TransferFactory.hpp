@@ -38,6 +38,10 @@ struct TransferFactory
     std::vector<std::string> known_transfers() const;
 
 
+    auto& registry() { return *m_registry; }
+    auto& registry() const { return *m_registry; }
+
+
 private:
     // TODO: this was written before the OperationFactory and InvariantFactory so ownership of the
     // functions + holding of the operations

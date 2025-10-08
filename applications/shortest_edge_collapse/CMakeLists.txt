@@ -10,6 +10,7 @@ wmtk::input
 wmtk::shortest_edge_collapse
 wmtk::multimesh
 wmtk::output
+wmtk::application_utils
 nlohmann_json::nlohmann_json
 )
 

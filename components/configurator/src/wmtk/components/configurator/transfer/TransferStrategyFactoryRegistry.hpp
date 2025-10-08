@@ -24,8 +24,17 @@ public:
 
     std::vector<std::string> names() const;
 
-    template <typename InType, int InDim, typename OutType, int OutDim, typename Func>
-    void register_lambda_transfer(const std::string_view& name, Func&& f = {});
+    template <typename ToType, int ToDim, typename FromType, int FromDim>
+    void register_lambda_transfer(
+        const std::string_view& name,
+        typename LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>::
+            FunctorType f = {});
+
+    template <typename ToType, int ToDim, typename FromType, int FromDim>
+    void register_lambda_transfer_without_simplices(
+        const std::string_view& name,
+        typename LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>::
+            FunctorWithoutSimplicesType f = {});
 
 private:
     std::map<
@@ -46,15 +55,31 @@ void TransferStrategyFactoryRegistry::register_transfer(const std::string_view& 
     }
 }
 
-template <typename InType, int InDim, typename OutType, int OutDim, typename Func>
-void TransferStrategyFactoryRegistry::register_lambda_transfer(
+template <typename ToType, int ToDim, typename FromType, int FromDim>
+void TransferStrategyFactoryRegistry::register_lambda_transfer_without_simplices(
     const std::string_view& name,
-    Func&& f)
+    typename LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>::
+        FunctorWithoutSimplicesType f)
 {
     if (!has(name)) {
         m_map.emplace(name, [f](const TransferStrategyOptions& js) {
             auto t = std::make_shared<
-                LambdaFunctionTransferStrategyFactory<InType, InDim, OutType, OutDim>>(f);
+                LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>>(f);
+            t->from_options(js);
+            return t;
+        });
+    }
+}
+
+template <typename ToType, int ToDim, typename FromType, int FromDim>
+void TransferStrategyFactoryRegistry::register_lambda_transfer(
+    const std::string_view& name,
+    typename LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>::FunctorType f)
+{
+    if (!has(name)) {
+        m_map.emplace(name, [f](const TransferStrategyOptions& js) {
+            auto t = std::make_shared<
+                LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>>(f);
             t->from_options(js);
             return t;
         });

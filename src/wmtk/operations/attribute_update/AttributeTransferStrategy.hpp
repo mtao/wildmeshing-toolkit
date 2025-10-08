@@ -1,7 +1,7 @@
 #pragma once
 #include <fmt/format.h>
-#include <wmtk/Mesh.hpp>
 #include <fmt/ranges.h>
+#include <wmtk/Mesh.hpp>
 #include "AttributeTransferStrategyBase.hpp"
 
 
@@ -86,11 +86,11 @@ public:
     SingleAttributeTransferStrategy(
         const attribute::MeshAttributeHandle& my_handle,
         const attribute::MeshAttributeHandle& parent_handle,
-        FunctorType&& = nullptr);
+        FunctorType = nullptr);
     SingleAttributeTransferStrategy(
         const attribute::MeshAttributeHandle& my_handle,
         const attribute::MeshAttributeHandle& parent_handle,
-        FunctorWithoutSimplicesType&& = nullptr);
+        FunctorWithoutSimplicesType = nullptr);
 
     void run(const simplex::Simplex& s) const final;
 
@@ -140,7 +140,7 @@ SingleAttributeTransferStrategy<MyType, ParentType, MyDim, ParentDim>::
     SingleAttributeTransferStrategy(
         const attribute::MeshAttributeHandle& me,
         const attribute::MeshAttributeHandle& parent,
-        FunctorType&& f)
+        FunctorType f)
     : SingleAttributeTransferStrategyBase<MyType, ParentType>(me, parent)
     , m_functor(f)
 {
@@ -148,19 +148,21 @@ SingleAttributeTransferStrategy<MyType, ParentType, MyDim, ParentDim>::
         const int parent_dim = parent_handle().mesh().get_attribute_dimension(
             parent_handle().template as<ParentType>());
         if (parent_dim != ParentDim) {
-            throw std::runtime_error(fmt::format(
-                "Attribute Transfer expects parent to be {}-dimensional but got {}",
-                ParentDim,
-                parent_dim));
+            throw std::runtime_error(
+                fmt::format(
+                    "Attribute Transfer expects parent to be {}-dimensional but got {}",
+                    ParentDim,
+                    parent_dim));
         }
     }
     if (MyDim != Eigen::Dynamic) {
         const int my_dim = handle().mesh().get_attribute_dimension(handle().template as<MyType>());
         if (my_dim != MyDim) {
-            throw std::runtime_error(fmt::format(
-                "Attribute Transfer expects my to be {}-dimensional but got {}",
-                MyDim,
-                my_dim));
+            throw std::runtime_error(
+                fmt::format(
+                    "Attribute Transfer expects my to be {}-dimensional but got {}",
+                    MyDim,
+                    my_dim));
         }
     }
 }
@@ -169,7 +171,7 @@ SingleAttributeTransferStrategy<MyType, ParentType, MyDim, ParentDim>::
     SingleAttributeTransferStrategy(
         const attribute::MeshAttributeHandle& me,
         const attribute::MeshAttributeHandle& parent,
-        FunctorWithoutSimplicesType&& f)
+        FunctorWithoutSimplicesType f)
     : SingleAttributeTransferStrategy(me, parent, make_nosimplices_func(std::move(f)))
 {}
 
@@ -182,12 +184,12 @@ auto SingleAttributeTransferStrategy<MyType, ParentType, MyDim, ParentDim>::read
     auto simps =
         AttributeTransferStrategyBase::get_parent_simplices(handle(), parent_handle(), my_simplex);
 
-//#if !defined(NDEBUG)
+    // #if !defined(NDEBUG)
     if (simps.size() == 0) {
-//        throw std::runtime_error(fmt::format("SingleAttributeTransferStrategy got no simplices {}/{} to {}/{}",fmt::join(parent_handle().mesh().absolute_multi_mesh_id(),","), parent_handle().name(),fmt::join(handle().mesh().absolute_multi_mesh_id(),","), handle().name() ));
+        //        throw std::runtime_error(fmt::format("SingleAttributeTransferStrategy got no simplices {}/{} to {}/{}",fmt::join(parent_handle().mesh().absolute_multi_mesh_id(),","), parent_handle().name(),fmt::join(handle().mesh().absolute_multi_mesh_id(),","), handle().name() ));
         return {};
     }
-//#endif
+    // #endif
 
     ParentMatType A(
         parent_handle().mesh().get_attribute_dimension(parent_handle().template as<ParentType>()),
