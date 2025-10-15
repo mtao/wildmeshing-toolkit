@@ -2,16 +2,20 @@
 #include <CLI/CLI.hpp>
 #include <filesystem>
 #include <nlohmann/json.hpp>
+#include <wmtk/applications/utils/element_count_report.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute.hpp>
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/Logger.hpp>
 
+#include <wmtk/applications/utils/read_inputs.hpp>
 #include <wmtk/components/input/input.hpp>
 #include <wmtk/components/multimesh/multimesh.hpp>
-#include <wmtk/components/output/output.hpp>
+#include <wmtk/components/multimesh/utils/get_attribute_description.hpp>
 #include <wmtk/components/output/OutputOptions.hpp>
+#include <wmtk/components/output/output.hpp>
+#include <wmtk/components/output/parse_output.hpp>
 #include <wmtk/components/shortest_edge_collapse/shortest_edge_collapse.hpp>
-#include <wmtk/applications/utils/read_inputs.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 
 #include "shortest_edge_collapse_spec.hpp"
@@ -61,14 +65,27 @@ int main(int argc, char* argv[])
         }
     }
 
-    const fs::path input_file = resolve_paths(json_input_file, {j["input_path"], j["input"]});
+    // const fs::path input_file = resolve_paths(json_input_file, {j["input_path"], j["input"]});
 
-    std::shared_ptr<Mesh> mesh_in = wmtk::components::input::input(input_file, true);
+    std::vector<std::filesystem::path> additional_paths;
+    if (j.contains("input_path")) {
+        additional_paths.emplace_back(j["input_path"]);
+    }
+    if (j.contains("input_path")) {
+        additional_paths.emplace_back(j["input"]);
+    }
+
     wmtk::components::multimesh::MeshCollection mc =
-        wmtk::applications::utils::read_inputs(j, "input", "root", {j["input_path"]});
+        wmtk::applications::utils::read_inputs(j, "input", "root", additional_paths);
 
-    attribute::MeshAttributeHandle pos_handle =
-        mesh_in->get_attribute_handle<double>("vertices", PrimitiveType::Vertex);
+    attribute::MeshAttributeHandle pos_handle = wmtk::components::multimesh::utils::get_attribute(
+        mc,
+        components::multimesh::utils::AttributeDescription{
+            "/vertices",
+            0, // vertex
+            attribute::AttributeType::Double});
+    std::shared_ptr<Mesh> mesh_in = pos_handle.mesh().shared_from_this();
+
     attribute::MeshAttributeHandle other_pos_handle;
 
     // create multi-mesh
@@ -77,9 +94,11 @@ int main(int argc, char* argv[])
     MultiMeshOptions mm_opt = j["use_multimesh"];
 
     if (mm_opt != MultiMeshOptions::None) {
+        Mesh& mesh = mc.get_mesh("");
+
         auto [parent_mesh, child_mesh] = wmtk::components::multimesh::multimesh(
             wmtk::components::multimesh::MultiMeshType::Boundary,
-            *mesh_in,
+            mesh,
             nullptr,
             pos_handle,
             "",
@@ -99,7 +118,6 @@ int main(int argc, char* argv[])
             other_mesh->get_attribute_handle<double>("vertices", PrimitiveType::Vertex);
     }
 
-    Mesh& mesh = *mesh_in;
 
     // shortest-edge collapse
     {
@@ -121,31 +139,55 @@ int main(int argc, char* argv[])
         shortest_edge_collapse(mc, options);
     }
 
-    wmtk::components::output::output(mesh, j["output"], pos_handle);
 
-    // output child meshes
-    {
-        const std::string output_name = j["output"];
-        const auto children = mesh.get_all_child_meshes();
-        for (size_t i = 0; i < children.size(); ++i) {
-            Mesh& child = *children[i];
-            if (!child.has_attribute<double>("vertices", PrimitiveType::Vertex)) {
-                logger().warn("Child has no vertices attribute");
-                continue;
+    components::output::OutputOptionsCollection out_opts;
+    if (j["output"].is_string()) {
+        wmtk::logger().info(
+            "For historic purposes output options as a single path will result in many meshes "
+            "being output");
+
+        components::output::OutputOptions opts;
+        opts.path = j["output"].get<std::filesystem::path>();
+        opts.position_attribute = {"/vertices"};
+        opts.type = ".vtu";
+        out_opts.emplace_back("", opts);
+
+        auto& mesh = *mesh_in;
+        // output child meshes
+        {
+            const std::string output_name = j["output"];
+            const auto children = mesh.get_all_child_meshes();
+            for (size_t i = 0; i < children.size(); ++i) {
+                Mesh& child = *children[i];
+                if (!child.has_attribute<double>("vertices", PrimitiveType::Vertex)) {
+                    logger().warn("Child has no vertices attribute");
+                    continue;
+                }
+                auto ph = child.get_attribute_handle<double>("vertices", PrimitiveType::Vertex);
+                wmtk::components::output::output(
+                    child,
+                    fmt::format("{}_child_{}", output_name, i),
+                    ph);
+                opts.path = fmt::format("{}_child_{}", output_name, i);
+                opts.position_attribute =
+                    components::multimesh::utils::get_attribute_description(mc, ph);
+                out_opts.emplace_back("", opts);
             }
-            auto ph = child.get_attribute_handle<double>("vertices", PrimitiveType::Vertex);
-            wmtk::components::output::output(child, fmt::format("{}_child_{}", output_name, i), ph);
         }
+    } else {
+        out_opts = components::output::parse_output(j["output"]);
     }
+    wmtk::components::output::output(mc, out_opts);
+    // wmtk::components::output::output(mc, j["output"], pos_handle);
 
 
     const std::string report = j["report"];
     if (!report.empty()) {
+        Mesh& mesh = mc.get_mesh("");
         nlohmann::json out_json;
-        out_json["stats"]["vertices"] = mesh.get_all(PrimitiveType::Vertex).size();
-        out_json["stats"]["edges"] = mesh.get_all(PrimitiveType::Edge).size();
-        out_json["stats"]["triangles"] = mesh.get_all(PrimitiveType::Triangle).size();
-        out_json["stats"]["tets"] = mesh.get_all(PrimitiveType::Tetrahedron).size();
+
+        auto& stats = out_json["stats"];
+        stats = wmtk::applications::utils::element_count_report_named(mc);
 
         out_json["input"] = j;
 

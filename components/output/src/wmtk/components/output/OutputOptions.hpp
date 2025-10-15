@@ -11,10 +11,11 @@ struct OutputOptions
 {
     std::filesystem::path path;
 
+    /// Type of file ( ".hdf5" ".vtu" )
     std::string type;
 
     // some formats (?msh?) have a dedicated slot for positions
-    //std::variant<wmtk::attribute::MeshAttributeHandle, std::string> position_attribute;
+    // std::variant<wmtk::attribute::MeshAttributeHandle, std::string> position_attribute;
     components::multimesh::utils::AttributeDescription position_attribute;
 
     // mesh name info will be serialized to a json file if available
@@ -26,7 +27,7 @@ struct OutputOptions
 
 
     // auto operator<=>(const OutputOptions& o) const = default;
-    //bool operator<(const OutputOptions& o) const = default;
+    // bool operator<(const OutputOptions& o) const = default;
     bool operator==(const OutputOptions& o) const = default;
     bool operator!=(const OutputOptions& o) const = default;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(OutputOptions)

@@ -134,7 +134,7 @@ int main(int argc, char* argv[])
 
 
     spdlog::info("making opts");
-    auto output_opts = j["output"].get<wmtk::components::output::OutputOptionsCollection>();
+    auto output_opts = output::parse_output(j["output"]);
     spdlog::info("end making intermediate opts");
     wmtk::components::output::output(mc, output_opts);
 
