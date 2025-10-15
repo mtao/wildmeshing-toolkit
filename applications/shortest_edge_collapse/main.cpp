@@ -18,7 +18,7 @@
 #include <wmtk/components/shortest_edge_collapse/shortest_edge_collapse.hpp>
 #include <wmtk/components/utils/resolve_path.hpp>
 
-#include "shortest_edge_collapse_spec.hpp"
+#include "spec.hpp"
 
 using namespace wmtk;
 namespace fs = std::filesystem;
@@ -117,6 +117,7 @@ int main(int argc, char* argv[])
         other_pos_handle =
             other_mesh->get_attribute_handle<double>("vertices", PrimitiveType::Vertex);
     }
+    mc.populate_default_names();
 
 
     // shortest-edge collapse

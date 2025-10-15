@@ -127,6 +127,12 @@ std::map<std::string, const Mesh&> MeshCollection::all_roots(bool only_true_root
     }
     return meshes;
 }
+void MeshCollection::populate_default_names()
+{
+    for (auto& [name, nnptr] : m_meshes) {
+        nnptr->populate_default_names();
+    }
+}
 
 void MeshCollection::make_canonical()
 {

@@ -1,7 +1,7 @@
 include(wmtk_add_application)
 wmtk_add_application(shortest_edge_collapse_app
-    shortest_edge_collapse_main.cpp
-    shortest_edge_collapse_spec.hpp
+    main.cpp
+    spec.hpp
     )
 
 

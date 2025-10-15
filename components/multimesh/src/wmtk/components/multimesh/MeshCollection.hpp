@@ -25,8 +25,9 @@ public:
     NamedMultiMesh& get_named_multimesh(const std::string_view& path);
     Mesh& get_mesh(const std::string_view& path);
 
-    // returns the name of a mesh if it lies in this multimesh
-    // if the same mesh belongs to multiple trees we return all of them
+    /// returns the name of a mesh if it lies in this multimesh
+    /// if the same mesh belongs to multiple trees we return all of them
+    /// If new child meshes had been created then populate_default_names might be required
     std::vector<std::string> get_names(const Mesh& m) const;
     // returns the name of a mesh if it lies in this multimesh. if more than 1 name exists this
     // throws an error
@@ -37,6 +38,9 @@ public:
     // over time meshes can merge and have aliases
     // Thsi operation removes meshes whose naming structure aren't the root of a naming tree
     void make_canonical();
+
+    /// Populates default names for every mesh within this collection
+    void populate_default_names();
 
     std::map<std::string, const Mesh&> all_meshes() const;
     std::map<std::string, const Mesh&> all_roots(bool only_true_roots = false) const;
