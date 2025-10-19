@@ -1,5 +1,6 @@
 #pragma once
 #include <nlohmann/json.hpp>
+#include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/utils/json_macros.hpp>
 
@@ -12,10 +13,13 @@ struct TransferStrategyOptions
     // to make sure that it is compatible if specified
     /// Attribute that the strategy will write to
     multimesh::utils::AttributeDescription attribute;
+    /// If the attribute description is used to create an attribute then this sets the default value
+    attribute::MeshAttributeHandle::ValueVariant default_value = {};
     /// Type of the attribute
     std::string type;
     /// Parameters potentially used for derived transfers to simplify serialization
     nlohmann::json parameters;
+
 
     bool operator<=>(const TransferStrategyOptions&) const = default;
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(TransferStrategyOptions)

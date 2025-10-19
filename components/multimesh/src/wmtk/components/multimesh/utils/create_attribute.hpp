@@ -27,13 +27,13 @@ struct AttributeDescription;
 
 wmtk::attribute::MeshAttributeHandle create_attribute(
     NamedMultiMesh& mesh,
-    const AttributeDescription& description);
+    const AttributeDescription& description, const attribute::MeshAttributeHandle::ValueVariant& v = {});
 wmtk::attribute::MeshAttributeHandle create_attribute(
     MeshCollection& mesh,
-    const AttributeDescription& description);
+    const AttributeDescription& description, const attribute::MeshAttributeHandle::ValueVariant& v = {});
 wmtk::attribute::MeshAttributeHandle create_attribute(
     Mesh& mesh,
-    const AttributeDescription& description);
+    const AttributeDescription& description, const attribute::MeshAttributeHandle::ValueVariant& v = {});
 
 } // namespace utils
 } // namespace wmtk::components::multimesh

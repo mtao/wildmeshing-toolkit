@@ -6,8 +6,12 @@ TodoInvariant::TodoInvariant(
     const Mesh& m,
     const TypedAttributeHandle<int64_t>& todo_handle,
     const int64_t val)
-    : Invariant(m, true, false, false)
-    , m_todo_handle(todo_handle)
+    : AttributeInvariant(m, todo_handle, true, false, false)
+    , m_val(val)
+{}
+
+TodoInvariant::TodoInvariant(const attribute::MeshAttributeHandle& mah, const int64_t val)
+    : AttributeInvariant(mah, true, false, false)
     , m_val(val)
 {}
 
@@ -19,6 +23,27 @@ bool TodoInvariant::before(const simplex::Simplex& t) const
     return split_todo_accessor.const_scalar_attribute(t) == m_val;
 }
 
+namespace detail {
+
+ComparisonInvariantBase::ComparisonInvariantBase(
+    const Mesh& m,
+    const TypedAttributeHandle<double>& todo_handle)
+    : Invariant(m)
+    , m_todo_handle(todo_handle)
+{}
+
+ComparisonInvariantBase::ComparisonInvariantBase(
+    const Mesh& m,
+    const TypedAttributeHandle<double>& todo_handle,
+    const TypedAttributeHandle<double>& comparison_handle)
+{}
+
+ComparisonInvariantBase::ComparisonInvariantBase(
+    const attribute::MeshAttributeHandle& todo_handle,
+    const attribute::MeshAttributeHandle& comparison_handle)
+{}
+} // namespace detail
+
 TodoLargerInvariant::TodoLargerInvariant(
     const Mesh& m,
     const TypedAttributeHandle<double>& todo_handle,
@@ -27,6 +52,7 @@ TodoLargerInvariant::TodoLargerInvariant(
     , m_todo_handle(todo_handle)
     , m_val(val)
 {}
+
 
 TodoLargerInvariant::TodoLargerInvariant(
     const Mesh& m,

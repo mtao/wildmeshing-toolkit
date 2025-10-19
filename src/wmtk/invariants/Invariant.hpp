@@ -52,6 +52,8 @@ private:
     const std::vector<Tuple> get_top_dimension_cofaces(
         const std::vector<simplex::Simplex>& simplices) const;
 };
+
+
 } // namespace invariants
 using Invariant = invariants::Invariant;
 

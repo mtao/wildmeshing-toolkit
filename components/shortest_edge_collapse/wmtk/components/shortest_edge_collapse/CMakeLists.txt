@@ -8,6 +8,10 @@ set(SRC_FILES
     shortest_edge_collapse.hpp
     shortest_edge_collapse.cpp
     ShortestEdgeCollapseOptions.hpp
+    ShortestEdgeCollapseOptions.cpp
+    configure_shortest_edge_collapse.hpp
+    configure_shortest_edge_collapse.cpp
+
     )
 
 

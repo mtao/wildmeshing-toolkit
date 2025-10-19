@@ -9,6 +9,20 @@ namespace wmtk::components::shortest_edge_collapse {
 
 struct ShortestEdgeCollapseOptions : public wmtk::components::configurator::PassConfiguration
 {
+    ShortestEdgeCollapseOptions() = default;
+    ShortestEdgeCollapseOptions(const ShortestEdgeCollapseOptions&) = default;
+    ShortestEdgeCollapseOptions(ShortestEdgeCollapseOptions&&) = default;
+    auto operator=(const ShortestEdgeCollapseOptions&) -> ShortestEdgeCollapseOptions& = default;
+    auto operator=(ShortestEdgeCollapseOptions&&) -> ShortestEdgeCollapseOptions& = default;
+    ShortestEdgeCollapseOptions(
+        const multimesh::utils::AttributeDescription& position_handle,
+        const double length_rel,
+        std::optional<bool> lock_boundary = {},
+        std::optional<double> envelope_size = {},
+        bool check_inversion = false,
+        const std::vector<multimesh::utils::AttributeDescription>& pass_through = {});
+
+
     /**
      * vertex positions (double)
      */

@@ -3,9 +3,9 @@
 
 #include <wmtk/Mesh.hpp>
 #include <wmtk/Scheduler.hpp>
+#include <wmtk/components/configurator/Configurator.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
-#include <wmtk/components/configurator/Configurator.hpp>
 #include <wmtk/components/utils/get_attributes.hpp>
 #include <wmtk/invariants/EnvelopeInvariant.hpp>
 #include <wmtk/invariants/InteriorSimplexInvariant.hpp>
@@ -24,6 +24,8 @@
 #include <wmtk/operations/attribute_new/NewAttributeStrategy.hpp>
 #include <wmtk/operations/attribute_update/AttributeTransferStrategy.hpp>
 #include <wmtk/utils/Logger.hpp>
+#include "configure_shortest_edge_collapse.hpp"
+#include "wmtk/components/configurator/transfer/TransferStrategyOptions.hpp"
 
 
 namespace wmtk::components::shortest_edge_collapse {
@@ -41,13 +43,9 @@ void shortest_edge_collapse(
     multimesh::MeshCollection& mc,
     const ShortestEdgeCollapseOptions& options)
 {
-    configurator::PassConfiguration pass_options = options;
+    configurator::PassConfiguration pass_options = configure_shortest_edge_collapse(options);
     configurator::Configurator configurator(mc);
 
-    configurator::operations::EdgeCollapseOptions collapse_options;
-    if (pass_options.operations.contains("edge_collapse")) {
-        collapse_options = pass_options.operations["edge_collapse"];
-    }
     attribute::MeshAttributeHandle position_handle =
         multimesh::utils::get_attribute(mc, options.position_handle);
 
@@ -65,93 +63,95 @@ void shortest_edge_collapse(
         log_and_throw_error("The mesh passed in shortest_edge_collapse must be the root mesh");
     }
 
-    std::vector<attribute::MeshAttributeHandle> other_position_handles;
+    // std::vector<attribute::MeshAttributeHandle> other_position_handles;
 
-    {
-        std::transform(
-            options.other_position_handles.begin(),
-            options.other_position_handles.end(),
-            std::back_inserter(other_position_handles),
-            [&mc](const auto& ad) { return multimesh::utils::get_attribute(mc, ad); });
-    }
+    //{
+    //    std::transform(
+    //        options.other_position_handles.begin(),
+    //        options.other_position_handles.end(),
+    //        std::back_inserter(other_position_handles),
+    //        [&mc](const auto& ad) { return multimesh::utils::get_attribute(mc, ad); });
+    //}
 
     Mesh& mesh = position_handle.mesh();
 
-    std::vector<attribute::MeshAttributeHandle> inversion_position_handles;
-    std::vector<components::multimesh::utils::AttributeDescription>
-        inversion_attribute_descriptions;
-    if (options.check_inversions) {
-        if (position_handle.mesh().top_cell_dimension() == position_handle.dimension()) {
-            logger().info("Adding inversion check on collapsing mesh.");
-            inversion_position_handles.emplace_back(position_handle);
-        }
-        for (auto& h : other_position_handles) {
-            if (h.mesh().top_cell_dimension() == h.dimension()) {
-                logger().info("Adding inversion check on other mesh.");
-                inversion_position_handles.emplace_back(h);
-            }
-        }
+    // std::vector<attribute::MeshAttributeHandle> inversion_position_handles;
+    // std::vector<components::multimesh::utils::AttributeDescription>
+    //     inversion_attribute_descriptions;
+    // if (options.check_inversions) {
+    //     if (position_handle.mesh().top_cell_dimension() == position_handle.dimension()) {
+    //         logger().info("Adding inversion check on collapsing mesh.");
+    //         inversion_position_handles.emplace_back(position_handle);
+    //     }
+    //     for (auto& h : other_position_handles) {
+    //         if (h.mesh().top_cell_dimension() == h.dimension()) {
+    //             logger().info("Adding inversion check on other mesh.");
+    //             inversion_position_handles.emplace_back(h);
+    //         }
+    //     }
 
-        if (inversion_position_handles.empty()) {
-            logger().warn(
-                "Shortest-edge collapse should check for inversions but there was no "
-                "position handle that is valid for inversion checks.");
-        }
-    }
+    //    if (inversion_position_handles.empty()) {
+    //        logger().warn(
+    //            "Shortest-edge collapse should check for inversions but there was no "
+    //            "position handle that is valid for inversion checks.");
+    //    }
+    //}
 
-    std::vector<attribute::MeshAttributeHandle> pass_through_attributes;
-    {
-        std::transform(
-            options.pass_through_attributes.begin(),
-            options.pass_through_attributes.end(),
-            std::back_inserter(pass_through_attributes),
-            [&mc](const auto& ad) { return multimesh::utils::get_attribute(mc, ad); });
-    }
+    // std::vector<attribute::MeshAttributeHandle> pass_through_attributes;
+    //{
+    //     std::transform(
+    //         options.pass_through_attributes.begin(),
+    //         options.pass_through_attributes.end(),
+    //         std::back_inserter(pass_through_attributes),
+    //         [&mc](const auto& ad) { return multimesh::utils::get_attribute(mc, ad); });
+    // }
 
-    for (auto& h : other_position_handles) {
-        pass_through_attributes.emplace_back(h);
-    }
+    // for (auto& h : other_position_handles) {
+    //     pass_through_attributes.emplace_back(h);
+    // }
 
     /////////////////////////////////////////////
 
 
     auto& transfer_registry = configurator.transfer_strategies().registry();
-    auto visited_edge_flag =
-        mesh.register_attribute<char>("visited_edge", PrimitiveType::Edge, 1, false, char(1));
+    // auto visited_edge_flag =
+    //     mesh.register_attribute<char>("visited_edge", PrimitiveType::Edge, 1, false, char(1));
 
-    auto update_flag_func = [](const Eigen::MatrixXd& P) -> Eigen::VectorX<char> {
+    auto update_flag_func = [](const Eigen::MatrixXd& P) -> Eigen::Vector<char, 1> {
         assert(P.cols() == 2);
         assert(P.rows() == 2 || P.rows() == 3);
         return Eigen::VectorX<char>::Constant(1, char(1));
     };
 
 
-    transfer_registry.register_lambda_transfer_without_simplices<char,Eigen::Dynamic,double,Eigen::Dynamic>("update_flag", update_flag_func);
+    transfer_registry.register_lambda_transfer_without_simplices<char, 1, double, 2>(
+        "update_flag",
+        update_flag_func);
 
 
-    auto tag_update =
-        std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<char, double>>(
-            visited_edge_flag,
-            position_handle,
-            update_flag_func);
+    // auto tag_update =
+    //     std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<char, double>>(
+    //         visited_edge_flag,
+    //         position_handle,
+    //         update_flag_func);
 
     //////////////////////////////////
     // Storing edge lengths
-    auto edge_length_attribute =
-        mesh.register_attribute<double>("edge_length", PrimitiveType::Edge, 1);
-    auto edge_length_accessor = mesh.create_accessor(edge_length_attribute.as<double>());
+    // auto edge_length_attribute =
+    //    mesh.register_attribute<double>("edge_length", PrimitiveType::Edge, 1);
+    // auto edge_length_accessor = mesh.create_accessor(edge_length_attribute.as<double>());
     // Edge length update
-    auto compute_edge_length = [](Eigen::Ref<const Eigen::MatrixXd> P) -> Eigen::VectorXd {
-        assert(P.cols() == 2);
-        assert(P.rows() == 2 || P.rows() == 3);
-        return Eigen::VectorXd::Constant(1, (P.col(0) - P.col(1)).norm());
-    };
-    auto edge_length_update =
-        std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<double, double>>(
-            edge_length_attribute,
-            position_handle,
-            compute_edge_length);
-    edge_length_update->run_on_all();
+    // auto compute_edge_length = [](Eigen::Ref<const Eigen::MatrixXd> P) -> Eigen::VectorXd {
+    //    assert(P.cols() == 2);
+    //    assert(P.rows() == 2 || P.rows() == 3);
+    //    return Eigen::VectorXd::Constant(1, (P.col(0) - P.col(1)).norm());
+    //};
+    // auto edge_length_update =
+    //    std::make_shared<wmtk::operations::SingleAttributeTransferStrategy<double, double>>(
+    //        edge_length_attribute,
+    //        position_handle,
+    //        compute_edge_length);
+    // edge_length_update->run_on_all();
 
 
     //////////////////////////////////
@@ -187,7 +187,7 @@ void shortest_edge_collapse(
         assert(s.primitive_type() == PrimitiveType::Edge);
         return edge_length_accessor.const_scalar_attribute(s.tuple());
     };
-    pass_through_attributes.push_back(edge_length_attribute);
+    // pass_through_attributes.push_back(edge_length_attribute);
     auto todo = std::make_shared<TodoSmallerInvariant>(
         mesh,
         edge_length_attribute.as<double>(),
@@ -202,11 +202,13 @@ void shortest_edge_collapse(
 
         collapse_options.invariants.try_emplace(
             "link_condition",
-            InvariantOptions{"link_condition", MeshInvariantParameters{.mesh_path = mesh_path}});
+            InvariantOptions{"link_condition", MeshInvariantParameters{.mesh_path =
+    mesh_path}});
 
 
         auto invariant_interior_edge = std::make_shared<invariants::InvariantCollection>(mesh);
-        auto invariant_interior_vertex = std::make_shared<invariants::InvariantCollection>(mesh);
+        auto invariant_interior_vertex =
+    std::make_shared<invariants::InvariantCollection>(mesh);
 
         InvariantCollectionParameters interior_edge_invariant_parameters;
         InvariantCollectionParameters interior_vertex_invariant_parameters;
@@ -231,17 +233,19 @@ void shortest_edge_collapse(
             invariant_interior_edge->add(
                 std::make_shared<invariants::InteriorSimplexInvariant>(m, PrimitiveType::Edge));
             invariant_interior_vertex->add(
-                std::make_shared<invariants::InteriorSimplexInvariant>(m, PrimitiveType::Vertex));
+                std::make_shared<invariants::InteriorSimplexInvariant>(m,
+    PrimitiveType::Vertex));
         };
         wmtk::multimesh::MultiMeshVisitor visitor(set_all_invariants);
         visitor.execute_from_root(mesh);
 
-        InvariantOptions interior_edge_invariants("collection", interior_edge_invariant_parameters);
-        InvariantOptions interior_vertex_invariants(
+        InvariantOptions interior_edge_invariants("collection",
+    interior_edge_invariant_parameters); InvariantOptions interior_vertex_invariants(
             "collection",
             interior_vertex_invariant_parameters);
-        collapse_options.invariants.try_emplace("interior_vertices_mm", interior_vertex_invariants);
-        collapse_options.invariants.try_emplace("interior_edge_mm", interior_edge_invariants);
+        collapse_options.invariants.try_emplace("interior_vertices_mm",
+    interior_vertex_invariants); collapse_options.invariants.try_emplace("interior_edge_mm",
+    interior_edge_invariants);
 
         collapse_options.invariants.try_emplace(
             "multimesh_valid_map",
@@ -368,6 +372,7 @@ void shortest_edge_collapse(
         pass_stats.sorting_time,
         pass_stats.executing_time);
     */
+    configurator.load(pass_options);
 }
 void shortest_edge_collapse(
     Mesh& mesh,
@@ -380,7 +385,14 @@ void shortest_edge_collapse(
 {
     multimesh::MeshCollection mc;
     mc.add_mesh({mesh});
-    shortest_edge_collapse(mc,position_handle,length_rel,lock_boundary, envelope_size, check_inversion, pass_through);
+    shortest_edge_collapse(
+        mc,
+        position_handle,
+        length_rel,
+        lock_boundary,
+        envelope_size,
+        check_inversion,
+        pass_through);
 }
 
 void shortest_edge_collapse(
@@ -392,25 +404,16 @@ void shortest_edge_collapse(
     bool check_inversion,
     const std::vector<attribute::MeshAttributeHandle>& pass_through)
 {
-    ShortestEdgeCollapseOptions options;
-    options.position_handle = position_handle;
-    options.length_rel = length_rel;
-    if (lock_boundary) {
-        options.lock_boundary = lock_boundary.value();
-    }
-    options.envelope_size = envelope_size;
+    auto ph = multimesh::utils::get_attribute_description(mc, position_handle);
+    std::vector<multimesh::utils::AttributeDescription> pt;
+    std::transform(
+        pass_through.begin(),
+        pass_through.end(),
+        std::back_inserter(pt),
+        [&mc](const auto& m) { return multimesh::utils::get_attribute_description(mc, m); });
 
-    options.transfers.emplace("edge_length", configurator::transfer::TransferStrategyOptions{
-            .attribute = multimesh::utils::AttributeDescription("edge_length", 1, attribute::AttributeType::Double, 1),
-            .type = "edge_length",
-            .parameters = configurator::transfer::SingleAttributeTransferStrategyParameters{.attribute = options.position_handle}
-            });
-
-        std::transform(
-                pass_through.begin(),
-                pass_through.end(),
-            std::back_inserter(options.pass_through_attributes),
-            [&mc](const auto& m) { return multimesh::utils::get_attribute_description(mc, m); });
+    ShortestEdgeCollapseOptions
+        options(ph, length_rel, lock_boundary, envelope_size, check_inversion, pt);
     shortest_edge_collapse(mc, options);
 }
 } // namespace wmtk::components::shortest_edge_collapse

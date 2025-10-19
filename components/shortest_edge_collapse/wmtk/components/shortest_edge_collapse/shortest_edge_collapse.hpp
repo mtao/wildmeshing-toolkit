@@ -26,9 +26,8 @@ namespace wmtk::components::shortest_edge_collapse {
  * @param mesh The root mesh.
  * @param options All options required for performing the shortest-edge collapse.
  */
-void shortest_edge_collapse(multimesh::MeshCollection& mesh, const ShortestEdgeCollapseOptions& options);
 void shortest_edge_collapse(
-    multimesh::MeshCollection& meshes,
+    multimesh::MeshCollection& mesh,
     const ShortestEdgeCollapseOptions& options);
 
 /**
@@ -57,5 +56,6 @@ void shortest_edge_collapse(
     std::optional<double> envelope_size = {},
     bool check_inversion = false,
     const std::vector<attribute::MeshAttributeHandle>& pass_through = {});
+
 
 } // namespace wmtk::components::shortest_edge_collapse

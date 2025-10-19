@@ -6,6 +6,16 @@ namespace wmtk::components::configurator::transfer {
 WMTK_NLOHMANN_JSON_FRIEND_TO_JSON_PROTOTYPE(TransferStrategyOptions)
 {
     WMTK_NLOHMANN_ASSIGN_TYPE_TO_JSON(attribute, type, parameters);
+    std::visit(
+        [&](const auto& v) {
+            using T = std::decay_t<decltype(v)>;
+            if constexpr (std::is_same_v<T, Rational>) {
+                nlohmann_json_j["default_value"] = double(v);
+            } else {
+                nlohmann_json_j["default_value"] = v;
+            }
+        },
+        nlohmann_json_t.default_value);
 }
 
 WMTK_NLOHMANN_JSON_FRIEND_FROM_JSON_PROTOTYPE(TransferStrategyOptions)

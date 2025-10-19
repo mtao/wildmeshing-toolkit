@@ -7,6 +7,7 @@
 #include "../Configurator.hpp"
 #include "InvariantFactory.hpp"
 #include "InvariantOptions.hpp"
+#include "InvariantParameters_extra.hpp"
 #include "wmtk/invariants/CannotMapSimplexInvariant.hpp"
 #include "wmtk/invariants/EnvelopeInvariant.hpp"
 #include "wmtk/invariants/InteriorEdgeInvariant.hpp"
@@ -18,6 +19,7 @@
 #include "wmtk/invariants/RoundedInvariant.hpp"
 #include "wmtk/invariants/SeparateSubstructuresInvariant.hpp"
 #include "wmtk/invariants/SimplexInversionInvariant.hpp"
+#include "wmtk/invariants/TodoInvariant.hpp"
 #include "wmtk/invariants/ValenceImprovementInvariant.hpp"
 
 
@@ -93,6 +95,43 @@ std::shared_ptr<wmtk::invariants::Invariant> default_add_attribute_attribute_thr
     }
 }
 
+template <typename InvType, typename Scalar>
+std::shared_ptr<wmtk::invariants::Invariant> default_scalar_value_attribute_invariant(
+    Configurator& c,
+    const nlohmann::json& js)
+{
+    invariants::TypedInvariantOptions<invariants::ScalarValueInvariantParameters<Scalar>> opts = js;
+    auto params = opts.get_parameters();
+    auto p = std::make_shared<InvType>(c.get_attribute(params.attribute), params.value);
+    return p;
+}
+
+template <typename InvType>
+std::shared_ptr<wmtk::invariants::Invariant> default_scaled_attribute_attribute_invariant(
+    Configurator& c,
+    const nlohmann::json& js)
+{
+    invariants::TypedInvariantOptions<invariants::ScaledComparisonAttributeInvariantParameters>
+        opts = js;
+    auto params = opts.get_parameters();
+    auto p = std::make_shared<InvType>(
+        c.get_attribute(params.attribute),
+        c.get_attribute(params.comparison_attribute),
+        params.scaling);
+    return p;
+}
+
+template <typename InvType, typename Scalar>
+std::shared_ptr<wmtk::invariants::Invariant>
+default_scalar_value_or_value_or_scaled_attribute_attribute_invariant(
+    Configurator& c,
+    const nlohmann::json& js)
+{
+    invariants::TypedInvariantOptions<invariants::ScalarValueInvariantParameters<Scalar>> opts = js;
+    auto params = opts.get_parameters();
+    auto p = std::make_shared<InvType>(c.get_mesh(params.mesh_path), params.value);
+    return p;
+}
 
 } // namespace
 void InvariantFactory::load_default_functors()
@@ -222,6 +261,17 @@ void InvariantFactory::load_default_functors()
         "Only enables operations for TriEdgeSplit that would improve the valence according to "
         "dzint's heuristic (without the boundary angle component)");
 
+    {
+    }
+    add("todo_invariant",
+        &default_scalar_value_attribute_invariant<wmtk::invariants::TodoInvariant, int64_t>,
+        "hi");
+    add("todo_smaller_invariant",
+        &default_scalar_value_attribute_invariant<wmtk::invariants::TodoSmallerInvariant, double>,
+        "hi");
+    add("todo_larger_invariant",
+        &default_scalar_value_attribute_invariant<wmtk::invariants::TodoLargerInvariant, double>,
+        "hi");
     // add("split", &default_add_invariant<wmtk::invariants::EdgeSplit,
     // EdgeSplitOptions>); add("collapse",
     //     &default_add_invariant<wmtk::invariants::EdgeCollapse, EdgeCollapseOptions>);

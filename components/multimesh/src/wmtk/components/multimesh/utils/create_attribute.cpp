@@ -1,6 +1,6 @@
 
+#include <wmtk/attribute/utils/cast_value_variant.hpp>
 
-#include "create_attribute.hpp"
 #include <ranges>
 #include <wmtk/Mesh.hpp>
 #include <wmtk/utils/primitive_range.hpp>
@@ -17,10 +17,18 @@
 namespace wmtk::components::multimesh::utils {
 namespace detail {
 template <typename T>
-wmtk::attribute::MeshAttributeHandle
-create_attribute(Mesh& mesh, const std::string_view& name, PrimitiveType pt, int64_t dimension)
+wmtk::attribute::MeshAttributeHandle create_attribute(
+    Mesh& mesh,
+    const std::string_view& name,
+    PrimitiveType pt,
+    int64_t dimension,
+    const attribute::MeshAttributeHandle::ValueVariant& v)
 {
-    return mesh.register_attribute<T>(std::string(name), pt, dimension, true);
+    if (v.index() != std::variant_npos) {
+        return mesh.register_attribute<T>(std::string(name), pt, dimension, true, std::get<T>(v));
+    } else {
+        return mesh.register_attribute<T>(std::string(name), pt, dimension, true);
+    }
 }
 
 wmtk::attribute::MeshAttributeHandle create_attribute(
@@ -28,7 +36,8 @@ wmtk::attribute::MeshAttributeHandle create_attribute(
     const std::string_view& name,
     PrimitiveType pt,
     wmtk::attribute::AttributeType type,
-    int64_t dim)
+    int64_t dim,
+    const attribute::MeshAttributeHandle::ValueVariant& v)
 {
     using AT = wmtk::attribute::AttributeType;
     switch (type) {
@@ -38,7 +47,8 @@ wmtk::attribute::MeshAttributeHandle create_attribute(
             mesh,                                                                        \
             name,                                                                        \
             pt,                                                                          \
-            dim);
+            dim,                                                                         \
+            v);
         ENTRY(AT::Char);
         ENTRY(AT::Double);
         ENTRY(AT::Int64);
@@ -52,45 +62,66 @@ wmtk::attribute::MeshAttributeHandle create_attribute(
 
 wmtk::attribute::MeshAttributeHandle create_attribute(
     NamedMultiMesh& mesh,
-    const AttributeDescription& description)
+    const AttributeDescription& description,
+    const attribute::MeshAttributeHandle::ValueVariant& v)
 {
     assert(description.fully_specified());
     auto [mesh_path, attribute_name] = decompose_attribute_path(description);
-    return detail::create_attribute(
-        mesh.get_mesh(mesh_path),
-        attribute_name,
-        description.primitive_type().value(),
-        description.type.value(),
-        description.dimension.value());
+    return create_attribute(mesh.get_mesh(mesh_path), description, v);
 }
 wmtk::attribute::MeshAttributeHandle create_attribute(
     MeshCollection& mesh,
-    const AttributeDescription& description)
+    const AttributeDescription& description,
+    const attribute::MeshAttributeHandle::ValueVariant& v)
 {
     assert(description.fully_specified());
     auto [mesh_path, attribute_name] = decompose_attribute_path(description);
-
-    Mesh& nmm = mesh.get_mesh(mesh_path);
-    return detail::create_attribute(
-        nmm,
-        attribute_name,
-        description.primitive_type().value(),
-        description.type.value(),
-        description.dimension.value());
+    return create_attribute(mesh.get_mesh(mesh_path), description, v);
 }
 
 wmtk::attribute::MeshAttributeHandle create_attribute(
     Mesh& mesh,
-    const AttributeDescription& description)
+    const AttributeDescription& description,
+    const attribute::MeshAttributeHandle::ValueVariant& v)
 {
     assert(description.fully_specified());
     auto [mesh_path, attribute_name] = decompose_attribute_path(description);
-    return detail::create_attribute(
-        mesh,
-        attribute_name,
-        description.primitive_type().value(),
-        description.type.value(),
-        description.dimension.value());
+    try {
+        return detail::create_attribute(
+            mesh,
+            attribute_name,
+            description.primitive_type().value(),
+            description.type.value(),
+            description.dimension.value(),
+            attribute::utils::cast_value_variant(v, description.type.value()));
+    } catch (const std::bad_variant_access& bar) {
+        std::visit(
+            [&](const auto& vv) {
+                using T = std::decay_t<decltype(vv)>;
+                if constexpr (std::is_same_v<T, Rational>) {
+                    wmtk::log_and_throw_error(
+                        "Creating an attribute failed with attribute {} because default value "
+                        "variant "
+                        "created an error: {}",
+                        description,
+                        double(vv),
+                        bar.what());
+                } else {
+                    wmtk::log_and_throw_error(
+                        "Creating an attribute failed with attribute {} because default value "
+                        "variant "
+                        "created an error: {}",
+                        description,
+                        vv,
+                        bar.what());
+                }
+            },
+            v);
+        assert(false);
+        // this last bit should never be reached because log_and_throw will always throw an
+        // exception
+        return {};
+    }
 }
 
 } // namespace wmtk::components::multimesh::utils
