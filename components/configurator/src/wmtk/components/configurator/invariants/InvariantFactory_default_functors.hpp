@@ -1,6 +1,7 @@
 #pragma once
 #include <nlohmann/json.hpp>
 #include "InvariantOptions.hpp"
+#include "InvariantParameters_extra.hpp"
 
 namespace wmtk::components::configurator::invariants {
 

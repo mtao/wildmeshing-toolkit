@@ -1,6 +1,7 @@
 #pragma once
 
 #include <optional>
+#include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/attribute/TypedAttributeHandle.hpp>
 #include "AttributeInvariant.hpp"
 
@@ -15,7 +16,7 @@ class TodoInvariant : public AttributeInvariant<int64_t>
 public:
     TodoInvariant(
         const Mesh& m,
-        const TypedAttributeHandle<int64_t>& todo_handle,
+        const attribute::TypedAttributeHandle<int64_t>& todo_handle,
         const int64_t val = 1);
 
     TodoInvariant(const attribute::MeshAttributeHandle& mah, const int64_t val = 1);
@@ -24,7 +25,7 @@ public:
     std::string name() const override;
 
 private:
-    const TypedAttributeHandle<int64_t> m_todo_handle;
+    const attribute::TypedAttributeHandle<int64_t> m_todo_handle;
     const int64_t m_val;
 };
 
@@ -35,20 +36,33 @@ class ComparisonInvariantBase : public Invariant
 {
 public:
     ComparisonInvariantBase(const attribute::MeshAttributeHandle& mah)
-        : m_
+        : Invariant(mah.mesh())
+        , m_todo_handle(mah.as<Scalar>())
+    {}
 
-        ComparisonInvariantBase(
-            const Mesh& m,
-            const TypedAttributeHandle<double>& todo_handle,
-            const TypedAttributeHandle<double>& comparison_handle);
+    ComparisonInvariantBase(
+        const Mesh& m,
+        const attribute::TypedAttributeHandle<double>& todo_handle,
+        const attribute::TypedAttributeHandle<double>& comparison_handle)
+        : Invariant(m)
+        , m_todo_handle(todo_handle)
+        , m_comparison_handle(
+              attribute::MeshAttributeHandle(const_cast<Mesh&>(m), comparison_handle))
+    {}
 
     ComparisonInvariantBase(
         const attribute::MeshAttributeHandle& todo_handle,
-        const attribute::MeshAttributeHandle& comparison_handle);
+        const attribute::MeshAttributeHandle& comparison_handle)
+        : Invariant(todo_handle.mesh())
+        , m_todo_handle(todo_handle.as<Scalar>())
+        , m_comparison_handle(comparison_handle)
+    {
+        assert(m_comparison_handle.has_value() || m_comparison_handle->holds<Scalar>());
+    }
 
 private:
-    const TypedAttributeHandle<double> m_todo_handle;
-    const std::optional<TypedAttributeHandle<double>> m_comparison_handle;
+    const attribute::TypedAttributeHandle<Scalar> m_todo_handle;
+    const std::optional<attribute::MeshAttributeHandle> m_comparison_handle;
 };
 
 template <typename Comparison>

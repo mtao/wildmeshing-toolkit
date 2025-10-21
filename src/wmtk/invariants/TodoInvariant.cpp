@@ -23,26 +23,6 @@ bool TodoInvariant::before(const simplex::Simplex& t) const
     return split_todo_accessor.const_scalar_attribute(t) == m_val;
 }
 
-namespace detail {
-
-ComparisonInvariantBase::ComparisonInvariantBase(
-    const Mesh& m,
-    const TypedAttributeHandle<double>& todo_handle)
-    : Invariant(m)
-    , m_todo_handle(todo_handle)
-{}
-
-ComparisonInvariantBase::ComparisonInvariantBase(
-    const Mesh& m,
-    const TypedAttributeHandle<double>& todo_handle,
-    const TypedAttributeHandle<double>& comparison_handle)
-{}
-
-ComparisonInvariantBase::ComparisonInvariantBase(
-    const attribute::MeshAttributeHandle& todo_handle,
-    const attribute::MeshAttributeHandle& comparison_handle)
-{}
-} // namespace detail
 
 TodoLargerInvariant::TodoLargerInvariant(
     const Mesh& m,
