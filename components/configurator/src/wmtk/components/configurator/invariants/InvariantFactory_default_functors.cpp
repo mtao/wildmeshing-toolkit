@@ -95,6 +95,28 @@ std::shared_ptr<wmtk::invariants::Invariant> default_add_attribute_attribute_thr
     }
 }
 
+template <typename Inv, typename T>
+auto todo_value_inv_func(Configurator& c, const nlohmann::json& js)
+    -> std::shared_ptr<wmtk::invariants::Invariant>
+{
+    std::shared_ptr<wmtk::invariants::Invariant> ret;
+    invariants::TypedInvariantOptions<invariants::ScalarValueInvariantParameters<T>> opts = js;
+    auto params = opts.get_parameters();
+    auto p = std::make_shared<Inv>(c.get_attribute(params.attribute), params.value);
+    return p;
+};
+template <typename Inv, typename T>
+auto todo_attr_inv_func(Configurator& c, const nlohmann::json& js)
+    -> std::shared_ptr<wmtk::invariants::Invariant>
+{
+    std::shared_ptr<wmtk::invariants::Invariant> ret;
+    invariants::TypedInvariantOptions<invariants::ScaledComparisonAttributeInvariantParameters<T>>
+        opts = js;
+    auto params = opts.get_parameters();
+    auto p = std::make_shared<T>(c.get_attribute(params.attribute), params.value);
+    return p;
+};
+
 
 } // namespace
 void InvariantFactory::load_default_functors()
@@ -225,28 +247,16 @@ void InvariantFactory::load_default_functors()
         "dzint's heuristic (without the boundary angle component)");
 
     {
-        auto todo_value_inv_func = []<typename Inv, typename T>(
-                                       Configurator& c,
-                                       const nlohmann::json& js) {
-            std::shared_ptr<wmtk::invariants::Invariant> ret;
-            invariants::TypedInvariantOptions<invariants::ScalarValueInvariantParameters<T>> opts =
-                js;
-            auto params = opts.get_parameters();
-            auto p = std::make_shared<Inv>(c.get_attribute(params.attribute), params.value);
-            return p;
-        };
-        auto todo_attr_inv_func = []<typename T>(Configurator& c, const nlohmann::json& js) {
-            std::shared_ptr<wmtk::invariants::Invariant> ret;
-            invariants::TypedInvariantOptions<
-                invariants::ScaledComparisonAttributeInvariantParameters<T>>
-                opts = js;
-            auto params = opts.get_parameters();
-            auto p = std::make_shared<T>(c.get_attribute(params.attribute), params.value);
-            return p;
-        };
+        add("todo",
+            &todo_value_inv_func<wmtk::invariants::TodoInvariant, int64_t>,
+            "todo invariant that checks if an invariant is equal to a given value");
 
-        add("todo_invariant",
-            todo_value_inv_func<wmtk::invariants::TodoInvariant, int64_t>,
+        add("todo_less_than_value",
+            &todo_value_inv_func<wmtk::invariants::TodoSmallerInvariant, double>,
+            "todo invariant that checks if an invariant is equal to a given value");
+
+        add("todo_less_than_value",
+            &todo_value_inv_func<wmtk::invariants::TodoInvariant, int64_t>,
             "todo invariant that checks if an invariant is equal to a given value");
 
         // add("todo_greater_invariant",
