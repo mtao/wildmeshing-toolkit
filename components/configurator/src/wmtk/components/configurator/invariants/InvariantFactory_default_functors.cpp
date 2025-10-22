@@ -1,4 +1,5 @@
 #include "InvariantFactory_default_functors.hpp"
+#include "InvariantParameters_extra.hpp"
 #include <wmtk/TriMesh.hpp>
 #include <wmtk/invariants/Invariant.hpp>
 #include <wmtk/invariants/InvariantCollection.hpp>
@@ -247,6 +248,7 @@ void InvariantFactory::load_default_functors()
         "dzint's heuristic (without the boundary angle component)");
 
     {
+        /*
         add("todo",
             &todo_value_inv_func<wmtk::invariants::TodoInvariant, int64_t>,
             "todo invariant that checks if an invariant is equal to a given value");
@@ -259,6 +261,7 @@ void InvariantFactory::load_default_functors()
             &todo_value_inv_func<wmtk::invariants::TodoInvariant, int64_t>,
             "todo invariant that checks if an invariant is equal to a given value");
 
+            */
         // add("todo_greater_invariant",
         //     todo_value_inv_func<wmtk::invariants::TodoInvariant>,
         //     "todo invariant that checks if an invariant is equal to a given value");

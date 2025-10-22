@@ -1,5 +1,6 @@
 
 #include "InvariantOptions.hpp"
+#include "InvariantParameters_extra.hpp"
 #include <nlohmann/json.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 #include <wmtk/utils/Logger.hpp>
