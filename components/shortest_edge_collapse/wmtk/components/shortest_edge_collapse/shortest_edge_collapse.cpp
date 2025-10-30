@@ -183,17 +183,18 @@ void shortest_edge_collapse(
         bbdiag,
         length_abs);
 
-    auto short_edges_first_priority = [&](const simplex::Simplex& s) {
-        assert(s.primitive_type() == PrimitiveType::Edge);
-        return edge_length_accessor.const_scalar_attribute(s.tuple());
-    };
-    // pass_through_attributes.push_back(edge_length_attribute);
+
+    // auto short_edges_first_priority = [&](const simplex::Simplex& s) {
+    //     assert(s.primitive_type() == PrimitiveType::Edge);
+    //     return edge_length_accessor.const_scalar_attribute(s.tuple());
+    // };
+    //  pass_through_attributes.push_back(edge_length_attribute);
 
 
-    auto todo = std::make_shared<TodoSmallerInvariant>(
-        mesh,
-        edge_length_attribute.as<double>(),
-        4. / 5. * length_abs); // MTAO: why is this 4/5?
+    // auto todo = std::make_shared<TodoSmallerInvariant>(
+    //     mesh,
+    //     edge_length_attribute.as<double>(),
+    //    4. / 5. * length_abs); // MTAO: why is this 4/5?
 
     /*
     //////////////////////////invariants

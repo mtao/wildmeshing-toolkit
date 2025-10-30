@@ -94,19 +94,10 @@ public:
     template <typename T>
     void add_attribute_invariant(const std::string& s);
 
-    std::shared_ptr<wmtk::invariants::Invariant>
-    create_mesh_invariant(std::string_view name, std::string_view type, const Mesh& m);
-    std::shared_ptr<wmtk::invariants::Invariant> create_attribute_invariant(
-        std::string_view name,
-        std::string_view type,
-        const attribute::MeshAttributeHandle& mah);
 
     template <typename T, typename ParameterType, typename MeshType = wmtk::Mesh>
     void add_basic_operation(const std::string& s);
 
-
-    auto create_attribute_update_function(std::string_view name, const nlohmann::json& js = {})
-        const -> operations::OperationFactory::AttributeUpdateFunction;
 
 
     auto& operations() { return m_operations; }
@@ -118,6 +109,17 @@ public:
     auto& transfer_strategies() { return m_transfer_strategies; }
     auto& transfer_strategies() const { return m_transfer_strategies; }
 
+
+protected:
+    std::shared_ptr<wmtk::invariants::Invariant>
+    create_mesh_invariant(std::string_view name, std::string_view type, const Mesh& m);
+    std::shared_ptr<wmtk::invariants::Invariant> create_attribute_invariant(
+        std::string_view name,
+        std::string_view type,
+        const attribute::MeshAttributeHandle& mah);
+
+    auto create_attribute_update_function(std::string_view name, const nlohmann::json& js = {})
+        const -> operations::OperationFactory::AttributeUpdateFunction;
 private:
     wmtk::Mesh& get_mesh_internal(std::string_view name);
     const wmtk::Mesh& get_mesh_internal(std::string_view name) const;

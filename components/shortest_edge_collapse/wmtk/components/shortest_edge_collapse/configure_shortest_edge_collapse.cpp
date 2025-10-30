@@ -39,13 +39,21 @@ configurator::PassConfiguration configure_shortest_edge_collapse(
 
 
     multimesh::utils::AttributeDescription edge_length_attr(
-
         fmt::format("{}/{}", options.position_handle.mesh_path(), "edge_length"),
         1,
         attribute::AttributeType::Double,
         1);
 
 
+    // configurator::operations::PriorityOptions largest_first_edge_priority{
+    //     .type = "attribute",
+    //     .attribute = edge_length_attr};
+    configurator::operations::PriorityOptions shortest_first_edge_priority{
+        .type = "attribute",
+        .attribute = edge_length_attr,
+        .minimize = true};
+
+    collapse_options.priority = shortest_first_edge_priority;
     {
         configurator::transfer::TransferStrategyOptions opts{
             .attribute = edge_length_attr,
@@ -67,9 +75,15 @@ configurator::PassConfiguration configure_shortest_edge_collapse(
         bb.ratio = .8 * options.length_rel;
         inv.parameters = bb;
 
-        configurator::invariants::InvariantOptions{"todo_less_than", inv};
-        // configurator::invariants::
+        collapse_options.invariants.emplace(
+            "todo_smaller",
+            configurator::invariants::InvariantOptions{"todo_less_than", inv});
+
+        // collapse_options.emplace("todo_smaller",
+        //  configurator::invariants::
     }
+
 
     return pass_options;
 }
+} // namespace wmtk::components::shortest_edge_collapse
