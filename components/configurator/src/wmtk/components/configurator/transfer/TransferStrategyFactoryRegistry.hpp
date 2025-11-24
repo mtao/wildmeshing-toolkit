@@ -66,6 +66,7 @@ void TransferStrategyFactoryRegistry::register_lambda_transfer_without_simplices
             auto t = std::make_shared<
                 LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>>(f);
             t->from_options(js);
+            spdlog::info("lambda options {}");
             return t;
         });
     }

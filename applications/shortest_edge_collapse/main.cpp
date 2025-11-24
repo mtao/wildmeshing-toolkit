@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <nlohmann/json.hpp>
 #include <wmtk/applications/utils/element_count_report.hpp>
+#include <wmtk/components/multimesh/utils/AttributeDescription.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
 
 #include <wmtk/Mesh.hpp>
@@ -68,22 +69,20 @@ int main(int argc, char* argv[])
     // const fs::path input_file = resolve_paths(json_input_file, {j["input_path"], j["input"]});
 
     std::vector<std::filesystem::path> additional_paths;
-    if (j.contains("input_path")) {
-        additional_paths.emplace_back(j["input_path"]);
-    }
-    if (j.contains("input_path")) {
-        additional_paths.emplace_back(j["input"]);
-    }
+    // if (j.contains("input_path")) {
+    //     additional_paths.emplace_back(j["input_path"]);
+    // }
+    additional_paths.emplace_back(fs::absolute(json_input_file).parent_path());
 
     wmtk::components::multimesh::MeshCollection mc =
         wmtk::applications::utils::read_inputs(j, "input", "root", additional_paths);
 
-    attribute::MeshAttributeHandle pos_handle = wmtk::components::multimesh::utils::get_attribute(
-        mc,
-        components::multimesh::utils::AttributeDescription{
-            "/vertices",
-            0, // vertex
-            attribute::AttributeType::Double});
+    wmtk::components::multimesh::utils::AttributeDescription pos_attr_handle = {
+        "/vertices",
+        0, // vertex
+        attribute::AttributeType::Double};
+    attribute::MeshAttributeHandle pos_handle =
+        wmtk::components::multimesh::utils::get_attribute(mc, pos_attr_handle);
     std::shared_ptr<Mesh> mesh_in = pos_handle.mesh().shared_from_this();
 
     attribute::MeshAttributeHandle other_pos_handle;
@@ -125,6 +124,8 @@ int main(int argc, char* argv[])
         using namespace components::shortest_edge_collapse;
         ShortestEdgeCollapseOptions options;
         options.position_handle = pos_handle;
+        options.update_edge_length_transfer();
+
         if (other_mesh) {
             options.other_position_handles.emplace_back(other_pos_handle);
         }

@@ -24,8 +24,6 @@ struct SingleAttributeTransferStrategyFactoryBase : public TransferStrategyFacto
     /// The set attribute that the transfer will read data from
     void set_base_attribute(const multimesh::utils::AttributeDescription&);
 
-    /// Parameters potentially used for derived transfers to simplify serialization
-    nlohmann::json parameters;
 
     TransferStrategyOptions to_options() const final;
     void from_options(const TransferStrategyOptions&) final;
@@ -97,6 +95,7 @@ components::multimesh::utils::AttributeDescription
 SingleAttributeTransferStrategyFactory<Functor>::get_output_attribute_description(
     const wmtk::components::multimesh::MeshCollection& mc) const
 {
+    spdlog::info("getting output attr from {}", attribute);
     auto from_attr = wmtk::components::multimesh::utils::get_attribute(mc, base_attribute());
     using Traits = TransferFunctorTraits<Functor>;
     multimesh::utils::AttributeDescription out_type = {
@@ -112,6 +111,7 @@ SingleAttributeTransferStrategyFactory<Functor>::get_output_attribute_descriptio
             attribute,
             out_type);
     }
+    spdlog::info("Result of trying to output attr was {}", out_type);
     return out_type;
 }
 template <template <typename, int, typename, int> typename Functor>

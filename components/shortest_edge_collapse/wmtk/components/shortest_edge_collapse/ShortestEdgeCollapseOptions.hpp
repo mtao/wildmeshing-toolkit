@@ -7,6 +7,11 @@
 
 namespace wmtk::components::shortest_edge_collapse {
 
+
+
+    /** Options for shortest edge collapse
+     * This class inherits from PassConfiguration to generically declare modifications to the algorithm, but any options set below can overwrite any passconfiguration values.
+     */
 struct ShortestEdgeCollapseOptions : public wmtk::components::configurator::PassConfiguration
 {
     ShortestEdgeCollapseOptions() = default;
@@ -22,6 +27,9 @@ struct ShortestEdgeCollapseOptions : public wmtk::components::configurator::Pass
         bool check_inversion = false,
         const std::vector<multimesh::utils::AttributeDescription>& pass_through = {});
 
+    // places the position handle and sets the edge_length transfer
+    void update_edge_length_transfer();
+
 
     /**
      * vertex positions (double)
@@ -35,7 +43,7 @@ struct ShortestEdgeCollapseOptions : public wmtk::components::configurator::Pass
     /**
      * The desired edge length relative to the AABB.
      */
-    double length_rel;
+    double length_rel = 0;
     /**
      * Are boundary vertices allowed to be collapsed?
      */
@@ -43,7 +51,7 @@ struct ShortestEdgeCollapseOptions : public wmtk::components::configurator::Pass
     /**
      * The envelope size relative to the AABB.
      */
-    std::optional<double> envelope_size;
+    std::optional<double> envelope_size = {};
     /**
      * If this attribute is specified, it is used to check for inversions. The mesh must be of top
      * dimension, e.g., a TriMesh in 2D or a TetMesh in 3D.

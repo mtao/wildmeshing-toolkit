@@ -124,7 +124,7 @@ void shortest_edge_collapse(
     };
 
 
-    transfer_registry.register_lambda_transfer_without_simplices<char, 1, double, 2>(
+    transfer_registry.register_lambda_transfer_without_simplices<char, 1, double, Eigen::Dynamic>(
         "update_flag",
         update_flag_func);
 
@@ -375,6 +375,7 @@ void shortest_edge_collapse(
         pass_stats.sorting_time,
         pass_stats.executing_time);
     */
+    spdlog::info("SEC Passes: {}", nlohmann::json(pass_options).dump(2));
     configurator.load(pass_options);
 }
 void shortest_edge_collapse(

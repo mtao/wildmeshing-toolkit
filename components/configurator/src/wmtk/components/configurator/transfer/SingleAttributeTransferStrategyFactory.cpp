@@ -12,7 +12,9 @@ TransferStrategyOptions SingleAttributeTransferStrategyFactoryBase::to_options()
 }
 void SingleAttributeTransferStrategyFactoryBase::from_options(const TransferStrategyOptions& opts)
 {
-    static_cast<TransferStrategyOptions&>(*this) = opts;
+    auto& me = static_cast<TransferStrategyOptions&>(*this);
+     me = opts;
+    spdlog::info("from options got stored as {}",nlohmann::json(me).dump(2));
 }
 
 void SingleAttributeTransferStrategyFactoryBase::set_base_attribute(
@@ -28,7 +30,7 @@ void SingleAttributeTransferStrategyFactoryBase::set_base_attribute(
 auto SingleAttributeTransferStrategyFactoryBase::base_attribute() const
     -> multimesh::utils::AttributeDescription
 {
-    spdlog::info("{}", parameters.dump());
+    spdlog::info("SingleAttributeTransferStrategyParameters::base_attribute() params are {}", parameters.dump());
     SingleAttributeTransferStrategyParameters p = parameters;
     return p.attribute;
 }

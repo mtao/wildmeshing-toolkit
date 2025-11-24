@@ -90,7 +90,7 @@ std::shared_ptr<wmtk::operations::AttributeUpdate> default_add_attribute_update_
     std::shared_ptr<wmtk::operations::AttributeUpdateWithFunction> op_smooth =
         std::make_shared<wmtk::operations::AttributeUpdateWithFunction>(mesh);
 
-    op_smooth->set_function(c.create_attribute_update_function(params.function, params));
+    op_smooth->set_function(c.operations().create_attribute_update_function(c,params.function, params));
 
 
     if (!params.projection_attribute.empty()) {

@@ -1,5 +1,6 @@
 
 #include "Configurator.hpp"
+#include <spdlog/spdlog.h>
 #include <wmtk/components/multimesh/utils/get_attribute_description.hpp>
 #include <wmtk/operations/Operation.hpp>
 #include "Configuration.hpp"

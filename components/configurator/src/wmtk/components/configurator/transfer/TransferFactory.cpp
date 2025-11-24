@@ -77,6 +77,8 @@ auto TransferFactory::create(
         name,
         t,
         known_transfer_functors());
+    spdlog::info("JS was {}", nlohmann::json(opts).dump(2));
+    spdlog::info("Parameters was {}", nlohmann::json(opts.parameters).dump(2));
 
     auto func = m_registry->create(opts);
 

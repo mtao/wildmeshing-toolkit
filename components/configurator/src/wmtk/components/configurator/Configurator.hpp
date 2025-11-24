@@ -100,17 +100,22 @@ public:
 
 
 
+    /// Returns the operation factory object, generally should be avoided
     auto& operations() { return m_operations; }
+    /// Returns the operation factory object, generally should be avoided
     auto& operations() const { return m_operations; }
 
+    /// Returns the invariant factory object, generally should be avoided
     auto& invariants() { return m_invariants; }
+    /// Returns the invariant factory object, generally should be avoided
     auto& invariants() const { return m_invariants; }
 
+    /// Returns the transfer strategy object, generally should be avoided
     auto& transfer_strategies() { return m_transfer_strategies; }
+    /// Returns the transfer strategy object, generally should be avoided
     auto& transfer_strategies() const { return m_transfer_strategies; }
 
 
-protected:
     std::shared_ptr<wmtk::invariants::Invariant>
     create_mesh_invariant(std::string_view name, std::string_view type, const Mesh& m);
     std::shared_ptr<wmtk::invariants::Invariant> create_attribute_invariant(
@@ -118,6 +123,7 @@ protected:
         std::string_view type,
         const attribute::MeshAttributeHandle& mah);
 
+    /// Helper for creating an attribute update function, should merge with attribute transfer
     auto create_attribute_update_function(std::string_view name, const nlohmann::json& js = {})
         const -> operations::OperationFactory::AttributeUpdateFunction;
 private:
