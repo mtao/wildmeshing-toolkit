@@ -2,6 +2,7 @@
 
 #include <spdlog/common.h>
 #include <optional>
+#include "wmtk/attribute/MeshAttributeHandle.hpp"
 #include "wmtk/attribute/TypedAttributeHandle.hpp"
 
 namespace wmtk {
@@ -94,6 +95,7 @@ public:
     int64_t m_num_op_success = 0;
     int64_t m_num_op_fail = 0;
 
+    /// Prints the number of success/fail/performed out of some total number of operations
     void print_update_log(size_t total, spdlog::level::level_enum = spdlog::level::info) const;
 };
 
@@ -101,7 +103,7 @@ class Scheduler
 {
 public:
     Scheduler();
-    ~Scheduler();
+    virtual ~Scheduler();
 
     // runs operation on the specified simplices
     SchedulerStats run_operation_on_all(
@@ -112,6 +114,8 @@ public:
     // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
     SchedulerStats run_operation_on_all(operations::Operation& op);
 
+    virtual SchedulerStats run(operations::Operation& op);
+    ///
     SchedulerStats run_operation_on_all(
         operations::Operation& op,
         const TypedAttributeHandle<char>& flag_handle);
@@ -119,16 +123,78 @@ public:
         operations::Operation& op,
         const TypedAttributeHandle<int64_t>& color_handle);
 
+    SchedulerStats run_operation_on_all(
+        operations::Operation& op,
+        const TypedAttributeHandle<char>& flag_handle,
+        const Mesh& m);
+    SchedulerStats run_operation_on_all_coloring(
+        operations::Operation& op,
+        const TypedAttributeHandle<int64_t>& color_handle,
+        const Mesh& m);
+
     const SchedulerStats& stats() const { return m_stats; }
 
     void set_update_frequency(std::optional<size_t>&& freq = {});
 
-private:
+protected:
     SchedulerStats m_stats;
     std::optional<size_t> m_update_frequency = {};
 
-    void log(const size_t total);
-    void log(const SchedulerStats& stats, const size_t total);
+    /// Logs the stats with the help of the number of simplices
+    void log(const size_t total_simplices);
+    /// Logs the stats with the help of the number of simplices
+    void log(const SchedulerStats& stats, const size_t total_simplices);
+};
+
+
+// Base class for derived schedulers, who for now mostly just call public functions from other schedulers
+class SchedulerBase : protected Scheduler
+{
+public:
+    SchedulerBase();
+    // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
+    virtual SchedulerStats run(operations::Operation& op) = 0;
+
+    virtual Mesh& mesh() = 0;
+protected:
+    using Scheduler::run_operation_on_all;
+    using Scheduler::run_operation_on_all_coloring;
+};
+
+class MeshScheduler : public SchedulerBase
+{
+public:
+    MeshScheduler(Mesh& mesh);
+    // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
+    SchedulerStats run(operations::Operation& op) override;
+
+    Mesh& mesh() final override { return m_mesh; }
+
+private:
+    Mesh& m_mesh;
+};
+
+class FlagScheduler : public SchedulerBase
+{
+public:
+    FlagScheduler(const attribute::MeshAttributeHandle& h);
+    // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
+    SchedulerStats run(operations::Operation& op) override;
+    Mesh& mesh() final override { return m_handle.mesh(); }
+
+private:
+    attribute::MeshAttributeHandle m_handle;
+};
+class ColorScheduler : public SchedulerBase
+{
+public:
+    ColorScheduler(const attribute::MeshAttributeHandle& h);
+    // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
+    SchedulerStats run(operations::Operation& op) override;
+    Mesh& mesh() final override { return m_handle.mesh(); }
+
+private:
+    attribute::MeshAttributeHandle m_handle;
 };
 
 } // namespace wmtk

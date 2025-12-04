@@ -10,21 +10,21 @@ namespace wmtk::components::configurator::transfer {
 std::shared_ptr<TransferStrategyFactoryRegistry> TransferStrategyFactory::s_transfer_registry =
     create_registry_ptr();
 TransferStrategyFactory::~TransferStrategyFactory() = default;
-TransferStrategyFactory::TransferStrategyFactory() = default;
-TransferStrategyFactory::TransferStrategyFactory(TransferStrategyFactory&& o) = default;
-TransferStrategyFactory::TransferStrategyFactory(const TransferStrategyFactory& o)
-    : attribute(o.attribute)
-    , type(o.type)
-//, dynamic_factory(o.dynamic_factory ? o.dynamic_factory->clone() : nullptr)
-{}
-TransferStrategyFactory& TransferStrategyFactory::operator=(TransferStrategyFactory&& o) = default;
-TransferStrategyFactory& TransferStrategyFactory::operator=(const TransferStrategyFactory& o)
-{
-    this->attribute = o.attribute;
-    this->type = o.type;
-    // this->dynamic_factory = o.dynamic_factory->clone();
-    return *this;
-}
+//TransferStrategyFactory::TransferStrategyFactory() = default;
+//TransferStrategyFactory::TransferStrategyFactory(TransferStrategyFactory&& o) = default;
+//TransferStrategyFactory::TransferStrategyFactory(const TransferStrategyFactory& o)
+//    : attribute(o.attribute)
+//    , type(o.type)
+////, dynamic_factory(o.dynamic_factory ? o.dynamic_factory->clone() : nullptr)
+//{}
+//TransferStrategyFactory& TransferStrategyFactory::operator=(TransferStrategyFactory&& o) = default;
+//TransferStrategyFactory& TransferStrategyFactory::operator=(const TransferStrategyFactory& o)
+//{
+//    this->attribute = o.attribute;
+//    this->type = o.type;
+//    // this->dynamic_factory = o.dynamic_factory->clone();
+//    return *this;
+//}
 void TransferStrategyFactory::to_json(nlohmann::json& js) const
 {
     js = static_cast<const TransferStrategyOptions&>(*this);

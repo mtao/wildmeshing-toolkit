@@ -377,6 +377,12 @@ void shortest_edge_collapse(
     */
     spdlog::info("SEC Passes: {}", nlohmann::json(pass_options).dump(2));
     configurator.load(pass_options);
+
+    auto& passes = configurator.get_passes();
+    for(size_t j = 0; j < passes.size(); ++j) {
+        auto& pass = passes[j];
+        pass.run(fmt::format("Pass {}", j));
+    }
 }
 void shortest_edge_collapse(
     Mesh& mesh,

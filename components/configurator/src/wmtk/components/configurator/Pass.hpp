@@ -1,7 +1,8 @@
 #pragma once
 #include <memory>
 #include <vector>
-#include <wmtk/Scheduler.hpp>
+#include <wmtk/attribute/MeshAttributeHandle.hpp>
+#include "OperationPass.hpp"
 #include "PassOptions.hpp"
 
 namespace wmtk {
@@ -24,26 +25,22 @@ public:
 
     // info is just some info for debug logs to print things nicely
     wmtk::SchedulerStats run(std::string_view info);
-    wmtk::SchedulerStats run_until_convergence(std::string_view info);
-    wmtk::SchedulerStats run(std::string_view info, int64_t iterations);
+    const std::vector<OperationPass>& operations() const { return m_operations; }
 
-    wmtk::SchedulerStats run_all_operations(Scheduler& s);
-    const std::vector<std::shared_ptr<wmtk::operations::Operation>>& operations() const
-    {
-        return m_operations;
-    }
-
-    int64_t iterations() const { return m_iterations; }
+    int64_t iterations() const;
+    // int64_t iterations() const { return m_iterations; }
 
     // runs u
 
     const Mesh& mesh() const;
+    std::shared_ptr<SchedulerBase> default_scheduler() { return m_default_scheduler; }
 
     Mesh& mesh();
 
+
 private:
-    std::shared_ptr<Mesh> m_mesh;
-    std::vector<std::shared_ptr<wmtk::operations::Operation>> m_operations;
+    std::vector<OperationPass> m_operations;
+    std::shared_ptr<SchedulerBase> m_default_scheduler;
     int64_t m_iterations;
 };
 } // namespace wmtk::components::configurator

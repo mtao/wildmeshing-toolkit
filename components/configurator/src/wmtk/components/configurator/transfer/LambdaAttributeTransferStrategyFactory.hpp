@@ -59,7 +59,6 @@ LambdaFunctionTransferStrategyFactory<ToType, ToDim, FromType, FromDim>::
     get_output_attribute_description(const wmtk::components::multimesh::MeshCollection& mc) const
 {
     auto attr = attribute;
-    spdlog::info("getting output attr from {}", attribute);
     assert(attr.fully_specified());
     return attr;
 }

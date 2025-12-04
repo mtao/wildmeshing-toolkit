@@ -8,6 +8,7 @@
 #include "../transfer/TransferStrategyOptions.hpp"
 #include "EdgeSwapMode.hpp"
 #include "PriorityOptions.hpp"
+#include "SchedulerOptions.hpp"
 #include "wmtk/components/multimesh/utils/AttributeDescription.hpp"
 
 namespace wmtk {
@@ -34,6 +35,9 @@ struct OperationOptions
     PriorityOptions priority;
     std::map<std::string, invariants::InvariantOptions> invariants;
     std::map<std::string, transfer::TransferStrategyOptions> transfers;
+
+    SchedulerOptions scheduler;
+
     // adds a new alias invariant assuming the name in the operation is the same as the
     // configurator's name
     void add_alias_invariant(std::string_view name);
@@ -89,7 +93,7 @@ struct EdgeSwapOptions : public OperationOptions
     struct Parameters : public MeshOperationParameters
     {
         using MeshOperationParameters::MeshOperationParameters;
-        //EdgeSwapMode mode = EdgeSwapMode::Valence;
+        // EdgeSwapMode mode = EdgeSwapMode::Valence;
         std::map<std::string, invariants::InvariantOptions> split_invariants;
         std::map<std::string, invariants::InvariantOptions> collapse_invariants;
 
@@ -104,8 +108,8 @@ struct EdgeSwapOptions : public OperationOptions
     EdgeSwapOptions& operator=(const EdgeSwapOptions&);
     EdgeSwapOptions& operator=(EdgeSwapOptions&&);
     // by default the mode is set to Valence;
-    //EdgeSwapMode mode() const;
-    //void set_mode(EdgeSwapMode);
+    // EdgeSwapMode mode() const;
+    // void set_mode(EdgeSwapMode);
     constexpr static std::string type_name = "edge_swap";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(EdgeSwapOptions)
 };
@@ -122,7 +126,9 @@ struct AttributeUpdateOptions : public OperationOptions
 
     Parameters get_parameters() const;
     void set_parameters(const Parameters& p);
-    AttributeUpdateOptions(const multimesh::utils::AttributeDescription& attr = {}, std::string_view function_name = {});
+    AttributeUpdateOptions(
+        const multimesh::utils::AttributeDescription& attr = {},
+        std::string_view function_name = {});
     AttributeUpdateOptions(const OperationOptions& o);
     AttributeUpdateOptions(const AttributeUpdateOptions&);
     AttributeUpdateOptions(AttributeUpdateOptions&&);
@@ -131,7 +137,6 @@ struct AttributeUpdateOptions : public OperationOptions
     constexpr static std::string type_name = "attr_update";
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeUpdateOptions)
 };
-
 
 
 } // namespace wmtk::components::configurator::operations

@@ -118,7 +118,7 @@ void IsotropicRemeshing::load_transfers(const IsotropicRemeshingOptions& opts)
             // find the parent attribute in the mesh collection to flush out its full description
             multimesh::utils::AttributeDescription child2(child.path, parent_attr);
 
-            assert(child.compatible(child2));
+            assert(child.is_compatible(child2));
 
             auto child_attr = multimesh::utils::create_attribute(mesh_collection(), child2);
             m_operation_transfers.emplace_back(

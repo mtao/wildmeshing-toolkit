@@ -412,6 +412,10 @@ void Scheduler::set_update_frequency(std::optional<size_t>&& freq)
 {
     m_update_frequency = std::move(freq);
 }
+SchedulerStats Scheduler::run(operations::Operation& op)
+{
+    return run_operation_on_all(op);
+}
 
 
 void SchedulerStats::print_update_log(size_t total, spdlog::level::level_enum level) const
@@ -423,6 +427,38 @@ void SchedulerStats::print_update_log(size_t total, spdlog::level::level_enum le
         number_of_failed_operations(),
         number_of_performed_operations(),
         total);
+}
+
+
+MeshScheduler::MeshScheduler(Mesh& m)
+    : m_mesh(m)
+{}
+SchedulerStats MeshScheduler::run(operations::Operation& op)
+{
+    return Scheduler::run_operation_on_all(op, m_mesh);
+}
+
+FlagScheduler::FlagScheduler(const attribute::MeshAttributeHandle& h)
+    : m_handle(h)
+{
+    if (!h.holds<char>()) {
+        log_and_throw_error("Flag scheudler got a handle of the wrong type");
+    }
+}
+SchedulerStats FlagScheduler::run(operations::Operation& op)
+{
+    return Scheduler::run_operation_on_all(op, m_handle.as<char>(), mesh());
+}
+ColorScheduler::ColorScheduler(const attribute::MeshAttributeHandle& h)
+    : m_handle(h)
+{
+    if (!h.holds<int64_t>()) {
+        log_and_throw_error("Color scheudler got a handle of the wrong type");
+    }
+}
+SchedulerStats ColorScheduler::run(operations::Operation& op)
+{
+    return Scheduler::run_operation_on_all(op, m_handle.as<char>(), mesh());
 }
 
 } // namespace wmtk

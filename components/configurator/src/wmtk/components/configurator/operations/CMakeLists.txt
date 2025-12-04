@@ -10,4 +10,7 @@ target_sources(wmtk_${COMPONENT_NAME} PRIVATE
 
     PriorityOptions.hpp
     PriorityOptions.cpp
+
+    SchedulerOptions.hpp
+    SchedulerOptions.cpp
 )

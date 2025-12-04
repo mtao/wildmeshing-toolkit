@@ -84,7 +84,10 @@ struct AttributeDescription
     auto operator==(const AttributeDescription&) const -> bool;
     operator std::string() const;
 
-    bool compatible(const AttributeDescription& o) const;
+    [[deprecated("Use is_compatible instead")]] bool compatible(const AttributeDescription& o) const;
+    bool is_compatible(const AttributeDescription& o) const;
+    AttributeDescription merge(const AttributeDescription& o) const;
+    void merge_in_place(const AttributeDescription& o) ;
 
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(AttributeDescription)
     // helper constructor so we can override the path while still reading off other properties from

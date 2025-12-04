@@ -1,7 +1,7 @@
 #include "InvariantFactory.hpp"
 #include <fmt/ranges.h>
 #include <fmt/std.h>
-#include <spdlog/spdlog.h>
+#include <wmtk/utils/Logger.hpp>
 #include <nlohmann/json.hpp>
 #include <wmtk/components/multimesh/MeshCollection.hpp>
 #include <wmtk/components/multimesh/utils/get_attribute.hpp>
@@ -47,7 +47,7 @@ void InvariantFactory::add(
     const InvariantCreatorFunc& f,
     std::string_view info)
 {
-    spdlog::warn(
+    logger().trace(
         "Added invariant functor \"{}\" among {} available",
         s,
         known_invariant_functors());
@@ -63,7 +63,7 @@ std::shared_ptr<wmtk::invariants::Invariant>
 InvariantFactory::create(Configurator& config, std::string_view name, const InvariantOptions& opts)
 {
     const std::string& t = opts.type;
-    spdlog::warn(
+    logger().trace(
         "Creating invariant \"{}\" type \"{}\" among {} available",
         name,
         t,
@@ -85,7 +85,7 @@ std::shared_ptr<wmtk::invariants::Invariant> InvariantFactory::get(const std::st
     try {
         return m_invariants.at(name).first;
     } catch (const std::exception& e) {
-        spdlog::warn("Added op functor \"{}\" among {} available", name, known_invariants());
+        logger().warn("Added op functor \"{}\" among {} available", name, known_invariants());
         throw e;
     }
 }

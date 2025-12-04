@@ -14,24 +14,20 @@ void SingleAttributeTransferStrategyFactoryBase::from_options(const TransferStra
 {
     auto& me = static_cast<TransferStrategyOptions&>(*this);
      me = opts;
-    spdlog::info("from options got stored as {}",nlohmann::json(me).dump(2));
 }
 
 void SingleAttributeTransferStrategyFactoryBase::set_base_attribute(
     const multimesh::utils::AttributeDescription& at)
 {
-    spdlog::info("Set parameters {}", at);
     SingleAttributeTransferStrategyParameters p;
     p.attribute = at;
     parameters = p;
-    spdlog::info("Now paramters is {}", parameters.dump());
 }
 
 auto SingleAttributeTransferStrategyFactoryBase::base_attribute() const
     -> multimesh::utils::AttributeDescription
 {
-    spdlog::info("SingleAttributeTransferStrategyParameters::base_attribute() params are {}", parameters.dump());
-    SingleAttributeTransferStrategyParameters p = parameters;
+    SingleAttributeTransferStrategyParameters p = parameters.get<SingleAttributeTransferStrategyParameters>();
     return p.attribute;
 }
 

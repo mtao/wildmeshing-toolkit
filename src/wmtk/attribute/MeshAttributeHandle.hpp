@@ -91,9 +91,9 @@ public:
      * @brief Returns true if handle was initialized
      */
     bool is_valid() const;
+    inline operator bool() const { return is_valid(); }
     // returns if this handle still exists
     bool exists() const;
-
     PrimitiveType primitive_type() const;
     template <typename T>
     PrimitiveType primitive_typeT() const;

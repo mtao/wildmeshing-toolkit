@@ -3,6 +3,7 @@
 #include <nlohmann/json.hpp>
 #include <wmtk/attribute/MeshAttributeHandle.hpp>
 #include <wmtk/components/multimesh/NamedMultiMesh.hpp>
+#include <wmtk/utils/Logger.hpp>
 
 #include <wmtk/components/utils/json_serialize_enum.hpp>
 namespace wmtk::attribute {
@@ -145,10 +146,39 @@ bool AttributeDescription::empty() const
 }
 bool AttributeDescription::compatible(const AttributeDescription& o) const
 {
+    return is_compatible(o);
+}
+bool AttributeDescription::is_compatible(const AttributeDescription& o) const
+{
     return path == o.path &&
            (!simplex_dimension.has_value() || !o.simplex_dimension.has_value() ||
             simplex_dimension == o.simplex_dimension) &&
            (!type.has_value() || !o.type.has_value() || type == o.type) &&
            (!dimension.has_value() || !o.dimension.has_value() || dimension == o.dimension);
+}
+
+auto AttributeDescription::merge(const AttributeDescription& o) const -> AttributeDescription
+{
+    AttributeDescription ad = *this;
+    ad.merge_in_place(o);
+    return o;
+}
+void AttributeDescription::merge_in_place(const AttributeDescription& o)
+{
+    if (!is_compatible(o)) {
+        log_and_throw_error(fmt::format("{} cannot be merged with {}", *this, o));
+    }
+    if (path.empty()) {
+        path = o.path;
+    }
+    if (!simplex_dimension.has_value()) {
+        simplex_dimension = o.simplex_dimension;
+    }
+    if (!type.has_value()) {
+        type = o.type;
+    }
+    if (!dimension.has_value()) {
+        dimension = o.dimension;
+    }
 }
 } // namespace wmtk::components::multimesh::utils
