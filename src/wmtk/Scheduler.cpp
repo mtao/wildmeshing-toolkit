@@ -171,7 +171,7 @@ SchedulerStats Scheduler::run_operation_on_all(
                     tups.end(),
                     [&](const Tuple& t) {
                         for (const auto& tt :
-                             run_mesh.map_tuples(handle_mesh, simplex::Simplex(type, t))) {
+                             run_mesh.map_tuples(handle_mesh, simplex::simplex(type, t))) {
                             if (flag_accessor.scalar_attribute(tt) == char(0)) {
                                 return true;
                             }
@@ -287,20 +287,21 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
 }
 SchedulerStats Scheduler::run_operation_on_all_coloring(
     operations::Operation& op,
+    const Mesh& run_mesh,
     const TypedAttributeHandle<int64_t>& color_handle,
-    const Mesh& m)
+    Mesh& handle_mesh)
 {
-    assert(m.has_attribute(color_handle));
+    assert(handle_mesh.has_attribute(color_handle));
     // this only works on vertex operations
     SchedulerStats res;
     std::vector<std::vector<simplex::Simplex>> colored_simplices;
     // op.reserve_enough_simplices();
-    auto color_accessor = op.mesh().create_accessor<int64_t>(color_handle);
+    auto color_accessor = handle_mesh.create_accessor<int64_t>(color_handle);
 
     const auto type = op.primitive_type();
     assert(type == PrimitiveType::Vertex);
 
-    const auto tups = m.get_all(type);
+    const auto tups = run_mesh.get_all(type);
     int64_t color_max = -1;
     {
         POLYSOLVE_SCOPED_STOPWATCH("Collecting primitives", res.collecting_time, logger());
@@ -316,7 +317,10 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
             tbb::blocked_range<int64_t>(0, tups.size()),
             [&](tbb::blocked_range<int64_t> r) {
                 for (int64_t i = r.begin(); i < r.end(); ++i) {
-                    color_accessor.scalar_attribute(tups[i]) = -1;
+                    for (const auto& tt :
+                         run_mesh.map_tuples(handle_mesh, simplex::Simplex(type, tups[i]))) {
+                        color_accessor.scalar_attribute(tt) = -1;
+                    }
                 }
             });
 
