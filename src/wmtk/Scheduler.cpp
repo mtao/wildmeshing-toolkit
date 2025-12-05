@@ -129,11 +129,21 @@ SchedulerStats Scheduler::run_operation_on_all(
     operations::Operation& op,
     const TypedAttributeHandle<char>& flag_handle)
 {
+    assert(op.mesh().has_attribute(flag_handle));
+    return run_operation_on_all(op, op.mesh(), flag_handle, op.mesh());
+}
+SchedulerStats Scheduler::run_operation_on_all(
+    operations::Operation& op,
+    const Mesh& run_mesh,
+    const TypedAttributeHandle<char>& flag_handle,
+    Mesh& handle_mesh)
+{
+    assert(handle_mesh.has_attribute(flag_handle));
     std::vector<simplex::Simplex> simplices;
     const auto type = op.primitive_type();
 
-    auto flag_accessor = op.mesh().create_accessor(flag_handle);
-    auto tups = op.mesh().get_all(type);
+    auto flag_accessor = handle_mesh.create_accessor(flag_handle);
+    auto tups = run_mesh.get_all(type);
 
     SchedulerStats res;
     int64_t success = -1;
@@ -153,13 +163,21 @@ SchedulerStats Scheduler::run_operation_on_all(
                 internal_stats.collecting_time,
                 logger());
 
-            tups = op.mesh().get_all(type);
+            tups = run_mesh.get_all(type);
             const auto n_primitives = tups.size();
             tups.erase(
                 std::remove_if(
                     tups.begin(),
                     tups.end(),
-                    [&](const Tuple& t) { return flag_accessor.scalar_attribute(t) == char(0); }),
+                    [&](const Tuple& t) {
+                        for (const auto& tt :
+                             run_mesh.map_tuples(handle_mesh, simplex::Simplex(type, t))) {
+                            if (flag_accessor.scalar_attribute(tt) == char(0)) {
+                                return true;
+                            }
+                        }
+                        return false;
+                    }),
                 tups.end());
             for (const auto& t : tups) {
                 flag_accessor.scalar_attribute(t) = char(0);
@@ -168,7 +186,7 @@ SchedulerStats Scheduler::run_operation_on_all(
             logger().debug("Processing {}/{}", tups.size(), n_primitives);
 
             simplices = wmtk::simplex::utils::tuple_vector_to_homogeneous_simplex_vector(
-                op.mesh(),
+                run_mesh,
                 tups,
                 type);
         }
@@ -257,10 +275,22 @@ int64_t first_available_color(std::vector<int64_t>& used_neighbor_coloring)
     return color;
 }
 
+SchedulerBase::SchedulerBase() = default;
+SchedulerBase::~SchedulerBase() = default;
+
 SchedulerStats Scheduler::run_operation_on_all_coloring(
     operations::Operation& op,
     const TypedAttributeHandle<int64_t>& color_handle)
 {
+    assert(op.mesh().has_attribute(color_handle));
+    return run_operation_on_all_coloring(op, op.mesh(), color_handle, op.mesh());
+}
+SchedulerStats Scheduler::run_operation_on_all_coloring(
+    operations::Operation& op,
+    const TypedAttributeHandle<int64_t>& color_handle,
+    const Mesh& m)
+{
+    assert(m.has_attribute(color_handle));
     // this only works on vertex operations
     SchedulerStats res;
     std::vector<std::vector<simplex::Simplex>> colored_simplices;
@@ -270,7 +300,7 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
     const auto type = op.primitive_type();
     assert(type == PrimitiveType::Vertex);
 
-    const auto tups = op.mesh().get_all(type);
+    const auto tups = m.get_all(type);
     int64_t color_max = -1;
     {
         POLYSOLVE_SCOPED_STOPWATCH("Collecting primitives", res.collecting_time, logger());
@@ -295,9 +325,8 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
         for (const auto& v : tups) {
             // get used colors in neighbors
             used_colors.clear();
-            for (const auto& v_one_ring :
-                 simplex::link(op.mesh(), simplex::Simplex::vertex(op.mesh(), v), false)
-                     .simplex_vector(PrimitiveType::Vertex)) {
+            for (const auto& v_one_ring : simplex::link(m, simplex::Simplex::vertex(m, v), false)
+                                              .simplex_vector(PrimitiveType::Vertex)) {
                 int64_t color = color_accessor.const_scalar_attribute(v_one_ring.tuple());
                 if (color > -1) {
                     used_colors.push_back(color);
@@ -309,9 +338,9 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
 
             // push into vectors
             if (c + 1 > colored_simplices.size()) {
-                colored_simplices.push_back({simplex::Simplex::vertex(op.mesh(), v)});
+                colored_simplices.push_back({simplex::Simplex::vertex(m, v)});
             } else {
-                colored_simplices[c].push_back(simplex::Simplex::vertex(op.mesh(), v));
+                colored_simplices[c].push_back(simplex::Simplex::vertex(m, v));
             }
         }
 
@@ -326,9 +355,8 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
                     std::cout << "vertex not assigned color!!!" << std::endl;
                 }
 
-                for (const auto& v_one_ring :
-                     simplex::k_ring(op.mesh(), simplex::Simplex::vertex(op.mesh(), v), 1)
-                         .simplex_vector(PrimitiveType::Vertex)) {
+                for (const auto& v_one_ring : simplex::k_ring(m, simplex::Simplex::vertex(m, v), 1)
+                                                  .simplex_vector(PrimitiveType::Vertex)) {
                     if (current_color ==
                         color_accessor.const_scalar_attribute(v_one_ring.tuple())) {
                         std::cout << "adjacent vertices have same color!!!" << std::endl;

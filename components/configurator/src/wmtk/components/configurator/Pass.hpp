@@ -24,7 +24,7 @@ public:
     Pass(Configurator& c, const PassOptions& o);
 
     // info is just some info for debug logs to print things nicely
-    wmtk::SchedulerStats run(std::string_view info);
+    wmtk::SchedulerStats run(std::string_view info = "");
     const std::vector<OperationPass>& operations() const { return m_operations; }
 
     int64_t iterations() const;
@@ -36,6 +36,7 @@ public:
     std::shared_ptr<SchedulerBase> default_scheduler() { return m_default_scheduler; }
 
     Mesh& mesh();
+    //void set_operations(Configurator& c, std::span<const OperationPassOptions> op_names);
 
 
 private:

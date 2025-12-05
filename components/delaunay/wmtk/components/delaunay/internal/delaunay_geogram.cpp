@@ -1,10 +1,19 @@
-#include "delaunay_geogram.hpp"
 
 #include <cassert>
 #include <mutex>
-#include <wmtk/utils/Logger.hpp>
 
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wsign-promo"
+#pragma GCC diagnostic ignored "-Wnoexcept"
+#pragma GCC diagnostic ignored "-Wswitch-default"
+#endif
+#include <wmtk/utils/Logger.hpp>
+#include "delaunay_geogram.hpp"
 #include <Delaunay_psm.h>
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 namespace wmtk::components::internal {
 

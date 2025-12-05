@@ -14,6 +14,12 @@ struct OperationPassOptions
     std::string operation;
     operations::SchedulerOptions scheduler = {};
     WMTK_NLOHMANN_JSON_FRIEND_DECLARATION(OperationPassOptions)
+    OperationPassOptions() = default;
+    OperationPassOptions& operator=(const OperationPassOptions&) = default;
+    OperationPassOptions& operator=(OperationPassOptions&&) = default;
+    OperationPassOptions(const OperationPassOptions&) = default;
+    OperationPassOptions(OperationPassOptions&&) = default;
+    OperationPassOptions(const std::string& operation_name): operation(operation_name) {}
 };
 
 struct PassOptions

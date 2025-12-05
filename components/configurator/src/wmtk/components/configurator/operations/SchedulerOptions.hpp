@@ -21,7 +21,7 @@ enum class SchedulerMode {
 struct SchedulerOptions
 {
     std::string mesh_path;
-    SchedulerMode mode;
+    SchedulerMode mode = SchedulerMode::Single;
     multimesh::utils::AttributeDescription handle;
     PriorityOptions priority;
     std::shared_ptr<SchedulerBase> create(const Configurator& c) const;

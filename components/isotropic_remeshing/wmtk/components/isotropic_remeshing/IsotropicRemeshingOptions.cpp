@@ -61,7 +61,7 @@ IsotropicRemeshingOptions::IsotropicRemeshingOptions(
     }
     passes = {configurator::PassOptions{
         .mesh_path = std::string(mesh_path),
-        .operations = {"split", "collapse", "swap", "smooth"}}};
+        .operations = {{"split"}, {"collapse"}, {"swap"}, {"smooth"}}}};
 }
 
 void IsotropicRemeshingOptions::process_custom_options()

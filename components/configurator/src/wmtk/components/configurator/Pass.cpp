@@ -25,7 +25,7 @@ Mesh& Pass::mesh()
 
 Pass::Pass(Configurator& c, const PassOptions& o)
     : m_default_scheduler{std::make_shared<MeshScheduler>(
-          c.get_mesh(o.mesh_path).shared_from_this())}
+          *c.get_mesh(o.mesh_path).shared_from_this())}
     , m_iterations(o.iterations)
 {
     for (const auto& op : o.operations) {
@@ -33,38 +33,28 @@ Pass::Pass(Configurator& c, const PassOptions& o)
     }
 }
 
+//    void Pass::set_operations(Configurator& c, std::span<const OperationPassOptions> op_names) {
+//
+//    for (const auto& op : o.operations) {
+//        m_operations.emplace_back(c, op, this);
+//    }
+//    }
 
-wmtk::SchedulerStats Pass::run()
-{
-    SchedulerStats run_stats;
-    for (size_t j = 0; j < m_operations.size(); ++j) {
-        auto& op = m_operations[j];
-        SchedulerStats stats = op.run();
-        // for (const auto& op : m_operations) {
-        logger().info(
-            "{} Executed {} ops (S/F) {}/{}.",
-            j,
-            stats.number_of_performed_operations(),
-            stats.number_of_successful_operations(),
-            stats.number_of_failed_operations());
-        run_stats += stats;
-    }
-    return run_stats;
-}
-wmtk::SchedulerStats Pass::run(std::string_view info, int64_t iterations)
+wmtk::SchedulerStats Pass::run(std::string_view info)
 {
     SchedulerStats pass_stats;
 
-    for (long i = 0; i < iterations; ++i) {
-        wmtk::logger().info("Pass {}, Sub-Iteration {} of {}", info, i, iterations);
+    for (long i = 0; i < m_operations.size(); ++i) {
+        auto& op = m_operations[i];
+        wmtk::logger().info("Running Pass [{}] operation {}/{}", info, i, m_operations.size());
 
-        SchedulerStats run_stats = m_operations[j]->run();
+        SchedulerStats run_stats = op.run();
         pass_stats += run_stats;
 
-        // m_mesh.consolidate();
     }
     logger().info(
-        "Executed {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
+        "Pass {} executed {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",
+        info,
         pass_stats.number_of_performed_operations(),
         pass_stats.number_of_successful_operations(),
         pass_stats.number_of_failed_operations(),

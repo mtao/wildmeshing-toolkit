@@ -323,7 +323,7 @@ IsotropicRemeshing::IsotropicRemeshing(
         pass_opts.mesh_path = opts.position_attribute;
         pass_opts.iterations = 1;
 
-        pass_opts.operations = {"split", "collapse", "swap", "smooth"};
+        pass_opts.operations = {{"split"}, {"collapse"}, {"swap"},{ "smooth"}};
         passes.emplace_back(configurator, pass_opts);
     } else {
         passes = configurator.get_passes();
@@ -347,11 +347,11 @@ IsotropicRemeshing::IsotropicRemeshing(
     */
     for (const auto& p : passes) {
         for (const auto& op : p.operations()) {
-            if (!op->attribute_new_all_configured()) {
+            if (!op.operation().attribute_new_all_configured()) {
                 const auto& c = m_configurator;
                 wmtk::log_and_throw_error(
                     "Not every attribute in {} was configured",
-                    c.get_operation_name(*op));
+                    c.get_operation_name(op.operation()));
             }
         }
     }

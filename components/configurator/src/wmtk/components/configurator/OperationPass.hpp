@@ -27,6 +27,9 @@ struct OperationPass
         Configurator& c,
         const OperationPassOptions& opts,
         std::shared_ptr<SchedulerBase> default_scheduler = nullptr);
+
+    wmtk::operations::Operation& operation() { return *m_operation; }
+    const wmtk::operations::Operation& operation() const { return *m_operation; }
     std::shared_ptr<wmtk::operations::Operation> m_operation;
     std::shared_ptr<SchedulerBase> m_scheduler;
 

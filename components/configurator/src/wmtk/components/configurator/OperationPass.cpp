@@ -9,7 +9,7 @@ namespace wmtk::components::configurator {
 OperationPass::OperationPass(Configurator& c, const OperationPassOptions& o, Pass* pass)
     : m_operation(c.get_operation(o.operation))
 {
-    if (o.scheduler.has_value()) {
+    if (o.scheduler.is_valid()) {
         m_scheduler = o.scheduler.create(c);
     } else {
         assert(pass != nullptr);

@@ -111,7 +111,7 @@ int main(int argc, char* argv[])
             "",
             -1,
             -1);
-        parent_mesh->clear_attributes({pos_handle});
+        parent_mesh->clear_attributes(std::vector<attribute::MeshAttributeHandle>{pos_handle});
 
         if (mm_opt == MultiMeshOptions::OptBoundary) {
             current_mesh = child_mesh;

@@ -124,13 +124,13 @@ public:
         const TypedAttributeHandle<int64_t>& color_handle);
 
     SchedulerStats run_operation_on_all(
-        operations::Operation& op,
+        operations::Operation& op, const Mesh& run_mesh,
         const TypedAttributeHandle<char>& flag_handle,
-        const Mesh& m);
+        Mesh& handle_mesh);
     SchedulerStats run_operation_on_all_coloring(
-        operations::Operation& op,
+        operations::Operation& op, const Mesh& run_mesh,
         const TypedAttributeHandle<int64_t>& color_handle,
-        const Mesh& m);
+        Mesh& handle_mesh);
 
     const SchedulerStats& stats() const { return m_stats; }
 
@@ -152,6 +152,7 @@ class SchedulerBase : protected Scheduler
 {
 public:
     SchedulerBase();
+    virtual ~SchedulerBase();
     // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
     virtual SchedulerStats run(operations::Operation& op) = 0;
 
