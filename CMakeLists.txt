@@ -138,8 +138,7 @@ if(WMTK_USE_DEV_MODE)
     set(BUILD_SHARED_LIBS ON) # we globally want to disable this option due to use of TBB
 endif()
 # C++ standard
-option(WMTK_USE_CXX20 "Sets WMTK to use C++20, defaults to C++17" ON)
-target_compile_features(wildmeshing_toolkit PUBLIC cxx_std_20)
+target_compile_features(wildmeshing_toolkit PUBLIC cxx_std_23)
 
 option(WMTK_USE_MULTIMESH_DART "Sets WMTK to use dart instead of tuple for multimesh" ON)
 if(WMTK_USE_MULTIMESH_DART)

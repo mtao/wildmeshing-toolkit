@@ -381,7 +381,7 @@ void shortest_edge_collapse(
     auto& passes = configurator.get_passes();
     for(size_t j = 0; j < passes.size(); ++j) {
         auto& pass = passes[j];
-        pass.run(fmt::format("Pass {}", j));
+        pass.run(fmt::format("{}", j));
     }
 }
 void shortest_edge_collapse(

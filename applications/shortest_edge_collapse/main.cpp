@@ -122,21 +122,24 @@ int main(int argc, char* argv[])
     // shortest-edge collapse
     {
         using namespace components::shortest_edge_collapse;
-        ShortestEdgeCollapseOptions options;
-        options.position_handle = pos_handle;
-        options.update_edge_length_transfer();
 
+        auto as_opt = [&j]<typename T>(const std::string& s, T) -> std::optional<T> {
+            if (j.contains(s)) {
+                return j[s].get<T>();
+            } else {
+                return {};
+            }
+        };
+        ShortestEdgeCollapseOptions options(
+            pos_handle,
+            j["length_rel"],
+            as_opt("lock_boundary", bool()),
+            as_opt("envelope_size", double()),
+            as_opt("check_inversion", bool()).value_or(false));
         if (other_mesh) {
             options.other_position_handles.emplace_back(other_pos_handle);
         }
 
-        options.length_rel = j["length_rel"];
-        const double env_size = j["envelope_size"];
-        if (env_size >= 0) {
-            options.envelope_size = j["envelope_size"];
-        }
-        options.lock_boundary = j["lock_boundary"];
-        options.check_inversions = j["check_inversion"];
 
         shortest_edge_collapse(mc, options);
     }

@@ -35,18 +35,18 @@ void Mesh::update_child_handles()
 }
 
 
-bool Mesh::is_from_same_multi_mesh_structure(const Mesh& other) const
+auto Mesh::is_from_same_multi_mesh_structure(const Mesh& other) const -> bool
 {
     return &get_multi_mesh_root() == &other.get_multi_mesh_root();
 }
 
-bool Mesh::can_map_up_to(const Mesh& other) const
+auto Mesh::can_map_up_to(const Mesh& other) const -> bool
 {
     return is_from_same_multi_mesh_structure(other) &&
            m_multi_mesh_manager.can_map_up(*this, other);
 }
 
-bool Mesh::can_map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) const
+auto Mesh::can_map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) const -> bool
 {
     assert(is_valid(my_simplex));
     if (!is_from_same_multi_mesh_structure(other_mesh)) {
@@ -55,17 +55,18 @@ bool Mesh::can_map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) c
     }
     return m_multi_mesh_manager.can_map(*this, other_mesh, my_simplex);
 }
-bool Mesh::can_map_child(const Mesh& child_mesh, const dart::Dart& d, PrimitiveType pt) const
+auto Mesh::can_map_child(const Mesh& child_mesh, const dart::Dart& d, PrimitiveType pt) const
+    -> bool
 {
     return m_multi_mesh_manager.can_map_child(*this, child_mesh, d, pt);
 }
-bool Mesh::can_map_child(const Mesh& child_mesh, const simplex::Simplex& d) const
+auto Mesh::can_map_child(const Mesh& child_mesh, const simplex::Simplex& d) const -> bool
 {
     return m_multi_mesh_manager.can_map_child(*this, child_mesh, d);
 }
 
-std::vector<simplex::Simplex> Mesh::map(const Mesh& other_mesh, const simplex::Simplex& my_simplex)
-    const
+auto Mesh::map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) const
+    -> std::vector<simplex::Simplex>
 {
     assert(is_valid(my_simplex));
     if (!is_from_same_multi_mesh_structure(other_mesh)) {
@@ -75,9 +76,8 @@ std::vector<simplex::Simplex> Mesh::map(const Mesh& other_mesh, const simplex::S
     return m_multi_mesh_manager.map(*this, other_mesh, my_simplex);
 }
 
-std::vector<simplex::Simplex> Mesh::map(
-    const Mesh& other_mesh,
-    const std::vector<simplex::Simplex>& simplices) const
+auto Mesh::map(const Mesh& other_mesh, const std::vector<simplex::Simplex>& simplices) const
+    -> std::vector<simplex::Simplex>
 {
     std::vector<simplex::Simplex> ret;
     ret.reserve(simplices.size());
@@ -89,7 +89,7 @@ std::vector<simplex::Simplex> Mesh::map(
     return ret;
 }
 
-std::vector<const Mesh*> Mesh::mappable_meshes(const simplex::Simplex& my_simplex) const
+auto Mesh::mappable_meshes(const simplex::Simplex& my_simplex) const -> std::vector<const Mesh*>
 {
     assert(is_valid(my_simplex));
     const Mesh* parent = this;
@@ -99,7 +99,8 @@ std::vector<const Mesh*> Mesh::mappable_meshes(const simplex::Simplex& my_simple
 
     return parent->mappable_child_meshes(map_to_root(my_simplex));
 }
-std::vector<const Mesh*> Mesh::mappable_child_meshes(const simplex::Simplex& my_simplex) const
+auto Mesh::mappable_child_meshes(const simplex::Simplex& my_simplex) const
+    -> std::vector<const Mesh*>
 {
     assert(is_valid(my_simplex));
     std::vector<const Mesh*> ret;
@@ -119,8 +120,8 @@ std::vector<const Mesh*> Mesh::mappable_child_meshes(const simplex::Simplex& my_
     return ret;
 }
 
-std::map<const Mesh*, std::vector<simplex::Simplex>> Mesh::map_all(
-    const simplex::Simplex& my_simplex) const
+auto Mesh::map_all(const simplex::Simplex& my_simplex) const
+    -> std::map<const Mesh*, std::vector<simplex::Simplex>>
 {
     assert(is_valid(my_simplex));
     const Mesh* parent = this;

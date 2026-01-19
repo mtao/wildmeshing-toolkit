@@ -516,7 +516,8 @@ public:
     std::vector<std::shared_ptr<Mesh>> get_child_meshes() const;
 
     /**
-     * @brief returns all multimesh child meshes in the "subtree" under this mesh, not including itself
+     * @brief returns all multimesh child meshes in the "subtree" under this mesh, not including
+     * itself
      */
     std::vector<std::shared_ptr<Mesh>> get_all_child_meshes() const;
 
@@ -797,7 +798,7 @@ public:
     bool can_map(const Mesh& other_mesh, const simplex::Simplex& my_simplex) const;
 
 
-    bool can_map_child(const Mesh& child_mesh, const simplex::Simplex& my_simplex) const;
+    auto can_map_child(const Mesh& child_mesh, const simplex::Simplex& my_simplex) const -> bool;
     bool can_map_child(const Mesh& child_mesh, const dart::Dart&, PrimitiveType pt) const;
 
     /*

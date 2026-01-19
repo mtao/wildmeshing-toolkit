@@ -36,15 +36,22 @@ bool SimplexInversionInvariant<T>::after(
         for (const auto& t : top_dimension_tuples_after) {
             const auto tet_vertices = mymesh.orient_vertices(t);
             assert(tet_vertices.size() == 4);
+            const int64_t gid = t.global_cid();
+            auto tv = tv_attr.const_vector_attribute(gid);
+#if false
             const static auto perms = dart::utils::get_canonical_simplices(
                 PrimitiveType::Tetrahedron,
                 PrimitiveType::Vertex);
-            const int64_t gid = t.global_cid();
-            auto tv = tv_attr.const_vector_attribute(gid);
+            const Eigen::Vector3<T> p0 = accessor.const_vector_attribute(tv(perms[0]));
+            const Eigen::Vector3<T> p1 = accessor.const_vector_attribute(tv(perms[1]));
+            const Eigen::Vector3<T> p2 = accessor.const_vector_attribute(tv(perms[2]));
+            const Eigen::Vector3<T> p3 = accessor.const_vector_attribute(tv(perms[3]));
+#else
             const Eigen::Vector3<T> p0 = accessor.const_vector_attribute(tv(0));
             const Eigen::Vector3<T> p1 = accessor.const_vector_attribute(tv(1));
             const Eigen::Vector3<T> p2 = accessor.const_vector_attribute(tv(2));
             const Eigen::Vector3<T> p3 = accessor.const_vector_attribute(tv(3));
+#endif
 
             if (utils::wmtk_orient3d(p0, p1, p2, p3) <= 0) {
                 wmtk::logger().debug(

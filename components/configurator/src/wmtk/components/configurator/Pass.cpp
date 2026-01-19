@@ -44,13 +44,13 @@ wmtk::SchedulerStats Pass::run(std::string_view info)
 {
     SchedulerStats pass_stats;
 
+    spdlog::info("Pass {} has {} operations", info, m_operations.size());
     for (long i = 0; i < m_operations.size(); ++i) {
         auto& op = m_operations[i];
         wmtk::logger().info("Running Pass [{}] operation {}/{}", info, i, m_operations.size());
 
         SchedulerStats run_stats = op.run();
         pass_stats += run_stats;
-
     }
     logger().info(
         "Pass {} executed {} ops (S/F) {}/{}. Time: collecting: {}, sorting: {}, executing: {}",

@@ -208,13 +208,13 @@ int main(int argc, char* argv[])
                 auto& pass = passes.emplace_back();
                 pass.mesh_path = "fused.feature_edges";
                 pass.iterations = 2;
-                pass.operations = {"collapse", "smooth"};
+                pass.operations = {{"collapse"}, {"smooth"}};
             }
             {
                 auto& pass = passes.emplace_back();
                 pass.mesh_path = "fused";
                 pass.iterations = 1;
-                pass.operations = {"swap", "collapse"};
+                pass.operations = {{"swap"}, {"collapse"}};
             }
             opts.iterations = 2;
             wmtk::components::isotropic_remeshing::isotropic_remeshing(mc, opts);

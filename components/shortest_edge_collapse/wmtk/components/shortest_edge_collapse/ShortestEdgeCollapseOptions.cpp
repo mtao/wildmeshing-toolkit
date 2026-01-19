@@ -1,5 +1,6 @@
 #include "ShortestEdgeCollapseOptions.hpp"
 #include <spdlog/spdlog.h>
+#include "wmtk/components/configurator/PassOptions.hpp"
 
 namespace wmtk::components::shortest_edge_collapse {
 
@@ -23,6 +24,13 @@ ShortestEdgeCollapseOptions::ShortestEdgeCollapseOptions(
 
     pass_through_attributes = pass_through;
     spdlog::warn("Default stuff: {}", position_handle, nlohmann::json(transfers).dump(2));
+
+    passes.emplace_back(configurator::PassOptions{
+            .operations = {configurator::OperationPassOptions( "collapse")},
+            .default_scheduler = configurator::operations::SchedulerOptions{
+            .mode = configurator::operations::SchedulerMode::Flag,
+            }
+            });
 }
 
 void ShortestEdgeCollapseOptions::update_edge_length_transfer()

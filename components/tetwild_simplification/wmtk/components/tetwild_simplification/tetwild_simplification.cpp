@@ -15,8 +15,15 @@
 #include <wmtk/utils/mesh_utils.hpp>
 
 
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wshadow"
+#endif
 #include <igl/remove_duplicate_vertices.h>
 #include <igl/unique_rows.h>
+#if defined(__GNUG__) && !defined(__clang__)
+#pragma GCC diagnostic pop
+#endif
 
 #include <fastenvelope/FastEnvelope.h>
 #include <SimpleBVH/BVH.hpp>

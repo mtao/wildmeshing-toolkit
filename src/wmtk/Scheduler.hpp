@@ -124,11 +124,13 @@ public:
         const TypedAttributeHandle<int64_t>& color_handle);
 
     SchedulerStats run_operation_on_all(
-        operations::Operation& op, const Mesh& run_mesh,
+        operations::Operation& op,
+        const Mesh& run_mesh,
         const TypedAttributeHandle<char>& flag_handle,
         Mesh& handle_mesh);
     SchedulerStats run_operation_on_all_coloring(
-        operations::Operation& op, const Mesh& run_mesh,
+        operations::Operation& op,
+        const Mesh& run_mesh,
         const TypedAttributeHandle<int64_t>& color_handle,
         Mesh& handle_mesh);
 
@@ -147,8 +149,9 @@ protected:
 };
 
 
-// Base class for derived schedulers, who for now mostly just call public functions from other schedulers
-class SchedulerBase : protected Scheduler
+// Base class for derived schedulers, who for now mostly just call public functions from other
+// schedulers
+class SchedulerBase : public Scheduler
 {
 public:
     SchedulerBase();
@@ -157,6 +160,7 @@ public:
     virtual SchedulerStats run(operations::Operation& op) = 0;
 
     virtual Mesh& mesh() = 0;
+
 protected:
     using Scheduler::run_operation_on_all;
     using Scheduler::run_operation_on_all_coloring;
@@ -165,37 +169,51 @@ protected:
 class MeshScheduler : public SchedulerBase
 {
 public:
-    MeshScheduler(Mesh& mesh);
+    MeshScheduler(Mesh& mesh, bool until_convergence = false);
     // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
     SchedulerStats run(operations::Operation& op) override;
 
     Mesh& mesh() final override { return m_mesh; }
 
+protected:
+    using SchedulerBase::run_operation_on_all;
+    using SchedulerBase::run_operation_on_all_coloring;
+
 private:
     Mesh& m_mesh;
+    bool m_until_convergence;
 };
 
-class FlagScheduler : public SchedulerBase
+class AttributeMeshScheduler : public MeshScheduler
 {
 public:
-    FlagScheduler(const attribute::MeshAttributeHandle& h);
-    // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
-    SchedulerStats run(operations::Operation& op) override;
-    Mesh& mesh() final override { return m_handle.mesh(); }
+    AttributeMeshScheduler(const attribute::MeshAttributeHandle& h);
+    AttributeMeshScheduler(Mesh& m, const attribute::MeshAttributeHandle& h);
+
+    const attribute::MeshAttributeHandle& handle() const { return m_handle; }
+    attribute::MeshAttributeHandle& handle() { return m_handle; }
+
+protected:
+    using SchedulerBase::run_operation_on_all;
+    using SchedulerBase::run_operation_on_all_coloring;
 
 private:
     attribute::MeshAttributeHandle m_handle;
 };
-class ColorScheduler : public SchedulerBase
+
+class FlagScheduler : public AttributeMeshScheduler
 {
 public:
-    ColorScheduler(const attribute::MeshAttributeHandle& h);
+    using AttributeMeshScheduler::AttributeMeshScheduler;
     // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
     SchedulerStats run(operations::Operation& op) override;
-    Mesh& mesh() final override { return m_handle.mesh(); }
-
-private:
-    attribute::MeshAttributeHandle m_handle;
+};
+class ColorScheduler : public AttributeMeshScheduler
+{
+public:
+    using AttributeMeshScheduler::AttributeMeshScheduler;
+    // runs on all with all k-simplices on the operation's mesh(where k is the op's simplex type)
+    SchedulerStats run(operations::Operation& op) override;
 };
 
 } // namespace wmtk

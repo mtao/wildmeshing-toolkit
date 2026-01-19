@@ -171,7 +171,7 @@ SchedulerStats Scheduler::run_operation_on_all(
                     tups.end(),
                     [&](const Tuple& t) {
                         for (const auto& tt :
-                             run_mesh.map_tuples(handle_mesh, simplex::simplex(type, t))) {
+                             run_mesh.map_tuples(handle_mesh, simplex::Simplex(type, t))) {
                             if (flag_accessor.scalar_attribute(tt) == char(0)) {
                                 return true;
                             }
@@ -329,22 +329,27 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
         for (const auto& v : tups) {
             // get used colors in neighbors
             used_colors.clear();
-            for (const auto& v_one_ring : simplex::link(m, simplex::Simplex::vertex(m, v), false)
-                                              .simplex_vector(PrimitiveType::Vertex)) {
-                int64_t color = color_accessor.const_scalar_attribute(v_one_ring.tuple());
-                if (color > -1) {
-                    used_colors.push_back(color);
+            for (const auto& v_one_ring :
+                 simplex::link(run_mesh, simplex::Simplex::vertex(v), false)
+                     .simplex_vector(PrimitiveType::Vertex)) {
+                for (const auto& tt : run_mesh.map_tuples(handle_mesh, v_one_ring)) {
+                    int64_t color = color_accessor.const_scalar_attribute(tt);
+                    if (color > -1) {
+                        used_colors.push_back(color);
+                    }
                 }
             }
             int64_t c = first_available_color(used_colors);
             color_accessor.scalar_attribute(v) = c;
             color_max = std::max(color_max, c);
 
-            // push into vectors
-            if (c + 1 > colored_simplices.size()) {
-                colored_simplices.push_back({simplex::Simplex::vertex(m, v)});
-            } else {
-                colored_simplices[c].push_back(simplex::Simplex::vertex(m, v));
+            for (const auto& tt : run_mesh.map_tuples(handle_mesh, simplex::Simplex(type, v))) {
+                // push into vectors
+                if (c + 1 > colored_simplices.size()) {
+                    colored_simplices.push_back({simplex::Simplex::vertex(tt)});
+                } else {
+                    colored_simplices[c].push_back(simplex::Simplex::vertex(tt));
+                }
             }
         }
 
@@ -352,6 +357,7 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
 
         // debug code
 
+#if defined(NDEBUG)
         {
             for (const auto& v : tups) {
                 auto current_color = color_accessor.const_scalar_attribute(v);
@@ -359,15 +365,18 @@ SchedulerStats Scheduler::run_operation_on_all_coloring(
                     std::cout << "vertex not assigned color!!!" << std::endl;
                 }
 
-                for (const auto& v_one_ring : simplex::k_ring(m, simplex::Simplex::vertex(m, v), 1)
-                                                  .simplex_vector(PrimitiveType::Vertex)) {
-                    if (current_color ==
-                        color_accessor.const_scalar_attribute(v_one_ring.tuple())) {
-                        std::cout << "adjacent vertices have same color!!!" << std::endl;
+                for (const auto& v_one_ring :
+                     simplex::k_ring(run_mesh, simplex::Simplex::vertex(v), 1)
+                         .simplex_vector(PrimitiveType::Vertex)) {
+                    for (const auto& tt : run_mesh.map_tuples(handle_mesh, v_one_ring)) {
+                        if (current_color == color_accessor.const_scalar_attribute(tt)) {
+                            std::cout << "adjacent vertices have same color!!!" << std::endl;
+                        }
                     }
                 }
             }
         }
+#endif
     }
 
     logger().debug("Executing on {} simplices", tups.size());
@@ -462,35 +471,62 @@ void SchedulerStats::print_update_log(size_t total, spdlog::level::level_enum le
 }
 
 
-MeshScheduler::MeshScheduler(Mesh& m)
+MeshScheduler::MeshScheduler(Mesh& m, bool to_converge)
     : m_mesh(m)
-{}
-SchedulerStats MeshScheduler::run(operations::Operation& op)
+    , m_until_convergence(to_converge)
 {
-    return Scheduler::run_operation_on_all(op, m_mesh);
+    spdlog::info("Making a mesh scheduler");
 }
 
-FlagScheduler::FlagScheduler(const attribute::MeshAttributeHandle& h)
-    : m_handle(h)
+SchedulerStats MeshScheduler::run(operations::Operation& op)
 {
-    if (!h.holds<char>()) {
-        log_and_throw_error("Flag scheudler got a handle of the wrong type");
+    if (m_until_convergence) {
+        spdlog::info("Running a mesh scheduler until convergence");
+        SchedulerStats res;
+        int64_t success = 0;
+        do {
+            SchedulerStats internal_stats = Scheduler::run_operation_on_all(op, m_mesh);
+            success = internal_stats.number_of_successful_operations();
+            res += internal_stats;
+            res.sub_stats.push_back(internal_stats);
+            m_stats += internal_stats;
+            m_stats.sub_stats.push_back(internal_stats);
+        } while (success > 0);
+        return res;
+    } else {
+        spdlog::info("Running a mesh scheduler single pass");
+        return Scheduler::run_operation_on_all(op, m_mesh);
     }
 }
+
+
 SchedulerStats FlagScheduler::run(operations::Operation& op)
 {
-    return Scheduler::run_operation_on_all(op, m_handle.as<char>(), mesh());
-}
-ColorScheduler::ColorScheduler(const attribute::MeshAttributeHandle& h)
-    : m_handle(h)
-{
-    if (!h.holds<int64_t>()) {
-        log_and_throw_error("Color scheudler got a handle of the wrong type");
-    }
+    spdlog::info("Running a flag scheduler");
+    return AttributeMeshScheduler::run_operation_on_all(
+        op,
+        mesh(),
+        handle().as<char>(),
+        handle().mesh());
 }
 SchedulerStats ColorScheduler::run(operations::Operation& op)
 {
-    return Scheduler::run_operation_on_all(op, m_handle.as<char>(), mesh());
+    spdlog::info("Running a color scheduler");
+    return AttributeMeshScheduler::run_operation_on_all(
+        op,
+        mesh(),
+        handle().as<char>(),
+        handle().mesh());
 }
 
+
+AttributeMeshScheduler::AttributeMeshScheduler(const attribute::MeshAttributeHandle& h)
+    : AttributeMeshScheduler(const_cast<Mesh&>(h.mesh()), h)
+{}
+AttributeMeshScheduler::AttributeMeshScheduler(Mesh& m, const attribute::MeshAttributeHandle& h)
+    : MeshScheduler(m)
+    , m_handle(h)
+{
+    spdlog::info("Making an attribut mesh scheduler");
+}
 } // namespace wmtk
